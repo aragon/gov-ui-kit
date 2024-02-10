@@ -1,0 +1,12 @@
+@tailwind components;
+
+:root {
+  /* Background color of the progress indicator */
+  --ods-progress-indicator-background-color: var(--ods-color-primary-400);
+}
+
+@layer components {
+  .bg-progress-indicator {
+    background-color: var(--ods-progress-indicator-background-color);
+  }
+}

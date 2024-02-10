@@ -64,6 +64,16 @@ const config: StorybookConfig = {
             use: ['@svgr/webpack'],
         });
 
+        const cssRule = webpackConfig.module?.rules?.find((rule) => {
+            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule)?.test instanceof RegExp) {
+                return (rule as Record<string, any>).test?.test('.css');
+            }
+        });
+
+        if (cssRule) {
+            (cssRule as RuleSetRule).resourceQuery = { not: [/raw/] };
+        }
+
         return webpackConfig;
     },
 };

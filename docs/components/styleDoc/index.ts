@@ -1,0 +1,1 @@
+export { StyleDoc } from './styleDoc';
