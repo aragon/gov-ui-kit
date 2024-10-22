@@ -270,7 +270,7 @@ describe('formatter utils', () => {
             test.each([
                 { value: '2009-01-02T10:10:41', result: 'January 2, 2009 at 10:10' },
                 { value: '2009-01-02T10:10:41', result: '2 gennaio 2009 alle ore 10:10', locale: 'it' },
-                { value: '2024-10-23T15:33:12', result: 'October 23, 2024 at 15:33' },
+                { value: '2024-10-23T15:33:12', result: 'October 23, 2024 at 15:33', now: '2022-10-23T15:33:12' },
                 { value: '2024-10-23T15:10:00', result: 'today at 15:10', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-22T00:10:12', result: 'yesterday at 00:10', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-24T23:59:59', result: 'tomorrow at 23:59', now: '2024-10-23T15:33:12' },
