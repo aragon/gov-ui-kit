@@ -31,11 +31,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## Need Help? 🆘
-
-Stuck on something? Our community is here to help! Join our [Discord channel](https://discord.com/invite/eqQJkdp) for
-support, advice, or just to share your awesome plugin creations with fellow Aragon enthusiasts.
-
 ## License 📜
 
-The Aragon Governance UI Kit is released under the AGPL v3 License.
+The Aragon Governance UI Kit is released under the [GPL-V3](./LICENSE).
