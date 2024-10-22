@@ -33,7 +33,8 @@ Please make sure to update tests as appropriate.
 
 ## Need Help? 🆘
 
-Stuck on something? Our community is here to help! Join our [Discord channel](https://discord.com/invite/eqQJkdp) for support, advice, or just to share your awesome plugin creations with fellow Aragon enthusiasts.
+Stuck on something? Our community is here to help! Join our [Discord channel](https://discord.com/invite/eqQJkdp) for
+support, advice, or just to share your awesome plugin creations with fellow Aragon enthusiasts.
 
 ## License 📜
 
