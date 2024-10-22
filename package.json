@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aragon/ods.git"
+    "url": "git+https://github.com/aragon/gov-ui-kit.git"
   },
   "keywords": [
     "aragon",
@@ -148,9 +148,9 @@
     "wagmi": "^2.12.17"
   },
   "bugs": {
-    "url": "https://github.com/aragon/ods/issues"
+    "url": "https://github.com/aragon/gov-ui-kit/issues"
   },
-  "homepage": "https://github.com/aragon/ods#readme",
+  "homepage": "https://github.com/aragon/gov-ui-kit#readme",
   "engines": {
     "node": ">=20.0.0"
   },
