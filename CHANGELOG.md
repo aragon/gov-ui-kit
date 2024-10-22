@@ -48,7 +48,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     active
 -   Bump `actions/setup-node` from 4.0.3 to 4.0.4
 -   Bump `actions/checkout` from 4.1.7 to 4.2.0
--   Update minor and patch dependencies
+-   Update minor and patch NPM dependencies
 -   Bump `@rollup/plugin-typescript` from v11 to v12 and `@rollup/plugin-commonjs` from v26 to v28
 
 ## [1.0.47] - 2024-09-23
