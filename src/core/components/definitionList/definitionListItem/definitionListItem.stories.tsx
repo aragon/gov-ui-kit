@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ComponentType } from 'react';
 import { DefinitionList, type IDefinitionListItemProps } from '../index';
 
 const meta: Meta<typeof DefinitionList.Item> = {
     title: 'Core/Components/DefinitionList/DefinitionList.Item',
     component: DefinitionList.Item,
+    decorators: (Story: ComponentType) => (
+        <DefinitionList.Container>
+            <Story />
+        </DefinitionList.Container>
+    ),
     parameters: {
         design: {
             type: 'figma',
@@ -20,12 +26,8 @@ type Story = StoryObj<typeof DefinitionList.Item>;
 export const Default: Story = {
     args: {
         term: 'First Item Term',
+        children: 'First item description',
     },
-    render: (props: IDefinitionListItemProps) => (
-        <DefinitionList.Container>
-            <DefinitionList.Item {...props}>First item description</DefinitionList.Item>
-        </DefinitionList.Container>
-    ),
 };
 
 /**
@@ -36,13 +38,27 @@ export const WithComponent: Story = {
         term: 'First Item Term',
     },
     render: (props: IDefinitionListItemProps) => (
-        <DefinitionList.Container>
-            <DefinitionList.Item {...props}>
-                <div className="flex h-96 w-full items-center justify-center border border-dashed bg-success-100">
-                    Any React Node Child
-                </div>
-            </DefinitionList.Item>
-        </DefinitionList.Container>
+        <DefinitionList.Item {...props}>
+            <div className="flex h-96 w-full items-center justify-center border border-dashed bg-success-100">
+                Any React Node Child
+            </div>
+        </DefinitionList.Item>
+    ),
+};
+
+/**
+ * Usage of the DefinitionList.Item component with a truncated long string.
+ */
+export const TruncateDefinition: Story = {
+    args: {
+        term: 'Long string',
+    },
+    render: (props: IDefinitionListItemProps) => (
+        <DefinitionList.Item {...props}>
+            <div className="truncate text-neutral-500">
+                5731588298112881474677942504380315442995089605930142380990784283931790335308357315882981128814746779425043803154429950896059301423809907842839317903353083'
+            </div>
+        </DefinitionList.Item>
     ),
 };
 

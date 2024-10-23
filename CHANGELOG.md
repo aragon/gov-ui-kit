@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+-   Update `<DefinitionListItem />` core component style to support truncation of long definitions
+
 ## [1.0.50] - 2024-10-23
 
 ### Changed
