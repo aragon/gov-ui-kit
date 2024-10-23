@@ -16,7 +16,7 @@ const meta: Meta<typeof ProposalActions> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Aragon-ODS?m=auto&t=aAKsoiPV8GlakDa1-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?m=auto&t=aAKsoiPV8GlakDa1-1',
         },
     },
 };

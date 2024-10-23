@@ -7,7 +7,7 @@ const meta: Meta<typeof Breadcrumbs> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?type=design&node-id=15704%3A53630&mode=design&t=wK3Bn7hqwwBM55IZ-1',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Governance-UI-Kit?type=design&node-id=15704%3A53630&mode=design&t=wK3Bn7hqwwBM55IZ-1',
         },
     },
 };

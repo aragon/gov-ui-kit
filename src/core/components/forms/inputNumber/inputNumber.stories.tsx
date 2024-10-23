@@ -8,7 +8,7 @@ const meta: Meta<typeof InputNumber> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10074-6967&mode=design&t=LRQNgdDVgpUu0QIo-0',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?type=design&node-id=10074-6967&mode=design&t=LRQNgdDVgpUu0QIo-0',
         },
     },
 };

@@ -8,7 +8,7 @@ const meta: Meta<typeof Switch> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?node-id=8850%3A12962&mode=dev',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?node-id=8850%3A12962&mode=dev',
         },
     },
 };

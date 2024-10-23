@@ -12,7 +12,7 @@ const meta: Meta<typeof Wallet> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Aragon-ODS?m=auto&node-id=10451-13526&t=DIlkZ1JJt516kxyh-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?m=auto&node-id=10451-13526&t=DIlkZ1JJt516kxyh-1',
         },
     },
 };

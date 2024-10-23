@@ -8,7 +8,7 @@ const meta: Meta<typeof EmptyState> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10095%3A21633&mode=dev&t=FtMO7nBXAzYBFGaW-1',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?type=design&node-id=10095%3A21633&mode=dev&t=FtMO7nBXAzYBFGaW-1',
         },
     },
 };

@@ -9,7 +9,7 @@ const meta: Meta<typeof ProposalVoting.Votes> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Aragon-ODS?node-id=16738-17849&m=dev',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16738-17849&m=dev',
         },
     },
 };

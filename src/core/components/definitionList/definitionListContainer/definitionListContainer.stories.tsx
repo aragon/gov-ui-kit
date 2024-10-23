@@ -7,7 +7,7 @@ const meta: Meta<typeof DefinitionList.Container> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?m=auto&node-id=16728%3A45615&t=Q593Geqalm4meMTS-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Governance-UI-Kit?m=auto&node-id=16728%3A45615&t=Q593Geqalm4meMTS-1',
         },
     },
 };

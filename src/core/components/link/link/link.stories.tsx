@@ -10,7 +10,7 @@ const meta: Meta<typeof Link> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=7958%3A15661&mode=design&t=chS7QmnJNo46KjlP-1',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?type=design&node-id=7958%3A15661&mode=design&t=chS7QmnJNo46KjlP-1',
         },
         docs: {
             description: {

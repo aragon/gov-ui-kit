@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+-   Update Figma documentation links in Storybook components
 -   Rename default modules context values to use `guk` prefix
 -   Rename default core context values to use `guk` prefix
 -   Update `<DefinitionListItem />` and `<Breadcrumbs />` core components to truncate long strings
