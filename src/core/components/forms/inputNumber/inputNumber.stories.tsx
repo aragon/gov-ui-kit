@@ -35,4 +35,15 @@ export const Controlled: Story = {
     },
 };
 
+/**
+ * Usage example with min and max values.
+ */
+export const MinMax: Story = {
+    args: {
+        min: 10,
+        max: 20,
+        placeholder: '0',
+    },
+};
+
 export default meta;

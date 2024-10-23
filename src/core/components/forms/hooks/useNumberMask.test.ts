@@ -12,7 +12,7 @@ describe('useNumberMask hook', () => {
     const formatNumberMock = jest.spyOn(formatterUtils, 'formatNumber');
 
     beforeEach(() => {
-        const maskResult = { setValue: jest.fn() } as unknown as IUseNumberMaskResult;
+        const maskResult = { setUnmaskedValue: jest.fn() } as unknown as IUseNumberMaskResult;
         maskMock.mockReturnValue(maskResult);
     });
 
@@ -22,7 +22,7 @@ describe('useNumberMask hook', () => {
     });
 
     it('returns the result of the useIMask hook', () => {
-        const maskResult = { setValue: jest.fn(), setUnmaskedValue: jest.fn() } as unknown as IUseNumberMaskResult;
+        const maskResult = { setUnmaskedValue: jest.fn() } as unknown as IUseNumberMaskResult;
         maskMock.mockReturnValue(maskResult);
         const { result } = renderHook(() => useNumberMask({}));
         expect(result.current).toEqual(maskResult);
@@ -77,18 +77,18 @@ describe('useNumberMask hook', () => {
         expect(maskMock).toHaveBeenCalledWith(expect.objectContaining({ mask: `num ${suffix}` }), expect.anything());
     });
 
-    it('updates the mask value on value property change for controlled inputs', () => {
+    it('updates the unmasked value on value property change for controlled inputs', () => {
         const value = '100';
-        const setValue = jest.fn();
-        const maskResult = { setValue } as unknown as IUseNumberMaskResult;
+        const setUnmaskedValue = jest.fn();
+        const maskResult = { setUnmaskedValue } as unknown as IUseNumberMaskResult;
         maskMock.mockReturnValue(maskResult);
 
         const { rerender } = renderHook((props) => useNumberMask(props), { initialProps: { value } });
-        expect(setValue).toHaveBeenCalledWith(value);
+        expect(setUnmaskedValue).toHaveBeenCalledWith(value);
 
-        const newValue = '101';
-        rerender({ value: newValue });
-        expect(setValue).toHaveBeenCalledWith(newValue);
+        const unmaskedValue = '101';
+        rerender({ value: unmaskedValue });
+        expect(setUnmaskedValue).toHaveBeenCalledWith(unmaskedValue);
     });
 
     it('calls the onChange property with the unmasked value when value is valid', () => {

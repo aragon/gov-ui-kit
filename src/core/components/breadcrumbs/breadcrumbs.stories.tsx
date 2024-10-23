@@ -24,9 +24,9 @@ export const Default: Story = {
 };
 
 /**
- * Usage example of the Breadcrumb component with full props.
+ * Usage example of the Breadcrumb component with multiple links.
  */
-export const Loaded: Story = {
+export const MultipleLinks: Story = {
     args: {
         links: [
             { label: 'Root', href: '/' },
@@ -35,6 +35,23 @@ export const Loaded: Story = {
             { label: 'Current page', href: '/page/subpage/current' },
         ],
         tag: { label: 'Tag', variant: 'info' },
+    },
+};
+
+/**
+ *
+ */
+export const LongLinks: Story = {
+    args: {
+        links: [
+            { label: 'Page', href: '/page' },
+            { label: 'Landing page', href: '/landing' },
+            {
+                label: '57315882981128814746779425043803154429950896059301423809907842839317903353083978465312',
+                href: '/landing/long',
+            },
+        ],
+        tag: { label: 'Long', variant: 'warning' },
     },
 };
 
