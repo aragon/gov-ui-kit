@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 import { DefinitionList, type IDefinitionListItemProps } from '../index';
 
 const meta: Meta<typeof DefinitionList.Item> = {
@@ -56,7 +56,7 @@ export const TruncateDefinition: Story = {
     render: (props: IDefinitionListItemProps) => (
         <DefinitionList.Item {...props}>
             <div className="truncate text-neutral-500">
-                5731588298112881474677942504380315442995089605930142380990784283931790335308357315882981128814746779425043803154429950896059301423809907842839317903353083'
+                5731588298112881474677942504380315442995089605930142380990784283931790335308357315882981128814746779425043803154429950896059301423809907842839317903353083
             </div>
         </DefinitionList.Item>
     ),
