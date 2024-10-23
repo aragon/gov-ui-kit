@@ -33,4 +33,4 @@ Please make sure to update tests as appropriate.
 
 ## License 📜
 
-The Aragon Governance UI Kit is released under the [GPL-V3](./LICENSE).
+The Aragon Governance UI Kit is released under the [GPL-V3 License](./LICENSE).

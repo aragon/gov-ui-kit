@@ -359,7 +359,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump minor and patch dependencies of Github workflows
 -   Expose `onValueChange` property on `Accordion` core component
 -   Update type extensions for `Tabs.Root` core component to allow forward ref
--   Update `GukModulesProvider` component to render the `GukCoreProvider` context.
+-   Update `OdsModulesProvider` component to render the `OdsCoreProvider` context.
 
 ## [1.0.28] - 2024-05-16
 
@@ -507,7 +507,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Implement animations for `Dialog` and `DialogAlert` components
 -   Implement `DaoAvatar` and `MemberAvatar` module components
--   Implement `GukModulesProvider` for using wagmi hooks on modules components
+-   Implement `OdsModulesProvider` for using wagmi hooks on modules components
 -   Introduce component customisations for the z-index property of the `Dropdown` and `Dialogs` components
 
 ### Changed
