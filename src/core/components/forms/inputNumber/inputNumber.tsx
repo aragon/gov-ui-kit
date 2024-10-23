@@ -70,44 +70,26 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'ArrowUp') {
-            handleIncrement();
+            handleStepChange(1);
         } else if (e.key === 'ArrowDown') {
-            handleDecrement();
+            handleStepChange(-1);
         }
 
         onKeyDown?.(e);
     };
 
-    const handleIncrement = () => {
-        const parsedValue = Number(unmaskedValue ?? 0);
+    const handleStepChange = (change: number) => {
+        const parsedValue = Number(unmaskedValue);
 
-        // increment directly to the minimum if value is less than the minimum
-        if (parsedValue < min) {
-            setUnmaskedValue(min.toString());
-            return;
-        }
+        // Ensure value is multiple of step
+        const multipleValue = change > 0 ? Math.floor(parsedValue / step) : Math.ceil(parsedValue / step);
+        const stepValue = (multipleValue + change) * step;
 
-        // ensure value is multiple of step
-        const newValue = (Math.floor(parsedValue / step) + 1) * step;
+        // Ensure value between min and max
+        const processedValue = Math.min(max, Math.max(min, stepValue)).toString();
 
-        // ensure the new value is than the max
-        setUnmaskedValue(Math.min(max, newValue).toString());
-    };
-
-    const handleDecrement = () => {
-        const parsedValue = Number(unmaskedValue ?? 0);
-
-        // decrement directly to the maximum if value is greater than the maximum
-        if (parsedValue > max) {
-            setUnmaskedValue(max.toString());
-            return;
-        }
-
-        // ensure value is multiple of step
-        const newValue = (Math.ceil(parsedValue / step) - 1) * step;
-
-        // ensure the new value is than the max
-        setUnmaskedValue(Math.max(min, newValue).toString());
+        setUnmaskedValue(processedValue);
+        onChange?.(processedValue);
     };
 
     return (
@@ -116,7 +98,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                 <Button
                     size="sm"
                     variant="tertiary"
-                    onClick={handleDecrement}
+                    onClick={() => handleStepChange(-1)}
                     iconLeft={IconType.MINUS}
                     className="ml-2 shrink-0"
                 />
@@ -136,7 +118,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                     size="sm"
                     variant="tertiary"
                     iconLeft={IconType.PLUS}
-                    onClick={handleIncrement}
+                    onClick={() => handleStepChange(1)}
                     className="mr-2 shrink-0"
                 />
             )}
