@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
@@ -29,7 +29,7 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
     const { proposalTitle, proposalId, voteIndicator, date, confirmationLabel, className, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <DataList.Item

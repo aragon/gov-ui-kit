@@ -7,8 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Chhanged
+### Changed
 
+-   Convert ODS repo & package to Governance UI Kit brand name + docs
+-   Update name of `OdsCoreProvider` to `GukCoreProvider` to match new naming scheme
+-   Update name of `OdsModulesProvider` to `GukModulesProvider` to match new naming scheme
+-   Update all `--ods-*` CSS variables to `--guk-*` to match new naming scheme
 -   Bump `eslint-plugin-react-hooks` from 4.6.2 to 5.0.0
 -   Bump `secp256k1` from 5.0.0 to 5.0.1
 -   Update minor and patch NPM dependencies

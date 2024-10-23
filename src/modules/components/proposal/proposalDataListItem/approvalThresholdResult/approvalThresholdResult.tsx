@@ -1,5 +1,5 @@
 import { NumberFormat, Progress, formatterUtils } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { type IApprovalThresholdResult } from '../proposalDataListItemStructure';
 
 export interface IApprovalThresholdResultProps extends IApprovalThresholdResult {}
@@ -11,7 +11,7 @@ export const ApprovalThresholdResult: React.FC<IApprovalThresholdResultProps> = 
     const { approvalAmount, approvalThreshold, stage } = props;
     const percentage = approvalThreshold !== 0 ? (approvalAmount / approvalThreshold) * 100 : 100;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const formattedApprovalThreshold = formatterUtils.formatNumber(approvalThreshold, {
         format: NumberFormat.GENERIC_SHORT,

@@ -25,7 +25,7 @@ export const Default: Story = {
 };
 
 /**
- * All available icons of the ODS library.
+ * All available icons of the GovKit library.
  */
 export const AvailableIcons: Story = {
     render: () => {

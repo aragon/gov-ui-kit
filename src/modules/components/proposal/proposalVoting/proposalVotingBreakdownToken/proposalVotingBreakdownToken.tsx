@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { type ITabsContentProps, NumberFormat, Tabs, formatterUtils, invariant } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
 
@@ -49,7 +49,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
         ...otherProps
     } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const optionValues = [
         { name: copy.proposalVotingBreakdownToken.option.yes, value: Number(totalYes), variant: 'success' },

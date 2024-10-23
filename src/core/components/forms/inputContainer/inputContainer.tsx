@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { forwardRef } from 'react';
 import { AlertInline } from '../../alerts';
-import { useOdsCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { Tag } from '../../tag';
 import type { IInputContainerProps, InputVariant } from './inputContainer.api';
 
@@ -33,7 +33,7 @@ const variantToClassNames: Record<InputVariant | 'disabled', string[]> = {
  * including `label`, `helpText` and more.
  */
 export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((props, ref) => {
-    const { copy } = useOdsCoreContext();
+    const { copy } = useGukCoreContext();
     const {
         label,
         variant = 'default',

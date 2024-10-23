@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import { useMemo } from 'react';
 import { Avatar, DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export type IAssetDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -35,7 +35,7 @@ export type IAssetDataListItemStructureProps = IDataListItemProps & {
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
     const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const fiatAmount = Number(amount) * Number(fiatPrice ?? 0);
 

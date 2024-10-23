@@ -1,6 +1,6 @@
 import { useRef, type RefObject } from 'react';
 import { Tabs, type ITabsRootProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 
@@ -23,7 +23,7 @@ export interface IProposalVotingTabsProps extends ITabsRootProps {
 export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) => {
     const { defaultValue = ProposalVotingTab.BREAKDOWN, accordionRef, children, status, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const contentRef = useRef<HTMLDivElement>(null);
 

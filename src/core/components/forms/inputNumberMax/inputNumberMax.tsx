@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
-import { useOdsCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
 import { InputContainer, type IInputComponentProps } from '../inputContainer';
 
@@ -24,7 +24,7 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
 
     const { ref, setUnmaskedValue } = useNumberMask({ min, max, value, onChange });
 
-    const { copy } = useOdsCoreContext();
+    const { copy } = useGukCoreContext();
 
     const handleMaxClick = () => setUnmaskedValue(max.toString());
 

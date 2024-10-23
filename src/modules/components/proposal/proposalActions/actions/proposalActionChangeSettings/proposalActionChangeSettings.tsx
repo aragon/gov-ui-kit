@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DefinitionList, Toggle, ToggleGroup } from '../../../../../../core';
-import { useOdsModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { type IProposalActionChangeSettings, type IProposalActionComponentProps } from '../../proposalActionsTypes';
 
 export interface IProposalActionChangeSettingsProps
@@ -9,7 +9,7 @@ export interface IProposalActionChangeSettingsProps
 export const ProposalActionChangeSettings: React.FC<IProposalActionChangeSettingsProps> = (props) => {
     const { action } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const [toggleValue, setToggleValue] = useState<string | undefined>('existingSettings');
 

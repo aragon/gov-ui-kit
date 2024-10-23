@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
     ProposalActionChangeMembers,
     ProposalActionChangeSettings,
@@ -49,7 +49,7 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
 ) => {
     const { action, index, name, CustomComponent, dropdownItems, ...web3Props } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);

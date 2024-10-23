@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { coreCopy, type CoreCopy } from '../../assets';
 
-export interface IOdsCoreContext {
+export interface IGukCoreContext {
     /**
      * Image component to be used for images.
      * @default 'img'
@@ -18,26 +18,26 @@ export interface IOdsCoreContext {
     copy: CoreCopy;
 }
 
-export interface IOdsCoreProviderProps {
+export interface IGukCoreProviderProps {
     /**
      * Context provider values.
      */
-    values?: Partial<IOdsCoreContext>;
+    values?: Partial<IGukCoreContext>;
     /**
      * Children of the context provider.
      */
     children?: ReactNode;
 }
 
-const odsCoreContextDefaults: IOdsCoreContext = {
+const odsCoreContextDefaults: IGukCoreContext = {
     Img: 'img',
     Link: 'a',
     copy: coreCopy,
 };
 
-const odsCoreContext = createContext<IOdsCoreContext>(odsCoreContextDefaults);
+const odsCoreContext = createContext<IGukCoreContext>(odsCoreContextDefaults);
 
-export const OdsCoreProvider: React.FC<IOdsCoreProviderProps> = (props) => {
+export const GukCoreProvider: React.FC<IGukCoreProviderProps> = (props) => {
     const { values, children } = props;
 
     const contextValues = useMemo(
@@ -52,7 +52,7 @@ export const OdsCoreProvider: React.FC<IOdsCoreProviderProps> = (props) => {
     return <odsCoreContext.Provider value={contextValues}>{children}</odsCoreContext.Provider>;
 };
 
-export const useOdsCoreContext = (): Required<IOdsCoreContext> => {
+export const useGukCoreContext = (): Required<IGukCoreContext> => {
     const values = useContext(odsCoreContext);
 
     return values;

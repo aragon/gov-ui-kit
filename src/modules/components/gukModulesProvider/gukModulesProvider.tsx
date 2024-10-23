@@ -3,10 +3,10 @@ import { createContext, useContext, useMemo, type ReactNode } from 'react';
 import { createClient, http } from 'viem';
 import { WagmiProvider, createConfig, type Config, type State } from 'wagmi';
 import { arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
-import { OdsCoreProvider, type IOdsCoreProviderProps } from '../../../core';
+import { GukCoreProvider, type IGukCoreProviderProps } from '../../../core';
 import { modulesCopy, type ModulesCopy } from '../../assets';
 
-export interface IOdsModulesContext {
+export interface IGukModulesContext {
     /**
      * Copy for the modules components.
      */
@@ -27,7 +27,7 @@ const defaultQueryClient = new QueryClient({
     },
 });
 
-export interface IOdsModulesProviderProps {
+export interface IGukModulesProviderProps {
     /**
      * Wagmi configurations to be forwarded to the WagmiProvider. The default configurations support some basic chains
      * (ethereum, base, polygon, arbitrum) and their related testnets and uses open RPC endpoints, @see defaultWagmiConfig
@@ -45,27 +45,27 @@ export interface IOdsModulesProviderProps {
      */
     queryClient?: QueryClient;
     /**
-     * Values for the OdsCoreProvider context.
-     * @see IOdsCoreContext
+     * Values for the GukCoreProvider context.
+     * @see IGukCoreContext
      */
-    coreProviderValues?: IOdsCoreProviderProps['values'];
+    coreProviderValues?: IGukCoreProviderProps['values'];
     /**
      * Context provider values.
      */
-    values?: Partial<IOdsModulesContext>;
+    values?: Partial<IGukModulesContext>;
     /**
      * Children of the provider.
      */
     children?: ReactNode;
 }
 
-const odsModulesContextDefaults: IOdsModulesContext = {
+const odsModulesContextDefaults: IGukModulesContext = {
     copy: modulesCopy,
 };
 
-const odsModulesContext = createContext<IOdsModulesContext>(odsModulesContextDefaults);
+const odsModulesContext = createContext<IGukModulesContext>(odsModulesContextDefaults);
 
-export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) => {
+export const GukModulesProvider: React.FC<IGukModulesProviderProps> = (props) => {
     const {
         queryClient = defaultQueryClient,
         wagmiConfig = defaultWagmiConfig,
@@ -86,14 +86,14 @@ export const OdsModulesProvider: React.FC<IOdsModulesProviderProps> = (props) =>
         <odsModulesContext.Provider value={contextValues}>
             <WagmiProvider config={wagmiConfig} initialState={wagmiInitialState}>
                 <QueryClientProvider client={queryClient}>
-                    <OdsCoreProvider values={coreProviderValues}>{children}</OdsCoreProvider>
+                    <GukCoreProvider values={coreProviderValues}>{children}</GukCoreProvider>
                 </QueryClientProvider>
             </WagmiProvider>
         </odsModulesContext.Provider>
     );
 };
 
-export const useOdsModulesContext = (): IOdsModulesContext => {
+export const useGukModulesContext = (): IGukModulesContext => {
     const values = useContext(odsModulesContext);
 
     return values;

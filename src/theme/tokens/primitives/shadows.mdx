@@ -34,13 +34,13 @@ export const shadowVariants = {
         let textColor;
 
         if (variant === "primary") {
-            backgroundColor = `var(--ods-color-${variant}-400)`;
-            textColor = `var(--ods-color-${variant}-50)`;
+            backgroundColor = `var(--guk-color-${variant}-400)`;
+            textColor = `var(--guk-color-${variant}-50)`;
         }else if (variant === 'neutral') {
-            backgroundColor = `var(--ods-color-${variant}-0)`;
+            backgroundColor = `var(--guk-color-${variant}-0)`;
         }else {
-            backgroundColor = `var(--ods-color-${variant}-100)`;
-            textColor = `var(--ods-color-${variant}-800)`;
+            backgroundColor = `var(--guk-color-${variant}-100)`;
+            textColor = `var(--guk-color-${variant}-800)`;
         }
 
         return (
@@ -57,7 +57,7 @@ export const shadowVariants = {
                         <span className="text-lg font-semibold">{` color-${variant}-600`}</span>
                     </p>
                     <div className="flex gap-x-6">
-                        <DisplayComponent style={{ backgroundColor: `var(--ods-color-${variant}-600)` }} />
+                        <DisplayComponent style={{ backgroundColor: `var(--guk-color-${variant}-600)` }} />
                         {shadows.map(([name, style]) => {
                             const displayName = name.replace(variant, 'shadow');
                             return (

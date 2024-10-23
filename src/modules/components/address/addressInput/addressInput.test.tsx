@@ -6,7 +6,7 @@ import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
 import { IconType, clipboardUtils } from '../../../../core';
 import { addressUtils } from '../../../utils';
-import { OdsModulesProvider } from '../../odsModulesProvider';
+import { GukModulesProvider } from '../../gukModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
 
 jest.mock('../../member', () => ({
@@ -50,9 +50,9 @@ describe('<AddressInput /> component', () => {
         };
 
         return (
-            <OdsModulesProvider queryClient={queryClient}>
+            <GukModulesProvider queryClient={queryClient}>
                 <AddressInput {...completeProps} />
-            </OdsModulesProvider>
+            </GukModulesProvider>
         );
     };
 

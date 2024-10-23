@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { OdsModulesProvider } from '../../../../odsModulesProvider';
+import { GukModulesProvider } from '../../../../gukModulesProvider';
 import { generateProposalActionTokenMint } from '../generators';
 import { ProposalActionTokenMint, type IProposalActionTokenMintProps } from './proposalActionTokenMint';
 
@@ -18,9 +18,9 @@ describe('<ProposalActionTokenMint /> component', () => {
         };
 
         return (
-            <OdsModulesProvider>
+            <GukModulesProvider>
                 <ProposalActionTokenMint {...completeProps} />
-            </OdsModulesProvider>
+            </GukModulesProvider>
         );
     };
 

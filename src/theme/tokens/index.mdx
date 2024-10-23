@@ -4,7 +4,7 @@ import { Meta } from '@storybook/blocks';
 
 # Tokens
 
-The design tokens in the `@aragon/ods` UI library serve as the foundational elements for creating consistent and
+The design tokens in the `@aragon/gov-ui-kit` UI library serve as the foundational elements for creating consistent and
 visually appealing interfaces. These tokens are implemented using
 [CSS custom variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) and, when integrated with Tailwind CSS,
 they can be conveniently accessed through Tailwind classes. When used as a standalone library, design tokens should be
@@ -14,8 +14,8 @@ used as CSS custom properties.
 
 ### With Tailwind CSS
 
-In projects using both `@aragon/ods` and `Tailwind CSS`, design tokens are readily available as Tailwind classes. For
-instance:
+In projects using both `@aragon/gov-ui-kit` and `Tailwind CSS`, design tokens are readily available as Tailwind classes.
+For instance:
 
 ```html
 <div class="mt-2 bg-primary-500">
@@ -25,12 +25,13 @@ instance:
 
 ### Standalone Usage
 
-When using `@aragon/ods` as a standalone library, design tokens are applied as CSS custom properties. For example:
+When using `@aragon/gov-ui-kit` as a standalone library, design tokens are applied as CSS custom properties. For
+example:
 
 ```css
 .my-section {
-    margin-top: var(--ods-space-2);
-    color: var(--ods-color-primary-500);
+    margin-top: var(--guk-space-2);
+    color: var(--guk-color-primary-500);
 }
 ```
 

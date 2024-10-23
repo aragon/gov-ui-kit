@@ -1,5 +1,5 @@
 import { Progress } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { type IMajorityVotingResult } from '../proposalDataListItemStructure';
 
 export interface IMajorityVotingResultProps extends IMajorityVotingResult {}
@@ -10,7 +10,7 @@ export interface IMajorityVotingResultProps extends IMajorityVotingResult {}
 export const MajorityVotingResult: React.FC<IMajorityVotingResultProps> = (props) => {
     const { option, stage, voteAmount, votePercentage } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <div className="flex w-full flex-col gap-y-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:gap-y-3 md:px-6 md:py-5">

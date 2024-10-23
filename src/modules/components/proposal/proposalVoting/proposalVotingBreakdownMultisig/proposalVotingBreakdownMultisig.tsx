@@ -1,5 +1,5 @@
 import { NumberFormat, Tabs, formatterUtils, invariant, type ITabsContentProps } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
 
@@ -17,7 +17,7 @@ export interface IProposalVotingBreakdownMultisigProps extends Omit<ITabsContent
 export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownMultisigProps> = (props) => {
     const { approvalsAmount, minApprovals, children, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     invariant(minApprovals > 0, 'ProposalVotingBreakdownMultisig: minApprovals property must be a positive number');
 

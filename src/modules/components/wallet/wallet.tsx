@@ -3,8 +3,8 @@ import { useEnsName } from 'wagmi';
 import { StateSkeletonBar } from '../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../types';
 import { addressUtils } from '../../utils';
+import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
-import { useOdsModulesContext } from '../odsModulesProvider';
 
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, IWeb3ComponentProps {
     /**
@@ -16,7 +16,7 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 export const Wallet: React.FC<IWalletProps> = (props) => {
     const { user, className, chainId, wagmiConfig, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const { data: ensName, isLoading: isEnsLoading } = useEnsName({
         address: user != null ? addressUtils.getChecksum(user.address) : undefined,

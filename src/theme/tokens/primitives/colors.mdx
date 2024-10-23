@@ -10,7 +10,7 @@ export const getColorConfig = (colorGroupName) => {
     const rootStyles = getComputedStyle(document.documentElement);
 
     return shades
-        .map((shade) => ({ shade, value: rootStyles.getPropertyValue(`--ods-color-${colorGroupName}-${shade}`) }))
+        .map((shade) => ({ shade, value: rootStyles.getPropertyValue(`--guk-color-${colorGroupName}-${shade}`) }))
         .filter((shade) => shade.value.trim() !== '');
 
 }
@@ -38,7 +38,7 @@ export const ColorSwatch = ({ colorGroupName }) => {
                         <div key={shade} className="flex items-center gap-x-10">
                             <div
                                 className="flex h-24 w-24 items-center justify-center rounded-xl"
-                                style={{ background: `var(--ods-color-${colorGroupName}-${shade})` }}
+                                style={{ background: `var(--guk-color-${colorGroupName}-${shade})` }}
                             >
                                 <span className={textClassNames}>{shade}</span>
                             </div>

@@ -9,8 +9,8 @@ const meta: Meta<typeof AvatarBase> = {
 type Story = StoryObj<typeof AvatarBase>;
 
 /**
- * AvatarBase is a basic component that renders an image based on the component set in the OdsCoreModules context.
- * It must be used in all ODS components whenever an image needs to be rendered.
+ * AvatarBase is a basic component that renders an image based on the component set in the GukCoreModules context.
+ * It must be used in all GovKit components whenever an image needs to be rendered.
  */
 export const Default: Story = {
     args: {

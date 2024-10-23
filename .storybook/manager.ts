@@ -1,6 +1,6 @@
 import { addons } from '@storybook/manager-api';
-import aragonOdsTheme from './theme';
+import aragonGukTheme from './theme';
 
 addons.setConfig({
-    theme: aragonOdsTheme,
+    theme: aragonGukTheme,
 });

@@ -10,7 +10,7 @@ import {
     type StatePingAnimationVariant,
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
 import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
@@ -40,7 +40,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const isOngoingAndVoted = isOngoing && voted;
     const showStatusMetadata = status !== ProposalStatus.DRAFT;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <div className="flex w-full items-center justify-between gap-x-4 md:gap-x-6">

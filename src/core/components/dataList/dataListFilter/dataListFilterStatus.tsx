@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
-import { useOdsCoreContext } from '../../odsCoreProvider';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { useDataListContext } from '../dataListContext';
 
 export interface IDataListFilterStatusProps {
@@ -13,7 +13,7 @@ export interface IDataListFilterStatusProps {
 export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = ({ onResetFiltersClick }) => {
     const { state, itemsCount = 0, entityLabel } = useDataListContext();
 
-    const { copy } = useOdsCoreContext();
+    const { copy } = useGukCoreContext();
 
     const isInitialLoading = state === 'initialLoading';
     const isLoading = state === 'loading';

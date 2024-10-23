@@ -73,7 +73,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
 
     const footerClassName = classNames(
         {
-            'left-0 z-[var(--ods-collapsible-overlay-z-index)] flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent':
+            'left-0 z-[var(--guk-collapsible-overlay-z-index)] flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent':
                 showOverlay,
         },
         { 'absolute bottom-0 h-28 md:h-32': !isOpen && showOverlay },

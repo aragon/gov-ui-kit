@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { OdsModulesProvider } from '../../odsModulesProvider';
+import { GukModulesProvider } from '../../gukModulesProvider';
 import { AssetTransfer, type IAssetTransferProps } from './assetTransfer';
 
 jest.mock('./assetTransferAddress', () => ({
@@ -19,9 +19,9 @@ describe('<AssetTransfer /> component', () => {
         };
 
         return (
-            <OdsModulesProvider>
+            <GukModulesProvider>
                 <AssetTransfer {...completeProps} />
-            </OdsModulesProvider>
+            </GukModulesProvider>
         );
     };
 

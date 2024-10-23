@@ -9,8 +9,8 @@ const meta: Meta<typeof LinkBase> = {
 type Story = StoryObj<typeof LinkBase>;
 
 /**
- * LinkBase is a basic component that renders a link based on the component set in the OdsCoreModules context.
- * It must be used in all ODS components whenever a link needs to be rendered.
+ * LinkBase is a basic component that renders a link based on the component set in the GukCoreModules context.
+ * It must be used in all GovKit components whenever a link needs to be rendered.
  */
 export const Default: Story = {
     args: {

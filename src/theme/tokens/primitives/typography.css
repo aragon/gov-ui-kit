@@ -1,26 +1,26 @@
 :root {
   /******* Font Weight *******/
-  --ods-font-weight-normal: 500;
-  --ods-font-weight-semibold: 600;
+  --guk-font-weight-normal: 500;
+  --guk-font-weight-semibold: 600;
 
   /******* Font Size *******/
-  --ods-font-size-xs: 0.75rem;
-  --ods-font-size-sm: 0.875rem;
-  --ods-font-size-base: 1rem;
-  --ods-font-size-lg: 1.125rem;
-  --ods-font-size-xl: 1.25rem;
-  --ods-font-size-2xl: 1.5rem;
-  --ods-font-size-3xl: 1.875rem;
-  --ods-font-size-4xl: 2.25rem;
-  --ods-font-size-5xl: 3rem;
+  --guk-font-size-xs: 0.75rem;
+  --guk-font-size-sm: 0.875rem;
+  --guk-font-size-base: 1rem;
+  --guk-font-size-lg: 1.125rem;
+  --guk-font-size-xl: 1.25rem;
+  --guk-font-size-2xl: 1.5rem;
+  --guk-font-size-3xl: 1.875rem;
+  --guk-font-size-4xl: 2.25rem;
+  --guk-font-size-5xl: 3rem;
 
   /******* Line Height *******/
-  --ods-line-height-normal: 1.5;
-  --ods-line-height-tight: 1.25;
-  --ods-line-height-relaxed: 1.65;
+  --guk-line-height-normal: 1.5;
+  --guk-line-height-tight: 1.25;
+  --guk-line-height-relaxed: 1.65;
 
   /******* Font Family *******/
-  --ods-font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  --guk-font-family: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     "Noto Color Emoji";
 }

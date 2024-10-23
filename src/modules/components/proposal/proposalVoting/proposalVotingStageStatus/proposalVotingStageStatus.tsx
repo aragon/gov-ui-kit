@@ -11,7 +11,7 @@ import {
     StatePingAnimation,
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
@@ -57,7 +57,7 @@ const statusToIcon: Map<ProposalVotingStatus, { icon: IconType; variant: AvatarI
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
     const { status = ProposalVotingStatus.PENDING, endDate, isMultiStage, className, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy)[status];

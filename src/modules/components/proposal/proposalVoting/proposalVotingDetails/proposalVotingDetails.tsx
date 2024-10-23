@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DateFormat, DefinitionList, formatterUtils, Heading, type ITabsContentProps, Tabs } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
@@ -25,7 +25,7 @@ export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'va
 export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (props) => {
     const { className, settings, ...otherProps } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
     const { startDate, endDate } = useProposalVotingStageContext();
 
     const formattedStartDate = formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });

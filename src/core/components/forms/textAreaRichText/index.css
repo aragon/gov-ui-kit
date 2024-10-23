@@ -1,4 +1,4 @@
 :root {
   /* Z-index property of the TextAreaRichText component when expanded */
-  --ods-text-area-rich-text-expanded-z-index: auto;
+  --guk-text-area-rich-text-expanded-z-index: auto;
 }

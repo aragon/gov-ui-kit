@@ -1,7 +1,7 @@
 :root {
   /* Z-index property of the dialog overlay */
-  --ods-dialog-alert-overlay-z-index: auto;
+  --guk-dialog-alert-overlay-z-index: auto;
 
   /* Z-index property of the dialog content */
-  --ods-dialog-alert-content-z-index: auto;
+  --guk-dialog-alert-content-z-index: auto;
 }

@@ -1,5 +1,5 @@
 import { InputText } from '../../../../../../core';
-import { useOdsModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalAction } from '../../proposalActionsTypes';
 
 export interface IProposalActionsActionDecodedViewProps {
@@ -11,7 +11,7 @@ export interface IProposalActionsActionDecodedViewProps {
 
 export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDecodedViewProps> = (props) => {
     const { action } = props;
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <div className="flex w-full flex-col gap-y-3">

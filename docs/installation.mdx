@@ -4,24 +4,24 @@ import { Meta } from '@storybook/blocks';
 
 # Installation
 
-Install the `@aragon/ods` library and using Yarn or npm:
+Install the `@aragon/gov-ui-kit` library and using Yarn or npm:
 
-Yarn:
+yarn:
 
 ```shell
-yarn add @aragon/ods
+yarn add @aragon/gov-ui-kit
 ```
 
-Npm:
+npm:
 
 ```shell
-npm install @aragon/ods
+npm install @aragon/gov-ui-kit
 ```
 
 # Setup
 
-You can setup the Aragon ODS library in your project with [Taildwind CSS](https://tailwindcss.com) or as a standalone
-library:
+You can setup the Aragon Governance UI Kit library in your project with [Taildwind CSS](https://tailwindcss.com) or as a
+standalone library:
 
 -   Follow the [Setup with TailwindCSS](#setup-with-tailwindcss) guide if you are using or planning to use
     `Tailwind CSS` for your project.
@@ -48,32 +48,32 @@ library:
 
     ```javascript
     module.exports = {
-        presets: [require('@aragon/ods/tailwind.config')],
-        content: ['./src/**/*.{jsx,tsx,html}', './node_modules/@aragon/ods/**/*.js'],
+        presets: [require('@aragon/gov-ui-kit/tailwind.config')],
+        content: ['./src/**/*.{jsx,tsx,html}', './node_modules/@aragon/gov-ui-kit/**/*.js'],
     };
     ```
 
--   Import the Aragon ODS styles in your project entry file (e.g. `src/index.js` or `App.js`):
+-   Import the Aragon Governance UI Kit styles in your project entry file (e.g. `src/index.js` or `App.js`):
 
     ```typescript
-    import '@aragon/ods/index.css';
+    import '@aragon/gov-ui-kit/index.css';
     ```
 
 ## Standalone Setup
 
--   Import the Aragon ODS stylesheet bundle in your project entry file (e.g. `src/index.js` or `App.js`):
+-   Import the Aragon Governance UI Kit stylesheet bundle in your project entry file (e.g. `src/index.js` or `App.js`):
 
     ```typescript
-    import '@aragon/ods/build.css';
+    import '@aragon/gov-ui-kit/build.css';
     ```
 
 # Usage
 
-Import the `@aragon/ods` library on your application and start using the components:
+Import the `@aragon/gov-ui-kit` library on your application and start using the components:
 
 ```typescript
 import React from 'react';
-import { Button } from '@aragon/ods';
+import { Button } from '@aragon/gov-ui-kit';
 
 export const App: React.FC = () => (
     <div>

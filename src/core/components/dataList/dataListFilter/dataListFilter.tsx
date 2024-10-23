@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import { useState, type ChangeEvent, type ComponentProps } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
+import { useGukCoreContext } from '../../gukCoreProvider';
 import { Icon, IconType } from '../../icon';
-import { useOdsCoreContext } from '../../odsCoreProvider';
 import { Spinner } from '../../spinner';
 import { useDataListContext } from '../dataListContext';
 import { DataListFilterSort } from './dataListFilterSort';
@@ -77,7 +77,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
 
     const { state } = useDataListContext();
 
-    const { copy } = useOdsCoreContext();
+    const { copy } = useGukCoreContext();
 
     const handleInputFocus = () => setIsFocused(true);
     const handleInputBlur = () => setIsFocused(false);

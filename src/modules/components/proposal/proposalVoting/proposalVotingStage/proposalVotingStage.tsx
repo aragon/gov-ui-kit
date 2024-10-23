@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useMemo, useRef, type ComponentProps } from 'react';
 import { Accordion, invariant } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
@@ -59,7 +59,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         ...otherProps
     } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const stateDefaultTab = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED].includes(status)
         ? ProposalVotingTab.DETAILS

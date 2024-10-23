@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { OdsCoreProvider, type IOdsCoreContext } from '../../odsCoreProvider';
+import { GukCoreProvider, type IGukCoreContext } from '../../gukCoreProvider';
 import { AvatarBase, type IAvatarBaseProps } from './avatarBase';
 
 describe('<AvatarBase /> component', () => {
-    const createTestComponent = (props?: Partial<IAvatarBaseProps>, context?: Partial<IOdsCoreContext>) => {
+    const createTestComponent = (props?: Partial<IAvatarBaseProps>, context?: Partial<IGukCoreContext>) => {
         const completeProps: IAvatarBaseProps = { ...props };
 
         return (
-            <OdsCoreProvider values={context}>
+            <GukCoreProvider values={context}>
                 <AvatarBase {...completeProps} />
-            </OdsCoreProvider>
+            </GukCoreProvider>
         );
     };
 
-    it('renders the image component set on the OdsCoreProvider', () => {
+    it('renders the image component set on the GukCoreProvider', () => {
         const Img = (props: object) => <img data-testid="my-image-component" alt="test" {...props} />;
         const context = { Img };
         const props = { src: 'https://test.com/' };

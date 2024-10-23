@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { Accordion, Button, Card, EmptyState } from '../../../../../core';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import type { IProposalAction } from '../proposalActionsTypes';
 import type { IProposalActionsProps } from './proposalActions.api';
@@ -23,7 +23,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
 
     const [expandedItems, setExpandedItems] = useState<string[]>(['0']);
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const actionsContainerRef = useRef<HTMLDivElement | null>(null);
 

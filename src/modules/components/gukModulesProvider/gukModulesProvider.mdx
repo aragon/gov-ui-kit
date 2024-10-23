@@ -1,0 +1,27 @@
+import { ArgTypes, Meta, Description, Title, Subtitle } from '@storybook/blocks';
+import { GukModulesProvider } from './gukModulesProvider';
+
+<Meta title="Modules/Components/GukModulesProvider" />
+
+<Title>GukModulesProvider</Title>
+
+The `<GukModulesProvider />` is a React context that, beside providing some customisations for the modules components,
+renders the `<WagmiProvider />` and `<QueryClientProvider />` React Context providers from the
+[wagmi](https://wagmi.sh/) and [@tanstack/react-query](https://tanstack.com/query) libraries.
+
+The two providers are needed for the GovKit Modules component using the hooks from wagmi (e.g.
+[useEnsName](https://wagmi.sh/react/api/hooks/useEnsName)):
+
+-   `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
+-   `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
+
+Additionally, `<GukModulesProvider />` renders the `<GukCoreProvider />` and passes values from the `coreProviderValues`
+prop.
+
+The `<GukModulesProvider />` provides the following customisations for modules components:
+
+-   `copy`: Object of type `IGukModulesCopy` to customize the text labels used within the modules components.
+
+Refer to the component's properties below for more details on the default configuration objects used for each provider.
+
+<ArgTypes of={GukModulesProvider} />

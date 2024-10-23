@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react';
 import '../index.css';
-import { OdsModulesProvider } from '../src/modules';
+import { GukModulesProvider } from '../src/modules';
 import './style.css';
 
 const preview: Preview = {
@@ -31,7 +31,7 @@ const preview: Preview = {
             values: [
                 {
                     name: 'neutral-50',
-                    value: 'var(--ods-color-neutral-50)',
+                    value: 'var(--guk-color-neutral-50)',
                 },
             ],
         },
@@ -39,11 +39,11 @@ const preview: Preview = {
 
     decorators: [
         (Story) => (
-            <OdsModulesProvider>
+            <GukModulesProvider>
                 <div className="flex">
                     <Story />
                 </div>
-            </OdsModulesProvider>
+            </GukModulesProvider>
         ),
     ],
 

@@ -1,5 +1,5 @@
 import { Dropdown } from '../../../../../../core';
-import { useOdsModulesContext } from '../../../../odsModulesProvider';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { ProposalActionViewMode } from '../../proposalActionsTypes';
 
 export interface IProposalActionsActionViewAsMenuProps {
@@ -24,7 +24,7 @@ export interface IProposalActionsActionViewAsMenuProps {
 export const ProposalActionsActionViewAsMenu: React.FC<IProposalActionsActionViewAsMenuProps> = (props) => {
     const { viewMode, disableBasic, disableDecoded, onViewModeChange } = props;
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <Dropdown.Container label={copy.proposalActionsActionViewAsMenu.dropdownLabel} size="sm">

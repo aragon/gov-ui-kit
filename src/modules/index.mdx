@@ -5,15 +5,15 @@ import LinkTo from '@storybook/addon-links/react';
 
 # Modules
 
-The `Modules` package of the Aragon ODS library includes all the components and utilties that are web3 specific and / or
-handle DAO business logic.
+The `Modules` package of the Aragon Governance UI Kit library includes all the components and utilties that are web3
+specific and / or handle DAO business logic.
 
 Check the documentation and usage of the modules components and utilities under the `/components` and `/utilities`
 sub-folders.
 
 ## Usage
 
-In order to use the ODS Modules components, make sure to:
+In order to use the GovKit Modules components, make sure to:
 
 -   Install the required packages:
 
@@ -27,15 +27,15 @@ In order to use the ODS Modules components, make sure to:
     npm install viem wagmi @tanstack/reat-query
     ```
 
--   Wrap your application using the `<OdsModulesProvider />` React Context Provider:
+-   Wrap your application using the `<GukModulesProvider />` React Context Provider:
 
     ```tsx
-    import { OdsModulesProvider } from '@aragon/ods';
+    import { GukModulesProvider } from '@aragon/gov-ui-kit';
 
     function App() {
-        return <OdsModulesProvider>{/** ... */}</OdsModulesProvider>;
+        return <GukModulesProvider>{/** ... */}</GukModulesProvider>;
     }
     ```
 
-    Refer to the [OdsModulesProvider doc](/docs/modules-components-odsmodulesprovider--docs) for further details about
+    Refer to the [GukModulesProvider doc](/docs/modules-components-gukmodulesprovider--docs) for further details about
     the provider.

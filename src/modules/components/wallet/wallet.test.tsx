@@ -2,7 +2,7 @@ import { type QueryClient } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import { sepolia } from 'viem/chains';
 import * as wagmi from 'wagmi';
-import { OdsModulesProvider } from '../odsModulesProvider';
+import { GukModulesProvider } from '../gukModulesProvider';
 import { Wallet, type IWalletProps } from './wallet';
 
 jest.mock('../member', () => ({
@@ -25,9 +25,9 @@ describe('<Wallet /> component', () => {
         };
 
         return (
-            <OdsModulesProvider queryClient={queryClient}>
+            <GukModulesProvider queryClient={queryClient}>
                 <Wallet {...completeProps} />
-            </OdsModulesProvider>
+            </GukModulesProvider>
         );
     };
 

@@ -1,6 +1,6 @@
 import { DefinitionList, Heading } from '../../../../../../core';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { MemberDataListItem } from '../../../../member';
-import { useOdsModulesContext } from '../../../../odsModulesProvider';
 import {
     ProposalActionType,
     type IProposalActionChangeMembers,
@@ -12,7 +12,7 @@ export interface IProposalActionChangeMembersProps
 
 export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {
     const { action } = props;
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     return (
         <div className="flex flex-col gap-y-6">

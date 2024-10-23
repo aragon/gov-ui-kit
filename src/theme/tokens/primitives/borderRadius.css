@@ -1,9 +1,9 @@
 :root {
-  --ods-border-rounded: 4px;
-  --ods-border-rounded-lg: 8px;
-  --ods-border-rounded-xl: 12px;
-  --ods-border-rounded-2xl: 16px;
-  --ods-border-rounded-3xl: 24px;
-  --ods-border-rounded-full: 9999px;
-  --ods-border-rounded-none: none;
+  --guk-border-rounded: 4px;
+  --guk-border-rounded-lg: 8px;
+  --guk-border-rounded-xl: 12px;
+  --guk-border-rounded-2xl: 16px;
+  --guk-border-rounded-3xl: 24px;
+  --guk-border-rounded-full: 9999px;
+  --guk-border-rounded-none: none;
 }

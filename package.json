@@ -1,7 +1,7 @@
 {
-  "name": "@aragon/ods",
+  "name": "@aragon/gov-ui-kit",
   "version": "1.0.49",
-  "description": "Implementation of the Aragon's Open Design System",
+  "description": "Implementation of the Aragon's Governance UI Kit",
   "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",
   "license": "GPL-3.0",
@@ -31,12 +31,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aragon/ods.git"
+    "url": "git+https://github.com/aragon/gov-ui-kit.git"
   },
   "keywords": [
     "aragon",
     "design-system",
-    "open-design-system",
+    "governance-ui-kit",
     "react",
     "tailwind"
   ],
@@ -148,9 +148,9 @@
     "wagmi": "^2.12.20"
   },
   "bugs": {
-    "url": "https://github.com/aragon/ods/issues"
+    "url": "https://github.com/aragon/gov-ui-kit/issues"
   },
-  "homepage": "https://github.com/aragon/ods#readme",
+  "homepage": "https://github.com/aragon/gov-ui-kit#readme",
   "engines": {
     "node": ">=20.0.0"
   },

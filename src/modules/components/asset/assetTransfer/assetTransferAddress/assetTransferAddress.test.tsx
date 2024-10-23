@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { OdsModulesProvider } from '../../../odsModulesProvider';
+import { GukModulesProvider } from '../../../gukModulesProvider';
 import { AssetTransferAddress, type IAssetTransferAddressProps } from './assetTransferAddress';
 
 jest.mock('../../../member/', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
@@ -15,9 +15,9 @@ describe('<AssetTransferAddress /> component', () => {
             ...props,
         };
         return (
-            <OdsModulesProvider>
+            <GukModulesProvider>
                 <AssetTransferAddress {...completeProps} />
-            </OdsModulesProvider>
+            </GukModulesProvider>
         );
     };
 

@@ -2,11 +2,11 @@ import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { modulesCopy, type ModulesCopy } from '../../assets';
 import {
-    OdsModulesProvider,
-    useOdsModulesContext,
-    type IOdsModulesContext,
-    type IOdsModulesProviderProps,
-} from './odsModulesProvider';
+    GukModulesProvider,
+    useGukModulesContext,
+    type IGukModulesContext,
+    type IGukModulesProviderProps,
+} from './gukModulesProvider';
 
 jest.mock('@tanstack/react-query', () => ({
     ...jest.requireActual('@tanstack/react-query'),
@@ -20,18 +20,18 @@ jest.mock('wagmi', () => ({
     WagmiProvider: (props: { children: ReactNode }) => <div data-testid="wagmi-mock">{props.children}</div>,
 }));
 
-describe('<OdsModulesProvider /> component', () => {
-    const createTestComponent = (props?: Partial<IOdsModulesProviderProps>) => {
+describe('<GukModulesProvider /> component', () => {
+    const createTestComponent = (props?: Partial<IGukModulesProviderProps>) => {
         const completeProps = {
             ...props,
         };
 
-        return <OdsModulesProvider {...completeProps} />;
+        return <GukModulesProvider {...completeProps} />;
     };
 
-    const createHookWrapper = (context?: Partial<IOdsModulesContext>) =>
+    const createHookWrapper = (context?: Partial<IGukModulesContext>) =>
         function hookWrapper(props: { children: ReactNode }) {
-            return <OdsModulesProvider values={context}>{props.children}</OdsModulesProvider>;
+            return <GukModulesProvider values={context}>{props.children}</GukModulesProvider>;
         };
 
     it('renders the wagmi and react-query providers with default configs', () => {
@@ -51,7 +51,7 @@ describe('<OdsModulesProvider /> component', () => {
             },
         };
         const context = { copy: customCopy };
-        const { result } = renderHook(() => useOdsModulesContext(), { wrapper: createHookWrapper(context) });
+        const { result } = renderHook(() => useGukModulesContext(), { wrapper: createHookWrapper(context) });
         expect(result.current).toEqual(context);
     });
 });

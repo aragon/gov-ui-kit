@@ -1,12 +1,12 @@
 import { ArgTypes, Meta, Description, Title, Subtitle } from '@storybook/blocks';
-import { OdsCoreProvider } from './odsCoreProvider';
+import { GukCoreProvider } from './gukCoreProvider';
 
-<Meta title="Core/Components/OdsCoreProvider" />
+<Meta title="Core/Components/GukCoreProvider" />
 
-<Title>OdsCoreProvider</Title>
+<Title>GukCoreProvider</Title>
 
-The `<OdsCoreProvider />` is a React context that defines the image, link elements, and copy texts to be rendered across
-all the ODS components, defaulting such values to `<img />`, `<a />` tags, and a default set of copy texts.
+The `<GukCoreProvider />` is a React context that defines the image, link elements, and copy texts to be rendered across
+all the GovKit components, defaulting such values to `<img />`, `<a />` tags, and a default set of copy texts.
 
 The provider becomes particularly useful when an application needs to employ framework-specific images or links, such as
 the `<Image />` and `<Link />` components from Next.js, or when specific copy texts need to be customized.
@@ -14,7 +14,7 @@ the `<Image />` and `<Link />` components from Next.js, or when specific copy te
 **Usage example**
 
 ```typescript
-import { OdsCoreProvider } from '@aragon-ods';
+import { GukCoreProvider } from '@aragon/gov-ui-kit';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 
@@ -30,13 +30,13 @@ const coreProviderValues = { Img: CustomImage, Link: CustomLink };
 
 export const Application = () => {
     return (
-        <OdsCoreProvider values={coreProviderValues}>
+        <GukCoreProvider values={coreProviderValues}>
             /* Your application */
-        </OdsCoreProvider>
+        </GukCoreProvider>
     )
 }
 ```
 
 Refer to the component's properties below for more details on the default configuration objects used for each provider.
 
-<ArgTypes of={OdsCoreProvider} />
+<ArgTypes of={GukCoreProvider} />

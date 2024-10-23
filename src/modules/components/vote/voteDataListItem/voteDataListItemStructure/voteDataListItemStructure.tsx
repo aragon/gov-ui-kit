@@ -3,8 +3,8 @@ import { useAccount } from 'wagmi';
 import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
-import { useOdsModulesContext } from '../../../odsModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteDataListItemStructureProps = IDataListItemProps & {
@@ -34,7 +34,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
-    const { copy } = useOdsModulesContext();
+    const { copy } = useGukModulesContext();
 
     const isCurrentUser = isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
 
