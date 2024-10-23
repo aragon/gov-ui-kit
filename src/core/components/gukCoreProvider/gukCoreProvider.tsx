@@ -29,31 +29,31 @@ export interface IGukCoreProviderProps {
     children?: ReactNode;
 }
 
-const odsCoreContextDefaults: IGukCoreContext = {
+const gukCoreContextDefaults: IGukCoreContext = {
     Img: 'img',
     Link: 'a',
     copy: coreCopy,
 };
 
-const odsCoreContext = createContext<IGukCoreContext>(odsCoreContextDefaults);
+const gukCoreContext = createContext<IGukCoreContext>(gukCoreContextDefaults);
 
 export const GukCoreProvider: React.FC<IGukCoreProviderProps> = (props) => {
     const { values, children } = props;
 
     const contextValues = useMemo(
         () => ({
-            Img: values?.Img ?? odsCoreContextDefaults.Img,
-            Link: values?.Link ?? odsCoreContextDefaults.Link,
-            copy: values?.copy ?? odsCoreContextDefaults.copy,
+            Img: values?.Img ?? gukCoreContextDefaults.Img,
+            Link: values?.Link ?? gukCoreContextDefaults.Link,
+            copy: values?.copy ?? gukCoreContextDefaults.copy,
         }),
         [values],
     );
 
-    return <odsCoreContext.Provider value={contextValues}>{children}</odsCoreContext.Provider>;
+    return <gukCoreContext.Provider value={contextValues}>{children}</gukCoreContext.Provider>;
 };
 
 export const useGukCoreContext = (): Required<IGukCoreContext> => {
-    const values = useContext(odsCoreContext);
+    const values = useContext(gukCoreContext);
 
     return values;
 };
