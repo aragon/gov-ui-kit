@@ -65,4 +65,4 @@ jobs:
           edit-mode: replace
           body: |
             Storybook IPFS Hash: ${{ steps.ipfs-pin.outputs.hash }}
-            ODS deployed to https://ipfs.eth.aragon.network/ipfs/${{ steps.ipfs-pin.outputs.hash }}/
+            Governance UI Kit deployed to https://ipfs.eth.aragon.network/ipfs/${{ steps.ipfs-pin.outputs.hash }}/
