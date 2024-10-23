@@ -59,11 +59,11 @@ export interface IGukModulesProviderProps {
     children?: ReactNode;
 }
 
-const odsModulesContextDefaults: IGukModulesContext = {
+const gukModulesContextDefaults: IGukModulesContext = {
     copy: modulesCopy,
 };
 
-const odsModulesContext = createContext<IGukModulesContext>(odsModulesContextDefaults);
+const gukModulesContext = createContext<IGukModulesContext>(gukModulesContextDefaults);
 
 export const GukModulesProvider: React.FC<IGukModulesProviderProps> = (props) => {
     const {
@@ -77,24 +77,24 @@ export const GukModulesProvider: React.FC<IGukModulesProviderProps> = (props) =>
 
     const contextValues = useMemo(
         () => ({
-            copy: values?.copy ?? odsModulesContextDefaults.copy,
+            copy: values?.copy ?? gukModulesContextDefaults.copy,
         }),
         [values],
     );
 
     return (
-        <odsModulesContext.Provider value={contextValues}>
+        <gukModulesContext.Provider value={contextValues}>
             <WagmiProvider config={wagmiConfig} initialState={wagmiInitialState}>
                 <QueryClientProvider client={queryClient}>
                     <GukCoreProvider values={coreProviderValues}>{children}</GukCoreProvider>
                 </QueryClientProvider>
             </WagmiProvider>
-        </odsModulesContext.Provider>
+        </gukModulesContext.Provider>
     );
 };
 
 export const useGukModulesContext = (): IGukModulesContext => {
-    const values = useContext(odsModulesContext);
+    const values = useContext(gukModulesContext);
 
     return values;
 };
