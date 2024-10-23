@@ -62,13 +62,13 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
         { onAccept: handleMaskAccept },
     );
 
-    const { setValue } = result;
+    const { setUnmaskedValue } = result;
 
     // Update the masked value on value property change
     useEffect(() => {
         const parsedValue = value?.toString() ?? '';
-        setValue(parsedValue);
-    }, [setValue, value]);
+        setUnmaskedValue(parsedValue);
+    }, [setUnmaskedValue, value]);
 
     return result;
 };
