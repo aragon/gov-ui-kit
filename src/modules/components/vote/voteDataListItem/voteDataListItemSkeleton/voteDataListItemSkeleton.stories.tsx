@@ -7,7 +7,7 @@ const meta: Meta<typeof VoteDataListItem.Skeleton> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?m=auto&node-id=14385%3A25034&t=E0kPRQYhJqWbVmAh-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Governance-UI-Kit?m=auto&node-id=14385%3A25034&t=E0kPRQYhJqWbVmAh-1',
         },
     },
 };

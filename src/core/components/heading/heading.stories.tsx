@@ -8,7 +8,7 @@ const meta: Meta<typeof Heading> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=12425%3A9576&mode=design&t=Y5oyqUT7xs50BPvq-1',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?type=design&node-id=12425%3A9576&mode=design&t=Y5oyqUT7xs50BPvq-1',
         },
         docs: {
             description: {

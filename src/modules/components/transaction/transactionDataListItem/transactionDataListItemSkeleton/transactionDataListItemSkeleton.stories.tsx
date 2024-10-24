@@ -7,7 +7,7 @@ const meta: Meta<typeof TransactionDataListItem.Skeleton> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Aragon-ODS?m=auto&node-id=14423%3A35617&t=PnXohTqw3z2FEaam-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Governance-UI-Kit?m=auto&node-id=14423%3A35617&t=PnXohTqw3z2FEaam-1',
         },
     },
 };

@@ -11,7 +11,7 @@ const meta: Meta<typeof RadioCard> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Aragon-ODS?type=design&node-id=10095-19157&mode=design&t=FsK7MCOZgi86zSuS-0',
+            url: 'https://www.figma.com/file/ISSDryshtEpB7SUSdNqAcw/branch/jfKRr1V9evJUp1uBeyP3Zz/Governance-UI-Kit?type=design&node-id=10095-19157&mode=design&t=FsK7MCOZgi86zSuS-0',
         },
     },
 };
