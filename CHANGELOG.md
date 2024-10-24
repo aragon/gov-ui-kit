@@ -7,12 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-## [1.0.51] - 2024-10-23
-
 ### Fixed
 
 -   Update Figma documentation links in Storybook component docs
 -   Rename default modules context values to use `guk` prefix
+
+## [1.0.51] - 2024-10-23
+
+### Fixed
+
 -   Rename default core context values to use `guk` prefix
 -   Update `<DefinitionListItem />` and `<Breadcrumbs />` core components to truncate long strings
 -   Fix `<InputNumber >` core component to trigger `onChange` callback on + / - button click
