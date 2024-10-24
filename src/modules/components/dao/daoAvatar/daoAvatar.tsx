@@ -20,7 +20,7 @@ const sizeToTextClass: Record<AvatarSize, string> = {
     lg: 'text-lg',
     xl: 'text-xl',
     '2xl': 'text-2xl',
-  };
+};
 
 export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
     const { name, size = 'lg', className, ...otherProps } = props;
