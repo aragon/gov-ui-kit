@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Removed 'xs' size variant from `Avatar` component
+-   Update `DaoAvatar` to map text size to 'AvatarSize' prop from parent
+
+### Fixed
+
+-   Update Figma documentation links in Storybook component docs
+-   Rename default modules context values to use `guk` prefix
+
 ## [1.0.51] - 2024-10-23
 
 ### Fixed
