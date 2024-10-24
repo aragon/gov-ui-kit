@@ -14,6 +14,14 @@ export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {
     size?: AvatarSize;
 }
 
+const sizeToTextClass: Record<AvatarSize, string> = {
+    sm: 'text-sm',
+    md: 'text-md',
+    lg: 'text-lg',
+    xl: 'text-xl',
+    '2xl': 'text-2xl',
+  };
+
 export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
     const { name, size = 'lg', className, ...otherProps } = props;
     const daoInitials = getDaoInitials(name).toUpperCase();
@@ -24,8 +32,8 @@ export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
             fallback={
                 <span
                     className={classNames(
-                        'flex size-full items-center justify-center rounded-full bg-primary-400',
-                        'text-xs leading-tight text-neutral-0 md:text-sm lg:text-lg',
+                        'flex size-full items-center justify-center rounded-full bg-primary-400 leading-tight text-neutral-0',
+                        sizeToTextClass[size],
                         className,
                     )}
                 >
