@@ -88,7 +88,6 @@ __metadata:
     "@tiptap/pm": "npm:^2.9.0"
     "@tiptap/react": "npm:^2.9.0"
     "@tiptap/starter-kit": "npm:^2.9.0"
-    "@types/eslint__js": "npm:^8.42.3"
     "@types/jest": "npm:^29.5.14"
     "@types/luxon": "npm:^3.4.2"
     "@types/react-dom": "npm:^18.3.1"
@@ -108,7 +107,6 @@ __metadata:
     eslint-plugin-tailwindcss: "npm:^3.17.5"
     eslint-plugin-testing-library: "npm:^6.4.0"
     framer-motion: "npm:^11.11.0"
-    globals: "npm:^15.11.0"
     husky: "npm:^9.1.6"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
@@ -5548,7 +5546,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/json-schema@npm:*, @types/json-schema@npm:^7.0.15, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
+"@types/json-schema@npm:^7.0.15, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: 10c0/a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
@@ -10269,13 +10267,6 @@ __metadata:
   version: 14.0.0
   resolution: "globals@npm:14.0.0"
   checksum: 10c0/b96ff42620c9231ad468d4c58ff42afee7777ee1c963013ff8aabe095a451d0ceeb8dcd8ef4cbd64d2538cef45f787a78ba3a9574f4a634438963e334471302d
-  languageName: node
-  linkType: hard
-
-"globals@npm:^15.11.0":
-  version: 15.11.0
-  resolution: "globals@npm:15.11.0"
-  checksum: 10c0/861e39bb6bd9bd1b9f355c25c962e5eb4b3f0e1567cf60fa6c06e8c502b0ec8706b1cce055d69d84d0b7b8e028bec5418cf629a54e7047e116538d1c1c1a375c
   languageName: node
   linkType: hard
 
