@@ -42,7 +42,8 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
 
     const formattedTokenNumber = formatterUtils.formatNumber(votingPower, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
-    const formattedTokenVote = `${formattedTokenNumber} ${tokenSymbol}`;
+    const formattedTokenVote =
+        formattedTokenNumber != null && tokenSymbol != null ? `${formattedTokenNumber} ${tokenSymbol}` : undefined;
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
@@ -68,9 +69,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                 </span>
                 {isTokenVoting && <span className="truncate text-neutral-500">{formattedTokenVote}</span>}
             </div>
-            {voteIndicator && (
-                <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />
-            )}
+            <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />
         </DataList.Item>
     );
 };

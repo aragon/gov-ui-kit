@@ -73,7 +73,7 @@ describe('<Dropdown.Container /> component', () => {
         const trigger = screen.getByRole('button', { name: 'test' });
         expect(trigger).toBeInTheDocument();
 
-        await user.click(trigger!);
+        await user.click(trigger);
         expect(onOpenChange).toHaveBeenCalled();
     });
 

@@ -30,7 +30,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
     const { value, defaultValue, onChange, isMultiSelect, className, ...otherProps } = props;
     const classes = classNames('flex flex-row flex-wrap gap-2 md:gap-3', className);
 
-    if (isMultiSelect === true) {
+    if (isMultiSelect) {
         return (
             <RadixToggleGroup
                 type="multiple"

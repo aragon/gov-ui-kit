@@ -19,5 +19,10 @@ if (typeof window !== 'undefined') {
     // Mock elementFromPoint function
     document.elementFromPoint = jest.fn();
 
+    // Mock ResizeObserver utility
+    global.ResizeObserver = jest
+        .fn()
+        .mockImplementation(() => ({ observe: jest.fn(), unobserve: jest.fn(), disconnect: jest.fn() }));
+
     createRangeMock();
 }

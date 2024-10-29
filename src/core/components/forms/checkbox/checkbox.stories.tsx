@@ -64,7 +64,7 @@ const IndeterminateComponent = () => {
             {childChecked.map((isChecked, index) => (
                 <Checkbox
                     key={index}
-                    label={`Child checkbox ${index + 1}`}
+                    label={`Child checkbox ${(index + 1).toString()}`}
                     checked={isChecked}
                     onCheckedChange={handleChildCheckedChange(index)}
                     className="ml-4"

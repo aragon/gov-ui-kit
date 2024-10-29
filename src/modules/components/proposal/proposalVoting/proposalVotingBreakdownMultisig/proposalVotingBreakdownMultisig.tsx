@@ -26,7 +26,7 @@ export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownM
     const formattedApprovalsAmount = formatterUtils.formatNumber(approvalsAmount, {
         format: NumberFormat.GENERIC_SHORT,
     });
-    const formattedMinApprovals = formatterUtils.formatNumber(minApprovals, { format: NumberFormat.GENERIC_SHORT });
+    const formattedMinApprovals = formatterUtils.formatNumber(minApprovals, { format: NumberFormat.GENERIC_SHORT })!;
 
     return (
         <Tabs.Content value={ProposalVotingTab.BREAKDOWN} {...otherProps}>

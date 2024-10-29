@@ -1,22 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import * as coreModule from '../../../../../../core';
 import { clipboardUtils } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
 import { type IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';
 
-jest.mock('../../../../../../core', () => {
-    const originalModule = jest.requireActual('../../../../../../core');
-    return {
-        ...originalModule,
-        InputNumber: ({ value, disabled, label }: { value: number; disabled: boolean; label: string }) => (
-            <div>
-                <p>{label}</p>
-                <input type="number" value={value} disabled={disabled} />
-            </div>
-        ),
-    };
-});
+jest.mock('../../../../../../core', () => ({
+    ...jest.requireActual<typeof coreModule>('../../../../../../core'),
+    InputNumber: ({ value, disabled, label }: { value: number; disabled: boolean; label: string }) => (
+        <div>
+            <p>{label}</p>
+            <input type="number" value={value} disabled={disabled} />
+        </div>
+    ),
+}));
 
 describe('<ProposalActionsActionRawView /> component', () => {
     const copyMock = jest.spyOn(clipboardUtils, 'copy');

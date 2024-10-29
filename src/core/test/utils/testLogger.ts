@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 class TestLogger {
     private shouldSuppressErrors = false;
     private originalConsoleError = console.error;

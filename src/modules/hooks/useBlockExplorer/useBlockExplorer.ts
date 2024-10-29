@@ -59,7 +59,7 @@ export const useBlockExplorer = (params?: IUseBlockExplorerParams) => {
             const blockExplorer = getBlockExplorer(chainId ?? hookChainId);
             const baseUrl = blockExplorer?.url;
 
-            return baseUrl != null ? `${baseUrl}/${type}/${id}` : undefined;
+            return baseUrl != null && id != null ? `${baseUrl}/${type}/${id}` : undefined;
         },
         [getBlockExplorer, hookChainId],
     );
