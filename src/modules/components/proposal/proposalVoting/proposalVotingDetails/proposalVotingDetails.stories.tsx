@@ -45,4 +45,31 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Default usage example of the ProposalVoting.Details component.
+ */
+export const WithoutStartOrEndTime: Story = {
+    args: {
+        settings: [
+            { term: 'Strategy', definition: '1 Address → 1 Vote' },
+            { term: 'Voting options', definition: 'Approve' },
+            { term: 'Minimum approval', definition: '3 of 5' },
+        ],
+    },
+    render: (args) => {
+        return (
+            <ProposalVotingStageContextProvider
+                value={{
+                    startDate: '-',
+                    endDate: '-',
+                }}
+            >
+                <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
+                    <ProposalVoting.Details {...args} />
+                </Tabs.Root>
+            </ProposalVotingStageContextProvider>
+        );
+    },
+};
+
 export default meta;
