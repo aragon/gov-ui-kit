@@ -9,13 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Add support for vetoed status in `ProposalVotingStageStatus` module component
 -   Update minor and patch Github dependencies
 -   Update minor and patch NPM dependencies
 -   Bump `elliptic` from 6.5.7 to 6.6.0
 
 ### Fixed
 
+-   Update `ProposalVotingStageStatus` module component to support `vetoed` and `expired` statuses
 -   Update Figma documentation links in Storybook components
 -   Rename default modules context values to use `guk` prefix
 
