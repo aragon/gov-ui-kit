@@ -66,9 +66,11 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
             <div className="flex flex-row gap-0.5">
-                {endDate && status === ProposalVotingStatus.ACTIVE && (
+                {status === ProposalVotingStatus.ACTIVE && (
                     <span className="text-primary-400">
-                        <Rerender>{() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION })}</Rerender>
+                        <Rerender>
+                            {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
+                        </Rerender>
                     </span>
                 )}
                 {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
