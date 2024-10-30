@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { Children, type ComponentProps } from 'react';
-import { Accordion, Card, Heading } from '../../../../../core';
+import { Accordion, Card } from '../../../../../core';
 
 export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
     /**
@@ -24,11 +24,7 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
     const isMultiStage = processedChildren.length > 1;
 
     return (
-        <Card className={classNames('flex flex-col overflow-hidden', className)} {...otherProps}>
-            <div className={classNames('flex flex-col gap-2 p-4 md:gap-3 md:p-6', { 'pb-2 md:pb-3': !isMultiStage })}>
-                <Heading size="h2">{title}</Heading>
-                <p className="text-base font-normal leading-normal text-neutral-500">{description}</p>
-            </div>
+        <Card className={classNames('flex w-full flex-col overflow-hidden', className)} {...otherProps}>
             {isMultiStage && (
                 <Accordion.Container isMulti={false} defaultValue={activeStage}>
                     {processedChildren.map((child, index) =>
