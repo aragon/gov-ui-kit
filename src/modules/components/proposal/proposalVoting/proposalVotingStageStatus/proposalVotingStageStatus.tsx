@@ -23,7 +23,7 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
     /**
      * End date of the proposal in timestamp or ISO format.
      */
-    endDate: string | number;
+    endDate?: string | number;
     /**
      * Defines if the proposal is a multi-stage proposal.
      */
@@ -73,7 +73,9 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
             <div className="flex flex-row gap-0.5">
                 {status === ProposalVotingStatus.ACTIVE && (
                     <span className="text-primary-400">
-                        <Rerender>{() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION })}</Rerender>
+                        <Rerender>
+                            {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
+                        </Rerender>
                     </span>
                 )}
                 {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
