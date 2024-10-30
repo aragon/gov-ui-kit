@@ -33,7 +33,10 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
 const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
     const isSingleStagePending = !isMultiStage && status === ProposalVotingStatus.PENDING;
 
-    if ([ProposalVotingStatus.ACCEPTED, ProposalVotingStatus.REJECTED].includes(status) || isSingleStagePending) {
+    if (
+        [ProposalVotingStatus.ACCEPTED, ProposalVotingStatus.REJECTED, ProposalVotingStatus.VETOED].includes(status) ||
+        isSingleStagePending
+    ) {
         return copy.proposalVotingStageStatus.main.proposal;
     }
 
@@ -46,12 +49,14 @@ const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, 
     [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
     [ProposalVotingStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
+    [ProposalVotingStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
 });
 
 const statusToIcon: Map<ProposalVotingStatus, { icon: IconType; variant: AvatarIconVariant } | undefined> = new Map([
     [ProposalVotingStatus.ACCEPTED, { icon: IconType.CHECKMARK, variant: 'success' }],
     [ProposalVotingStatus.REJECTED, { icon: IconType.CLOSE, variant: 'critical' }],
     [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'neutral' }],
+    [ProposalVotingStatus.VETOED, { icon: IconType.CLOSE, variant: 'critical' }],
 ]);
 
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
@@ -78,6 +83,9 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 )}
                 {status === ProposalVotingStatus.REJECTED && (
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
+                )}
+                {status === ProposalVotingStatus.VETOED && (
+                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
                 )}
             </div>
             {status === ProposalVotingStatus.PENDING && <Spinner size="md" variant="neutral" />}

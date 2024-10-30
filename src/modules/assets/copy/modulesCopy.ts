@@ -144,10 +144,12 @@ export const modulesCopy = {
             accepted: 'has been',
             rejected: 'has been',
             unreached: 'not reached',
+            vetoed: 'has been',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
+            vetoed: 'vetoed',
         },
     },
     proposalVotingDetails: {
