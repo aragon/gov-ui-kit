@@ -28,6 +28,7 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
     const { copy } = useGukModulesContext();
     const { startDate, endDate } = useProposalVotingStageContext();
 
+    // Allow and check for `-` override for start and end date in cases where it is unknown - when stage has not yet started for instance
     const formattedStartDate =
         startDate === '-'
             ? startDate
