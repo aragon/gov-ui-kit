@@ -58,6 +58,24 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 
+    it('correctly renders the vetoed state', () => {
+        const status = ProposalVotingStatus.VETOED;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has been')).toBeInTheDocument();
+        expect(screen.getByText('vetoed')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+    });
+
+    it('correctly renders the expired state', () => {
+        const status = ProposalVotingStatus.EXPIRED;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has')).toBeInTheDocument();
+        expect(screen.getByText('expired')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+    });
+
     it('correctly renders the unreached state', () => {
         const status = ProposalVotingStatus.UNREACHED;
         render(createTestComponent({ status }));

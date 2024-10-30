@@ -143,11 +143,15 @@ export const modulesCopy = {
             active: 'left to vote',
             accepted: 'has been',
             rejected: 'has been',
+            expired: 'has',
             unreached: 'not reached',
+            vetoed: 'has been',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
+            expired: 'expired',
+            vetoed: 'vetoed',
         },
     },
     proposalVotingDetails: {

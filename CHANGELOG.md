@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+-   Update `ProposalVotingStageStatus` module component to support `vetoed` and `expired` statuses
 -   Update Figma documentation links in Storybook components
 -   Rename default modules context values to use `guk` prefix
 
