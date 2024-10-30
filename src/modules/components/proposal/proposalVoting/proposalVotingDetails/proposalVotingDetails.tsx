@@ -28,13 +28,12 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
     const { copy } = useGukModulesContext();
     const { startDate, endDate } = useProposalVotingStageContext();
 
-    // Allow and check for `-` override for start and end date in cases where it is unknown - when stage has not yet started for instance
-    const formattedStartDate =
-        startDate === '-'
-            ? startDate
-            : formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
-    const formattedEndDate =
-        endDate === '-' ? endDate : formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME });
+    const formattedStartDate = startDate
+        ? formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME })
+        : '-';
+    const formattedEndDate = endDate
+        ? formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME })
+        : '-';
 
     const hasSettings = settings != null && settings.length > 0;
 

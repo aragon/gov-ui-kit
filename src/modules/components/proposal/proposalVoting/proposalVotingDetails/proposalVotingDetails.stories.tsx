@@ -60,8 +60,8 @@ export const WithoutStartOrEndTime: Story = {
         return (
             <ProposalVotingStageContextProvider
                 value={{
-                    startDate: '-',
-                    endDate: '-',
+                    startDate: undefined,
+                    endDate: undefined,
                 }}
             >
                 <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">

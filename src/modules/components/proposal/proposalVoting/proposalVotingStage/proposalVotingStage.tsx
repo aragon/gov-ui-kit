@@ -16,11 +16,11 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
     /**
      * Start date of the stage in timestamp or ISO format.
      */
-    startDate: number | string;
+    startDate?: number | string;
     /**
      * Start date of the stage in timestamp or ISO format.
      */
-    endDate: number | string;
+    endDate?: number | string;
     /**
      * Default tab displayed for the current stage. Defaults to details tab for pending and unreached states and to
      * breakdown tab for active, accepted and rejected states.
