@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## Changed
+
+-   Removed heading and description from `ProposalVoting` terminal
+
 ## [1.0.52] - 2024-10-30
 
 ### Changed
