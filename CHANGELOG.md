@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.52] - 2024-10-30
+
 ### Changed
 
 -   Update `ProposalVotingStage` module component to support undefined `startDate` and `endDate` properties
