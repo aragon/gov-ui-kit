@@ -21,6 +21,7 @@ export enum ProposalVotingStatus {
     ACCEPTED = 'ACCEPTED',
     REJECTED = 'REJECTED',
     UNREACHED = 'UNREACHED',
+    VETOED = 'VETOED',
 }
 
 export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVotingStatus> = {
@@ -35,7 +36,7 @@ export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVoting
     [ProposalStatus.PENDING]: ProposalVotingStatus.PENDING,
     [ProposalStatus.EXECUTABLE]: ProposalVotingStatus.ACTIVE,
     [ProposalStatus.REJECTED]: ProposalVotingStatus.REJECTED,
-    [ProposalStatus.VETOED]: ProposalVotingStatus.ACTIVE,
+    [ProposalStatus.VETOED]: ProposalVotingStatus.VETOED,
 };
 
 export const proposalStatusToTagVariant: Record<ProposalStatus, TagVariant> = {
