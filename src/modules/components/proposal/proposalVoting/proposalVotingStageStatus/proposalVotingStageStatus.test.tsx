@@ -40,6 +40,15 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
     });
 
+    it('handles undefiend end date when state is active', () => {
+        const status = ProposalVotingStatus.ACTIVE;
+        const endDate = undefined;
+        render(createTestComponent({ status, endDate }));
+        expect(screen.getByText('-')).toBeInTheDocument();
+        expect(screen.getByText('left to vote')).toBeInTheDocument();
+        expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
+    });
+
     it('correctly renders the accepted state', () => {
         const status = ProposalVotingStatus.ACCEPTED;
         render(createTestComponent({ status }));

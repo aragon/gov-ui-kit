@@ -28,12 +28,8 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
     const { copy } = useGukModulesContext();
     const { startDate, endDate } = useProposalVotingStageContext();
 
-    const formattedStartDate = startDate
-        ? formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME })
-        : '-';
-    const formattedEndDate = endDate
-        ? formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME })
-        : '-';
+    const formattedStartDate = formatterUtils.formatDate(startDate, { format: DateFormat.YEAR_MONTH_DAY_TIME }) ?? '-';
+    const formattedEndDate = formatterUtils.formatDate(endDate, { format: DateFormat.YEAR_MONTH_DAY_TIME }) ?? '-';
 
     const hasSettings = settings != null && settings.length > 0;
 

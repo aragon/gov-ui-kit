@@ -58,12 +58,7 @@ export const WithoutStartOrEndTime: Story = {
     },
     render: (args) => {
         return (
-            <ProposalVotingStageContextProvider
-                value={{
-                    startDate: undefined,
-                    endDate: undefined,
-                }}
-            >
+            <ProposalVotingStageContextProvider value={{ startDate: undefined, endDate: undefined }}>
                 <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
                     <ProposalVoting.Details {...args} />
                 </Tabs.Root>

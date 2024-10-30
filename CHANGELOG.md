@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Update module component `ProposalVotingStage` props so that start and end date are optional to support `-` override for start and end time when unknown in `proposalVotingDetails` module component
+-   Update `ProposalVotingStage` module component to support undefined `startDate` and `endDate` properties
 -   Update minor and patch Github dependencies
 -   Update minor and patch NPM dependencies
 -   Bump `elliptic` from 6.5.7 to 6.6.0
