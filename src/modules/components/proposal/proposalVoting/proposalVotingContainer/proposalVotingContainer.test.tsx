@@ -6,8 +6,6 @@ import { type IProposalVotingContainerProps, ProposalVotingContainer } from './p
 describe('<ProposalVotingContainer /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingContainerProps>) => {
         const completeProps: IProposalVotingContainerProps = {
-            title: '',
-            description: '',
             ...props,
         };
 
