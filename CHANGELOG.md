@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Changed
 
--   Removed heading and description from `ProposalVoting` terminal
+-   Remove `title` and `description` properties from `ProposalVoting` module component
 
 ## [1.0.52] - 2024-10-30
 

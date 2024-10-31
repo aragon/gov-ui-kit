@@ -4,21 +4,13 @@ import { Accordion, Card } from '../../../../../core';
 
 export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
     /**
-     * Title displayed on top.
-     */
-    title: string;
-    /**
-     * Description of the proposal voting.
-     */
-    description: string;
-    /**
      * Active stage that will be expanded by default for multi-stage proposals.
      */
     activeStage?: string;
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
-    const { title, description, className, children, activeStage, ...otherProps } = props;
+    const { className, children, activeStage, ...otherProps } = props;
 
     const processedChildren = Children.toArray(children);
     const isMultiStage = processedChildren.length > 1;
