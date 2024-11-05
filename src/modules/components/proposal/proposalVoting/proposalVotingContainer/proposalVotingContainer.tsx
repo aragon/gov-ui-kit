@@ -12,13 +12,17 @@ export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
      */
     description: string;
     /**
-     * Active stage that will be expanded by default for multi-stage proposals.
+     * Active stage that will be expanded for multi-stage proposals.
      */
     activeStage?: string;
+    /**
+     * Callback called when the user selects a stage, to be used for expanding the current active stage for multi-stage proposals.
+     */
+    onStageClick?: (stage?: string) => void;
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
-    const { title, description, className, children, activeStage, ...otherProps } = props;
+    const { title, description, className, children, activeStage, onStageClick, ...otherProps } = props;
 
     const processedChildren = Children.toArray(children);
     const isMultiStage = processedChildren.length > 1;
@@ -30,7 +34,7 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
                 <p className="text-base font-normal leading-normal text-neutral-500">{description}</p>
             </div>
             {isMultiStage && (
-                <Accordion.Container isMulti={false} defaultValue={activeStage}>
+                <Accordion.Container isMulti={false} value={activeStage} onValueChange={onStageClick}>
                     {processedChildren.map((child, index) =>
                         React.isValidElement(child)
                             ? React.cloneElement(child, { ...child.props, index, isMultiStage })
