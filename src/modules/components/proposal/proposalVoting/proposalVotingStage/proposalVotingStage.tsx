@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useMemo, useRef, type ComponentProps } from 'react';
+import { useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
 import { Accordion, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
@@ -22,11 +22,6 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      */
     endDate?: number | string;
     /**
-     * Default tab displayed for the current stage. Defaults to details tab for pending and unreached states and to
-     * breakdown tab for active, accepted and rejected states.
-     */
-    defaultTab?: ProposalVotingTab;
-    /**
      * Name of the proposal stage displayed for multi-stage proposals.
      */
     name?: string;
@@ -45,26 +40,18 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const {
-        name,
-        status,
-        startDate,
-        endDate,
-        defaultTab,
-        forceMount,
-        index,
-        children,
-        isMultiStage,
-        className,
-        ...otherProps
-    } = props;
+    const { name, status, startDate, endDate, forceMount, index, children, isMultiStage, className, ...otherProps } =
+        props;
 
     const { copy } = useGukModulesContext();
 
-    const stateDefaultTab = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED].includes(status)
-        ? ProposalVotingTab.DETAILS
-        : ProposalVotingTab.BREAKDOWN;
-    const processedDefaultTab = defaultTab ?? stateDefaultTab;
+    const futureStatuses = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED];
+    const stateActiveTab = futureStatuses.includes(status) ? ProposalVotingTab.DETAILS : ProposalVotingTab.BREAKDOWN;
+
+    const [activeTab, setActiveTab] = useState<string | undefined>(stateActiveTab);
+
+    // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
+    useEffect(() => setActiveTab(stateActiveTab), [stateActiveTab]);
 
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
@@ -81,7 +68,8 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                 <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
                 <ProposalVotingTabs
                     status={status}
-                    defaultValue={processedDefaultTab}
+                    value={activeTab}
+                    onValueChange={setActiveTab}
                     accordionRef={accordionContentRef}
                 >
                     <ProposalVotingStageContextProvider value={contextValues}>
@@ -107,7 +95,8 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
                 <ProposalVotingTabs
-                    defaultValue={processedDefaultTab}
+                    value={activeTab}
+                    onValueChange={setActiveTab}
                     status={status}
                     accordionRef={accordionContentRef}
                 >

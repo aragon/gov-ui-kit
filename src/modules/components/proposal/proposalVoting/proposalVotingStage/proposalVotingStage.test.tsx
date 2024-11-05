@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
 
 jest.mock('../proposalVotingStageStatus', () => ({
@@ -75,10 +74,11 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
     });
 
-    it('the defaultTabs property overrides the internal processed tab', () => {
-        const defaultTab = ProposalVotingTab.BREAKDOWN;
+    it('correctly updates the active-tab when the stage status changes', () => {
         const status = ProposalVotingStatus.PENDING;
-        render(createTestComponent({ defaultTab, status }));
+        const { rerender } = render(createTestComponent({ status }));
+        expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true');
+        rerender(createTestComponent({ status: ProposalVotingStatus.ACTIVE }));
         expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'false');
         expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
     });
