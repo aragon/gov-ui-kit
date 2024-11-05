@@ -15,9 +15,9 @@ const meta: Meta<typeof VoteProposalDataListItem.Structure> = {
 type Story = StoryObj<typeof VoteProposalDataListItem.Structure>;
 
 /**
- * Usage example of the VotesDataListItem module component for a token based vote.
+ * Usage example of the VoteDataListItem component.
  */
-export const TokenVoting: Story = {
+export const Default: Story = {
     args: {
         proposalId: 'PIP-06',
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
@@ -29,25 +29,26 @@ export const TokenVoting: Story = {
 /**
  * Usage example of the VotesDataListItem module component with a custom label.
  */
-export const TokenVotingCustomLabel: Story = {
+export const CustomLabel: Story = {
     args: {
         proposalId: 'PIP-06',
-        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
-        voteIndicator: 'yes',
-        date: 1613984914000,
-        confirmationLabel: 'Custom label',
+        proposalTitle: 'Add Member to Council',
+        voteIndicator: 'no',
+        date: 1704961234000,
+        confirmationLabel: 'Selected',
     },
 };
 
 /**
- * Usage example of the VotesDataListItem module component for a multisig vote.
+ * Usage of the VoteProposalDataListItem component with long proposal IDs.
  */
-export const Multisig: Story = {
+export const LongProposalId: Story = {
     args: {
-        proposalId: 'PIP-06',
-        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
+        proposalId:
+            '0x7617b0ed30e178ca91d1de3ae8ec7552b0626c693b7f3b6e29a3c7a8383e88fe-0xad3c46774dC00a16248766E1a83F2B1E04d15C4A-73144785007199445908234261408001196016186536834058203434500863241524295589949',
+        proposalTitle: 'Funds Withdrawal',
         voteIndicator: 'approve',
-        date: 1613984914000,
+        date: 1730807735000,
     },
 };
 
