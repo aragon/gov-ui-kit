@@ -111,10 +111,11 @@ export const MultiStage: Story = {
         title: 'Voting',
         description:
             'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
-        activeStage: '0',
         className: 'max-w-[560px]',
     },
     render: (args) => {
+        const [activeStage, setActiveStage] = useState<string | undefined>('0');
+
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
 
@@ -122,7 +123,7 @@ export const MultiStage: Story = {
         const minApprovals = 4;
 
         return (
-            <ProposalVoting.Container {...args}>
+            <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
                     status={ProposalVotingStatus.ACTIVE}
