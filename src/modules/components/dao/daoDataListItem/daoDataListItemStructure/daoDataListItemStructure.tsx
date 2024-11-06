@@ -24,18 +24,13 @@ export type IDaoDataListItemStructureProps = IDataListItemProps & {
      */
     ens?: string;
     /**
-     * The plugin used by the DAO.
-     * @default token-based
-     */
-    plugin?: string;
-    /**
      * The network on which the DAO operates.
      */
     network?: string;
 };
 
 export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> = (props) => {
-    const { name, logoSrc, description, network, plugin = 'token-based', address, ens, ...otherProps } = props;
+    const { name, logoSrc, description, network, address, ens, ...otherProps } = props;
 
     return (
         <DataList.Item {...otherProps}>

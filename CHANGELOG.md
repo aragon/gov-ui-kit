@@ -7,6 +7,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Add 'Voted' string to Vote Indicator of `VoteDataListItem`
+
+### Fixed
+
+-   Update layouts for `DataListItem` (DLI) and layouts in all DLI modules usage -- Asset, Dao, Member, Proposal,
+    Transaction, Vote
+
+### Changed
+
+-   Remove 'plugin' prop from DAO Data List Item
+
 ## [1.0.53] - 2024-11-05
 
 ### Fixed

@@ -91,20 +91,22 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
             </Heading>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">
-                    <p
+                    <Heading
+                        size="h5"
+                        as="h3"
                         className={classNames('text-sm leading-tight md:text-base', {
                             invisible: delegationCount == null || delegationCount === 0,
                         })}
                     >
                         <span className="text-neutral-800">{formattedDelegationCount}</span>
                         <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
-                    </p>
-                    <p className="text-sm leading-tight md:text-base">
+                    </Heading>
+                    <Heading size="h5" as="h3">
                         <span className="text-neutral-800">{`${formattedTokenAmount} ${tokenSymbol ?? ''}`}</span>
                         {!hideLabelTokenVoting && (
                             <span className="text-neutral-500"> {copy.memberDataListItemStructure.votingPower}</span>
                         )}
-                    </p>
+                    </Heading>
                 </div>
             )}
         </DataList.Item>
