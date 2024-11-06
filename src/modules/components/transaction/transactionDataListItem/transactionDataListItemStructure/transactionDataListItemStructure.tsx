@@ -69,42 +69,34 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         type === TransactionType.ACTION || tokenAmount == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 
     return (
-        <DataList.Item className={classNames('px-4 py-0 md:px-6', className)} href={parsedHref} {...otherProps}>
-            <div className="flex w-full justify-between py-3 md:py-4">
-                <div className="flex items-center gap-x-3 md:gap-x-4">
-                    {status === TransactionStatus.SUCCESS && (
-                        <AvatarIcon
-                            variant={txVariantList[type]}
-                            icon={txIconTypeList[type]}
-                            responsiveSize={{ md: 'md' }}
-                        />
-                    )}
-                    {status === TransactionStatus.FAILED && (
-                        <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
-                    )}
-                    {status === TransactionStatus.PENDING && (
-                        <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
-                            <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
-                        </div>
-                    )}
-                    <div className="flex w-full flex-col items-start gap-y-0.5">
-                        <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
-                            {txHeadingStringList[type]}
-                        </span>
-                        <p className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
-                            {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
-                        </p>
-                    </div>
+        <DataList.Item
+            className={classNames('flex h-16 items-center justify-between gap-x-3 md:h-20 md:gap-x-4', className)}
+            href={parsedHref}
+            {...otherProps}
+        >
+            {status === TransactionStatus.SUCCESS && (
+                <AvatarIcon variant={txVariantList[type]} icon={txIconTypeList[type]} responsiveSize={{ md: 'md' }} />
+            )}
+            {status === TransactionStatus.FAILED && (
+                <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
+            )}
+            {status === TransactionStatus.PENDING && (
+                <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
+                    <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
                 </div>
+            )}
+            <div className="flex w-full flex-col items-start gap-y-1 self-center">
+                <span className="leading-tight text-neutral-800 md:text-lg">{txHeadingStringList[type]}</span>
+                {date && (
+                    <p className="text-sm leading-tight text-neutral-500 md:text-base">
+                        {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
+                    </p>
+                )}
+            </div>
 
-                <div className="flex flex-col items-end gap-y-0.5 truncate">
-                    <span className="text-sm font-normal leading-tight text-neutral-800 md:text-base">
-                        {formattedTokenAmount}
-                    </span>
-                    <span className="text-sm font-normal leading-tight text-neutral-500 md:text-base">
-                        {formattedTokenPrice}
-                    </span>
-                </div>
+            <div className="flex flex-col items-end gap-y-1 truncate">
+                <span className="leading-tight text-neutral-800 md:text-lg">{formattedTokenAmount}</span>
+                <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedTokenPrice}</span>
             </div>
         </DataList.Item>
     );

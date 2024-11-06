@@ -28,10 +28,15 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      * If token-based voting, the symbol of the voting power used.
      */
     tokenSymbol?: string;
+    /**
+     *   Custom label for the tag
+     */
+    confirmationLabel?: string;
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
+    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, confirmationLabel, className, ...otherProps } =
+        props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();
@@ -45,13 +50,15 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const formattedTokenVote = `${formattedTokenNumber} ${tokenSymbol}`;
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
-    const centerInfoClassNames = classNames(
-        'flex w-full min-w-0 shrink flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
-        { 'py-3 md:py-3.5': !isTokenVoting },
-    );
+    const centerInfoClassNames = classNames('flex w-full min-w-0 shrink flex-col gap-y-1 leading-tight md:text-lg', {
+        'py-3 md:py-3.5': !isTokenVoting,
+    });
 
     return (
-        <DataList.Item className={classNames('flex items-center gap-x-3 md:gap-x-4', className)} {...otherProps}>
+        <DataList.Item
+            className={classNames('flex h-16 items-center gap-x-3 md:h-20 md:gap-x-4', className)}
+            {...otherProps}
+        >
             <MemberAvatar
                 address={voter.address}
                 ensName={voter.name}
@@ -66,11 +73,20 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                     )}
                     {isCurrentUser && <Tag variant="neutral" label={copy.voteDataListItemStructure.you} />}
                 </span>
-                {isTokenVoting && <span className="truncate text-neutral-500">{formattedTokenVote}</span>}
+                {isTokenVoting && (
+                    <span className="truncate text-sm text-neutral-500 md:text-base">{formattedTokenVote}</span>
+                )}
             </div>
-            {voteIndicator && (
-                <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />
-            )}
+
+            <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
+                <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
+                <Tag
+                    variant={voteIndicatorToTagVariant[voteIndicator]}
+                    className="capitalize"
+                    label={voteIndicator}
+                    data-testid="tag"
+                />
+            </div>
         </DataList.Item>
     );
 };

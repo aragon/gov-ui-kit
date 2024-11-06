@@ -69,47 +69,44 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
     const formattedTokenAmount = formatterUtils.formatNumber(tokenAmount, { format: NumberFormat.GENERIC_SHORT });
 
     return (
-        <DataList.Item className="min-w-fit !py-0 px-4 md:px-6" {...otherProps}>
-            <div className="flex flex-col items-start justify-center gap-y-3 py-4 md:min-w-44 md:py-6">
-                <div className="flex w-full items-center justify-between">
-                    <MemberAvatar
-                        ensName={ensName}
-                        address={address}
-                        avatarSrc={avatarSrc}
-                        responsiveSize={{ md: 'md' }}
-                    />
-                    {isDelegate && !isCurrentUser && (
-                        <Tag variant="info" label={copy.memberDataListItemStructure.yourDelegate} />
-                    )}
-                    {isCurrentUser && <Tag variant="neutral" label={copy.memberDataListItemStructure.you} />}
-                </div>
-
-                <Heading className="inline-block w-full truncate" size="h2" as="h1">
-                    {resolvedUserHandle}
-                </Heading>
-
-                {showDelegationOrTokenInformation && (
-                    <div className="flex flex-col gap-y-2">
-                        <Heading
-                            size="h5"
-                            as="h2"
-                            className={classNames({ invisible: delegationCount == null || delegationCount === 0 })}
-                        >
-                            <span>{formattedDelegationCount}</span>
-                            <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
-                        </Heading>
-                        <Heading size="h5" as="h2">
-                            <span>{`${formattedTokenAmount} ${tokenSymbol ?? ''}`}</span>
-                            {!hideLabelTokenVoting && (
-                                <span className="text-neutral-500">
-                                    {' '}
-                                    {copy.memberDataListItemStructure.votingPower}
-                                </span>
-                            )}
-                        </Heading>
-                    </div>
+        <DataList.Item
+            className="flex min-w-fit flex-col items-start justify-center gap-y-3 py-4 md:min-w-44 md:py-6"
+            {...otherProps}
+        >
+            <div className="flex w-full items-center justify-between">
+                <MemberAvatar
+                    ensName={ensName}
+                    address={address}
+                    avatarSrc={avatarSrc}
+                    size="sm"
+                    responsiveSize={{ md: 'md' }}
+                />
+                {isDelegate && !isCurrentUser && (
+                    <Tag variant="info" label={copy.memberDataListItemStructure.yourDelegate} />
                 )}
+                {isCurrentUser && <Tag variant="neutral" label={copy.memberDataListItemStructure.you} />}
             </div>
+            <Heading className="inline-block w-full truncate" size="h3" as="h2">
+                {resolvedUserHandle}
+            </Heading>
+            {showDelegationOrTokenInformation && (
+                <div className="flex flex-col gap-y-2">
+                    <p
+                        className={classNames('text-sm leading-tight md:text-base', {
+                            invisible: delegationCount == null || delegationCount === 0,
+                        })}
+                    >
+                        <span className="text-neutral-800">{formattedDelegationCount}</span>
+                        <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
+                    </p>
+                    <p className="text-sm leading-tight md:text-base">
+                        <span className="text-neutral-800">{`${formattedTokenAmount} ${tokenSymbol ?? ''}`}</span>
+                        {!hideLabelTokenVoting && (
+                            <span className="text-neutral-500"> {copy.memberDataListItemStructure.votingPower}</span>
+                        )}
+                    </p>
+                </div>
+            )}
         </DataList.Item>
     );
 };

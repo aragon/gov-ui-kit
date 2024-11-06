@@ -95,7 +95,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pl-4 md:pr-3',
                     'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
                     'text-base font-normal leading-tight',
-                    'hover:border-neutral-300 hover:shadow-neutral',
+                    'hover:border-neutral-200 hover:shadow-neutral',
                     'focus-within:border-primary-400 focus-within:shadow-primary',
                     'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary',
                 )}

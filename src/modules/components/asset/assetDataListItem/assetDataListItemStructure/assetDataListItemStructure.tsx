@@ -79,36 +79,32 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
     });
 
     return (
-        <DataList.Item {...otherProps}>
-            <div className="flex gap-x-3 py-0 md:py-1.5">
-                <div className="flex items-center">
-                    <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block" />
+        <DataList.Item className="flex h-16 items-center gap-x-3 md:h-20" {...otherProps}>
+            <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block" />
+            <div className="flex w-full min-w-0 shrink items-center justify-between gap-3">
+                <div className="flex flex-col gap-y-1 truncate">
+                    <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">{name}</span>
+                    <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">
+                        <span>{formattedAmount} </span>
+                        <span className="truncate">{symbol}</span>
+                    </p>
                 </div>
-                <div className="flex w-full min-w-0 shrink justify-between gap-3">
-                    <div className="flex flex-col gap-y-0.5 truncate">
-                        <span className="truncate text-sm leading-tight text-neutral-800 md:text-base">{name}</span>
-                        <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">
-                            <span>{formattedAmount} </span>
-                            <span className="truncate">{symbol}</span>
-                        </p>
-                    </div>
-                    <div className="flex flex-col items-end justify-center gap-y-0.5">
-                        {fiatPrice ? (
-                            <>
-                                <span className="text-sm leading-tight text-neutral-800 md:text-base">
-                                    {formattedPrice}
-                                </span>
-                                <div className="flex items-center gap-x-1">
-                                    <span className={changedAmountClasses}>{formattedPriceChanged}</span>
-                                    <Tag label={formattedPriceChangedPercentage!} variant={tagVariant} />
-                                </div>
-                            </>
-                        ) : (
-                            <span className="text-sm leading-tight text-neutral-800 md:text-base">
-                                {copy.assetDataListItemStructure.unknown}
+                <div className="flex flex-col items-end justify-center gap-y-1">
+                    {fiatPrice ? (
+                        <>
+                            <span className="text-base leading-tight text-neutral-800 md:text-lg">
+                                {formattedPrice}
                             </span>
-                        )}
-                    </div>
+                            <div className="flex items-center gap-x-1">
+                                <span className={changedAmountClasses}>{formattedPriceChanged}</span>
+                                <Tag label={formattedPriceChangedPercentage!} variant={tagVariant} />
+                            </div>
+                        </>
+                    ) : (
+                        <span className="text-sm leading-tight text-neutral-800 md:text-base">
+                            {copy.assetDataListItemStructure.unknown}
+                        </span>
+                    )}
                 </div>
             </div>
         </DataList.Item>

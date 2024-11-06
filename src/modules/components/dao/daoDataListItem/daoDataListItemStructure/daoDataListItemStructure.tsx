@@ -39,17 +39,17 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
 
     return (
         <DataList.Item {...otherProps}>
-            <div className="grid gap-y-4 py-1 md:py-1.5">
+            <div className="grid gap-y-3 py-4 md:gap-y-4 md:py-6">
                 <div className="flex w-full justify-between gap-2">
                     <div className="grid shrink gap-y-1.5 text-neutral-800">
-                        <Heading size="h2" as="h1" className="truncate">
+                        <Heading size="h3" as="h2" className="truncate">
                             {name}
                         </Heading>
-                        <Heading size="h4" as="h2" className="truncate">
+                        <Heading size="h5" as="h3" className="truncate">
                             {ens ?? address}
                         </Heading>
                     </div>
-                    <DaoAvatar name={name} src={logoSrc} size="md" />
+                    <DaoAvatar name={name} src={logoSrc} size="md" responsiveSize={{ md: 'lg' }} />
                 </div>
                 <p className="line-clamp-2 text-base font-normal leading-normal text-neutral-500 md:text-lg">
                     {description}
@@ -58,10 +58,6 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                     <div className="flex items-center gap-2 text-sm md:text-base">
                         <span className="capitalize">{network}</span>
                         <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
-                    </div>
-                    <div className="flex items-center gap-2 text-sm md:text-base">
-                        <span className="capitalize">{plugin}</span>
-                        <Icon icon={IconType.APP_MEMBERS} />
                     </div>
                 </div>
             </div>

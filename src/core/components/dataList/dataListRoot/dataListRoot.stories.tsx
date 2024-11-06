@@ -20,7 +20,7 @@ const meta: Meta<typeof DataList.Root> = {
 type Story = StoryObj<typeof DataList.Root>;
 
 const ListItemComponent = (props: { id: number }) => (
-    <DataListItem className="flex flex-row gap-2" href="https://aragon.org" target="_blank">
+    <DataListItem className="flex flex-row gap-2 py-4 md:py-6" href="https://aragon.org" target="_blank">
         <Avatar />
         <p className="grow text-base font-normal leading-normal text-neutral-800">#{props.id}</p>
         <p className="text-sm font-normal leading-normal text-neutral-500">Some info</p>
@@ -28,7 +28,7 @@ const ListItemComponent = (props: { id: number }) => (
 );
 
 const ListItemComponentLoading = () => (
-    <DataListItem className="flex animate-pulse flex-row items-center gap-2">
+    <DataListItem className="flex animate-pulse flex-row items-center gap-2 py-4 md:py-6">
         <div className="size-6 rounded-full bg-neutral-50" />
         <div className="flex grow flex-col gap-2">
             <div className="h-2 grow rounded bg-neutral-50" />
