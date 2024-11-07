@@ -3,11 +3,18 @@ const globals = require('globals');
 const eslint = require('@eslint/js');
 const tsEslint = require('typescript-eslint');
 
+const pluginImport = require('eslint-plugin-import');
+const pluginJsxA11y = require('eslint-plugin-jsx-a11y');
 const pluginTestingLibrary = require('eslint-plugin-testing-library');
+
+const tsConfig = require('./tsconfig.json');
 
 const config = tsEslint.config(
     // Default rules
     eslint.configs.recommended,
+    pluginImport.flatConfigs.recommended,
+    pluginImport.flatConfigs.typescript,
+    pluginJsxA11y.flatConfigs.recommended,
     ...tsEslint.configs.recommendedTypeChecked,
     ...tsEslint.configs.strictTypeChecked,
     ...tsEslint.configs.stylisticTypeChecked,
@@ -21,6 +28,15 @@ const config = tsEslint.config(
                 tsconfigRootDir: __dirname,
             },
         },
+        settings: {
+            'import/resolver': {
+                typescript: true,
+                node: true,
+            },
+        },
+    },
+    {
+        ignores: tsConfig.exclude,
     },
     {
         rules: {
@@ -30,6 +46,7 @@ const config = tsEslint.config(
             '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
             '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
             '@typescript-eslint/no-non-null-assertion': 'off',
+            'import/no-cycle': 'warn',
         },
     },
     // Rules for JavaScript files
