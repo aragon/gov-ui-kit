@@ -60,6 +60,10 @@ const config = tsEslint.config(
     },
     {
         rules: {
+            'no-console': 'warn',
+            curly: 'warn',
+            'prefer-template': 'warn',
+            'no-useless-concat': 'warn',
             '@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'always' }],
             '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
             '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
