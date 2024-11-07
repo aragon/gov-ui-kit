@@ -9,7 +9,7 @@ import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 import { type IProposalDataListItemStructureProps, type IPublisher } from './proposalDataListItemStructure.api';
 
-export const maxPublishersDisplayed = 5;
+export const maxPublishersDisplayed = 3;
 
 const parsePublisher = (publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) => {
     const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
