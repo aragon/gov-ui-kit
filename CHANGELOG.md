@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Added missing export for `IAddressInputResolvedValue` interface
+
+### Fixed
+
+-   Fix layout of `ProposalActionChangeMembers` module component
+
 ## [1.0.53] - 2024-11-05
 
 ### Fixed
