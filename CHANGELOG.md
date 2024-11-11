@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.54] - 2024-11-11
+
 ### Changed
 
 -   Added missing export for `IAddressInputResolvedValue` interface
