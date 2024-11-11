@@ -15,14 +15,15 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
     const { copy } = useGukModulesContext();
 
     return (
-        <div className="flex flex-col gap-y-6">
-            <div className="flex flex-col gap-2 md:flex-row">
+        <div className="flex w-full flex-col gap-y-6">
+            <div className="flex flex-wrap gap-2">
                 {action.members.map((member) => (
                     <MemberDataListItem.Structure
                         key={member.address}
                         address={member.address}
                         ensName={member.name}
                         avatarSrc={member.avatarSrc}
+                        className="grow basis-60"
                     />
                 ))}
             </div>
