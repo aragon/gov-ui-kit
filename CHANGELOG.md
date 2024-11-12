@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Update minor and patch NPM dependencies
+
 ## [1.0.54] - 2024-11-11
 
 ### Changed
