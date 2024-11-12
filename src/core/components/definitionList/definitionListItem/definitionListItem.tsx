@@ -22,7 +22,7 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             <dt className="line-clamp-1 text-base font-normal leading-relaxed text-neutral-800 md:line-clamp-none">
                 {term}
             </dt>
-            <dd className="text-base font-normal text-neutral-700 md:pl-4">{children}</dd>
+            <dd className="text-base font-normal text-neutral-500">{children}</dd>
         </div>
     );
 };
