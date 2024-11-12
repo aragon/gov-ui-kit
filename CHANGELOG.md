@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Removed `xs` size variant from `Avatar` component
 -   Update `DaoAvatar` to correctly set text size depending on `size` property
 
+### Fixed
+
+-   Improve responsiveness for `DefinitionList` container and items for middle breakpoints
+
 ## [1.0.54] - 2024-11-11
 
 ### Changed
