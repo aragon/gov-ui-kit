@@ -13,7 +13,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     const { children, className, ...otherProps } = props;
 
     return (
-        <RadixAccordionHeader className="flex">
+        <RadixAccordionHeader className="flex data-[state=open]:bg-gradient-to-b data-[state=open]:from-neutral-50 data-[state=open]:to-neutral-0">
             <RadixAccordionTrigger
                 className={classNames(
                     'group flex flex-1 items-center justify-between gap-x-4 px-4 py-3 outline-none md:gap-x-6 md:px-6 md:py-5',

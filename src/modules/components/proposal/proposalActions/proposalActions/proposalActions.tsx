@@ -42,48 +42,52 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
     const handleAccordionValueChange = (value: string[] = []) => setExpandedItems(value);
 
     const footerClassNames = classNames(
-        'mt-1 flex w-full flex-col justify-between gap-y-3 px-4 pb-4 md:flex-row-reverse md:items-end md:px-6 md:pb-6',
+        'flex w-full flex-col justify-between gap-y-3 pb-4 md:flex-row-reverse md:items-end md:pb-6',
         { hidden: actions.length === 0 && children == null },
     );
 
     return (
-        <Card className={classNames('w-full overflow-hidden', className)}>
-            <Accordion.Container
-                ref={actionsContainerRef}
-                isMulti={true}
-                value={expandedItems}
-                onValueChange={handleAccordionValueChange}
-            >
-                {actions.map((action, index) => (
-                    <ProposalActionsAction
-                        key={actionKey != null ? (action[actionKey] as string) : `action-${index}`}
-                        action={action}
-                        index={index}
-                        name={actionNames?.[action.type]}
-                        CustomComponent={customActionComponents?.[action.type]}
-                        dropdownItems={dropdownItems}
-                        {...web3Props}
-                    />
-                ))}
-                {actions.length === 0 && (
-                    <EmptyState
-                        heading={copy.proposalActionsContainer.empty.heading}
-                        description={emptyStateDescription}
-                        isStacked={false}
-                        objectIllustration={{ object: 'SMART_CONTRACT' }}
-                    />
+        <div className="flex w-full flex-col gap-y-2 transition-colors md:gap-y-3">
+            {actions.map((action, index) => (
+                <Card
+                    key={actionKey != null ? (action[actionKey] as string) : `action-${index}`}
+                    className={classNames('w-full overflow-hidden', className)}
+                >
+                    <Accordion.Container
+                        ref={actionsContainerRef}
+                        isMulti={true}
+                        value={expandedItems}
+                        onValueChange={handleAccordionValueChange}
+                    >
+                        <ProposalActionsAction
+                            action={action}
+                            index={index}
+                            name={actionNames?.[action.type]}
+                            CustomComponent={customActionComponents?.[action.type]}
+                            dropdownItems={dropdownItems}
+                            {...web3Props}
+                        />
+                        {actions.length === 0 && (
+                            <EmptyState
+                                heading={copy.proposalActionsContainer.empty.heading}
+                                description={emptyStateDescription}
+                                isStacked={false}
+                                objectIllustration={{ object: 'SMART_CONTRACT' }}
+                            />
+                        )}
+                    </Accordion.Container>
+                </Card>
+            ))}
+            <div className={footerClassNames}>
+                {actions.length > 1 && (
+                    <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
+                        {expandedItems.length === actions.length
+                            ? copy.proposalActionsContainer.collapse
+                            : copy.proposalActionsContainer.expand}
+                    </Button>
                 )}
-                <div className={footerClassNames}>
-                    {actions.length > 1 && (
-                        <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
-                            {expandedItems.length === actions.length
-                                ? copy.proposalActionsContainer.collapse
-                                : copy.proposalActionsContainer.expand}
-                        </Button>
-                    )}
-                    {children}
-                </div>
-            </Accordion.Container>
-        </Card>
+                {children}
+            </div>
+        </div>
     );
 };

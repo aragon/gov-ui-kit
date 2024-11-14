@@ -139,7 +139,7 @@ export const WithChildren: Story = {
     },
     render: (args) => (
         <ProposalActions {...args}>
-            <Button size="md">Confirm Actions</Button>
+            <Button>Confirm Actions</Button>
         </ProposalActions>
     ),
 };
