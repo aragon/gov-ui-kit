@@ -77,8 +77,6 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
 
     const contextValues = useMemo(() => ({ startDate, endDate }), [startDate, endDate]);
 
-    const headingClassNames = classNames('flex flex-col items-start gap-1', className);
-
     invariant(
         !isMultiStage || index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',

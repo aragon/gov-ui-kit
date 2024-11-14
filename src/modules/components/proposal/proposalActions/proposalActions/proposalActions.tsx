@@ -78,6 +78,14 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
                     </Accordion.Container>
                 </Card>
             ))}
+            {actions.length === 0 && (
+                <EmptyState
+                    heading={copy.proposalActionsContainer.empty.heading}
+                    description={emptyStateDescription}
+                    isStacked={false}
+                    objectIllustration={{ object: 'SMART_CONTRACT' }}
+                />
+            )}
             <div className={footerClassNames}>
                 {actions.length > 1 && (
                     <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
