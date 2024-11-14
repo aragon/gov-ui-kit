@@ -17,11 +17,6 @@ type Story = StoryObj<typeof ProposalVoting.Container>;
 /**
  * Default usage example of the ProposalVoting.Container component.
  */
-export const Default: Story = {
-    args: {
-        title: 'Proposal voting',
-        description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',
-    },
-};
+export const Default: Story = {};
 
 export default meta;
