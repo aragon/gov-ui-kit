@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Update minor and patch NPM dependencies
+-   Update `eslint` to v9
 
 ## [1.0.54] - 2024-11-11
 
@@ -42,7 +43,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update minor and patch Github dependencies
 -   Update minor and patch NPM dependencies
 -   Bump `elliptic` from 6.5.7 to 6.6.0
--   Update `eslint` to v9
 
 ### Fixed
 
