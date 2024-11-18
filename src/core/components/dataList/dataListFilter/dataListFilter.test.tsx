@@ -70,7 +70,7 @@ describe('<DataList.Filter /> component', () => {
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
-    it('renders a clear icon button when searchValue is defined', async () => {
+    it('renders a clear icon button when searchValue is defined', () => {
         const props = { searchValue: 'test' };
         render(createTestComponent({ props }));
         expect(screen.getByRole('button')).toBeInTheDocument();

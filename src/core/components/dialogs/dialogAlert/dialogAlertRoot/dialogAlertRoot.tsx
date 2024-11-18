@@ -3,7 +3,7 @@ import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { createContext, useMemo, type ComponentPropsWithoutRef, type ReactNode } from 'react';
-import { DialogUtils } from '../../dialogUtils';
+import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
@@ -105,7 +105,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                                 initial="closed"
                                 animate="open"
                                 exit="closed"
-                                variants={DialogUtils.overlayAnimationVariants}
+                                variants={dialogOverlayAnimationVariants}
                             />
                         </Overlay>
                         <FocusScope trapped={useFocusTrap}>
@@ -117,7 +117,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                                 asChild={true}
                             >
                                 <motion.div
-                                    variants={DialogUtils.contentAnimationVariants}
+                                    variants={dialogContentAnimationVariants}
                                     initial="closed"
                                     animate="open"
                                     exit="exit"

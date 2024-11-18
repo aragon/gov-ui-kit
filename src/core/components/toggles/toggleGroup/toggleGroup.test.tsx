@@ -5,7 +5,7 @@ import { ToggleGroup, type IToggleGroupBaseProps, type IToggleGroupProps } from 
 
 describe('<ToggleGroup /> component', () => {
     const createTestComponent = (props: Partial<IToggleGroupProps> = {}) => {
-        if (props?.isMultiSelect) {
+        if (props.isMultiSelect) {
             return <ToggleGroup isMultiSelect={true} {...props} />;
         }
 

@@ -4,10 +4,10 @@ import * as wagmi from 'wagmi';
 import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalStatus } from '../../proposalUtils';
-import { ProposalDataListItemStructure, maxPublishersDisplayed } from './proposalDataListItemStructure';
+import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({ ...jest.requireActual('wagmi'), useAccount: jest.fn() }));
+jest.mock('wagmi', () => ({ ...jest.requireActual<typeof wagmi>('wagmi'), useAccount: jest.fn() }));
 
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
@@ -68,7 +68,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         publishers.forEach((publisher) => expect(screen.getByText(publisher.name)).toBeInTheDocument());
     });
 
-    it(`renders '${maxPublishersDisplayed}+ creators' when the publishers are more than ${maxPublishersDisplayed}`, () => {
+    it(`renders '3+ creators' when the publishers are more than 3`, () => {
         const publishers = [
             { name: 'abc', link: '#', address: '0x0000000000000000000000000000000000000000' },
             { name: 'def', link: '#', address: '0x0000000000000000000000000000000000000000' },
@@ -78,7 +78,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         render(createTestComponent({ publisher: publishers }));
 
-        expect(screen.getByText(`${maxPublishersDisplayed}+ creators`)).toBeInTheDocument();
+        expect(screen.getByText(`3+ creators`)).toBeInTheDocument();
     });
 
     it('renders with the given properties', () => {
@@ -158,7 +158,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
             expect(screen.getByText(testProps.option)).toBeInTheDocument();
             expect(screen.getByText(testProps.voteAmount)).toBeInTheDocument();
-            expect(screen.getByText(`${testProps.votePercentage}%`)).toBeInTheDocument();
+            expect(screen.getByText(`${testProps.votePercentage.toString()}%`)).toBeInTheDocument();
         });
 
         it('does not render the results when status is not of an ongoing type', () => {
@@ -168,7 +168,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
             expect(screen.queryByText(testProps.option)).not.toBeInTheDocument();
             expect(screen.queryByText(testProps.voteAmount)).not.toBeInTheDocument();
-            expect(screen.queryByText(`${testProps.votePercentage}%`)).not.toBeInTheDocument();
+            expect(screen.queryByText(`${testProps.votePercentage.toString()}%`)).not.toBeInTheDocument();
         });
     });
 });

@@ -22,7 +22,7 @@ export const Default: Story = {
     render: (props) => (
         <DataList.Root pageSize={2} itemsCount={10} entityLabel="Users">
             <DataList.Container>
-                {[...Array(10)].map((_value, index) => (
+                {[...Array<number>(10)].map((_value, index) => (
                     <DataList.Item key={index}>User {index}</DataList.Item>
                 ))}
             </DataList.Container>

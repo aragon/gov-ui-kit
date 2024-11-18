@@ -180,7 +180,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // Needed to trigger a calculation for the new scrollHeight of the textarea
             inputRef.current.style.height = 'auto';
 
-            const newHeight = `${inputRef.current.scrollHeight}px`;
+            const newHeight = `${inputRef.current.scrollHeight.toString()}px`;
             inputRef.current.style.height = newHeight;
         }
     }, [value, isFocused]);

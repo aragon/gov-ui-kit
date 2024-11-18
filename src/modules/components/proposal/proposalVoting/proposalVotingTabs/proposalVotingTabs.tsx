@@ -28,7 +28,7 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
     const contentRef = useRef<HTMLDivElement>(null);
 
     const handleTabClick = () => {
-        if (accordionRef?.current == null || contentRef?.current == null) {
+        if (accordionRef?.current == null || contentRef.current == null) {
             return;
         }
 

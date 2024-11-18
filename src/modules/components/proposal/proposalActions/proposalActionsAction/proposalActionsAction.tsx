@@ -85,7 +85,7 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
     );
 
     const onViewModeChange = (value: ProposalActionViewMode) => {
-        if (contentRef?.current == null) {
+        if (contentRef.current == null) {
             return;
         }
 
@@ -104,7 +104,7 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
 
     return (
-        <Accordion.Item value={`${index}`} ref={itemRef}>
+        <Accordion.Item value={index.toString()} ref={itemRef}>
             <Accordion.ItemHeader>
                 <div className="flex flex-col items-start">
                     <div className="flex flex-row items-center gap-2">
@@ -157,7 +157,7 @@ export const ProposalActionsAction = <TAction extends IProposalAction = IProposa
                                         key={item.label}
                                         icon={item.icon}
                                         iconPosition="left"
-                                        onClick={() => item.onClick?.(action, index)}
+                                        onClick={() => item.onClick(action, index)}
                                     >
                                         {item.label}
                                     </Dropdown.Item>

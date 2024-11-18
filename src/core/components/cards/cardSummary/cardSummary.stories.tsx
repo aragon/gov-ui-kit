@@ -22,7 +22,7 @@ export const Default: Story = {
     args: {
         value: '5',
         description: 'Proposals created',
-        action: { label: 'Proposal', onClick: () => alert('Click') },
+        action: { label: 'Proposal' },
         icon: IconType.APP_PROPOSALS,
     },
 };
@@ -34,7 +34,7 @@ export const HorizontalLayout: Story = {
     args: {
         value: '22',
         description: 'Members',
-        action: { label: 'Delegate', onClick: () => alert('Click') },
+        action: { label: 'Delegate' },
         icon: IconType.APP_MEMBERS,
         isStacked: false,
     },

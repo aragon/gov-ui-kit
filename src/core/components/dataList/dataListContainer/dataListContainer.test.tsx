@@ -55,7 +55,7 @@ describe('<DataList.Container /> component', () => {
         const currentPage = 1;
         const context = { pageSize, currentPage: 1, state: 'idle' as const };
 
-        const children = [...Array(pageSize * 10)].map((_value, key) => <div key={key}>test</div>);
+        const children = [...Array<number>(pageSize * 10)].map((_value, key) => <div key={key}>test</div>);
         const props = { children };
 
         render(createTestComponent({ context, props }));
@@ -64,7 +64,7 @@ describe('<DataList.Container /> component', () => {
 
     it('updates the childrenItemCount property on the data list context on mount', () => {
         const childrenAmount = 29;
-        const children = [...Array(childrenAmount)].map((_value, key) => <div key={key} />);
+        const children = [...Array<number>(childrenAmount)].map((_value, key) => <div key={key} />);
         const props = { children };
 
         const setChildrenItemCount = jest.fn();

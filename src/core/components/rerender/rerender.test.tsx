@@ -16,7 +16,7 @@ describe('<Rerender /> component', () => {
     };
 
     it('renders the initial time', () => {
-        const currentTime = Date.now();
+        const currentTime = Date.now().toString();
         const children = (time: number) => <div>Current Time: {time}</div>;
         render(createTestComponent({ children }));
 
@@ -31,13 +31,13 @@ describe('<Rerender /> component', () => {
         // Fast-forward time by 1 second
         act(() => jest.advanceTimersByTime(intervalDuration));
 
-        const updatedTime = Date.now();
+        const updatedTime = Date.now().toString();
         expect(screen.getByText(`Current Time: ${updatedTime}`)).toBeInTheDocument();
 
         // Fast-forward time by another second
         act(() => jest.advanceTimersByTime(intervalDuration));
 
-        const secondUpdatedTime = Date.now();
+        const secondUpdatedTime = Date.now().toString();
         expect(screen.getByText(`Current Time: ${secondUpdatedTime}`)).toBeInTheDocument();
     });
 

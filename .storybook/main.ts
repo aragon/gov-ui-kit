@@ -47,9 +47,12 @@ const config: StorybookConfig = {
     webpackFinal: (webpackConfig) => {
         // Remove any svg loader already set and use @svgr/webpack to load svgs on Storybook
         const svgWebpackRule = webpackConfig.module?.rules?.find((rule) => {
-            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule)?.test instanceof RegExp) {
-                return (rule as Record<string, any>).test?.test('.svg');
+            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule).test instanceof RegExp) {
+                const testRegExp = (rule as RuleSetRule).test as RegExp;
+                return testRegExp.test('.svg');
             }
+
+            return undefined;
         });
 
         if (typeof svgWebpackRule !== 'string') {

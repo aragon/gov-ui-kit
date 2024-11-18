@@ -24,7 +24,7 @@ export interface IFormatDateOptions {
     format?: DateFormat;
 }
 
-const cache: Record<string, Intl.NumberFormat> = {};
+const cache: Record<string, Intl.NumberFormat | undefined> = {};
 
 class FormatterUtils {
     numberLocale = 'en';
@@ -32,7 +32,7 @@ class FormatterUtils {
     currencyLocale = 'USD';
 
     private baseSymbolRanges = [
-        { value: 1e15, symbol: (value: number) => ` x 10^${this.getDecimalPlaces(value) - 1}` },
+        { value: 1e15, symbol: (value: number) => ` x 10^${(this.getDecimalPlaces(value) - 1).toString()}` },
         { value: 1e12, symbol: () => 'T' },
         { value: 1e9, symbol: () => 'B' },
         { value: 1e6, symbol: () => 'M' },
@@ -75,9 +75,7 @@ class FormatterUtils {
 
         const minDigits = fixedFractionDigitsOption ?? minFractionDigits;
 
-        const cacheKey = `number/${this.numberLocale}/${this.currencyLocale}/${isCurrency ?? '-'}/${maxDigits ?? '-'}/${
-            minDigits ?? '-'
-        }`;
+        const cacheKey = `number/${this.numberLocale}/${this.currencyLocale}/${isCurrency?.toString() ?? '-'}/${maxDigits?.toString() ?? '-'}/${minDigits?.toString() ?? '-'}`;
 
         if (!cache[cacheKey]) {
             cache[cacheKey] = new Intl.NumberFormat(this.numberLocale, {
@@ -96,7 +94,7 @@ class FormatterUtils {
             processedValue = processedValue / baseRangeDenominator;
         }
 
-        let formattedValue = cache[cacheKey]!.format(processedValue);
+        let formattedValue = cache[cacheKey].format(processedValue);
 
         if (withSign && processedValue > 0) {
             formattedValue = `+${formattedValue}`;
@@ -131,7 +129,7 @@ class FormatterUtils {
         const shouldUseRelativeCalendar = useRelativeCalendar && this.isYesterdayTodayTomorrow(dateObject);
 
         if (shouldUseRelativeCalendar) {
-            const relativeCalendarDate = dateObject.toRelativeCalendar({ locale: this.dateLocale });
+            const relativeCalendarDate = dateObject.toRelativeCalendar({ locale: this.dateLocale })!;
             const dateTime = dateObject.toLocaleString(
                 { ...DateTime.TIME_SIMPLE, hourCycle: 'h23' },
                 { locale: this.dateLocale },
@@ -172,7 +170,7 @@ class FormatterUtils {
         const dateTimeFormat = new Intl.DateTimeFormat(this.dateLocale, DateTime.DATETIME_FULL);
         const dateTimeParts = dateTimeFormat.formatToParts();
         const hourPartIndex = dateTimeParts.findIndex((part) => part.type === 'hour');
-        const timeLiteral = dateTimeParts[hourPartIndex - 1];
+        const timeLiteral = dateTimeParts[hourPartIndex - 1] as Intl.DateTimeFormatPart | undefined;
 
         return timeLiteral?.value ?? ', ';
     };

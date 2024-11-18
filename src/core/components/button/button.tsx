@@ -238,7 +238,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     });
 
     const iconSize = sizeToIconSize[size][buttonContext];
-    const iconResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<IconSize>>(
+    const iconResponsiveSize = Object.keys(responsiveSize).reduce<ResponsiveAttribute<IconSize>>(
         (current, breakpoint) => ({
             ...current,
             [breakpoint]: sizeToIconSize[responsiveSize[breakpoint as Breakpoint]!][buttonContext],
@@ -247,7 +247,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     );
 
     const spinnerSize = sizeToSpinnerSize[size];
-    const spinnerResponsiveSize = Object.keys(responsiveSize ?? {}).reduce<ResponsiveAttribute<SpinnerSize>>(
+    const spinnerResponsiveSize = Object.keys(responsiveSize).reduce<ResponsiveAttribute<SpinnerSize>>(
         (current, breakpoint) => ({
             ...current,
             [breakpoint]: sizeToSpinnerSize[responsiveSize[breakpoint as Breakpoint]!],

@@ -42,7 +42,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         className,
     );
 
-    const linkRel = target === '_blank' ? `noopener noreferrer ${rel}` : rel;
+    const linkRel = target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel;
 
     return (
         <LinkBase

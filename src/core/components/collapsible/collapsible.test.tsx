@@ -10,21 +10,6 @@ describe('<Collapsible /> component', () => {
         return <Collapsible {...completeProps} />;
     };
 
-    let originalResizeObserver: typeof global.ResizeObserver;
-
-    beforeAll(() => {
-        originalResizeObserver = global.ResizeObserver;
-        global.ResizeObserver = class {
-            observe() {}
-            unobserve() {}
-            disconnect() {}
-        };
-    });
-
-    afterAll(() => {
-        global.ResizeObserver = originalResizeObserver;
-    });
-
     beforeEach(() => {
         jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(500);
     });
