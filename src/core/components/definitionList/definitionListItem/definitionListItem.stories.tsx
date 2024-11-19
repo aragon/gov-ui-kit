@@ -55,7 +55,7 @@ export const TruncateDefinition: Story = {
     },
     render: (props: IDefinitionListItemProps) => (
         <DefinitionList.Item {...props}>
-            <div className="truncate text-neutral-500">
+            <div className="truncate">
                 5731588298112881474677942504380315442995089605930142380990784283931790335308357315882981128814746779425043803154429950896059301423809907842839317903353083
             </div>
         </DefinitionList.Item>
