@@ -33,24 +33,25 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
 
     return (
         <DataList.Item
-            className={classNames('flex h-16 items-center gap-x-3 md:h-20 md:gap-x-4 md:text-lg', className)}
+            className={classNames(
+                'flex h-16 min-w-0 flex-col justify-center gap-x-3 gap-y-1 md:h-20 md:gap-x-4 md:gap-y-1.5 md:text-lg',
+                className,
+            )}
             {...otherProps}
         >
-            <div className="flex min-w-0 flex-col gap-y-1 md:gap-y-1.5">
-                <div className="flex w-full items-center gap-x-1 leading-tight md:gap-x-1.5 md:text-lg">
-                    <p className="max-w-full shrink-0 truncate text-neutral-500">{proposalId}</p>
-                    <p className="truncate text-neutral-800">{proposalTitle}</p>
-                </div>
-                <div className="flex items-center gap-x-1 text-sm leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
-                    <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
-                    <Tag
-                        variant={voteIndicatorToTagVariant[voteIndicator]}
-                        className="capitalize"
-                        label={voteIndicator}
-                        data-testid="tag"
-                    />
-                    {date && <p className="mx-1">{formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}</p>}
-                </div>
+            <div className="flex w-full items-center gap-x-1 leading-tight md:gap-x-1.5 md:text-lg">
+                <p className="max-w-full shrink-0 truncate text-neutral-500">{proposalId}</p>
+                <p className="truncate text-neutral-800">{proposalTitle}</p>
+            </div>
+            <div className="flex items-center gap-x-1 text-sm leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
+                <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
+                <Tag
+                    variant={voteIndicatorToTagVariant[voteIndicator]}
+                    className="capitalize"
+                    label={voteIndicator}
+                    data-testid="tag"
+                />
+                {date && <p className="mx-1">{formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}</p>}
             </div>
         </DataList.Item>
     );

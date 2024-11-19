@@ -50,6 +50,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
         address,
         tokenSymbol,
         hideLabelTokenVoting,
+        className,
         ...otherProps
     } = props;
 
@@ -70,7 +71,10 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     return (
         <DataList.Item
-            className="flex min-w-fit flex-col items-start justify-center gap-y-3 py-4 md:min-w-44 md:py-6"
+            className={classNames(
+                'flex min-w-fit flex-col items-start justify-center gap-y-3 py-4 md:min-w-44 md:py-6',
+                className,
+            )}
             {...otherProps}
         >
             <div className="flex w-full items-center justify-between">

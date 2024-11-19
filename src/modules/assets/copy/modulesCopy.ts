@@ -164,6 +164,7 @@ export const modulesCopy = {
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
+        voted: 'Voted',
     },
     voteProposalDataListItemStructure: {
         voted: 'Voted',

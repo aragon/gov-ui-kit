@@ -49,11 +49,9 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                 <p className="line-clamp-2 text-base font-normal leading-normal text-neutral-500 md:text-lg">
                     {description}
                 </p>
-                <div className="flex space-x-6 text-neutral-400 md:space-x-8">
-                    <div className="flex items-center gap-2 text-sm md:text-base">
-                        <span className="capitalize">{network}</span>
-                        <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
-                    </div>
+                <div className="flex items-center gap-x-2 text-neutral-400">
+                    <span className="text-sm capitalize md:text-base">{network}</span>
+                    <Icon icon={IconType.BLOCKCHAIN_BLOCKCHAIN} />
                 </div>
             </div>
         </DataList.Item>

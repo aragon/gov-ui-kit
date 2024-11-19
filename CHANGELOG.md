@@ -9,16 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--   Add 'Voted' string to Vote Indicator of `VoteDataListItem`
+-   Update `VoteDataListItem` component to add "Voted" string and possibility to customise it through the `confirmationLabel` property
 
 ### Fixed
 
--   Update layouts for `DataListItem` (DLI) and layouts in all DLI modules usage -- Asset, Dao, Member, Proposal,
-    Transaction, Vote
+-   Update layout of `DataListItem` core component and layouts of components using it (Asset, Dao, Member, Proposal, Transaction, Vote)
 
 ### Changed
 
--   Remove 'plugin' prop from DAO Data List Item
+-   Remove `plugin` property from `DaoDataListItem` module component
 
 ## [1.0.53] - 2024-11-05
 

@@ -29,7 +29,7 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      */
     tokenSymbol?: string;
     /**
-     *   Custom label for the tag
+     *  Custom label for the tag.
      */
     confirmationLabel?: string;
 };
@@ -79,7 +79,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             </div>
 
             <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
-                <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
+                <span>{confirmationLabel ?? copy.voteDataListItemStructure.voted}</span>
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
                     className="capitalize"

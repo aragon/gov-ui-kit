@@ -33,7 +33,7 @@ export type IAssetDataListItemStructureProps = IDataListItemProps & {
 };
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
-    const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, ...otherProps } = props;
+    const { logoSrc, name, amount, symbol, fiatPrice, priceChange = 0, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -79,7 +79,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
     });
 
     return (
-        <DataList.Item className="flex h-16 items-center gap-x-3 md:h-20" {...otherProps}>
+        <DataList.Item className={classNames('flex h-16 items-center gap-x-3 md:h-20', className)} {...otherProps}>
             <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block" />
             <div className="flex w-full min-w-0 shrink items-center justify-between gap-3">
                 <div className="flex flex-col gap-y-1 truncate">

@@ -70,7 +70,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
     return (
         <DataList.Item
-            className={classNames('flex h-16 items-center justify-between gap-x-3 md:h-20 md:gap-x-4', className)}
+            className={classNames('flex items-center justify-between gap-x-3 py-2.5 md:gap-x-4 md:py-4', className)}
             href={parsedHref}
             {...otherProps}
         >
@@ -94,7 +94,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 )}
             </div>
 
-            <div className="flex flex-col items-end gap-y-1 truncate">
+            <div className="flex shrink-0 flex-col items-end gap-y-1 truncate">
                 <span className="leading-tight text-neutral-800 md:text-lg">{formattedTokenAmount}</span>
                 <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedTokenPrice}</span>
             </div>
