@@ -16,7 +16,8 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true
   },
   "include": ["src", ".storybook/**/*", "*.config.js"],
   "exclude": ["node_modules", "dist", "storybook-static", "coverage", ".yarn/**/*"]

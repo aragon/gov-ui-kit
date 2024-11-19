@@ -4,9 +4,9 @@ import {
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
-} from './actions/generators';
-import { ProposalActionType } from './proposalActionsTypes';
+} from './proposalActionsList';
 import { proposalActionsUtils } from './proposalActionsUtils';
+import { ProposalActionType } from './types';
 
 describe('ProposalActions utils', () => {
     describe('isWithdrawTokenAction', () => {

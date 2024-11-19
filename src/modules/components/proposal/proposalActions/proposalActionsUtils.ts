@@ -1,12 +1,11 @@
-import {
-    type IProposalAction,
-    type IProposalActionChangeMembers,
-    type IProposalActionChangeSettings,
-    type IProposalActionTokenMint,
-    type IProposalActionUpdateMetadata,
-    type IProposalActionWithdrawToken,
-    ProposalActionType,
-} from './proposalActionsTypes';
+import type {
+    IProposalActionChangeMembers,
+    IProposalActionChangeSettings,
+    IProposalActionTokenMint,
+    IProposalActionUpdateMetadata,
+    IProposalActionWithdrawToken,
+} from './proposalActionsList';
+import { type IProposalAction, ProposalActionType } from './types';
 
 class ProposalActionsUtils {
     isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {

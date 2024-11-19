@@ -1,0 +1,5 @@
+describe('<ProposalActionsFooter /> component', () => {
+    it('', () => {
+        //
+    });
+});

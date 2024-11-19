@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { generateProposalAction } from '../actions/generators/proposalAction';
-import { generateProposalActionWithdrawToken } from '../actions/generators/proposalActionWithdrawToken';
-import { type IProposalActionWithdrawToken } from '../proposalActionsTypes';
+import { generateProposalAction } from '../proposalActionsList/generators/proposalAction';
+import { generateProposalActionWithdrawToken } from '../proposalActionsList/proposalActionWithdrawToken/proposalActionWithdrawToken';
+import { type IProposalActionWithdrawToken } from '../types';
 import {
     ProposalActionsActionVerification,
     type IProposalActionsActionVerificationProps,

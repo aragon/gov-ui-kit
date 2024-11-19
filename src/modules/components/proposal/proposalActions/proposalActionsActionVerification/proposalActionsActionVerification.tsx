@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type ComponentProps } from 'react';
 import { Heading, Icon, IconType } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
-import { type IProposalAction } from '../proposalActionsTypes';
+import { type IProposalAction } from '../types';
 
 export interface IProposalActionsActionVerificationProps extends ComponentProps<'div'> {
     /**
