@@ -3,21 +3,6 @@ import { userEvent } from '@testing-library/user-event';
 import { Tooltip, type ITooltipProps } from './tooltip';
 
 describe('<Tooltip/> component', () => {
-    const originalResizeObserver = global.ResizeObserver;
-
-    beforeEach(() => {
-        // mocking ResizeObserver since it's not available in Jest test environment
-        global.ResizeObserver = jest.fn().mockImplementation(() => ({
-            observe: jest.fn(),
-            unobserve: jest.fn(),
-            disconnect: jest.fn(),
-        }));
-    });
-
-    afterEach(() => {
-        global.ResizeObserver = originalResizeObserver;
-    });
-
     const createTestComponent = (props?: Partial<ITooltipProps>) => {
         const completeProps: ITooltipProps = { content: 'test-content', ...props };
 

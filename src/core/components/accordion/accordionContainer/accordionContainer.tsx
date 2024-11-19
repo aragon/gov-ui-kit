@@ -33,7 +33,7 @@ export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainer
 
     const accordionContainerClasses = classNames('grow bg-neutral-0', className);
 
-    if (isMulti === true) {
+    if (isMulti) {
         return (
             <RadixAccordionRoot
                 className={accordionContainerClasses}

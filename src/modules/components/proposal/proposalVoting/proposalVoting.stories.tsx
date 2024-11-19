@@ -100,7 +100,7 @@ const tokenSettings = [
 const getMultisigSettings = (minApprovals: number) => [
     { term: 'Strategy', definition: '1 Address → 1 Vote' },
     { term: 'Voting options', definition: 'Approve' },
-    { term: 'Minimum approval', definition: `${minApprovals} of 5` },
+    { term: 'Minimum approval', definition: `${minApprovals.toString()} of 5` },
 ];
 
 /**

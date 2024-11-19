@@ -5,8 +5,11 @@ import { IconType } from '../../icon';
 import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
 
 describe('<TextAreaRichText /> component', () => {
-    (global.ClipboardEvent as unknown) = class ClipboardEventMock {};
-    (global.DragEvent as unknown) = class DragEventMock {};
+    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
+    class MockEventClass {}
+
+    (global.ClipboardEvent as unknown) = MockEventClass;
+    (global.DragEvent as unknown) = MockEventClass;
 
     const createPortalMock = jest.spyOn(ReactDOM, 'createPortal');
 

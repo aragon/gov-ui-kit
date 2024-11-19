@@ -15,8 +15,8 @@ describe('<Avatar /> component', () => {
 
     beforeAll(() => {
         (window.Image as unknown) = class MockImage {
-            onload: () => void = () => {};
-            src: string = '';
+            onload = jest.fn();
+            src = '';
             constructor() {
                 setTimeout(() => {
                     this.onload();
@@ -39,14 +39,14 @@ describe('<Avatar /> component', () => {
         expect(screen.queryByRole('img')).not.toBeInTheDocument();
     });
 
-    it('does not render fallback when valid image provided', async () => {
+    it('does not render fallback when valid image provided', () => {
         const fallbackContent = 'fallback content';
         render(createTestComponent({ fallback: fallbackContent, src: 'img.jpg' }));
 
         expect(screen.queryByText(fallbackContent)).not.toBeInTheDocument();
     });
 
-    it('renders loading animation while image is loading', async () => {
+    it('renders loading animation while image is loading', () => {
         render(createTestComponent({ src: 'img.jpg' }));
 
         const fallback = screen.getByTestId('fallback');

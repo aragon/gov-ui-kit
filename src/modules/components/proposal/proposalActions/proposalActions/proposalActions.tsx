@@ -31,7 +31,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
         if (expandedItems.length === actions.length) {
             setExpandedItems([]);
         } else {
-            setExpandedItems(Array.from({ length: actions.length }, (_, index) => `${index}`));
+            setExpandedItems(Array.from({ length: actions.length }, (_, index) => index.toString()));
         }
 
         if (actionsContainerRef.current && expandedItems.length === actions.length) {
@@ -47,11 +47,15 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
     );
 
     return (
-        <div className="flex w-full flex-col gap-y-2 transition-colors md:gap-y-3">
+        <div className="flex w-full flex-col gap-y-2 md:gap-y-3">
             {actions.map((action, index) => (
                 <Card
-                    key={actionKey != null ? (action[actionKey] as string) : `action-${index}`}
-                    className={classNames('w-full overflow-hidden', className)}
+                    key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
+                    className={classNames(
+                        'w-full overflow-hidden border border-neutral-100',
+                        { 'border-neutral-200 shadow-neutral-sm': expandedItems.includes(index.toString()) },
+                        className,
+                    )}
                 >
                     <Accordion.Container
                         ref={actionsContainerRef}

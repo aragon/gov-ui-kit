@@ -3,7 +3,7 @@ import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
-import { DialogUtils } from '../../dialogUtils';
+import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 
 export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
     /**
@@ -98,7 +98,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                 initial="closed"
                                 animate="open"
                                 exit="closed"
-                                variants={DialogUtils.overlayAnimationVariants}
+                                variants={dialogOverlayAnimationVariants}
                             />
                         </Overlay>
                         <FocusScope trapped={useFocusTrap}>
@@ -112,7 +112,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                 asChild={true}
                             >
                                 <motion.div
-                                    variants={DialogUtils.contentAnimationVariants}
+                                    variants={dialogContentAnimationVariants}
                                     initial="closed"
                                     animate="open"
                                     exit="exit"

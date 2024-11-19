@@ -62,12 +62,12 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     invariant(totalSupplyNumber > 0, 'ProposalVotingBreakdownToken: tokenTotalSupply must be a positive number');
 
     const totalVotes = optionValues.reduce((accumulator, option) => accumulator + option.value, 0);
-    const formattedTotalVotes = formatterUtils.formatNumber(totalVotes, { format: NumberFormat.GENERIC_SHORT });
+    const formattedTotalVotes = formatterUtils.formatNumber(totalVotes, { format: NumberFormat.GENERIC_SHORT })!;
 
     const minParticipationToken = (totalSupplyNumber * minParticipation) / 100;
     const formattedMinParticipationToken = formatterUtils.formatNumber(minParticipationToken, {
         format: NumberFormat.GENERIC_SHORT,
-    });
+    })!;
 
     const winningOption = Math.max(...optionValues.map((option) => option.value));
     const winningOptionPercentage = totalVotes > 0 ? (winningOption / totalVotes) * 100 : 0;
