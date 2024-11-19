@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Update `formatterUtils` documentation to add number formatting examples
+-   Include styles on `AccordionItemHeader` for stronger visual cue when expanded
+
 ### Changed
 
 -   Update minor and patch dependencies
@@ -14,7 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `cross-spawn` from 7.0.3 to 7.0.5
 -   Bump `@eslint/plugin-kit` from 0.2.2 to 0.2.3
 -   Bump `softprops/action-gh-release` from 2.0.9 to 2.1.0
--   Update 'Accordion
+-   Removed `xs` size variant from `Avatar` component
+-   Update `DaoAvatar` to correctly set text size depending on `size` property
+-   Update `ProposalActions` implementation to separate `Accordion` usage into separate `Card` containers
 
 ## [1.0.54] - 2024-11-11
 
