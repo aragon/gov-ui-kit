@@ -19,10 +19,8 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             )}
             {...otherProps}
         >
-            <dt className="line-clamp-1 text-base font-normal leading-relaxed text-neutral-800 md:line-clamp-none">
-                {term}
-            </dt>
-            <dd className="text-base font-normal text-neutral-500">{children}</dd>
+            <dt className="line-clamp-1 leading-tight text-neutral-800 md:line-clamp-none">{term}</dt>
+            <dd className="min-w-0 leading-tight text-neutral-500">{children}</dd>
         </div>
     );
 };
