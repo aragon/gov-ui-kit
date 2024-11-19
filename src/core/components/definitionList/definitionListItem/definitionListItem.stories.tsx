@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
-import { IconType } from '../../icon';
-import { Link } from '../../link';
 import { DefinitionList, type IDefinitionListItemProps } from '../index';
 
 const meta: Meta<typeof DefinitionList.Item> = {
@@ -60,27 +58,6 @@ export const TruncateDefinition: Story = {
             <div className="truncate">
                 5731588298112881474677942504380315442995089605930142380990784283931790335308357315882981128814746779425043803154429950896059301423809907842839317903353083
             </div>
-        </DefinitionList.Item>
-    ),
-};
-
-/**
- * Usage of the DefinitionList.Item component with a link as definition description.
- */
-export const DefinitionWithLink: Story = {
-    args: {
-        term: 'An external link',
-    },
-    render: (props: IDefinitionListItemProps) => (
-        <DefinitionList.Item {...props}>
-            <Link
-                href="https://etherscan.io/address/0x9c25a6b1bf3F6Fd2F68a62169c043045C2460482"
-                target="_blank"
-                iconRight={IconType.LINK_EXTERNAL}
-                className="min-w-0 truncate"
-            >
-                eagleops.dao.eth
-            </Link>
         </DefinitionList.Item>
     ),
 };
