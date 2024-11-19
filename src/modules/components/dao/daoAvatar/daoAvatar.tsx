@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type React from 'react';
 import {
     Avatar,
-    ResponsiveAttributeClassMap,
+    type ResponsiveAttributeClassMap,
     responsiveUtils,
     type AvatarSize,
     type IAvatarProps,
