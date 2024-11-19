@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { testLogger } from '../../../../../core/test';
+import { generateProposalActionsContext } from '../proposalActionsTestUtils';
 import {
     type IProposalActionsContext,
     ProposalActionsContextProvider,
@@ -10,15 +11,8 @@ import {
 describe('useProposalActionsContext hook', () => {
     const createTestWrapper = (context?: Partial<IProposalActionsContext>) =>
         function TestWrapper(props: { children: ReactNode }) {
-            const completeContext: IProposalActionsContext = {
-                actionsCount: 0,
-                expandedActions: [],
-                setExpandedActions: jest.fn(),
-                ...context,
-            };
-
             return (
-                <ProposalActionsContextProvider value={completeContext}>
+                <ProposalActionsContextProvider value={generateProposalActionsContext(context)}>
                     {props.children}
                 </ProposalActionsContextProvider>
             );

@@ -31,7 +31,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             <Accordion.Container isMulti={true} value={expandedActions} onValueChange={handleAccordionValueChange}>
                 {actionsCount === 0 && (
                     <EmptyState
-                        heading={copy.proposalActionsContainer.empty.heading}
+                        heading={copy.proposalActionsContainer.emptyHeader}
                         description={emptyStateDescription}
                         isStacked={false}
                         objectIllustration={{ object: 'SMART_CONTRACT' }}

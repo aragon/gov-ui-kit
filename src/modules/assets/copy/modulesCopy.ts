@@ -26,23 +26,26 @@ export const modulesCopy = {
         stage: 'Stage',
     },
     proposalActionsContainer: {
+        emptyHeader: 'No actions added',
+    },
+    proposalActionsFooter: {
         collapse: 'Collapse all',
         expand: 'Expand all',
-        empty: {
-            heading: 'No actions added',
-        },
     },
     proposalActionsItem: {
         dropdownLabel: 'More',
-        notVerified: 'Not verified',
         nativeSendAlert: 'Proceed with caution',
         nativeSendDescription: (amount: string) =>
             `This action attempts to send ${amount} ETH. This could cause the action to fail or result in a loss of funds.`,
+        notVerified: {
+            function: 'Unknown',
+            contract: 'Unverified contract',
+        },
         menu: {
-            basic: 'Basic',
+            BASIC: 'Basic',
             dropdownLabel: 'View action as',
-            decoded: 'Decoded',
-            raw: 'Raw',
+            DECODED: 'Decoded',
+            RAW: 'Raw',
         },
     },
     proposalActionsItemDecodedView: {

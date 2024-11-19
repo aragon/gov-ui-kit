@@ -1,3 +1,16 @@
+import type { ComponentType } from 'react';
+import type { IWeb3ComponentProps } from '../../../types';
+
+export enum ProposalActionType {
+    WITHDRAW_TOKEN = 'WITHDRAW_TOKEN',
+    ADD_MEMBERS = 'ADD_MEMBERS',
+    REMOVE_MEMBERS = 'REMOVE_MEMBERS',
+    UPDATE_METADATA = 'UPDATE_METADATA',
+    TOKEN_MINT = 'TOKEN_MINT',
+    CHANGE_SETTINGS_MULTISIG = 'CHANGE_SETTINGS_MULTISIG',
+    CHANGE_SETTINGS_TOKENVOTE = 'CHANGE_SETTINGS_TOKENVOTE',
+}
+
 export interface IProposalActionInputDataParameter {
     /**
      * The name of the parameter being passed.
@@ -58,3 +71,19 @@ export interface IProposalAction {
      */
     inputData: IProposalActionInputData | null;
 }
+
+export interface IProposalActionComponentProps<TAction extends IProposalAction = IProposalAction>
+    extends IWeb3ComponentProps {
+    /**
+     * Action to be rendered.
+     */
+    action: TAction;
+    /**
+     * Index of the action.
+     */
+    index: number;
+}
+
+export type ProposalActionComponent<TAction extends IProposalAction = IProposalAction> = ComponentType<
+    IProposalActionComponentProps<TAction>
+>;

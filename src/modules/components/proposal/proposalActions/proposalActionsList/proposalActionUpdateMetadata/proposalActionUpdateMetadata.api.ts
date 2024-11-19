@@ -1,4 +1,8 @@
-import type { IProposalAction, IProposalActionComponentProps, ProposalActionType } from '../../types';
+import type {
+    IProposalAction,
+    IProposalActionComponentProps,
+    ProposalActionType,
+} from '../../proposalActionsDefinitions';
 
 export interface IProposalActionUpdateMetadataDaoMetadataLink {
     /**

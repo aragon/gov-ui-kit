@@ -1,121 +1,67 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
-import { generateProposalActionContext } from '../proposalActions.testUtils';
-import { ProposalActionsContextProvider } from '../proposalActionsContext';
-import { ProposalActionType, type IProposalAction } from '../types';
+import { ProposalActionsContextProvider, type IProposalActionsContext } from '../proposalActionsContext';
+import { ProposalActionsItem } from '../proposalActionsItem';
+import { generateProposalAction, generateProposalActionsContext } from '../proposalActionsTestUtils';
 import { ProposalActionsContainer, type IProposalActionsContainerProps } from './proposalActionsContainer';
 
 describe('<ProposalActionsContainer /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalActionsContainerProps>) => {
+    const createTestComponent = (values?: {
+        context?: Partial<IProposalActionsContext>;
+        props?: Partial<IProposalActionsContainerProps>;
+    }) => {
         const completeProps: IProposalActionsContainerProps = {
             emptyStateDescription: 'test',
-            ...props,
+            ...values?.props,
         };
 
         return (
             <GukModulesProvider>
-                <ProposalActionsContextProvider value={generateProposalActionContext()}>
+                <ProposalActionsContextProvider value={generateProposalActionsContext(values?.context)}>
                     <ProposalActionsContainer {...completeProps} />
                 </ProposalActionsContextProvider>
             </GukModulesProvider>
         );
     };
 
-    it('correctly renders the actions', () => {
-        const actions = [generateProposalActionWithdrawToken(), generateProposalActionWithdrawToken()];
-        const actionNames = { [ProposalActionType.WITHDRAW_TOKEN]: 'Withdraw assets' };
-        render(createTestComponent({ actions, actionNames }));
-        expect(
-            screen.getAllByRole('button', { name: new RegExp(actionNames[ProposalActionType.WITHDRAW_TOKEN]) }),
-        ).toHaveLength(2);
+    it('renders an empty state when actions list is empty', () => {
+        const context = { actionsCount: 0 };
+        const props = { emptyStateDescription: 'no-actions' };
+        render(createTestComponent({ context, props }));
+        expect(screen.getByText(modulesCopy.proposalActionsContainer.emptyHeader)).toBeInTheDocument();
+        expect(screen.getByText(props.emptyStateDescription)).toBeInTheDocument();
     });
 
-    it('handles toggling all items', async () => {
-        const actions = [
-            generateProposalActionWithdrawToken({
-                sender: { name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678' },
-            }),
-            generateProposalActionWithdrawToken({
-                sender: { name: 'vitalik.eth', address: '0x1234567890abcdef1234567890abcdef12345678' },
-            }),
+    it('correctly renders the proposal actions', () => {
+        const children = [
+            <ProposalActionsItem key={1} action={generateProposalAction()} />,
+            <ProposalActionsItem key={2} action={generateProposalAction()} />,
         ];
-        render(createTestComponent({ actions }));
-
-        const toggleButtonExpand = screen.getByText('Expand all');
-        await userEvent.click(toggleButtonExpand);
-        expect(screen.getByText('Collapse all')).toBeInTheDocument();
-
-        actions.forEach(() => expect(screen.getAllByText(/vitalik.eth/).length).toBe(actions.length));
-
-        const toggleButtonCollapse = screen.getByText('Collapse all');
-        await userEvent.click(toggleButtonCollapse);
-
-        expect(screen.getByText('Expand all')).toBeInTheDocument();
-        actions.forEach(() => expect(screen.queryAllByText(/vitalik.eth/).length).toBe(0));
+        const context = { actionsCount: children.length };
+        render(createTestComponent({ props: { children }, context }));
+        expect(screen.queryByText(modulesCopy.proposalActionsContainer.emptyHeader)).not.toBeInTheDocument();
+        expect(screen.getAllByRole('button')).toHaveLength(children.length);
     });
 
-    it('triggers scrollIntoView when collapsing all items', async () => {
-        const actions = [generateProposalActionWithdrawToken(), generateProposalActionWithdrawToken()];
-        render(createTestComponent({ actions }));
-
-        const toggleButtonExpand = screen.getByText('Expand all');
-        await userEvent.click(toggleButtonExpand);
-
-        expect(screen.getByText('Collapse all')).toBeInTheDocument();
-        expect(scrollIntoViewSpy).not.toHaveBeenCalled();
-
-        const toggleButtonCollapse = screen.getByText('Collapse all');
-        await userEvent.click(toggleButtonCollapse);
-
-        expect(screen.getByText('Expand all')).toBeInTheDocument();
-        expect(scrollIntoViewSpy).toHaveBeenCalled();
-    });
-
-    it('passes custom action names to ProposalActionsAction', async () => {
-        const actions = [generateProposalActionWithdrawToken(), generateProposalAction({ type: 'tokenSwap' })];
-        const actionNames = { [ProposalActionType.WITHDRAW_TOKEN]: 'Custom Withdraw Token' };
-        render(createTestComponent({ actions, actionNames }));
-
-        const toggleButtonExpand = screen.getByText('Expand all');
-        await userEvent.click(toggleButtonExpand);
-
-        expect(screen.getByText(actionNames[ProposalActionType.WITHDRAW_TOKEN])).toBeInTheDocument();
-    });
-
-    it('renders custom action components if provided', async () => {
-        const CustomActionComponent = (props: { action: IProposalAction }) => `Custom action for ${props.action.type}`;
-
-        const actions = [
-            generateProposalActionWithdrawToken(),
-            generateProposalAction({
-                type: 'customType',
-                inputData: { function: 'customFunction', contract: '', parameters: [] },
-            }),
+    it('updates the list of expanded actions on action click', async () => {
+        const children = [
+            <ProposalActionsItem key={1} action={generateProposalAction()} />,
+            <ProposalActionsItem key={2} action={generateProposalAction()} />,
         ];
-
-        const actionNames = { customType: 'Custom action' };
-        const customActionComponents = { customType: CustomActionComponent };
-
-        render(createTestComponent({ actions, actionNames, customActionComponents }));
-
-        const toggleButtonExpand = screen.getByText('Expand all');
-        await userEvent.click(toggleButtonExpand);
-
-        expect(screen.getByText(`Custom action for ${actions[1].type}`)).toBeInTheDocument();
+        const setExpandedActions = jest.fn();
+        const context = { actionsCount: children.length, setExpandedActions };
+        render(createTestComponent({ props: { children }, context }));
+        await userEvent.click(screen.getAllByRole('button')[1]);
+        expect(setExpandedActions).toHaveBeenCalledWith(['1']);
     });
 
-    it('renders an empty state if no actions are provided', () => {
-        const actions: IProposalAction[] = [];
-        render(createTestComponent({ actions }));
-        expect(screen.getByText(modulesCopy.proposalActionsContainer.empty.heading)).toBeInTheDocument();
-    });
-
-    it('renders a custom empty state description if provided', () => {
-        const actions: IProposalAction[] = [];
-        const emptyStateDescription = 'Custom empty state description';
-        render(createTestComponent({ actions, emptyStateDescription }));
-        expect(screen.getByText(emptyStateDescription)).toBeInTheDocument();
+    it('updates the actions-count context value using the number of child components', () => {
+        const children = <ProposalActionsItem key={1} action={generateProposalAction()} />;
+        const setActionsCount = jest.fn();
+        const context = { setActionsCount };
+        render(createTestComponent({ props: { children }, context }));
+        expect(setActionsCount).toHaveBeenCalledWith(1);
     });
 });

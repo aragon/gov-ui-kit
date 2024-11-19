@@ -11,7 +11,6 @@ export const ProposalActions = {
 };
 
 export * from './proposalActionsContainer';
+export * from './proposalActionsDefinitions';
 export * from './proposalActionsItem';
 export * from './proposalActionsList';
-export { proposalActionsUtils } from './proposalActionsUtils';
-export * from './types';

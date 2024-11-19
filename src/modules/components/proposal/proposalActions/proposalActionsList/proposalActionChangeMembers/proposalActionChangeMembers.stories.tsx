@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProposalActionType } from '../../types';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';
 

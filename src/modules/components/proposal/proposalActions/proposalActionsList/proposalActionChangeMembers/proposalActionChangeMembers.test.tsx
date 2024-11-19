@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
-import { ProposalActionType } from '../../types';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';

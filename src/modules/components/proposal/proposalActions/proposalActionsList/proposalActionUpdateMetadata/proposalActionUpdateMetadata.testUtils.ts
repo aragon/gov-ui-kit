@@ -1,5 +1,5 @@
-import { generateProposalAction } from '../../proposalActions.testUtils';
-import { ProposalActionType } from '../../types';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
+import { generateProposalAction } from '../../proposalActionsTestUtils';
 import type { IProposalActionUpdateMetadata } from './proposalActionUpdateMetadata.api';
 
 export const generateProposalActionUpdateMetadata = (

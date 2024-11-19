@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Accordion, IconType } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
-import { generateProposalAction } from '../proposalActions.testUtils';
+import type { IProposalAction } from '../proposalActionsDefinitions';
 import {
     generateProposalActionChangeMembers,
     generateProposalActionChangeSettings,
@@ -10,7 +10,7 @@ import {
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
 } from '../proposalActionsList';
-import type { IProposalAction } from '../types';
+import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsItem } from './proposalActionsItem';
 import type { IProposalActionsItemProps } from './proposalActionsItem.api';
 

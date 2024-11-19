@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
 import { ProposalActions } from '../index';
-import { generateProposalAction } from '../proposalActions.testUtils';
+import { generateProposalAction } from '../proposalActionsTestUtils';
 
 const meta: Meta<typeof ProposalActions.Container> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Container',

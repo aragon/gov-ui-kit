@@ -27,19 +27,19 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
     return (
         <div
             className={classNames(
-                'flex w-full flex-col justify-between gap-3 pt-3 md:flex-row-reverse md:pt-4',
+                'flex w-full flex-col-reverse justify-between gap-3 pt-3 md:flex-row md:pt-4',
                 className,
             )}
             {...otherProps}
         >
+            {children}
             {actionsCount > 1 && (
-                <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:w-fit">
+                <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:ml-auto">
                     {expandedActions.length === actionsCount
-                        ? copy.proposalActionsContainer.collapse
-                        : copy.proposalActionsContainer.expand}
+                        ? copy.proposalActionsFooter.collapse
+                        : copy.proposalActionsFooter.expand}
                 </Button>
             )}
-            {children}
         </div>
     );
 };

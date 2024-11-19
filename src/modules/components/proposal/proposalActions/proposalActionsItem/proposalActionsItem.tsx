@@ -1,6 +1,10 @@
+import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
+import { formatUnits } from 'viem';
 import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType, invariant } from '../../../../../core';
+import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
+import type { IProposalAction } from '../proposalActionsDefinitions';
 import {
     ProposalActionChangeMembers,
     ProposalActionChangeSettings,
@@ -8,14 +12,10 @@ import {
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
 } from '../proposalActionsList';
-
-import { formatUnits } from 'viem';
-import { addressUtils } from '../../../../utils';
-import { proposalActionsUtils } from '../proposalActionsUtils';
-import type { IProposalAction } from '../types';
 import type { IProposalActionsItemProps } from './proposalActionsItem.api';
 import { ProposalActionsItemDecodedView } from './proposalActionsItemDecodedView';
 import { ProposalActionsItemRawView } from './proposalActionsItemRawView';
+import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
 export enum ProposalActionViewMode {
     BASIC = 'BASIC',
@@ -45,22 +45,22 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             return <CustomComponent action={action} {...commonProps} />;
         }
 
-        if (proposalActionsUtils.isWithdrawTokenAction(action)) {
+        if (proposalActionsItemUtils.isWithdrawTokenAction(action)) {
             return <ProposalActionWithdrawToken action={action} {...commonProps} />;
-        } else if (proposalActionsUtils.isTokenMintAction(action)) {
+        } else if (proposalActionsItemUtils.isTokenMintAction(action)) {
             return <ProposalActionTokenMint action={action} {...commonProps} />;
-        } else if (proposalActionsUtils.isUpdateMetadataAction(action)) {
+        } else if (proposalActionsItemUtils.isUpdateMetadataAction(action)) {
             return <ProposalActionUpdateMetadata action={action} {...commonProps} />;
-        } else if (proposalActionsUtils.isChangeMembersAction(action)) {
+        } else if (proposalActionsItemUtils.isChangeMembersAction(action)) {
             return <ProposalActionChangeMembers action={action} {...commonProps} />;
-        } else if (proposalActionsUtils.isChangeSettingsAction(action)) {
+        } else if (proposalActionsItemUtils.isChangeSettingsAction(action)) {
             return <ProposalActionChangeSettings action={action} {...commonProps} />;
         }
 
         return null;
     }, [action, CustomComponent, web3Props, index]);
 
-    const [viewMode, setViewMode] = useState(
+    const [activeViewMode, setActiveViewMode] = useState(
         ActionComponent
             ? ProposalActionViewMode.BASIC
             : action.inputData
@@ -69,55 +69,49 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const onViewModeChange = (value: ProposalActionViewMode) => {
-        if (contentRef.current == null) {
-            return;
-        }
+        const { style, scrollHeight = 0 } = contentRef.current ?? {};
+        style?.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
 
-        const { style, scrollHeight } = contentRef.current;
-
-        style.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
-
-        setViewMode(value);
-
-        if (itemRef.current) {
-            itemRef.current.scrollIntoView({ behavior: 'instant', block: 'center' });
-        }
+        setActiveViewMode(value);
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
 
-    const headerClassName = action.inputData == null ? 'text-warning-800' : 'text-neutral-500';
-    const contractName = action.inputData?.contract;
     const headerIcon =
         action.inputData == null
-            ? { className: 'text-warning-500', icon: IconType.WARNING }
-            : { className: 'text-primary-300', icon: IconType.SUCCESS };
+            ? { icon: IconType.WARNING, className: 'text-warning-500' }
+            : { icon: IconType.CRITICAL, className: 'text-critical-500' };
+
+    const functionNameStyle =
+        action.inputData == null ? 'text-warning-800' : displayValueWarning ? 'text-critical-800' : 'text-neutral-800';
+
+    const viewModes = [
+        { mode: ProposalActionViewMode.BASIC, disabled: ActionComponent == null },
+        { mode: ProposalActionViewMode.DECODED, disabled: action.inputData == null },
+        { mode: ProposalActionViewMode.RAW },
+    ];
 
     return (
         <Accordion.Item value={index.toString()} ref={itemRef}>
             <Accordion.ItemHeader>
-                <div className="flex flex-col items-start">
+                <div className="flex flex-col items-start gap-1 md:gap-1.5">
                     <div className="flex flex-row items-center gap-2">
-                        <Heading size="h4" className={displayValueWarning ? '!text-critical-800' : undefined}>
-                            {action.inputData == null
-                                ? copy.proposalActionsItem.notVerified
-                                : action.inputData.function}
-                        </Heading>
-                        {displayValueWarning && (
-                            <Icon icon={IconType.CRITICAL} size="md" className="text-critical-500" />
+                        <p className={classNames('text-base font-normal leading-tight md:text-lg', functionNameStyle)}>
+                            {action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
+                        </p>
+                        {(action.inputData == null || displayValueWarning) && (
+                            <Icon icon={headerIcon.icon} size="md" className={headerIcon.className} />
                         )}
                     </div>
-                    <div className="flex items-center gap-x-1.5">
-                        <Heading size="h5" className={`shrink-0 ${headerClassName}`}>
+                    <div className="flex items-center gap-2 md:gap-3">
+                        <Heading size="h5" className="truncate text-neutral-500">
+                            {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
+                        </Heading>
+                        <Heading size="h5" className="shrink-0 text-primary-400">
                             {addressUtils.truncateAddress(action.to)}
                         </Heading>
-                        {contractName && (
-                            <Heading size="h5" className="truncate text-primary-400">
-                                {contractName}
-                            </Heading>
-                        )}
-                        <Icon className={headerIcon.className} icon={headerIcon.icon} />
                     </div>
                 </div>
             </Accordion.ItemHeader>
@@ -132,31 +126,23 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             )}
                         />
                     )}
-                    {viewMode === ProposalActionViewMode.BASIC && ActionComponent}
-                    {viewMode === ProposalActionViewMode.DECODED && <ProposalActionsItemDecodedView action={action} />}
-                    {viewMode === ProposalActionViewMode.RAW && <ProposalActionsItemRawView action={action} />}
+                    {activeViewMode === ProposalActionViewMode.BASIC && ActionComponent}
+                    {activeViewMode === ProposalActionViewMode.DECODED && (
+                        <ProposalActionsItemDecodedView action={action} />
+                    )}
+                    {activeViewMode === ProposalActionViewMode.RAW && <ProposalActionsItemRawView action={action} />}
                     <div className="flex w-full flex-row justify-between">
                         <Dropdown.Container label={copy.proposalActionsItem.dropdownLabel} size="sm">
-                            <Dropdown.Item
-                                onSelect={() => onViewModeChange(ProposalActionViewMode.BASIC)}
-                                disabled={ActionComponent == null}
-                                selected={viewMode === ProposalActionViewMode.BASIC}
-                            >
-                                {copy.proposalActionsItem.menu.basic}
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                onSelect={() => onViewModeChange(ProposalActionViewMode.DECODED)}
-                                disabled={action.inputData == null}
-                                selected={viewMode === ProposalActionViewMode.DECODED}
-                            >
-                                {copy.proposalActionsItem.menu.decoded}
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                                onSelect={() => onViewModeChange(ProposalActionViewMode.RAW)}
-                                selected={viewMode === ProposalActionViewMode.RAW}
-                            >
-                                {copy.proposalActionsItem.menu.raw}
-                            </Dropdown.Item>
+                            {viewModes.map(({ mode, disabled }) => (
+                                <Dropdown.Item
+                                    key={mode}
+                                    onSelect={() => onViewModeChange(mode)}
+                                    disabled={disabled}
+                                    selected={activeViewMode === mode}
+                                >
+                                    {copy.proposalActionsItem.menu[mode]}
+                                </Dropdown.Item>
+                            ))}
                         </Dropdown.Container>
                         {dropdownItems != null && dropdownItems.length > 0 && (
                             <Dropdown.Container

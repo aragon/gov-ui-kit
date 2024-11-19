@@ -2,11 +2,18 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
 import { Button } from '../../../../../core';
 import { ProposalActions } from '../index';
-import { generateProposalAction } from '../proposalActions.testUtils';
+import { generateProposalAction } from '../proposalActionsTestUtils';
+
+const ComponentWrapper = (Story: ComponentType) => (
+    <ProposalActions.Root>
+        <Story />
+    </ProposalActions.Root>
+);
 
 const meta: Meta<typeof ProposalActions.Footer> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Footer',
     component: ProposalActions.Footer,
+    decorators: ComponentWrapper,
     parameters: {
         design: {
             type: 'figma',
@@ -17,29 +24,15 @@ const meta: Meta<typeof ProposalActions.Footer> = {
 
 type Story = StoryObj<typeof ProposalActions.Footer>;
 
-const ComponentWrapper = (actionsCount: number) =>
-    function Wrapper(Story: ComponentType) {
-        return (
-            <ProposalActions.Root actionsCount={actionsCount}>
-                <Story />
-            </ProposalActions.Root>
-        );
-    };
-
 /**
  * Default usage example of the ProposalActions.Footer component.
  */
 export const Default: Story = {
-    decorators: ComponentWrapper(2),
     render: (props) => (
         <>
             <ProposalActions.Container emptyStateDescription="Empty">
-                <ProposalActions.Item
-                    action={generateProposalAction({ to: '0x25716fB10298638eD386A5A5dD2E9233D213F442', data: '0xabc' })}
-                />
-                <ProposalActions.Item
-                    action={generateProposalAction({ to: '0x25716fB10298638eD386A5A5dD2E9233D213F442', data: '0xdef' })}
-                />
+                <ProposalActions.Item action={generateProposalAction()} />
+                <ProposalActions.Item action={generateProposalAction()} />
             </ProposalActions.Container>
             <ProposalActions.Footer {...props} />
         </>
@@ -50,13 +43,36 @@ export const Default: Story = {
  * Usage example of the ProposalActions.Footer component with children property.
  */
 export const Children: Story = {
-    decorators: ComponentWrapper(2),
     render: (props) => (
-        <ProposalActions.Footer {...props}>
-            <Button variant="primary" size="md">
-                Execute proposal
-            </Button>
-        </ProposalActions.Footer>
+        <>
+            <ProposalActions.Container emptyStateDescription="Empty">
+                <ProposalActions.Item action={generateProposalAction()} />
+                <ProposalActions.Item action={generateProposalAction()} />
+            </ProposalActions.Container>
+            <ProposalActions.Footer {...props}>
+                <Button variant="primary" size="md">
+                    Execute proposal
+                </Button>
+            </ProposalActions.Footer>
+        </>
+    ),
+};
+
+/**
+ * The children component is still rendered on the left side of the footer when the expand button is not shown.
+ */
+export const ChildrenWithoutExpand: Story = {
+    render: (props) => (
+        <>
+            <ProposalActions.Container emptyStateDescription="Empty">
+                <ProposalActions.Item action={generateProposalAction()} />
+            </ProposalActions.Container>
+            <ProposalActions.Footer {...props}>
+                <Button variant="primary" size="md">
+                    Execute proposal
+                </Button>
+            </ProposalActions.Footer>
+        </>
     ),
 };
 

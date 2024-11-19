@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { generateProposalActionChangeMembers, generateProposalActionChangeSettings, ProposalActions } from '../index';
 
-const meta: Meta<typeof ProposalActions.Root> = {
-    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Root',
-    component: ProposalActions.Root,
+const meta: Meta<typeof ProposalActions.Item> = {
+    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Item',
+    component: ProposalActions.Item,
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/branch/P0GeJKqILL7UXvaqu5Jj7V/Governance-UI-Kit?m=auto&node-id=15855%3A27684',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=18996-12757&t=aU6YzyKeOX7RyXen-4',
         },
     },
 };
@@ -29,12 +29,9 @@ const defaultActions = [
 ];
 
 /**
- * Default usage example of the ProposalActions.Root component.
+ * Default usage example of the ProposalActions.Item component.
  */
 export const Default: Story = {
-    args: {
-        actionsCount: defaultActions.length,
-    },
     render: (props) => (
         <ProposalActions.Root {...props}>
             <ProposalActions.Container emptyStateDescription="Proposal has no actions">

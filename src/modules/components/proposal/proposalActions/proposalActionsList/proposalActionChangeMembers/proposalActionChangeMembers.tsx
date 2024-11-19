@@ -1,7 +1,7 @@
 import { DefinitionList, Heading } from '../../../../../../core';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { MemberDataListItem } from '../../../../member';
-import { ProposalActionType } from '../../types';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 
 export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {

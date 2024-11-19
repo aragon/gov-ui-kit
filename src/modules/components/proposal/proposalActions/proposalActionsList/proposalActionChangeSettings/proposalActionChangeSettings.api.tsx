@@ -1,4 +1,4 @@
-import type { IProposalAction, IProposalActionComponentProps } from '../../types';
+import type { IProposalAction, IProposalActionComponentProps } from '../../proposalActionsDefinitions';
 
 export interface IProposalActionChangeSettingsSetting {
     /**
