@@ -5,7 +5,7 @@ import { ProposalActionTokenMint, type IProposalActionTokenMintProps } from './p
 
 jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', () => ({
     MemberDataListItemStructure: ({ tokenAmount, tokenSymbol }: { tokenAmount: number; tokenSymbol: string }) => (
-        <div data-testid="member-data-list-item">{`${tokenAmount} ${tokenSymbol}`}</div>
+        <div data-testid="member-data-list-item">{`${tokenAmount.toString()} ${tokenSymbol}`}</div>
     ),
 }));
 
@@ -37,17 +37,12 @@ describe('<ProposalActionTokenMint /> component', () => {
     });
 
     it('renders the correct token amount being minted for the receiver', () => {
-        const receiver = {
-            currentBalance: '50',
-            newBalance: '200',
-            address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e',
-        };
+        const receiver = { currentBalance: '50', newBalance: '200', address: '0x123' };
+        const newAmount = +receiver.newBalance - +receiver.currentBalance;
         const tokenSymbol = 'PDC';
         const action = generateProposalActionTokenMint({ receiver, tokenSymbol });
         render(createTestComponent({ action }));
-        expect(
-            screen.getByText(`${+receiver.newBalance - +receiver.currentBalance} ${tokenSymbol}`),
-        ).toBeInTheDocument();
+        expect(screen.getByText(`${newAmount.toString()} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
     it('does not render Voting Power label', () => {

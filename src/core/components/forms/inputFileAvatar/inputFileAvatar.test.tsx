@@ -15,9 +15,9 @@ describe('<InputFileAvatar /> component', () => {
 
     beforeEach(() => {
         (window.Image as unknown) = class MockImage {
-            onload: () => void = () => {};
-            onerror: () => void = () => {};
-            src: string = 'test';
+            onload: () => void = jest.fn();
+            onerror: () => void = jest.fn();
+            src = 'test';
 
             removeEventListener = jest.fn();
             addEventListener = (event: string, callback: () => void) => {
@@ -90,8 +90,7 @@ describe('<InputFileAvatar /> component', () => {
 
     it('calls onFileError when file has incorrect dimensions', async () => {
         const user = userEvent.setup();
-        const originalWidth = global.Image.prototype.width;
-        global.Image.prototype.width = 800;
+        (window.Image.prototype as HTMLImageElement).width = 800;
 
         const label = 'test-label';
         const file = new File(['test'], 'test.png', { type: 'image/png' });
@@ -101,7 +100,5 @@ describe('<InputFileAvatar /> component', () => {
         render(createTestComponent({ label, onFileError, minDimension }));
         await user.upload(screen.getByLabelText(label), file);
         await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
-
-        global.Image.prototype.width = originalWidth;
     });
 });

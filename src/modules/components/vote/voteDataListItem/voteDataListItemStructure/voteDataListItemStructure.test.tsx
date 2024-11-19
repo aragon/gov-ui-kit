@@ -58,7 +58,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         const tokenSymbol = 'WIP';
         const formattedTokenNumber = formatterUtils.formatNumber(votingPower, {
             format: NumberFormat.TOKEN_AMOUNT_SHORT,
-        }) as string;
+        })!;
 
         render(createTestComponent({ votingPower, tokenSymbol }));
 

@@ -49,7 +49,7 @@ describe('<DataList.Pagination /> component', () => {
         render(createTestComponent({ context }));
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
         expect(screen.getByText(context.childrenItemCount)).toBeInTheDocument();
-        expect(screen.getByText(`of ${context.itemsCount}`)).toBeInTheDocument();
+        expect(screen.getByText(`of ${context.itemsCount.toString()}`)).toBeInTheDocument();
     });
 
     it('correctly display the current rendered items for static lists', () => {

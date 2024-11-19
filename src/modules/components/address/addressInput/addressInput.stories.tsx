@@ -26,7 +26,7 @@ export const Default: Story = {
         const [value, setValue] = useState<string>();
         const [addressValue, setAddressValue] = useState<IAddressInputResolvedValue>();
 
-        const stringAddressValue = JSON.stringify(addressValue, null, 2) ?? 'undefined';
+        const stringAddressValue = addressValue != null ? JSON.stringify(addressValue, null, 2) : 'undefined';
 
         return (
             <div className="flex grow flex-col gap-2">

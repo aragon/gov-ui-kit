@@ -51,6 +51,13 @@ describe('<ProposalVotingDetails /> component', () => {
         expect(screen.getByText('August 3, 2024 at 13:08')).toBeInTheDocument();
     });
 
+    it('renders fallback when start and end dates are not set', () => {
+        const startDate = undefined;
+        const endDate = undefined;
+        render(createTestComponent(undefined, { startDate, endDate }));
+        expect(screen.getAllByText('-')).toHaveLength(2);
+    });
+
     it('renders the governance settings passed as props', () => {
         const settings = [
             { term: 'Voting options', definition: 'Approve' },

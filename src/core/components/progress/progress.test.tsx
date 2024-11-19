@@ -32,7 +32,7 @@ describe('<Progress /> component', () => {
         const indicatorValue = 50;
         render(createTestComponent({ thresholdIndicator: indicatorValue }));
         const progressIndicator = screen.getByTestId('progress-indicator');
-        expect(progressIndicator).toHaveStyle(`left: ${indicatorValue}%`);
+        expect(progressIndicator).toHaveStyle(`left: ${indicatorValue.toString()}%`);
         expect(progressIndicator.dataset.value).toEqual(indicatorValue.toString());
     });
 });

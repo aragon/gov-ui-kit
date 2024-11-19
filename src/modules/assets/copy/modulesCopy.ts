@@ -116,7 +116,7 @@ export const modulesCopy = {
     },
     proposalVotingBreakdownMultisig: {
         name: 'Minimum Approval',
-        description: (count: string | null) => `of ${count} members`,
+        description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
         option: {
@@ -143,11 +143,15 @@ export const modulesCopy = {
             active: 'left to vote',
             accepted: 'has been',
             rejected: 'has been',
+            expired: 'has',
             unreached: 'not reached',
+            vetoed: 'has been',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
+            expired: 'expired',
+            vetoed: 'vetoed',
         },
     },
     proposalVotingDetails: {
@@ -155,7 +159,7 @@ export const modulesCopy = {
         governance: 'Governance',
     },
     proposalVotingStage: {
-        stage: (index: number) => `Stage ${index}`,
+        stage: (index: number) => `Stage ${index.toString()}`,
     },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',

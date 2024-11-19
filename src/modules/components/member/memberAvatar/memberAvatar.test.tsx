@@ -23,17 +23,19 @@ describe('<MemberAvatar /> component', () => {
         return <MemberAvatar {...completeProps} />;
     };
 
-    beforeAll(() => {
+    beforeEach(() => {
         (window.Image as unknown) = class MockImage {
             onload = jest.fn();
             src = '';
             constructor() {
-                setTimeout(() => this.onload(), 100);
+                setTimeout(() => {
+                    this.onload();
+                }, 100);
             }
         };
     });
 
-    afterAll(() => {
+    afterEach(() => {
         global.Image = originalGlobalImage;
     });
 

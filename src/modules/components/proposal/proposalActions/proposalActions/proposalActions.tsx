@@ -31,7 +31,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
         if (expandedItems.length === actions.length) {
             setExpandedItems([]);
         } else {
-            setExpandedItems(Array.from({ length: actions.length }, (_, index) => `${index}`));
+            setExpandedItems(Array.from({ length: actions.length }, (_, index) => index.toString()));
         }
 
         if (actionsContainerRef.current && expandedItems.length === actions.length) {
@@ -56,7 +56,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
             >
                 {actions.map((action, index) => (
                     <ProposalActionsAction
-                        key={actionKey != null ? (action[actionKey] as string) : `action-${index}`}
+                        key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
                         action={action}
                         index={index}
                         name={actionNames?.[action.type]}

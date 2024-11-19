@@ -8,9 +8,7 @@ import {
 } from './proposalActionsActionVerification';
 
 jest.mock('../../../../utils', () => ({
-    addressUtils: {
-        truncateAddress: jest.fn((address) => `truncated_${address}`),
-    },
+    addressUtils: { truncateAddress: jest.fn((address: string) => `truncated_${address}`) },
 }));
 
 describe('<ProposalActionsActionVerification /> component', () => {

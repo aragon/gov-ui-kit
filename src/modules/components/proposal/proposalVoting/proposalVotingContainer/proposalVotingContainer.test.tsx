@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStage } from '../proposalVotingStage';
 import { type IProposalVotingContainerProps, ProposalVotingContainer } from './proposalVotingContainer';
@@ -24,19 +25,17 @@ describe('<ProposalVotingContainer /> component', () => {
 
     it('renders an accordion container when having more than one child', () => {
         const children = [
-            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} startDate={0} endDate={0} />,
-            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACCEPTED} startDate={0} endDate={0} />,
+            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} />,
+            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACCEPTED} />,
         ];
-        const { container } = render(createTestComponent({ children }));
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        expect(container.querySelector('div[data-orientation=vertical]')).toBeInTheDocument();
+        render(createTestComponent({ children }));
+        expect(screen.getAllByRole('button')).toHaveLength(2);
     });
 
     it('does not render the accordion container when having only one child', () => {
         const children = 'test-child';
-        const { container } = render(createTestComponent({ children }));
-        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-        expect(container.querySelector('div[data-orientation=vertical]')).not.toBeInTheDocument();
+        render(createTestComponent({ children }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
@@ -49,11 +48,26 @@ describe('<ProposalVotingContainer /> component', () => {
 
     it('sets the defined stage as active when activeStage property is set', () => {
         const children = [
-            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} startDate={0} endDate={0} />,
-            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACCEPTED} startDate={0} endDate={0} />,
+            <ProposalVotingStage key="0" status={ProposalVotingStatus.VETOED} />,
+            <ProposalVotingStage key="1" status={ProposalVotingStatus.UNREACHED} />,
         ];
         const activeStage = '1';
         render(createTestComponent({ children, activeStage }));
         expect(screen.getAllByRole('button')[1].dataset.state).toEqual('open');
+    });
+
+    it('calls the onStageClick property and updates the active stage when a new stage is selected', async () => {
+        const onStageClick = jest.fn();
+        const activeStage = '1';
+        const children = [
+            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} />,
+            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACTIVE} />,
+        ];
+        const { rerender } = render(createTestComponent({ children, activeStage, onStageClick }));
+        await userEvent.click(screen.getAllByRole('button')[0]);
+
+        expect(onStageClick).toHaveBeenCalledWith('0');
+        rerender(createTestComponent({ children, activeStage: '0', onStageClick }));
+        expect(screen.getAllByRole('button')[0].dataset.state).toEqual('open');
     });
 });

@@ -40,6 +40,15 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
     });
 
+    it('handles undefiend end date when state is active', () => {
+        const status = ProposalVotingStatus.ACTIVE;
+        const endDate = undefined;
+        render(createTestComponent({ status, endDate }));
+        expect(screen.getByText('-')).toBeInTheDocument();
+        expect(screen.getByText('left to vote')).toBeInTheDocument();
+        expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
+    });
+
     it('correctly renders the accepted state', () => {
         const status = ProposalVotingStatus.ACCEPTED;
         render(createTestComponent({ status }));
@@ -55,6 +64,24 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('rejected')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+    });
+
+    it('correctly renders the vetoed state', () => {
+        const status = ProposalVotingStatus.VETOED;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has been')).toBeInTheDocument();
+        expect(screen.getByText('vetoed')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+    });
+
+    it('correctly renders the expired state', () => {
+        const status = ProposalVotingStatus.EXPIRED;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has')).toBeInTheDocument();
+        expect(screen.getByText('expired')).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 

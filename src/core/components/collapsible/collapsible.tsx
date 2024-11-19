@@ -10,49 +10,52 @@ const sizedCollapsedHeights = {
     lg: 384,
 };
 
-export const Collapsible: React.FC<ICollapsibleProps> = ({
-    collapsedSize = 'md',
-    customCollapsedHeight,
-    isOpen: controlledIsOpen,
-    defaultOpen = false,
-    buttonLabelOpened,
-    buttonLabelClosed,
-    showOverlay = false,
-    className,
-    onToggle,
-    children,
-    ...otherProps
-}) => {
-    const [internalIsOpen, setInternalIsOpen] = useState(defaultOpen);
-    const isControlled = controlledIsOpen !== undefined;
-    const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
+export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
+    const {
+        collapsedSize = 'md',
+        customCollapsedHeight,
+        isOpen: isOpenProp,
+        defaultOpen = false,
+        buttonLabelOpened,
+        buttonLabelClosed,
+        showOverlay = false,
+        className,
+        onToggle,
+        children,
+        ...otherProps
+    } = props;
+
+    const [isOpenState, setIsOpenState] = useState(defaultOpen);
     const [isOverflowing, setIsOverflowing] = useState(false);
+    const [maxHeight, setMaxHeight] = useState(0);
+
+    const isOpen = isOpenProp ?? isOpenState;
+
     const contentRef = useRef<HTMLDivElement>(null);
-    const [maxHeight, setMaxHeight] = useState<number | null>();
     const maxCollapsedHeight = customCollapsedHeight ?? sizedCollapsedHeights[collapsedSize];
 
     const toggle = useCallback(() => {
-        const newIsOpen = !isOpen;
-        if (!isControlled) {
-            setInternalIsOpen(newIsOpen);
-        }
-        onToggle?.(newIsOpen);
-    }, [isOpen, isControlled, onToggle]);
+        setIsOpenState(!isOpen);
+        onToggle?.(!isOpen);
+    }, [isOpen, onToggle]);
 
     useEffect(() => {
         const content = contentRef.current;
 
         const checkOverflow = () => {
-            if (content) {
-                const contentHeight = content.scrollHeight;
-                const isContentOverflowing = contentHeight > maxCollapsedHeight;
-
-                setIsOverflowing(isContentOverflowing);
-                setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
+            if (!content) {
+                return;
             }
+
+            const contentHeight = content.scrollHeight;
+            const isContentOverflowing = contentHeight > maxCollapsedHeight;
+
+            setIsOverflowing(isContentOverflowing);
+            setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
         };
 
         const observer = new ResizeObserver(() => checkOverflow());
+
         if (content) {
             observer.observe(content);
         }
@@ -64,12 +67,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
         };
     }, [maxCollapsedHeight]);
 
-    const parsedMaxHeight = !isOpen ? `${maxCollapsedHeight}px` : `${maxHeight}px`;
-
-    const outerClassName = classNames('relative', { 'bg-neutral-0': showOverlay }, className);
-    const contentClassNames = classNames(
-        'overflow-hidden transition-all', // base
-    );
+    const maxHeightProcessed = `${(isOpen ? maxHeight : maxCollapsedHeight).toString()}px`;
 
     const footerClassName = classNames(
         {
@@ -82,8 +80,8 @@ export const Collapsible: React.FC<ICollapsibleProps> = ({
     );
 
     return (
-        <div className={outerClassName} {...otherProps}>
-            <div ref={contentRef} style={{ maxHeight: parsedMaxHeight }} className={contentClassNames}>
+        <div className={classNames('relative', { 'bg-neutral-0': showOverlay }, className)} {...otherProps}>
+            <div ref={contentRef} style={{ maxHeight: maxHeightProcessed }} className="overflow-hidden transition-all">
                 {children}
             </div>
             {isOverflowing && (

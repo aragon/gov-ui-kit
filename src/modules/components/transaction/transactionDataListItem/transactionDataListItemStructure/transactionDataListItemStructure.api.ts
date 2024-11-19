@@ -19,19 +19,15 @@ export type ITransactionDataListItemProps = IDataListItemProps & {
      */
     chainId: number;
     /**
-     * The address of the token.
+     * The symbol of the token (e.g. 'ETH').
      */
-    tokenAddress?: string;
-    /**
-     * The symbol of the token, e.g. 'ETH' as a string
-     */
-    tokenSymbol?: string;
+    tokenSymbol: string;
     /**
      * The token value in the transaction.
      */
     tokenAmount?: number | string;
     /**
-     * The estimated fiat value of the transaction.
+     * The price of the token at the time of the transaction.
      */
     tokenPrice?: number | string;
     /**
@@ -45,11 +41,11 @@ export type ITransactionDataListItemProps = IDataListItemProps & {
      */
     status?: TransactionStatus;
     /**
-     *  Date of transaction in ISO format or as a timestamp
+     * Date of transaction in ISO format or as a timestamp.
      */
     date: number | string;
     /**
-     * The transaction hash.
+     * The hash of the transaction.
      */
-    hash: Hash;
+    hash?: Hash;
 };

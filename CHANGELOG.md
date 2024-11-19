@@ -9,20 +9,56 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Removed 'xs' size variant from `Avatar` component
--   Update `DaoAvatar` to map text size to 'AvatarSize' prop from parent
+-   Update minor and patch dependencies
+-   Update `eslint` to v9
+-   Bump `cross-spawn` from 7.0.3 to 7.0.5
+-   Bump `@eslint/plugin-kit` from 0.2.2 to 0.2.3
+-   Bump `softprops/action-gh-release` from 2.0.9 to 2.1.0
+-   Removed `xs` size variant from `Avatar` component
+-   Update `DaoAvatar` to correctly set text size depending on `size` property
+
+## [1.0.54] - 2024-11-11
+
+### Changed
+
+-   Added missing export for `IAddressInputResolvedValue` interface
 
 ### Fixed
 
--   Update Figma documentation links in Storybook component docs
+-   Fix layout of `ProposalActionChangeMembers` module component
+
+## [1.0.53] - 2024-11-05
+
+### Fixed
+
+-   Update `ProposalVoting.Container` module component to make stages accordion controlled and support updating the
+    current active stage programmatically
+-   Fix `VoteProposalDataListItem` module component to truncate long proposal IDs
+
+### Changed
+
+-   Bump `softprops/action-gh-release` from 2.0.8 to 2.0.9
+-   Update minor and patch NPM dependencies
+
+## [1.0.52] - 2024-10-30
+
+### Changed
+
+-   Update `ProposalVotingStage` module component to support undefined `startDate` and `endDate` properties
+-   Update minor and patch Github dependencies
+-   Update minor and patch NPM dependencies
+-   Bump `elliptic` from 6.5.7 to 6.6.0
+
+### Fixed
+
+-   Update `ProposalVotingStageStatus` module component to support `vetoed` and `expired` statuses
+-   Update Figma documentation links in Storybook components
 -   Rename default modules context values to use `guk` prefix
 
 ## [1.0.51] - 2024-10-23
 
 ### Fixed
 
--   Update Figma documentation links in Storybook components
--   Rename default modules context values to use `guk` prefix
 -   Rename default core context values to use `guk` prefix
 -   Update `<DefinitionListItem />` and `<Breadcrumbs />` core components to truncate long strings
 -   Fix `<InputNumber >` core component to trigger `onChange` callback on + / - button click

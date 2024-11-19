@@ -39,7 +39,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
     const unsetLink = () => editor?.chain().focus().extendMarkRange('link').unsetLink().run();
 
     const setLink = () => {
-        const previousUrl = editor?.getAttributes('link').href;
+        const previousUrl = editor?.getAttributes('link').href as string;
         const url = window.prompt('URL', previousUrl);
 
         if (url == null || url === '') {

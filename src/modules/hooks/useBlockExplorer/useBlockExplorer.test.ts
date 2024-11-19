@@ -36,7 +36,7 @@ describe('useBlockExplorer hook', () => {
         it('returns the block explorer of the first chain in the wagmi config when chainId and chains are not defined', () => {
             useChainsSpy.mockReturnValue([sepolia, polygon]);
             const { result } = renderHook(() => useBlockExplorer());
-            expect(result.current.getBlockExplorer()).toEqual(sepolia.blockExplorers?.default);
+            expect(result.current.getBlockExplorer()).toEqual(sepolia.blockExplorers.default);
         });
 
         it('returns the block explorer of the chain specified on the hook when function chain-id parameter is not specified', () => {
@@ -99,6 +99,12 @@ describe('useBlockExplorer hook', () => {
             useChainsSpy.mockReturnValue([sepolia]);
             const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
             expect(result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: '0x123' })).toBeUndefined();
+        });
+
+        it('returns undefined when id parameter is missing', () => {
+            useChainsSpy.mockReturnValue([mainnet]);
+            const { result } = renderHook(() => useBlockExplorer({ chainId: mainnet.id }));
+            expect(result.current.buildEntityUrl({ type: ChainEntityType.ADDRESS, id: undefined })).toBeUndefined();
         });
     });
 });
