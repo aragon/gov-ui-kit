@@ -16,14 +16,21 @@ export interface IAccordionItemProps extends ComponentPropsWithRef<'div'> {
 export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((props, ref) => {
     const { children, className, disabled, value, ...otherProps } = props;
 
+    const accordionItemClasses = classNames(
+        'w-full overflow-hidden rounded-xl border border-neutral-100 bg-neutral-0', // base
+        'data-[disabled]:border-neutral-200', // disabled
+        'data-[state=open]:border-neutral-200 data-[state=open]:shadow-neutral-sm', // open
+        'hover:border-neutral-200 hover:shadow-neutral-sm', // hover
+        'active:border-neutral-400', // active
+        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        className,
+    );
+
     return (
         <RadixAccordionItem
             disabled={disabled}
             value={value}
-            className={classNames(
-                'border-t border-neutral-100 first:border-none hover:border-neutral-200 active:border-neutral-400',
-                className,
-            )}
+            className={accordionItemClasses}
             ref={ref}
             {...otherProps}
         >

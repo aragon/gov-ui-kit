@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { Accordion, Button, Card, EmptyState } from '../../../../../core';
+import { Accordion, Button, CardEmptyState, EmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import type { IProposalAction } from '../proposalActionsTypes';
@@ -47,47 +47,40 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
     );
 
     return (
-        <div className="flex w-full flex-col gap-y-2 md:gap-y-3">
+        <div className="">
             {actions.map((action, index) => (
-                <Card
+                <Accordion.Container
                     key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
-                    className={classNames(
-                        'w-full overflow-hidden border border-neutral-100',
-                        { 'border-neutral-200 shadow-neutral-sm': expandedItems.includes(index.toString()) },
-                        className,
-                    )}
+                    ref={actionsContainerRef}
+                    isMulti={true}
+                    value={expandedItems}
+                    onValueChange={handleAccordionValueChange}
                 >
-                    <Accordion.Container
-                        ref={actionsContainerRef}
-                        isMulti={true}
-                        value={expandedItems}
-                        onValueChange={handleAccordionValueChange}
-                    >
-                        <ProposalActionsAction
-                            action={action}
-                            index={index}
-                            name={actionNames?.[action.type]}
-                            CustomComponent={customActionComponents?.[action.type]}
-                            dropdownItems={dropdownItems}
-                            {...web3Props}
+                    <ProposalActionsAction
+                        action={action}
+                        index={index}
+                        name={actionNames?.[action.type]}
+                        CustomComponent={customActionComponents?.[action.type]}
+                        dropdownItems={dropdownItems}
+                        {...web3Props}
+                    />
+                    {actions.length === 0 && (
+                        <EmptyState
+                            heading={copy.proposalActionsContainer.empty.heading}
+                            description={emptyStateDescription}
+                            isStacked={false}
+                            objectIllustration={{ object: 'SMART_CONTRACT' }}
                         />
-                        {actions.length === 0 && (
-                            <EmptyState
-                                heading={copy.proposalActionsContainer.empty.heading}
-                                description={emptyStateDescription}
-                                isStacked={false}
-                                objectIllustration={{ object: 'SMART_CONTRACT' }}
-                            />
-                        )}
-                    </Accordion.Container>
-                </Card>
+                    )}
+                </Accordion.Container>
             ))}
             {actions.length === 0 && (
-                <EmptyState
+                <CardEmptyState
                     heading={copy.proposalActionsContainer.empty.heading}
                     description={emptyStateDescription}
                     isStacked={false}
                     objectIllustration={{ object: 'SMART_CONTRACT' }}
+                    className="rounded-xl border border-neutral-100 bg-neutral-0"
                 />
             )}
             <div className={footerClassNames}>
