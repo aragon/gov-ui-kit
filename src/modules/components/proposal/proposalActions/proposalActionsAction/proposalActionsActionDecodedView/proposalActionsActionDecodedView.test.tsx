@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import * as coreModule from '../../../../../../core';
+import type * as coreModule from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
 import {

@@ -1,2 +1,2 @@
-export * from './compositeAddress';
-export * from './web3ComponentConfig';
+export type * from './compositeAddress';
+export type * from './web3ComponentConfig';

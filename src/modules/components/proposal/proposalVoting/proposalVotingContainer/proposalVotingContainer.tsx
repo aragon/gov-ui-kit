@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { Children, type ComponentProps } from 'react';
 import { Accordion, Card, Heading } from '../../../../../core';
-import { IProposalVotingStageProps } from '../proposalVotingStage';
+import { type IProposalVotingStageProps } from '../proposalVotingStage';
 
 export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
     /**

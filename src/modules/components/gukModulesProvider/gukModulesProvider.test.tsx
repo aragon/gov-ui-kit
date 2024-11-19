@@ -1,7 +1,7 @@
-import * as ReactQuery from '@tanstack/react-query';
+import type * as ReactQuery from '@tanstack/react-query';
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import * as Wagmi from 'wagmi';
+import type * as Wagmi from 'wagmi';
 import { modulesCopy, type ModulesCopy } from '../../assets';
 import {
     GukModulesProvider,
