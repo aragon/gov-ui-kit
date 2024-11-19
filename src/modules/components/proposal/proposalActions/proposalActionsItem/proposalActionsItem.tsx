@@ -20,7 +20,7 @@ export enum ProposalActionViewMode {
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
-    const { action, index, CustomComponent, dropdownItems, ...web3Props } = props;
+    const { action, index, CustomComponent, dropdownItems, editMode, formPrefix, ...web3Props } = props;
 
     invariant(
         index != null,
@@ -33,11 +33,12 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const itemRef = useRef<HTMLDivElement>(null);
 
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
+    const isAbiAvailable = action.inputData != null;
 
     const [activeViewMode, setActiveViewMode] = useState(
         supportsBasicView
             ? ProposalActionViewMode.BASIC
-            : action.inputData
+            : isAbiAvailable
               ? ProposalActionViewMode.DECODED
               : ProposalActionViewMode.RAW,
     );
@@ -56,13 +57,13 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const functionNameStyle = displayValueWarning
         ? 'text-critical-800'
-        : action.inputData == null
+        : !isAbiAvailable
           ? 'text-warning-800'
           : 'text-neutral-800';
 
     const viewModes = [
         { mode: ProposalActionViewMode.BASIC, disabled: !supportsBasicView },
-        { mode: ProposalActionViewMode.DECODED, disabled: action.inputData == null },
+        { mode: ProposalActionViewMode.DECODED, disabled: !isAbiAvailable },
         { mode: ProposalActionViewMode.RAW },
     ];
 
@@ -74,7 +75,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <p className={classNames('text-base font-normal leading-tight md:text-lg', functionNameStyle)}>
                             {action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
                         </p>
-                        {(action.inputData == null || displayValueWarning) && (
+                        {(!isAbiAvailable || displayValueWarning) && (
                             <Icon icon={headerIcon.icon} size="md" className={headerIcon.className} />
                         )}
                     </div>
@@ -108,9 +109,15 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         />
                     )}
                     {activeViewMode === ProposalActionViewMode.DECODED && (
-                        <ProposalActionsItemDecodedView action={action} />
+                        <ProposalActionsItemDecodedView action={action} editMode={editMode && !supportsBasicView} />
                     )}
-                    {activeViewMode === ProposalActionViewMode.RAW && <ProposalActionsItemRawView action={action} />}
+                    {activeViewMode === ProposalActionViewMode.RAW && (
+                        <ProposalActionsItemRawView
+                            action={action}
+                            editMode={editMode && !isAbiAvailable}
+                            formPrefix={formPrefix}
+                        />
+                    )}
                     <div className="flex w-full flex-row justify-between">
                         <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
                             {viewModes.map(({ mode, disabled }) => (

@@ -1,21 +1,28 @@
+import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ComponentType } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { IconType } from '../../../../../core';
-import { generateProposalActionTokenMint, ProposalActions } from '../index';
+import { generateProposalActionTokenMint, type IProposalActionsItemProps, ProposalActions } from '../index';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 
-const WrapperComponent = (Story: ComponentType) => (
-    <ProposalActions.Root>
-        <ProposalActions.Container emptyStateDescription="Proposal has no actions">
-            <Story />
-        </ProposalActions.Container>
-    </ProposalActions.Root>
-);
+const defaultRender = (props: IProposalActionsItemProps) => {
+    const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
+
+    return (
+        <FormProvider {...methods}>
+            <ProposalActions.Root>
+                <ProposalActions.Container emptyStateDescription="Proposal has no actions">
+                    <ProposalActions.Item {...props} />
+                </ProposalActions.Container>
+            </ProposalActions.Root>
+            <DevTool control={methods.control} />
+        </FormProvider>
+    );
+};
 
 const meta: Meta<typeof ProposalActions.Item> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Item',
     component: ProposalActions.Item,
-    decorators: WrapperComponent,
     parameters: {
         design: {
             type: 'figma',
@@ -30,6 +37,7 @@ type Story = StoryObj<typeof ProposalActions.Item>;
  * For verified actions, the ProposalActions.Item component renders the DECODED view by default and disables the basic view.
  */
 export const Verified: Story = {
+    render: defaultRender,
     args: {
         index: 0,
         action: generateProposalAction({
@@ -72,6 +80,7 @@ export const Verified: Story = {
  * For unverified actions, the ProposalActions.Item component renders the RAW view by default and disables the decoded and basic views.
  */
 export const Unverified: Story = {
+    render: defaultRender,
     args: {
         index: 0,
         action: generateProposalAction({
@@ -86,6 +95,7 @@ export const Unverified: Story = {
  * For supported/native actions, the ProposalActions.Item component renders the related BASIC view by default.
  */
 export const Native: Story = {
+    render: defaultRender,
     args: {
         index: 0,
         action: generateProposalActionTokenMint({
@@ -123,6 +133,7 @@ export const Native: Story = {
  * Actions are marked as critical if they are not native transfers but have a value greater than 0.
  */
 export const Critical: Story = {
+    render: defaultRender,
     args: {
         index: 0,
         action: generateProposalAction({
@@ -146,6 +157,7 @@ export const Critical: Story = {
  * content with the items specified.
  */
 export const DropdownItems: Story = {
+    render: defaultRender,
     args: {
         index: 0,
         action: generateProposalAction({

@@ -35,4 +35,13 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      * Items displayed beside the "View as" menu.
      */
     dropdownItems?: Array<IProposalActionsItemDropdownItem<TAction>>;
+    /**
+     * Enables the edit-mode when set to true. The RAW view will be editable only if the action has no DECODED view,
+     * similarly the DECODED view will be editable only if the action has no BASIC view.
+     */
+    editMode?: boolean;
+    /**
+     * Form prefix to be prepended to all proposal action text fields.
+     */
+    formPrefix?: string;
 }

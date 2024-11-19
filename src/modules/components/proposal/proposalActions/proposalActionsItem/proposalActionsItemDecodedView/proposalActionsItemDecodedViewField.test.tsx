@@ -1,0 +1,5 @@
+describe('<ProposalActionsItemDecodedViewField /> component', () => {
+    it('', () => {
+        //
+    });
+});
