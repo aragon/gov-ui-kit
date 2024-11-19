@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Children, type ComponentProps } from 'react';
+import React, { Children, useEffect, type ComponentProps } from 'react';
 import { Accordion, Card, EmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -16,7 +16,13 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const { emptyStateDescription, children, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
-    const { actionsCount, expandedActions, setExpandedActions } = useProposalActionsContext();
+    const { actionsCount, setActionsCount, expandedActions, setExpandedActions } = useProposalActionsContext();
+
+    const processedChildren = Children.toArray(children);
+    const childrenCount = processedChildren.length;
+
+    // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
+    useEffect(() => setActionsCount(childrenCount), [childrenCount, setActionsCount]);
 
     const handleAccordionValueChange = (value: string[] = []) => setExpandedActions(value);
 
@@ -31,7 +37,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                         objectIllustration={{ object: 'SMART_CONTRACT' }}
                     />
                 )}
-                {Children.toArray(children).map((child, index) =>
+                {processedChildren.map((child, index) =>
                     React.isValidElement<IProposalActionsItemProps>(child)
                         ? React.cloneElement(child, { ...child.props, index })
                         : child,

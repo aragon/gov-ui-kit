@@ -2,31 +2,23 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
-import { generateProposalAction } from '../proposalActionsList/generators/proposalAction';
-import { generateProposalActionWithdrawToken } from '../proposalActionsList/proposalActionWithdrawToken/proposalActionWithdrawToken';
+import { generateProposalActionContext } from '../proposalActions.testUtils';
+import { ProposalActionsContextProvider } from '../proposalActionsContext';
 import { ProposalActionType, type IProposalAction } from '../types';
-import { ProposalActions } from './proposalActionsContainer';
-import type { IProposalActionsProps } from './proposalActionsContainer.api';
+import { ProposalActionsContainer, type IProposalActionsContainerProps } from './proposalActionsContainer';
 
-jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="member-avatar" /> }));
-
-describe('<ProposalActions /> component', () => {
-    const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
-
-    afterEach(() => {
-        scrollIntoViewSpy.mockReset();
-    });
-
-    const createTestComponent = (props?: Partial<IProposalActionsProps>) => {
-        const completeProps: IProposalActionsProps = {
-            actions: [],
-            emptyStateDescription: 'Please add actions',
+describe('<ProposalActionsContainer /> component', () => {
+    const createTestComponent = (props?: Partial<IProposalActionsContainerProps>) => {
+        const completeProps: IProposalActionsContainerProps = {
+            emptyStateDescription: 'test',
             ...props,
         };
 
         return (
             <GukModulesProvider>
-                <ProposalActions {...completeProps} />
+                <ProposalActionsContextProvider value={generateProposalActionContext()}>
+                    <ProposalActionsContainer {...completeProps} />
+                </ProposalActionsContextProvider>
             </GukModulesProvider>
         );
     };

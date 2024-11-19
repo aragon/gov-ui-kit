@@ -1,3 +1,4 @@
+import type { IProposalActionsContext } from './proposalActionsContext';
 import type { IProposalAction } from './types';
 
 export const generateProposalAction = (action?: Partial<IProposalAction>): IProposalAction => ({
@@ -8,4 +9,11 @@ export const generateProposalAction = (action?: Partial<IProposalAction>): IProp
     value: '0',
     inputData: null,
     ...action,
+});
+
+export const generateProposalActionContext = (values?: Partial<IProposalActionsContext>): IProposalActionsContext => ({
+    actionsCount: 0,
+    setExpandedActions: jest.fn(),
+    expandedActions: [],
+    ...values,
 });

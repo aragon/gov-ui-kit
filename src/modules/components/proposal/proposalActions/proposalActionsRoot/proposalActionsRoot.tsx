@@ -4,18 +4,22 @@ import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {
     /**
-     * Number of proposal actions.
+     * Number of proposal actions needed to handle the toggle-all logic. This is also calculated and set at runtime from
+     * the number of children of the ProposalActions.Container component. To be set to render a correct view when the
+     * component is rendered on the server side.
+     * @default 0
      */
-    actionsCount: number;
+    actionsCount?: number;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
-    const { actionsCount, children, className, ...otherProps } = props;
+    const { actionsCount: actionsCountProp = 0, children, className, ...otherProps } = props;
 
     const [expandedActions, setExpandedActions] = useState<string[]>([]);
+    const [actionsCount, setActionsCount] = useState<number>(actionsCountProp);
 
     const contextValues = useMemo(
-        () => ({ actionsCount, expandedActions, setExpandedActions }),
+        () => ({ actionsCount, setActionsCount, expandedActions, setExpandedActions }),
         [actionsCount, expandedActions],
     );
 

@@ -3,8 +3,8 @@ import { userEvent } from '@testing-library/user-event';
 import type * as coreModule from '../../../../../../core';
 import { clipboardUtils } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
-import { generateProposalActionTokenMint } from '../../proposalActionsList/generators';
-import { type IProposalActionsActionRawViewProps, ProposalActionsActionRawView } from './proposalActionsActionRawView';
+import { generateProposalActionTokenMint } from '../../proposalActionsList';
+import { ProposalActionsItemRawView, type IProposalActionsItemRawViewProps } from './proposalActionsItemRawView';
 
 jest.mock('../../../../../../core', () => ({
     ...jest.requireActual<typeof coreModule>('../../../../../../core'),
@@ -16,24 +16,25 @@ jest.mock('../../../../../../core', () => ({
     ),
 }));
 
-describe('<ProposalActionsActionRawView /> component', () => {
+describe('<ProposalActionsItemRawView /> component', () => {
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
-    const createTestComponent = (props?: Partial<IProposalActionsActionRawViewProps>) => {
-        const completeProps: IProposalActionsActionRawViewProps = {
+    const createTestComponent = (props?: Partial<IProposalActionsItemRawViewProps>) => {
+        const completeProps: IProposalActionsItemRawViewProps = {
             action: generateProposalActionTokenMint(),
             ...props,
         };
-        return <ProposalActionsActionRawView {...completeProps} />;
+
+        return <ProposalActionsItemRawView {...completeProps} />;
     };
 
     it('renders action properties correctly', () => {
         const action = generateProposalActionTokenMint({ value: '100', to: '0x123dao', data: '0x123data' });
         render(createTestComponent({ action }));
 
-        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.value)).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.to)).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsActionRawView.data)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItemRawView.value)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItemRawView.to)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItemRawView.data)).toBeInTheDocument();
 
         const valueInput = screen.getByDisplayValue('100');
         expect(valueInput).toBeInTheDocument();
@@ -48,7 +49,7 @@ describe('<ProposalActionsActionRawView /> component', () => {
     it('calls clipboardUtils.copy with the correct data when copy button is clicked', async () => {
         const action = generateProposalActionTokenMint();
         render(createTestComponent({ action }));
-        const copyButton = screen.getByText(modulesCopy.proposalActionsActionRawView.copyButton);
+        const copyButton = screen.getByText(modulesCopy.proposalActionsItemRawView.copyButton);
         await userEvent.click(copyButton);
         expect(copyMock).toHaveBeenCalledWith(action.data);
     });

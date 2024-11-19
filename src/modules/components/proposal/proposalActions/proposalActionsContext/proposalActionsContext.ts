@@ -6,6 +6,10 @@ export interface IProposalActionsContext {
      */
     actionsCount: number;
     /**
+     * Callback used to update the actions count.
+     */
+    setActionsCount: (count: number) => void;
+    /**
      * List of the expanded actions ids.
      */
     expandedActions: string[];

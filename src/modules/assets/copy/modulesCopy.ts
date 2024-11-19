@@ -32,28 +32,28 @@ export const modulesCopy = {
             heading: 'No actions added',
         },
     },
-    proposalActionsAction: {
+    proposalActionsItem: {
         dropdownLabel: 'More',
         notVerified: 'Not verified',
         nativeSendAlert: 'Proceed with caution',
         nativeSendDescription: (amount: string) =>
             `This action attempts to send ${amount} ETH. This could cause the action to fail or result in a loss of funds.`,
+        menu: {
+            basic: 'Basic',
+            dropdownLabel: 'View action as',
+            decoded: 'Decoded',
+            raw: 'Raw',
+        },
     },
-    proposalActionsActionDecodedView: {
+    proposalActionsItemDecodedView: {
         valueHelper: 'Amount of ETH to transfer in the transaction',
         valueLabel: 'Value',
     },
-    proposalActionsActionRawView: {
+    proposalActionsItemRawView: {
         to: 'To',
         data: 'Data',
         value: 'Value',
         copyButton: 'Copy data',
-    },
-    proposalActionsActionViewAsMenu: {
-        basic: 'Basic',
-        dropdownLabel: 'View action as',
-        decoded: 'Decoded',
-        raw: 'Raw',
     },
     proposalActionChangeMembers: {
         summary: 'Summary',

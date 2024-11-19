@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import type * as coreModule from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
-import { generateProposalActionTokenMint } from '../../proposalActionsList/generators';
+import { generateProposalActionTokenMint } from '../../proposalActionsList';
 import {
-    type IProposalActionsActionDecodedViewProps,
-    ProposalActionsActionDecodedView,
-} from './proposalActionsActionDecodedView';
+    type IProposalActionsItemDecodedViewProps,
+    ProposalActionsItemDecodedView,
+} from './proposalActionsItemDecodedView';
 
 jest.mock('../../../../../../core', () => ({
     ...jest.requireActual<typeof coreModule>('../../../../../../core'),
@@ -18,13 +18,14 @@ jest.mock('../../../../../../core', () => ({
     ),
 }));
 
-describe('<ProposalActionsActionDecodedView /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalActionsActionDecodedViewProps>) => {
-        const defaultProps = {
+describe('<ProposalActionsItemDecodedView /> component', () => {
+    const createTestComponent = (props?: Partial<IProposalActionsItemDecodedViewProps>) => {
+        const completeProps: IProposalActionsItemDecodedViewProps = {
             action: generateProposalActionTokenMint(),
             ...props,
         };
-        return <ProposalActionsActionDecodedView {...defaultProps} />;
+
+        return <ProposalActionsItemDecodedView {...completeProps} />;
     };
 
     it('renders action value correctly', () => {
@@ -32,7 +33,7 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
         render(createTestComponent({ action }));
 
         expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItemDecodedView.valueHelper)).toBeInTheDocument();
         expect(screen.getByDisplayValue('100')).toBeInTheDocument();
     });
 
@@ -81,7 +82,7 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
         render(createTestComponent({ action }));
 
         expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItemDecodedView.valueHelper)).toBeInTheDocument();
         expect(screen.getByDisplayValue(action.value)).toBeInTheDocument();
     });
 });

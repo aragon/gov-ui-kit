@@ -2,22 +2,23 @@ import { InputText } from '../../../../../../core';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalAction } from '../../types';
 
-export interface IProposalActionsActionDecodedViewProps {
+export interface IProposalActionsItemDecodedViewProps {
     /**
      * Proposal action to render decoded view for.
      */
     action: IProposalAction;
 }
 
-export const ProposalActionsActionDecodedView: React.FC<IProposalActionsActionDecodedViewProps> = (props) => {
+export const ProposalActionsItemDecodedView: React.FC<IProposalActionsItemDecodedViewProps> = (props) => {
     const { action } = props;
+
     const { copy } = useGukModulesContext();
 
     return (
         <div className="flex w-full flex-col gap-y-3">
             <InputText
-                label={copy.proposalActionsActionDecodedView.valueLabel}
-                helpText={copy.proposalActionsActionDecodedView.valueHelper}
+                label={copy.proposalActionsItemDecodedView.valueLabel}
+                helpText={copy.proposalActionsItemDecodedView.valueHelper}
                 value={action.value}
                 disabled={true}
             />
