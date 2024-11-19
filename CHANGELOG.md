@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `cross-spawn` from 7.0.3 to 7.0.5
 -   Bump `@eslint/plugin-kit` from 0.2.2 to 0.2.3
 -   Bump `softprops/action-gh-release` from 2.0.9 to 2.1.0
+-   Removed `xs` size variant from `Avatar` component
+-   Update `DaoAvatar` to correctly set text size depending on `size` property
 
 ## [1.0.54] - 2024-11-11
 
