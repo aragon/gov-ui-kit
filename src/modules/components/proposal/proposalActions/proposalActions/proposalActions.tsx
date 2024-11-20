@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { Accordion, Button, CardEmptyState, EmptyState } from '../../../../../core';
+import { Accordion, Button, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalActionsAction } from '../proposalActionsAction';
 import type { IProposalAction } from '../proposalActionsTypes';
@@ -54,25 +54,15 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
             onValueChange={handleAccordionValueChange}
         >
             {actions.map((action, index) => (
-                <>
-                    <ProposalActionsAction
-                        key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
-                        action={action}
-                        index={index}
-                        name={actionNames?.[action.type]}
-                        CustomComponent={customActionComponents?.[action.type]}
-                        dropdownItems={dropdownItems}
-                        {...web3Props}
-                    />
-                    {actions.length === 0 && (
-                        <EmptyState
-                            heading={copy.proposalActionsContainer.empty.heading}
-                            description={emptyStateDescription}
-                            isStacked={false}
-                            objectIllustration={{ object: 'SMART_CONTRACT' }}
-                        />
-                    )}
-                </>
+                <ProposalActionsAction
+                    key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
+                    action={action}
+                    index={index}
+                    name={actionNames?.[action.type]}
+                    CustomComponent={customActionComponents?.[action.type]}
+                    dropdownItems={dropdownItems}
+                    {...web3Props}
+                />
             ))}
             {actions.length === 0 && (
                 <CardEmptyState

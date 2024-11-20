@@ -1,4 +1,5 @@
 import { Children, cloneElement, isValidElement, type ComponentProps, type ReactElement } from 'react';
+import { Accordion } from '../../../../../core';
 
 interface ChildProps {
     /**
@@ -19,7 +20,7 @@ interface ChildProps {
     isMultiStage: boolean;
 }
 
-export interface IProposalVotingContainerProps extends ComponentProps<'div'> {
+export interface IProposalVotingContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**
      * Active stage that will be expanded for multi-stage proposals.
      */
@@ -37,7 +38,7 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
     const isMultiStage = processedChildren.length > 1;
 
     return (
-        <div className="flex w-full flex-col gap-y-2 md:gap-y-3" {...otherProps}>
+        <Accordion.Container isMulti={false} value={activeStage} onValueChange={onStageClick} {...otherProps}>
             {isMultiStage && (
                 <>
                     {processedChildren.map((child, index) =>
@@ -54,6 +55,6 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
                 </>
             )}
             {!isMultiStage && children}
-        </div>
+        </Accordion.Container>
     );
 };
