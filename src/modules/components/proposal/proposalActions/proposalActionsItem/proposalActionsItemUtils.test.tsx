@@ -6,9 +6,22 @@ import {
     generateProposalActionUpdateMetadata,
     generateProposalActionWithdrawToken,
 } from '../proposalActionsList';
+import { generateProposalAction } from '../proposalActionsTestUtils';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
 describe('ProposalActions utils', () => {
+    describe('isActionSupported', () => {
+        it('returns true if action is of any supported type', () => {
+            const action = generateProposalAction({ type: ProposalActionType.CHANGE_SETTINGS_MULTISIG });
+            expect(proposalActionsItemUtils.isActionSupported(action)).toBeTruthy();
+        });
+
+        it('returns false if action is not supported', () => {
+            const action = generateProposalAction({ type: 'unknown' });
+            expect(proposalActionsItemUtils.isActionSupported(action)).toBeFalsy();
+        });
+    });
+
     describe('isWithdrawTokenAction', () => {
         it('returns true for withdraw action', () => {
             const action = generateProposalActionWithdrawToken();

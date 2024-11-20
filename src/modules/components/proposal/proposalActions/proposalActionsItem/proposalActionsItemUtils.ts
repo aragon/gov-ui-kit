@@ -8,6 +8,8 @@ import type {
 } from '../proposalActionsList';
 
 class ProposalActionsItemUtils {
+    isActionSupported = (action: IProposalAction) => Object.keys(ProposalActionType).includes(action.type);
+
     isWithdrawTokenAction = (action: Partial<IProposalAction>): action is IProposalActionWithdrawToken => {
         return action.type === ProposalActionType.WITHDRAW_TOKEN;
     };

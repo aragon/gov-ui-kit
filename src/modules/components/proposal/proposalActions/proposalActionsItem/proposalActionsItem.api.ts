@@ -28,7 +28,7 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      */
     index?: number;
     /**
-     * Custom component for the action
+     * Custom component for the action to be rendered on BASIC view.
      */
     CustomComponent?: ProposalActionComponent<TAction>;
     /**

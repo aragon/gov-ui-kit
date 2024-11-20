@@ -26,6 +26,8 @@ describe('useProposalActionsContext hook', () => {
     it('returns the current values of the data list context', () => {
         const values = { actionsCount: 24, expandedActions: ['1'], setExpandedActions: jest.fn() };
         const { result } = renderHook(() => useProposalActionsContext(), { wrapper: createTestWrapper(values) });
-        expect(result.current).toEqual(values);
+        expect(result.current.actionsCount).toEqual(values.actionsCount);
+        expect(result.current.expandedActions).toEqual(values.expandedActions);
+        expect(result.current.setExpandedActions).toEqual(values.setExpandedActions);
     });
 });

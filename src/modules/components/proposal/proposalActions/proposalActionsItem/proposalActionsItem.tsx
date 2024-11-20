@@ -1,18 +1,12 @@
 import classNames from 'classnames';
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType, invariant } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { IProposalAction } from '../proposalActionsDefinitions';
-import {
-    ProposalActionChangeMembers,
-    ProposalActionChangeSettings,
-    ProposalActionTokenMint,
-    ProposalActionUpdateMetadata,
-    ProposalActionWithdrawToken,
-} from '../proposalActionsList';
 import type { IProposalActionsItemProps } from './proposalActionsItem.api';
+import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { ProposalActionsItemDecodedView } from './proposalActionsItemDecodedView';
 import { ProposalActionsItemRawView } from './proposalActionsItemRawView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
@@ -38,30 +32,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
-    const ActionComponent = useMemo(() => {
-        const commonProps = { index, ...web3Props };
-
-        if (CustomComponent) {
-            return <CustomComponent action={action} {...commonProps} />;
-        }
-
-        if (proposalActionsItemUtils.isWithdrawTokenAction(action)) {
-            return <ProposalActionWithdrawToken action={action} {...commonProps} />;
-        } else if (proposalActionsItemUtils.isTokenMintAction(action)) {
-            return <ProposalActionTokenMint action={action} {...commonProps} />;
-        } else if (proposalActionsItemUtils.isUpdateMetadataAction(action)) {
-            return <ProposalActionUpdateMetadata action={action} {...commonProps} />;
-        } else if (proposalActionsItemUtils.isChangeMembersAction(action)) {
-            return <ProposalActionChangeMembers action={action} {...commonProps} />;
-        } else if (proposalActionsItemUtils.isChangeSettingsAction(action)) {
-            return <ProposalActionChangeSettings action={action} {...commonProps} />;
-        }
-
-        return null;
-    }, [action, CustomComponent, web3Props, index]);
+    const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const [activeViewMode, setActiveViewMode] = useState(
-        ActionComponent
+        supportsBasicView
             ? ProposalActionViewMode.BASIC
             : action.inputData
               ? ProposalActionViewMode.DECODED
@@ -88,7 +62,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         action.inputData == null ? 'text-warning-800' : displayValueWarning ? 'text-critical-800' : 'text-neutral-800';
 
     const viewModes = [
-        { mode: ProposalActionViewMode.BASIC, disabled: ActionComponent == null },
+        { mode: ProposalActionViewMode.BASIC, disabled: !supportsBasicView },
         { mode: ProposalActionViewMode.DECODED, disabled: action.inputData == null },
         { mode: ProposalActionViewMode.RAW },
     ];
@@ -126,7 +100,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             )}
                         />
                     )}
-                    {activeViewMode === ProposalActionViewMode.BASIC && ActionComponent}
+                    {activeViewMode === ProposalActionViewMode.BASIC && (
+                        <ProposalActionsItemBasicView
+                            action={action}
+                            index={index}
+                            CustomComponent={CustomComponent}
+                            {...web3Props}
+                        />
+                    )}
                     {activeViewMode === ProposalActionViewMode.DECODED && (
                         <ProposalActionsItemDecodedView action={action} />
                     )}
