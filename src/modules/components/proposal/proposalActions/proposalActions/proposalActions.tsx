@@ -42,21 +42,21 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
     const handleAccordionValueChange = (value: string[] = []) => setExpandedItems(value);
 
     const footerClassNames = classNames(
-        'flex w-full flex-col justify-between gap-y-3 pb-4 md:flex-row-reverse md:items-end md:pb-6',
+        'mt-2 flex w-full flex-col justify-between gap-y-3 pb-4 md:flex-row-reverse md:items-end md:pb-6',
         { hidden: actions.length === 0 && children == null },
     );
 
     return (
-        <div className="">
+        <Accordion.Container
+            ref={actionsContainerRef}
+            isMulti={true}
+            value={expandedItems}
+            onValueChange={handleAccordionValueChange}
+        >
             {actions.map((action, index) => (
-                <Accordion.Container
-                    key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
-                    ref={actionsContainerRef}
-                    isMulti={true}
-                    value={expandedItems}
-                    onValueChange={handleAccordionValueChange}
-                >
+                <>
                     <ProposalActionsAction
+                        key={actionKey != null ? (action[actionKey] as string) : `action-${index.toString()}`}
                         action={action}
                         index={index}
                         name={actionNames?.[action.type]}
@@ -72,7 +72,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
                             objectIllustration={{ object: 'SMART_CONTRACT' }}
                         />
                     )}
-                </Accordion.Container>
+                </>
             ))}
             {actions.length === 0 && (
                 <CardEmptyState
@@ -93,6 +93,6 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
                 )}
                 {children}
             </div>
-        </div>
+        </Accordion.Container>
     );
 };
