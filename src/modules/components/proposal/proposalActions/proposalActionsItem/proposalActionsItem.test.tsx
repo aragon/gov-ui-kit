@@ -94,7 +94,9 @@ describe('<ProposalActionsItem /> component', () => {
     it('renders a dropdown to switch the action view mode inside the action', async () => {
         render(createTestComponent());
         await userEvent.click(screen.getByRole('button'));
-        expect(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.dropdownLabel })).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }),
+        ).toBeInTheDocument();
     });
 
     it('defaults the view-mode to raw when action has no custom component and is not verified', async () => {
@@ -152,7 +154,7 @@ describe('<ProposalActionsItem /> component', () => {
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId('decoded-view-mock')).toBeInTheDocument();
 
-        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.dropdownLabel }));
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
         expect(screen.getByTestId('raw-view-mock')).toBeInTheDocument();
     });
@@ -166,9 +168,7 @@ describe('<ProposalActionsItem /> component', () => {
         render(createTestComponent({ dropdownItems, action }));
 
         await userEvent.click(screen.getByRole('button'));
-        const dropdownTrigger = screen.getByRole('button', {
-            name: modulesCopy.proposalActionsItem.menu.dropdownLabel,
-        });
+        const dropdownTrigger = screen.getByRole('button', { name: modulesCopy.proposalActionsItem.dropdownLabel });
         expect(dropdownTrigger).toBeInTheDocument();
         await userEvent.click(dropdownTrigger);
 

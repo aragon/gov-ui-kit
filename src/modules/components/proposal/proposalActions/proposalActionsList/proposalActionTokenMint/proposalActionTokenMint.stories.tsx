@@ -21,9 +21,10 @@ type Story = StoryObj<typeof ProposalActionTokenMint>;
 export const Default: Story = {
     args: {
         action: generateProposalActionTokenMint({
+            tokenSymbol: 'GTT',
             receiver: {
                 currentBalance: '0',
-                newBalance: '5',
+                newBalance: '500000000',
                 address: '0x32c2FE388ABbB3e678D44DF6a0471086D705316a',
             },
         }),

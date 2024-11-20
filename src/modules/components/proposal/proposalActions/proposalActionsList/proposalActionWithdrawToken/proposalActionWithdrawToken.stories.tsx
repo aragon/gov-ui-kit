@@ -20,7 +20,17 @@ type Story = StoryObj<typeof ProposalActionWithdrawToken>;
  */
 export const Default: Story = {
     args: {
-        action: generateProposalActionWithdrawToken(),
+        action: generateProposalActionWithdrawToken({
+            sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+            receiver: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
+            token: {
+                name: 'Shiba Inu',
+                symbol: 'SHIB',
+                logo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5994.png',
+                priceUsd: '0.00002459',
+            },
+            amount: '9784653197',
+        }),
     },
 };
 

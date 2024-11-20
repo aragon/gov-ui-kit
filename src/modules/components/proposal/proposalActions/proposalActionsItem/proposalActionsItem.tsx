@@ -113,7 +113,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     )}
                     {activeViewMode === ProposalActionViewMode.RAW && <ProposalActionsItemRawView action={action} />}
                     <div className="flex w-full flex-row justify-between">
-                        <Dropdown.Container label={copy.proposalActionsItem.dropdownLabel} size="sm">
+                        <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
                             {viewModes.map(({ mode, disabled }) => (
                                 <Dropdown.Item
                                     key={mode}
@@ -129,7 +129,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             <Dropdown.Container
                                 customTrigger={
                                     <Button variant="tertiary" size="sm" iconRight={IconType.DOTS_VERTICAL}>
-                                        {copy.proposalActionsItem.menu.dropdownLabel}
+                                        {copy.proposalActionsItem.dropdownLabel}
                                     </Button>
                                 }
                             >

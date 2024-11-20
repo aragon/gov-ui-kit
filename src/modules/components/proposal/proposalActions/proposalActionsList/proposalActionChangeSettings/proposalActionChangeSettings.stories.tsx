@@ -20,7 +20,18 @@ type Story = StoryObj<typeof ProposalActionChangeSettings>;
  */
 export const Default: Story = {
     args: {
-        action: generateProposalActionChangeSettings(),
+        action: generateProposalActionChangeSettings({
+            existingSettings: [
+                { term: 'Approval threshold', definition: '> 50%' },
+                { term: 'Minimum participation', definition: '≥ 15% (≥ 300.5K UNI)' },
+                { term: 'Minimum duration', definition: '3 days, 0 hours, 0 minutes' },
+            ],
+            proposedSettings: [
+                { term: 'Approval threshold', definition: '> 55%' },
+                { term: 'Minimum participation', definition: '≥ 15% (≥ 300.5K UNI)' },
+                { term: 'Minimum duration', definition: '1 days, 12 hours, 0 minutes' },
+            ],
+        }),
     },
 };
 
