@@ -22,7 +22,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((pr
         'data-[state=open]:border-neutral-200 data-[state=open]:shadow-neutral-sm', // open
         'hover:border-neutral-200 hover:shadow-neutral-sm', // hover
         'active:border-neutral-400', // active
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        'focus-within:ring focus-within:ring-primary focus-within:ring-offset focus-within:focus-visible:outline-none', // focus
         className,
     );
 
