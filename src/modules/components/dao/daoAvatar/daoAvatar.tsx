@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import type React from 'react';
 import {
     Avatar,
-    ResponsiveAttributeClassMap,
     responsiveUtils,
     type AvatarSize,
     type IAvatarProps,
+    type ResponsiveAttributeClassMap,
 } from '../../../../core';
 
 export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {

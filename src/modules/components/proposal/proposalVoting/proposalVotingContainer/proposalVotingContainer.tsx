@@ -1,4 +1,4 @@
-import React, { Children, ReactElement, type ComponentProps } from 'react';
+import { Children, cloneElement, isValidElement, type ComponentProps, type ReactElement } from 'react';
 
 interface ChildProps {
     /**
@@ -41,8 +41,8 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
             {isMultiStage && (
                 <>
                     {processedChildren.map((child, index) =>
-                        React.isValidElement(child)
-                            ? React.cloneElement(child, {
+                        isValidElement(child)
+                            ? cloneElement(child, {
                                   ...child.props,
                                   index,
                                   activeStage,
