@@ -17,7 +17,7 @@ const meta: Meta<typeof ProposalActions.Footer> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16738-8439&t=aU6YzyKeOX7RyXen-4',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16738-7342&t=tQiF5klPD9cjUit6-4',
         },
     },
 };

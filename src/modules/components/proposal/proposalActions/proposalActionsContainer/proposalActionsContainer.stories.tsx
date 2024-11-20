@@ -9,7 +9,7 @@ const meta: Meta<typeof ProposalActions.Container> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?m=auto&t=aAKsoiPV8GlakDa1-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16738-8439&t=tQiF5klPD9cjUit6-4',
         },
     },
 };
@@ -25,23 +25,24 @@ const ComponentWrapper = (actionsCount: number) =>
         );
     };
 
-const defaultActions = [
-    generateProposalAction({
-        inputData: { function: 'addLiquidity', contract: 'Uniswap V3', parameters: [] },
-        to: '0xEdDb9c0c60044Da5713465C9fbfA4132a9F5537d',
-    }),
-];
-
 /**
  * Default usage example of the ProposalActions.Container component.
  */
 export const Default: Story = {
-    decorators: ComponentWrapper(defaultActions.length),
+    decorators: ComponentWrapper(1),
     render: (props) => (
         <ProposalActions.Container {...props}>
-            {defaultActions.map((action, index) => (
-                <ProposalActions.Item key={index} action={action} />
-            ))}
+            <ProposalActions.Item
+                action={generateProposalAction({
+                    to: '0xEdDb9c0c60044Da5713465C9fbfA4132a9F5537d',
+                    data: '0x23b872dd000000000000000000000000f6bce206b9a72166ec0bee315629064a5e997f8200000000000000',
+                    inputData: {
+                        function: 'addLiquidity',
+                        contract: 'Uniswap V3',
+                        parameters: [{ name: 'amount', type: 'uint256', value: '8645312' }],
+                    },
+                })}
+            />
         </ProposalActions.Container>
     ),
 };

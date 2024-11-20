@@ -8,7 +8,7 @@ const meta: Meta<typeof ProposalActionUpdateMetadata> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?m=auto&t=aAKsoiPV8GlakDa1-1',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=18943-52447&t=tQiF5klPD9cjUit6-4',
         },
     },
 };
