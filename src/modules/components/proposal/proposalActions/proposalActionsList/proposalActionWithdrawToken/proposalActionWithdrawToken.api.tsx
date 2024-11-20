@@ -22,6 +22,10 @@ export interface IProposalActionWithdrawTokenAsset {
      * Token price in USD.
      */
     priceUsd: string;
+    /**
+     * Decimals of the token.
+     */
+    decimals: number;
 }
 
 export interface IProposalActionWithdrawToken extends IProposalAction {

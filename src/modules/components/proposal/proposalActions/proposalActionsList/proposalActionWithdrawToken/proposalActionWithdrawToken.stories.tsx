@@ -28,6 +28,7 @@ export const Default: Story = {
                 symbol: 'SHIB',
                 logo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5994.png',
                 priceUsd: '0.00002459',
+                decimals: 18,
             },
             amount: '9784653197',
         }),
