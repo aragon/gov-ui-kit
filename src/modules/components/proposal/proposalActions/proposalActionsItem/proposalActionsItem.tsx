@@ -53,13 +53,15 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
 
-    const headerIcon =
-        action.inputData == null
-            ? { icon: IconType.WARNING, className: 'text-warning-500' }
-            : { icon: IconType.CRITICAL, className: 'text-critical-500' };
+    const headerIcon = displayValueWarning
+        ? { icon: IconType.CRITICAL, className: 'text-critical-500' }
+        : { icon: IconType.WARNING, className: 'text-warning-500' };
 
-    const functionNameStyle =
-        action.inputData == null ? 'text-warning-800' : displayValueWarning ? 'text-critical-800' : 'text-neutral-800';
+    const functionNameStyle = displayValueWarning
+        ? 'text-critical-800'
+        : action.inputData == null
+          ? 'text-warning-800'
+          : 'text-neutral-800';
 
     const viewModes = [
         { mode: ProposalActionViewMode.BASIC, disabled: !supportsBasicView },

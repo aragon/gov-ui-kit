@@ -135,12 +135,8 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
     });
 
-    it('renders a critical icon and alert when action value is not zero, action is not a native transfer and smart contract is verified', async () => {
-        const action = generateProposalAction({
-            value: '1000000000000000000',
-            data: '0xabc',
-            inputData: { function: '', contract: '', parameters: [] },
-        });
+    it('renders a critical icon and alert when action value is not zero and action is not a native transfer', async () => {
+        const action = generateProposalAction({ value: '1000000000000000000', data: '0xabc' });
         render(createTestComponent({ action }));
         expect(screen.getByTestId(IconType.CRITICAL)).toBeInTheDocument();
         await userEvent.click(screen.getByRole('button'));

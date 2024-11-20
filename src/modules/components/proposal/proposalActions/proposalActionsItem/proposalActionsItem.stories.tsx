@@ -27,20 +27,6 @@ const meta: Meta<typeof ProposalActions.Item> = {
 type Story = StoryObj<typeof ProposalActions.Item>;
 
 /**
- * For unverified actions, the ProposalActions.Item component renders the RAW view by default and disables the decoded and basic views.
- */
-export const Unverified: Story = {
-    args: {
-        index: 0,
-        action: generateProposalAction({
-            value: '0',
-            to: '0x80CB2f4f9B403C4C418C597d96c95FE14FD344a6',
-            data: '0x414bf389000000000000000000000000be9f61555f50dd6167f2772e9cf7519790d96624000000000000000000000000',
-        }),
-    },
-};
-
-/**
  * For verified actions, the ProposalActions.Item component renders the DECODED view by default and disables the basic view.
  */
 export const Verified: Story = {
@@ -83,6 +69,20 @@ export const Verified: Story = {
 };
 
 /**
+ * For unverified actions, the ProposalActions.Item component renders the RAW view by default and disables the decoded and basic views.
+ */
+export const Unverified: Story = {
+    args: {
+        index: 0,
+        action: generateProposalAction({
+            value: '0',
+            to: '0x80CB2f4f9B403C4C418C597d96c95FE14FD344a6',
+            data: '0x414bf389000000000000000000000000be9f61555f50dd6167f2772e9cf7519790d96624000000000000000000000000',
+        }),
+    },
+};
+
+/**
  * For supported/native actions, the ProposalActions.Item component renders the related BASIC view by default.
  */
 export const Native: Story = {
@@ -120,7 +120,7 @@ export const Native: Story = {
 };
 
 /**
- * Actions that are verified and a value greater than 0, are marked as critical.
+ * Actions are marked as critical if they are not native transfers but have a value greater than 0.
  */
 export const Critical: Story = {
     args: {
