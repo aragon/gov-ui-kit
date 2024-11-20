@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '../../../../../core';
 import { generateProposalActionChangeMembers, generateProposalActionChangeSettings, ProposalActions } from '../index';
 
 const meta: Meta<typeof ProposalActions.Root> = {
@@ -42,6 +43,11 @@ export const Default: Story = {
                     <ProposalActions.Item key={index} action={action} />
                 ))}
             </ProposalActions.Container>
+            <ProposalActions.Footer>
+                <Button size="md" variant="secondary">
+                    Execute actions
+                </Button>
+            </ProposalActions.Footer>
         </ProposalActions.Root>
     ),
 };
