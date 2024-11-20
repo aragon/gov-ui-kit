@@ -88,4 +88,11 @@ describe('<VoteDataListItemStructure /> component', () => {
 
         expect(screen.getByText('Your delegate')).toBeInTheDocument();
     });
+
+    it('renders the custom confirmation label', () => {
+        const confirmationLabel = 'Voted';
+        render(createTestComponent({ confirmationLabel }));
+
+        expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
+    });
 });
