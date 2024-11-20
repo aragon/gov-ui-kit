@@ -50,10 +50,10 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const childrenItemCount = processedChildren.length;
 
     const SkeletonLoader = SkeletonElement ?? DataListContainerSkeletonLoader;
-    const loadingItems = [...Array(pageSize)];
+    const loadingItems = [...Array<number>(pageSize)];
 
     const paginatedChildren = useMemo(
-        () => processedChildren?.slice(0, pageSize * (currentPage + 1)) ?? [],
+        () => processedChildren.slice(0, pageSize * (currentPage + 1)),
         [processedChildren, pageSize, currentPage],
     );
 

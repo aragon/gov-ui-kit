@@ -18,14 +18,14 @@ import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 export interface IProposalDataListItemStatusProps
     extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted'> {}
 
-const proposalStatusToPingVariant: Map<ProposalStatus, StatePingAnimationVariant> = new Map([
+const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
     [ProposalStatus.CHALLENGED, 'warning'],
     [ProposalStatus.VETOED, 'warning'],
 ]);
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
-    const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION });
+    const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
 
     const suffix =
         new Date(date).getTime() > now ? copy.proposalDataListItemStatus.left : copy.proposalDataListItemStatus.ago;
@@ -56,7 +56,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             'text-info-800': status === ProposalStatus.ACTIVE,
                             'text-warning-800':
                                 status === ProposalStatus.CHALLENGED || status === ProposalStatus.VETOED,
-                            'text-neutral-800': isOngoing === false,
+                            'text-neutral-800': !isOngoing,
                         })}
                     >
                         {isOngoingAndVoted && copy.proposalDataListItemStatus.voted}

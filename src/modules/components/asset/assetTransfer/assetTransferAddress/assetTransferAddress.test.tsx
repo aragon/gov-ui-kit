@@ -22,7 +22,7 @@ describe('<AssetTransferAddress /> component', () => {
     };
 
     it('renders correctly as a sender', () => {
-        const txRole = 'sender' as const;
+        const txRole = 'sender';
         render(createTestComponent({ txRole }));
 
         const parentElement = screen.getByRole('link');
@@ -31,7 +31,7 @@ describe('<AssetTransferAddress /> component', () => {
     });
 
     it('renders correctly as a recipient', () => {
-        const txRole = 'recipient' as const;
+        const txRole = 'recipient';
         render(createTestComponent({ txRole }));
 
         const parentElement = screen.getByRole('link');

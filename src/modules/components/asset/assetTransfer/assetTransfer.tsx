@@ -63,13 +63,14 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
         withSign: true,
         fallback: '-',
-    });
+    })!;
+    const formattedTokenAmount = `${formattedTokenValue} ${assetSymbol}`;
+
     const fiatValue = Number(assetAmount) * Number(assetFiatPrice);
     const formattedFiatValue = formatterUtils.formatNumber(fiatValue, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: ` `,
     });
-    const formattedTokenAmount = `${formattedTokenValue} ${assetSymbol}`;
 
     const assetTransferClassNames = classNames(
         'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base

@@ -42,7 +42,6 @@ export const OnlyIcon: Story = {
 export const Link: Story = {
     args: {
         children: 'Link label',
-        onClick: () => alert('click'),
         href: 'https://www.google.com',
         target: '_blank',
     },

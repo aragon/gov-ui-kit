@@ -1,1 +1,1 @@
-export * from './responsive';
+export type * from './responsive';

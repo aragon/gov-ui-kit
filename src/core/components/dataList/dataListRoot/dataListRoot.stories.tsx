@@ -40,7 +40,7 @@ const ListItemComponentLoading = () => (
 interface IStaticListComponentProps extends IDataListRootProps, Pick<IDataListContainerProps, 'layoutClassName'> {}
 
 const StaticListComponent = (props: IStaticListComponentProps) => {
-    const { itemsCount, layoutClassName, ...otherProps } = props;
+    const { itemsCount = 20, layoutClassName, ...otherProps } = props;
 
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
@@ -54,7 +54,10 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
     );
 
     const shouldFilter = searchValue != null && searchValue.trim().length > 0;
-    const userIds = useMemo(() => [...Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000)), [itemsCount]);
+    const userIds = useMemo(
+        () => [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000)),
+        [itemsCount],
+    );
 
     const filteredUsers = useMemo(() => {
         const newFilteredUsers = shouldFilter ? userIds.filter((id) => id.toString().includes(searchValue)) : userIds;
@@ -76,7 +79,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
     };
 
     return (
-        <DataList.Root itemsCount={filteredUsers?.length} state={state} {...otherProps} entityLabel={entityLabel}>
+        <DataList.Root itemsCount={filteredUsers.length} state={state} {...otherProps} entityLabel={entityLabel}>
             <DataList.Filter
                 onFilterClick={() => alert('filter click')}
                 searchValue={searchValue}
@@ -88,7 +91,9 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
                 onResetFiltersClick={() => setSearchValue(undefined)}
             />
             <DataList.Container emptyFilteredState={emptyFilteredState} layoutClassName={layoutClassName}>
-                {filteredUsers?.map((id) => <ListItemComponent key={id} id={id} />)}
+                {filteredUsers.map((id) => (
+                    <ListItemComponent key={id} id={id} />
+                ))}
             </DataList.Container>
             <DataList.Pagination />
         </DataList.Root>
@@ -119,7 +124,7 @@ export const CustomLayout: Story = {
 
 const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc', pageSize = 6) => {
     const sortUsers = (users: number[] = [], sort?: string) =>
-        users?.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
+        users.toSorted((a, b) => (sort === 'id_asc' ? a - b : b - a));
 
     const paginateUsers = (users: number[] = [], page = 0, pageSize = 6) =>
         users.slice(0, Math.min(dbUsers.length, (page + 1) * pageSize));
@@ -135,7 +140,7 @@ const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc'
 };
 
 const AsyncListComponent = (props: IDataListRootProps) => {
-    const { itemsCount, pageSize, ...otherProps } = props;
+    const { itemsCount = 20, pageSize, ...otherProps } = props;
 
     const [dataListState, setDataListState] = useState<DataListState>();
     const [currentPage, setCurrentPage] = useState(0);
@@ -169,7 +174,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         setDataListState('initialLoading');
 
         setTimeout(() => {
-            dbUsers.current = [...Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
+            dbUsers.current = [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
             setUsers(getUsers(dbUsers.current));
             setDataListState('idle');
         }, 1_000);

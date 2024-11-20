@@ -17,7 +17,7 @@ export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps
             className={classNames('flex flex-col gap-y-4 bg-neutral-0', className)}
             {...otherProps}
         >
-            <div className="flex h-16 w-full items-center gap-x-3 md:h-20">
+            <div className="flex h-16 min-h-[69.81px] w-full items-center gap-x-3 py-3 md:min-h-[92.31px] md:py-5">
                 <StateSkeletonCircular responsiveSize={{ md: 'lg' }} />
                 <div className="flex w-full justify-between">
                     <div className="flex w-full flex-col gap-y-1 md:gap-y-1.5">

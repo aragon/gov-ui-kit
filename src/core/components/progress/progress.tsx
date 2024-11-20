@@ -82,14 +82,14 @@ export const Progress: React.FC<IProgressProps> = (props) => {
                     { 'rounded-r-xl': processedValue === 100 },
                     variantToClassNames[variant],
                 )}
-                style={{ width: `${processedValue}%` }}
+                style={{ width: `${processedValue.toString()}%` }}
             />
             {processedIndicator && (
                 <div
                     data-testid="progress-indicator"
                     data-value={processedIndicator}
                     className={indicatorClassNames}
-                    style={{ left: `${processedIndicator}%`, transform: 'translateX(-50%)' }}
+                    style={{ left: `${processedIndicator.toString()}%`, transform: 'translateX(-50%)' }}
                 >
                     <div className="h-full w-0.5 bg-neutral-50" />
                     <div className="h-full w-0.5 rounded-full bg-neutral-400" />

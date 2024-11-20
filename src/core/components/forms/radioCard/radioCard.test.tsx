@@ -19,7 +19,7 @@ describe('<RadioCard/> component', () => {
         );
     };
 
-    it('renders with avatar, label, description, tag, and unchecked radio button', async () => {
+    it('renders with avatar, label, description, tag, and unchecked radio button', () => {
         const avatar = 'avatar';
         const description = 'Test Description';
         const label = 'Test Label';

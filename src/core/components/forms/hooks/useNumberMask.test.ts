@@ -5,7 +5,7 @@ import { formatterUtils } from '../../../utils';
 import { useNumberMask, type IUseNumberMaskResult } from './useNumberMask';
 
 // Mock react-imask library to be able to spy on the useIMask hook
-jest.mock('react-imask', () => ({ __esModule: true, ...jest.requireActual('react-imask') }));
+jest.mock('react-imask', () => ({ __esModule: true, ...jest.requireActual<typeof ReactIMask>('react-imask') }));
 
 describe('useNumberMask hook', () => {
     const maskMock = jest.spyOn(ReactIMask, 'useIMask');
@@ -30,6 +30,7 @@ describe('useNumberMask hook', () => {
 
     it('sets the mask to be a number mask with decimals', () => {
         renderHook(() => useNumberMask({}));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const expectedNumberBlock = { num: { mask: Number, scale: expect.any(Number) } };
         expect(maskMock).toHaveBeenCalledWith(
             expect.objectContaining({ mask: 'num', blocks: expectedNumberBlock }),
@@ -41,6 +42,7 @@ describe('useNumberMask hook', () => {
         const min = 0;
         const max = 100;
         renderHook(() => useNumberMask({ min, max }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const expectedNumberBlock = { num: expect.objectContaining({ min, max }) };
         expect(maskMock).toHaveBeenCalledWith(
             expect.objectContaining({ blocks: expectedNumberBlock }),
@@ -54,6 +56,7 @@ describe('useNumberMask hook', () => {
         const formattedNumber = `100${thousandsSeparator}000${radix}1`;
         formatNumberMock.mockReturnValue(formattedNumber);
         renderHook(() => useNumberMask({}));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const expectedNumberBlock = { num: expect.objectContaining({ thousandsSeparator, radix }) };
         expect(maskMock).toHaveBeenCalledWith(
             expect.objectContaining({ blocks: expectedNumberBlock }),

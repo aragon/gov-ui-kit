@@ -7,7 +7,7 @@ export const DefinitionListContainer: React.FC<IDefinitionListContainerProps> = 
     const { className, children, ...otherProps } = props;
 
     return (
-        <dl className={classNames('flex w-full flex-col', className)} {...otherProps}>
+        <dl className={classNames('w-full', className)} {...otherProps}>
             {children}
         </dl>
     );

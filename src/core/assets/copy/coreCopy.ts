@@ -19,7 +19,8 @@ export const coreCopy = {
     },
     dataListPagination: {
         more: 'More',
-        outOf: ({ total, entityLabel }: { total: number; entityLabel: string }) => `of ${total} ${entityLabel}`,
+        outOf: ({ total, entityLabel }: { total: number; entityLabel: string }) =>
+            `of ${total.toString()} ${entityLabel}`,
     },
     inputNumberMax: {
         max: 'Max',

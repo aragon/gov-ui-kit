@@ -15,17 +15,9 @@ const meta: Meta<typeof DefinitionList.Container> = {
 type Story = StoryObj<typeof DefinitionList.Container>;
 
 /**
- * Default usage of the DefinitionList.Container component with no definitions as children.
- */
-export const Default: Story = {
-    render: (props: IDefinitionListContainerProps) => (
-        <DefinitionList.Container {...props}>Empty Container</DefinitionList.Container>
-    ),
-};
-/**
  * Example usage of the DefinitionList.Container component with three definitions.
  */
-export const Loaded: Story = {
+export const Default: Story = {
     render: (props: IDefinitionListContainerProps) => (
         <DefinitionList.Container {...props}>
             <DefinitionList.Item term="Standard Definition Term">
@@ -51,7 +43,7 @@ export const Loaded: Story = {
                 aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse at
                 metus porttitor, laoreet elit eu, luctus orci. Sed volutpat elit ac mi porta facilisis.
             </DefinitionList.Item>
-            <DefinitionList.Item term="Third Term (with a super duper longer label which will clamp to 6 lines high & to 1 line high when smaller than 'md' breakpoint) ">
+            <DefinitionList.Item term="Third Term (with a super duper longer label which will to 1 line high when smaller than 'md' breakpoint and stacked) ">
                 <div className="flex h-48 w-full items-center justify-center border border-dashed bg-warning-100">
                     Any React Node Child
                 </div>

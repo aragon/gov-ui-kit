@@ -25,7 +25,7 @@ describe('<ProposalActionChangeMembers /> component', () => {
         render(createTestComponent({ action }));
 
         expect(
-            screen.getByText(`${currentMembers} ${modulesCopy.proposalActionChangeMembers.members}`),
+            screen.getByText(`${currentMembers.toString()} ${modulesCopy.proposalActionChangeMembers.members}`),
         ).toBeInTheDocument();
     });
 
@@ -38,7 +38,7 @@ describe('<ProposalActionChangeMembers /> component', () => {
 
         expect(screen.getByText(modulesCopy.proposalActionChangeMembers.added)).toBeInTheDocument();
         expect(
-            screen.getByText(`+${members.length} ${modulesCopy.proposalActionChangeMembers.members}`),
+            screen.getByText(`+${members.length.toString()} ${modulesCopy.proposalActionChangeMembers.members}`),
         ).toBeInTheDocument();
     });
 
@@ -51,7 +51,7 @@ describe('<ProposalActionChangeMembers /> component', () => {
 
         expect(screen.getByText(modulesCopy.proposalActionChangeMembers.removed)).toBeInTheDocument();
         expect(
-            screen.getByText(`-${members.length} ${modulesCopy.proposalActionChangeMembers.members}`),
+            screen.getByText(`-${members.length.toString()} ${modulesCopy.proposalActionChangeMembers.members}`),
         ).toBeInTheDocument();
     });
 

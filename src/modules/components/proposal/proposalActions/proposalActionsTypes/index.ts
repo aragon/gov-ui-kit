@@ -4,7 +4,7 @@ export type {
     IProposalActionChangeSettings,
     IProposalActionChangeSettingsSetting,
 } from './proposalActionChangeSettings';
-export { ProposalActionComponent, type IProposalActionComponentProps } from './proposalActionComponent';
+export type { IProposalActionComponentProps, ProposalActionComponent } from './proposalActionComponent';
 export type { IProposalActionTokenMint } from './proposalActionTokenMint';
 export { ProposalActionType } from './proposalActionType';
 export type {

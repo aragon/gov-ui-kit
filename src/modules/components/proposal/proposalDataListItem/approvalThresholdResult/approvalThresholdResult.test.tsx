@@ -24,11 +24,11 @@ describe('<ApprovalThresholdResult /> component', () => {
 
         const expectedApproval = formatterUtils.formatNumber(mockProps.approvalAmount, {
             format: NumberFormat.GENERIC_SHORT,
-        }) as string;
+        })!;
 
         const expectedThreshold = formatterUtils.formatNumber(mockProps.approvalThreshold, {
             format: NumberFormat.GENERIC_SHORT,
-        }) as string;
+        })!;
 
         const progressbar = screen.getByRole('progressbar');
         expect(progressbar).toBeInTheDocument();

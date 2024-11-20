@@ -47,26 +47,28 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
 
     const formattedTokenNumber = formatterUtils.formatNumber(votingPower, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
-    const formattedTokenVote = `${formattedTokenNumber} ${tokenSymbol}`;
+    const formattedTokenVote =
+        formattedTokenNumber != null && tokenSymbol != null ? `${formattedTokenNumber} ${tokenSymbol}` : undefined;
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
-    const centerInfoClassNames = classNames('flex w-full min-w-0 shrink flex-col gap-y-1 leading-tight md:text-lg', {
-        'py-3 md:py-3.5': !isTokenVoting,
-    });
+    const centerInfoClassNames = classNames(
+        'flex w-full min-w-0 shrink flex-col gap-y-1 leading-tight md:text-lg min-h-[2.90625rem] justify-center',
+    );
 
     return (
         <DataList.Item
-            className={classNames('flex h-16 items-center gap-x-3 md:h-20 md:gap-x-4', className)}
+            className={classNames('flex items-center gap-x-3 py-3 md:gap-x-4 md:py-5', className)}
             {...otherProps}
         >
             <MemberAvatar
                 address={voter.address}
                 ensName={voter.name}
                 avatarSrc={voter.avatarSrc}
+                size="sm"
                 responsiveSize={{ md: 'md' }}
             />
             <div className={centerInfoClassNames}>
-                <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
+                <span className="flex items-center gap-x-1 text-base text-neutral-800 md:gap-x-1.5 md:text-lg">
                     <span className="truncate">{resolvedUserHandle}</span>
                     {isDelegate && !isCurrentUser && (
                         <Tag variant="primary" label={copy.voteDataListItemStructure.yourDelegate} />

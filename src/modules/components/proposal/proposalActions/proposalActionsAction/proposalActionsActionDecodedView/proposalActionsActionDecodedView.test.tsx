@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import type * as coreModule from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../actions/generators';
 import {
@@ -6,29 +7,16 @@ import {
     ProposalActionsActionDecodedView,
 } from './proposalActionsActionDecodedView';
 
-jest.mock('../../../../../../core', () => {
-    const originalModule = jest.requireActual('../../../../../../core');
-    return {
-        ...originalModule,
-        InputNumber: ({
-            value,
-            disabled,
-            label,
-            helpText,
-        }: {
-            value: number;
-            disabled: boolean;
-            label: string;
-            helpText: string;
-        }) => (
-            <div>
-                <p>{label}</p>
-                <p>{helpText}</p>
-                <input type="number" value={value} disabled={disabled} />
-            </div>
-        ),
-    };
-});
+jest.mock('../../../../../../core', () => ({
+    ...jest.requireActual<typeof coreModule>('../../../../../../core'),
+    InputNumber: (props: { value: number; disabled: boolean; label: string; helpText: string }) => (
+        <div>
+            <p>{props.label}</p>
+            <p>{props.helpText}</p>
+            <input type="number" value={props.value} disabled={props.disabled} />
+        </div>
+    ),
+}));
 
 describe('<ProposalActionsActionDecodedView /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionsActionDecodedViewProps>) => {
@@ -94,6 +82,6 @@ describe('<ProposalActionsActionDecodedView /> component', () => {
 
         expect(screen.getByText('Value')).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsActionDecodedView.valueHelper)).toBeInTheDocument();
-        expect(screen.getByDisplayValue(action.value!)).toBeInTheDocument();
+        expect(screen.getByDisplayValue(action.value)).toBeInTheDocument();
     });
 });

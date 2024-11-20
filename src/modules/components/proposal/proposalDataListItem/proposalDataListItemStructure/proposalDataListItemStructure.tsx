@@ -52,7 +52,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     return (
         <DataList.Item
-            className={classNames('flex flex-col gap-y-3 py-4 md:gap-y-4 md:py-6', className)}
+            className={classNames('flex flex-col gap-y-4 py-4 md:gap-y-4 md:py-6', className)}
             {...otherProps}
         >
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
@@ -78,7 +78,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                     )}
                 >
                     {copy.proposalDataListItemStructure.by}
-                    {showParsedPublisher === false && (
+                    {!showParsedPublisher && (
                         <span>
                             {maxPublishersDisplayed}+ {copy.proposalDataListItemStructure.creators}
                         </span>

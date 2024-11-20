@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { useChains } from 'wagmi';
 import {
     AvatarIcon,
     DataList,
@@ -10,6 +9,7 @@ import {
     formatterUtils,
     type AvatarIconVariant,
 } from '../../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import {
     TransactionStatus,
     TransactionType,
@@ -37,7 +37,6 @@ const txVariantList: Record<TransactionType, AvatarIconVariant> = {
 export const TransactionDataListItemStructure: React.FC<ITransactionDataListItemProps> = (props) => {
     const {
         chainId,
-        tokenAddress,
         tokenSymbol,
         tokenAmount,
         tokenPrice,
@@ -48,30 +47,24 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         className,
         ...otherProps
     } = props;
-    const chains = useChains();
 
-    const matchingChain = chains?.find((chain) => chain.id === chainId);
-    const blockExplorerBaseUrl = matchingChain?.blockExplorers?.default?.url;
-    const blockExplorerAssembledHref = blockExplorerBaseUrl ? `${blockExplorerBaseUrl}/tx/${hash}` : undefined;
+    const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const parsedHref = blockExplorerAssembledHref ?? ('href' in otherProps ? otherProps.href : undefined);
+    const blockExplorerHref = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
+    const processedHref = 'href' in otherProps && otherProps.href != null ? otherProps.href : blockExplorerHref;
 
-    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, {
-        format: NumberFormat.TOKEN_AMOUNT_SHORT,
-    });
+    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
 
     const fiatValue = Number(tokenAmount ?? 0) * Number(tokenPrice ?? 0);
-    const formattedTokenPrice = formatterUtils.formatNumber(fiatValue, {
-        format: NumberFormat.FIAT_TOTAL_SHORT,
-    });
+    const formattedTokenPrice = formatterUtils.formatNumber(fiatValue, { format: NumberFormat.FIAT_TOTAL_SHORT });
 
     const formattedTokenAmount =
-        type === TransactionType.ACTION || tokenAmount == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
+        type === TransactionType.ACTION || formattedTokenValue == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 
     return (
         <DataList.Item
-            className={classNames('flex items-center justify-between gap-x-3 py-2.5 md:gap-x-4 md:py-4', className)}
-            href={parsedHref}
+            className={classNames('flex items-center justify-between gap-x-3 py-3 md:gap-x-4 md:py-5', className)}
+            href={processedHref}
             {...otherProps}
         >
             {status === TransactionStatus.SUCCESS && (

@@ -40,14 +40,14 @@ describe('<InputContainer /> component', () => {
         const maxLength = 100;
         const inputLength = 47;
         render(createTestComponent({ maxLength, inputLength }));
-        expect(screen.getByText(`${inputLength}/${maxLength}`)).toBeInTheDocument();
+        expect(screen.getByText(`${inputLength.toString()}/${maxLength.toString()}`)).toBeInTheDocument();
     });
 
     it('adds a shake animation when the input length is equal to the max length property', () => {
         const maxLength = 10;
         const inputLength = 10;
         render(createTestComponent({ maxLength, inputLength }));
-        expect(screen.getByText(`${inputLength}/${maxLength}`).className).toContain('shake');
+        expect(screen.getByText(`${inputLength.toString()}/${maxLength.toString()}`).className).toContain('shake');
     });
 
     it('renders the input alert when defined', () => {
@@ -73,6 +73,6 @@ describe('<InputContainer /> component', () => {
         expect(screen.getByRole('alert')).toBeInTheDocument();
         expect(screen.getByText(alert.message)).toBeInTheDocument();
 
-        expect(screen.queryByText(`${inputLength}/${maxLength}`)).not.toBeInTheDocument();
+        expect(screen.queryByText(`${inputLength.toString()}/${maxLength.toString()}`)).not.toBeInTheDocument();
     });
 });

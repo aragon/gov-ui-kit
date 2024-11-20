@@ -15,8 +15,8 @@ const meta: Meta<typeof Accordion.Container> = {
 type Story = StoryObj<typeof Accordion.Container>;
 
 const DefaultChildComponent = (childCount: number, forceMount?: true) =>
-    [...Array(childCount)].map((_, index) => (
-        <Accordion.Item key={`item-${index}`} value={`item-${index}`}>
+    [...Array<number>(childCount)].map((_, index) => (
+        <Accordion.Item key={`item-${index.toString()}`} value={`item-${index.toString()}`}>
             <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={forceMount}>
                 <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">

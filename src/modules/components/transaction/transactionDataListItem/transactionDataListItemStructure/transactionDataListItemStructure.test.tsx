@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import * as wagmi from 'wagmi';
 import { DateFormat, NumberFormat, formatterUtils } from '../../../../../core';
+import * as useBlockExplorer from '../../../../hooks';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     TransactionStatus,
@@ -9,30 +9,24 @@ import {
 } from './transactionDataListItemStructure.api';
 
 describe('<TransactionDataListItem.Structure /> component', () => {
-    const useChainsMock = jest.spyOn(wagmi, 'useChains');
+    const useBlockExplorerSpy = jest.spyOn(useBlockExplorer, 'useBlockExplorer');
 
     beforeEach(() => {
-        useChainsMock.mockReturnValue([
-            {
-                id: 1,
-                blockExplorers: {
-                    default: { name: 'Etherscan', url: 'https://etherscan.io', apiUrl: 'https://api.etherscan.io/api' },
-                },
-                name: 'Chain Name',
-                nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
-                rpcUrls: { default: { http: ['https://cloudflare-eth.com'] } },
-            },
-        ]);
+        useBlockExplorerSpy.mockReturnValue({
+            buildEntityUrl: jest.fn(),
+            getBlockExplorer: jest.fn(),
+            blockExplorer: undefined,
+        });
     });
 
     afterEach(() => {
-        useChainsMock.mockReset();
+        useBlockExplorerSpy.mockReset();
     });
 
     const createTestComponent = (props?: Partial<ITransactionDataListItemProps>) => {
         const defaultProps: ITransactionDataListItemProps = {
             chainId: 1,
-            hash: '0x123',
+            tokenSymbol: 'ETH',
             date: '2023-01-01T00:00:00Z',
             ...props,
         };
@@ -40,7 +34,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         return <TransactionDataListItemStructure {...defaultProps} />;
     };
 
-    it('renders the transaction type heading', () => {
+    it('renders the transaction type', () => {
         const type = TransactionType.ACTION;
         render(createTestComponent({ type }));
         const transactionTypeHeading = screen.getByText('Smart contract action');
@@ -56,15 +50,15 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         expect(tokenPrintout).toBeInTheDocument();
     });
 
-    it('renders the formatted USD estimate', () => {
+    it('renders the formatted USD price of the transaction', () => {
         const tokenPrice = 100;
         const tokenAmount = 10;
         const type = TransactionType.DEPOSIT;
-        const formattedEstimate = formatterUtils.formatNumber(tokenPrice * tokenAmount, {
+        const usdPrice = formatterUtils.formatNumber(tokenPrice * tokenAmount, {
             format: NumberFormat.FIAT_TOTAL_SHORT,
-        });
+        })!;
         render(createTestComponent({ tokenPrice, tokenAmount, type }));
-        const formattedUsdEstimate = screen.getByText(formattedEstimate as string);
+        const formattedUsdEstimate = screen.getByText(usdPrice);
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
@@ -86,6 +80,12 @@ describe('<TransactionDataListItem.Structure /> component', () => {
     it('renders with the correct block explorer URL', async () => {
         const chainId = 1;
         const hash = '0x123';
+        useBlockExplorerSpy.mockReturnValue({
+            buildEntityUrl: () => 'https://etherscan.io/tx/0x123',
+            getBlockExplorer: jest.fn(),
+            blockExplorer: undefined,
+        });
+
         render(createTestComponent({ chainId, hash }));
 
         await waitFor(() => {

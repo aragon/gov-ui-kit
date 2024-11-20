@@ -54,7 +54,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
         'displays the date and a pinging indicator when the status is %s and voted is false',
         (status) => {
             const date = 1719563030308;
-            render(createTestComponent({ date, status: status as ProposalStatus, voted: false }));
+            render(createTestComponent({ date, status, voted: false }));
 
             const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
             expect(screen.getByText(formattedDate)).toBeInTheDocument();
@@ -65,7 +65,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     test.each(proposalDataListItemUtils.ongoingStatuses)(
         'displays a you-voted label with an icon checkmark when the status is %s and voted is true',
         (status) => {
-            render(createTestComponent({ status: status as ProposalStatus, voted: true }));
+            render(createTestComponent({ status, voted: true }));
 
             expect(screen.getByText(/You've voted/i)).toBeInTheDocument();
             expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();

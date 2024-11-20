@@ -1,5 +1,7 @@
+import type * as ReactQuery from '@tanstack/react-query';
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
+import type * as Wagmi from 'wagmi';
 import { modulesCopy, type ModulesCopy } from '../../assets';
 import {
     GukModulesProvider,
@@ -9,14 +11,14 @@ import {
 } from './gukModulesProvider';
 
 jest.mock('@tanstack/react-query', () => ({
-    ...jest.requireActual('@tanstack/react-query'),
+    ...jest.requireActual<typeof ReactQuery>('@tanstack/react-query'),
     QueryClientProvider: (props: { children: ReactNode }) => (
         <div data-testid="query-client-mock">{props.children}</div>
     ),
 }));
 
 jest.mock('wagmi', () => ({
-    ...jest.requireActual('wagmi'),
+    ...jest.requireActual<typeof Wagmi>('wagmi'),
     WagmiProvider: (props: { children: ReactNode }) => <div data-testid="wagmi-mock">{props.children}</div>,
 }));
 

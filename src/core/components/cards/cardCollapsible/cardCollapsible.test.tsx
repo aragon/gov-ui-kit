@@ -1,12 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { CardCollapsible, type ICardCollapsibleProps } from './cardCollapsible';
 
-global.ResizeObserver = class {
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-};
-
 describe('<CardCollapsible /> component', () => {
     const createTestComponent = (props?: Partial<ICardCollapsibleProps>) => {
         const completeProps = { ...props };

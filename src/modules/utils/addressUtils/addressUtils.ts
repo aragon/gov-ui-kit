@@ -43,7 +43,7 @@ class AddressUtils {
     isAddressEqual = (addressOne = '', addressTwo = ''): boolean =>
         this.isAddress(addressOne) &&
         this.isAddress(addressTwo) &&
-        addressOne?.toLowerCase() === addressTwo?.toLowerCase();
+        addressOne.toLowerCase() === addressTwo.toLowerCase();
 }
 
 export const addressUtils = new AddressUtils();
