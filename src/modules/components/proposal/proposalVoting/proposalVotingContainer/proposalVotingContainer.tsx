@@ -1,5 +1,6 @@
 import { Children, cloneElement, isValidElement, type ComponentProps } from 'react';
 import { Accordion } from '../../../../../core';
+import { type IProposalVotingStageProps } from '../proposalVotingStage';
 
 export interface IProposalVotingContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**
@@ -23,12 +24,10 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
             {isMultiStage && (
                 <>
                     {processedChildren.map((child, index) =>
-                        isValidElement(child)
+                        isValidElement<IProposalVotingStageProps>(child)
                             ? cloneElement(child, {
                                   ...child.props,
                                   index,
-                                  activeStage,
-                                  onStageClick,
                                   isMultiStage,
                               })
                             : child,
