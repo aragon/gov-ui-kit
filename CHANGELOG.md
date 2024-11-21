@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update layout of `DataListItem` core component and layouts of components using it (Asset, Dao, Member, Proposal,
     Transaction, Vote)
+-   Update implementation of `DataListItem` skeleton components for better parity and no layout shift
 -   Improve responsiveness for `DefinitionList` container and items for middle breakpoints
 -   Update `DaoAvatar` to correctly set text size depending on `size` property
 
