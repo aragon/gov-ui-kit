@@ -111,13 +111,15 @@ describe('<ProposalActionsAction /> component', () => {
         expect(screen.getByTestId(testId)).toBeInTheDocument();
     });
 
-    it('renders an alert when action has value is not "0" and is not a native transfer', async () => {
+    it('renders a critical icon in the action heading and in an alert when action has value is not "0" and is not a native transfer', async () => {
         const action = generateProposalAction({ value: '1000000000000000000', data: 'some-data' });
         render(createTestComponent({ action }));
 
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByRole('alert')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CRITICAL)).toBeInTheDocument();
+
+        const criticalAlerts = screen.queryAllByTestId(IconType.CRITICAL);
+        expect(criticalAlerts).toHaveLength(2);
     });
 
     it('does not render an alert when action has value but it is a native transfer', async () => {
