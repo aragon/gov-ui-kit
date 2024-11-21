@@ -25,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Improve responsiveness for `DefinitionList` container and items for middle breakpoints
 -   Update `DaoAvatar` to correctly set text size depending on `size` property
--   AlertUtil fixed to use correct icon for critical alerts
+-   Fix AlertUtils to use correct icon for critical alerts
 
 ## [1.0.54] - 2024-11-11
 
