@@ -108,9 +108,6 @@ const getMultisigSettings = (minApprovals: number) => [
  */
 export const MultiStage: Story = {
     args: {
-        title: 'Voting',
-        description:
-            'The proposal must pass all governance stages to be accepted and potential onchain actions to execute.',
         className: 'max-w-[560px]',
     },
     render: (args) => {
@@ -184,8 +181,6 @@ export const MultiStage: Story = {
  */
 export const SingleStage: Story = {
     args: {
-        title: 'Voting',
-        description: 'The proposal must pass the voting to be accepted and potential onchain actions to execute.',
         className: 'max-w-[560px]',
     },
     render: (args) => {
