@@ -43,7 +43,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const { copy } = useGukModulesContext();
 
     return (
-        <div className="flex h-6 w-full items-center justify-between gap-x-4 md:h-8 md:gap-x-6">
+        <div className="flex w-full items-center justify-between gap-x-4 md:gap-x-6">
             <Tag
                 label={copy.proposalDataListItemStatus.statusLabel[status]}
                 variant={proposalStatusToTagVariant[status]}
