@@ -1,24 +1,5 @@
-import { Children, cloneElement, isValidElement, type ComponentProps, type ReactElement } from 'react';
+import { Children, cloneElement, isValidElement, type ComponentProps } from 'react';
 import { Accordion } from '../../../../../core';
-
-interface ChildProps {
-    /**
-     * Index of the child in the parent.
-     */
-    index: number;
-    /**
-     * Active stage that will be expanded for multi-stage proposals.
-     */
-    activeStage?: string;
-    /**
-     * Callback called when the user selects a stage, to be used for expanding the current active stage for multi-stage proposals.
-     */
-    onStageClick?: (stage?: string) => void;
-    /**
-     * Flag that indicates if the proposal is multi stage.
-     */
-    isMultiStage: boolean;
-}
 
 export interface IProposalVotingContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**
@@ -32,9 +13,9 @@ export interface IProposalVotingContainerProps extends Omit<ComponentProps<'div'
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
-    const { className, children, activeStage, onStageClick, ...otherProps } = props;
+    const { children, activeStage, onStageClick, ...otherProps } = props;
 
-    const processedChildren = Children.toArray(children) as Array<ReactElement<ChildProps>>;
+    const processedChildren = Children.toArray(children);
     const isMultiStage = processedChildren.length > 1;
 
     return (

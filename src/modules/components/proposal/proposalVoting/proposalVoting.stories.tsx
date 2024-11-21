@@ -181,7 +181,7 @@ export const MultiStage: Story = {
  */
 export const SingleStage: Story = {
     args: {
-        className: 'w-full',
+        className: 'max-w-[560px]',
     },
     render: (args) => {
         const [search, setSearch] = useState<string | undefined>('');

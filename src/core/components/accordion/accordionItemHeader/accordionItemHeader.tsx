@@ -34,7 +34,6 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                     'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
                     className,
                 )}
-                tabIndex={0}
                 ref={ref}
                 {...otherProps}
             >

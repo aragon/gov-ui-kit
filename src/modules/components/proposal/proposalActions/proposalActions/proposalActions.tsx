@@ -70,7 +70,7 @@ export const ProposalActions = <TAction extends IProposalAction = IProposalActio
                     description={emptyStateDescription}
                     isStacked={false}
                     objectIllustration={{ object: 'SMART_CONTRACT' }}
-                    className="rounded-xl border border-neutral-100 bg-neutral-0"
+                    className="border border-neutral-100"
                 />
             )}
             <div className={footerClassNames}>
