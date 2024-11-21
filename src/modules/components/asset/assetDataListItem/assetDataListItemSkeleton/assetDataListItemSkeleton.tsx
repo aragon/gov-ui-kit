@@ -15,7 +15,7 @@ export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'flex min-h-[4.375rem] w-full items-center gap-x-3 gap-y-4 bg-neutral-0 py-3 md:min-h-[5.78125rem] md:py-5',
+                'flex min-h-[70px] w-full items-center gap-x-3 gap-y-4 bg-neutral-0 py-3 md:min-h-[92.5px] md:py-5',
                 className,
             )}
             {...otherProps}

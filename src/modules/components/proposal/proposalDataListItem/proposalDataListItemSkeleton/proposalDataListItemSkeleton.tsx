@@ -13,7 +13,7 @@ export const ProposalDataListItemSkeleton: React.FC<IProposalDataListItemSkeleto
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'flex min-h-[11.53125rem] flex-col justify-center gap-y-3 bg-neutral-0 py-4 md:min-h-[13.8125rem] md:gap-y-4 md:py-6',
+                'flex min-h-[184.5px] flex-col justify-center gap-y-3 bg-neutral-0 py-4 md:min-h-[221px] md:gap-y-4 md:py-6',
                 className,
             )}
             {...otherProps}

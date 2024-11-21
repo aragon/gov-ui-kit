@@ -13,7 +13,7 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'flex min-h-[10.84375rem] w-full flex-col justify-center gap-y-3 py-4 md:min-h-[12.9375rem] md:gap-y-4 md:py-6',
+                'flex min-h-[173.5px] w-full flex-col justify-center gap-y-3 py-4 md:min-h-[207px] md:gap-y-4 md:py-6',
                 className,
             )}
             {...otherProps}

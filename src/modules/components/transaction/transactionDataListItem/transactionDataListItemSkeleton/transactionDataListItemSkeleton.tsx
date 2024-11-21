@@ -12,7 +12,7 @@ export const TransactionDataListItemSkeleton: React.FC<ITransactionDataListItemS
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'flex min-h-[4.21875rem] w-full items-center justify-between gap-x-3 border border-neutral-0 py-4 md:min-h-[5.53125rem]',
+                'flex min-h-[67.5px] w-full items-center justify-between gap-x-3 border border-neutral-0 py-4 md:min-h-[88.5px]',
                 className,
             )}
             {...otherProps}
