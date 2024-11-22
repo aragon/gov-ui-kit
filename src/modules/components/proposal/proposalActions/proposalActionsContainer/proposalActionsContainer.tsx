@@ -1,5 +1,5 @@
 import React, { Children, useEffect, type ComponentProps } from 'react';
-import { Accordion, EmptyState } from '../../../../../core';
+import { Accordion, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
 import type { IProposalActionsItemProps } from '../proposalActionsItem';
@@ -33,11 +33,12 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             {...otherProps}
         >
             {actionsCount === 0 && (
-                <EmptyState
+                <CardEmptyState
                     heading={copy.proposalActionsContainer.emptyHeader}
                     description={emptyStateDescription}
                     isStacked={false}
                     objectIllustration={{ object: 'SMART_CONTRACT' }}
+                    className="rounded-xl border border-neutral-100"
                 />
             )}
             {processedChildren.map((child, index) =>
