@@ -23,7 +23,6 @@ export const Default: Story = {
         logoSrc: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        plugin: 'token-based',
         network: 'Ethereum Mainnet',
         ens: 'patito.dao.eth',
     },
@@ -36,7 +35,6 @@ export const LongNames: Story = {
         logoSrc: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        plugin: 'token-based',
         network: 'Ethereum Mainnet',
         ens: 'a_dao_with_an_extremely_long_ens_name_that_should_be_truncated.dao.eth',
     },
@@ -50,7 +48,6 @@ export const Fallback: Story = {
         name: 'Patito DAO',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        plugin: 'token-based',
         network: 'Ethereum Mainnet',
         ens: 'patito.dao.eth',
     },

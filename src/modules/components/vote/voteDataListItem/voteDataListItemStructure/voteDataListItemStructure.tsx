@@ -28,10 +28,15 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      * If token-based voting, the symbol of the voting power used.
      */
     tokenSymbol?: string;
+    /**
+     *  Custom label for the tag.
+     */
+    confirmationLabel?: string;
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, className, ...otherProps } = props;
+    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, confirmationLabel, className, ...otherProps } =
+        props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();
@@ -47,29 +52,43 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
-        'flex w-full min-w-0 shrink flex-col gap-y-1 text-base font-normal leading-tight md:gap-y-1.5 md:text-lg',
-        { 'py-3 md:py-3.5': !isTokenVoting },
+        'flex min-h-[46.5px] w-full min-w-0 shrink flex-col justify-center gap-y-1 leading-tight md:text-lg',
     );
 
     return (
-        <DataList.Item className={classNames('flex items-center gap-x-3 md:gap-x-4', className)} {...otherProps}>
+        <DataList.Item
+            className={classNames('flex items-center gap-x-3 py-3 md:gap-x-4 md:py-5', className)}
+            {...otherProps}
+        >
             <MemberAvatar
                 address={voter.address}
                 ensName={voter.name}
                 avatarSrc={voter.avatarSrc}
+                size="sm"
                 responsiveSize={{ md: 'md' }}
             />
             <div className={centerInfoClassNames}>
-                <span className="flex items-center gap-x-1 text-neutral-800 md:gap-x-1.5">
+                <span className="flex items-center gap-x-1 text-base text-neutral-800 md:gap-x-1.5 md:text-lg">
                     <span className="truncate">{resolvedUserHandle}</span>
                     {isDelegate && !isCurrentUser && (
                         <Tag variant="primary" label={copy.voteDataListItemStructure.yourDelegate} />
                     )}
                     {isCurrentUser && <Tag variant="neutral" label={copy.voteDataListItemStructure.you} />}
                 </span>
-                {isTokenVoting && <span className="truncate text-neutral-500">{formattedTokenVote}</span>}
+                {isTokenVoting && (
+                    <span className="truncate text-sm text-neutral-500 md:text-base">{formattedTokenVote}</span>
+                )}
             </div>
-            <Tag variant={voteIndicatorToTagVariant[voteIndicator]} className="capitalize" label={voteIndicator} />
+
+            <div className="flex items-center gap-x-1 text-sm font-normal leading-tight text-neutral-500 md:gap-x-1.5 md:text-base">
+                <span>{confirmationLabel ?? copy.voteDataListItemStructure.voted}</span>
+                <Tag
+                    variant={voteIndicatorToTagVariant[voteIndicator]}
+                    className="capitalize"
+                    label={voteIndicator}
+                    data-testid="tag"
+                />
+            </div>
         </DataList.Item>
     );
 };

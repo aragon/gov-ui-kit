@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useAccount } from 'wagmi';
-import { DataList, Link, Tag } from '../../../../../core';
+import { DataList, Heading, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ApprovalThresholdResult } from '../approvalThresholdResult';
@@ -51,13 +51,16 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const showParsedPublisher = parsedPublisher.length <= maxPublishersDisplayed;
 
     return (
-        <DataList.Item className={classNames('flex flex-col gap-y-4', className)} {...otherProps}>
+        <DataList.Item
+            className={classNames('flex flex-col gap-y-4 py-4 md:gap-y-4 md:py-6', className)}
+            {...otherProps}
+        >
             <ProposalDataListItemStatus date={date} status={status} voted={voted} />
             <div className="flex flex-col gap-y-1">
-                <p className="flex gap-x-3 text-lg leading-tight md:text-2xl">
+                <Heading size="h3" as="h2" className="flex gap-x-2 md:gap-x-3">
                     {id && <span className="shrink-0 text-neutral-500">{id}</span>}
                     <span className="line-clamp-1 text-neutral-800">{title}</span>
-                </p>
+                </Heading>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
 
@@ -71,7 +74,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 <div
                     className={classNames(
                         'inline-grid auto-cols-auto grid-flow-col content-center',
-                        'min-h-5 gap-x-0.5 text-sm leading-tight text-neutral-600 md:min-h-6 md:gap-x-1 md:text-base',
+                        'min-h-5 gap-x-0.5 text-sm leading-tight text-neutral-500 md:min-h-6 md:gap-x-1 md:text-base',
                     )}
                 >
                     {copy.proposalDataListItemStructure.by}

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import type React from 'react';
 import { DataList, type IDataListItemProps, StateSkeletonBar, StateSkeletonCircular } from '../../../../../core';
 
@@ -7,23 +8,29 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
     const { className, ...otherProps } = props;
 
     return (
-        <DataList.Item tabIndex={0} aria-busy="true" aria-label="loading" {...otherProps}>
-            <div className="grid gap-y-5 py-1.5">
-                <div className="flex w-full justify-between space-x-4">
-                    <div className="grid w-full gap-y-3 text-neutral-800 md:w-2/3 md:gap-y-2">
-                        <StateSkeletonBar size="xl" responsiveSize={{ md: '2xl' }} width="100%" />
-                        <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
-                    </div>
-                    <StateSkeletonCircular size="lg" />
-                </div>
-                <div className="flex flex-col gap-y-2">
-                    <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="100%" />
-                    <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="85%" />
-                </div>
-                <div className="flex w-3/4 justify-between gap-x-8 text-neutral-400 md:w-1/2">
-                    <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
+        <DataList.Item
+            tabIndex={0}
+            aria-busy="true"
+            aria-label="loading"
+            className={classNames(
+                'flex min-h-[173.5px] w-full flex-col justify-center gap-y-3 py-4 md:min-h-[207px] md:gap-y-4 md:py-6',
+                className,
+            )}
+            {...otherProps}
+        >
+            <div className="flex w-full justify-between">
+                <div className="flex w-2/3 flex-col gap-y-2.5 text-neutral-800">
+                    <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="100%" />
                     <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
                 </div>
+                <StateSkeletonCircular size="md" responsiveSize={{ md: 'lg' }} />
+            </div>
+            <div className="flex w-full flex-col gap-y-2">
+                <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="100%" />
+                <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="85%" />
+            </div>
+            <div className="flex w-3/4 justify-between text-neutral-400 md:w-1/2">
+                <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
             </div>
         </DataList.Item>
     );

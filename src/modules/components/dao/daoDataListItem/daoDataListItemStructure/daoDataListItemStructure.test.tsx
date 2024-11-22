@@ -40,11 +40,9 @@ describe('<DaoDataListItemStructure /> component', () => {
         expect(descriptionElement).toHaveClass('line-clamp-2');
     });
 
-    it('renders the network and plugin information correctly', () => {
+    it('renders the network information correctly', () => {
         const network = 'ethereum';
-        const plugin = 'token-based';
-        render(createTestComponent({ network, plugin }));
+        render(createTestComponent({ network }));
         expect(screen.getByText(network)).toBeInTheDocument();
-        expect(screen.getByText(plugin)).toBeInTheDocument();
     });
 });
