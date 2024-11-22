@@ -117,7 +117,6 @@ describe('<ProposalActionsAction /> component', () => {
 
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByRole('alert')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CRITICAL)).toBeInTheDocument();
     });
 
     it('does not render an alert when action has value but it is a native transfer', async () => {

@@ -31,7 +31,7 @@ export type IAccordionContainerProps = IAccordionContainerBaseProps<true> | IAcc
 export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainerProps>((props, ref) => {
     const { children, className, isMulti, defaultValue, value, onValueChange, ...otherProps } = props;
 
-    const accordionContainerClasses = classNames('grow bg-neutral-0', className);
+    const accordionContainerClasses = classNames('flex w-full grow flex-col gap-y-2 md:gap-y-3', className);
 
     if (isMulti) {
         return (

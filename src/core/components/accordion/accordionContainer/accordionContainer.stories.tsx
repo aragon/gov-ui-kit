@@ -67,4 +67,15 @@ export const ForceMount: Story = {
     },
 };
 
+export const Disabled: Story = {
+    args: {
+        isMulti: true,
+        children: (
+            <Accordion.Item value="1" disabled={true}>
+                <Accordion.ItemHeader>Item 1 Header</Accordion.ItemHeader>
+            </Accordion.Item>
+        ),
+    },
+};
+
 export default meta;

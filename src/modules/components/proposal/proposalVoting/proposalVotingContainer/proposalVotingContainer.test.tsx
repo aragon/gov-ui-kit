@@ -7,21 +7,11 @@ import { type IProposalVotingContainerProps, ProposalVotingContainer } from './p
 describe('<ProposalVotingContainer /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingContainerProps>) => {
         const completeProps: IProposalVotingContainerProps = {
-            title: '',
-            description: '',
             ...props,
         };
 
         return <ProposalVotingContainer {...completeProps} />;
     };
-
-    it('renders the proposal voting title and description', () => {
-        const title = 'Proposal voting';
-        const description = 'Description for the voting terminal';
-        render(createTestComponent({ title, description }));
-        expect(screen.getByRole('heading', { level: 2, name: title })).toBeInTheDocument();
-        expect(screen.getByText(description)).toBeInTheDocument();
-    });
 
     it('renders an accordion container when having more than one child', () => {
         const children = [
