@@ -43,8 +43,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update `ProposalActions` implementation to separate `Accordion` usage into separate `Card` containers
 -   Fix critical icon on `AlertCard` and `AlertInline` core components
 
-> > > > > > > 16f92af6da6d0dafbb2b23c322dcafb2db6fdc02
-
 ## [1.0.54] - 2024-11-11
 
 ### Changed
