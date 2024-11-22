@@ -1,5 +1,18 @@
-export * from './actions';
-export * from './proposalActions';
-export * from './proposalActionsAction';
-export * from './proposalActionsTypes';
-export { proposalActionsUtils } from './proposalActionsUtils';
+import { ProposalActionsContainer } from './proposalActionsContainer';
+import { ProposalActionsFooter } from './proposalActionsFooter';
+import { ProposalActionsItem } from './proposalActionsItem';
+import { ProposalActionsRoot } from './proposalActionsRoot';
+
+export const ProposalActions = {
+    Root: ProposalActionsRoot,
+    Container: ProposalActionsContainer,
+    Item: ProposalActionsItem,
+    Footer: ProposalActionsFooter,
+};
+
+export * from './proposalActionsContainer';
+export * from './proposalActionsDefinitions';
+export * from './proposalActionsFooter';
+export * from './proposalActionsItem';
+export * from './proposalActionsList';
+export * from './proposalActionsRoot';
