@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.55] - 2024-11-22
+
 ### Added
 
 -   Update `VoteDataListItem` component to add "Voted" string and possibility to customise it through the
