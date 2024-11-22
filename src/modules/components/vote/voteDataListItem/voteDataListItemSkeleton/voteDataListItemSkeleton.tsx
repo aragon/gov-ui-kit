@@ -14,7 +14,7 @@ export const VoteDataListItemSkeleton: React.FC<IVoteDataListItemSkeletonProps> 
             {...otherProps}
         >
             <StateSkeletonCircular size="sm" responsiveSize={{ md: 'md' }} />
-            <div className="flex min-h-[2.90625rem] w-full flex-col justify-center gap-y-1 md:gap-y-1.5">
+            <div className="flex w-full flex-col justify-center gap-y-1 md:gap-y-1.5">
                 <StateSkeletonBar width="60%" responsiveSize={{ md: 'lg' }} />
                 <StateSkeletonBar width="40%" responsiveSize={{ md: 'lg' }} />
             </div>

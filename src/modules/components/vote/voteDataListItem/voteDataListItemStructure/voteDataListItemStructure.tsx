@@ -52,7 +52,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
 
     const isTokenVoting = votingPower != null && tokenSymbol != null;
     const centerInfoClassNames = classNames(
-        'flex min-h-[2.90625rem] w-full min-w-0 shrink flex-col justify-center gap-y-1 leading-tight md:text-lg',
+        'flex min-h-[46.5px] w-full min-w-0 shrink flex-col justify-center gap-y-1 leading-tight md:text-lg',
     );
 
     return (
