@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Update `VoteDataListItem` component to add "Voted" string and possibility to customise it through the
     `confirmationLabel` property
+-   Update `formatterUtils` documentation to add number formatting examples
 
 ### Fixed
 
@@ -19,13 +20,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Update implementation of `DataListItem` skeleton components for better parity and no layout shift
 -   Improve responsiveness for `DefinitionList` container and items for middle breakpoints
 -   Update `DaoAvatar` to correctly set text size depending on `size` property
--   Update `formatterUtils` documentation to add number formatting examples
 -   Include styles on `AccordionItemHeader` for stronger visual cue when expanded
+-   Fix critical icon on `AlertCard` and `AlertInline` core components
 
 ### Changed
 
 -   Remove `plugin` property from `DaoDataListItem` module component
--   Update `formatterUtils` documentation to add number formatting examples
 -   Update minor and patch dependencies
 -   Refactor `ProposalActions` component, split it into `Root`, `Container`, `Item` and `Footer` components
 -   Update `eslint` to v9
@@ -34,15 +34,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 -   Bump `softprops/action-gh-release` from 2.0.9 to 2.1.0
 -   Removed `xs` size variant from `Avatar` component
 -   Update eslint rules to enforce consistent type imports and exports
-
-# <<<<<<< HEAD
-
-### Fixed
-
--   Improve responsiveness for `DefinitionList` container and items for middle breakpoints
--   Update `DaoAvatar` to correctly set text size depending on `size` property
--   Update `ProposalActions` implementation to separate `Accordion` usage into separate `Card` containers
--   Fix critical icon on `AlertCard` and `AlertInline` core components
 
 ## [1.0.54] - 2024-11-11
 
