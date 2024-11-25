@@ -36,8 +36,7 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, endDate,  index, children, isMultiStage, className, ...otherProps } =
-        props;
+    const { name, status, startDate, endDate, index, children, isMultiStage, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
