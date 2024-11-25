@@ -65,10 +65,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
     if (!isMultiStage) {
         return (
             <Card
-                className={classNames(
-                    'relative flex flex-col gap-4 overflow-hidden p-4 shadow-neutral md:gap-6 md:p-6',
-                    className,
-                )}
+                className={classNames('relative flex flex-col gap-4 overflow-hidden p-4 md:gap-6 md:p-6', className)}
                 {...otherProps}
             >
                 <ProposalVotingStageStatus

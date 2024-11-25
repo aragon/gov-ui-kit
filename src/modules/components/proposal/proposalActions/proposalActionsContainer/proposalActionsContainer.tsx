@@ -38,7 +38,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                     description={emptyStateDescription}
                     isStacked={false}
                     objectIllustration={{ object: 'SMART_CONTRACT' }}
-                    className="rounded-xl border border-neutral-100"
+                    className="border border-neutral-100"
                 />
             )}
             {processedChildren.map((child, index) =>
