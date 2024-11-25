@@ -26,10 +26,6 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      */
     name?: string;
     /**
-     * Forces the multi-stage content to be rendered when set to true.
-     */
-    forceMount?: true;
-    /**
      * Index of the stage set automatically by the ProposalVotingContainer for multi-stage proposals.
      */
     index?: number;
@@ -40,7 +36,7 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, endDate, forceMount, index, children, isMultiStage, className, ...otherProps } =
+    const { name, status, startDate, endDate,  index, children, isMultiStage, className, ...otherProps } =
         props;
 
     const { copy } = useGukModulesContext();
@@ -101,7 +97,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     </p>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
+            <Accordion.ItemContent ref={accordionContentRef}>
                 <ProposalVotingTabs
                     value={activeTab}
                     onValueChange={setActiveTab}
