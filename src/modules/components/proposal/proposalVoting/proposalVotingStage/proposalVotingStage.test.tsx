@@ -1,12 +1,26 @@
 import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
-import { testLogger } from '../../../../../core/test';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
+import { testLogger } from '../../../../../core/test';
 
 jest.mock('../proposalVotingStageStatus', () => ({
     ProposalVotingStageStatus: (props: { status: string }) => (
         <div data-testid="proposal-status-mock">{props.status}</div>
+    ),
+}));
+
+jest.mock('../proposalVotingBodySummary', () => ({
+    ProposalVotingBodySummary: (props: { children: React.ReactNode }) => (
+        <div data-testid="proposal-body-summary">{props.children}</div>
+    ),
+}));
+
+jest.mock('../proposalVotingBodyContent', () => ({
+    ProposalVotingBodyContent: (props: { bodyId: string; children: React.ReactNode }) => (
+        <div data-testid="proposal-body-content" data-bodyid={props.bodyId}>
+            {props.children}
+        </div>
     ),
 }));
 
@@ -16,6 +30,7 @@ describe('<ProposalVotingStage /> component', () => {
             status: ProposalVotingStatus.PENDING,
             startDate: 0,
             endDate: 0,
+            bodyList: undefined,
             ...props,
         };
 
@@ -30,21 +45,31 @@ describe('<ProposalVotingStage /> component', () => {
         return <ProposalVotingStage {...completeProps} />;
     };
 
-    it('only renders the proposal status and the tabs for single-stage proposals', () => {
-        const isMultiStage = false;
-        const status = ProposalVotingStatus.REJECTED;
+    it('renders ProposalVotingBodySummary when activeBody is null', () => {
+        const bodyList = ['body1', 'body2'];
         const children = 'test-children';
-        render(createTestComponent({ isMultiStage, status, children }));
-        expect(screen.getByText(status)).toBeInTheDocument();
-        expect(screen.getByRole('tablist')).toBeInTheDocument();
+        render(createTestComponent({ bodyList, children }));
+        expect(screen.getByTestId('proposal-body-summary')).toBeInTheDocument();
+        expect(screen.queryByTestId('proposal-body-content')).not.toBeInTheDocument();
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
-    it('throws error when proposal is multi-stage and index property is not set', () => {
-        testLogger.suppressErrors();
-        const isMultiStage = true;
-        const index = undefined;
-        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
+    it('renders ProposalVotingBodyContent when bodyList has one element', () => {
+        const bodyList = ['body1'];
+        const children = 'test-children';
+        render(createTestComponent({ bodyList, children }));
+        expect(screen.getByTestId('proposal-body-content')).toBeInTheDocument();
+        expect(screen.getByTestId('proposal-body-content')).toHaveAttribute('data-bodyid', 'body1');
+        expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
+        expect(screen.getByText(children)).toBeInTheDocument();
+    });
+
+    it('renders ProposalVotingBodyContent when bodyList is undefined and activeBody is null', () => {
+        const children = 'test-children';
+        render(createTestComponent({ bodyList: undefined, children }));
+        expect(screen.getByTestId('proposal-body-content')).toBeInTheDocument();
+        expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 
     it('renders the proposal stage with its name inside an accordion item', () => {
@@ -57,29 +82,37 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText('Stage 3')).toBeInTheDocument();
     });
 
-    test.each([{ status: ProposalVotingStatus.PENDING }, { status: ProposalVotingStatus.UNREACHED }])(
-        'sets the default active tab to details when proposal status is $status',
-        ({ status }) => {
-            render(createTestComponent({ status }));
-            expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true');
-        },
-    );
-
-    test.each([
-        { status: ProposalVotingStatus.ACTIVE },
-        { status: ProposalVotingStatus.ACCEPTED },
-        { status: ProposalVotingStatus.REJECTED },
-    ])('sets the default active tab to breakdown when proposal status is $status', ({ status }) => {
+    it('passes correct props to ProposalVotingStageStatus', () => {
+        const status = ProposalVotingStatus.ACTIVE;
         render(createTestComponent({ status }));
-        expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByTestId('proposal-status-mock')).toHaveTextContent(status);
     });
 
-    it('correctly updates the active-tab when the stage status changes', () => {
-        const status = ProposalVotingStatus.PENDING;
-        const { rerender } = render(createTestComponent({ status }));
-        expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true');
-        rerender(createTestComponent({ status: ProposalVotingStatus.ACTIVE }));
-        expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'false');
-        expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
+    it('renders the proposal status and content for single-stage proposals', () => {
+        const isMultiStage = false;
+        const status = ProposalVotingStatus.REJECTED;
+        const children = 'test-children';
+        render(createTestComponent({ isMultiStage, status, children }));
+        expect(screen.getByText(status)).toBeInTheDocument();
+        expect(screen.getByText(children)).toBeInTheDocument();
+    });
+
+    it('throws error when proposal is multi-stage and index property is not set', () => {
+        testLogger.suppressErrors();
+        const isMultiStage = true;
+        const index = undefined;
+        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow(
+            'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
+        );
+    });
+
+    it('renders the proposal stage with its name inside an accordion item', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const status = ProposalVotingStatus.ACCEPTED;
+        render(createTestComponent({ isMultiStage, name, status, index: 2 }));
+        expect(screen.getByRole('button')).toBeInTheDocument();
+        expect(screen.getByText(name)).toBeInTheDocument();
+        expect(screen.getByText('Stage 3')).toBeInTheDocument();
     });
 });

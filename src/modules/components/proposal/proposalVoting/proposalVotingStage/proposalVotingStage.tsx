@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import { useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
+import { useMemo, useRef, useState, type ComponentProps } from 'react';
 import { Accordion, Card, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import type { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
-import { ProposalVotingTabs } from '../proposalVotingTabs';
+import { ProposalVotingBodyContent } from '../proposalVotingBodyContent';
+import { ProposalVotingBodySummary } from '../proposalVotingBodySummary';
 
 export interface IProposalVotingStageProps extends ComponentProps<'div'> {
     /**
@@ -37,85 +37,97 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      * Defines if the proposal has multiple stages or not.
      */
     isMultiStage?: boolean;
+    /**
+     * List of plugin addresses of bodies.
+     */
+    bodyList?: string[];
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, endDate, forceMount, index, children, isMultiStage, className, ...otherProps } =
-        props;
+    const {
+        name,
+        status,
+        startDate,
+        endDate,
+        forceMount,
+        index,
+        children,
+        isMultiStage,
+        className,
+        bodyList,
+        ...otherProps
+    } = props;
 
     const { copy } = useGukModulesContext();
 
-    const futureStatuses = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED];
-    const stateActiveTab = futureStatuses.includes(status) ? ProposalVotingTab.DETAILS : ProposalVotingTab.BREAKDOWN;
-
-    const [activeTab, setActiveTab] = useState<string | undefined>(stateActiveTab);
-
-    // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
-    useEffect(() => setActiveTab(stateActiveTab), [stateActiveTab]);
+    const [activeBody, setActiveBody] = useState<string | undefined>(
+        bodyList && bodyList.length === 1 ? bodyList[0] : undefined,
+    );
 
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
-    const contextValues = useMemo(() => ({ startDate, endDate }), [startDate, endDate]);
-
+    const contextValues = useMemo(
+        () => ({ startDate, endDate, bodyList, activeBody, setActiveBody }),
+        [startDate, endDate, bodyList, activeBody],
+    );
     invariant(
         !isMultiStage || index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
     );
 
+    const renderContent = () => {
+        if (activeBody || !bodyList) {
+            // Render ProposalVotingBodyContent when activeBody is set or bodyList is undefined
+            return (
+                <ProposalVotingBodyContent status={status} name={name} bodyId={activeBody}>
+                    {children}
+                </ProposalVotingBodyContent>
+            );
+        }
+        // Render ProposalVotingBodySummary when activeBody is null and bodyList has more than one element
+        return <ProposalVotingBodySummary>{children}</ProposalVotingBodySummary>;
+    };
+
     if (!isMultiStage) {
         return (
-            <Card
-                className={classNames(
-                    'relative flex flex-col gap-4 overflow-hidden p-4 shadow-neutral md:gap-6 md:p-6',
-                    className,
-                )}
-                {...otherProps}
-            >
-                <ProposalVotingStageStatus
-                    status={status}
-                    endDate={endDate}
-                    isMultiStage={false}
-                    className="md:absolute md:right-9 md:top-9"
-                />
-                <ProposalVotingTabs
-                    status={status}
-                    value={activeTab}
-                    onValueChange={setActiveTab}
-                    accordionRef={accordionContentRef}
+            <ProposalVotingStageContextProvider value={contextValues}>
+                <Card
+                    className={classNames(
+                        'relative flex flex-col gap-4 overflow-hidden p-4 shadow-neutral md:gap-6 md:p-6',
+                        className,
+                    )}
+                    {...otherProps}
                 >
-                    <ProposalVotingStageContextProvider value={contextValues}>
-                        {children}
-                    </ProposalVotingStageContextProvider>
-                </ProposalVotingTabs>
-            </Card>
+                    <ProposalVotingStageStatus
+                        status={status}
+                        endDate={endDate}
+                        isMultiStage={false}
+                        className="md:absolute md:right-9 md:top-9"
+                    />
+                     {renderContent()}
+                </Card>
+            </ProposalVotingStageContextProvider>
         );
     }
 
     return (
-        <Accordion.Item value={index!.toString()} {...otherProps}>
-            <Accordion.ItemHeader>
-                <div className="flex grow flex-row justify-between gap-4 md:gap-6">
-                    <div className="flex flex-col items-start gap-1">
-                        <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
-                        <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
+        <ProposalVotingStageContextProvider value={contextValues}>
+            <Accordion.Item value={index!.toString()} {...otherProps}>
+                <Accordion.ItemHeader>
+                    <div className="flex grow flex-row justify-between gap-4 md:gap-6">
+                        <div className="flex flex-col items-start gap-1">
+                            <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                            <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
+                        </div>
+                        <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">
+                            {copy.proposalVotingStage.stage(index! + 1)}
+                        </p>
                     </div>
-                    <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">
-                        {copy.proposalVotingStage.stage(index! + 1)}
-                    </p>
-                </div>
-            </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
-                <ProposalVotingTabs
-                    value={activeTab}
-                    onValueChange={setActiveTab}
-                    status={status}
-                    accordionRef={accordionContentRef}
-                >
-                    <ProposalVotingStageContextProvider value={contextValues}>
-                        {children}
-                    </ProposalVotingStageContextProvider>
-                </ProposalVotingTabs>
-            </Accordion.ItemContent>
-        </Accordion.Item>
+                </Accordion.ItemHeader>
+                <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
+                    {renderContent()}
+                </Accordion.ItemContent>
+            </Accordion.Item>
+        </ProposalVotingStageContextProvider>
     );
 };

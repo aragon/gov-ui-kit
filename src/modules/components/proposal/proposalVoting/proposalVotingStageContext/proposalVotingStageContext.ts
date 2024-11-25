@@ -1,7 +1,11 @@
 import { createContext, useContext } from 'react';
 import type { IProposalVotingStageProps } from '../proposalVotingStage/proposalVotingStage';
 
-export interface IProposalVotingStageContext extends Pick<IProposalVotingStageProps, 'startDate' | 'endDate'> {}
+export interface IProposalVotingStageContext extends Pick<IProposalVotingStageProps, 'startDate' | 'endDate'> {
+    bodyList?: string[];
+    activeBody?: string;
+    setActiveBody: (id: string | undefined) => void;
+}
 
 const proposalVotingStageContext = createContext<IProposalVotingStageContext | null>(null);
 
