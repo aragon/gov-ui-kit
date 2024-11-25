@@ -43,9 +43,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const onViewModeChange = (value: ProposalActionViewMode) => {
-        const { style, scrollHeight = 0 } = contentRef.current ?? {};
-        style?.setProperty('--radix-collapsible-content-height', scrollHeight.toString());
-
         setActiveViewMode(value);
         itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
