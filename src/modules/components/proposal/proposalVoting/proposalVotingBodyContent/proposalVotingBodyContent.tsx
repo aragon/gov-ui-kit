@@ -51,7 +51,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                         className="w-fit"
                         iconLeft={IconType.CHEVRON_LEFT}
                         variant="tertiary"
-                        onClick={() => setActiveBody(undefined)}
+                        onClick={() => setActiveBody?.(undefined)}
                         size="sm"
                     >
                         {copy.proposalVotingBodyContent.back}
