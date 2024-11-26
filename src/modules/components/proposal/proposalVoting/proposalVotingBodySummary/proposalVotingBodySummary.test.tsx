@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
-import { type IProposalVotingBodySummaryProps, ProposalVotingBodySummary } from './proposalVotingBoodySummary';
+import { type IProposalVotingBodySummaryProps, ProposalVotingBodySummary } from './proposalVotingBodySummary';
 
 describe('<ProposalVotingBodySummary /> component', () => {
     const createTestComponent = (
