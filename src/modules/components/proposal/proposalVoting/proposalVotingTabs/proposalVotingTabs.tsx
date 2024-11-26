@@ -27,17 +27,6 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
 
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const handleTabClick = () => {
-        if (accordionRef?.current == null || contentRef.current == null) {
-            return;
-        }
-
-        const { clientHeight } = contentRef.current;
-        const { style } = accordionRef.current;
-
-        style.setProperty('--radix-collapsible-content-height', clientHeight.toString());
-    };
-
     const isVotingActive = status !== ProposalVotingStatus.PENDING && status !== ProposalVotingStatus.UNREACHED;
 
     return (
@@ -47,19 +36,13 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
                     label={copy.proposalVotingTabs.breakdown}
                     value={ProposalVotingTab.BREAKDOWN}
                     disabled={!isVotingActive}
-                    onClick={handleTabClick}
                 />
                 <Tabs.Trigger
                     label={copy.proposalVotingTabs.votes}
                     value={ProposalVotingTab.VOTES}
                     disabled={!isVotingActive}
-                    onClick={handleTabClick}
                 />
-                <Tabs.Trigger
-                    label={copy.proposalVotingTabs.details}
-                    value={ProposalVotingTab.DETAILS}
-                    onClick={handleTabClick}
-                />
+                <Tabs.Trigger label={copy.proposalVotingTabs.details} value={ProposalVotingTab.DETAILS} />
             </Tabs.List>
             <div className="flex grow flex-col" ref={contentRef}>
                 {children}

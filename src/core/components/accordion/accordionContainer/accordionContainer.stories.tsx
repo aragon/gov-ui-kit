@@ -14,11 +14,11 @@ const meta: Meta<typeof Accordion.Container> = {
 
 type Story = StoryObj<typeof Accordion.Container>;
 
-const DefaultChildComponent = (childCount: number, forceMount?: true) =>
+const DefaultChildComponent = (childCount: number) =>
     [...Array<number>(childCount)].map((_, index) => (
         <Accordion.Item key={`item-${index.toString()}`} value={`item-${index.toString()}`}>
             <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
-            <Accordion.ItemContent forceMount={forceMount}>
+            <Accordion.ItemContent>
                 <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
                     Item {index + 1} Content
                 </div>
@@ -54,16 +54,6 @@ export const DefaultValue: Story = {
         isMulti: true,
         children: DefaultChildComponent(3),
         defaultValue: ['item-1', 'item-2'],
-    },
-};
-
-/**
- * Use the `forceMount` property to always render the accordion item content.
- */
-export const ForceMount: Story = {
-    args: {
-        isMulti: true,
-        children: DefaultChildComponent(3, true),
     },
 };
 

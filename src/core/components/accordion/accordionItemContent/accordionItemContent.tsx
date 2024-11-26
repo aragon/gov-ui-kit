@@ -13,16 +13,14 @@ export const AccordionItemContent = forwardRef<HTMLDivElement, IAccordionItemCon
     const { children, className, forceMount, ...otherProps } = props;
 
     const contentClassNames = classNames(
-        'overflow-hidden', // Default
+        'overflow-hidden px-4 pb-4 pt-1 md:px-6 md:pb-6', // Default
         { 'data-[state=closed]:hidden': forceMount }, // Force mount variant
-        'data-[state=open]:animate-[accordionExpand_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // Expanding animation
-        'data-[state=closed]:animate-[accordionCollapse_0.3s_cubic-bezier(0.87,_0,_0.13,_1)_forwards]', // Collapsing animation
         className,
     );
 
     return (
         <RadixAccordionContent forceMount={forceMount} className={contentClassNames} ref={ref} {...otherProps}>
-            <div className="px-4 pb-4 pt-1 md:px-6 md:pb-6">{children}</div>
+            {children}
         </RadixAccordionContent>
     );
 });
