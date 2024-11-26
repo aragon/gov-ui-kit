@@ -7,6 +7,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.56] - 2024-11-26
+
+### Added
+
+-   Update peer dependencies to allow React 19
+
+### Fixed
+
+-   Fix command to publish library to correctly mark as `latest` the latest library version
+-   Fix empty-state style of `ProposalAction` module component
+-   Add default shadow style to `Card` core component
+-   Fix issue with `Accodion.ItemContent` animations blocking dynamic content resizing
+
+### Changed
+
+-   Remove "forceMount" usage on `Accordion.ItemContent` throughout the library
+-   Bump `eslint-plugin-testing-library` from 6.4.0 to 7.0.0
+-   Update minor and patch NPM dependencies
+
 ## [1.0.55] - 2024-11-22
 
 ### Added

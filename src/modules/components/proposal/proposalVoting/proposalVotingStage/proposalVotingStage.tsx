@@ -25,10 +25,6 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      */
     name?: string;
     /**
-     * Forces the multi-stage content to be rendered when set to true.
-     */
-    forceMount?: true;
-    /**
      * Index of the stage set automatically by the ProposalVotingContainer for multi-stage proposals.
      */
     index?: number;
@@ -43,19 +39,8 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const {
-        name,
-        status,
-        startDate,
-        endDate,
-        forceMount,
-        index,
-        children,
-        isMultiStage,
-        className,
-        bodyList,
-        ...otherProps
-    } = props;
+    const { name, status, startDate, endDate, index, children, isMultiStage, className, bodyList, ...otherProps } =
+        props;
 
     const { copy } = useGukModulesContext();
 
@@ -88,7 +73,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
             <ProposalVotingStageContextProvider value={contextValues}>
                 <Card
                     className={classNames(
-                        'relative flex flex-col gap-4 overflow-hidden p-4 shadow-neutral md:gap-6 md:p-6',
+                        'relative flex flex-col gap-4 overflow-hidden p-4 md:gap-6 md:p-6',
                         className,
                     )}
                     {...otherProps}
@@ -122,9 +107,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                         </p>
                     </div>
                 </Accordion.ItemHeader>
-                <Accordion.ItemContent ref={accordionContentRef} forceMount={forceMount}>
-                    {renderContent()}
-                </Accordion.ItemContent>
+                <Accordion.ItemContent ref={accordionContentRef}>{renderContent()}</Accordion.ItemContent>
             </Accordion.Item>
         </ProposalVotingStageContextProvider>
     );
