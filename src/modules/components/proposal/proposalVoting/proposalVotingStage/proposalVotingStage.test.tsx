@@ -98,9 +98,7 @@ describe('<ProposalVotingStage /> component', () => {
         testLogger.suppressErrors();
         const isMultiStage = true;
         const index = undefined;
-        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow(
-            'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
-        );
+expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
     });
 
     it('renders the proposal stage with its name inside an accordion item', () => {

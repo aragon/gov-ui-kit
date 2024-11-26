@@ -15,8 +15,7 @@ describe('proposalVotingStageContext hook', () => {
                 endDate: 0,
                 bodyList: undefined,
                 activeBody: undefined,
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                setActiveBody: () => {},
+                setActiveBody: jest.fn(),
                 ...context,
             };
 
@@ -38,8 +37,7 @@ describe('proposalVotingStageContext hook', () => {
             endDate: 1721316644948,
             bodyList: undefined,
             activeBody: undefined,
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            setActiveBody: () => {},
+            setActiveBody: jest.fn(),
         };
         const { result } = renderHook(() => useProposalVotingStageContext(), { wrapper: createTestWrapper(values) });
         expect(result.current).toEqual(values);

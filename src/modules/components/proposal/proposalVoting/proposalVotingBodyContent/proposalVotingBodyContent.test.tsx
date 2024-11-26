@@ -103,7 +103,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         { status: ProposalVotingStatus.ACTIVE, expectedTab: 'Breakdown' },
         { status: ProposalVotingStatus.ACCEPTED, expectedTab: 'Breakdown' },
         { status: ProposalVotingStatus.REJECTED, expectedTab: 'Breakdown' },
-    ])('sets initial activeTab based on status %s', ({ status, expectedTab }) => {
+    ])('sets initial activeTab based on status', ({ status, expectedTab }) => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {

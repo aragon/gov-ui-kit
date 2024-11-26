@@ -37,11 +37,6 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
     useEffect(() => setActiveTab(stateActiveTab), [stateActiveTab]);
 
-    // Update active tab when status changes
-    useEffect(() => {
-        setActiveTab(stateActiveTab);
-    }, [stateActiveTab]);
-
     const accordionContentRef = useRef<HTMLDivElement>(null);
 
     if (bodyId !== activeBody) {
