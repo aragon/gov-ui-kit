@@ -1,14 +1,9 @@
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
-export interface IProposalVotingBodySummaryProps {
-    /**
-     * Children to render (proposal voting body buttons + custom footer).
-     */
-    children: ReactNode;
-}
+export interface IProposalVotingBodySummaryProps {}
 
-export const ProposalVotingBodySummary: React.FC<IProposalVotingBodySummaryProps> = (props) => {
+export const ProposalVotingBodySummary: React.FC<PropsWithChildren<IProposalVotingBodySummaryProps>> = (props) => {
     const { children } = props;
 
     const { activeBody } = useProposalVotingStageContext();

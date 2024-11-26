@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { PropsWithChildren } from 'react';
 import { AvatarIcon, DataListItem, IconType } from '../../../../../core';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
@@ -7,13 +7,11 @@ export interface IProposalVotingBodySummaryListItemProps {
      * ID of the body.
      */
     id: string;
-    /**
-     * Children to render. Body specific content for the button
-     */
-    children: ReactNode;
 }
 
-export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
+export const ProposalVotingBodySummaryListItem: React.FC<PropsWithChildren<IProposalVotingBodySummaryListItemProps>> = (
+    props,
+) => {
     const { id, children } = props;
 
     const { setActiveBody } = useProposalVotingStageContext();
