@@ -4,7 +4,7 @@ import type { IProposalVotingStageProps } from '../proposalVotingStage/proposalV
 export interface IProposalVotingStageContext extends Pick<IProposalVotingStageProps, 'startDate' | 'endDate'> {
     bodyList?: string[];
     activeBody?: string;
-    setActiveBody: (id: string | undefined) => void;
+    setActiveBody?: (id: string | undefined) => void;
 }
 
 const proposalVotingStageContext = createContext<IProposalVotingStageContext | null>(null);
