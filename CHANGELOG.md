@@ -17,9 +17,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 -   Remove "forceMount" usage on `Accordion.ItemContent` throughout the library
-
-### Changed
-
 -   Bump `eslint-plugin-testing-library` from 6.4.0 to 7.0.0
 
 ## [1.0.55] - 2024-11-22
