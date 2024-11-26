@@ -164,6 +164,9 @@ export const modulesCopy = {
     proposalVotingStage: {
         stage: (index: number) => `Stage ${index.toString()}`,
     },
+    proposalVotingBodyContent: {
+        back: 'All bodies',
+    },
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
-import { Button } from '../../../../../core';
+import { Button, IconType } from '../../../../../core';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
     /**
@@ -22,6 +23,8 @@ export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
     const { bodyId, children, name, status } = props;
+
+    const { copy } = useGukModulesContext();
 
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
 
@@ -49,8 +52,14 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
         <div className="flex w-full flex-col gap-3">
             {bodyList && bodyList.length > 1 && (
                 <>
-                    <Button variant="tertiary" onClick={() => setActiveBody(undefined)} size="sm">
-                        All bodies
+                    <Button
+                        className="w-fit"
+                        iconLeft={IconType.CHEVRON_LEFT}
+                        variant="tertiary"
+                        onClick={() => setActiveBody(undefined)}
+                        size="sm"
+                    >
+                        {copy.proposalVotingBodyContent.back}
                     </Button>
                     <p className="text-neutral-500">{name}</p>
                 </>

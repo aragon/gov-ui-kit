@@ -54,20 +54,17 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
-    it('renders ProposalVotingBodyContent when bodyList has one element', () => {
+    it('renders children directly when bodyList has one element', () => {
         const bodyList = ['body1'];
         const children = 'test-children';
         render(createTestComponent({ bodyList, children }));
-        expect(screen.getByTestId('proposal-body-content')).toBeInTheDocument();
-        expect(screen.getByTestId('proposal-body-content')).toHaveAttribute('data-bodyid', 'body1');
         expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
-    it('renders ProposalVotingBodyContent when bodyList is undefined and activeBody is null', () => {
+    it('renders the children directly when bodyList is undefined and activeBody is null', () => {
         const children = 'test-children';
         render(createTestComponent({ bodyList: undefined, children }));
-        expect(screen.getByTestId('proposal-body-content')).toBeInTheDocument();
         expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
         expect(screen.getByText(children)).toBeInTheDocument();
     });

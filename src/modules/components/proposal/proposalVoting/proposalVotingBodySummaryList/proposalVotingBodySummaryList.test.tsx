@@ -1,44 +1,35 @@
 import { render, screen } from '@testing-library/react';
-import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import {
-    type IProposalVotingBodySummaryListProps,
     ProposalVotingBodySummaryList,
+    type IProposalVotingBodySummaryListProps,
 } from './proposalVotingBodySummaryList';
 
 describe('<ProposalVotingBodySummaryList /> component', () => {
-    const createTestComponent = (
-        props?: Partial<IProposalVotingBodySummaryListProps>,
-        contextValues?: Partial<IProposalVotingStageContext>,
-    ) => {
+    const createTestComponent = (props?: Partial<IProposalVotingBodySummaryListProps>) => {
         const completeProps: IProposalVotingBodySummaryListProps = {
             children: <div>Test Body</div>,
             ...props,
         };
-        const defaultContextValues = {
-            activeBody: undefined,
-            setActiveBody: jest.fn(),
-            bodyList: [],
-            startDate: 0,
-            endDate: 0,
-        };
 
-        const contextValue = { ...defaultContextValues, ...contextValues };
-
-        return (
-            <ProposalVotingStageContextProvider value={contextValue}>
-                <ProposalVotingBodySummaryList {...completeProps} />
-            </ProposalVotingStageContextProvider>
-        );
+        return <ProposalVotingBodySummaryList {...completeProps} />;
     };
 
-    it('renders null when activeBody is set', () => {
-        const contextValues = { activeBody: 'body1' };
-        const { container } = render(createTestComponent(undefined, contextValues));
-        expect(container).toBeEmptyDOMElement();
+    it('renders children', () => {
+        render(createTestComponent());
+        expect(screen.getByText('Test Body')).toBeInTheDocument();
     });
 
-    it('renders children when activeBody is undefined', () => {
-        render(createTestComponent(undefined));
-        expect(screen.getByText('Test Body')).toBeInTheDocument();
+    it('renders multiple children', () => {
+        const multipleChildren = (
+            <div>
+                <div>Child 1</div>
+                <div>Child 2</div>
+                <div>Child 3</div>
+            </div>
+        );
+        render(createTestComponent({ children: multipleChildren }));
+        expect(screen.getByText('Child 1')).toBeInTheDocument();
+        expect(screen.getByText('Child 2')).toBeInTheDocument();
+        expect(screen.getByText('Child 3')).toBeInTheDocument();
     });
 });

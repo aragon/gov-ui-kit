@@ -5,7 +5,6 @@ import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
-import { ProposalVotingBodyContent } from '../proposalVotingBodyContent';
 import { ProposalVotingBodySummary } from '../proposalVotingBodySummary';
 
 export interface IProposalVotingStageProps extends ComponentProps<'div'> {
@@ -77,12 +76,8 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
 
     const renderContent = () => {
         if (activeBody || !bodyList) {
-            // Render ProposalVotingBodyContent when activeBody is set or bodyList is undefined
-            return (
-                <ProposalVotingBodyContent status={status} name={name} bodyId={activeBody}>
-                    {children}
-                </ProposalVotingBodyContent>
-            );
+            // Render children
+            return children;
         }
         // Render ProposalVotingBodySummary when activeBody is null and bodyList has more than one element
         return <ProposalVotingBodySummary>{children}</ProposalVotingBodySummary>;
@@ -98,13 +93,16 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     )}
                     {...otherProps}
                 >
+                    {bodyList && bodyList.length > 1 && (
+                        <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                    )}
                     <ProposalVotingStageStatus
                         status={status}
                         endDate={endDate}
                         isMultiStage={false}
-                        className="md:absolute md:right-9 md:top-9"
+                        className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
                     />
-                     {renderContent()}
+                    {renderContent()}
                 </Card>
             </ProposalVotingStageContextProvider>
         );
