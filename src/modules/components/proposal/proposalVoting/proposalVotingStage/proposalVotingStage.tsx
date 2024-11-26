@@ -3,9 +3,9 @@ import { useMemo, useRef, useState, type ComponentProps } from 'react';
 import { Accordion, Card, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalVotingBodySummary } from '../proposalVotingBodySummary';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
-import { ProposalVotingBodySummary } from '../proposalVotingBodySummary';
 
 export interface IProposalVotingStageProps extends ComponentProps<'div'> {
     /**

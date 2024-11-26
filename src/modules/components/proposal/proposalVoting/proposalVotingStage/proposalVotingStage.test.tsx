@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
+import { testLogger } from '../../../../../core/test';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
-import { testLogger } from '../../../../../core/test';
 
 jest.mock('../proposalVotingStageStatus', () => ({
     ProposalVotingStageStatus: (props: { status: string }) => (
@@ -98,7 +98,7 @@ describe('<ProposalVotingStage /> component', () => {
         testLogger.suppressErrors();
         const isMultiStage = true;
         const index = undefined;
-expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
+        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
     });
 
     it('renders the proposal stage with its name inside an accordion item', () => {
