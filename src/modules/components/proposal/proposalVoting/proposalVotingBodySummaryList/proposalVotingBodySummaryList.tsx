@@ -1,6 +1,11 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
-export interface IProposalVotingBodySummaryListProps {}
+export interface IProposalVotingBodySummaryListProps {
+    /**
+     * Children to render.
+     */
+    children: ReactNode;
+}
 
 export const ProposalVotingBodySummaryList: React.FC<PropsWithChildren<IProposalVotingBodySummaryListProps>> = (
     props,
