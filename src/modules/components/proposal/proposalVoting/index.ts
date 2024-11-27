@@ -6,6 +6,7 @@ import { ProposalVotingBreakdownMultisig } from './proposalVotingBreakdownMultis
 import { ProposalVotingBreakdownToken } from './proposalVotingBreakdownToken';
 import { ProposalVotingContainer } from './proposalVotingContainer';
 import { ProposalVotingDetails } from './proposalVotingDetails';
+import { ProposalVotingProgress } from './proposalVotingProgress';
 import { ProposalVotingStage } from './proposalVotingStage';
 import { ProposalVotingVotes } from './proposalVotingVotes';
 
@@ -20,6 +21,7 @@ export const ProposalVoting = {
     BodySummaryList: ProposalVotingBodySummaryList,
     BodySummaryListItem: ProposalVotingBodySummaryListItem,
     BodyContent: ProposalVotingBodyContent,
+    Progress: ProposalVotingProgress,
 };
 
 export * from './proposalVotingBodyContent';
@@ -33,3 +35,4 @@ export * from './proposalVotingDefinitions';
 export * from './proposalVotingDetails';
 export * from './proposalVotingStage';
 export * from './proposalVotingVotes';
+export * from './proposalVotingProgress';
