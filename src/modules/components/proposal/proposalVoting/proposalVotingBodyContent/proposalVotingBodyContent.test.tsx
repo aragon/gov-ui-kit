@@ -5,8 +5,6 @@ import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } 
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
 describe('<ProposalVotingBodyContent /> component', () => {
-
-
     const createTestComponent = (
         props?: Partial<IProposalVotingBodyContentProps>,
         contextValues?: Partial<IProposalVotingStageContext>,

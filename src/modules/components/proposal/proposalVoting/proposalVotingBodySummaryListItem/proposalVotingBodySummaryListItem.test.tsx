@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { IconType } from '../../../../../core';
 import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import {
     type IProposalVotingBodySummaryListItemProps,
     ProposalVotingBodySummaryListItem,
 } from './proposalVotingBodySummaryListItem';
-import { IconType } from '../../../../../core';
 
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
     const createTestComponent = (
