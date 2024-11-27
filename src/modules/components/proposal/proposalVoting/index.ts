@@ -33,6 +33,6 @@ export * from './proposalVotingBreakdownToken';
 export * from './proposalVotingContainer';
 export * from './proposalVotingDefinitions';
 export * from './proposalVotingDetails';
+export * from './proposalVotingProgress';
 export * from './proposalVotingStage';
 export * from './proposalVotingVotes';
-export * from './proposalVotingProgress';
