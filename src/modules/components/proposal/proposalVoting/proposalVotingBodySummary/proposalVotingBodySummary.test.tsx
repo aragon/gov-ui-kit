@@ -8,13 +8,10 @@ describe('<ProposalVotingBodySummary /> component', () => {
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
         const completeProps: IProposalVotingBodySummaryProps = {
-            children: <div>Test Content</div>,
+            children: 'Test Content',
             ...props,
         };
         const defaultContextValues = {
-            activeBody: undefined,
-            setActiveBody: jest.fn(),
-            bodyList: [],
             startDate: 0,
             endDate: 0,
         };
@@ -35,7 +32,7 @@ describe('<ProposalVotingBodySummary /> component', () => {
     });
 
     it('renders children when activeBody is undefined', () => {
-        render(createTestComponent(undefined));
-        expect(screen.getByText('Test Content')).toBeInTheDocument();
+        render(createTestComponent({ children: 'Some content' }));
+        expect(screen.getByText('Some content')).toBeInTheDocument();
     });
 });

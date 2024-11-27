@@ -5,21 +5,19 @@ import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } 
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
 describe('<ProposalVotingBodyContent /> component', () => {
-    const defaultProps: IProposalVotingBodyContentProps = {
-        status: ProposalVotingStatus.PENDING,
-        name: 'Test Stage',
-        bodyId: 'body1',
-    };
+
 
     const createTestComponent = (
         props?: Partial<IProposalVotingBodyContentProps>,
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
+        const defaultProps: IProposalVotingBodyContentProps = {
+            status: ProposalVotingStatus.PENDING,
+            name: 'Test Stage',
+            bodyId: 'body1',
+        };
         const completeProps = { ...defaultProps, ...props };
         const defaultContextValues: IProposalVotingStageContext = {
-            bodyList: [],
-            activeBody: completeProps.bodyId,
-            setActiveBody: jest.fn(),
             startDate: 0,
             endDate: 0,
         };
@@ -32,30 +30,18 @@ describe('<ProposalVotingBodyContent /> component', () => {
         );
     };
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
     it('renders null when bodyId does not match activeBody', () => {
         const bodyId = 'body1';
-        const activeBody = 'body2';
-        const contextValues = {
-            bodyList: ['body1', 'body2'],
-            activeBody: activeBody,
-            setActiveBody: jest.fn(),
-        };
 
-        render(createTestComponent({ bodyId }, contextValues));
-        expect(screen.queryByTestId('proposal-voting-body-content')).toBeNull();
+        const { container } = render(createTestComponent({ bodyId }));
+        expect(container).toBeEmptyDOMElement();
     });
 
     it('renders content when bodyId matches activeBody', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {
-            bodyList: ['body1', 'body2'],
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         const children = 'Test Children';
@@ -73,7 +59,6 @@ describe('<ProposalVotingBodyContent /> component', () => {
         const contextValues = {
             bodyList: ['body1', 'body2'],
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         render(createTestComponent({ bodyId, name }, contextValues));
@@ -86,9 +71,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {
-            bodyList: ['body1'],
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         render(createTestComponent({ bodyId }, contextValues));
@@ -107,9 +90,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {
-            bodyList: ['body1', 'body2'],
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         render(createTestComponent({ bodyId, status }, contextValues));
@@ -122,9 +103,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {
-            bodyList: ['body1', 'body2'],
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         const { rerender } = render(
@@ -165,7 +144,6 @@ describe('<ProposalVotingBodyContent /> component', () => {
         const contextValues = {
             bodyList: undefined,
             activeBody: activeBody,
-            setActiveBody: jest.fn(),
         };
 
         render(createTestComponent({ bodyId }, contextValues));

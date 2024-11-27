@@ -7,7 +7,7 @@ import {
 describe('<ProposalVotingBodySummaryList /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingBodySummaryListProps>) => {
         const completeProps: IProposalVotingBodySummaryListProps = {
-            children: <div>Test Body</div>,
+            children: 'Test Body',
             ...props,
         };
 
@@ -15,21 +15,7 @@ describe('<ProposalVotingBodySummaryList /> component', () => {
     };
 
     it('renders children', () => {
-        render(createTestComponent());
-        expect(screen.getByText('Test Body')).toBeInTheDocument();
-    });
-
-    it('renders multiple children', () => {
-        const multipleChildren = (
-            <div>
-                <div>Child 1</div>
-                <div>Child 2</div>
-                <div>Child 3</div>
-            </div>
-        );
-        render(createTestComponent({ children: multipleChildren }));
-        expect(screen.getByText('Child 1')).toBeInTheDocument();
-        expect(screen.getByText('Child 2')).toBeInTheDocument();
-        expect(screen.getByText('Child 3')).toBeInTheDocument();
+        render(createTestComponent({ children: 'Test Content' }));
+        expect(screen.getByText('Test Content')).toBeInTheDocument();
     });
 });

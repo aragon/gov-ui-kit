@@ -13,9 +13,6 @@ describe('proposalVotingStageContext hook', () => {
             const completeContext: IProposalVotingStageContext = {
                 startDate: 0,
                 endDate: 0,
-                bodyList: undefined,
-                activeBody: undefined,
-                setActiveBody: jest.fn(),
                 ...context,
             };
 
@@ -35,9 +32,6 @@ describe('proposalVotingStageContext hook', () => {
         const values = {
             startDate: '2024-07-18T15:30:29.185Z',
             endDate: 1721316644948,
-            bodyList: undefined,
-            activeBody: undefined,
-            setActiveBody: jest.fn(),
         };
         const { result } = renderHook(() => useProposalVotingStageContext(), { wrapper: createTestWrapper(values) });
         expect(result.current).toEqual(values);

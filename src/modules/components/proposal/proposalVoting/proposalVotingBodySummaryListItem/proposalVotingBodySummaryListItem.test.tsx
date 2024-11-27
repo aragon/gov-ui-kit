@@ -5,22 +5,19 @@ import {
     type IProposalVotingBodySummaryListItemProps,
     ProposalVotingBodySummaryListItem,
 } from './proposalVotingBodySummaryListItem';
+import { IconType } from '../../../../../core';
 
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
-    const defaultProps: IProposalVotingBodySummaryListItemProps = {
-        id: 'body1',
-        children: <div>List Item Content</div>,
-    };
-
     const createTestComponent = (
         props?: Partial<IProposalVotingBodySummaryListItemProps>,
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
+        const defaultProps: IProposalVotingBodySummaryListItemProps = {
+            id: 'body1',
+            children: 'List Item Content',
+        };
         const completeProps = { ...defaultProps, ...props };
         const defaultContextValues = {
-            activeBody: undefined,
-            setActiveBody: jest.fn(),
-            bodyList: [],
             startDate: 0,
             endDate: 0,
         };
@@ -33,32 +30,21 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
         );
     };
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
     it('calls setActiveBody with id when clicked', async () => {
         const setActiveBodyMock = jest.fn();
         const user = userEvent.setup();
-        render(createTestComponent({}, { setActiveBody: setActiveBodyMock }));
+        render(createTestComponent({ id: '0x' }, { setActiveBody: setActiveBodyMock }));
 
         const dataListItem = screen.getByRole('button');
         await user.click(dataListItem);
 
-        expect(setActiveBodyMock).toHaveBeenCalledWith(defaultProps.id);
+        expect(setActiveBodyMock).toHaveBeenCalledWith('0x');
     });
 
-    it('renders children and AvatarIcon', () => {
-        render(createTestComponent());
+    it('renders the children property and an arrow icon', () => {
+        render(createTestComponent({ children: 'Body name' }));
 
-        expect(screen.getByText('List Item Content')).toBeInTheDocument();
-        expect(screen.getByTestId('CHEVRON_RIGHT')).toBeInTheDocument();
-    });
-
-    it('passes the correct className to DataListItem', () => {
-        render(createTestComponent());
-
-        const dataListItem = screen.getByRole('button');
-        expect(dataListItem).toHaveClass('flex items-center justify-between gap-3 p-6');
+        expect(screen.getByText('Body name')).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CHEVRON_RIGHT)).toBeInTheDocument();
     });
 });

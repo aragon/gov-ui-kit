@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
--   Update `ProposalVotingStage` module component to accept new optional `bodyList` prop and adjusted rendering logic to
+-   Update `ProposalVotingStage` module component to accept new optional `bodyList` prop and update rendering logic to
     handle multi body proposals per stage.
 
 ## [1.0.56] - 2024-11-26

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentProps } from 'react';
+import { useEffect, useState, type ComponentProps } from 'react';
 import { Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
@@ -37,8 +37,6 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
     useEffect(() => setActiveTab(stateActiveTab), [stateActiveTab]);
 
-    const accordionContentRef = useRef<HTMLDivElement>(null);
-
     if (bodyId !== activeBody) {
         return null;
     }
@@ -59,12 +57,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     <p className="text-neutral-500">{name}</p>
                 </>
             )}
-            <ProposalVotingTabs
-                value={activeTab}
-                onValueChange={setActiveTab}
-                status={status}
-                accordionRef={accordionContentRef}
-            >
+            <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status}>
                 {children}
             </ProposalVotingTabs>
         </div>
