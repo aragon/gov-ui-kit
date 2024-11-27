@@ -1,10 +1,10 @@
-import type { PropsWithChildren } from 'react';
+import type { ComponentProps, PropsWithChildren } from 'react';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
-export interface IProposalVotingBodySummaryProps {}
+export interface IProposalVotingBodySummaryProps extends ComponentProps<'div'> {}
 
 export const ProposalVotingBodySummary: React.FC<PropsWithChildren<IProposalVotingBodySummaryProps>> = (props) => {
-    const { children } = props;
+    const { children, ...otherProps } = props;
 
     const { activeBody } = useProposalVotingStageContext();
 
@@ -12,5 +12,9 @@ export const ProposalVotingBodySummary: React.FC<PropsWithChildren<IProposalVoti
         return null;
     }
 
-    return <div className="flex w-full flex-col gap-3">{children}</div>;
+    return (
+        <div {...otherProps} className="flex w-full flex-col gap-3">
+            {children}
+        </div>
+    );
 };

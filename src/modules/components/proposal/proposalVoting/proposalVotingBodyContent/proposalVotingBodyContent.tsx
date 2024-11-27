@@ -22,7 +22,7 @@ export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status } = props;
+    const { bodyId, children, name, status, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -42,7 +42,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     }
 
     return (
-        <div className="flex w-full flex-col gap-3">
+        <div {...otherProps} className="flex w-full flex-col gap-3">
             {bodyList && bodyList.length > 1 && (
                 <>
                     <Button

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useMemo, useRef, useState, type ComponentProps } from 'react';
+import { useMemo, useState, type ComponentProps } from 'react';
 import { Accordion, Card, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalVotingStatus } from '../../proposalUtils';
@@ -47,8 +47,6 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
     const [activeBody, setActiveBody] = useState<string | undefined>(
         bodyList && bodyList.length === 1 ? bodyList[0] : undefined,
     );
-
-    const accordionContentRef = useRef<HTMLDivElement>(null);
 
     const contextValues = useMemo(
         () => ({ startDate, endDate, bodyList, activeBody, setActiveBody }),
@@ -107,7 +105,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                         </p>
                     </div>
                 </Accordion.ItemHeader>
-                <Accordion.ItemContent ref={accordionContentRef}>{renderContent()}</Accordion.ItemContent>
+                <Accordion.ItemContent>{renderContent()}</Accordion.ItemContent>
             </Accordion.Item>
         </ProposalVotingStageContextProvider>
     );

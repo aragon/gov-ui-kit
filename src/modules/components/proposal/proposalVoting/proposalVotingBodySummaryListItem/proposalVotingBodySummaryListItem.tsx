@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { AvatarIcon, DataListItem, IconType } from '../../../../../core';
+import { AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
 export interface IProposalVotingBodySummaryListItemProps {
@@ -13,13 +13,19 @@ export interface IProposalVotingBodySummaryListItemProps {
     children: ReactNode;
 }
 
-export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
-    const { id, children } = props;
+export const ProposalVotingBodySummaryListItem: React.FC<
+    IProposalVotingBodySummaryListItemProps & IDataListItemProps
+> = (props) => {
+    const { id, children, ...otherProps } = props;
 
     const { setActiveBody } = useProposalVotingStageContext();
 
     return (
-        <DataListItem onClick={() => setActiveBody?.(id)} className="flex items-center justify-between gap-3 p-6">
+        <DataListItem
+            {...otherProps}
+            onClick={() => setActiveBody?.(id)}
+            className="flex items-center justify-between gap-3 p-6"
+        >
             {children}
             <AvatarIcon icon={IconType.CHEVRON_RIGHT} />
         </DataListItem>
