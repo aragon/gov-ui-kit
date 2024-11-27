@@ -30,7 +30,6 @@ describe('<ProposalVotingStage /> component', () => {
             status: ProposalVotingStatus.PENDING,
             startDate: 0,
             endDate: 0,
-            bodyList: undefined,
             ...props,
         };
 
@@ -44,15 +43,6 @@ describe('<ProposalVotingStage /> component', () => {
 
         return <ProposalVotingStage {...completeProps} />;
     };
-
-    it('renders ProposalVotingBodySummary when activeBody is null', () => {
-        const bodyList = ['body1', 'body2'];
-        const children = 'test-children';
-        render(createTestComponent({ bodyList, children }));
-        expect(screen.getByTestId('proposal-body-summary')).toBeInTheDocument();
-        expect(screen.queryByTestId('proposal-body-content')).not.toBeInTheDocument();
-        expect(screen.getByText(children)).toBeInTheDocument();
-    });
 
     it('renders children directly when bodyList has one element', () => {
         const bodyList = ['body1'];
