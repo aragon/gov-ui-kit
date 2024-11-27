@@ -1,4 +1,3 @@
-// ProposalVotingProgressItem.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalVotingProgress } from '../index';
 
@@ -8,7 +7,7 @@ const meta: Meta<typeof ProposalVotingProgress.Item> = {
     parameters: {
         design: {
             type: 'figma',
-            url: 'ance-UI-Kit?node-id=16738-17734&m=dev',
+            url: 'https://www.figma.com/design/ISSDryshtEpB7SUSdNqAcw/Governance-UI-Kit?node-id=16752-18392&m=dev',
         },
     },
 };

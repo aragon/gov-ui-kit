@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 -   Add new `ProposalVoting` module components (`ProposalVotingBodyContent`, `ProposalVotingBodySummary`,
     `ProposalVotingBodySummaryList` and `ProposalVotingBodySummaryListItem`)
+-   Add story and export `ProposalVotingProgress` module component
 
 ### Changed
 
