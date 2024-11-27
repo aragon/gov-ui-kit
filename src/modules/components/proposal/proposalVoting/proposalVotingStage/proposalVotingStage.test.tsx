@@ -16,14 +16,6 @@ jest.mock('../proposalVotingBodySummary', () => ({
     ),
 }));
 
-jest.mock('../proposalVotingBodyContent', () => ({
-    ProposalVotingBodyContent: (props: { bodyId: string; children: React.ReactNode }) => (
-        <div data-testid="proposal-body-content" data-bodyid={props.bodyId}>
-            {props.children}
-        </div>
-    ),
-}));
-
 describe('<ProposalVotingStage /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingStageProps>) => {
         const completeProps: IProposalVotingStageProps = {
