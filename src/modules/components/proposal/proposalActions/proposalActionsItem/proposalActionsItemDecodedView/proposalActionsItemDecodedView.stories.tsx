@@ -21,6 +21,8 @@ const defaultRender = (props: IProposalActionsItemDecodedViewProps) => {
 const meta: Meta<typeof ProposalActionsItemDecodedView> = {
     title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Item/DecodedView',
     component: ProposalActionsItemDecodedView,
+    // Force component remount on edit-mode change to correctly register the form fields
+    decorators: [(Story, context) => <Story key={`story-${context.args.editMode?.toString() ?? '-'}`} />],
     parameters: {
         design: {
             type: 'figma',

@@ -1,24 +1,32 @@
 import { type ChangeEvent, type FocusEvent, useRef, useState } from 'react';
-import { addressUtils } from '../../utils';
-import { useFormContext } from '../useFormContext';
-import { formFieldUtils } from './formFieldUtils';
-import type { IUseFormFieldParams, IUseFormFieldReturn, IUseFormFieldState } from './useFormField.api';
+import { useFormContext } from 'react-hook-form';
+import { addressUtils } from '../../../../../utils';
+import { proposalActionsItemFormFieldUtils } from './proposalActionsItemFormFieldUtils';
+import type {
+    IUseProposalActionsItemFormFieldParams,
+    IUseProposalActionsItemFormFieldReturn,
+    ProposalActionFieldState,
+} from './useProposalActionsItemFormField.api';
 
-export const useFormField = (name: string, params: IUseFormFieldParams) => {
+export const useProposalActionsItemFormField = (name: string, params: IUseProposalActionsItemFormFieldParams) => {
     const { label, formPrefix, editMode, value, required, type } = params;
 
     // Use React ref to avoid calling register conditionally
     const editModeRef = useRef(editMode);
 
-    const { register, getFieldState } = useFormContext();
+    // Fallback to empty object to avoid requiring a react-hook-form wrapper on read-only mode
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    const { register, getFieldState } = useFormContext() ?? {};
 
-    const [fieldState, setFieldState] = useState<IUseFormFieldState>();
+    const [fieldState, setFieldState] = useState<ProposalActionFieldState>();
 
     const fieldName = formPrefix != null ? `${formPrefix}.${name}` : name;
 
     const validateFunction = (value: string) => {
         if (type === 'boolean') {
-            return formFieldUtils.validateBoolean(value) || `${label} must be set to "true" or "false"`;
+            return (
+                proposalActionsItemFormFieldUtils.validateBoolean(value) || `${label} must be set to "true" or "false"`
+            );
         } else if (type === 'address') {
             return addressUtils.isAddress(value) || `${label} is not a valid address`;
         }
@@ -32,12 +40,12 @@ export const useFormField = (name: string, params: IUseFormFieldParams) => {
     };
 
     // Use React ref to avoid calling register conditionally
-    const { onChange, onBlur, ...valueField }: IUseFormFieldReturn = editModeRef.current
+    const { onChange, onBlur, ...valueField }: IUseProposalActionsItemFormFieldReturn = editModeRef.current
         ? register(fieldName, {
               ...validationRules,
-              setValueAs: (value: string) => formFieldUtils.valueSetter(value, type),
+              setValueAs: (value: string) => proposalActionsItemFormFieldUtils.valueSetter(value, type),
           })
-        : formFieldUtils.defaultFormField(fieldName, value);
+        : proposalActionsItemFormFieldUtils.getDefaultFormField(fieldName, value);
 
     const handleFieldChange = async (event: ChangeEvent): Promise<void> => {
         await onChange(event);
@@ -49,7 +57,7 @@ export const useFormField = (name: string, params: IUseFormFieldParams) => {
         setFieldState(getFieldState(fieldName));
     };
 
-    const alert = formFieldUtils.fieldErrorToAlert(fieldState?.error);
+    const alert = proposalActionsItemFormFieldUtils.fieldErrorToAlert(fieldState?.error);
     const inputType = type === 'number' ? 'number' : 'text';
 
     return {

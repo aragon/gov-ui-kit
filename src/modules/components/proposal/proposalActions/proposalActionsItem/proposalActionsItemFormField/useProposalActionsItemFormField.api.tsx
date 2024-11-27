@@ -1,8 +1,10 @@
 import type { UseFormGetFieldState, UseFormRegisterReturn } from 'react-hook-form';
 
-export type UseFormFieldType = 'string' | 'address' | 'number' | 'boolean';
+export type ProposalActionFieldType = 'string' | 'address' | 'number' | 'boolean';
 
-export interface IUseFormFieldParams {
+export type ProposalActionFieldState = ReturnType<UseFormGetFieldState<Record<string, string>>>;
+
+export interface IUseProposalActionsItemFormFieldParams {
     /**
      * Label of the field used for validation messages.
      */
@@ -27,14 +29,12 @@ export interface IUseFormFieldParams {
     /**
      * Value type to set correct validation rules for the input field.
      */
-    type: UseFormFieldType;
+    type: ProposalActionFieldType;
 }
 
-export interface IUseFormFieldReturn extends UseFormRegisterReturn {
+export interface IUseProposalActionsItemFormFieldReturn extends UseFormRegisterReturn {
     /**
      * Value of the field.
      */
     value?: string;
 }
-
-export type IUseFormFieldState = ReturnType<UseFormGetFieldState<Record<string, string>>>;

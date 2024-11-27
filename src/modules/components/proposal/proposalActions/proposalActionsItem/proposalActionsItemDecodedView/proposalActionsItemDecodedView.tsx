@@ -1,8 +1,7 @@
-import { InputText } from '../../../../../../core';
-import { useFormField } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalAction } from '../../proposalActionsDefinitions';
 import type { IProposalActionsItemProps } from '../proposalActionsItem.api';
+import { ProposalActionsItemFormField } from '../proposalActionsItemFormField';
 import { ProposalActionsItemDecodedViewField } from './proposalActionsItemDecodedViewField';
 
 export interface IProposalActionsItemDecodedViewProps
@@ -18,14 +17,6 @@ export const ProposalActionsItemDecodedView: React.FC<IProposalActionsItemDecode
 
     const { copy } = useGukModulesContext();
 
-    const valueField = useFormField('value', {
-        formPrefix,
-        value: action.value,
-        label: copy.proposalActionsItemDecodedView.valueLabel,
-        editMode,
-        type: 'number',
-    });
-
     if (action.inputData == null) {
         return null;
     }
@@ -40,7 +31,20 @@ export const ProposalActionsItemDecodedView: React.FC<IProposalActionsItemDecode
 
     return (
         <div className="flex w-full flex-col gap-3">
-            {payable && <InputText helpText={copy.proposalActionsItemDecodedView.valueHelper} {...valueField} />}
+            {payable && (
+                <ProposalActionsItemFormField
+                    fieldName="value"
+                    editMode={editMode}
+                    formPrefix={formPrefix}
+                    includeTypeOnLabel={false}
+                    parameter={{
+                        name: 'value',
+                        notice: copy.proposalActionsItemDecodedView.valueHelper,
+                        value: action.value,
+                        type: 'uint',
+                    }}
+                />
+            )}
             {parameters.map((parameter, index) => (
                 <ProposalActionsItemDecodedViewField
                     key={parameter.name}
