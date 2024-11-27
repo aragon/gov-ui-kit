@@ -6,26 +6,7 @@ import type {
     ProposalActionFieldType,
 } from './useProposalActionsItemFormField.api';
 
-export interface IGetParameterLabelParams {
-    /**
-     * Action parameter to process the name.
-     */
-    parameter: IProposalActionInputDataParameter;
-    /**
-     * Includes the parameter type when set to true.
-     * @default true
-     */
-    includeType?: boolean;
-}
-
 class ProposalActionsItemFormFieldUtils {
-    getParameterLabel = (params: IGetParameterLabelParams) => {
-        const { parameter, includeType = true } = params;
-        const { name, type } = parameter;
-
-        return includeType ? `${name} (${type})` : name;
-    };
-
     guardValueType = (value: unknown): value is boolean | string | null | undefined =>
         value == null || ['string', 'boolean'].includes(typeof value);
 
@@ -60,6 +41,10 @@ class ProposalActionsItemFormFieldUtils {
     };
 
     isArrayType = (type: string) => type.endsWith('[]');
+
+    isTupleType = (type: string) => type === 'tuple';
+
+    isTupleArrayType = (type: string) => type === 'tuple[]';
 
     parseType = (type: string): ProposalActionFieldType => {
         let formFieldType: ProposalActionFieldType = 'string';

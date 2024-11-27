@@ -36,7 +36,6 @@ export const ProposalActionsItemDecodedView: React.FC<IProposalActionsItemDecode
                     fieldName="value"
                     editMode={editMode}
                     formPrefix={formPrefix}
-                    includeTypeOnLabel={false}
                     parameter={{
                         name: 'value',
                         notice: copy.proposalActionsItemDecodedView.valueHelper,

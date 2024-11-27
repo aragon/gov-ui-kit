@@ -14,11 +14,6 @@ export interface IProposalActionsItemFormFieldProps extends Pick<IProposalAction
      */
     fieldName: string;
     /**
-     * Renders the parameter type on the field label when set to true.
-     * @default true
-     */
-    includeTypeOnLabel?: boolean;
-    /**
      * Hides the default labels when set to true.
      */
     hideLabels?: boolean;
@@ -30,16 +25,7 @@ export interface IProposalActionsItemFormFieldProps extends Pick<IProposalAction
 }
 
 export const ProposalActionsItemFormField: React.FC<IProposalActionsItemFormFieldProps> = (props) => {
-    const {
-        parameter,
-        hideLabels,
-        editMode,
-        fieldName,
-        formPrefix,
-        component = 'input',
-        includeTypeOnLabel: includeType = true,
-        ...otherProps
-    } = props;
+    const { parameter, hideLabels, editMode, fieldName, formPrefix, component = 'input', ...otherProps } = props;
 
     const { name, notice, value, type } = parameter;
 
@@ -48,15 +34,13 @@ export const ProposalActionsItemFormField: React.FC<IProposalActionsItemFormFiel
         'ProposalActionsItemTextField: value type is not supported',
     );
 
-    const fieldLabel = proposalActionsItemFormFieldUtils.getParameterLabel({ parameter, includeType });
-
     const fieldType = proposalActionsItemFormFieldUtils.parseType(type);
 
     const formFieldOptions = { formPrefix, value, label: name, editMode, type: fieldType, required: true };
     const { label, ...textField } = useProposalActionsItemFormField(fieldName, formFieldOptions);
 
-    const inputLabels = !hideLabels ? { label: fieldLabel, helpText: notice } : undefined;
+    const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component placeholder={label} {...inputLabels} {...textField} {...otherProps} />;
+    return <Component placeholder={type} {...inputLabels} {...textField} {...otherProps} />;
 };

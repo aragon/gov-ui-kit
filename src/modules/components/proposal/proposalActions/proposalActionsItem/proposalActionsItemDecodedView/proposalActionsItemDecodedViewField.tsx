@@ -31,7 +31,7 @@ export interface IProposalActionsItemDecodedViewFieldProps extends Pick<IProposa
 
 export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemDecodedViewFieldProps> = (props) => {
     const { parameter, hideLabels, editMode, formPrefix, fieldName, onDeleteClick } = props;
-    const { notice, value, type } = parameter;
+    const { notice, value, type, name } = parameter;
 
     // Fallback to empty object to avoid requiring a react-hook-form wrapper on read-only mode
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -40,7 +40,8 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
     const inputId = useId();
 
     const isArray = proposalActionsItemFormFieldUtils.isArrayType(type);
-    const isTuple = type === 'tuple';
+    const isTuple = proposalActionsItemFormFieldUtils.isTupleType(type);
+    const isTupleArray = proposalActionsItemFormFieldUtils.isTupleArrayType(type);
     const isNestedType = isTuple || isArray;
 
     const initialParameters = proposalActionsItemFormFieldUtils.getNestedParameters(parameter);
@@ -48,10 +49,7 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
 
     if (!isNestedType) {
         return (
-            <>
-                {onDeleteClick != null && (
-                    <Button iconLeft={IconType.CLOSE} size="sm" variant="secondary" onClick={onDeleteClick} />
-                )}
+            <div className="flex flex-row items-center gap-2">
                 <ProposalActionsItemFormField
                     parameter={parameter}
                     fieldName={fieldName}
@@ -59,7 +57,10 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                     editMode={editMode}
                     formPrefix={formPrefix}
                 />
-            </>
+                {onDeleteClick != null && editMode && (
+                    <Button iconLeft={IconType.CLOSE} size="lg" variant="ghost" onClick={onDeleteClick} />
+                )}
+            </div>
         );
     }
 
@@ -85,34 +86,49 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
         setNestedParameters(newNestedParameters);
     };
 
-    const fieldLabel = proposalActionsItemFormFieldUtils.getParameterLabel({ parameter });
-    const inputLabels = !hideLabels ? { label: fieldLabel, helpText: notice } : undefined;
+    const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
 
     return (
         <InputContainer id={inputId} useCustomWrapper={true} {...inputLabels}>
             <div className={classNames('flex flex-col gap-2', { 'pl-4': isTuple })}>
-                {onDeleteClick != null && (
-                    <Button iconLeft={IconType.CLOSE} size="sm" variant="secondary" onClick={onDeleteClick} />
-                )}
-                {nestedParameters.map((parameter, index) => (
-                    <ProposalActionsItemDecodedViewField
-                        key={index}
-                        parameter={parameter}
-                        hideLabels={isArray}
-                        editMode={editMode}
-                        formPrefix={`${formPrefix}.${fieldName}`}
-                        fieldName={index.toString()}
-                        onDeleteClick={isArray ? handleRemoveArrayItem(index) : undefined}
-                    />
-                ))}
-                {isArray && (
+                <div
+                    className={classNames('flex grow flex-row gap-2', {
+                        'rounded-xl border border-neutral-100 bg-neutral-0 p-4': isTuple || isArray,
+                    })}
+                >
+                    <div className="flex grow flex-col gap-2">
+                        {nestedParameters.map((parameter, index) => (
+                            <ProposalActionsItemDecodedViewField
+                                key={index}
+                                parameter={parameter}
+                                hideLabels={isArray}
+                                editMode={editMode}
+                                formPrefix={`${formPrefix}.${fieldName}`}
+                                fieldName={index.toString()}
+                                onDeleteClick={isArray ? handleRemoveArrayItem(index) : undefined}
+                            />
+                        ))}
+                    </div>
+                    {onDeleteClick != null && editMode && (
+                        <Button
+                            iconLeft={IconType.CLOSE}
+                            size="lg"
+                            variant="ghost"
+                            onClick={onDeleteClick}
+                            className="self-start"
+                        />
+                    )}
+                </div>
+                {isArray && editMode && (
                     <Button
                         iconLeft={IconType.PLUS}
-                        size="sm"
-                        variant="secondary"
+                        size="md"
+                        variant="tertiary"
                         onClick={handleAddArrayItem}
-                        className={type.includes('tuple') ? 'ml-4' : undefined}
-                    />
+                        className={classNames('self-start', { 'ml-4': isTupleArray })}
+                    >
+                        Add
+                    </Button>
                 )}
             </div>
         </InputContainer>
