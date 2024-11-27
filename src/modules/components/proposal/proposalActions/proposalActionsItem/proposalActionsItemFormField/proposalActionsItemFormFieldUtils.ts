@@ -43,9 +43,9 @@ class ProposalActionsItemFormFieldUtils {
         return value;
     };
 
-    getDefaultFormField = (name: string, value?: string): IUseProposalActionsItemFormFieldReturn => ({
+    getDefaultFormField = (name: string, value?: string | boolean | null): IUseProposalActionsItemFormFieldReturn => ({
         name,
-        value,
+        value: value?.toString(),
         onChange: () => Promise.resolve(true),
         onBlur: () => Promise.resolve(true),
         ref: () => null,

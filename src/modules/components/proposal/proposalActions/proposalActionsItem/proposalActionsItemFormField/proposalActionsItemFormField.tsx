@@ -37,7 +37,7 @@ export const ProposalActionsItemFormField: React.FC<IProposalActionsItemFormFiel
         fieldName,
         formPrefix,
         component = 'input',
-        includeTypeOnLabel = true,
+        includeTypeOnLabel: includeType = true,
         ...otherProps
     } = props;
 
@@ -48,20 +48,12 @@ export const ProposalActionsItemFormField: React.FC<IProposalActionsItemFormFiel
         'ProposalActionsItemTextField: value type is not supported',
     );
 
-    const fieldLabel = proposalActionsItemFormFieldUtils.getParameterLabel({
-        parameter,
-        includeType: includeTypeOnLabel,
-    });
+    const fieldLabel = proposalActionsItemFormFieldUtils.getParameterLabel({ parameter, includeType });
+
     const fieldType = proposalActionsItemFormFieldUtils.parseType(type);
 
-    const { label, ...textField } = useProposalActionsItemFormField(fieldName, {
-        formPrefix,
-        value: value as string,
-        label: name,
-        editMode,
-        type: fieldType,
-        required: true,
-    });
+    const formFieldOptions = { formPrefix, value, label: name, editMode, type: fieldType, required: true };
+    const { label, ...textField } = useProposalActionsItemFormField(fieldName, formFieldOptions);
 
     const inputLabels = !hideLabels ? { label: fieldLabel, helpText: notice } : undefined;
     const Component = component === 'textarea' ? TextArea : InputText;

@@ -51,6 +51,7 @@ export const ProposalActionsItemDecodedView: React.FC<IProposalActionsItemDecode
                     parameter={parameter}
                     editMode={editMode}
                     formPrefix={getParameterPrefix(index)}
+                    fieldName="value"
                 />
             ))}
         </div>

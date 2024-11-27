@@ -21,7 +21,7 @@ export interface IUseProposalActionsItemFormFieldParams {
     /**
      * Initial value of the field.
      */
-    value: string;
+    value?: string | boolean | null;
     /**
      * Marks the field as required when set to true.
      */
