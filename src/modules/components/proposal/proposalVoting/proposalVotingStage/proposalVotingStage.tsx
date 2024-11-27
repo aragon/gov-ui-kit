@@ -3,7 +3,6 @@ import { useMemo, useState, type ComponentProps } from 'react';
 import { Accordion, Card, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingBodySummary } from '../proposalVotingBodySummary';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
 
@@ -57,15 +56,6 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
     );
 
-    const renderContent = () => {
-        if (activeBody || !bodyList) {
-            // Render children
-            return children;
-        }
-        // Render ProposalVotingBodySummary when activeBody is null and bodyList has more than one element
-        return <ProposalVotingBodySummary>{children}</ProposalVotingBodySummary>;
-    };
-
     if (!isMultiStage) {
         return (
             <ProposalVotingStageContextProvider value={contextValues}>
@@ -85,7 +75,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                         isMultiStage={false}
                         className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
                     />
-                    {renderContent()}
+                    {children}
                 </Card>
             </ProposalVotingStageContextProvider>
         );
@@ -105,7 +95,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                         </p>
                     </div>
                 </Accordion.ItemHeader>
-                <Accordion.ItemContent>{renderContent()}</Accordion.ItemContent>
+                <Accordion.ItemContent>{children}</Accordion.ItemContent>
             </Accordion.Item>
         </ProposalVotingStageContextProvider>
     );
