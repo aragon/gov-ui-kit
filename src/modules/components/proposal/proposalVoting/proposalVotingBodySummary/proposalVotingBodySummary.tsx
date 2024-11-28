@@ -1,6 +1,6 @@
+import classNames from 'classnames';
 import type { ComponentProps, PropsWithChildren } from 'react';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-import classNames from 'classnames';
 
 export interface IProposalVotingBodySummaryProps extends ComponentProps<'div'> {}
 

@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -5,7 +6,6 @@ import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
-import classNames from 'classnames';
 
 export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
     /**
