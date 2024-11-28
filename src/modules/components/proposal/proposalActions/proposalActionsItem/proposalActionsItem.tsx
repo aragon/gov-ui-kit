@@ -114,7 +114,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         />
                     )}
                     {activeViewMode === ProposalActionViewMode.DECODED && (
-                        <ProposalActionsItemDecodedView action={action} editMode={editMode && !supportsBasicView} />
+                        <ProposalActionsItemDecodedView
+                            action={action}
+                            editMode={editMode && !supportsBasicView}
+                            formPrefix={formPrefix}
+                        />
                     )}
                     {activeViewMode === ProposalActionViewMode.RAW && (
                         <ProposalActionsItemRawView
