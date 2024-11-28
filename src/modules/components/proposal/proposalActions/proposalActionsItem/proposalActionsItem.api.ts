@@ -38,6 +38,7 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
     /**
      * Enables the edit-mode when set to true. The RAW view will be editable only if the action has no DECODED view,
      * similarly the DECODED view will be editable only if the action has no BASIC view.
+     * The component must be wrapped through a form context provider when the property is set to true.
      * @default false
      */
     editMode?: boolean;
