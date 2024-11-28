@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Update `ProposalActions` module component to improve rendering of decoded parameters and support and "edit" mode
+  through the `editMode` property
+
 ### Changed
 
 - Update minor and patch NPM dependencies
