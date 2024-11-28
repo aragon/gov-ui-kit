@@ -17,6 +17,11 @@ export enum ProposalActionViewMode {
     RAW = 'RAW',
 }
 
+/**
+ * The `<ProposalActions.Item />` component supports multiple view modes depending if the action supports a basic view
+ * and if the parameters for the actions are defined.
+ * **_NOTE:_** The component must be used inside a `<FormProvider />` component from `react-hook-form` when used in `editMode`.
+ */
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
