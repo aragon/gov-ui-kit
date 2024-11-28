@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+-   Add gap to `ProposalVotingTabs` so that children will vertically space correctly
+
 ## [1.0.56] - 2024-11-26
 
 ### Added
