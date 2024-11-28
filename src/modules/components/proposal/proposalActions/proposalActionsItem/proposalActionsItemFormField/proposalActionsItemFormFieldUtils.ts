@@ -63,7 +63,7 @@ class ProposalActionsItemFormFieldUtils {
     ): string | boolean | undefined | null => {
         // Store value as boolean on form when valid, otherwise store it as lowercase string.
         if (type === 'boolean') {
-            return this.validateBoolean(value) ? Boolean(value) : value?.toString().toLocaleLowerCase();
+            return this.validateBoolean(value) ? value === 'true' : value?.toString().toLocaleLowerCase();
         }
 
         return value;
