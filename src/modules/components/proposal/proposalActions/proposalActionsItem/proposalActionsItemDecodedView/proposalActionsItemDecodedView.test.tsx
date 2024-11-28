@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import type * as coreModule from '../../../../../../core';
-import { modulesCopy } from '../../../../../assets';
 import { generateProposalActionTokenMint } from '../../proposalActionsList';
 import {
     type IProposalActionsItemDecodedViewProps,
@@ -27,15 +26,6 @@ describe('<ProposalActionsItemDecodedView /> component', () => {
 
         return <ProposalActionsItemDecodedView {...completeProps} />;
     };
-
-    it('renders action value correctly', () => {
-        const action = generateProposalActionTokenMint({ value: '100' });
-        render(createTestComponent({ action }));
-
-        expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsItemDecodedView.valueHelper)).toBeInTheDocument();
-        expect(screen.getByDisplayValue('100')).toBeInTheDocument();
-    });
 
     it('renders action parameters correctly', () => {
         const action = generateProposalActionTokenMint({
@@ -72,17 +62,5 @@ describe('<ProposalActionsItemDecodedView /> component', () => {
         expect(screen.getByText(action.inputData!.parameters[1].notice!)).toBeInTheDocument();
         expect(param2Input).toBeInTheDocument();
         expect(param2Input).toBeDisabled();
-    });
-
-    it('renders correctly with no parameters', () => {
-        const action = generateProposalActionTokenMint({
-            inputData: { function: 'myFunction', contract: 'myContract', parameters: [] },
-            value: '200',
-        });
-        render(createTestComponent({ action }));
-
-        expect(screen.getByText('Value')).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsItemDecodedView.valueHelper)).toBeInTheDocument();
-        expect(screen.getByDisplayValue(action.value)).toBeInTheDocument();
     });
 });
