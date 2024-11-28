@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import type { ComponentProps, PropsWithChildren, ReactNode } from 'react';
 
 export interface IProposalVotingBodySummaryListProps extends ComponentProps<'div'> {
@@ -11,9 +12,10 @@ export const ProposalVotingBodySummaryList: React.FC<PropsWithChildren<IProposal
     props,
 ) => {
     const { children, ...otherProps } = props;
+    const { className } = otherProps;
 
     return (
-        <div {...otherProps} className="flex w-full flex-col gap-3">
+        <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
             {children}
         </div>
     );

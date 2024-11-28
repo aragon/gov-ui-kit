@@ -11,12 +11,13 @@ describe('<ProposalVotingBodySummary /> component', () => {
             children: 'Test Content',
             ...props,
         };
-        const defaultContextValues = {
+
+        const completeContextValues: IProposalVotingStageContext = {
             startDate: 0,
             endDate: 0,
+            ...contextValues,
         };
-
-        const contextValue = { ...defaultContextValues, ...contextValues };
+        const contextValue = { ...completeContextValues, ...contextValues };
 
         return (
             <ProposalVotingStageContextProvider value={contextValue}>

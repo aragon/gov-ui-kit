@@ -9,17 +9,18 @@ describe('<ProposalVotingBodyContent /> component', () => {
         props?: Partial<IProposalVotingBodyContentProps>,
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
-        const defaultProps: IProposalVotingBodyContentProps = {
+        const completeProps: IProposalVotingBodyContentProps = {
             status: ProposalVotingStatus.PENDING,
             name: 'Test Stage',
             bodyId: 'body1',
+            ...props,
         };
-        const completeProps = { ...defaultProps, ...props };
-        const defaultContextValues: IProposalVotingStageContext = {
+        const completeContextValues: IProposalVotingStageContext = {
             startDate: 0,
             endDate: 0,
+            ...contextValues,
         };
-        const contextValue = { ...defaultContextValues, ...contextValues };
+        const contextValue = { ...completeContextValues, ...contextValues };
 
         return (
             <ProposalVotingStageContextProvider value={contextValue}>

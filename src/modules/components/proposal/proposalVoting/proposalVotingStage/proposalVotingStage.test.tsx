@@ -10,12 +10,6 @@ jest.mock('../proposalVotingStageStatus', () => ({
     ),
 }));
 
-jest.mock('../proposalVotingBodySummary', () => ({
-    ProposalVotingBodySummary: (props: { children: React.ReactNode }) => (
-        <div data-testid="proposal-body-summary">{props.children}</div>
-    ),
-}));
-
 describe('<ProposalVotingStage /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingStageProps>) => {
         const completeProps: IProposalVotingStageProps = {
@@ -35,21 +29,6 @@ describe('<ProposalVotingStage /> component', () => {
 
         return <ProposalVotingStage {...completeProps} />;
     };
-
-    it('renders children directly when bodyList has one element', () => {
-        const bodyList = ['body1'];
-        const children = 'test-children';
-        render(createTestComponent({ bodyList, children }));
-        expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
-        expect(screen.getByText(children)).toBeInTheDocument();
-    });
-
-    it('renders the children directly when bodyList is undefined and activeBody is null', () => {
-        const children = 'test-children';
-        render(createTestComponent({ bodyList: undefined, children }));
-        expect(screen.queryByTestId('proposal-body-summary')).not.toBeInTheDocument();
-        expect(screen.getByText(children)).toBeInTheDocument();
-    });
 
     it('renders the proposal stage with its name inside an accordion item', () => {
         const isMultiStage = true;
@@ -83,13 +62,56 @@ describe('<ProposalVotingStage /> component', () => {
         expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
     });
 
-    it('renders the proposal stage with its name inside an accordion item', () => {
+    it('renders the stage name for single-stage proposals with multiple bodies', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+        const bodyList = ['body1', 'body2'];
+        render(createTestComponent({ isMultiStage, name, bodyList }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('does not render the stage name for single-stage proposals with a bodyList with a single body', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+        const bodyListSingle = ['body1'];
+        render(createTestComponent({ isMultiStage, name, bodyList: bodyListSingle }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+
+        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+    });
+
+    it('does not render the stage name for single-stage proposals with a bodyList not defined', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+
+        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals with multiple bodies', () => {
         const isMultiStage = true;
         const name = 'Stage name';
-        const status = ProposalVotingStatus.ACCEPTED;
-        render(createTestComponent({ isMultiStage, name, status, index: 2 }));
-        expect(screen.getByRole('button')).toBeInTheDocument();
+        const index = 1;
+        const bodyList = ['body1', 'body2'];
+        render(createTestComponent({ isMultiStage, name, index, bodyList }));
         expect(screen.getByText(name)).toBeInTheDocument();
-        expect(screen.getByText('Stage 3')).toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals with a single body', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const index = 1;
+        const bodyList = ['body1'];
+        render(createTestComponent({ isMultiStage, name, index, bodyList }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals when bodyList is undefined', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const index = 1;
+        render(createTestComponent({ isMultiStage, name, index, bodyList: undefined }));
+        expect(screen.getByText(name)).toBeInTheDocument();
     });
 });

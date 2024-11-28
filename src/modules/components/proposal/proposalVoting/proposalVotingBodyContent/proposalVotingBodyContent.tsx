@@ -5,6 +5,7 @@ import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs } from '../proposalVotingTabs';
+import classNames from 'classnames';
 
 export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
     /**
@@ -23,6 +24,7 @@ export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
     const { bodyId, children, name, status, ...otherProps } = props;
+    const { className } = otherProps;
 
     const { copy } = useGukModulesContext();
 
@@ -42,7 +44,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     }
 
     return (
-        <div {...otherProps} className="flex w-full flex-col gap-3">
+        <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
             {bodyList && bodyList.length > 1 && (
                 <>
                     <Button

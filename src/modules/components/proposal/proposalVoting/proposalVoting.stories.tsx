@@ -257,7 +257,6 @@ export const SingleStage: Story = {
 export const SingleStageMultiBody: Story = {
     args: {
         className: 'max-w-[560px]',
-        title: 'Proposal Voting',
     },
     render: (args) => {
         const bodyList = ['Token holder voting', 'Founders approval'];
@@ -317,7 +316,6 @@ export const SingleStageMultiBody: Story = {
 export const MultiStageMultiBody: Story = {
     args: {
         className: 'max-w-[560px]',
-        title: 'Proposal Voting',
     },
     render: (args) => {
         const bodyList = ['Token holder voting', 'Founders approval'];

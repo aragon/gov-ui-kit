@@ -12,17 +12,19 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
         props?: Partial<IProposalVotingBodySummaryListItemProps>,
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
-        const defaultProps: IProposalVotingBodySummaryListItemProps = {
+        const completeProps: IProposalVotingBodySummaryListItemProps = {
             id: 'body1',
             children: 'List Item Content',
-        };
-        const completeProps = { ...defaultProps, ...props };
-        const defaultContextValues = {
-            startDate: 0,
-            endDate: 0,
+            ...props,
         };
 
-        const contextValue = { ...defaultContextValues, ...contextValues };
+        const completeContextValues: IProposalVotingStageContext = {
+            startDate: 0,
+            endDate: 0,
+            ...contextValues,
+        };
+        const contextValue = { ...completeContextValues, ...contextValues };
+
         return (
             <ProposalVotingStageContextProvider value={contextValue}>
                 <ProposalVotingBodySummaryListItem {...completeProps} />
