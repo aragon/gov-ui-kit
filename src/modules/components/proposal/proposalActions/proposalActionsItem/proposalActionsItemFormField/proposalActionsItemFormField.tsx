@@ -34,7 +34,7 @@ export const ProposalActionsItemFormField: React.FC<IProposalActionsItemFormFiel
         'ProposalActionsItemTextField: value type is not supported',
     );
 
-    const fieldType = proposalActionsItemFormFieldUtils.parseType(type);
+    const fieldType = proposalActionsItemFormFieldUtils.abiToFieldType(type);
 
     const formFieldOptions = { formPrefix, value, label: name, editMode, type: fieldType, required: true };
     const { label, ...textField } = useProposalActionsItemFormField(fieldName, formFieldOptions);

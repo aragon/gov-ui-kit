@@ -16,6 +16,7 @@ export interface IUseProposalActionsItemFormFieldParams {
     /**
      * Uses the react-hook-form utilities to register the field when set to true. Does not use the react-hook-form
      * utilities otherwise to allow using the library without a form-context when edit-mode is not set or set to false.
+     * @default false
      */
     editMode?: boolean;
     /**

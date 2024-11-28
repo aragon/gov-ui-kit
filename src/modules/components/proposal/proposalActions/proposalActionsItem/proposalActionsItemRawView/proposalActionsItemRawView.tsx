@@ -24,7 +24,6 @@ export const ProposalActionsItemRawView: React.FC<IProposalActionsItemRawViewPro
                 fieldName="value"
                 formPrefix={formPrefix}
                 editMode={editMode}
-                includeTypeOnLabel={false}
             />
             <ProposalActionsItemFormField
                 parameter={{ name: copy.proposalActionsItemRawView.data, value: action.data, type: 'bytes' }}
@@ -32,7 +31,6 @@ export const ProposalActionsItemRawView: React.FC<IProposalActionsItemRawViewPro
                 component="textarea"
                 formPrefix={formPrefix}
                 editMode={editMode}
-                includeTypeOnLabel={false}
             />
             <Button className="self-end" variant="tertiary" size="md" onClick={() => clipboardUtils.copy(action.data)}>
                 {copy.proposalActionsItemRawView.copyButton}

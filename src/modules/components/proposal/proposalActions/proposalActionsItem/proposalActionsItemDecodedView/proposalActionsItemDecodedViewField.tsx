@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useId, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { Button, IconType, InputContainer, invariant } from '../../../../../../core';
+import { Button, IconType, InputContainer } from '../../../../../../core';
+import { useFormContext } from '../../../../../hooks';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
 import type { IProposalActionsItemProps } from '../proposalActionsItem.api';
 import { ProposalActionsItemFormField, proposalActionsItemFormFieldUtils } from '../proposalActionsItemFormField';
@@ -30,18 +30,14 @@ export interface IProposalActionsItemDecodedViewFieldProps extends Pick<IProposa
 }
 
 export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemDecodedViewFieldProps> = (props) => {
-    const { parameter, hideLabels, editMode, formPrefix, fieldName, onDeleteClick } = props;
-    const { notice, value, type, name } = parameter;
-
-    // Fallback to empty object to avoid requiring a react-hook-form wrapper on read-only mode
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const { setValue, getValues, unregister } = useFormContext() ?? {};
+    const { parameter, hideLabels, editMode = false, formPrefix, fieldName, onDeleteClick } = props;
+    const { notice, type, name } = parameter;
 
     const inputId = useId();
+    const { setValue, getValues, unregister } = useFormContext(editMode);
 
     const isArray = proposalActionsItemFormFieldUtils.isArrayType(type);
     const isTuple = proposalActionsItemFormFieldUtils.isTupleType(type);
-    const isTupleArray = proposalActionsItemFormFieldUtils.isTupleArrayType(type);
     const isNestedType = isTuple || isArray;
 
     const initialParameters = proposalActionsItemFormFieldUtils.getNestedParameters(parameter);
@@ -58,17 +54,11 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                     formPrefix={formPrefix}
                 />
                 {onDeleteClick != null && editMode && (
-                    <Button iconLeft={IconType.CLOSE} size="lg" variant="ghost" onClick={onDeleteClick} />
+                    <Button iconLeft={IconType.CLOSE} size="lg" variant="tertiary" onClick={onDeleteClick} />
                 )}
             </div>
         );
     }
-
-    invariant(Array.isArray(value), `ProposalActionsItemArrayField: value must be an array for ${type} type`);
-    invariant(
-        proposalActionsItemFormFieldUtils.guardArrayType(value),
-        'ProposalActionsItemArrayField: value contain unsupported types.',
-    );
 
     const handleAddArrayItem = () => {
         const defaultNestedParameter = proposalActionsItemFormFieldUtils.getDefaultNestedParameter(parameter);
@@ -90,12 +80,12 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
 
     return (
         <InputContainer id={inputId} useCustomWrapper={true} {...inputLabels}>
-            <div className={classNames('flex flex-col gap-2', { 'pl-4': isTuple })}>
-                <div
-                    className={classNames('flex grow flex-row gap-2', {
-                        'rounded-xl border border-neutral-100 bg-neutral-0 p-4': isTuple || isArray,
-                    })}
-                >
+            <div
+                className={classNames('flex flex-col gap-2', {
+                    'rounded-xl border border-neutral-100 p-4': isNestedType,
+                })}
+            >
+                <div className="flex grow flex-row gap-2">
                     <div className="flex grow flex-col gap-2">
                         {nestedParameters.map((parameter, index) => (
                             <ProposalActionsItemDecodedViewField
@@ -113,7 +103,7 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                         <Button
                             iconLeft={IconType.CLOSE}
                             size="lg"
-                            variant="ghost"
+                            variant="tertiary"
                             onClick={onDeleteClick}
                             className="self-start"
                         />
@@ -125,7 +115,7 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                         size="md"
                         variant="tertiary"
                         onClick={handleAddArrayItem}
-                        className={classNames('self-start', { 'ml-4': isTupleArray })}
+                        className={classNames('self-start')}
                     >
                         Add
                     </Button>

@@ -41,8 +41,8 @@ export const Default: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'vote',
+                contract: 'TokenVoting',
                 parameters: [
                     {
                         name: '_proposalId',
@@ -69,6 +69,35 @@ export const Default: Story = {
 };
 
 /**
+ * The ProposalActionsItem component also works as read-only without a form context provider. The component will throw
+ * an error if the editMode property is set to true but the component is not used inside a form context provider.
+ */
+export const ReadOnly: Story = {
+    args: {
+        action: generateProposalAction({
+            inputData: {
+                function: 'approve',
+                contract: 'Multisig',
+                parameters: [
+                    {
+                        name: '_proposalId',
+                        type: 'uint256',
+                        value: '25',
+                        notice: 'The ID of the proposal.',
+                    },
+                    {
+                        name: '_tryEarlyExecution',
+                        type: 'bool',
+                        value: false,
+                        notice: 'If `true`, early execution is tried after the vote cast. The call does not revert if early execution is not possible.',
+                    },
+                ],
+            },
+        }),
+    },
+};
+
+/**
  * Usage example of the Decoded view from the ProposalActionsItem component with a payable function.
  */
 export const Payable: Story = {
@@ -76,8 +105,8 @@ export const Payable: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'setBoostAmount',
+                contract: 'Router',
                 payable: true,
                 parameters: [
                     {
@@ -99,8 +128,8 @@ export const Tuple: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'initialize',
+                contract: 'TokenVoting',
                 parameters: [
                     {
                         name: '_dao',
@@ -141,8 +170,8 @@ export const Array: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'addAddresses',
+                contract: 'Multisig',
                 parameters: [
                     {
                         name: '_members',
@@ -168,8 +197,8 @@ export const ArrayInsideTuple: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'applyInstallation',
+                contract: 'Plugin',
                 parameters: [
                     {
                         name: '_payload',
@@ -204,8 +233,8 @@ export const TupleArray: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'createProposal',
+                contract: 'Multisig',
                 parameters: [
                     {
                         name: '_metadata',
@@ -243,8 +272,8 @@ export const MultiDimentionalArray: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'setData',
+                contract: 'ExchangeProxy',
                 parameters: [
                     {
                         name: 'id',
@@ -273,8 +302,8 @@ export const NestedTuple: Story = {
     args: {
         action: generateProposalAction({
             inputData: {
-                function: '',
-                contract: '',
+                function: 'updateStages',
+                contract: 'StagedProposalProcessor',
                 parameters: [
                     {
                         name: '_stages',

@@ -1,10 +1,31 @@
 import type { FieldError } from 'react-hook-form';
 import type { IInputComponentProps } from '../../../../../../core';
+import type { ModulesCopy } from '../../../../../assets';
+import { addressUtils } from '../../../../../utils';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
 import type {
     IUseProposalActionsItemFormFieldReturn,
     ProposalActionFieldType,
 } from './useProposalActionsItemFormField.api';
+
+export interface IGetValidationRulesParams {
+    /**
+     * Label of the field used for validation errors.
+     */
+    label: string;
+    /**
+     * Type of the field to build the validation rules.
+     */
+    type: ProposalActionFieldType;
+    /**
+     * Strings to use for validation errors.
+     */
+    errorMessages: ModulesCopy['proposalActionsItemFormField'];
+    /**
+     * Defines if the field is required or not.
+     */
+    required?: boolean;
+}
 
 class ProposalActionsItemFormFieldUtils {
     guardValueType = (value: unknown): value is boolean | string | null | undefined =>
@@ -13,12 +34,36 @@ class ProposalActionsItemFormFieldUtils {
     guardArrayType = (value: unknown[]): value is boolean[] | string[] =>
         value.every((item) => (Array.isArray(item) ? this.guardArrayType(item) : this.guardValueType(item)));
 
-    validateBoolean = (value: string | boolean): boolean => ['true', 'false'].includes(value.toString());
+    getValidationRules = (params: IGetValidationRulesParams) => {
+        const { required, label, errorMessages } = params;
 
-    valueSetter = (value: string | boolean, type: ProposalActionFieldType): string | boolean => {
+        return {
+            required: required ? errorMessages.required(label) : undefined,
+            validate: (value: string | boolean) => this.validateValue(value, params),
+        };
+    };
+
+    validateValue = (value: string | boolean | undefined | null = null, params: IGetValidationRulesParams) => {
+        const { type, label, errorMessages } = params;
+
+        if (type === 'boolean') {
+            return proposalActionsItemFormFieldUtils.validateBoolean(value) || errorMessages.boolean(label);
+        } else if (type === 'address') {
+            return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
+        }
+
+        return undefined;
+    };
+
+    validateBoolean = (value?: string | boolean | null): boolean => ['true', 'false'].includes(value?.toString() ?? '');
+
+    valueSetter = (
+        value: string | boolean | undefined | null = null,
+        type: ProposalActionFieldType,
+    ): string | boolean | undefined | null => {
         // Store value as boolean on form when valid, otherwise store it as lowercase string.
         if (type === 'boolean') {
-            return this.validateBoolean(value) ? Boolean(value) : value.toString().toLocaleLowerCase();
+            return this.validateBoolean(value) ? Boolean(value) : value?.toString().toLocaleLowerCase();
         }
 
         return value;
@@ -44,9 +89,7 @@ class ProposalActionsItemFormFieldUtils {
 
     isTupleType = (type: string) => type === 'tuple';
 
-    isTupleArrayType = (type: string) => type === 'tuple[]';
-
-    parseType = (type: string): ProposalActionFieldType => {
+    abiToFieldType = (type: string): ProposalActionFieldType => {
         let formFieldType: ProposalActionFieldType = 'string';
 
         if (type.includes('uint')) {

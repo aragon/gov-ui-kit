@@ -65,7 +65,7 @@ const config = tsEslint.config(
             'prefer-template': 'warn',
             'no-useless-concat': 'warn',
             '@typescript-eslint/no-empty-object-type': ['error', { allowInterfaces: 'always' }],
-            '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+            '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true, caughtErrors: 'none' }],
             '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
             '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
             '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
