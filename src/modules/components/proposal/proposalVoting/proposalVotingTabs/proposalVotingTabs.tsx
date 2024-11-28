@@ -44,7 +44,7 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
                 />
                 <Tabs.Trigger label={copy.proposalVotingTabs.details} value={ProposalVotingTab.DETAILS} />
             </Tabs.List>
-            <div className="flex grow flex-col" ref={contentRef}>
+            <div className="flex grow flex-col gap-y-2" ref={contentRef}>
                 {children}
             </div>
         </Tabs.Root>
