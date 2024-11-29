@@ -10,7 +10,6 @@ export const ProposalActionsDecoderTextFieldWatch: React.FC<IProposalActionsDeco
     const { type } = parameter;
 
     const value = useWatch<Record<string, ProposalActionsFieldValue>>({ name: fieldName });
-
     const Component = component === 'textarea' ? TextArea : InputText;
 
     return <Component placeholder={type} value={value?.toString()} disabled={true} {...otherProps} />;

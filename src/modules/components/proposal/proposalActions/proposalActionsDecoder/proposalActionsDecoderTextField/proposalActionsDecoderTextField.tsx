@@ -11,7 +11,11 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
 
     const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
     const commonProps = { placeholder: type, className, ...inputLabels };
-    const fieldProps = { parameter, fieldName: proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix) };
+    const fieldProps = {
+        parameter,
+        component,
+        fieldName: proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix),
+    };
 
     if (mode === ProposalActionsDecoderMode.WATCH) {
         return <ProposalActionsDecoderTextFieldWatch {...commonProps} {...fieldProps} />;

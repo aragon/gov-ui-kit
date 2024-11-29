@@ -1,6 +1,7 @@
+import type { DeepPartial } from 'react-hook-form';
 import type { ModulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils';
-import type { IProposalActionInputDataParameter } from '../proposalActionsDefinitions';
+import type { IProposalAction, IProposalActionInputDataParameter } from '../proposalActionsDefinitions';
 
 export interface IGetValidationRulesParams {
     /**
@@ -14,7 +15,7 @@ export interface IGetValidationRulesParams {
     /**
      * Strings to use for validation errors.
      */
-    errorMessages: ModulesCopy['proposalActionsItemFormField'];
+    errorMessages: ModulesCopy['proposalActionsDecoder']['validation'];
     /**
      * Defines if the field is required or not.
      */
@@ -38,7 +39,7 @@ class ProposalActionsDecoderUtils {
     validateValue = (value: ProposalActionsFieldValue = null, params: IGetValidationRulesParams) => {
         const { type, label, errorMessages } = params;
 
-        if (type === 'boolean') {
+        if (type === 'bool') {
             return this.validateBoolean(value) || errorMessages.boolean(label);
         } else if (type === 'address') {
             return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
@@ -47,13 +48,12 @@ class ProposalActionsDecoderUtils {
         return undefined;
     };
 
-    valueSetter = (value: ProposalActionsFieldValue = null, type: string): ProposalActionsFieldValue => {
-        // Store value as boolean on form when valid, otherwise store it as lowercase string.
-        if (type === 'boolean') {
-            return this.validateBoolean(value) ? value === 'true' : value?.toString().toLocaleLowerCase();
-        }
+    formValuesToFunctionParameters = (formValues: DeepPartial<IProposalAction>): unknown[] | undefined => {
+        const values = formValues.inputData?.parameters?.map((parameter) =>
+            parameter?.type === 'bool' ? parameter.value === 'true' : parameter?.value,
+        );
 
-        return value;
+        return values;
     };
 
     isArrayType = (type: string) => type.endsWith('[]');

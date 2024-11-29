@@ -70,6 +70,11 @@ export const Verified: Story = {
                         type: 'address',
                         value: '0x80CB2f4f9B403C4C418C597d96c95FE14FD344a6',
                     },
+                    {
+                        name: 'exact',
+                        type: 'bool',
+                        value: false,
+                    },
                 ],
             },
         }),

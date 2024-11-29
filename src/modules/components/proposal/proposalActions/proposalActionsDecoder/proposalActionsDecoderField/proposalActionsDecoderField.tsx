@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useId, useState } from 'react';
 import { Button, IconType, InputContainer } from '../../../../../../core';
 import { useFormContext } from '../../../../../hooks';
+import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
 import { type IProposalActionsDecoderProps, ProposalActionsDecoderMode } from '../proposalActionsDecoder.api';
 import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
@@ -31,6 +32,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderField>
     const { notice, type, name } = parameter;
 
     const inputId = useId();
+    const { copy } = useGukModulesContext();
     const { setValue, getValues, unregister } = useFormContext(mode === ProposalActionsDecoderMode.EDIT);
 
     const isArray = proposalActionsDecoderUtils.isArrayType(type);
@@ -73,10 +75,13 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderField>
         setNestedParameters(newNestedParameters);
     };
 
-    const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
-
     return (
-        <InputContainer id={inputId} useCustomWrapper={true} {...inputLabels}>
+        <InputContainer
+            id={inputId}
+            useCustomWrapper={true}
+            label={hideLabels ? undefined : name}
+            helpText={hideLabels ? undefined : notice}
+        >
             <div
                 className={classNames('flex flex-col gap-2', {
                     'rounded-xl border border-neutral-100 p-4': isNestedType,
@@ -114,7 +119,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderField>
                         onClick={handleAddArrayItem}
                         className={classNames('self-start')}
                     >
-                        Add
+                        {copy.proposalActionsDecoder.add}
                     </Button>
                 )}
             </div>

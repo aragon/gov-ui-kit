@@ -12,7 +12,7 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
 
     const { copy } = useGukModulesContext();
 
-    const errorMessages = copy.proposalActionsItemFormField;
+    const errorMessages = copy.proposalActionsDecoder.validation;
     const validationRulesParams = { label: name, type, required: true, errorMessages };
     const validationRules = proposalActionsDecoderUtils.getValidationRules(validationRulesParams);
 
@@ -29,7 +29,5 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return (
-        <Component placeholder={type} value={field.value?.toString()} {...inputProps} {...fieldProps} {...otherProps} />
-    );
+    return <Component placeholder={type} value={value?.toString()} {...inputProps} {...fieldProps} {...otherProps} />;
 };

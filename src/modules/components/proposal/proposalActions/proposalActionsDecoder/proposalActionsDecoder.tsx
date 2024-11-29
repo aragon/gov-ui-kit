@@ -27,19 +27,20 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
     const { value, data, inputData } = action;
 
     const { copy } = useGukModulesContext();
-
     const { watch, setValue } = useFormContext<IProposalAction>(mode === ProposalActionsDecoderMode.EDIT);
 
     const dataFieldName = proposalActionsDecoderUtils.getFieldName('data', formPrefix) as 'data';
 
     const updateEncodedData = useCallback(
         (formValues: DeepPartial<IProposalAction>) => {
-            const functionParameters = formValues.inputData?.parameters?.map((parameter) => parameter?.value);
-            const actionAbi = [{ type: 'function', name: inputData?.function, inputs: inputData?.parameters }];
+            const functionParameters = proposalActionsDecoderUtils.formValuesToFunctionParameters(formValues);
+            const actionAbi = [{ type: 'function', inputs: inputData?.parameters }];
             let data = '0x';
 
             try {
                 data = encodeFunctionData({ abi: actionAbi, args: functionParameters });
+            } catch (error: unknown) {
+                // Form values are not valid, ignore error.
             } finally {
                 // @ts-expect-error Limitation of react-hook-form, ignore error
                 setValue(dataFieldName, data);
@@ -69,12 +70,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                     fieldName="value"
                     mode={mode}
                     formPrefix={formPrefix}
-                    parameter={{
-                        name: 'value',
-                        notice: copy.proposalActionsItemDecodedView.valueHelper,
-                        value: value,
-                        type: 'uint',
-                    }}
+                    parameter={{ name: 'value', value: value, type: 'uint' }}
                 />
             )}
             <ProposalActionsDecoderTextField
@@ -82,12 +78,13 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 mode={mode}
                 formPrefix={formPrefix}
                 parameter={{ name: 'data', value: data, type: 'bytes' }}
+                // Render the data field as hidden on decoded view to register the field on the form on EDIT mode
                 className={view === ProposalActionsDecoderView.DECODED ? 'hidden' : undefined}
                 component="textarea"
             />
             {view === ProposalActionsDecoderView.RAW && mode === ProposalActionsDecoderMode.READ && (
                 <Button variant="tertiary" size="md" onClick={handleCopyDataClick} className="self-end">
-                    {copy.proposalActionsItemRawView.copyButton}
+                    {copy.proposalActionsDecoder.copyData}
                 </Button>
             )}
             {view === ProposalActionsDecoderView.DECODED &&

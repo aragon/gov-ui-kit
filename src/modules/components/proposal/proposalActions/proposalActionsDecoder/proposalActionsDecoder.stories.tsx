@@ -3,7 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsDecoder } from './proposalActionsDecoder';
-import { ProposalActionsDecoderView, type IProposalActionsDecoderProps } from './proposalActionsDecoder.api';
+import {
+    ProposalActionsDecoderMode,
+    ProposalActionsDecoderView,
+    type IProposalActionsDecoderProps,
+} from './proposalActionsDecoder.api';
 
 const defaultRender = (props: IProposalActionsDecoderProps) => {
     const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
@@ -74,6 +78,7 @@ export const Default: Story = {
 export const ReadOnly: Story = {
     args: {
         view: ProposalActionsDecoderView.DECODED,
+        mode: ProposalActionsDecoderMode.READ,
         action: generateProposalAction({
             inputData: {
                 function: 'approve',
