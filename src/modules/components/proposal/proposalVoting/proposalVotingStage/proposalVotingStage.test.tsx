@@ -30,23 +30,6 @@ describe('<ProposalVotingStage /> component', () => {
         return <ProposalVotingStage {...completeProps} />;
     };
 
-    it('only renders the proposal status and the tabs for single-stage proposals', () => {
-        const isMultiStage = false;
-        const status = ProposalVotingStatus.REJECTED;
-        const children = 'test-children';
-        render(createTestComponent({ isMultiStage, status, children }));
-        expect(screen.getByText(status)).toBeInTheDocument();
-        expect(screen.getByRole('tablist')).toBeInTheDocument();
-        expect(screen.getByText(children)).toBeInTheDocument();
-    });
-
-    it('throws error when proposal is multi-stage and index property is not set', () => {
-        testLogger.suppressErrors();
-        const isMultiStage = true;
-        const index = undefined;
-        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
-    });
-
     it('renders the proposal stage with its name inside an accordion item', () => {
         const isMultiStage = true;
         const name = 'Stage name';
@@ -57,29 +40,78 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText('Stage 3')).toBeInTheDocument();
     });
 
-    test.each([{ status: ProposalVotingStatus.PENDING }, { status: ProposalVotingStatus.UNREACHED }])(
-        'sets the default active tab to details when proposal status is $status',
-        ({ status }) => {
-            render(createTestComponent({ status }));
-            expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true');
-        },
-    );
-
-    test.each([
-        { status: ProposalVotingStatus.ACTIVE },
-        { status: ProposalVotingStatus.ACCEPTED },
-        { status: ProposalVotingStatus.REJECTED },
-    ])('sets the default active tab to breakdown when proposal status is $status', ({ status }) => {
+    it('passes correct props to ProposalVotingStageStatus', () => {
+        const status = ProposalVotingStatus.ACTIVE;
         render(createTestComponent({ status }));
-        expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
+        expect(screen.getByTestId('proposal-status-mock')).toHaveTextContent(status);
     });
 
-    it('correctly updates the active-tab when the stage status changes', () => {
-        const status = ProposalVotingStatus.PENDING;
-        const { rerender } = render(createTestComponent({ status }));
-        expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'true');
-        rerender(createTestComponent({ status: ProposalVotingStatus.ACTIVE }));
-        expect(screen.getByRole('tab', { name: 'Details' })).toHaveAttribute('aria-selected', 'false');
-        expect(screen.getByRole('tab', { name: 'Breakdown' })).toHaveAttribute('aria-selected', 'true');
+    it('renders the proposal status and content for single-stage proposals', () => {
+        const isMultiStage = false;
+        const status = ProposalVotingStatus.REJECTED;
+        const children = 'test-children';
+        render(createTestComponent({ isMultiStage, status, children }));
+        expect(screen.getByText(status)).toBeInTheDocument();
+        expect(screen.getByText(children)).toBeInTheDocument();
+    });
+
+    it('throws error when proposal is multi-stage and index property is not set', () => {
+        testLogger.suppressErrors();
+        const isMultiStage = true;
+        const index = undefined;
+        expect(() => render(createTestComponent({ isMultiStage, index }))).toThrow();
+    });
+
+    it('renders the stage name for single-stage proposals with multiple bodies', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+        const bodyList = ['body1', 'body2'];
+        render(createTestComponent({ isMultiStage, name, bodyList }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('does not render the stage name for single-stage proposals with a bodyList with a single body', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+        const bodyListSingle = ['body1'];
+        render(createTestComponent({ isMultiStage, name, bodyList: bodyListSingle }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+
+        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+    });
+
+    it('does not render the stage name for single-stage proposals with a bodyList not defined', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+
+        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals with multiple bodies', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const index = 1;
+        const bodyList = ['body1', 'body2'];
+        render(createTestComponent({ isMultiStage, name, index, bodyList }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals with a single body', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const index = 1;
+        const bodyList = ['body1'];
+        render(createTestComponent({ isMultiStage, name, index, bodyList }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+    });
+
+    it('renders the stage name for multi-stage proposals when bodyList is undefined', () => {
+        const isMultiStage = true;
+        const name = 'Stage name';
+        const index = 1;
+        render(createTestComponent({ isMultiStage, name, index, bodyList: undefined }));
+        expect(screen.getByText(name)).toBeInTheDocument();
     });
 });

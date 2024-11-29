@@ -1,4 +1,4 @@
-import { useRef, type RefObject } from 'react';
+import { useRef } from 'react';
 import { Tabs, type ITabsRootProps } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
@@ -14,14 +14,10 @@ export interface IProposalVotingTabsProps extends ITabsRootProps {
      * @default ProposalVotingTab.BREAKDOWN
      */
     defaultValue?: ProposalVotingTab;
-    /**
-     * Reference object of the parent accordion component (on multi-stage proposals) to update its height on tab change.
-     */
-    accordionRef?: RefObject<HTMLDivElement>;
 }
 
 export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) => {
-    const { defaultValue = ProposalVotingTab.BREAKDOWN, accordionRef, children, status, ...otherProps } = props;
+    const { defaultValue = ProposalVotingTab.BREAKDOWN, children, status, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 

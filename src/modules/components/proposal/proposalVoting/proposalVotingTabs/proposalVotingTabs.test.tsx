@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingTabsProps, ProposalVotingTabs } from './proposalVotingTabs';
@@ -28,14 +27,6 @@ describe('<ProposalVotingTabs /> component', () => {
         render(createTestComponent({ defaultValue }));
         const detailsTab = screen.getByRole('tab', { name: 'Details' });
         expect(detailsTab).toHaveAttribute('aria-selected', 'true');
-    });
-
-    it('does not fail when accordionRef is not defined on tab change', async () => {
-        const accordionRef = undefined;
-        render(createTestComponent({ accordionRef }));
-
-        await userEvent.click(screen.getByRole('tab', { name: 'Details' }));
-        expect(screen.getByRole('tab', { name: 'Breakdown' })).toBeInTheDocument();
     });
 
     it.each([{ status: ProposalVotingStatus.PENDING }, { status: ProposalVotingStatus.UNREACHED }])(
