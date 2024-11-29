@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
+import classNames from 'classnames';
 
 export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
     /**
@@ -14,7 +15,7 @@ export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
 };
 
 export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
-    const { id, children, ...otherProps } = props;
+    const { id, children, className, ...otherProps } = props;
 
     const { setActiveBody } = useProposalVotingStageContext();
 
@@ -22,7 +23,7 @@ export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySumm
         <DataListItem
             {...otherProps}
             onClick={() => setActiveBody?.(id)}
-            className="flex items-center justify-between gap-3 p-6"
+            className={classNames('flex items-center justify-between gap-3 p-6', className)}
         >
             {children}
             <AvatarIcon icon={IconType.CHEVRON_RIGHT} />
