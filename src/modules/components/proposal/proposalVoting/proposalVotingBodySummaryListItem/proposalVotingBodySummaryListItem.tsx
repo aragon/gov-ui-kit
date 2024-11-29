@@ -1,7 +1,7 @@
+import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-import classNames from 'classnames';
 
 export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
     /**
