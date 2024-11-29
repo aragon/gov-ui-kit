@@ -1,2 +1,6 @@
 export { ProposalActionsDecoder } from './proposalActionsDecoder';
-export { ProposalActionsDecoderView, type IProposalActionsDecoderProps } from './proposalActionsDecoder.api';
+export {
+    ProposalActionsDecoderMode,
+    ProposalActionsDecoderView,
+    type IProposalActionsDecoderProps,
+} from './proposalActionsDecoder.api';

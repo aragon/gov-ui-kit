@@ -1,11 +1,9 @@
 import classNames from 'classnames';
 import { useCallback, useEffect } from 'react';
-import type { DeepPartial } from 'react-hook-form';
 import { encodeFunctionData } from 'viem';
 import { Button, clipboardUtils } from '../../../../../core';
 import { useFormContext } from '../../../../hooks';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import type { IProposalAction } from '../proposalActionsDefinitions';
 import {
     ProposalActionsDecoderMode,
     ProposalActionsDecoderView,
@@ -13,7 +11,7 @@ import {
 } from './proposalActionsDecoder.api';
 import { ProposalActionsDecoderField } from './proposalActionsDecoderField/proposalActionsDecoderField';
 import { ProposalActionsDecoderTextField } from './proposalActionsDecoderTextField';
-import { proposalActionsDecoderUtils } from './proposalActionsDecoderUtils';
+import { proposalActionsDecoderUtils, type NestedProposalActionFormValues } from './proposalActionsDecoderUtils';
 
 export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (props: IProposalActionsDecoderProps) => {
     const {
@@ -27,14 +25,16 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
     const { value, data, inputData } = action;
 
     const { copy } = useGukModulesContext();
-    const { watch, setValue } = useFormContext<IProposalAction>(mode === ProposalActionsDecoderMode.EDIT);
+    const { watch, setValue } = useFormContext<NestedProposalActionFormValues>(
+        mode === ProposalActionsDecoderMode.EDIT,
+    );
 
     const dataFieldName = proposalActionsDecoderUtils.getFieldName('data', formPrefix) as 'data';
 
     const updateEncodedData = useCallback(
-        (formValues: DeepPartial<IProposalAction>) => {
-            const functionParameters = proposalActionsDecoderUtils.formValuesToFunctionParameters(formValues);
-            const actionAbi = [{ type: 'function', inputs: inputData?.parameters }];
+        (values: NestedProposalActionFormValues) => {
+            const functionParameters = proposalActionsDecoderUtils.formValuesToFunctionParameters(values, formPrefix);
+            const actionAbi = [{ type: 'function', name: inputData?.function, inputs: inputData?.parameters }];
             let data = '0x';
 
             try {
@@ -46,7 +46,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 setValue(dataFieldName, data);
             }
         },
-        [inputData, dataFieldName, setValue],
+        [inputData, dataFieldName, setValue, formPrefix],
     );
 
     useEffect(() => {
@@ -54,12 +54,15 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             return;
         }
 
-        const { unsubscribe } = watch((formValues, { name }) =>
-            name === dataFieldName ? undefined : updateEncodedData(formValues),
+        const shouldEncodeData = (fieldName?: string) =>
+            (formPrefix == null || fieldName?.includes(formPrefix)) && fieldName !== dataFieldName;
+
+        const { unsubscribe } = watch((values, { name }) =>
+            shouldEncodeData(name) ? updateEncodedData(values) : undefined,
         );
 
         return () => unsubscribe();
-    }, [mode, watch, setValue, updateEncodedData, dataFieldName, view]);
+    }, [mode, watch, setValue, updateEncodedData, dataFieldName, view, formPrefix]);
 
     const handleCopyDataClick = () => clipboardUtils.copy(action.data);
 

@@ -1,3 +1,4 @@
+import type { ChangeEvent } from 'react';
 import { useController } from 'react-hook-form';
 import { InputText, TextArea } from '../../../../../../core';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
@@ -13,21 +14,43 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
     const { copy } = useGukModulesContext();
 
     const errorMessages = copy.proposalActionsDecoder.validation;
-    const validationRulesParams = { label: name, type, required: true, errorMessages };
-    const validationRules = proposalActionsDecoderUtils.getValidationRules(validationRulesParams);
-
+    const validateParams = { label: name, type, required: true, errorMessages };
     const { fieldState, field } = useController<Record<string, ProposalActionsFieldValue>>({
         name: fieldName,
-        rules: validationRules,
+        rules: {
+            validate: (value: ProposalActionsFieldValue) =>
+                proposalActionsDecoderUtils.validateValue(value, validateParams),
+        },
     });
 
     const { error } = fieldState;
-    const { value, ...fieldProps } = field;
+    const { value, onChange, ...fieldProps } = field;
 
     const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
     const inputProps = { alert, type: type.includes('uint') ? 'number' : 'text' };
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component placeholder={type} value={value?.toString()} {...inputProps} {...fieldProps} {...otherProps} />;
+    const handleFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        if (type === 'bool') {
+            const newValue = event.target.value;
+            const parsedValue = proposalActionsDecoderUtils.validateBoolean(newValue)
+                ? newValue === 'true'
+                : newValue.toString().toLocaleLowerCase();
+            onChange(parsedValue);
+        } else {
+            onChange(event);
+        }
+    };
+
+    return (
+        <Component
+            placeholder={type}
+            value={value?.toString()}
+            onChange={handleFieldChange}
+            {...inputProps}
+            {...fieldProps}
+            {...otherProps}
+        />
+    );
 };
