@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalVotingProgress } from '../index';
 
 const meta: Meta<typeof ProposalVotingProgress.Item> = {
-    title: 'Modules/Components/Proposal/ProposalVoting/ProposalVotingProgress.Item',
+    title: 'Modules/Components/Proposal/ProposalVoting/ProposalVotingProgress',
     component: ProposalVotingProgress.Item,
     parameters: {
         design: {
@@ -15,37 +15,43 @@ const meta: Meta<typeof ProposalVotingProgress.Item> = {
 type Story = StoryObj<typeof ProposalVotingProgress.Item>;
 
 /**
- * Default usage example of the ProposalVotingProgressItem component.
+ * Usage example showing token voting progress.
  */
-export const TokenVotingSupport: Story = {
+export const TokenVotingProgress: Story = {
     args: {
         name: 'Support',
-        description: {
-            value: '75',
-            text: 'of 100 ETH',
-        },
+        description: { value: '75', text: 'of 100 ETH' },
         value: 75,
         thresholdIndicator: 50,
         variant: 'primary',
         showPercentage: true,
         showStatusIcon: true,
     },
+    render: (args) => (
+        <ProposalVotingProgress.Container className="min-w-96">
+            <ProposalVotingProgress.Item {...args} />
+        </ProposalVotingProgress.Container>
+    ),
 };
 
 /**
- * Default usage example of the ProposalVotingProgressItem component.
+ * Usage example showing multisig approval progress.
  */
-export const MultisigApproval: Story = {
+export const MultisigApprovalProgress: Story = {
     args: {
         name: 'Minimum Approval',
-        description: {
-            value: '2',
-            text: 'of 5 members',
-        },
+        description: { value: '2', text: 'of 5 members' },
         value: 40,
+        thresholdIndicator: 50,
         variant: 'neutral',
+        showPercentage: false,
         showStatusIcon: true,
     },
+    render: (args) => (
+        <ProposalVotingProgress.Container className="min-w-96">
+            <ProposalVotingProgress.Item {...args} />
+        </ProposalVotingProgress.Container>
+    ),
 };
 
 export default meta;

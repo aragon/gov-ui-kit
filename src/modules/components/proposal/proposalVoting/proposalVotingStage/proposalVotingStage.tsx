@@ -43,6 +43,7 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
 
     const { copy } = useGukModulesContext();
 
+    // Initialise activeBody to the first body in the list when having only one body to display the body overview instead of the body summary
     const [activeBody, setActiveBody] = useState<string | undefined>(
         bodyList && bodyList.length === 1 ? bodyList[0] : undefined,
     );

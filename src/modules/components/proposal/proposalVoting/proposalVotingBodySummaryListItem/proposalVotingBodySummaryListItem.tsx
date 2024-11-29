@@ -21,9 +21,9 @@ export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySumm
 
     return (
         <DataListItem
-            {...otherProps}
             onClick={() => setActiveBody?.(id)}
             className={classNames('flex items-center justify-between gap-3 p-6', className)}
+            {...otherProps}
         >
             {children}
             <AvatarIcon icon={IconType.CHEVRON_RIGHT} />
