@@ -1,12 +1,6 @@
-import type { FieldError } from 'react-hook-form';
-import type { IInputComponentProps } from '../../../../../../core';
-import type { ModulesCopy } from '../../../../../assets';
-import { addressUtils } from '../../../../../utils';
-import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
-import type {
-    IUseProposalActionsItemFormFieldReturn,
-    ProposalActionFieldType,
-} from './useProposalActionsItemFormField.api';
+import type { ModulesCopy } from '../../../../assets';
+import { addressUtils } from '../../../../utils';
+import type { IProposalActionInputDataParameter } from '../proposalActionsDefinitions';
 
 export interface IGetValidationRulesParams {
     /**
@@ -16,7 +10,7 @@ export interface IGetValidationRulesParams {
     /**
      * Type of the field to build the validation rules.
      */
-    type: ProposalActionFieldType;
+    type: string;
     /**
      * Strings to use for validation errors.
      */
@@ -27,27 +21,25 @@ export interface IGetValidationRulesParams {
     required?: boolean;
 }
 
-class ProposalActionsItemFormFieldUtils {
-    guardValueType = (value: unknown): value is boolean | string | null | undefined =>
-        value == null || ['string', 'boolean'].includes(typeof value);
+export type ProposalActionsFieldValue = string | boolean | undefined | null;
 
-    guardArrayType = (value: unknown[]): value is boolean[] | string[] =>
-        value.every((item) => (Array.isArray(item) ? this.guardArrayType(item) : this.guardValueType(item)));
+class ProposalActionsDecoderUtils {
+    getFieldName = (name: string, prefix?: string) => (prefix != null ? `${prefix}.${name}` : name);
 
     getValidationRules = (params: IGetValidationRulesParams) => {
         const { required, label, errorMessages } = params;
 
         return {
             required: required ? errorMessages.required(label) : undefined,
-            validate: (value: string | boolean) => this.validateValue(value, params),
+            validate: (value: ProposalActionsFieldValue) => this.validateValue(value, params),
         };
     };
 
-    validateValue = (value: string | boolean | undefined | null = null, params: IGetValidationRulesParams) => {
+    validateValue = (value: ProposalActionsFieldValue = null, params: IGetValidationRulesParams) => {
         const { type, label, errorMessages } = params;
 
         if (type === 'boolean') {
-            return proposalActionsItemFormFieldUtils.validateBoolean(value) || errorMessages.boolean(label);
+            return this.validateBoolean(value) || errorMessages.boolean(label);
         } else if (type === 'address') {
             return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
         }
@@ -55,12 +47,7 @@ class ProposalActionsItemFormFieldUtils {
         return undefined;
     };
 
-    validateBoolean = (value?: string | boolean | null): boolean => ['true', 'false'].includes(value?.toString() ?? '');
-
-    valueSetter = (
-        value: string | boolean | undefined | null = null,
-        type: ProposalActionFieldType,
-    ): string | boolean | undefined | null => {
+    valueSetter = (value: ProposalActionsFieldValue = null, type: string): ProposalActionsFieldValue => {
         // Store value as boolean on form when valid, otherwise store it as lowercase string.
         if (type === 'boolean') {
             return this.validateBoolean(value) ? value === 'true' : value?.toString().toLocaleLowerCase();
@@ -69,39 +56,9 @@ class ProposalActionsItemFormFieldUtils {
         return value;
     };
 
-    getDefaultFormField = (name: string, value?: string | boolean | null): IUseProposalActionsItemFormFieldReturn => ({
-        name,
-        value: value?.toString(),
-        onChange: () => Promise.resolve(true),
-        onBlur: () => Promise.resolve(true),
-        ref: () => null,
-    });
-
-    fieldErrorToAlert = (error?: FieldError): IInputComponentProps['alert'] | undefined => {
-        if (error?.message == null) {
-            return undefined;
-        }
-
-        return { message: error.message, variant: 'critical' };
-    };
-
     isArrayType = (type: string) => type.endsWith('[]');
 
     isTupleType = (type: string) => type === 'tuple';
-
-    abiToFieldType = (type: string): ProposalActionFieldType => {
-        let formFieldType: ProposalActionFieldType = 'string';
-
-        if (type.includes('uint')) {
-            formFieldType = 'number';
-        } else if (type === 'bool') {
-            formFieldType = 'boolean';
-        } else if (type === 'address') {
-            formFieldType = 'address';
-        }
-
-        return formFieldType;
-    };
 
     // Returns the array item type (e.g. address[] => address, uint[][] => uint[])
     getArrayItemType = (type: string) => type.slice(0, -2);
@@ -145,6 +102,15 @@ class ProposalActionsItemFormFieldUtils {
 
         return { ...parameter, value: undefined };
     };
+
+    private guardArrayType = (value: unknown[]): value is boolean[] | string[] =>
+        value.every((item) => (Array.isArray(item) ? this.guardArrayType(item) : this.guardValueType(item)));
+
+    private guardValueType = (value: unknown): value is ProposalActionsFieldValue =>
+        value == null || ['string', 'boolean'].includes(typeof value);
+
+    private validateBoolean = (value?: string | boolean | null): boolean =>
+        ['true', 'false'].includes(value?.toString() ?? '');
 }
 
-export const proposalActionsItemFormFieldUtils = new ProposalActionsItemFormFieldUtils();
+export const proposalActionsDecoderUtils = new ProposalActionsDecoderUtils();

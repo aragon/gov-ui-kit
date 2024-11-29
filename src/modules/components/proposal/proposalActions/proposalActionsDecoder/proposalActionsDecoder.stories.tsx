@@ -1,28 +1,26 @@
 import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { generateProposalAction } from '../../proposalActionsTestUtils';
-import {
-    type IProposalActionsItemDecodedViewProps,
-    ProposalActionsItemDecodedView,
-} from './proposalActionsItemDecodedView';
+import { generateProposalAction } from '../proposalActionsTestUtils';
+import { ProposalActionsDecoder } from './proposalActionsDecoder';
+import { ProposalActionsDecoderView, type IProposalActionsDecoderProps } from './proposalActionsDecoder.api';
 
-const defaultRender = (props: IProposalActionsItemDecodedViewProps) => {
+const defaultRender = (props: IProposalActionsDecoderProps) => {
     const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
 
     return (
         <FormProvider {...methods}>
-            <ProposalActionsItemDecodedView {...props} />
+            <ProposalActionsDecoder {...props} />
             <DevTool control={methods.control} />
         </FormProvider>
     );
 };
 
-const meta: Meta<typeof ProposalActionsItemDecodedView> = {
-    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Item/DecodedView',
-    component: ProposalActionsItemDecodedView,
+const meta: Meta<typeof ProposalActionsDecoder> = {
+    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Decoder',
+    component: ProposalActionsDecoder,
     // Force component remount on edit-mode change to correctly register the form fields
-    decorators: [(Story, context) => <Story key={`story-${context.args.editMode?.toString() ?? '-'}`} />],
+    decorators: [(Story, context) => <Story key={`story-${context.args.mode ?? '-'}`} />],
     parameters: {
         design: {
             type: 'figma',
@@ -31,7 +29,7 @@ const meta: Meta<typeof ProposalActionsItemDecodedView> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalActionsItemDecodedView>;
+type Story = StoryObj<typeof ProposalActionsDecoder>;
 
 /**
  * Default usage example of the Decoded view from the ProposalActionsItem component.
@@ -39,6 +37,7 @@ type Story = StoryObj<typeof ProposalActionsItemDecodedView>;
 export const Default: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'vote',
@@ -74,6 +73,7 @@ export const Default: Story = {
  */
 export const ReadOnly: Story = {
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'approve',
@@ -103,6 +103,7 @@ export const ReadOnly: Story = {
 export const Payable: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'setBoostAmount',
@@ -126,6 +127,7 @@ export const Payable: Story = {
 export const Tuple: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'initialize',
@@ -168,6 +170,7 @@ export const Tuple: Story = {
 export const Array: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'addAddresses',
@@ -195,6 +198,7 @@ export const Array: Story = {
 export const ArrayInsideTuple: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'applyInstallation',
@@ -231,6 +235,7 @@ export const ArrayInsideTuple: Story = {
 export const TupleArray: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'createProposal',
@@ -270,6 +275,7 @@ export const TupleArray: Story = {
 export const MultiDimentionalArray: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'setData',
@@ -300,6 +306,7 @@ export const MultiDimentionalArray: Story = {
 export const NestedTuple: Story = {
     render: defaultRender,
     args: {
+        view: ProposalActionsDecoderView.DECODED,
         action: generateProposalAction({
             inputData: {
                 function: 'updateStages',

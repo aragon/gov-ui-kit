@@ -1,0 +1,5 @@
+describe('<ProposalActionsDecoder /> component', () => {
+    it('', () => {
+        //
+    });
+});

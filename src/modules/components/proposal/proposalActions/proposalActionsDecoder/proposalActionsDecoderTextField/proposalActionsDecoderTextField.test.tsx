@@ -1,0 +1,5 @@
+describe('<ProposalActionsDecoderTextField /> component', () => {
+    it('', () => {
+        //
+    });
+});

@@ -1,6 +1,9 @@
 import type { IconType } from '../../../../../core';
 import type { IWeb3ComponentProps } from '../../../../types';
+import type { ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import type { IProposalAction, ProposalActionComponent } from '../proposalActionsDefinitions';
+
+export type ProposalActionsItemViewMode = 'BASIC' | ProposalActionsDecoderView;
 
 export interface IProposalActionsItemDropdownItem<TAction extends IProposalAction = IProposalAction> {
     /**

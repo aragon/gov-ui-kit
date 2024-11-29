@@ -4,18 +4,12 @@ import { formatUnits } from 'viem';
 import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType, invariant } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
+import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
+import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
-import type { IProposalActionsItemProps } from './proposalActionsItem.api';
+import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
-import { ProposalActionsItemDecodedView } from './proposalActionsItemDecodedView';
-import { ProposalActionsItemRawView } from './proposalActionsItemRawView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
-
-export enum ProposalActionViewMode {
-    BASIC = 'BASIC',
-    DECODED = 'DECODED',
-    RAW = 'RAW',
-}
 
 /**
  * The `<ProposalActions.Item />` component supports multiple view modes depending if the action supports a basic view
@@ -40,21 +34,22 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
     const isAbiAvailable = action.inputData != null;
 
-    const [activeViewMode, setActiveViewMode] = useState(
+    const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
-            ? ProposalActionViewMode.BASIC
+            ? 'BASIC'
             : isAbiAvailable
-              ? ProposalActionViewMode.DECODED
-              : ProposalActionViewMode.RAW,
+              ? ProposalActionsDecoderView.DECODED
+              : ProposalActionsDecoderView.RAW,
     );
 
-    const onViewModeChange = (value: ProposalActionViewMode) => {
+    const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
         itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
+    const formattedValue = formatUnits(BigInt(action.value), 18);
 
     const headerIcon = displayValueWarning
         ? { icon: IconType.CRITICAL, className: 'text-critical-500' }
@@ -67,10 +62,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
           : 'text-neutral-800';
 
     const viewModes = [
-        { mode: ProposalActionViewMode.BASIC, disabled: !supportsBasicView },
-        { mode: ProposalActionViewMode.DECODED, disabled: !isAbiAvailable },
-        { mode: ProposalActionViewMode.RAW },
+        { mode: 'BASIC' as const, disabled: !supportsBasicView },
+        { mode: ProposalActionsDecoderView.DECODED, disabled: !isAbiAvailable },
+        { mode: ProposalActionsDecoderView.RAW },
     ];
+
+    const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
+    const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
+    const rawViewMode = editMode && !isAbiAvailable ? EDIT : editMode ? WATCH : READ;
 
     return (
         <Accordion.Item value={index.toString()} ref={itemRef}>
@@ -100,12 +99,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <AlertCard
                             variant="critical"
                             message={copy.proposalActionsItem.nativeSendAlert}
-                            description={copy.proposalActionsItem.nativeSendDescription(
-                                formatUnits(BigInt(action.value), 18),
-                            )}
+                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue)}
                         />
                     )}
-                    {activeViewMode === ProposalActionViewMode.BASIC && (
+                    {activeViewMode === 'BASIC' && (
                         <ProposalActionsItemBasicView
                             action={action}
                             index={index}
@@ -113,18 +110,20 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             {...web3Props}
                         />
                     )}
-                    {activeViewMode === ProposalActionViewMode.DECODED && (
-                        <ProposalActionsItemDecodedView
+                    {activeViewMode === ProposalActionsDecoderView.DECODED && (
+                        <ProposalActionsDecoder
                             action={action}
-                            editMode={editMode && !supportsBasicView}
                             formPrefix={formPrefix}
+                            mode={decodedViewMode}
+                            view={ProposalActionsDecoderView.DECODED}
                         />
                     )}
-                    {activeViewMode === ProposalActionViewMode.RAW && (
-                        <ProposalActionsItemRawView
+                    {activeViewMode === ProposalActionsDecoderView.RAW && (
+                        <ProposalActionsDecoder
                             action={action}
-                            editMode={editMode && !isAbiAvailable}
                             formPrefix={formPrefix}
+                            mode={rawViewMode}
+                            view={ProposalActionsDecoderView.RAW}
                         />
                     )}
                     <div className="flex w-full flex-row justify-between">

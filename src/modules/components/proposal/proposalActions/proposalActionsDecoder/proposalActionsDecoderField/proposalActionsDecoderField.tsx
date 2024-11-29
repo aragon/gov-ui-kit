@@ -3,18 +3,15 @@ import { useId, useState } from 'react';
 import { Button, IconType, InputContainer } from '../../../../../../core';
 import { useFormContext } from '../../../../../hooks';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
-import type { IProposalActionsItemProps } from '../proposalActionsItem.api';
-import { ProposalActionsItemFormField, proposalActionsItemFormFieldUtils } from '../proposalActionsItemFormField';
+import { type IProposalActionsDecoderProps, ProposalActionsDecoderMode } from '../proposalActionsDecoder.api';
+import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
+import { proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
 
-export interface IProposalActionsItemDecodedViewFieldProps extends Pick<IProposalActionsItemProps, 'editMode'> {
+export interface IProposalActionsDecoderField extends Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
     /**
      * Parameter to be rendered.
      */
     parameter: IProposalActionInputDataParameter;
-    /**
-     * Form prefix to be prepended to the form field.
-     */
-    formPrefix: string;
     /**
      * Name of the form field.
      */
@@ -29,31 +26,31 @@ export interface IProposalActionsItemDecodedViewFieldProps extends Pick<IProposa
     onDeleteClick?: () => void;
 }
 
-export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemDecodedViewFieldProps> = (props) => {
-    const { parameter, hideLabels, editMode = false, formPrefix, fieldName, onDeleteClick } = props;
+export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderField> = (props) => {
+    const { parameter, hideLabels, formPrefix, fieldName, mode, onDeleteClick } = props;
     const { notice, type, name } = parameter;
 
     const inputId = useId();
-    const { setValue, getValues, unregister } = useFormContext(editMode);
+    const { setValue, getValues, unregister } = useFormContext(mode === ProposalActionsDecoderMode.EDIT);
 
-    const isArray = proposalActionsItemFormFieldUtils.isArrayType(type);
-    const isTuple = proposalActionsItemFormFieldUtils.isTupleType(type);
+    const isArray = proposalActionsDecoderUtils.isArrayType(type);
+    const isTuple = proposalActionsDecoderUtils.isTupleType(type);
     const isNestedType = isTuple || isArray;
 
-    const initialParameters = proposalActionsItemFormFieldUtils.getNestedParameters(parameter);
+    const initialParameters = proposalActionsDecoderUtils.getNestedParameters(parameter);
     const [nestedParameters, setNestedParameters] = useState<IProposalActionInputDataParameter[]>(initialParameters);
 
     if (!isNestedType) {
         return (
             <div className="flex flex-row items-center gap-2">
-                <ProposalActionsItemFormField
+                <ProposalActionsDecoderTextField
                     parameter={parameter}
                     fieldName={fieldName}
                     hideLabels={hideLabels}
-                    editMode={editMode}
+                    mode={mode}
                     formPrefix={formPrefix}
                 />
-                {onDeleteClick != null && editMode && (
+                {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button iconLeft={IconType.CLOSE} size="lg" variant="tertiary" onClick={onDeleteClick} />
                 )}
             </div>
@@ -61,17 +58,17 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
     }
 
     const handleAddArrayItem = () => {
-        const defaultNestedParameter = proposalActionsItemFormFieldUtils.getDefaultNestedParameter(parameter);
+        const defaultNestedParameter = proposalActionsDecoderUtils.getDefaultNestedParameter(parameter);
         const newNestedParameters = nestedParameters.concat(defaultNestedParameter);
         setNestedParameters(newNestedParameters);
     };
 
     const handleRemoveArrayItem = (index: number) => () => {
-        const arrayFieldName = `${formPrefix}.${fieldName}`;
+        const arrayFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
         const currentValues = getValues(arrayFieldName) as string[];
         const newNestedParameters = nestedParameters.toSpliced(index, 1);
         const newValues = currentValues.toSpliced(index, 1);
-        unregister(`${formPrefix}.${fieldName}.${(nestedParameters.length - 1).toString()}`);
+        unregister(proposalActionsDecoderUtils.getFieldName((nestedParameters.length - 1).toString(), arrayFieldName));
         setValue(arrayFieldName, newValues);
         setNestedParameters(newNestedParameters);
     };
@@ -88,18 +85,18 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                 <div className="flex grow flex-row gap-2">
                     <div className="flex grow flex-col gap-2">
                         {nestedParameters.map((parameter, index) => (
-                            <ProposalActionsItemDecodedViewField
+                            <ProposalActionsDecoderField
                                 key={index}
                                 parameter={parameter}
                                 hideLabels={isArray}
-                                editMode={editMode}
-                                formPrefix={`${formPrefix}.${fieldName}`}
+                                mode={mode}
+                                formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
                                 fieldName={index.toString()}
                                 onDeleteClick={isArray ? handleRemoveArrayItem(index) : undefined}
                             />
                         ))}
                     </div>
-                    {onDeleteClick != null && editMode && (
+                    {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
                         <Button
                             iconLeft={IconType.CLOSE}
                             size="lg"
@@ -109,7 +106,7 @@ export const ProposalActionsItemDecodedViewField: React.FC<IProposalActionsItemD
                         />
                     )}
                 </div>
-                {isArray && editMode && (
+                {isArray && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button
                         iconLeft={IconType.PLUS}
                         size="md"

@@ -1,5 +1,0 @@
-describe('<ProposalActionsItemFormField /> component', () => {
-    it('', () => {
-        //
-    });
-});

@@ -2,15 +2,15 @@ import type {
     IProposalAction,
     IProposalActionComponentProps,
     ProposalActionComponent,
-} from '../../proposalActionsDefinitions';
+} from '../proposalActionsDefinitions';
 import {
     ProposalActionChangeMembers,
     ProposalActionChangeSettings,
     ProposalActionTokenMint,
     ProposalActionUpdateMetadata,
     ProposalActionWithdrawToken,
-} from '../../proposalActionsList';
-import { proposalActionsItemUtils } from '../proposalActionsItemUtils';
+} from '../proposalActionsList';
+import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
 export interface IProposalActionsItemBasicViewProps<TAction extends IProposalAction = IProposalAction>
     extends IProposalActionComponentProps<TAction> {
