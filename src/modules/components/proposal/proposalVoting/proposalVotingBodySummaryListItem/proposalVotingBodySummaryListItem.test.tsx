@@ -23,10 +23,9 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
             endDate: 0,
             ...contextValues,
         };
-        const contextValue = { ...completeContextValues, ...contextValues };
 
         return (
-            <ProposalVotingStageContextProvider value={contextValue}>
+            <ProposalVotingStageContextProvider value={completeContextValues}>
                 <ProposalVotingBodySummaryListItem {...completeProps} />
             </ProposalVotingStageContextProvider>
         );

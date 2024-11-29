@@ -23,8 +23,7 @@ export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status, ...otherProps } = props;
-    const { className } = otherProps;
+    const { bodyId, children, name, status, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 

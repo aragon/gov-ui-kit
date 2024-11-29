@@ -5,8 +5,7 @@ import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 export interface IProposalVotingBodySummaryProps extends ComponentProps<'div'> {}
 
 export const ProposalVotingBodySummary: React.FC<PropsWithChildren<IProposalVotingBodySummaryProps>> = (props) => {
-    const { children, ...otherProps } = props;
-    const { className } = otherProps;
+    const { children, className, ...otherProps } = props;
 
     const { activeBody } = useProposalVotingStageContext();
 

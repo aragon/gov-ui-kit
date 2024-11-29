@@ -20,10 +20,9 @@ describe('<ProposalVotingBodyContent /> component', () => {
             endDate: 0,
             ...contextValues,
         };
-        const contextValue = { ...completeContextValues, ...contextValues };
 
         return (
-            <ProposalVotingStageContextProvider value={contextValue}>
+            <ProposalVotingStageContextProvider value={completeContextValues}>
                 <ProposalVotingBodyContent {...completeProps} />
             </ProposalVotingStageContextProvider>
         );
