@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+-   Implement 'Advanceable' proposal status
+
+### Changed
+
+-   Adjust UI conditional logic for new 'Advanceable' status
+
 ## [1.0.56] - 2024-11-26
 
 ### Added
