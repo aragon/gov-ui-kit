@@ -44,6 +44,7 @@ const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiS
 const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, string> => ({
     [ProposalVotingStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalVotingStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
+    [ProposalVotingStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.active,
     [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
     [ProposalVotingStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
@@ -71,14 +72,16 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
             <div className="flex flex-row gap-0.5">
-                {status === ProposalVotingStatus.ACTIVE && (
+                {(status === ProposalVotingStatus.ACTIVE || status === ProposalVotingStatus.ADVANCEABLE) && (
                     <span className="text-primary-400">
                         <Rerender>
                             {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
                         </Rerender>
                     </span>
                 )}
-                {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
+                {status !== ProposalVotingStatus.ACTIVE && status !== ProposalVotingStatus.ADVANCEABLE && (
+                    <span className="text-neutral-800">{mainText}</span>
+                )}
                 <span className="text-neutral-500">{secondaryText}</span>
                 {status === ProposalVotingStatus.ACCEPTED && (
                     <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
@@ -94,7 +97,9 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 )}
             </div>
             {status === ProposalVotingStatus.PENDING && <Spinner size="md" variant="neutral" />}
-            {status === ProposalVotingStatus.ACTIVE && <StatePingAnimation variant="primary" />}
+            {(status === ProposalVotingStatus.ACTIVE || status === ProposalVotingStatus.ADVANCEABLE) && (
+                <StatePingAnimation variant="primary" />
+            )}
             {statusIcon && <AvatarIcon icon={statusIcon.icon} variant={statusIcon.variant} />}
         </div>
     );

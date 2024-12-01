@@ -96,6 +96,7 @@ export const modulesCopy = {
         statusLabel: {
             ACCEPTED: 'Accepted',
             ACTIVE: 'Active',
+            ADVANCEABLE: 'Active',
             CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
             EXECUTED: 'Executed',

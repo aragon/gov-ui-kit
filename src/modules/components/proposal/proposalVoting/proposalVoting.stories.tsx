@@ -123,7 +123,7 @@ export const MultiStage: Story = {
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalVotingStatus.ADVANCEABLE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
                 >
@@ -193,7 +193,7 @@ export const SingleStage: Story = {
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalVotingStatus.ADVANCEABLE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >

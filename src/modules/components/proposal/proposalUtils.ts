@@ -3,6 +3,7 @@ import type { TagVariant } from '../../../core';
 export enum ProposalStatus {
     ACCEPTED = 'ACCEPTED',
     ACTIVE = 'ACTIVE',
+    ADVANCEABLE = 'ADVANCEABLE',
     CHALLENGED = 'CHALLENGED',
     DRAFT = 'DRAFT',
     EXECUTED = 'EXECUTED',
@@ -17,6 +18,7 @@ export enum ProposalStatus {
 
 export enum ProposalVotingStatus {
     ACTIVE = 'ACTIVE',
+    ADVANCEABLE = 'ADVANCEABLE',
     PENDING = 'PENDING',
     ACCEPTED = 'ACCEPTED',
     EXPIRED = 'EXPIRED',
@@ -28,6 +30,7 @@ export enum ProposalVotingStatus {
 export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVotingStatus> = {
     [ProposalStatus.ACCEPTED]: ProposalVotingStatus.ACCEPTED,
     [ProposalStatus.ACTIVE]: ProposalVotingStatus.ACTIVE,
+    [ProposalStatus.ADVANCEABLE]: ProposalVotingStatus.ACTIVE,
     [ProposalStatus.CHALLENGED]: ProposalVotingStatus.ACTIVE,
     [ProposalStatus.DRAFT]: ProposalVotingStatus.PENDING,
     [ProposalStatus.EXECUTED]: ProposalVotingStatus.ACCEPTED,
@@ -43,6 +46,7 @@ export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVoting
 export const proposalStatusToTagVariant: Record<ProposalStatus, TagVariant> = {
     [ProposalStatus.ACCEPTED]: 'success',
     [ProposalStatus.ACTIVE]: 'info',
+    [ProposalStatus.ADVANCEABLE]: 'info',
     [ProposalStatus.CHALLENGED]: 'warning',
     [ProposalStatus.DRAFT]: 'neutral',
     [ProposalStatus.EXECUTED]: 'success',
