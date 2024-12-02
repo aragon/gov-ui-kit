@@ -55,6 +55,8 @@ export const modulesCopy = {
             required: (label: string) => `${label} is required.`,
             boolean: (label: string) => `${label} must be set to "true" or "false".`,
             address: (label: string) => `${label} is not a valid address.`,
+            bytes: (label: string) => `${label} is not a valid bytes value.`,
+            unsignedNumber: (label: string) => `${label} is not a valid uint value.`,
         },
     },
     proposalActionChangeMembers: {

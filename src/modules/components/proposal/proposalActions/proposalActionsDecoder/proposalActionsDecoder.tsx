@@ -42,7 +42,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             } catch (error: unknown) {
                 // Form values are not valid, ignore error.
             } finally {
-                // @ts-expect-error Limitation of react-hook-form, ignore error
+                // @ts-expect-error Design limitation of react-hook-form (see https://github.com/orgs/react-hook-form/discussions/7764)
                 setValue(dataFieldName, data);
             }
         },
@@ -54,12 +54,11 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             return;
         }
 
-        const shouldEncodeData = (fieldName?: string) =>
-            (formPrefix == null || fieldName?.includes(formPrefix)) && fieldName !== dataFieldName;
-
-        const { unsubscribe } = watch((values, { name }) =>
-            shouldEncodeData(name) ? updateEncodedData(values) : undefined,
-        );
+        const { unsubscribe } = watch((values, { name }) => {
+            if ((formPrefix == null || name?.includes(formPrefix)) && name !== dataFieldName) {
+                updateEncodedData(values);
+            }
+        });
 
         return () => unsubscribe();
     }, [mode, watch, setValue, updateEncodedData, dataFieldName, view, formPrefix]);

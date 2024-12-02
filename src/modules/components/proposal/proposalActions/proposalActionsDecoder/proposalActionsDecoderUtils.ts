@@ -27,29 +27,39 @@ export type ProposalActionsFieldValue = string | boolean | undefined | null;
 export type NestedProposalActionFormValues = DeepPartial<IProposalAction> | Record<string, unknown>;
 
 class ProposalActionsDecoderUtils {
-    getFieldName = (name: string, prefix?: string) => (prefix != null ? `${prefix}.${name}` : name);
+    private bytesRegex = /^0x[0-9a-fA-F]*$/;
+    private unsignedNumberRegex = /^[0-9]*$/;
 
-    getValidationRules = (params: IGetValidationRulesParams) => {
-        return {
-            validate: (value: ProposalActionsFieldValue) => this.validateValue(value, params),
-        };
-    };
+    getFieldName = (name: string, prefix?: string) => (prefix != null ? `${prefix}.${name}` : name);
 
     validateValue = (value: ProposalActionsFieldValue = null, params: IGetValidationRulesParams) => {
         const { type, label, errorMessages, required } = params;
 
-        if (required && (value == null || value.toString().length === 0)) {
+        if (required && !this.validateRequired(value)) {
             return errorMessages.required(label);
         } else if (type === 'bool') {
             return this.validateBoolean(value) || errorMessages.boolean(label);
         } else if (type === 'address') {
             return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
+        } else if (type.startsWith('bytes')) {
+            return this.validateBytes(value) || errorMessages.bytes(label);
+        } else if (this.isUnsignedNumberType(type)) {
+            return this.validateUnsignedNumber(value) || errorMessages.unsignedNumber(label);
         }
 
         return undefined;
     };
 
-    validateBoolean = (value?: string | boolean | null): boolean => ['true', 'false'].includes(value?.toString() ?? '');
+    validateRequired = (value?: ProposalActionsFieldValue): boolean => value != null && value.toString().length > 0;
+
+    validateBoolean = (value?: ProposalActionsFieldValue): boolean =>
+        ['true', 'false'].includes(value?.toString() ?? '');
+
+    validateBytes = (value?: ProposalActionsFieldValue): boolean =>
+        value != null && value.toString().length % 2 === 0 && this.bytesRegex.test(value.toString());
+
+    validateUnsignedNumber = (value?: ProposalActionsFieldValue): boolean =>
+        value != null && this.unsignedNumberRegex.test(value.toString());
 
     formValuesToFunctionParameters = (
         formValues: NestedProposalActionFormValues,
@@ -71,6 +81,12 @@ class ProposalActionsDecoderUtils {
     isArrayType = (type: string) => type.endsWith('[]');
 
     isTupleType = (type: string) => type === 'tuple';
+
+    isNumberType = (type: string) => this.isUnsignedNumberType(type) || this.isSignedNumberType(type);
+
+    isUnsignedNumberType = (type: string) => type.startsWith('uint');
+
+    isSignedNumberType = (type: string) => type.startsWith('int');
 
     // Returns the array item type (e.g. address[] => address, uint[][] => uint[])
     getArrayItemType = (type: string) => type.slice(0, -2);

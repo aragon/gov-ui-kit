@@ -17,17 +17,14 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
     const validateParams = { label: name, type, required: true, errorMessages };
     const { fieldState, field } = useController<Record<string, ProposalActionsFieldValue>>({
         name: fieldName,
-        rules: {
-            validate: (value: ProposalActionsFieldValue) =>
-                proposalActionsDecoderUtils.validateValue(value, validateParams),
-        },
+        rules: { validate: (value) => proposalActionsDecoderUtils.validateValue(value, validateParams) },
     });
 
     const { error } = fieldState;
     const { value, onChange, ...fieldProps } = field;
 
     const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
-    const inputProps = { alert, type: type.includes('uint') ? 'number' : 'text' };
+    const inputProps = { alert, type: proposalActionsDecoderUtils.isNumberType(type) ? 'number' : 'text' };
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
