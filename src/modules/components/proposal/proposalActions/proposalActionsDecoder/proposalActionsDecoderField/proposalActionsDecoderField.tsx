@@ -8,7 +8,7 @@ import { type IProposalActionsDecoderProps, ProposalActionsDecoderMode } from '.
 import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
 import { proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
 
-export interface IProposalActionsDecoderField extends Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
+export interface IProposalActionsDecoderFieldProps extends Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
     /**
      * Parameter to be rendered.
      */
@@ -27,7 +27,7 @@ export interface IProposalActionsDecoderField extends Pick<IProposalActionsDecod
     onDeleteClick?: () => void;
 }
 
-export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderField> = (props) => {
+export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldProps> = (props) => {
     const { parameter, hideLabels, formPrefix, fieldName, mode, onDeleteClick } = props;
     const { notice, type, name } = parameter;
 

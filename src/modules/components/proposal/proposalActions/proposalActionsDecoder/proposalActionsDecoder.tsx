@@ -9,7 +9,7 @@ import {
     ProposalActionsDecoderView,
     type IProposalActionsDecoderProps,
 } from './proposalActionsDecoder.api';
-import { ProposalActionsDecoderField } from './proposalActionsDecoderField/proposalActionsDecoderField';
+import { ProposalActionsDecoderField } from './proposalActionsDecoderField';
 import { ProposalActionsDecoderTextField } from './proposalActionsDecoderTextField';
 import { proposalActionsDecoderUtils, type NestedProposalActionFormValues } from './proposalActionsDecoderUtils';
 
