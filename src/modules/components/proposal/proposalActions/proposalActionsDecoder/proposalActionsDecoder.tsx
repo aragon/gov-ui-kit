@@ -68,7 +68,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
 
     return (
         <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
-            {(view === ProposalActionsDecoderView.RAW || action.inputData?.payable) && (
+            {(view === ProposalActionsDecoderView.RAW || action.inputData?.stateMutability === 'payable') && (
                 <ProposalActionsDecoderTextField
                     fieldName="value"
                     mode={mode}

@@ -44,9 +44,9 @@ export interface IProposalActionInputData {
      */
     contract: string;
     /**
-     * Defines if the function accepts Ether transfer or not.
+     * State mutability of the function (e.g. pure or payable).
      */
-    payable?: boolean;
+    stateMutability?: string;
     /**
      * The parameters to pass to the function.
      */

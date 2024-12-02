@@ -113,7 +113,7 @@ export const Payable: Story = {
             inputData: {
                 function: 'setBoostAmount',
                 contract: 'Router',
-                payable: true,
+                stateMutability: 'payable',
                 parameters: [
                     {
                         name: '_boostAmount',
