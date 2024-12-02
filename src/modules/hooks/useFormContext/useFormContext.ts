@@ -1,5 +1,5 @@
-import { invariant } from 'framer-motion';
 import { type FieldValues, useFormContext as useFormContextApi, type UseFormReturn } from 'react-hook-form';
+import { invariant } from '../../../core';
 
 export type UseFormContextReturn<TFormValues extends FieldValues = FieldValues> = UseFormReturn<TFormValues>;
 
