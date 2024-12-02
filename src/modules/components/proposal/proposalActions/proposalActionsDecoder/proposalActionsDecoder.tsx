@@ -85,7 +85,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 className={view === ProposalActionsDecoderView.DECODED ? 'hidden' : undefined}
                 component="textarea"
             />
-            {view === ProposalActionsDecoderView.RAW && mode === ProposalActionsDecoderMode.READ && (
+            {view === ProposalActionsDecoderView.RAW && mode !== ProposalActionsDecoderMode.EDIT && (
                 <Button variant="tertiary" size="md" onClick={handleCopyDataClick} className="self-end">
                     {copy.proposalActionsDecoder.copyData}
                 </Button>
