@@ -12,15 +12,15 @@ renders the `<WagmiProvider />` and `<QueryClientProvider />` React Context prov
 The two providers are needed for the GovKit Modules component using the hooks from wagmi (e.g.
 [useEnsName](https://wagmi.sh/react/api/hooks/useEnsName)):
 
--   `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
--   `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
+- `<WagmiProvider />`: needed to know which chain and RPC endpoint to use when fetching blockchain data;
+- `<QueryClientProvider />`: needed to cache the data fetched from the blockchain;
 
 Additionally, `<GukModulesProvider />` renders the `<GukCoreProvider />` and passes values from the `coreProviderValues`
 prop.
 
 The `<GukModulesProvider />` provides the following customisations for modules components:
 
--   `copy`: Object of type `IGukModulesCopy` to customize the text labels used within the modules components.
+- `copy`: Object of type `IGukModulesCopy` to customize the text labels used within the modules components.
 
 Refer to the component's properties below for more details on the default configuration objects used for each provider.
 

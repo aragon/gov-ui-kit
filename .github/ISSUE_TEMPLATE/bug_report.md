@@ -10,8 +10,8 @@ assignees: ''
 
 **To Reproduce (please complete the following information)**
 
--   Config and flags: [e.g. variable="xyz"]
--   Steps to reproduce the behavior:
+- Config and flags: [e.g. variable="xyz"]
+- Steps to reproduce the behavior:
     1. node '...'
     2. make request with '....'
     3. '...'
@@ -23,8 +23,8 @@ assignees: ''
 
 **System (please complete the following information):**
 
--   OS: [e.g. Fedora 35]
--   Software version [e.g. Docker 8, Node 14.19.1]
--   Commit hash [e.g. e84617d]
+- OS: [e.g. Fedora 35]
+- Software version [e.g. Docker 8, Node 14.19.1]
+- Commit hash [e.g. e84617d]
 
 **Additional context** Add any other context about the problem here.
