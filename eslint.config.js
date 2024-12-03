@@ -70,6 +70,7 @@ const config = tsEslint.config(
             '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
             '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
             '@typescript-eslint/no-non-null-assertion': 'off',
+            '@typescript-eslint/dot-notation': ['error', { allowPrivateClassPropertyAccess: true }],
             '@typescript-eslint/consistent-type-imports': ['warn', { fixStyle: 'inline-type-imports' }],
             '@typescript-eslint/consistent-type-exports': ['warn', { fixMixedExportsWithInlineTypeSpecifier: true }],
             'import/no-cycle': 'warn',

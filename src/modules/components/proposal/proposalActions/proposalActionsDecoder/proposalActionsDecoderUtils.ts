@@ -61,23 +61,6 @@ class ProposalActionsDecoderUtils {
     validateUnsignedNumber = (value?: ProposalActionsFieldValue): boolean =>
         value != null && this.unsignedNumberRegex.test(value.toString());
 
-    formValuesToFunctionParameters = (
-        formValues: NestedProposalActionFormValues,
-        formPrefix?: string,
-    ): unknown[] | undefined => {
-        const formPrefixKeys = formPrefix != null && formPrefix.length > 0 ? formPrefix.split('.') : [];
-        const currentFormValues: DeepPartial<IProposalAction> = formPrefixKeys.reduce(
-            (current, key) => current[key as keyof typeof current] as NestedProposalActionFormValues,
-            formValues,
-        );
-
-        const values = currentFormValues.inputData?.parameters?.map((parameter) =>
-            parameter?.type === 'bool' ? parameter.value === 'true' : parameter?.value,
-        );
-
-        return values;
-    };
-
     isArrayType = (type: string) => type.endsWith('[]');
 
     isTupleType = (type: string) => type === 'tuple';
@@ -90,6 +73,21 @@ class ProposalActionsDecoderUtils {
 
     // Returns the array item type (e.g. address[] => address, uint[][] => uint[])
     getArrayItemType = (type: string) => type.slice(0, -2);
+
+    formValuesToFunctionParameters = (
+        formValues: NestedProposalActionFormValues,
+        formPrefix?: string,
+    ): unknown[] | undefined => {
+        const formPrefixKeys = formPrefix != null && formPrefix.length > 0 ? formPrefix.split('.') : [];
+        const currentFormValues: DeepPartial<IProposalAction> = formPrefixKeys.reduce(
+            (current, key) => current[key as keyof typeof current] as NestedProposalActionFormValues,
+            formValues,
+        );
+
+        const values = currentFormValues.inputData?.parameters?.map((parameter) => parameter?.value);
+
+        return values;
+    };
 
     getNestedParameters = (parameter: IProposalActionInputDataParameter): IProposalActionInputDataParameter[] => {
         const { value, type, components = [] } = parameter;
@@ -109,23 +107,23 @@ class ProposalActionsDecoderUtils {
         parameter: IProposalActionInputDataParameter,
         nestedTuple?: boolean,
     ): IProposalActionInputDataParameter => {
-        const { type } = parameter;
+        const { type, components } = parameter;
 
         if (type === 'tuple') {
             return { ...parameter, value: [] };
         } else if (type === 'tuple[]') {
             const isNestedTuple = nestedTuple == null || nestedTuple;
 
-            const tupleValue = parameter.components?.map(
+            const tupleValue = components?.map(
                 (component) => this.getDefaultNestedParameter({ ...component, value: undefined }, isNestedTuple).value,
             );
 
             const processedValue = nestedTuple ? [tupleValue] : tupleValue;
 
-            return { ...parameter, type: this.getArrayItemType(type), value: processedValue };
-        } else if (type.includes('[]')) {
+            return { ...parameter, type: 'tuple', value: processedValue };
+        } else if (this.isArrayType(type)) {
             // Set value as array for multi-dimentional arrays.
-            const value = type.includes('[][]') ? [] : undefined;
+            const value = type.endsWith('[][]') ? [] : undefined;
 
             return { ...parameter, type: this.getArrayItemType(type), value };
         }

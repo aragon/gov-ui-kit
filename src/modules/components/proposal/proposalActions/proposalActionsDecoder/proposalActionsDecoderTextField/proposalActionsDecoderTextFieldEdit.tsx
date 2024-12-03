@@ -24,8 +24,6 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
     const { value, onChange, ...fieldProps } = field;
 
     const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
-    const inputProps = { alert, type: proposalActionsDecoderUtils.isNumberType(type) ? 'number' : 'text' };
-
     const Component = component === 'textarea' ? TextArea : InputText;
 
     const handleFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -35,6 +33,10 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
                 ? newValue === 'true'
                 : newValue.toString().toLocaleLowerCase();
             onChange(parsedValue);
+        } else if (proposalActionsDecoderUtils.isNumberType(type)) {
+            // Allow only numbers and one "-" negative sign
+            const newValue = event.target.value.replace(/[^0-9-]/g, '').replace(/(?!^-)-/g, '');
+            onChange(newValue);
         } else {
             onChange(event);
         }
@@ -45,7 +47,7 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
             placeholder={type}
             value={value?.toString()}
             onChange={handleFieldChange}
-            {...inputProps}
+            alert={alert}
             {...fieldProps}
             {...otherProps}
         />
