@@ -10,19 +10,17 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
     const { name, notice, value, type } = parameter;
 
     const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
+    const formFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
+
     const commonProps = { placeholder: type, className, ...inputLabels };
-    const fieldProps = {
-        parameter,
-        component,
-        fieldName: proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix),
-    };
+    const fieldProps = { parameter, component, fieldName: formFieldName, ...commonProps };
 
     if (mode === ProposalActionsDecoderMode.WATCH) {
-        return <ProposalActionsDecoderTextFieldWatch {...commonProps} {...fieldProps} />;
+        return <ProposalActionsDecoderTextFieldWatch {...fieldProps} />;
     }
 
     if (mode === ProposalActionsDecoderMode.EDIT) {
-        return <ProposalActionsDecoderTextFieldEdit {...commonProps} {...fieldProps} />;
+        return <ProposalActionsDecoderTextFieldEdit {...fieldProps} />;
     }
 
     const Component = component === 'textarea' ? TextArea : InputText;

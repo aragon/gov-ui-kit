@@ -7,10 +7,9 @@ export interface IProposalActionsDecoderTextFieldWatchProps extends IProposalAct
 
 export const ProposalActionsDecoderTextFieldWatch: React.FC<IProposalActionsDecoderTextFieldWatchProps> = (props) => {
     const { parameter, fieldName, component = 'input', ...otherProps } = props;
-    const { type } = parameter;
 
     const value = useWatch<Record<string, ProposalActionsFieldValue>>({ name: fieldName });
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component placeholder={type} value={value?.toString()} disabled={true} {...otherProps} />;
+    return <Component value={value?.toString()} disabled={true} {...otherProps} />;
 };

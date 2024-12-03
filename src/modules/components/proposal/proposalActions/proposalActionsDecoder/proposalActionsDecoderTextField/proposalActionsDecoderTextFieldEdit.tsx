@@ -44,7 +44,6 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
 
     return (
         <Component
-            placeholder={type}
             value={value?.toString()}
             onChange={handleFieldChange}
             alert={alert}
