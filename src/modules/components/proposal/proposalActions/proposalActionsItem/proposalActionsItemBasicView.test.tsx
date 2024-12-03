@@ -3,7 +3,7 @@ import { ProposalActionType } from '../proposalActionsDefinitions';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { type IProposalActionsItemBasicViewProps, ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 
-jest.mock('../../proposalActionsList', () => ({
+jest.mock('../proposalActionsList', () => ({
     ProposalActionChangeMembers: () => <div data-testid="change-members-mock" />,
     ProposalActionChangeSettings: () => <div data-testid="change-settings-mock" />,
     ProposalActionTokenMint: () => <div data-testid="token-mint-mock" />,
