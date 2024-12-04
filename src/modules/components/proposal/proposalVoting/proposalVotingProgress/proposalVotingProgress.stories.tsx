@@ -35,6 +35,28 @@ export const TokenVotingProgress: Story = {
 };
 
 /**
+ * Usage example showing token body summary example.
+ */
+export const BodySummary: Story = {
+    args: {
+        name: 'Token holders',
+        description: { value: '75', text: 'of 100 ETH' },
+        value: 75,
+        thresholdIndicator: 50,
+        variant: 'primary',
+        textVariant: 'neutral',
+        showPercentage: true,
+        showStatusIcon: true,
+        label: 'support',
+    },
+    render: (args) => (
+        <ProposalVotingProgress.Container className="min-w-96">
+            <ProposalVotingProgress.Item {...args} />
+        </ProposalVotingProgress.Container>
+    ),
+};
+
+/**
  * Usage example showing multisig approval progress.
  */
 export const MultisigApprovalProgress: Story = {

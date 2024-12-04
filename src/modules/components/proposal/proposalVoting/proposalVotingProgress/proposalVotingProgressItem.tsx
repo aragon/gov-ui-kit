@@ -26,6 +26,14 @@ export interface IProposalVotingProgressItemProps extends IProgressProps {
      */
     name: string;
     /**
+     * Label to be displayed after the name
+     */
+    label?: string;
+    /**
+     * Variant to be used for the name text.
+     */
+    textVariant?: ProgressVariant;
+    /**
      * Description of the voting progress displayed below the progress bar.
      */
     description: IProposalVotingProgressItemDescription;
@@ -50,6 +58,8 @@ const variantToNameClassNames: Record<ProgressVariant, string> = {
 export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemProps> = (props) => {
     const {
         name,
+        label,
+        textVariant,
         description,
         showPercentage,
         showStatusIcon,
@@ -69,22 +79,25 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
     return (
         <div className={classNames('flex w-full grow flex-col gap-3', className)}>
             <div className="flex flex-row items-center justify-between">
-                <p
-                    className={classNames(
-                        'text-base font-normal leading-tight md:text-lg',
-                        variantToNameClassNames[variant],
-                    )}
-                >
-                    {name}
-                </p>
+                <div className="flex flex-row gap-1">
+                    <p
+                        className={classNames(
+                            'text-base font-normal leading-tight md:text-lg',
+                            variantToNameClassNames[textVariant ?? variant],
+                        )}
+                    >
+                        {name}
+                    </p>
+                    {label && <p className="font-normal leading-tight text-neutral-500 md:text-lg">{label}</p>}
+                </div>
                 {(showPercentage != null || showStatusIcon != null) && (
                     <div className="flex flex-row gap-2">
                         {showPercentage && (
                             <p
                                 className={classNames(
                                     'text-base font-normal leading-tight text-neutral-500 md:text-lg',
-                                    { 'text-neutral-500': variant !== 'primary' },
-                                    { 'text-primary-400': variant === 'primary' },
+                                    { 'text-neutral-500': textVariant ?? variant !== 'primary' },
+                                    { 'text-primary-400': !textVariant && variant === 'primary' },
                                 )}
                             >
                                 {formattedPercentage}
