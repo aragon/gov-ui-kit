@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Update minor and patch NPM dependencies
+- Update `ProposalVotingProgressItem` module component to accept new optional props - `label` and `textVariant` to allow
+  the components text styles to be overridden independent of the progress bar and also allow for an additional label
+  text to be rendered along with the name
 
 ## [1.0.57] - 2024-11-29
 
