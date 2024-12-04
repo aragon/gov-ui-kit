@@ -29,7 +29,8 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         mode === ProposalActionsDecoderMode.EDIT,
     );
 
-    const dataFieldName = proposalActionsDecoderUtils.getFieldName('data', formPrefix) as 'data';
+    const dataFieldName = proposalActionsDecoderUtils.getFieldName('data', formPrefix);
+    const isPayableAction = action.inputData?.stateMutability === 'payable';
 
     const updateEncodedData = useCallback(
         (values: NestedProposalActionFormValues) => {
@@ -67,7 +68,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
 
     return (
         <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
-            {(view === ProposalActionsDecoderView.RAW || action.inputData?.stateMutability === 'payable') && (
+            {(view === ProposalActionsDecoderView.RAW || isPayableAction) && (
                 <ProposalActionsDecoderTextField
                     fieldName="value"
                     mode={mode}
