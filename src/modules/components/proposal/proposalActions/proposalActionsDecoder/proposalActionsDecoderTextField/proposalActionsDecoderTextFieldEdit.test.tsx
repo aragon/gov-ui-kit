@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as ReactHookForm from 'react-hook-form';
 import {
     ProposalActionsDecoderTextFieldEdit,
@@ -64,11 +65,65 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
     it('renders an alert when the form field has an error', () => {
         const controllerReturn = {
             fieldState: { error: { message: 'invalid field' } },
-            field: { value: 'initial-data', onChange: jest.fn() },
+            field: { value: undefined, onChange: jest.fn() },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
         render(createTestComponent());
         expect(screen.getByRole('alert')).toBeInTheDocument();
         expect(screen.getByText(controllerReturn.fieldState.error!.message!)).toBeInTheDocument();
+    });
+
+    it('triggers the onChange callback with a boolean value when type is boolean and the value is valid', async () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'boolParam', type: 'bool', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: undefined, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        render(createTestComponent({ parameter }));
+        await userEvent.type(screen.getByRole('textbox'), 'true');
+        expect(onChange).toHaveBeenCalledWith(true);
+    });
+
+    it('triggers the onChange callback with a with the lowercased input when value is boolean but not valid', async () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'boolParam', type: 'bool', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: undefined, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        render(createTestComponent({ parameter }));
+        await userEvent.type(screen.getByRole('textbox'), 'TRU');
+        expect(onChange).toHaveBeenCalledWith('tru');
+    });
+
+    it('triggers the onChange callback removing the non-numberic values when type is a number', async () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'uintParam', type: 'uint32', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: undefined, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        render(createTestComponent({ parameter }));
+        await userEvent.type(screen.getByRole('textbox'), 'ab--32.1');
+        expect(onChange).toHaveBeenCalledWith('-321');
+    });
+
+    it('triggers the onChange callback with native event when parameter type is a simple type', async () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'addressType', type: 'address', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: undefined, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        render(createTestComponent({ parameter }));
+        await userEvent.type(screen.getByRole('textbox'), '0x00');
+        expect(onChange).toHaveBeenCalledWith(
+            expect.objectContaining({ target: expect.objectContaining({ value: '0x00' }) as unknown }),
+        );
     });
 });
