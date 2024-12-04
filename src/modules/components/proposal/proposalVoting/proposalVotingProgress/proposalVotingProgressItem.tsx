@@ -94,11 +94,13 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                     <div className="flex flex-row gap-2">
                         {showPercentage && (
                             <p
-                                className={classNames(
-                                    'text-base font-normal leading-tight text-neutral-500 md:text-lg',
-                                    { 'text-neutral-500': textVariant ?? variant !== 'primary' },
-                                    { 'text-primary-400': !textVariant && variant === 'primary' },
-                                )}
+                                className={classNames('text-base font-normal leading-tight md:text-lg', {
+                                    'text-primary-400':
+                                        textVariant === 'primary' || (!textVariant && variant === 'primary'),
+                                    'text-neutral-500':
+                                        (textVariant && textVariant !== 'primary') ??
+                                        (!textVariant && variant !== 'primary'),
+                                })}
                             >
                                 {formattedPercentage}
                             </p>
