@@ -117,7 +117,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                         size="md"
                         variant="tertiary"
                         onClick={handleAddArrayItem}
-                        className={classNames('self-start')}
+                        className="self-start"
                     >
                         {copy.proposalActionsDecoder.add}
                     </Button>
