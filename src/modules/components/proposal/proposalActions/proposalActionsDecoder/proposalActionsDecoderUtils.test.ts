@@ -145,17 +145,29 @@ describe('ProposalActionsDecoder utils', () => {
     });
 
     describe('validateBytes', () => {
-        it('returns false when value is not a valid bytes value', () => {
-            expect(proposalActionsDecoderUtils.validateBytes(undefined)).toBeFalsy();
-            expect(proposalActionsDecoderUtils.validateBytes('0x1')).toBeFalsy();
-            expect(proposalActionsDecoderUtils.validateBytes('0x123')).toBeFalsy();
-            expect(proposalActionsDecoderUtils.validateBytes('0x-1')).toBeFalsy();
+        it('returns false when value is not a valid dynamic bytes value', () => {
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0x1')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0x123')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0xG1')).toBeFalsy();
         });
 
-        it('returns true when value is a valid bytes value', () => {
-            expect(proposalActionsDecoderUtils.validateBytes('0x')).toBeTruthy();
-            expect(proposalActionsDecoderUtils.validateBytes('0x00')).toBeTruthy();
-            expect(proposalActionsDecoderUtils.validateBytes('0xab99')).toBeTruthy();
+        it('returns false when value is not a valid static bytes value', () => {
+            expect(proposalActionsDecoderUtils.validateBytes('bytes16', undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes16', '0xab-00')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes8', '0x0123abcd')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes4', '0x00112233aaAA0000')).toBeFalsy();
+        });
+
+        it('returns true when value is a valid dynamic bytes value', () => {
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0x')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0x00')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes', '0xab99')).toBeTruthy();
+        });
+
+        it('returns true when value is a valid static bytes value', () => {
+            expect(proposalActionsDecoderUtils.validateBytes('bytes4', '0x0123abcd')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateBytes('bytes8', '0x00112233aaAA0000')).toBeTruthy();
         });
     });
 

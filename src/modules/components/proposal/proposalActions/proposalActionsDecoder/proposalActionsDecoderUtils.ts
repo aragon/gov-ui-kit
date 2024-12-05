@@ -42,7 +42,7 @@ class ProposalActionsDecoderUtils {
         } else if (type === 'address') {
             return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
         } else if (type.startsWith('bytes')) {
-            return this.validateBytes(value) || errorMessages.bytes(label);
+            return this.validateBytes(type, value) || errorMessages.bytes(label);
         } else if (this.isUnsignedNumberType(type)) {
             return this.validateUnsignedNumber(value) || errorMessages.unsignedNumber(label);
         }
@@ -55,8 +55,18 @@ class ProposalActionsDecoderUtils {
     validateBoolean = (value?: ProposalActionsFieldValue): boolean =>
         ['true', 'false'].includes(value?.toString() ?? '');
 
-    validateBytes = (value?: ProposalActionsFieldValue): boolean =>
-        value != null && value.toString().length % 2 === 0 && this.bytesRegex.test(value.toString());
+    validateBytes = (type: string, value?: ProposalActionsFieldValue): boolean => {
+        const parsedValue = value?.toString();
+
+        if (parsedValue == null || !this.bytesRegex.test(parsedValue)) {
+            return false;
+        }
+
+        const [, bytesSize] = type.split('bytes');
+        const valueSize = Math.ceil((parsedValue.length - 2) / 2);
+
+        return bytesSize.length ? valueSize === Number.parseInt(bytesSize) : parsedValue.length % 2 === 0;
+    };
 
     validateUnsignedNumber = (value?: ProposalActionsFieldValue): boolean =>
         value != null && this.unsignedNumberRegex.test(value.toString());
