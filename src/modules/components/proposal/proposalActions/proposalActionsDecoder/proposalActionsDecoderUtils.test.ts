@@ -264,26 +264,6 @@ describe('ProposalActionsDecoder utils', () => {
     });
 
     describe('getNestedParameters', () => {
-        it('returns empty array when value is not an array', () => {
-            const parameter = { name: '_struct', type: 'tuple', value: 'test' };
-            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([]);
-        });
-
-        it('returns empty array when value is null', () => {
-            const parameter = { name: '_struct', type: 'tuple', value: null };
-            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([]);
-        });
-
-        it('returns empty array when value is undefined', () => {
-            const parameter = { name: '_struct', type: 'tuple', value: undefined };
-            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([]);
-        });
-
-        it('returns empty array when value is not supported', () => {
-            const parameter = { name: '_struct', type: 'tuple', value: 11 };
-            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([]);
-        });
-
         it('correctly maps the values for array type', () => {
             const parameter = {
                 name: 'addresses',
@@ -294,6 +274,11 @@ describe('ProposalActionsDecoder utils', () => {
                 { name: parameter.name, type: 'address', value: parameter.value[0] },
                 { name: parameter.name, type: 'address', value: parameter.value[1] },
             ]);
+        });
+
+        it('returns empty array for array type with unsupported values', () => {
+            const parameter = { name: 'addresses', type: 'uint[]', value: [123] };
+            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([]);
         });
 
         it('correctly maps the values for tuple type', () => {
@@ -311,6 +296,38 @@ describe('ProposalActionsDecoder utils', () => {
                 { ...parameter.components[0], value: parameter.value[0] },
                 { ...parameter.components[1], value: parameter.value[1] },
                 { ...parameter.components[2], value: parameter.value[2] },
+            ]);
+        });
+
+        it('ignores value when it contains unsupported values for tuple type', () => {
+            const parameter = {
+                name: 'plugin',
+                type: 'tuple',
+                value: ['0x8Da8bfAc659D7608323652fa2013E43F589b62Cc', 111],
+                components: [
+                    { name: 'address', type: 'address' },
+                    { name: 'isManual', type: 'bool' },
+                ],
+            };
+            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([
+                { ...parameter.components[0], value: undefined },
+                { ...parameter.components[1], value: undefined },
+            ]);
+        });
+
+        it('returns the corrent parameters for tuple type with no value', () => {
+            const parameter = {
+                name: 'action',
+                type: 'tuple',
+                value: undefined,
+                components: [
+                    { name: 'to', type: 'address' },
+                    { name: 'data', type: 'bytes' },
+                ],
+            };
+            expect(proposalActionsDecoderUtils.getNestedParameters(parameter)).toEqual([
+                { ...parameter.components[0], value: undefined },
+                { ...parameter.components[1], value: undefined },
             ]);
         });
     });
@@ -375,6 +392,11 @@ describe('ProposalActionsDecoder utils', () => {
     });
 
     describe('guardArrayType', () => {
+        it('returns false when value is not an array', () => {
+            expect(proposalActionsDecoderUtils['guardArrayType'](null)).toBeFalsy();
+            expect(proposalActionsDecoderUtils['guardArrayType']('test')).toBeFalsy();
+        });
+
         it('returns false when value contains unsupported types', () => {
             expect(proposalActionsDecoderUtils['guardArrayType']([12])).toBeFalsy();
             expect(proposalActionsDecoderUtils['guardArrayType']([[{}]])).toBeFalsy();

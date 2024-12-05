@@ -92,15 +92,14 @@ class ProposalActionsDecoderUtils {
     getNestedParameters = (parameter: IProposalActionInputDataParameter): IProposalActionInputDataParameter[] => {
         const { value, type, components = [] } = parameter;
 
-        const isValidArray = Array.isArray(value) && this.guardArrayType(value);
-
-        if (!isValidArray) {
-            return [];
+        if (this.isArrayType(type) && this.guardArrayType(value)) {
+            return value.map((item) => ({ ...parameter, type: this.getArrayItemType(type), value: item }));
         }
 
-        return this.isArrayType(type)
-            ? value.map((item) => ({ ...parameter, type: this.getArrayItemType(type), value: item }))
-            : components.map((component, index) => ({ ...component, value: value[index] }));
+        return components.map((component, index) => ({
+            ...component,
+            value: this.guardArrayType(value) ? value[index] : undefined,
+        }));
     };
 
     getDefaultNestedParameter = (
@@ -131,7 +130,8 @@ class ProposalActionsDecoderUtils {
         return { ...parameter, value: undefined };
     };
 
-    private guardArrayType = (value: unknown[]): value is boolean[] | string[] =>
+    private guardArrayType = (value: unknown): value is boolean[] | string[] =>
+        Array.isArray(value) &&
         value.every((item) => (Array.isArray(item) ? this.guardArrayType(item) : this.guardValueType(item)));
 
     private guardValueType = (value: unknown): value is ProposalActionsFieldValue =>
