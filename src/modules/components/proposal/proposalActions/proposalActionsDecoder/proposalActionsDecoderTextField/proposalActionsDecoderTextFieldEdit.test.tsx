@@ -13,16 +13,19 @@ jest.mock('react-hook-form', () => ({
 
 describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
     const useControllerSpy = jest.spyOn(ReactHookForm, 'useController');
+    const useWatchSpy = jest.spyOn(ReactHookForm, 'useWatch');
 
     beforeEach(() => {
         useControllerSpy.mockReturnValue({
             fieldState: { error: undefined },
             field: {},
         } as unknown as ReactHookForm.UseControllerReturn);
+        useWatchSpy.mockReturnValue('' as unknown as object);
     });
 
     afterEach(() => {
         useControllerSpy.mockReset();
+        useWatchSpy.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IProposalActionsDecoderTextFieldEditProps>) => {
@@ -42,6 +45,7 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         } as unknown as ReactHookForm.UseControllerReturn;
         const fieldName = 'parameter.0.value';
         useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
         render(createTestComponent({ fieldName }));
 
         expect(useControllerSpy).toHaveBeenCalledWith({
@@ -73,16 +77,34 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         expect(screen.getByText(controllerReturn.fieldState.error!.message!)).toBeInTheDocument();
     });
 
+    it('sets correct validation rules for non array types', () => {
+        const parameter = { name: 'boolParam', type: 'bool', value: undefined };
+        const fieldName = 'test';
+        render(createTestComponent({ fieldName, parameter }));
+        expect(useControllerSpy).toHaveBeenCalledWith({
+            name: fieldName,
+            rules: { validate: expect.any(Function) as unknown },
+        });
+    });
+
+    it('does not set validation rules for array types', () => {
+        const parameter = { name: 'tupleArray', type: 'tuple[]', value: undefined };
+        const fieldName = 'test';
+        render(createTestComponent({ fieldName, parameter }));
+        expect(useControllerSpy).toHaveBeenCalledWith({ name: fieldName, rules: { validate: undefined } });
+    });
+
     it('triggers the onChange callback with a boolean value when type is boolean and the value is valid', async () => {
         const onChange = jest.fn();
         const parameter = { name: 'boolParam', type: 'bool', value: undefined };
         const controllerReturn = {
             fieldState: { error: undefined },
-            field: { value: undefined, onChange },
+            field: { value: 'tru', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
         render(createTestComponent({ parameter }));
-        await userEvent.type(screen.getByRole('textbox'), 'true');
+        await userEvent.type(screen.getByRole('textbox'), 'e');
         expect(onChange).toHaveBeenCalledWith(true);
     });
 
@@ -91,11 +113,12 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         const parameter = { name: 'boolParam', type: 'bool', value: undefined };
         const controllerReturn = {
             fieldState: { error: undefined },
-            field: { value: undefined, onChange },
+            field: { value: 'TR', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
         render(createTestComponent({ parameter }));
-        await userEvent.type(screen.getByRole('textbox'), 'TRU');
+        await userEvent.type(screen.getByRole('textbox'), 'U');
         expect(onChange).toHaveBeenCalledWith('tru');
     });
 
@@ -104,11 +127,12 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         const parameter = { name: 'uintParam', type: 'uint32', value: undefined };
         const controllerReturn = {
             fieldState: { error: undefined },
-            field: { value: undefined, onChange },
+            field: { value: 'ab--32.', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
         render(createTestComponent({ parameter }));
-        await userEvent.type(screen.getByRole('textbox'), 'ab--32.1');
+        await userEvent.type(screen.getByRole('textbox'), '1');
         expect(onChange).toHaveBeenCalledWith('-321');
     });
 
@@ -117,13 +141,40 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         const parameter = { name: 'addressType', type: 'address', value: undefined };
         const controllerReturn = {
             fieldState: { error: undefined },
-            field: { value: undefined, onChange },
+            field: { value: '0x00', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
         render(createTestComponent({ parameter }));
-        await userEvent.type(screen.getByRole('textbox'), '0x00');
+        await userEvent.type(screen.getByRole('textbox'), '-');
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({ target: expect.objectContaining({ value: '0x00' }) as unknown }),
         );
+    });
+
+    it('initialises arrays to empty-arrays when value is null', () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'uintArray', type: 'uint[]', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: parameter.value, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        render(createTestComponent({ parameter }));
+        expect(onChange).toHaveBeenCalledWith([]);
+    });
+
+    it('does not change array values when parameter value is defined', () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'uintArray', type: 'uint[]', value: ['111'] };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: parameter.value, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        render(createTestComponent({ parameter }));
+        expect(onChange).not.toHaveBeenCalled();
     });
 });

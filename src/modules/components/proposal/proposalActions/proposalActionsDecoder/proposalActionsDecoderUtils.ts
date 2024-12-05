@@ -22,7 +22,7 @@ export interface IGetValidationRulesParams {
     required?: boolean;
 }
 
-export type ProposalActionsFieldValue = string | boolean | undefined | null;
+export type ProposalActionsFieldValue = string | boolean | undefined | null | unknown[];
 
 export type NestedProposalActionFormValues = DeepPartial<IProposalAction> | Record<string, unknown>;
 

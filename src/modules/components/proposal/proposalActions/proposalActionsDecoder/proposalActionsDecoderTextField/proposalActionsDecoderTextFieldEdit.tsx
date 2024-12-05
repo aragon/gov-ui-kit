@@ -1,5 +1,5 @@
-import type { ChangeEvent } from 'react';
-import { useController } from 'react-hook-form';
+import { useEffect, type ChangeEvent } from 'react';
+import { useController, useWatch } from 'react-hook-form';
 import { InputText, TextArea } from '../../../../../../core';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { proposalActionsDecoderUtils, type ProposalActionsFieldValue } from '../proposalActionsDecoderUtils';
@@ -9,22 +9,32 @@ export interface IProposalActionsDecoderTextFieldEditProps extends IProposalActi
 
 export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecoderTextFieldEditProps> = (props) => {
     const { parameter, fieldName, component = 'input', ...otherProps } = props;
+
     const { name, type } = parameter;
+    const isArrayType = proposalActionsDecoderUtils.isArrayType(type);
 
     const { copy } = useGukModulesContext();
 
     const errorMessages = copy.proposalActionsDecoder.validation;
-    const validateParams = { label: name, type, required: true, errorMessages };
+    const validateFunction = (value: ProposalActionsFieldValue) =>
+        proposalActionsDecoderUtils.validateValue(value, { label: name, type, required: true, errorMessages });
+
+    // Watch value for changes as useControlled does not return updated value for array types
+    const fieldValue = useWatch<Record<string, ProposalActionsFieldValue>>({ name: fieldName });
     const { fieldState, field } = useController<Record<string, ProposalActionsFieldValue>>({
         name: fieldName,
-        rules: { validate: (value) => proposalActionsDecoderUtils.validateValue(value, validateParams) },
+        rules: { validate: !isArrayType ? validateFunction : undefined },
     });
 
     const { error } = fieldState;
     const { value, onChange, ...fieldProps } = field;
 
-    const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
-    const Component = component === 'textarea' ? TextArea : InputText;
+    useEffect(() => {
+        // Initialise array types as empty arrays to properly decode transaction data
+        if (isArrayType && fieldValue == null) {
+            onChange([]);
+        }
+    }, [fieldValue, isArrayType, onChange]);
 
     const handleFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         if (type === 'bool') {
@@ -42,13 +52,11 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
         }
     };
 
+    const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
+    const Component = component === 'textarea' ? TextArea : InputText;
+    const processedValue = fieldValue?.toString() ?? '';
+
     return (
-        <Component
-            value={value?.toString()}
-            onChange={handleFieldChange}
-            alert={alert}
-            {...fieldProps}
-            {...otherProps}
-        />
+        <Component value={processedValue} onChange={handleFieldChange} alert={alert} {...fieldProps} {...otherProps} />
     );
 };

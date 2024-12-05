@@ -44,7 +44,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
 
     if (!isNestedType) {
         return (
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-start gap-2">
                 <ProposalActionsDecoderTextField
                     parameter={parameter}
                     fieldName={fieldName}
@@ -87,6 +87,13 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                     'rounded-xl border border-neutral-100 p-4': isNestedType,
                 })}
             >
+                {/* Render text-field as hidden to register array field */}
+                <ProposalActionsDecoderTextField
+                    parameter={parameter}
+                    mode={mode}
+                    fieldName={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
+                    className="hidden"
+                />
                 <div className="flex grow flex-row gap-2">
                     <div className="flex grow flex-col gap-2">
                         {nestedParameters.map((parameter, index) => (

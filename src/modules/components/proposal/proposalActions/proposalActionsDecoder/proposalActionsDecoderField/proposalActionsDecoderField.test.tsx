@@ -16,6 +16,7 @@ jest.mock('react-hook-form', () => ({
 describe('<ProposalActionsDecoderField /> component', () => {
     const useFormContextSpy = jest.spyOn(ModuleHooks, 'useFormContext');
     const useControllerSpy = jest.spyOn(ReactHookForm, 'useController');
+    const useWatchSpy = jest.spyOn(ReactHookForm, 'useWatch');
 
     beforeEach(() => {
         useFormContextSpy.mockReturnValue(generateFormContext());
@@ -23,11 +24,13 @@ describe('<ProposalActionsDecoderField /> component', () => {
             fieldState: { error: undefined },
             field: {},
         } as unknown as ReactHookForm.UseControllerReturn);
+        useWatchSpy.mockReturnValue({});
     });
 
     afterEach(() => {
         useFormContextSpy.mockReset();
         useControllerSpy.mockReset();
+        useWatchSpy.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IProposalActionsDecoderFieldProps>) => {
@@ -44,6 +47,14 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'boolParam', type: 'bool', value: undefined };
         render(createTestComponent({ parameter }));
         expect(screen.getByRole('textbox', { name: parameter.name })).toBeInTheDocument();
+    });
+
+    it('renders a hidden text-field for nested types', () => {
+        const parameter = { name: 'uintTest', type: 'uint[]', value: undefined };
+        render(createTestComponent({ parameter }));
+        const arrayField = screen.getByRole('textbox');
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(arrayField.parentElement!.parentElement!.classList).toContain('hidden');
     });
 
     it('renders all nested parameters for a parameter with tuple type', () => {
@@ -64,8 +75,8 @@ describe('<ProposalActionsDecoderField /> component', () => {
     it('renders all nested parameters for a parameter with array type and hides the labels for array items', () => {
         const parameter = { name: 'arrayType', type: 'uint[]', value: ['12', '777', '465413', '0'] };
         render(createTestComponent({ parameter }));
-        expect(screen.getAllByText(parameter.name)).toHaveLength(1);
-        const textInputs = screen.getAllByRole('textbox');
+        expect(screen.getAllByText(parameter.name)).toHaveLength(2); // 2 because of the hidden array input
+        const [, ...textInputs] = screen.getAllByRole('textbox');
         expect(textInputs).toHaveLength(parameter.value.length);
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
     });
@@ -74,13 +85,13 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'array', type: 'address[]', value: undefined };
         const mode = ProposalActionsDecoderMode.EDIT;
         render(createTestComponent({ parameter, mode }));
-        expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+        expect(screen.getAllByRole('textbox')).toHaveLength(1);
 
         const addButton = screen.getByRole('button', { name: modulesCopy.proposalActionsDecoder.add });
         expect(addButton).toBeInTheDocument();
         await userEvent.click(addButton);
 
-        expect(screen.getByRole('textbox')).toBeInTheDocument();
+        expect(screen.getAllByRole('textbox')).toHaveLength(2);
     });
 
     it('renders a button to delete array items when parameter type is array and mode is edit', async () => {
@@ -93,7 +104,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         useFormContextSpy.mockReturnValue(generateFormContext({ getValues, unregister, setValue }));
 
         render(createTestComponent({ fieldName, parameter, mode }));
-        expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length);
+        expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length + 1);
 
         const removeButtons = screen
             .getAllByRole('button')
@@ -101,7 +112,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         expect(removeButtons).toHaveLength(parameter.value.length);
         await userEvent.click(removeButtons[0]);
 
-        expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length - 1);
+        expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length);
         expect(unregister).toHaveBeenCalledWith(`${fieldName}.2`);
         expect(setValue).toHaveBeenCalledWith(fieldName, ['1', '2']);
     });
