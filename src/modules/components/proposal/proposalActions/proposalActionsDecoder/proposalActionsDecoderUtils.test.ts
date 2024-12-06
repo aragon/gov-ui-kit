@@ -327,7 +327,7 @@ describe('ProposalActionsDecoder utils', () => {
             ]);
         });
 
-        it('returns the corrent parameters for tuple type with no value', () => {
+        it('returns the correct parameters for tuple type with no value', () => {
             const parameter = {
                 name: 'action',
                 type: 'tuple',
@@ -341,65 +341,6 @@ describe('ProposalActionsDecoder utils', () => {
                 { ...parameter.components[0], value: undefined },
                 { ...parameter.components[1], value: undefined },
             ]);
-        });
-    });
-
-    describe('getDefaultNestedParameter', () => {
-        it('returns parameter with undefined value for simple type', () => {
-            const parameter = { name: 'simple-type', type: 'address', value: '0x123' };
-            expect(proposalActionsDecoderUtils.getDefaultNestedParameter(parameter)).toEqual({
-                ...parameter,
-                value: undefined,
-            });
-        });
-
-        it('returns parameter with undefined value and correct type for one-dimentional array type', () => {
-            const parameter = { name: 'one-dimentional-array', type: 'uint[]', value: ['1', '2'] };
-            expect(proposalActionsDecoderUtils.getDefaultNestedParameter(parameter)).toEqual({
-                ...parameter,
-                type: 'uint',
-                value: undefined,
-            });
-        });
-
-        it('returns parameter with empty array value and correct type for multi-dimentional array type', () => {
-            const parameter = { name: 'one-dimentional-array', type: 'uint[][]', value: [['1']] };
-            expect(proposalActionsDecoderUtils.getDefaultNestedParameter(parameter)).toEqual({
-                ...parameter,
-                type: 'uint[]',
-                value: [],
-            });
-        });
-
-        it('returns parameter with empty array value for tuple type', () => {
-            const parameter = { name: 'tuple-type', type: 'tuple', value: ['1000', true] };
-            expect(proposalActionsDecoderUtils.getDefaultNestedParameter(parameter)).toEqual({
-                ...parameter,
-                value: [],
-            });
-        });
-
-        it('returns correct parameter for tuple array', () => {
-            const pluginComponents = [
-                { name: 'address', type: 'address' },
-                { name: 'allowed', type: 'boolean' },
-            ];
-            const stageComponents = [
-                { name: 'plugins', type: 'tuple[]', components: pluginComponents },
-                { name: 'maxAdvance', type: 'uint' },
-            ];
-            const parameter = {
-                name: 'tuple-array',
-                type: 'tuple[]',
-                value: undefined,
-                components: stageComponents,
-            };
-
-            expect(proposalActionsDecoderUtils.getDefaultNestedParameter(parameter)).toEqual({
-                ...parameter,
-                type: 'tuple',
-                value: [[[undefined, undefined], undefined]],
-            });
         });
     });
 

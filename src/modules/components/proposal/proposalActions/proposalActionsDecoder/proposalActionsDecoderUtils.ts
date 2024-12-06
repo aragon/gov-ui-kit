@@ -104,40 +104,14 @@ class ProposalActionsDecoderUtils {
 
         if (this.isArrayType(type) && this.guardArrayType(value)) {
             return value.map((item) => ({ ...parameter, type: this.getArrayItemType(type), value: item }));
+        } else if (this.isTupleType(type)) {
+            return components.map((component, index) => ({
+                ...component,
+                value: this.guardArrayType(value) ? value[index] : undefined,
+            }));
         }
 
-        return components.map((component, index) => ({
-            ...component,
-            value: this.guardArrayType(value) ? value[index] : undefined,
-        }));
-    };
-
-    getDefaultNestedParameter = (
-        parameter: IProposalActionInputDataParameter,
-        nestedTuple?: boolean,
-    ): IProposalActionInputDataParameter => {
-        const { type, components } = parameter;
-
-        if (type === 'tuple') {
-            return { ...parameter, value: [] };
-        } else if (type === 'tuple[]') {
-            const isNestedTuple = nestedTuple == null || nestedTuple;
-
-            const tupleValue = components?.map(
-                (component) => this.getDefaultNestedParameter({ ...component, value: undefined }, isNestedTuple).value,
-            );
-
-            const processedValue = nestedTuple ? [tupleValue] : tupleValue;
-
-            return { ...parameter, type: 'tuple', value: processedValue };
-        } else if (this.isArrayType(type)) {
-            // Set value as array for multi-dimentional arrays.
-            const value = type.endsWith('[][]') ? [] : undefined;
-
-            return { ...parameter, type: this.getArrayItemType(type), value };
-        }
-
-        return { ...parameter, value: undefined };
+        return [];
     };
 
     private guardArrayType = (value: unknown): value is boolean[] | string[] =>

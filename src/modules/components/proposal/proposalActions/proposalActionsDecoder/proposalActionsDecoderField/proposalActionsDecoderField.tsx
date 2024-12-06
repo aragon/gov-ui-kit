@@ -60,7 +60,8 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
     }
 
     const handleAddArrayItem = () => {
-        const defaultNestedParameter = proposalActionsDecoderUtils.getDefaultNestedParameter(parameter);
+        const nestedParameterType = proposalActionsDecoderUtils.getArrayItemType(parameter.type);
+        const defaultNestedParameter = { ...parameter, type: nestedParameterType, value: undefined };
         const newNestedParameters = nestedParameters.concat(defaultNestedParameter);
         setNestedParameters(newNestedParameters);
     };
