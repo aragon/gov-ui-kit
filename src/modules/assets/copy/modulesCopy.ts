@@ -48,15 +48,16 @@ export const modulesCopy = {
             RAW: 'Raw',
         },
     },
-    proposalActionsItemDecodedView: {
-        valueHelper: 'Amount of ETH to transfer in the transaction',
-        valueLabel: 'Value',
-    },
-    proposalActionsItemRawView: {
-        to: 'To',
-        data: 'Data',
-        value: 'Value',
-        copyButton: 'Copy data',
+    proposalActionsDecoder: {
+        copyData: 'Copy data',
+        add: 'Add',
+        validation: {
+            required: (label: string) => `${label} is required.`,
+            boolean: (label: string) => `${label} must be set to "true" or "false".`,
+            address: (label: string) => `${label} is not a valid address.`,
+            bytes: (label: string) => `${label} is not a valid bytes value.`,
+            unsignedNumber: (label: string) => `${label} is not a valid uint value.`,
+        },
     },
     proposalActionChangeMembers: {
         summary: 'Summary',
