@@ -93,7 +93,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     </div>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={contentRef}>
+            <Accordion.ItemContent ref={contentRef} forceMount={editMode ? true : undefined}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard

@@ -184,11 +184,15 @@ describe('<ProposalActionsItem /> component', () => {
         expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action, 0);
     });
 
-    it('renders the decoded-view in edit mode when editMode prop is true and action does not support basic view', async () => {
+    it('forces the action content to be displayed on edit mode to register all form fields', () => {
+        render(createTestComponent({ editMode: true }));
+        expect(screen.getByTestId('decoder-mock')).toBeInTheDocument();
+    });
+
+    it('renders the decoded-view in edit mode when editMode prop is true and action does not support basic view', () => {
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
         isActionSupportedSpy.mockReturnValue(false);
         render(createTestComponent({ action, editMode: true }));
-        await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
@@ -197,17 +201,15 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
         isActionSupportedSpy.mockReturnValue(true);
         render(createTestComponent({ action, editMode: true }));
-        await userEvent.click(screen.getByRole('button'));
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.DECODED }));
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
     });
 
-    it('renders the raw-view in edit mode when editMode prop is true and action has no abi available', async () => {
+    it('renders the raw-view in edit mode when editMode prop is true and action has no abi available', () => {
         const action = generateProposalAction({ inputData: null });
         isActionSupportedSpy.mockReturnValue(false);
         render(createTestComponent({ action, editMode: true }));
-        await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
@@ -216,7 +218,6 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
         isActionSupportedSpy.mockReturnValue(true);
         render(createTestComponent({ action, editMode: true }));
-        await userEvent.click(screen.getByRole('button'));
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
