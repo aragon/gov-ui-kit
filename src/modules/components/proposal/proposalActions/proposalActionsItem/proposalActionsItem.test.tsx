@@ -3,17 +3,18 @@ import userEvent from '@testing-library/user-event';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
+import type * as ProposalActionsDecoder from '../proposalActionsDecoder';
+import { ProposalActionsDecoderMode, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsItem } from './proposalActionsItem';
 import type { IProposalActionsItemProps } from './proposalActionsItem.api';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
-jest.mock('./proposalActionsItemRawView', () => ({
-    ProposalActionsItemRawView: () => <div data-testid="raw-view-mock" />,
-}));
-
-jest.mock('./proposalActionsItemDecodedView', () => ({
-    ProposalActionsItemDecodedView: () => <div data-testid="decoded-view-mock" />,
+jest.mock('../proposalActionsDecoder', () => ({
+    ...jest.requireActual<typeof ProposalActionsDecoder>('../proposalActionsDecoder'),
+    ProposalActionsDecoder: (props: { mode: string; view: string }) => (
+        <div data-testid="decoder-mock" data-mode={props.mode} data-view={props.view} />
+    ),
 }));
 
 jest.mock('./proposalActionsItemBasicView', () => ({
@@ -99,18 +100,22 @@ describe('<ProposalActionsItem /> component', () => {
         ).toBeInTheDocument();
     });
 
-    it('defaults the view-mode to raw when action has no custom component and is not verified', async () => {
+    it('defaults the view-mode to raw and read mode when action has no custom component and is not verified', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
-        expect(screen.getByTestId('raw-view-mock')).toBeInTheDocument();
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
     });
 
-    it('defaults the view-mode to decoded when action has no custom component and is verified', async () => {
+    it('defaults the view-mode to decoded and read mode when action has no custom component and is verified', async () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
-        expect(screen.getByTestId('decoded-view-mock')).toBeInTheDocument();
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
     });
 
     it('defaults the view-mode to basic when action is supported', async () => {
@@ -148,11 +153,11 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
-        expect(screen.getByTestId('decoded-view-mock')).toBeInTheDocument();
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
 
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
-        expect(screen.getByTestId('raw-view-mock')).toBeInTheDocument();
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
     });
 
     it('renders a dropdown with the specified items when the dropdownItems property is set', async () => {
@@ -177,5 +182,44 @@ describe('<ProposalActionsItem /> component', () => {
 
         await userEvent.click(dropdownItem);
         expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action, 0);
+    });
+
+    it('forces the action content to be displayed on edit mode to register all form fields', () => {
+        render(createTestComponent({ editMode: true }));
+        expect(screen.getByTestId('decoder-mock')).toBeInTheDocument();
+    });
+
+    it('renders the decoded-view in edit mode when editMode prop is true and action does not support basic view', () => {
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('renders the decoded-view in watch mode when editMode prop is true and action supports basic view', async () => {
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        isActionSupportedSpy.mockReturnValue(true);
+        render(createTestComponent({ action, editMode: true }));
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
+        await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.DECODED }));
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
+    });
+
+    it('renders the raw-view in edit mode when editMode prop is true and action has no abi available', () => {
+        const action = generateProposalAction({ inputData: null });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('renders the raw-view in watch mode when editMode prop is true and action supports decoded view', async () => {
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        isActionSupportedSpy.mockReturnValue(true);
+        render(createTestComponent({ action, editMode: true }));
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
+        await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
     });
 });

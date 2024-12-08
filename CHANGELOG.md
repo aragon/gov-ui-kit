@@ -7,9 +7,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.58] - 2024-12-06
+
+### Added
+
+- Update `ProposalActions` module component to improve rendering of decoded parameters and support and "edit" mode
+  through the `editMode` property
+
 ### Changed
 
 - Update minor and patch NPM dependencies
+- Support `type` property on the buttons of the `<Dialog.Footer />` core component
 - Update text color on `ProposalVotingBodyContent` module component
 
 ## [1.0.57] - 2024-11-29

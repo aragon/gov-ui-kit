@@ -4,7 +4,7 @@ import { Button, type IButtonBaseProps } from '../../../button';
 
 export type IDialogFooterAction = (
     | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
-    | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>
+    | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick' | 'type'>
 ) &
     Pick<IButtonBaseProps, 'iconRight' | 'iconLeft' | 'disabled' | 'isLoading'> & {
         /**

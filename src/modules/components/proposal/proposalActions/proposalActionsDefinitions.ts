@@ -23,11 +23,15 @@ export interface IProposalActionInputDataParameter {
     /**
      * The value of the argument being passed.
      */
-    value: string | number;
+    value: unknown;
     /**
      * The NatSpec notice for the parameter on the contract.
      */
     notice?: string;
+    /**
+     * Array of parameters for "tuple" type.
+     */
+    components?: Array<Omit<IProposalActionInputDataParameter, 'value'>>;
 }
 
 export interface IProposalActionInputData {
@@ -39,6 +43,10 @@ export interface IProposalActionInputData {
      * The name of the contract to interact with.
      */
     contract: string;
+    /**
+     * State mutability of the function (e.g. pure or payable).
+     */
+    stateMutability?: string;
     /**
      * The parameters to pass to the function.
      */
