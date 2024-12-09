@@ -30,16 +30,6 @@ describe('<ProposalActionUpdatePluginMetadata /> component', () => {
     });
 
     it('renders the additional key term for process updates', () => {
-        const proposedMetadata = {
-            name: 'Proposed Name',
-            description: 'Proposed DAO description',
-            key: 'Proposed Key',
-            links: [
-                { label: 'Proposed Link 1', href: 'https://proposed-link1.com' },
-                { label: 'Proposed Link 2', href: 'https://proposed-link2.com' },
-            ],
-        };
-
         const existingMetadata = {
             name: 'Existing Name',
             description: 'Existing DAO description',
@@ -50,7 +40,7 @@ describe('<ProposalActionUpdatePluginMetadata /> component', () => {
             ],
         };
 
-        const action = generateProposalActionUpdatePluginMetadata({ proposedMetadata, existingMetadata });
+        const action = generateProposalActionUpdatePluginMetadata({ existingMetadata });
 
         render(createTestComponent({ action }));
         expect(screen.getByText(modulesCopy.proposalActionsUpdatePluginMetadata.keyTerm)).toBeInTheDocument();
