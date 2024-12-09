@@ -83,6 +83,14 @@ export const modulesCopy = {
         existingToggle: 'Existing',
         proposedToggle: 'Proposed',
     },
+    proposalActionsUpdatePluginMetadata: {
+        nameTerm: 'Name',
+        resourcesTerm: 'Resources',
+        summaryTerm: 'Summary',
+        keyTerm: 'Key',
+        existingToggle: 'Existing',
+        proposedToggle: 'Proposed',
+    },
     proposalActionsTokenMint: {
         summaryHeading: 'Summary',
         newTokensTerm: 'New tokens',
