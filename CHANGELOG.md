@@ -7,16 +7,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix color of body name on `<ProposalVoting.BodyContext />` module component
+
 ## [1.0.58] - 2024-12-06
 
 ### Added
 
 - Update `ProposalActions` module component to improve rendering of decoded parameters and support and "edit" mode
   through the `editMode` property
-
-### Fixed
-
-- Fix color of body name on `<ProposalVoting.BodyContext />` module component
 
 ### Changed
 
