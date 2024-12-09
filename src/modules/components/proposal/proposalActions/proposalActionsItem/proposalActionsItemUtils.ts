@@ -32,6 +32,10 @@ class ProposalActionsItemUtils {
             action.type === ProposalActionType.CHANGE_SETTINGS_TOKENVOTE
         );
     };
+
+    isUpdatePluginMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
+        return action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
+    };
 }
 
 export const proposalActionsItemUtils = new ProposalActionsItemUtils();

@@ -51,5 +51,9 @@ export const ProposalActionsItemBasicView = <TAction extends IProposalAction = I
         return <ProposalActionChangeSettings action={action} {...commonProps} />;
     }
 
+    if (proposalActionsItemUtils.isUpdatePluginMetadataAction(action)) {
+        return <ProposalActionUpdateMetadata action={action} {...commonProps} />;
+    }
+
     return null;
 };
