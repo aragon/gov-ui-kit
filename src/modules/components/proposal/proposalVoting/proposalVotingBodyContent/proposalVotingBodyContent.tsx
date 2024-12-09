@@ -55,7 +55,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     >
                         {copy.proposalVotingBodyContent.back}
                     </Button>
-                    <p className="text-neutral-500">{name}</p>
+                    <p className="text-neutral-800">{name}</p>
                 </>
             )}
             <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status}>
