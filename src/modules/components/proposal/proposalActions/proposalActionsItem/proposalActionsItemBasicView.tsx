@@ -8,6 +8,7 @@ import {
     ProposalActionChangeSettings,
     ProposalActionTokenMint,
     ProposalActionUpdateMetadata,
+    ProposalActionUpdatePluginMetadata,
     ProposalActionWithdrawToken,
 } from '../proposalActionsList';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
@@ -52,7 +53,7 @@ export const ProposalActionsItemBasicView = <TAction extends IProposalAction = I
     }
 
     if (proposalActionsItemUtils.isUpdatePluginMetadataAction(action)) {
-        return <ProposalActionUpdateMetadata action={action} {...commonProps} />;
+        return <ProposalActionUpdatePluginMetadata action={action} {...commonProps} />;
     }
 
     return null;

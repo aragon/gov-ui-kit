@@ -4,6 +4,7 @@ import type {
     IProposalActionChangeSettings,
     IProposalActionTokenMint,
     IProposalActionUpdateMetadata,
+    IProposalActionUpdatePluginMetadata,
     IProposalActionWithdrawToken,
 } from '../proposalActionsList';
 
@@ -33,7 +34,9 @@ class ProposalActionsItemUtils {
         );
     };
 
-    isUpdatePluginMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
+    isUpdatePluginMetadataAction = (
+        action: Partial<IProposalAction>,
+    ): action is IProposalActionUpdatePluginMetadata => {
         return action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
     };
 }

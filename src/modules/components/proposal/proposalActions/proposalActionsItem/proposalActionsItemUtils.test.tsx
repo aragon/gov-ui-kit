@@ -4,6 +4,7 @@ import {
     generateProposalActionChangeSettings,
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
+    generateProposalActionUpdatePluginMetadata,
     generateProposalActionWithdrawToken,
 } from '../proposalActionsList';
 import { generateProposalAction } from '../proposalActionsTestUtils';
@@ -61,6 +62,18 @@ describe('ProposalActions utils', () => {
             expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeFalsy();
         });
     });
+
+        describe('isUpdatePluginMetadataAction', () => {
+            it('returns true for update metadata action', () => {
+                const action = generateProposalActionUpdatePluginMetadata();
+                expect(proposalActionsItemUtils.isUpdatePluginMetadataAction(action)).toBeTruthy();
+            });
+
+            it('returns false for other actions', () => {
+                const action = generateProposalActionChangeMembers();
+                expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeFalsy();
+            });
+        });
 
     describe('isTokenMintAction', () => {
         it('returns true for token mint action', () => {
