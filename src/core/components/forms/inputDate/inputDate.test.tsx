@@ -45,7 +45,7 @@ describe('<InputDate /> component', () => {
         const user = userEvent.setup();
         const showPicker = jest.fn();
         useRefMock.mockReturnValue({ current: { showPicker } });
-        mergeRefMock.mockReturnValue(() => null);
+        mergeRefMock.mockReturnValue(() => undefined);
         render(createTestComponent());
 
         const calendarButton = screen.getByRole('button');
