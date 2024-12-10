@@ -2,8 +2,8 @@ import { create } from '@storybook/theming';
 
 export default create({
     base: 'light',
-    brandTitle: 'Aragon Governance UI Kit',
-    brandUrl: 'https://aragon.org',
+    brandTitle: 'Governance UI Kit',
+    brandUrl: 'https://devs.aragon.org',
     brandImage: 'https://i.postimg.cc/RVVSGThD/logo.png',
     brandTarget: '_blank',
     colorPrimary: '#003bf5',
