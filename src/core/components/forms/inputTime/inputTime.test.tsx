@@ -34,7 +34,7 @@ describe('<InputTime /> component', () => {
         const user = userEvent.setup();
         const showPicker = jest.fn();
         useRefMock.mockReturnValue({ current: { showPicker } });
-        mergeRefMock.mockReturnValue(() => null);
+        mergeRefMock.mockReturnValue(() => undefined);
 
         render(createTestComponent());
         const timeButton = screen.getByRole('button');
