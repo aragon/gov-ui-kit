@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
 
+### Changed
+
+- Update minor and patch NPM dependencies
+
 ## [1.0.58] - 2024-12-06
 
 ### Added
