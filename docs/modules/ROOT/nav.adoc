@@ -1,2 +1,0 @@
-* xref:index.adoc[Overview]
-* xref:how-it-works/index.adoc[How it works]
