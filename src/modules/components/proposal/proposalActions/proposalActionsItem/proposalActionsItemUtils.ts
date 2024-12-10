@@ -19,7 +19,10 @@ class ProposalActionsItemUtils {
     };
 
     isUpdateMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
-        return action.type === ProposalActionType.UPDATE_METADATA;
+        return (
+            action.type === ProposalActionType.UPDATE_METADATA ||
+            action.type === ProposalActionType.UPDATE_PLUGIN_METADATA
+        );
     };
 
     isTokenMintAction = (action: Partial<IProposalAction>): action is IProposalActionTokenMint => {

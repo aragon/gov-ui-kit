@@ -19,11 +19,15 @@ export interface IProposalActionUpdateMetadataDaoMetadata {
     /**
      * Logo url of the DAO.
      */
-    logo: string;
+    logo?: string;
     /**
      *  Name of the DAO.
      */
     name: string;
+    /**
+     * Process key.
+     */
+    key?: string;
     /**
      * DAO Description.
      */
@@ -38,7 +42,7 @@ export interface IProposalActionUpdateMetadata extends IProposalAction {
     /**
      * UpdateMetadata action.
      */
-    type: ProposalActionType.UPDATE_METADATA;
+    type: ProposalActionType.UPDATE_METADATA | ProposalActionType.UPDATE_PLUGIN_METADATA;
     /**
      * Proposed metadata.
      */
