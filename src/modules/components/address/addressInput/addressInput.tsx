@@ -59,6 +59,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
+    const onAcceptRef = useRef(onAccept);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
     const processedChainId = chainId ?? wagmiConfig.chains[0].id;
@@ -140,19 +141,21 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             return;
         }
 
+        const handleAccept = onAcceptRef.current;
+
         if (ensAddress) {
             // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
-            onAccept?.({ address: ensAddress, name: normalizedEns });
+            handleAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress) {
             // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
-            onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
+            handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
             // User input is not a valid address nor ENS name
-            onAccept?.(undefined);
+            handleAccept?.(undefined);
         }
-    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading, onAccept]);
+    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
