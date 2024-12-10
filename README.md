@@ -1,15 +1,15 @@
 # Governance UI Kit
 
-The Aragon Governance UI Kit is an open source and human-centric design system specifically designed for the
-Aragon App. It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces,
+The Aragon Governance UI Kit is an open source and human-centric design system specifically designed for
+OSx-based onchain organizations. It provides a unified and easy-to-use framework for creating visually consistent and engaging interfaces,
 prioritizing user experience throughout the Aragon ecosystem.
 
-**NOTE**: The Aragon Governance UI Kit library is currently in pre-alpha stage; breaking changes are likely to occur.
+**NOTE**: The Governance UI Kit library is currently in pre-alpha stage; breaking changes are likely to occur.
 
 ## Installation
 
-Visit the [Installation documentation page](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) to
-correctly install, setup and use the library.
+Visit the [Installation](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) documentation page for instructions how to
+correctly install, setup, and use the library.
 
 ## Contributing 
 
@@ -19,7 +19,7 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-The Aragon Governance UI Kit is released under the [GPL-V3 License](./LICENSE).
+The Governance UI Kit is released under the [GPL-V3 License](./LICENSE).
 
 ---
 
