@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Fixed
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
-- Fix rerender issue on `<AddressInput />` module component when `onAccept` property changes on every rerender
+- Fix re-render issue on `<AddressInput />` module component when `onAccept` prop changes on every render
 
 ### Changed
 
