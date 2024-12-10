@@ -41,7 +41,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
                 assetIconSrc: action.token.logo,
                 hash: '',
             }),
-            expect.any(Object),
+            undefined,
         );
     });
 });
