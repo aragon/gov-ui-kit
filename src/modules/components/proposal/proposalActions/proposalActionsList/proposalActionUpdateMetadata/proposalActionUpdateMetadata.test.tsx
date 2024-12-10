@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../../assets';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
 import { generateProposalActionUpdateMetadata } from './proposalActionUpdateMetadata.testUtils';
-import { ProposalActionType } from '../../proposalActionsDefinitions';
 
 describe('<ProposalActionUpdateMetadata /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionUpdateMetadataProps>) => {

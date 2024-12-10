@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Avatar, DefinitionList, IconType, Link, Toggle, ToggleGroup } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
-import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
+import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
 
 export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadataProps> = (props) => {
     const [toggleValue, setToggleValue] = useState<string | undefined>('existingMetadata');

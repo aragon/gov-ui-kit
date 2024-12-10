@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 import { generateProposalActionUpdateMetadata } from './proposalActionUpdateMetadata.testUtils';
-import { ProposalActionType } from '../../proposalActionsDefinitions';
 
 const meta: Meta<typeof ProposalActionUpdateMetadata> = {
     title: 'Modules/Components/Proposal/ProposalActions/Actions/UpdateMetadata',
