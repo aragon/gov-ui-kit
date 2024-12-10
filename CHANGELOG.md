@@ -7,9 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Added
+### Changed
 
-- Added `ProposalActionUpdatePluginMetadata` module component for native actions for updating plugin/process metadata
+- Update `<ProposalActionUpdateMetadata />` module component to support "UpdatePluginMetadata" native action
 
 ### Fixed
 

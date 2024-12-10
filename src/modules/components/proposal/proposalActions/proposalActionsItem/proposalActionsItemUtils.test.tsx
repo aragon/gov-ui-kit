@@ -4,7 +4,6 @@ import {
     generateProposalActionChangeSettings,
     generateProposalActionTokenMint,
     generateProposalActionUpdateMetadata,
-    generateProposalActionUpdatePluginMetadata,
     generateProposalActionWithdrawToken,
 } from '../proposalActionsList';
 import { generateProposalAction } from '../proposalActionsTestUtils';
@@ -52,26 +51,21 @@ describe('ProposalActions utils', () => {
     });
 
     describe('isUpdateMetadataAction', () => {
-        it('returns true for update metadata action', () => {
+        it('returns true for update dao metadata action', () => {
             const action = generateProposalActionUpdateMetadata();
+            expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeTruthy();
+        });
+
+        it('returns true for update plugin metadata action', () => {
+            const action = generateProposalActionUpdateMetadata({
+                type: ProposalActionType.UPDATE_PLUGIN_METADATA,
+            });
             expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeTruthy();
         });
 
         it('returns false for other actions', () => {
             const action = generateProposalActionChangeMembers();
             expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeFalsy();
-        });
-    });
-
-    describe('isUpdatePluginMetadataAction', () => {
-        it('returns true for update plugin metadata action', () => {
-            const action = generateProposalActionUpdatePluginMetadata();
-            expect(proposalActionsItemUtils.isUpdatePluginMetadataAction(action)).toBeTruthy();
-        });
-
-        it('returns false for other actions', () => {
-            const action = generateProposalActionChangeMembers();
-            expect(proposalActionsItemUtils.isUpdatePluginMetadataAction(action)).toBeFalsy();
         });
     });
 

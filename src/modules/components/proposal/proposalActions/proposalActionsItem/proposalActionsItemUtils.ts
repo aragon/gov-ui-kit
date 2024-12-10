@@ -4,7 +4,6 @@ import type {
     IProposalActionChangeSettings,
     IProposalActionTokenMint,
     IProposalActionUpdateMetadata,
-    IProposalActionUpdatePluginMetadata,
     IProposalActionWithdrawToken,
 } from '../proposalActionsList';
 
@@ -20,7 +19,10 @@ class ProposalActionsItemUtils {
     };
 
     isUpdateMetadataAction = (action: Partial<IProposalAction>): action is IProposalActionUpdateMetadata => {
-        return action.type === ProposalActionType.UPDATE_METADATA;
+        return (
+            action.type === ProposalActionType.UPDATE_METADATA ||
+            action.type === ProposalActionType.UPDATE_PLUGIN_METADATA
+        );
     };
 
     isTokenMintAction = (action: Partial<IProposalAction>): action is IProposalActionTokenMint => {
@@ -32,12 +34,6 @@ class ProposalActionsItemUtils {
             action.type === ProposalActionType.CHANGE_SETTINGS_MULTISIG ||
             action.type === ProposalActionType.CHANGE_SETTINGS_TOKENVOTE
         );
-    };
-
-    isUpdatePluginMetadataAction = (
-        action: Partial<IProposalAction>,
-    ): action is IProposalActionUpdatePluginMetadata => {
-        return action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
     };
 }
 
