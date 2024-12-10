@@ -29,7 +29,7 @@ The Aragon Governance UI Kit is released under the [GPL-V3 License](./LICENSE).
   <a href="https://discord.com/invite/AhzsGmh7fK">Help</a>
   <span>&nbsp;|&nbsp;</span>
   <a href="https://aragon.org/privacy-policy">Privacy</a>
-  <span>&nbsp;|&nbsp;</span
+  <span>&nbsp;|&nbsp;</span>
   <a href="https://aragon.org/terms-and-conditions">Terms of Service</a>
   <span>&nbsp;|&nbsp;</span
 </p>
