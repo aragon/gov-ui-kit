@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
 
+### Changed
+
+- Update minor and patch NPM dependencies
+- Bump `nanoid` from 3.3.7 to 3.3.8
+- Bump `react` and `react-dom` internal dependencies to v19
+
 ## [1.0.58] - 2024-12-06
 
 ### Added

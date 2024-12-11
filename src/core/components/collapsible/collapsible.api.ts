@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 
 export type CollapsedSize = 'sm' | 'md' | 'lg';
 
-export interface ICollapsibleProps extends ComponentProps<'div'> {
+export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle'> {
     /**
      * The initial height of the collapsible container while closed.
      * @default md

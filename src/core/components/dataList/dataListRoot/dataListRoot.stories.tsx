@@ -148,8 +148,8 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     const [activeSort, setActiveSort] = useState('id_asc');
     const [users, setUsers] = useState({ total: 0, items: [] as number[] });
 
-    const requestTimeout = useRef<NodeJS.Timeout>();
-    const dbUsers = useRef<number[]>();
+    const requestTimeout = useRef<NodeJS.Timeout>(undefined);
+    const dbUsers = useRef<number[]>(undefined);
 
     const sortItems = useMemo(
         () => [
