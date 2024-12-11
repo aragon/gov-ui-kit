@@ -21,7 +21,7 @@ export interface IProposalActionUpdateMetadataDaoMetadata {
      */
     logo?: string;
     /**
-     *  Name of the DAO, Plugin or Process.
+     *  Name of the DAO or Plugin.
      */
     name: string;
     /**
