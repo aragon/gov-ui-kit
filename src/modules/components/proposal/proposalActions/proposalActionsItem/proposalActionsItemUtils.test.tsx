@@ -51,8 +51,15 @@ describe('ProposalActions utils', () => {
     });
 
     describe('isUpdateMetadataAction', () => {
-        it('returns true for update metadata action', () => {
+        it('returns true for UPDATE_METADATA action', () => {
             const action = generateProposalActionUpdateMetadata();
+            expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeTruthy();
+        });
+
+        it('returns true for UPDATE_PLUGIN_METADATA action', () => {
+            const action = generateProposalActionUpdateMetadata({
+                type: ProposalActionType.UPDATE_PLUGIN_METADATA,
+            });
             expect(proposalActionsItemUtils.isUpdateMetadataAction(action)).toBeTruthy();
         });
 

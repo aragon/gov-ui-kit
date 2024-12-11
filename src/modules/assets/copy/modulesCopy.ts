@@ -80,6 +80,8 @@ export const modulesCopy = {
         nameTerm: 'Name',
         linkTerm: 'Links',
         descriptionTerm: 'Description',
+        summaryTerm: 'Summary',
+        processKeyTerm: 'Process Key',
         existingToggle: 'Existing',
         proposedToggle: 'Proposed',
     },

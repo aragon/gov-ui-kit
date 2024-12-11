@@ -42,6 +42,7 @@ describe('<ProposalActionsItemBasicView /> component', () => {
         { type: ProposalActionType.ADD_MEMBERS, testId: 'change-members-mock' },
         { type: ProposalActionType.REMOVE_MEMBERS, testId: 'change-members-mock' },
         { type: ProposalActionType.UPDATE_METADATA, testId: 'update-metadata-mock' },
+        { type: ProposalActionType.UPDATE_PLUGIN_METADATA, testId: 'update-metadata-mock' },
     ])('renders $type component when action is of $type type', ({ type, testId }) => {
         const action = generateProposalAction({ type });
         render(createTestComponent({ action }));

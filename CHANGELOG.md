@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Update `<ProposalActionUpdateMetadata />` module component to support "UpdatePluginMetadata" native action
+
 ### Fixed
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component

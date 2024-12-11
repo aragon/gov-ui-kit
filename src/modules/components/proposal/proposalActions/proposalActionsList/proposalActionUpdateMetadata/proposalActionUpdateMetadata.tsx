@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Avatar, DefinitionList, IconType, Link, Toggle, ToggleGroup } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
+import { ProposalActionType } from '../../proposalActionsDefinitions';
 import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
 
 export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadataProps> = (props) => {
@@ -8,6 +9,11 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
     const { action } = props;
     const { proposedMetadata, existingMetadata } = action;
     const metadataToDisplay = toggleValue === 'proposedMetadata' ? proposedMetadata : existingMetadata;
+
+    const isDaoMetadataAction = action.type === ProposalActionType.UPDATE_METADATA;
+    const isPluginMetadataAction = action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
+
+    const descriptionTermLabel = isDaoMetadataAction ? 'descriptionTerm' : 'summaryTerm';
 
     return (
         <div className="flex w-full flex-col gap-2">
@@ -17,16 +23,23 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
             </ToggleGroup>
 
             <DefinitionList.Container>
-                <DefinitionList.Item
-                    className="md:items-center"
-                    term={modulesCopy.proposalActionsUpdateMetadata.logoTerm}
-                >
-                    <Avatar alt="dao-logo" src={metadataToDisplay.logo} responsiveSize={{ md: 'md', sm: 'sm' }} />
-                </DefinitionList.Item>
+                {isDaoMetadataAction && (
+                    <DefinitionList.Item
+                        className="md:items-center"
+                        term={modulesCopy.proposalActionsUpdateMetadata.logoTerm}
+                    >
+                        <Avatar alt="dao-logo" src={metadataToDisplay.logo} responsiveSize={{ md: 'md', sm: 'sm' }} />
+                    </DefinitionList.Item>
+                )}
                 <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.nameTerm}>
                     <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.name}</p>
                 </DefinitionList.Item>
-                <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.descriptionTerm}>
+                {isPluginMetadataAction && existingMetadata.processKey && (
+                    <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.processKeyTerm}>
+                        <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.processKey}</p>
+                    </DefinitionList.Item>
+                )}
+                <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata[descriptionTermLabel]}>
                     <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.description}</p>
                 </DefinitionList.Item>
                 <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.linkTerm}>
