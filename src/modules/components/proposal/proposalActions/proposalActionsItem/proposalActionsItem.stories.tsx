@@ -34,9 +34,9 @@ const meta: Meta<typeof ProposalActions.Item> = {
 type Story = StoryObj<typeof ProposalActions.Item>;
 
 /**
- * For verified actions, the ProposalActions.Item component renders the DECODED view by default and disables the basic view.
+ * For verified actions with parameters, the ProposalActions.Item component renders the DECODED view by default and disables the BASIC view.
  */
-export const Verified: Story = {
+export const VerifiedDecoded: Story = {
     render: defaultRender,
     args: {
         index: 0,
@@ -82,7 +82,27 @@ export const Verified: Story = {
 };
 
 /**
- * For unverified actions, the ProposalActions.Item component renders the RAW view by default and disables the decoded and basic views.
+ * For verified actions without parameters, the ProposalActions.Item component renders the RAW view by default and disables the DECODED and BASIC views.
+ */
+export const VerifiedRaw: Story = {
+    render: defaultRender,
+    args: {
+        index: 0,
+        action: generateProposalAction({
+            value: '100000000000',
+            data: '0x',
+            to: '0x767f4616E322e36AF4d2d63f0b35c256545b25C9',
+            inputData: {
+                function: 'depositETH',
+                contract: 'UniBridge',
+                parameters: [],
+            },
+        }),
+    },
+};
+
+/**
+ * For unverified actions, the ProposalActions.Item component renders the RAW view by default and disables the DECODED and BASIC views.
  */
 export const Unverified: Story = {
     render: defaultRender,
@@ -135,9 +155,9 @@ export const Native: Story = {
 };
 
 /**
- * Actions are marked as critical if they are not native transfers but have a value greater than 0.
+ * Actions are displayed with a warning feedback if they are not native transfers but have a value greater than 0.
  */
-export const Critical: Story = {
+export const Warning: Story = {
     render: defaultRender,
     args: {
         index: 0,

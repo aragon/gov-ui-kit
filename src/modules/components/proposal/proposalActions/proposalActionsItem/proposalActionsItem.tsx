@@ -32,12 +32,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const itemRef = useRef<HTMLDivElement>(null);
 
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
+
     const isAbiAvailable = action.inputData != null;
+    const supportsDecodedView = isAbiAvailable && action.inputData?.parameters.length;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
             ? 'BASIC'
-            : isAbiAvailable
+            : supportsDecodedView
               ? ProposalActionsDecoderView.DECODED
               : ProposalActionsDecoderView.RAW,
     );
@@ -51,25 +53,18 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
-    const headerIcon = displayValueWarning
-        ? { icon: IconType.CRITICAL, className: 'text-critical-500' }
-        : { icon: IconType.WARNING, className: 'text-warning-500' };
-
-    const functionNameStyle = displayValueWarning
-        ? 'text-critical-800'
-        : !isAbiAvailable
-          ? 'text-warning-800'
-          : 'text-neutral-800';
+    const displayWarningFeedback = displayValueWarning || !isAbiAvailable;
+    const functionNameStyle = displayWarningFeedback ? 'text-warning-800' : 'text-neutral-800';
 
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
-        { mode: ProposalActionsDecoderView.DECODED, disabled: !isAbiAvailable },
+        { mode: ProposalActionsDecoderView.DECODED, disabled: !supportsDecodedView },
         { mode: ProposalActionsDecoderView.RAW },
     ];
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
     const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
-    const rawViewMode = editMode && !isAbiAvailable ? EDIT : editMode ? WATCH : READ;
+    const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
         <Accordion.Item value={index.toString()} ref={itemRef}>
@@ -79,8 +74,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <p className={classNames('text-base font-normal leading-tight md:text-lg', functionNameStyle)}>
                             {action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
                         </p>
-                        {(!isAbiAvailable || displayValueWarning) && (
-                            <Icon icon={headerIcon.icon} size="md" className={headerIcon.className} />
+                        {displayWarningFeedback && (
+                            <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
                         )}
                     </div>
                     <div className="flex items-center gap-2 md:gap-3">
@@ -97,7 +92,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard
-                            variant="critical"
+                            variant="warning"
                             message={copy.proposalActionsItem.nativeSendAlert}
                             description={copy.proposalActionsItem.nativeSendDescription(formattedValue)}
                         />

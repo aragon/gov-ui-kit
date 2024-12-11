@@ -109,8 +109,18 @@ describe('<ProposalActionsItem /> component', () => {
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
     });
 
-    it('defaults the view-mode to decoded and read mode when action has no custom component and is verified', async () => {
+    it('defaults the view-mode to raw and read mode when action has no custom component, is verified but has no parameters', async () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
+        render(createTestComponent({ action }));
+        await userEvent.click(screen.getByRole('button'));
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
+    });
+
+    it('defaults the view-mode to decoded and read mode when action has no custom component, is verified and has parameters', async () => {
+        const params = [{ name: 'test', type: 'uint', value: '' }];
+        const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: params } });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
         const actionDecoder = screen.getByTestId('decoder-mock');
@@ -140,17 +150,18 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
     });
 
-    it('renders a critical icon and alert when action value is not zero and action is not a native transfer', async () => {
+    it('renders a warning icon and alert when action value is not zero and action is not a native transfer', async () => {
         const action = generateProposalAction({ value: '1000000000000000000', data: '0xabc' });
         render(createTestComponent({ action }));
-        expect(screen.getByTestId(IconType.CRITICAL)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendAlert)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendDescription('1')));
     });
 
     it('updates active view on view-mode change', async () => {
-        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        const params = [{ name: 'amount', type: 'uint', value: null }];
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
@@ -190,7 +201,8 @@ describe('<ProposalActionsItem /> component', () => {
     });
 
     it('renders the decoded-view in edit mode when editMode prop is true and action does not support basic view', () => {
-        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        const params = [{ name: 'param', type: 'address', value: '' }];
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         isActionSupportedSpy.mockReturnValue(false);
         render(createTestComponent({ action, editMode: true }));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
@@ -198,7 +210,8 @@ describe('<ProposalActionsItem /> component', () => {
     });
 
     it('renders the decoded-view in watch mode when editMode prop is true and action supports basic view', async () => {
-        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        const params = [{ name: 'amount', type: 'uint', value: null }];
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         isActionSupportedSpy.mockReturnValue(true);
         render(createTestComponent({ action, editMode: true }));
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
@@ -215,7 +228,8 @@ describe('<ProposalActionsItem /> component', () => {
     });
 
     it('renders the raw-view in watch mode when editMode prop is true and action supports decoded view', async () => {
-        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: [] } });
+        const params = [{ name: 'amount', type: 'uint', value: null }];
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         isActionSupportedSpy.mockReturnValue(true);
         render(createTestComponent({ action, editMode: true }));
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
