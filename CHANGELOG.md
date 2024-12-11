@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.59] - 2024-12-11
+
 ### Fixed
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
