@@ -76,7 +76,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             const existingMetadata = {
                 name: 'Existing Name',
                 description: 'Existing DAO description',
-                key: 'Existing Key',
+                processKey: 'Existing Key',
                 links: [
                     { label: 'Existing Link 1', href: 'https://existing-link1.com' },
                     { label: 'Existing Link 2', href: 'https://existing-link2.com' },
@@ -96,7 +96,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             const proposedMetadata = {
                 name: 'Proposed Name',
                 description: 'Proposed DAO description',
-                key: 'Proposed Key',
+                processKey: 'Proposed Key',
                 links: [
                     { label: 'Proposed Link 1', href: 'https://proposed-link1.com' },
                     { label: 'Proposed Link 2', href: 'https://proposed-link2.com' },
@@ -106,7 +106,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             const existingMetadata = {
                 name: 'Existing Name',
                 description: 'Existing DAO description',
-                key: 'Existing Key',
+                processKey: 'Existing Key',
                 links: [
                     { label: 'Existing Link 1', href: 'https://existing-link1.com' },
                     { label: 'Existing Link 2', href: 'https://existing-link2.com' },
