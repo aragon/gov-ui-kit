@@ -17,7 +17,7 @@ export interface IProposalActionUpdateMetadataDaoMetadataLink {
 
 export interface IProposalActionUpdateMetadataDaoMetadata {
     /**
-     * Logo url of the DAO.
+     * URL of the logo, only set for DAO metadata.
      */
     logo?: string;
     /**
@@ -25,11 +25,11 @@ export interface IProposalActionUpdateMetadataDaoMetadata {
      */
     name: string;
     /**
-     * Process key.
+     * Process key, only set for Plugin process metadata
      */
     processKey?: string;
     /**
-     * Description of the DAO, plugin or process.
+     * Description of the DAO, plugin.
      */
     description: string;
     /**
