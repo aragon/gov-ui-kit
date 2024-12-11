@@ -7,16 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Changed
-
-- Update `<ProposalActionUpdateMetadata />` module component to support "UpdatePluginMetadata" native action
-
 ### Fixed
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
+- Fix re-render issue on `<AddressInput />` module component when `onAccept` prop changes on every render
+- Update `<CheckboxCard />` core component to set full-width to `children` property wrapper
 
 ### Changed
 
+- Update `<ProposalActionUpdateMetadata />` module component to support "UpdatePluginMetadata" native action
 - Update minor and patch NPM dependencies
 - Bump `nanoid` from 3.3.7 to 3.3.8
 - Bump `react` and `react-dom` internal dependencies to v19
