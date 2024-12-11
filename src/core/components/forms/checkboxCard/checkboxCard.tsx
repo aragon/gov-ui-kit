@@ -129,7 +129,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                     />
                 </RadixCheckbox.Indicator>
             </div>
-            {children && <div className="hidden group-data-[state=checked]:block">{children}</div>}
+            {children && <div className="hidden w-full group-data-[state=checked]:block">{children}</div>}
         </RadixCheckbox.Root>
     );
 });

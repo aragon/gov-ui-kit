@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
 - Fix re-render issue on `<AddressInput />` module component when `onAccept` prop changes on every render
+- Update `<CheckboxCard />` core component to set full-width to `children` property wrapper
 
 ### Changed
 
