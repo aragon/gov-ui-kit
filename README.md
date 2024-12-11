@@ -13,7 +13,9 @@ The Aragon Governance UI Kit is an open source and human-centric design system s
 
 ## Designers
 
-Designers can access the UI Kit in [Figma](https://www.figma.com/community/file/1228026689149097807) to explore and adapt components for their own components and use cases. This Storybook reflects the latest design tokens, styles, and components, so should be considered the "source of truth".
+Designers can access the UI Kit in Figma to explore and adapt components for their own components and use cases. This Storybook reflects the latest design tokens, styles, and components, so should be considered the "source of truth".
+
+[Open in Figma](https://www.figma.com/community/file/1228026689149097807)
 
 ## Getting started building an application
 
