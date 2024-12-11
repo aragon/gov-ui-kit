@@ -1,6 +1,0 @@
-name: gov-ui-kit
-title: Governance UI Kit
-version: 1.x
-prerelease: false
-nav:
-  - modules/ROOT/nav.adoc
