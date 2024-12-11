@@ -67,21 +67,21 @@ export const Plugin: Story = {
 };
 
 /**
- * Usage example of the ProposalActions module component with mocked UpdatePluginMetadata actions for a process.
+ * Usage example of the ProposalActions module component with mocked UpdatePluginMetadata actions for a process plugin.
  */
-export const Process: Story = {
+export const ProcessPlugin: Story = {
     args: {
         action: generateProposalActionUpdateMetadata({
             type: ProposalActionType.UPDATE_PLUGIN_METADATA,
             existingMetadata: {
                 name: 'Core',
-                key: 'CRE',
+                processKey: 'CRE',
                 description: 'Some non helpful description',
                 links: [{ label: 'Aragon DAO', href: 'https://aragon.org/' }],
             },
             proposedMetadata: {
                 name: 'Core',
-                key: 'CRE',
+                processKey: 'CRE',
                 description:
                     'Core proposals are the primary governance process of Patito DAO. Grants and protocol upgrades both require proposals to pass in a Core  proposal process.',
                 links: [

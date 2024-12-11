@@ -81,7 +81,7 @@ export const modulesCopy = {
         linkTerm: 'Links',
         descriptionTerm: 'Description',
         summaryTerm: 'Summary',
-        keyTerm: 'Process Key',
+        processKeyTerm: 'Process Key',
         existingToggle: 'Existing',
         proposedToggle: 'Proposed',
     },

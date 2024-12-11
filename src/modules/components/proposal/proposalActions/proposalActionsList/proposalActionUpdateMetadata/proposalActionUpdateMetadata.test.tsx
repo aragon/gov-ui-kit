@@ -88,7 +88,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             });
 
             render(createTestComponent({ action }));
-            expect(screen.getByText(modulesCopy.proposalActionsUpdateMetadata.keyTerm)).toBeInTheDocument();
+            expect(screen.getByText(modulesCopy.proposalActionsUpdateMetadata.processKeyTerm)).toBeInTheDocument();
             expect(screen.getByText(modulesCopy.proposalActionsUpdateMetadata.summaryTerm)).toBeInTheDocument();
         });
 

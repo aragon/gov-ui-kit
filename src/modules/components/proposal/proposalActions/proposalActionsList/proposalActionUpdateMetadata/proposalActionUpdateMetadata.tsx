@@ -10,10 +10,10 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
     const { proposedMetadata, existingMetadata } = action;
     const metadataToDisplay = toggleValue === 'proposedMetadata' ? proposedMetadata : existingMetadata;
 
-    const daoMetadataAction = action.type === ProposalActionType.UPDATE_METADATA;
-    const pluginMetadataAction = action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
+    const isDaoMetadataAction = action.type === ProposalActionType.UPDATE_METADATA;
+    const isPluginMetadataAction = action.type === ProposalActionType.UPDATE_PLUGIN_METADATA;
 
-    const descriptionTermLabel = daoMetadataAction ? 'descriptionTerm' : 'summaryTerm';
+    const descriptionTermLabel = isDaoMetadataAction ? 'descriptionTerm' : 'summaryTerm';
 
     return (
         <div className="flex w-full flex-col gap-2">
@@ -23,7 +23,7 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
             </ToggleGroup>
 
             <DefinitionList.Container>
-                {daoMetadataAction && (
+                {isDaoMetadataAction && (
                     <DefinitionList.Item
                         className="md:items-center"
                         term={modulesCopy.proposalActionsUpdateMetadata.logoTerm}
@@ -34,9 +34,9 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
                 <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.nameTerm}>
                     <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.name}</p>
                 </DefinitionList.Item>
-                {pluginMetadataAction && existingMetadata.key && (
-                    <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.keyTerm}>
-                        <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.key}</p>
+                {isPluginMetadataAction && existingMetadata.processKey && (
+                    <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.processKeyTerm}>
+                        <p className="text-base leading-tight text-neutral-800">{metadataToDisplay.processKey}</p>
                     </DefinitionList.Item>
                 )}
                 <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata[descriptionTermLabel]}>
