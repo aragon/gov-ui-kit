@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Update Storybook branding and repository readme file
+- Update `AssetDataListItemStructure` module component to remove the `priceChange` property and related logic for calculating percentage change
 
 ## [1.0.59] - 2024-12-11
 
