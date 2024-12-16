@@ -24,7 +24,6 @@ export const Default: Story = {
         amount: 420.69,
         symbol: 'ETH',
         fiatPrice: 3654.76,
-        priceChange: 15,
     },
 };
 
@@ -38,7 +37,6 @@ export const LongName: Story = {
         amount: 420.69,
         symbol: 'A_REALLY_LONG_SYMBOL_THAT_SHOULD_TRUNCATE_WHEN_NEEDED',
         fiatPrice: 3654.76,
-        priceChange: 15,
     },
 };
 
