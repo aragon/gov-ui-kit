@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Update Storybook branding and repository readme file
 - Bump `softprops/action-gh-release` from 2.1.0 to 2.2.0
+- Bump `@rollup/plugin-node-resolve` from 15.3.0 to 16.0.0
 
 ## [1.0.59] - 2024-12-11
 
