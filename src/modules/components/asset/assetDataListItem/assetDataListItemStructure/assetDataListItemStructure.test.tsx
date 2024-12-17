@@ -26,4 +26,10 @@ describe('<AssetDataListItem.Structure /> component', () => {
         expect(screen.getByText('$12.50K')).toBeInTheDocument();
         expect(screen.getByText(props.amount)).toBeInTheDocument();
     });
+
+    it('renders unknown with fiatPrice is not set', () => {
+        const props = { fiatPrice: undefined };
+        render(createTestComponent(props));
+        expect(screen.getByText('Unknown')).toBeInTheDocument();
+    });
 });

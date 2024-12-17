@@ -8,6 +8,9 @@ export const modulesCopy = {
         clear: 'Clear',
         paste: 'Paste',
     },
+    assetDataListItemStructure: {
+        unknown: 'Unknown',
+    },
     memberDataListItemStructure: {
         yourDelegate: 'Your Delegate',
         you: 'You',
