@@ -41,9 +41,9 @@ export const LongName: Story = {
 };
 
 /**
- *  Usage of the AssetDataListItem without changedAmount and changedPercentage.
+ *  Usage of the AssetDataListItem without fiatPrice.
  */
-export const Fallback: Story = {
+export const UnknownPrice: Story = {
     args: {
         name: 'Ethereum',
         amount: 420.69,
