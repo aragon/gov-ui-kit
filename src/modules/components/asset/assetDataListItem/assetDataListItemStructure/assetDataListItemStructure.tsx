@@ -31,7 +31,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
 
     const { copy } = useGukModulesContext();
 
-    const fiatAmount = Number(amount) * Number(fiatPrice ?? 0);
+    const fiatAmount = Number(amount) * Number(fiatPrice);
 
     const formattedAmount = formatterUtils.formatNumber(amount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -40,7 +40,7 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
 
     const formattedPrice = formatterUtils.formatNumber(fiatAmount, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
-        fallback: '-',
+        fallback: copy.assetDataListItemStructure.unknown,
     });
 
     return (
@@ -52,16 +52,12 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
                 <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block shrink-0" />
                 <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">{name}</span>
             </div>
-            <div className="flex min-w-0 items-end justify-end gap-x-2 text-right">
+            <div className="flex min-w-0 gap-x-2 text-right">
                 <div className="flex min-w-0 flex-col gap-y-1">
-                    <span className="shrink-0 text-base leading-tight text-neutral-800 md:text-lg">
-                        {fiatPrice ? formattedPrice : copy.assetDataListItemStructure.unknown}
-                    </span>
-                    <div className="flex min-w-0 items-center gap-1">
-                        <p className="shrink-0 text-sm leading-tight text-neutral-500 md:text-base">
-                            {formattedAmount}
-                        </p>
-                        <p className="min-w-0 truncate text-sm leading-tight text-neutral-500 md:text-base">{symbol}</p>
+                    <span className="text-base leading-tight text-neutral-800 md:text-lg">{formattedPrice}</span>
+                    <div className="flex items-center gap-1">
+                        <p className="text-sm leading-tight text-neutral-500 md:text-base">{formattedAmount}</p>
+                        <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">{symbol}</p>
                     </div>
                 </div>
             </div>
