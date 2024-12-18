@@ -24,7 +24,6 @@ export const Default: Story = {
         amount: 420.69,
         symbol: 'ETH',
         fiatPrice: 3654.76,
-        priceChange: 15,
     },
 };
 
@@ -38,14 +37,13 @@ export const LongName: Story = {
         amount: 420.69,
         symbol: 'A_REALLY_LONG_SYMBOL_THAT_SHOULD_TRUNCATE_WHEN_NEEDED',
         fiatPrice: 3654.76,
-        priceChange: 15,
     },
 };
 
 /**
- *  Usage of the AssetDataListItem without changedAmount and changedPercentage.
+ *  Usage of the AssetDataListItem without fiatPrice.
  */
-export const Fallback: Story = {
+export const UnknownPrice: Story = {
     args: {
         name: 'Ethereum',
         amount: 420.69,
