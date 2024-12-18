@@ -50,36 +50,20 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
         >
             <div className="flex min-w-0 items-center gap-3">
                 <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block shrink-0" />
-                <div className="flex flex-col gap-y-1 truncate">
-                    <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">{name}</span>
-                    {!fiatPrice && (
-                        <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">
-                            <span>{formattedAmount} </span>
-                            <span className="truncate">{symbol}</span>
-                        </p>
-                    )}
-                </div>
+                <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">{name}</span>
             </div>
             <div className="flex min-w-0 items-end justify-end gap-x-2 text-right">
-                {fiatPrice ? (
-                    <div className="flex min-w-0 flex-col gap-y-1">
-                        <span className="shrink-0 text-base leading-tight text-neutral-800 md:text-lg">
-                            {formattedPrice}
-                        </span>
-                        <div className="flex min-w-0 items-center gap-1">
-                            <p className="shrink-0 text-sm leading-tight text-neutral-500 md:text-base">
-                                {formattedAmount}
-                            </p>
-                            <p className="min-w-0 truncate text-sm leading-tight text-neutral-500 md:text-base">
-                                {symbol}
-                            </p>
-                        </div>
-                    </div>
-                ) : (
-                    <span className="text-sm leading-tight text-neutral-800 md:text-base">
-                        {copy.assetDataListItemStructure.unknown}
+                <div className="flex min-w-0 flex-col gap-y-1">
+                    <span className="shrink-0 text-base leading-tight text-neutral-800 md:text-lg">
+                        {fiatPrice ? formattedPrice : copy.assetDataListItemStructure.unknown}
                     </span>
-                )}
+                    <div className="flex min-w-0 items-center gap-1">
+                        <p className="shrink-0 text-sm leading-tight text-neutral-500 md:text-base">
+                            {formattedAmount}
+                        </p>
+                        <p className="min-w-0 truncate text-sm leading-tight text-neutral-500 md:text-base">{symbol}</p>
+                    </div>
+                </div>
             </div>
         </DataList.Item>
     );
