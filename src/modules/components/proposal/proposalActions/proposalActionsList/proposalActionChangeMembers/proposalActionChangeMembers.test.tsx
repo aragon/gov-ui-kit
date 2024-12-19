@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
+import { GukModulesProvider } from '../../../../gukModulesProvider';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
@@ -15,7 +16,11 @@ describe('<ProposalActionChangeMembers /> component', () => {
             ...props,
         };
 
-        return <ProposalActionChangeMembers {...completeProps} />;
+        return (
+            <GukModulesProvider>
+                <ProposalActionChangeMembers {...completeProps} />
+            </GukModulesProvider>
+        );
     };
 
     it('renders the existing members correctly', () => {
