@@ -1,12 +1,18 @@
 import { DefinitionList, Heading } from '../../../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { MemberDataListItem } from '../../../../member';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 
 export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersProps> = (props) => {
-    const { action } = props;
+    const { action, wagmiConfig, chainId } = props;
     const { copy } = useGukModulesContext();
+
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+
+    const getMemberBlockExplorerLink = (address: string) =>
+        buildEntityUrl({ type: ChainEntityType.ADDRESS, id: address });
 
     return (
         <div className="flex w-full flex-col gap-y-6">
@@ -18,6 +24,8 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                         ensName={member.name}
                         avatarSrc={member.avatarSrc}
                         className="grow basis-60"
+                        href={getMemberBlockExplorerLink(member.address)}
+                        target="_blank"
                     />
                 ))}
             </div>

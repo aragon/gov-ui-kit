@@ -39,7 +39,6 @@ describe('<ProposalActionWithdrawToken /> component', () => {
                 assetAmount: action.amount,
                 assetSymbol: action.token.symbol,
                 assetIconSrc: action.token.logo,
-                hash: '',
             }),
             undefined,
         );

@@ -1,10 +1,14 @@
+import { ChainEntityType, useBlockExplorer } from '../../../../../hooks';
 import { MemberDataListItemStructure } from '../../../../member';
 import type { IProposalActionTokenMintProps } from './proposalActionTokenMint.api';
 
 export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = (props) => {
-    const { action } = props;
+    const { action, wagmiConfig, chainId } = props;
     const { tokenSymbol, receiver } = action;
     const { currentBalance, newBalance, address, name, avatarSrc } = receiver;
+
+    const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
+    const receiverBlockExplorerLink = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: address });
 
     const mintedTokenAmount = +newBalance - +currentBalance;
 
@@ -18,6 +22,8 @@ export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = 
                 tokenAmount={mintedTokenAmount}
                 tokenSymbol={tokenSymbol}
                 hideLabelTokenVoting={true}
+                href={receiverBlockExplorerLink}
+                target="_blank"
             />
         </div>
     );
