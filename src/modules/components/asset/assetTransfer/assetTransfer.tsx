@@ -78,8 +78,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         ? 'hover:border-neutral-200 hover:shadow-neutral-md focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset'
         : '';
 
-    const assetTransferClassNames = classNames(baseClassnames, linkClassnames);
-
     const AssetTransferContent = (
         <>
             <div className="flex items-center space-x-3 md:space-x-4">
@@ -112,12 +110,12 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     href={transactionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={assetTransferClassNames}
+                    className={classNames(baseClassnames, linkClassnames)}
                 >
                     {AssetTransferContent}
                 </LinkBase>
             ) : (
-                <div className={assetTransferClassNames}>{AssetTransferContent}</div>
+                <div className={baseClassnames}>{AssetTransferContent}</div>
             )}
         </div>
     );
