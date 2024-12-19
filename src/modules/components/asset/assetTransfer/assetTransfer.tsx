@@ -74,9 +74,8 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const baseClassnames =
         'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4 md:h-20 md:px-6';
-    const linkClassnames = hash
-        ? 'hover:border-neutral-200 hover:shadow-neutral-md focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset'
-        : '';
+    const linkClassnames =
+        'hover:border-neutral-200 hover:shadow-neutral-md focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset';
 
     const AssetTransferContent = (
         <>
