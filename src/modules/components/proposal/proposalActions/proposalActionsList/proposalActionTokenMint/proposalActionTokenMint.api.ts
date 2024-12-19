@@ -1,4 +1,4 @@
-import type { ICompositeAddress } from '../../../../../types';
+import type { ICompositeAddress, IWeb3ComponentProps } from '../../../../../types';
 import type {
     IProposalAction,
     IProposalActionComponentProps,
@@ -16,19 +16,20 @@ export interface IProposalActionTokenMintMetadataReceiver extends ICompositeAddr
     newBalance: string;
 }
 
-export interface IProposalActionTokenMint extends IProposalAction {
-    /**
-     * Token mint action.
-     */
-    type: ProposalActionType.TOKEN_MINT;
-    /**
-     * Token receivers.
-     */
-    receiver: IProposalActionTokenMintMetadataReceiver;
-    /**
-     * Token Symbol.
-     */
-    tokenSymbol: string;
-}
+export type IProposalActionTokenMint = IProposalAction &
+    IWeb3ComponentProps & {
+        /**
+         * Token mint action.
+         */
+        type: ProposalActionType.TOKEN_MINT;
+        /**
+         * Token receivers.
+         */
+        receiver: IProposalActionTokenMintMetadataReceiver;
+        /**
+         * Token Symbol.
+         */
+        tokenSymbol: string;
+    };
 
 export interface IProposalActionTokenMintProps extends IProposalActionComponentProps<IProposalActionTokenMint> {}

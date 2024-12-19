@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
@@ -33,10 +33,6 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      * Price per asset in fiat.
      */
     assetFiatPrice?: number | string;
-    /**
-     * Transaction hash.
-     */
-    hash: string;
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
@@ -49,7 +45,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         assetSymbol,
         assetFiatPrice,
         chainId,
-        hash,
         wagmiConfig,
     } = props;
 
@@ -57,7 +52,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const transactionUrl = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -74,9 +68,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const assetTransferClassNames = classNames(
         'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base
-        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
-        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        'active:border-neutral-300 active:shadow-none', // active
         'md:h-20 md:px-6', // responsive
     );
 
@@ -95,12 +86,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 />
                 <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
             </div>
-            <LinkBase
-                href={transactionUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={assetTransferClassNames}
-            >
+            <div className={assetTransferClassNames}>
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />
                     <span className="text-sm leading-tight text-neutral-800 md:text-base">{assetName}</span>
@@ -109,7 +95,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
                     <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
                 </div>
-            </LinkBase>
+            </div>
         </div>
     );
 };

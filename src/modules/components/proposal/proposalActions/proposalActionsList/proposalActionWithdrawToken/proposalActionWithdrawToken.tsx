@@ -13,8 +13,6 @@ export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenP
             assetFiatPrice={action.token.priceUsd}
             assetSymbol={action.token.symbol}
             assetIconSrc={action.token.logo}
-            // TODO: Make hash property on AssetTransfer optional (APP-3430)
-            hash=""
             {...web3Props}
         />
     );
