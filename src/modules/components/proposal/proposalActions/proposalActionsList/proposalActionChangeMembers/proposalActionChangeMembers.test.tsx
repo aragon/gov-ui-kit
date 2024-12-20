@@ -6,6 +6,11 @@ import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';
 
+jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', () => ({
+    MemberDataListItemStructure: ({ href }: { href: string }) => (
+        <div data-testid="member-data-list-item" data-href={href} />
+    ),
+}));
 describe('<ProposalActionChangeMembers /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeMembersProps>) => {
         const completeProps: IProposalActionChangeMembersProps = {
@@ -67,7 +72,7 @@ describe('<ProposalActionChangeMembers /> component', () => {
         const action = generateProposalActionChangeMembers({ members });
         render(createTestComponent({ action }));
 
-        const blockExplorerLink = screen.getByRole('link');
-        expect(blockExplorerLink).toHaveAttribute('href', `https://etherscan.io/address/${members[0].address}`);
+        const memberItem = screen.getByTestId('member-data-list-item');
+        expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${members[0].address}`);
     });
 });
