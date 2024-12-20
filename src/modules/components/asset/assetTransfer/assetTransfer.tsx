@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
@@ -18,6 +18,10 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      */
     assetName: string;
     /**
+     * Address of the asset transferred.
+     */
+    assetAddress?: string;
+    /**
      * Icon URL of the transferred asset.
      */
     assetIconSrc?: string;
@@ -33,10 +37,6 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      * Price per asset in fiat.
      */
     assetFiatPrice?: number | string;
-    /**
-     * Transaction hash.
-     */
-    hash: string;
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
@@ -44,12 +44,12 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         sender,
         recipient,
         assetName,
+        assetAddress,
         assetIconSrc,
         assetAmount,
         assetSymbol,
         assetFiatPrice,
         chainId,
-        hash,
         wagmiConfig,
     } = props;
 
@@ -57,7 +57,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const transactionUrl = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
+    const assetUrl = buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -95,8 +95,8 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 />
                 <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
             </div>
-            <LinkBase
-                href={transactionUrl}
+            <DataList.Item
+                href={assetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={assetTransferClassNames}
@@ -109,7 +109,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                     <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
                     <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
                 </div>
-            </LinkBase>
+            </DataList.Item>
         </div>
     );
 };

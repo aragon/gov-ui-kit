@@ -25,7 +25,14 @@ describe('<ProposalActionWithdrawToken /> component', () => {
     it('passes correct props to AssetTransfer', () => {
         const sender = { address: '0x1D03D98c0aac1f83860cec5156116FE68725642E' };
         const receiver = { address: '0x1D03D98c0aac1f83860cec5156116FE687259999' };
-        const token = { name: 'Bitcoin', symbol: 'BTC', logo: 'btc-logo.png', priceUsd: '50000', decimals: 6 };
+        const token = {
+            name: 'Bitcoin',
+            symbol: 'BTC',
+            logo: 'btc-logo.png',
+            priceUsd: '50000',
+            decimals: 6,
+            address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+        };
         const amount = '10';
         const action = generateProposalActionWithdrawToken({ sender, receiver, token, amount });
 
@@ -39,7 +46,7 @@ describe('<ProposalActionWithdrawToken /> component', () => {
                 assetAmount: action.amount,
                 assetSymbol: action.token.symbol,
                 assetIconSrc: action.token.logo,
-                hash: '',
+                assetAddress: action.token.address,
             }),
             undefined,
         );

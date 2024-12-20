@@ -14,7 +14,6 @@ describe('<AssetTransfer /> component', () => {
             assetSymbol: 'ETH',
             assetAmount: 1,
             assetName: 'Ethereum',
-            hash: '0xf006e9454ad77c5e8e6f54106c6939d3d8b68ae16fc216d67c752f54adb21fc6',
             ...props,
         };
 
@@ -56,13 +55,21 @@ describe('<AssetTransfer /> component', () => {
         expect(screen.getAllByTestId('asset-transfer-address')).toHaveLength(2);
     });
 
-    it('configures and applies the correct link for transfer tx', () => {
-        const hash = '0x0ca620e2dd3147658b8a042b3e7b7cd6f5fa043bf3625140c0dbddcabf47dfb9';
-        render(createTestComponent({ hash }));
+    it('configures and applies the correct link for asset when asset address is defined', () => {
+        const assetAddress = '0x0ca620e2dd3147658b8a042b3e7b7cd6f5fa043bf3625140c0dbddcabf47dfb9';
+        render(createTestComponent({ assetAddress }));
 
         const links = screen.getByRole('link');
-        const expectedTransactionLink = `https://etherscan.io/tx/${hash}`;
+        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}`;
 
         expect(links).toHaveAttribute('href', expectedTransactionLink);
+    });
+
+    it('does not render block explorer link for asset when asset address is not defined', () => {
+        const assetAddress = undefined;
+        render(createTestComponent({ assetAddress }));
+
+        const links = screen.queryByRole('link');
+        expect(links).not.toBeInTheDocument();
     });
 });

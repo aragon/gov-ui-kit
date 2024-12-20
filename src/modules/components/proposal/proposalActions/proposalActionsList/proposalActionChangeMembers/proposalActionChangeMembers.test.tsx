@@ -1,12 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import { modulesCopy } from '../../../../../assets';
+import { GukModulesProvider } from '../../../../gukModulesProvider';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';
 
-jest.mock('../../../../member', () => ({ MemberDataListItem: { Structure: () => <div /> } }));
-
+jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', () => ({
+    MemberDataListItemStructure: ({ href }: { href: string }) => (
+        <div data-testid="member-data-list-item" data-href={href} />
+    ),
+}));
 describe('<ProposalActionChangeMembers /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeMembersProps>) => {
         const completeProps: IProposalActionChangeMembersProps = {
@@ -15,7 +19,11 @@ describe('<ProposalActionChangeMembers /> component', () => {
             ...props,
         };
 
-        return <ProposalActionChangeMembers {...completeProps} />;
+        return (
+            <GukModulesProvider>
+                <ProposalActionChangeMembers {...completeProps} />
+            </GukModulesProvider>
+        );
     };
 
     it('renders the existing members correctly', () => {
@@ -57,5 +65,14 @@ describe('<ProposalActionChangeMembers /> component', () => {
     it('renders additional summary information', () => {
         render(createTestComponent());
         expect(screen.getByText(modulesCopy.proposalActionChangeMembers.blockNote)).toBeInTheDocument();
+    });
+
+    it('renders the correct block explorer link for the member', () => {
+        const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const action = generateProposalActionChangeMembers({ members });
+        render(createTestComponent({ action }));
+
+        const memberItem = screen.getByTestId('member-data-list-item');
+        expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${members[0].address}`);
     });
 });

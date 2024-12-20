@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Remove `hash` property on the `AssetTransfer` module component and add optional `assetAddress` property
+- Add link to the block explorer for members on the `ProposalActionChangeMembers` module component
+- Add receiver block explorer link to the `ProposalActionTokenMint` module component
+
 ## [1.0.60] - 2024-12-18
 
 ### Changed

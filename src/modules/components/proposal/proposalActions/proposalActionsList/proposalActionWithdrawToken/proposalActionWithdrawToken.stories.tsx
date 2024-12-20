@@ -29,6 +29,7 @@ export const Default: Story = {
                 logo: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5994.png',
                 priceUsd: '0.00002459',
                 decimals: 18,
+                address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
             },
             amount: '9784653197',
         }),

@@ -5,9 +5,15 @@ import type { IProposalActionTokenMintProps } from './proposalActionTokenMint.ap
 import { generateProposalActionTokenMint } from './proposalActionTokenMint.testUtils';
 
 jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', () => ({
-    MemberDataListItemStructure: ({ tokenAmount, tokenSymbol }: { tokenAmount: number; tokenSymbol: string }) => (
-        <div data-testid="member-data-list-item">{`${tokenAmount.toString()} ${tokenSymbol}`}</div>
-    ),
+    MemberDataListItemStructure: ({
+        tokenAmount,
+        tokenSymbol,
+        href,
+    }: {
+        tokenAmount: number;
+        tokenSymbol: string;
+        href: string;
+    }) => <div data-testid="member-data-list-item" data-href={href}>{`${tokenAmount.toString()} ${tokenSymbol}`}</div>,
 }));
 
 describe('<ProposalActionTokenMint /> component', () => {
@@ -49,5 +55,18 @@ describe('<ProposalActionTokenMint /> component', () => {
     it('does not render Voting Power label', () => {
         render(createTestComponent());
         expect(screen.queryByText('Voting Power')).not.toBeInTheDocument();
+    });
+
+    it('renders the block explorer link with the correct URL', () => {
+        const receiver = {
+            currentBalance: '0',
+            newBalance: '10',
+            address: '0x123456789',
+            name: 'Some Name',
+        };
+        const action = generateProposalActionTokenMint({ receiver });
+        render(createTestComponent({ action }));
+        const memberItem = screen.getByTestId('member-data-list-item');
+        expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${receiver.address}`);
     });
 });
