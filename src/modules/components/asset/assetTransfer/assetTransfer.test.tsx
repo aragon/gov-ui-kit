@@ -57,10 +57,10 @@ describe('<AssetTransfer /> component', () => {
 
     it('configures and applies the correct link for asset when asset address is defined', () => {
         const assetAddress = '0x0ca620e2dd3147658b8a042b3e7b7cd6f5fa043bf3625140c0dbddcabf47dfb9';
-        render(createTestComponent({ assetAddress, recipient: { address: '0x1' } }));
+        render(createTestComponent({ assetAddress }));
 
         const links = screen.getByRole('link');
-        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}?a=0x1`;
+        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}`;
 
         expect(links).toHaveAttribute('href', expectedTransactionLink);
     });
