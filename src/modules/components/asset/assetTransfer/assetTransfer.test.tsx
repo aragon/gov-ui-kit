@@ -56,13 +56,22 @@ describe('<AssetTransfer /> component', () => {
         expect(screen.getAllByTestId('asset-transfer-address')).toHaveLength(2);
     });
 
-    it('configures and applies the correct link for asset', () => {
+    it('configures and applies the correct link for asset when asset address is defined', () => {
         const assetAddress = '0x0ca620e2dd3147658b8a042b3e7b7cd6f5fa043bf3625140c0dbddcabf47dfb9';
-        render(createTestComponent({ assetAddress }));
+        render(createTestComponent({ assetAddress, recipient: { address: '0x1' } }));
 
         const links = screen.getByRole('link');
-        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}`;
+        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}?a=0x1`;
 
         expect(links).toHaveAttribute('href', expectedTransactionLink);
     });
+
+    it('does not render block explorer link for asset when asset address is not defined', () => {
+        const assetAddress = undefined;
+        render(createTestComponent({ assetAddress }));
+
+        const links = screen.queryByRole('link');
+        expect(links).not.toBeInTheDocument();
+    });
+
 });
