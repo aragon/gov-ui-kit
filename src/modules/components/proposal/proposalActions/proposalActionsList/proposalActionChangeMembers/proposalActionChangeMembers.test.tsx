@@ -62,11 +62,9 @@ describe('<ProposalActionChangeMembers /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionChangeMembers.blockNote)).toBeInTheDocument();
     });
 
-    it('renders the correct block explorer link for removed memeber', () => {
-        const type = ProposalActionType.REMOVE_MEMBERS;
-        const currentMembers = 7;
+    it('renders the correct block explorer link for the member', () => {
         const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
-        const action = generateProposalActionChangeMembers({ type, currentMembers, members });
+        const action = generateProposalActionChangeMembers({ members });
         render(createTestComponent({ action }));
 
         const blockExplorerLink = screen.getByRole('link');

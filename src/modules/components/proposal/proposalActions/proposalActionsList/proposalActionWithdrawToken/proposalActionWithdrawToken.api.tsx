@@ -17,7 +17,7 @@ export interface IProposalActionWithdrawTokenAsset {
     /**
      * Address of the token.
      */
-    address: string;
+    address?: string;
     /**
      * URL of the token logo.
      */

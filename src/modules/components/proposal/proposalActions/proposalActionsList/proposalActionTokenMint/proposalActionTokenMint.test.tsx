@@ -13,16 +13,7 @@ jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', (
         tokenAmount: number;
         tokenSymbol: string;
         href: string;
-    }) => (
-        <div data-testid="member-data-list-item">
-            <span data-testid="token-display">{`${tokenAmount.toString()} ${tokenSymbol}`}</span>
-            {href && (
-                <a data-testid="block-explorer-link" href={href}>
-                    Member block explorer link
-                </a>
-            )}
-        </div>
-    ),
+    }) => <div data-testid="member-data-list-item" data-href={href}>{`${tokenAmount.toString()} ${tokenSymbol}`}</div>,
 }));
 
 describe('<ProposalActionTokenMint /> component', () => {
@@ -75,8 +66,7 @@ describe('<ProposalActionTokenMint /> component', () => {
         };
         const action = generateProposalActionTokenMint({ receiver });
         render(createTestComponent({ action }));
-
-        const blockExplorerLink = screen.getByTestId('block-explorer-link');
-        expect(blockExplorerLink).toHaveAttribute('href', `https://etherscan.io/address/${receiver.address}`);
+        const memberItem = screen.getByTestId('member-data-list-item');
+        expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${receiver.address}`);
     });
 });

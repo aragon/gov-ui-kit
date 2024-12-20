@@ -28,7 +28,6 @@ export const Default: Story = {
         assetSymbol: 'ETH',
         assetAmount: 1,
         assetName: 'Ethereum',
-        assetAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
         assetFiatPrice: 3850,
         chainId: 1,
     },
@@ -41,8 +40,8 @@ export const Fallback: Story = {
     args: {
         sender: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' },
         recipient: { address: '0x168dAa4529bf88369ac8c1ABA5A2ad8CF2A61Fb9' },
-        assetName: 'Ethereum',
-        assetSymbol: 'ETH',
+        assetName: 'USDC',
+        assetSymbol: 'USDC',
         assetAmount: 1,
         assetAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     },
