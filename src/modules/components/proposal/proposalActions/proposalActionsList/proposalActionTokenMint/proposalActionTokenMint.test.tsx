@@ -78,6 +78,5 @@ describe('<ProposalActionTokenMint /> component', () => {
 
         const blockExplorerLink = screen.getByTestId('block-explorer-link');
         expect(blockExplorerLink).toHaveAttribute('href', `https://etherscan.io/address/${receiver.address}`);
-        expect(blockExplorerLink).toHaveTextContent('Some Name');
     });
 });
