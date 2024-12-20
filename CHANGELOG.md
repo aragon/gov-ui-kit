@@ -9,9 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Updated `hash` property to be optional on the `AssetTransfer` module component
-- Added link to the block explorer for members on the `ProposalActionChangeMembers` module component
-- Added receiver block explorer link to the `ProposalActionTokenMint` module component
+- Update `hash` property to be optional on the `AssetTransfer` module component
+- Add link to the block explorer for members on the `ProposalActionChangeMembers` module component
+- Add receiver block explorer link to the `ProposalActionTokenMint` module component
 
 ## [1.0.60] - 2024-12-18
 
