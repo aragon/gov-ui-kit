@@ -28,7 +28,7 @@ export const Default: Story = {
         assetSymbol: 'ETH',
         assetAmount: 1,
         assetName: 'Ethereum',
-        assetAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+        assetAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
         assetFiatPrice: 3850,
         chainId: 1,
     },
@@ -44,7 +44,7 @@ export const Fallback: Story = {
         assetName: 'Ethereum',
         assetSymbol: 'ETH',
         assetAmount: 1,
-        assetAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+        assetAddress: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     },
 };
 

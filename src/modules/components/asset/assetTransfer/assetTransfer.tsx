@@ -20,7 +20,7 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
      * Address of the asset transferred.
      */
-    assetAddress: string;
+    assetAddress?: string;
     /**
      * Icon URL of the transferred asset.
      */
@@ -57,7 +57,10 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const assetUrl = buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
+    const assetUrl = buildEntityUrl({
+        type: ChainEntityType.TOKEN,
+        id: assetAddress ? `${assetAddress}?a=${recipient.address}` : undefined,
+    });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
