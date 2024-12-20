@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { Avatar, AvatarIcon, IconType, LinkBase, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, DataListItem, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
@@ -18,6 +18,10 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      */
     assetName: string;
     /**
+     * Address of the asset transferred.
+     */
+    assetAddress: string;
+    /**
      * Icon URL of the transferred asset.
      */
     assetIconSrc?: string;
@@ -33,10 +37,6 @@ export interface IAssetTransferProps extends IWeb3ComponentProps {
      * Price per asset in fiat.
      */
     assetFiatPrice?: number | string;
-    /**
-     * Transaction hash.
-     */
-    hash?: string;
 }
 
 export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
@@ -44,12 +44,12 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         sender,
         recipient,
         assetName,
+        assetAddress,
         assetIconSrc,
         assetAmount,
         assetSymbol,
         assetFiatPrice,
         chainId,
-        hash,
         wagmiConfig,
     } = props;
 
@@ -57,7 +57,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const transactionUrl = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
+    const assetUrl = buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -72,23 +72,14 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         fallback: ` `,
     });
 
-    const baseClassnames =
-        'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4 md:h-20 md:px-6';
-    const linkClassnames =
-        'hover:border-neutral-200 hover:shadow-neutral-md focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset';
-
-    const AssetTransferContent = (
-        <>
-            <div className="flex items-center space-x-3 md:space-x-4">
-                <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />
-                <span className="text-sm leading-tight text-neutral-800 md:text-base">{assetName}</span>
-            </div>
-            <div className="flex flex-col items-end justify-end">
-                <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
-                <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
-            </div>
-        </>
+    const assetTransferClassNames = classNames(
+        'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base
+        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
+        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        'active:border-neutral-300 active:shadow-none', // active
+        'md:h-20 md:px-6', // responsive
     );
+
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
             <div className="relative flex h-full flex-col rounded-xl bg-neutral-0 md:flex-row">
@@ -104,18 +95,16 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 />
                 <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
             </div>
-            {hash ? (
-                <LinkBase
-                    href={transactionUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={classNames(baseClassnames, linkClassnames)}
-                >
-                    {AssetTransferContent}
-                </LinkBase>
-            ) : (
-                <div className={baseClassnames}>{AssetTransferContent}</div>
-            )}
+            <DataListItem href={assetUrl} target="_blank" rel="noopener noreferrer" className={assetTransferClassNames}>
+                <div className="flex items-center space-x-3 md:space-x-4">
+                    <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />
+                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{assetName}</span>
+                </div>
+                <div className="flex flex-col items-end justify-end">
+                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
+                    <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
+                </div>
+            </DataListItem>
         </div>
     );
 };

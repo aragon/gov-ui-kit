@@ -6,8 +6,6 @@ import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import type { IProposalActionChangeMembersProps } from './proposalActionChangeMembers.api';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';
 
-jest.mock('../../../../member', () => ({ MemberDataListItem: { Structure: () => <div /> } }));
-
 describe('<ProposalActionChangeMembers /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionChangeMembersProps>) => {
         const completeProps: IProposalActionChangeMembersProps = {
@@ -62,5 +60,16 @@ describe('<ProposalActionChangeMembers /> component', () => {
     it('renders additional summary information', () => {
         render(createTestComponent());
         expect(screen.getByText(modulesCopy.proposalActionChangeMembers.blockNote)).toBeInTheDocument();
+    });
+
+    it('renders the correct block explorer link for removed memeber', () => {
+        const type = ProposalActionType.REMOVE_MEMBERS;
+        const currentMembers = 7;
+        const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
+        const action = generateProposalActionChangeMembers({ type, currentMembers, members });
+        render(createTestComponent({ action }));
+
+        const blockExplorerLink = screen.getByRole('link');
+        expect(blockExplorerLink).toHaveAttribute('href', `https://etherscan.io/address/${members[0].address}`);
     });
 });

@@ -9,6 +9,7 @@ export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenP
             sender={action.sender}
             recipient={action.receiver}
             assetName={action.token.name}
+            assetAddress={action.token.address}
             assetAmount={action.amount}
             assetFiatPrice={action.token.priceUsd}
             assetSymbol={action.token.symbol}
