@@ -14,7 +14,6 @@ describe('<AssetTransfer /> component', () => {
             assetSymbol: 'ETH',
             assetAmount: 1,
             assetName: 'Ethereum',
-            assetAddress: '0x1',
             ...props,
         };
 
