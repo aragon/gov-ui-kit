@@ -73,5 +73,4 @@ describe('<AssetTransfer /> component', () => {
         const links = screen.queryByRole('link');
         expect(links).not.toBeInTheDocument();
     });
-
 });
