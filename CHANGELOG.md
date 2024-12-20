@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Remove `hash` property al on the `AssetTransfer` module component and add `assetAddress` property for generating link to asset on the block explorer
+- Remove `hash` property al on the `AssetTransfer` module component and add `assetAddress` property for generating link
+  to asset on the block explorer
 - Add link to the block explorer for members on the `ProposalActionChangeMembers` module component
 - Add receiver block explorer link to the `ProposalActionTokenMint` module component
 
