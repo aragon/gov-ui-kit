@@ -19,6 +19,6 @@
     "forceConsistentCasingInFileNames": true,
     "downlevelIteration": true
   },
-  "include": ["src", "docs", ".storybook/**/*", "*.config.js"],
+  "include": ["src", ".storybook/**/*", "*.config.js"],
   "exclude": ["node_modules", "dist", "storybook-static", "coverage", ".yarn/**/*"]
 }
