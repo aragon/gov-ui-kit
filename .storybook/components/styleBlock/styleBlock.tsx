@@ -4,11 +4,11 @@ export interface ICustomisationDoc {
     /**
      * Name of the variable.
      */
-    variable: string;
+    name: string;
     /**
-     * Documentation about the variable.
+     * Description of the variable.
      */
-    documentation: string;
+    description?: string;
     /**
      * Default value of the variable.
      */
@@ -16,40 +16,22 @@ export interface ICustomisationDoc {
 }
 
 const parseCustomisations = (source = ''): ICustomisationDoc[] => {
-    const customisations: ICustomisationDoc[] = [];
-    const tokens = source.replaceAll('\n', ' ').split(' ');
+    const customisationRegex = /(?:\/\*\s*(.*?)\s*\*\/\s+)?--([\w-]+):\s*(.*?);/g;
+    const matches = Array.from(source.matchAll(customisationRegex));
 
-    const parseDocumentation = (tokens: string[], startIndex: number) => {
-        // A variable documentation ends when the next token equals "*/"
-        const endIndex = startIndex + tokens.slice(startIndex).findIndex((token) => token === '*/');
-        const documentation = tokens.slice(startIndex + 1, endIndex).join(' ');
-
-        return { documentation, endIndex };
-    };
-
-    tokens.forEach((token, index) => {
-        if (token === '/*') {
-            const { documentation, endIndex } = parseDocumentation(tokens, index);
-
-            // Remove the ":" end character from the CSS custom property
-            const variable = tokens[endIndex + 3];
-            const parsedVariable = variable.slice(0, variable.length - 1);
-
-            // Remove the ";" end character from the variable value
-            const value = tokens[endIndex + 4];
-            const parsedValue = value.slice(0, value.length - 1);
-
-            customisations.push({ documentation, value: parsedValue, variable: parsedVariable });
-        }
-    });
+    const customisations = matches.map(([, description, name, value]) => ({
+        name: `--${name}`,
+        description: description.trim(),
+        value,
+    }));
 
     return customisations;
 };
 
 export const StyleBlock: React.FC = () => {
     const metaInfo = useOf<'meta'>('meta');
-    const source = metaInfo.preparedMeta.parameters.style as string | undefined;
 
+    const source = metaInfo.preparedMeta.parameters.style as string | undefined;
     const customisations = parseCustomisations(source);
 
     if (!customisations.length) {
@@ -68,12 +50,10 @@ export const StyleBlock: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {customisations.map(({ variable, value, documentation }) => (
-                        <tr key={variable}>
-                            <td>
-                                <code>{variable}</code>
-                            </td>
-                            <td>{documentation}</td>
+                    {customisations.map(({ name, value, description }) => (
+                        <tr key={name}>
+                            <td>{name}</td>
+                            <td>{description}</td>
                             <td>{value}</td>
                         </tr>
                     ))}
