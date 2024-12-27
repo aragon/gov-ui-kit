@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Dropdown, type IDropdownContainerProps } from '../index';
+import style from './index.css?raw';
 
 const meta: Meta<typeof Dropdown.Container> = {
     title: 'Core/Components/Dropdown/Dropdown.Container',
     component: Dropdown.Container,
     parameters: {
+        style,
         design: {
             type: 'figma',
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=8097-22574&mode=design&t=4o7W5TmAScRx38xw-4',

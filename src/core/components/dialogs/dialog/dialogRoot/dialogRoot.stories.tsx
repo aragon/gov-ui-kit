@@ -2,11 +2,13 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Dialog } from '..';
 import { Button } from '../../../button';
+import style from './index.css?raw';
 
 const meta: Meta<typeof Dialog.Root> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Root',
     component: Dialog.Root,
     parameters: {
+        style,
         design: {
             type: 'figma',
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=13558-17025&mode=design&t=9P6frTNZbQcLyeff-4',
