@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Implement `StyleBlock` component to document the components-specific customisations
+
 ### Changed
 
 - Remove `hash` property on the `AssetTransfer` module component and add optional `assetAddress` property
