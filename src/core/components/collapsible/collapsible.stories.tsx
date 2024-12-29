@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Collapsible } from './collapsible';
+import style from './index.css?raw';
 
 /**
  * Collapsible component that can wrap any content and visually collapse it for space-saving purposes.
@@ -9,6 +10,7 @@ const meta: Meta<typeof Collapsible> = {
     title: 'Core/Components/Collapsible',
     component: Collapsible,
     parameters: {
+        style,
         design: {
             type: 'figma',
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=10157-27011&t=RVJHJFTrLMnhgYnJ-4',

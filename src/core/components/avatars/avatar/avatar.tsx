@@ -67,9 +67,6 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
     },
 };
 
-/**
- * Avatar component
- */
 export const Avatar: React.FC<IAvatarProps> = (props) => {
     const { alt = 'avatar', className, fallback, responsiveSize, size = 'sm', ...imageProps } = props;
 
