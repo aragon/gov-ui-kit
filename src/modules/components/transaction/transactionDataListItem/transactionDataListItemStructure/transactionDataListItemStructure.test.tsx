@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { DateFormat, NumberFormat, formatterUtils } from '../../../../../core';
+import { DateFormat, formatterUtils } from '../../../../../core';
 import * as useBlockExplorer from '../../../../hooks';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
@@ -51,14 +51,12 @@ describe('<TransactionDataListItem.Structure /> component', () => {
     });
 
     it('renders the formatted USD price of the transaction', () => {
-        const tokenPrice = 100;
+        const amountUsd = 100;
         const tokenAmount = 10;
         const type = TransactionType.DEPOSIT;
-        const usdPrice = formatterUtils.formatNumber(tokenPrice * tokenAmount, {
-            format: NumberFormat.FIAT_TOTAL_SHORT,
-        })!;
-        render(createTestComponent({ tokenPrice, tokenAmount, type }));
-        const formattedUsdEstimate = screen.getByText(usdPrice);
+
+        render(createTestComponent({ amountUsd, tokenAmount, type }));
+        const formattedUsdEstimate = screen.getByText(amountUsd);
         expect(formattedUsdEstimate).toBeInTheDocument();
     });
 
