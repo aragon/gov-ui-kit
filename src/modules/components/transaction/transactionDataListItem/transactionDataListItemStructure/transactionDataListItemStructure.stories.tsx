@@ -47,7 +47,7 @@ export const Failed: Story = {
         type: TransactionType.DEPOSIT,
         tokenSymbol: 'ETH',
         tokenAmount: 10,
-        tokenPrice: 100,
+        amountUsd: 100,
         date: 1613984914000,
     },
 };

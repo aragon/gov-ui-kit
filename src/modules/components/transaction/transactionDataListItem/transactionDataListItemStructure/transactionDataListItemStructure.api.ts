@@ -27,9 +27,9 @@ export type ITransactionDataListItemProps = IDataListItemProps & {
      */
     tokenAmount?: number | string;
     /**
-     * The price of the token at the time of the transaction.
+     * The calculated price of the transaction in USD.
      */
-    tokenPrice?: number | string;
+    amountUsd?: number | string;
     /**
      * The type of transaction.
      * @default TransactionType.ACTION
