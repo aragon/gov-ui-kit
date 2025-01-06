@@ -57,7 +57,6 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         const usdPrice = formatterUtils.formatNumber(amountUsd, {
             format: NumberFormat.FIAT_TOTAL_SHORT,
         })!;
-
         render(createTestComponent({ amountUsd, tokenAmount, type }));
         const formattedUsdPrice = screen.getByText(usdPrice);
         expect(formattedUsdPrice).toBeInTheDocument();
