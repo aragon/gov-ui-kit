@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Update `TransactionDataListItem` to receive `amountUsd` for transaction price, remove calculation
+- Update `TransactionDataListItem` props to receive `amountUsd` for transaction price, remove calculation
 
 ## [1.0.61] - 2024-12-29
 
