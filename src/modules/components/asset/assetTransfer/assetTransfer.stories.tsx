@@ -37,16 +37,16 @@ export const Default: Story = {
 /**
  * Usage example of the AssetTransfer module component with mocked Native Transfer.
  */
-export const NativeTransfer: Story = {
+export const ZeroAddressAsset: Story = {
     args: {
-        sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
-        recipient: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
-        assetName: 'Ether',
-        assetSymbol: 'ETH',
-        assetIconSrc: 'https://www.datocms-assets.com/86369/1669619533-ethereum.png',
+        sender: { address: '0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5' },
+        recipient: { address: '0x47ca69389783E0ab6B7297318F89B51c80D63bc7' },
+        assetName: 'BNB Coin',
+        assetSymbol: 'BNB',
+        assetIconSrc: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',
         assetAmount: 2,
         assetAddress: zeroAddress,
-        assetFiatPrice: 3850,
+        assetFiatPrice: 710,
         chainId: 1,
     },
 };
