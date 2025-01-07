@@ -72,6 +72,12 @@ describe('<ProposalDataListItemStatus /> component', () => {
         },
     );
 
+    it('displays the status context when statusContext is provided', () => {
+        const statusContext = 'Stage 1';
+        render(createTestComponent({ statusContext }));
+        expect(screen.getByText(modulesCopy.proposalDataListItemStatus.in(statusContext))).toBeInTheDocument();
+    });
+
     it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {
         render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
 

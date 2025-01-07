@@ -17,14 +17,6 @@ export const modulesCopy = {
         delegations: 'Delegations',
         votingPower: 'Voting Power',
     },
-    approvalThresholdResult: {
-        stage: 'Stage',
-        outOf: (threshold: string) => `of ${threshold} members`,
-    },
-    majorityVotingResult: {
-        winningOption: 'Winning Option',
-        stage: 'Stage',
-    },
     proposalActionsContainer: {
         emptyHeader: 'No actions added',
     },
@@ -96,9 +88,11 @@ export const modulesCopy = {
         voted: "You've voted",
         ago: 'ago',
         left: 'left',
+        in: (statusContext: string) => `in ${statusContext}`,
         statusLabel: {
             ACCEPTED: 'Accepted',
             ACTIVE: 'Active',
+            ADVANCEABLE: 'Advanceable',
             CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
             EXECUTED: 'Executed',

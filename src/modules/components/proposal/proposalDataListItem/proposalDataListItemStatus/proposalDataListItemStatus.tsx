@@ -16,7 +16,9 @@ import { type IProposalDataListItemStructureProps } from '../proposalDataListIte
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 
 export interface IProposalDataListItemStatusProps
-    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted'> {}
+    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted'> {
+    statusContext?: string;
+}
 
 const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
@@ -34,7 +36,7 @@ const getFormattedProposalDate = (date: string | number, now: number, copy: Modu
 };
 
 export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusProps> = (props) => {
-    const { date, status, voted } = props;
+    const { date, status, statusContext, voted } = props;
 
     const isOngoing = proposalDataListItemUtils.isOngoingStatus(status);
     const isOngoingAndVoted = isOngoing && voted;
@@ -44,11 +46,18 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
 
     return (
         <div className="flex w-full items-center justify-between gap-x-4 md:gap-x-6">
-            <Tag
-                label={copy.proposalDataListItemStatus.statusLabel[status]}
-                variant={proposalStatusToTagVariant[status]}
-                className="shrink-0"
-            />
+            <div className="flex min-w-0 items-center gap-x-1">
+                <Tag
+                    label={copy.proposalDataListItemStatus.statusLabel[status]}
+                    variant={proposalStatusToTagVariant[status]}
+                    className="shrink-0"
+                />
+                {statusContext && (
+                    <span className="truncate text-sm leading-tight md:text-base">
+                        {copy.proposalDataListItemStatus.in(statusContext)}
+                    </span>
+                )}
+            </div>
             {showStatusMetadata && (
                 <div className="flex items-center gap-x-2 md:gap-x-3">
                     <span

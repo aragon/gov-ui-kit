@@ -29,44 +29,13 @@ export const Default: Story = {
 };
 
 /**
- * Example of the `ProposalDataListItem.Structure` module component for a MajorityVoting type proposal.
- */
-export const MajorityVoting: Story = {
-    args: {
-        date: 1691664284000,
-        status: ProposalStatus.ACTIVE,
-        title: 'Update DAO metadata',
-        summary: 'Update the name, logo and description of the DAO.',
-        voted: true,
-        publisher: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
-        type: 'majorityVoting',
-        result: { option: 'yes', voteAmount: '100k wAnt', votePercentage: 15 },
-    },
-};
-
-/**
- * Example of the `ProposalDataListItem.Structure` module component for an ApprovalThreshold type proposal.
- */
-export const ApprovalThreshold: Story = {
-    args: {
-        date: 1638723612000,
-        status: ProposalStatus.ACTIVE,
-        title: 'Add new DAO member',
-        summary: `Adding a new member to the DAO. This is a long description to test if the component correctly truncated
-            the proposal description. This is a long description to test if the component correctly truncated the proposal description.`,
-        publisher: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
-        type: 'approvalThreshold',
-        result: { approvalAmount: 4, approvalThreshold: 6 },
-    },
-};
-
-/**
  * Example of the `ProposalDataListItem.Structure` module component for a multi-body proposal.
  */
 export const MultiBody: Story = {
     args: {
-        date: 1580338809000,
-        status: ProposalStatus.ACTIVE,
+        date: Date.now() - 1000000,
+        status: ProposalStatus.ADVANCEABLE,
+        statusContext: 'Stage 1',
         title: 'Partnering with WalletConnect on Social Media',
         summary:
             'This is round 1 of our community engagement and building gamfi strategy with our marketing team partnership.',
@@ -77,7 +46,6 @@ export const MultiBody: Story = {
             { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
             { address: '0xbC7f20ebB9AeDe6DF4965eCAAcfBb24927Ae16E7' },
         ],
-        type: 'approvalThreshold',
         result: { stage: { title: 'Founders Approval Council', id: '1' }, approvalAmount: 4, approvalThreshold: 6 },
     },
 };

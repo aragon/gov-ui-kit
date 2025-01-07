@@ -37,6 +37,10 @@ export type IProposalDataListItemStructureBaseProps<TType extends ProposalType =
          */
         status: ProposalStatus;
         /**
+         * Proposal status detail to accompany the tag for extra context
+         */
+        statusContext?: string;
+        /**
          * Proposal description
          */
         summary: string;
