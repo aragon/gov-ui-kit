@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { Button } from '../../button';
 import { Dialog } from '../../dialogs';
+import style from './index.css?raw';
 import { TextAreaRichText } from './textAreaRichText';
 
 const meta: Meta<typeof TextAreaRichText> = {
     title: 'Core/Components/Forms/TextAreaRichText',
     component: TextAreaRichText,
     parameters: {
+        style,
         design: {
             type: 'figma',
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?type=design&node-id=10095-8687&mode=design&t=RRfZug69k5JnpYXM-4',

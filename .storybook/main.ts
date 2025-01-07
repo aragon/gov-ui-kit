@@ -64,6 +64,20 @@ const config: StorybookConfig = {
             use: ['@svgr/webpack'],
         });
 
+        // Retrieve and update css rule to support raw imports of CSS files using "?raw"
+        const cssRule = webpackConfig.module?.rules?.find((rule) => {
+            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule).test instanceof RegExp) {
+                const testRegExp = (rule as RuleSetRule).test as RegExp;
+                return testRegExp.test('.css');
+            }
+
+            return undefined;
+        });
+
+        if (cssRule) {
+            (cssRule as RuleSetRule).resourceQuery = { not: [/raw/] };
+        }
+
         return webpackConfig;
     },
 };

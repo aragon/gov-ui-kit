@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react';
 import '../index.css';
 import { GukModulesProvider } from '../src/modules';
+import { DocsPage } from './components';
 import './style.css';
 
 const preview: Preview = {
@@ -34,6 +35,9 @@ const preview: Preview = {
                     value: 'var(--guk-color-neutral-50)',
                 },
             ],
+        },
+        docs: {
+            page: DocsPage,
         },
     },
 
