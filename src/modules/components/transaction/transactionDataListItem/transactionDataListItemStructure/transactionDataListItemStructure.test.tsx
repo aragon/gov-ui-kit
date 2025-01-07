@@ -58,8 +58,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
             format: NumberFormat.FIAT_TOTAL_SHORT,
         })!;
         render(createTestComponent({ amountUsd, tokenAmount, type }));
-        const formattedUsdPrice = screen.getByText(usdPrice);
-        expect(formattedUsdPrice).toBeInTheDocument();
+        expect(screen.getByText(usdPrice)).toBeInTheDocument();
     });
 
     it('renders a failed transaction indicator alongside the transaction type', () => {
