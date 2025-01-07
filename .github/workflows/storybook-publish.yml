@@ -1,36 +1,30 @@
-name: Build and Publish Storybook to GitHub Pages
+name: Storybook Publish
 
 on:
   push:
     branches:
-      - "main"
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+      - main
 
 env:
   NODE_VERSION: 20
   NODE_CACHE: "yarn"
 
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
       - name: Setup Node
         uses: actions/setup-node@v4.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
-      - id: build-publish
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: yarn install --immutable
-          build_command: yarn build-storybook
-          path: storybook-static
-          checkout: false
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Build storybook
+        run: yarn build:storybook
+      - name: Deploy storybook
+        run: yarn deploy:storybook --ci --host-token-env-variable=GITHUB_TOKEN --source-branch main --branch gh-pages --existing-output-dir=storybook-static
+        env:
+          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}

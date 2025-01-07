@@ -56,10 +56,11 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
 
-    // For native transfers we do not want to link to the block explorer
-    const isNativeTransfer = assetAddress === zeroAddress;
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
+
+    // For native transfers we do not want to link to the block explorer
+    const isNativeTransfer = assetAddress === zeroAddress;
     const assetUrl = isNativeTransfer ? undefined : buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
@@ -74,11 +75,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: ` `,
     });
-
-    const assetTransferClassNames = classNames(
-        'flex h-16 items-center justify-between px-4', // base
-        'md:h-20 md:px-6', // responsive
-    );
 
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
@@ -99,7 +95,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 href={assetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={assetTransferClassNames}
+                className="flex h-16 items-center justify-between px-4 md:h-20 md:px-6"
             >
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />
