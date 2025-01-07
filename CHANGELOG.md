@@ -7,9 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Introduce `statusContext` property to `<ProposalDataListItem />` module component
+
 ### Changed
 
 - Rename `tokenPrice` property to `amountUsd` on `<TransactionDataListItem />` module component
+- Remove `<MajorityVotingResult />` and `<ApprovalThresholdResult />` sub-components for `<ProposalDataListItem />`
 - Update minor and patch NPM dependencies
 - Update `Yarn` version to 4.6.0
 
