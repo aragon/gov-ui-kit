@@ -1,10 +1,11 @@
+import { zeroAddress } from 'viem';
 import { AssetTransfer } from '../../../../asset';
 import type { IProposalActionWithdrawTokenProps } from './proposalActionWithdrawToken.api';
 
 export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenProps> = (props) => {
     const { action, ...web3Props } = props;
 
-    const isNativeTransfer = action.inputData?.function === 'NativeTransfer';
+    const isNativeTransfer = action.token.address === zeroAddress;
 
     return (
         <AssetTransfer

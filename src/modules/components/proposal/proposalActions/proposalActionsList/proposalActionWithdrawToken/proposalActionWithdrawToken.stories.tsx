@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { zeroAddress } from 'viem';
 import { ProposalActionWithdrawToken } from './proposalActionWithdrawToken';
 import { generateProposalActionWithdrawToken } from './proposalActionWithdrawToken.testUtils';
 
@@ -47,13 +48,12 @@ export const NativeTransfer: Story = {
             token: {
                 name: 'Ether',
                 symbol: 'ETH',
-                logo: "https://www.datocms-assets.com/86369/1669619533-ethereum.png",
+                logo: 'https://www.datocms-assets.com/86369/1669619533-ethereum.png',
                 priceUsd: '0.00002459',
                 decimals: 18,
-                address: '0x0000000000000000000000000000000000000000',
+                address: zeroAddress,
             },
             amount: '9784653197',
-            inputData: { function: 'NativeTransfer', contract: '', parameters: [] },
         }),
     },
 };
