@@ -5,6 +5,7 @@ import type { IProposalActionWithdrawTokenProps } from './proposalActionWithdraw
 export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenProps> = (props) => {
     const { action, ...web3Props } = props;
 
+    // For native transfers we do not want to link to the block explorer
     const isNativeTransfer = action.token.address === zeroAddress;
 
     return (
