@@ -3,6 +3,7 @@ import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } 
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
+import { zeroAddress } from 'viem';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
@@ -55,9 +56,11 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const { buildEntityUrl } = useBlockExplorer({ chains: wagmiConfig?.chains, chainId });
 
+    // For native transfers we do not want to link to the block explorer
+    const isNativeTransfer = assetAddress === zeroAddress;
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const assetUrl = buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
+    const assetUrl = isNativeTransfer ? undefined : buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -74,10 +77,9 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const assetTransferClassNames = classNames(
         'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base
-        assetAddress && 'hover:border-neutral-200 hover:shadow-neutral-md', // hover
-        assetAddress &&
-            'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        assetAddress && 'active:border-neutral-300 active:shadow-none', // active
+        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
+        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        'active:border-neutral-300 active:shadow-none', // active
         'md:h-20 md:px-6', // responsive
     );
 
