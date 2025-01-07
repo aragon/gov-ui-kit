@@ -86,9 +86,9 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                     {showParsedPublisher &&
                         parsedPublisher.map(({ label, link }, index) => (
                             <span key={label} className="truncate">
-                                <object type="disregardType" className="flex shrink">
+                                <object type="unknown" className="flex shrink">
                                     {link != null && (
-                                        // using solution from https://kizu.dev/nested-links/ to nest anchor tags
+                                        // Using solution from https://kizu.dev/nested-links/ to nest anchor tags
                                         <Link href={link}>{label}</Link>
                                     )}
                                     {link == null && <span className="truncate">{label}</span>}
