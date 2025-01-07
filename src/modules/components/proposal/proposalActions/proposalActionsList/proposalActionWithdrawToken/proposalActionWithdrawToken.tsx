@@ -4,12 +4,14 @@ import type { IProposalActionWithdrawTokenProps } from './proposalActionWithdraw
 export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenProps> = (props) => {
     const { action, ...web3Props } = props;
 
+    const isNativeTransfer = action.inputData?.function === 'NativeTransfer';
+
     return (
         <AssetTransfer
             sender={action.sender}
             recipient={action.receiver}
             assetName={action.token.name}
-            assetAddress={action.token.address}
+            assetAddress={!isNativeTransfer ? action.token.address : undefined}
             assetAmount={action.amount}
             assetFiatPrice={action.token.priceUsd}
             assetSymbol={action.token.symbol}

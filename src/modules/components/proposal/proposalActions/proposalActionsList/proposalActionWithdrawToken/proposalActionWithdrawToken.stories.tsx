@@ -36,4 +36,26 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Usage example of the ProposalActions module component with mocked NativeTokenWithdraw actions.
+ */
+export const NativeTransfer: Story = {
+    args: {
+        action: generateProposalActionWithdrawToken({
+            sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+            receiver: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
+            token: {
+                name: 'Ether',
+                symbol: 'ETH',
+                logo: "https://www.datocms-assets.com/86369/1669619533-ethereum.png",
+                priceUsd: '0.00002459',
+                decimals: 18,
+                address: '0x0000000000000000000000000000000000000000',
+            },
+            amount: '9784653197',
+            inputData: { function: 'NativeTransfer', contract: '', parameters: [] },
+        }),
+    },
+};
+
 export default meta;
