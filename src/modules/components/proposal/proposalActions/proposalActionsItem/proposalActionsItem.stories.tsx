@@ -200,4 +200,24 @@ export const DropdownItems: Story = {
     },
 };
 
+/**
+ * The contract and/or function names are truncated when too long or on small viewports.
+ */
+export const LongNames: Story = {
+    render: defaultRender,
+    args: {
+        index: 0,
+        action: generateProposalAction({
+            to: '0x767f4616E322e36AF4d2d63f0b35c256545b25C9',
+            inputData: {
+                function:
+                    'determineAndCalculateIndividualUserVotingPowerBasedOnAllStakedTokensDelegatedVotesAndDynamicWeightAdjustments',
+                contract:
+                    'ComprehensiveAdvancedGovernanceTokenWithIntegratedVotingRewardDistributionMechanismAndMultiLayerAdapterInterface',
+                parameters: [],
+            },
+        }),
+    },
+};
+
 export default meta;

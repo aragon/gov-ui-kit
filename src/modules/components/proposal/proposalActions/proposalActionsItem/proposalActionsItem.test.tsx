@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
+import { GukModulesProvider } from '../../../gukModulesProvider';
 import type * as ProposalActionsDecoder from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { generateProposalAction } from '../proposalActionsTestUtils';
@@ -38,9 +39,11 @@ describe('<ProposalActionsItem /> component', () => {
         };
 
         return (
-            <Accordion.Container isMulti={true}>
-                <ProposalActionsItem {...completeProps} />
-            </Accordion.Container>
+            <GukModulesProvider>
+                <Accordion.Container isMulti={true}>
+                    <ProposalActionsItem {...completeProps} />
+                </Accordion.Container>
+            </GukModulesProvider>
         );
     };
 
@@ -76,11 +79,14 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsItem.notVerified.contract)).toBeInTheDocument();
     });
 
-    it('renders the truncated address of the action target', () => {
+    it('renders the truncated address of the action target as link', () => {
         const to = '0xF26a23f3E7B88e93A16970B74Ae6599d2993690F';
         const action = generateProposalAction({ to });
-        render(createTestComponent({ action }));
-        expect(screen.getByText('0xF2…690F')).toBeInTheDocument();
+        const chainId = 1;
+        render(createTestComponent({ action, chainId }));
+        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0xF2…690F' });
+        expect(link).toBeInTheDocument();
+        expect(link.href).toEqual(`https://etherscan.io/address/${to}`);
     });
 
     it('renders the action on an accordion and expands it on click', async () => {

@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
-import { Accordion, AlertCard, Button, Dropdown, Heading, Icon, IconType, invariant } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
@@ -19,7 +20,7 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
-    const { action, index, CustomComponent, dropdownItems, editMode, formPrefix, ...web3Props } = props;
+    const { action, index, CustomComponent, dropdownItems, editMode, formPrefix, chainId, ...web3Props } = props;
 
     invariant(
         index != null,
@@ -27,6 +28,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const { copy } = useGukModulesContext();
+    const { buildEntityUrl } = useBlockExplorer({ chainId });
 
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
@@ -56,6 +58,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const displayWarningFeedback = displayValueWarning || !isAbiAvailable;
     const functionNameStyle = displayWarningFeedback ? 'text-warning-800' : 'text-neutral-800';
 
+    const targetAddressUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.to });
+
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
         { mode: ProposalActionsDecoderView.DECODED, disabled: !supportsDecodedView },
@@ -68,24 +72,41 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     return (
         <Accordion.Item value={index.toString()} ref={itemRef}>
-            <Accordion.ItemHeader>
-                <div className="flex flex-col items-start gap-1 md:gap-1.5">
-                    <div className="flex flex-row items-center gap-2">
-                        <p className={classNames('text-base font-normal leading-tight md:text-lg', functionNameStyle)}>
+            <Accordion.ItemHeader className="min-w-0">
+                <div className="flex min-w-0 flex-col items-start gap-1 md:gap-1.5">
+                    <div className="flex w-full flex-row items-center gap-2">
+                        <p
+                            className={classNames(
+                                'truncate text-base font-normal leading-tight md:text-lg',
+                                functionNameStyle,
+                            )}
+                        >
                             {action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
                         </p>
                         {displayWarningFeedback && (
                             <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
                         )}
                     </div>
-                    <div className="flex items-center gap-2 md:gap-3">
-                        <Heading size="h5" className="truncate text-neutral-500">
+                    <LinkBase
+                        className="flex w-full items-center gap-2 md:gap-3"
+                        href={targetAddressUrl}
+                        target="_blank"
+                    >
+                        <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
-                        </Heading>
-                        <Heading size="h5" className="shrink-0 text-primary-400">
-                            {addressUtils.truncateAddress(action.to)}
-                        </Heading>
-                    </div>
+                        </p>
+                        {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
+                        <object type="unknown">
+                            <Link
+                                className="shrink-0"
+                                href={targetAddressUrl}
+                                target="_blank"
+                                iconRight={IconType.LINK_EXTERNAL}
+                            >
+                                {addressUtils.truncateAddress(action.to)}
+                            </Link>
+                        </object>
+                    </LinkBase>
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent ref={contentRef} forceMount={editMode ? true : undefined}>
@@ -102,6 +123,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             action={action}
                             index={index}
                             CustomComponent={CustomComponent}
+                            chainId={chainId}
                             {...web3Props}
                         />
                     )}
