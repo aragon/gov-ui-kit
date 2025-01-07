@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 env:
   NODE_VERSION: 20
   NODE_CACHE: "yarn"
@@ -20,11 +25,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Build storybook
-        run: yarn build:storybook
-      - name: Deploy storybook
-        run: yarn deploy:storybook --ci --host-token-env-variable=GITHUB_TOKEN --source-branch main --branch gh-pages --existing-output-dir=storybook-static
-        env:
-          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Deploy Storybook
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: yarn install --immutable
+          build_command: yarn build:storybook
+          path: storybook-static
+          checkout: false

@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Update style of `ProposalActionItem` module component, render link to block explorer for target address
 - Rename `tokenPrice` property to `amountUsd` on `<TransactionDataListItem />` module component
+- Update workflow to deploy Storybook application to Github pages
 - Update minor and patch NPM dependencies
 - Update `Yarn` version to 4.6.0
 
