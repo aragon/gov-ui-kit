@@ -1,10 +1,9 @@
-name: Build and Publish Storybook to GitHub Pages
- 
+name: Storybook Publish
+
 on:
   push:
     branches:
-      - 'main'
-  workflow_dispatch:
+      - "main"
 
 permissions:
   contents: read
@@ -14,20 +13,19 @@ permissions:
 env:
   NODE_VERSION: 20
   NODE_CACHE: "yarn"
- 
+
 jobs:
-  deploy:
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
       - name: Setup Node
         uses: actions/setup-node@v4.1.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}
-      - id: build-publish
+      - name: Deploy Storybook
         uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
           install_command: yarn install --immutable
