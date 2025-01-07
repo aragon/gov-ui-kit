@@ -76,10 +76,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     });
 
     const assetTransferClassNames = classNames(
-        'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base
-        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
-        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        'active:border-neutral-300 active:shadow-none', // active
+        'flex h-16 items-center justify-between px-4', // base
         'md:h-20 md:px-6', // responsive
     );
 

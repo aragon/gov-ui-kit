@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { zeroAddress } from 'viem';
 import { ProposalActionWithdrawToken } from './proposalActionWithdrawToken';
 import { generateProposalActionWithdrawToken } from './proposalActionWithdrawToken.testUtils';
 
@@ -31,27 +30,6 @@ export const Default: Story = {
                 priceUsd: '0.00002459',
                 decimals: 18,
                 address: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
-            },
-            amount: '9784653197',
-        }),
-    },
-};
-
-/**
- * Usage example of the ProposalActions module component with mocked NativeTokenWithdraw actions.
- */
-export const NativeTransfer: Story = {
-    args: {
-        action: generateProposalActionWithdrawToken({
-            sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
-            receiver: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
-            token: {
-                name: 'Ether',
-                symbol: 'ETH',
-                logo: 'https://www.datocms-assets.com/86369/1669619533-ethereum.png',
-                priceUsd: '0.00002459',
-                decimals: 18,
-                address: zeroAddress,
             },
             amount: '9784653197',
         }),

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { zeroAddress } from 'viem';
 import { AssetTransfer } from './assetTransfer';
 
 const meta: Meta<typeof AssetTransfer> = {
@@ -28,6 +29,23 @@ export const Default: Story = {
         assetSymbol: 'ETH',
         assetAmount: 1,
         assetName: 'Ethereum',
+        assetFiatPrice: 3850,
+        chainId: 1,
+    },
+};
+
+/**
+ * Usage example of the AssetTransfer module component with mocked Native Transfer.
+ */
+export const NativeTransfer: Story = {
+    args: {
+        sender: { address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' },
+        recipient: { address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', name: 'vitalik.eth' },
+        assetName: 'Ether',
+        assetSymbol: 'ETH',
+        assetIconSrc: 'https://www.datocms-assets.com/86369/1669619533-ethereum.png',
+        assetAmount: 2,
+        assetAddress: zeroAddress,
         assetFiatPrice: 3850,
         chainId: 1,
     },
