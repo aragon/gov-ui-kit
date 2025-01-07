@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Rename `TransactionDataListItem` property from `tokenPrice` to `amountUsd` for transaction price
+- Rename `tokenPrice` property to `amountUsd` on `<TransactionDataListItem />` module component
+- Update minor and patch NPM dependencies
 
 ## [1.0.61] - 2024-12-29
 
