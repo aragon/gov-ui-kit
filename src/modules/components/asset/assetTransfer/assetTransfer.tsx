@@ -1,9 +1,9 @@
 import classNames from 'classnames';
+import { zeroAddress } from 'viem';
 import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
-import { zeroAddress } from 'viem';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
     /**
