@@ -1,18 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
-import {
-    Accordion,
-    AlertCard,
-    Button,
-    Dropdown,
-    Heading,
-    Icon,
-    IconType,
-    invariant,
-    Link,
-    LinkBase,
-} from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -103,9 +92,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         href={targetAddressUrl}
                         target="_blank"
                     >
-                        <Heading size="h5" className="truncate text-neutral-500">
+                        <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
-                        </Heading>
+                        </p>
                         {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                         <object type="unknown">
                             <Link
