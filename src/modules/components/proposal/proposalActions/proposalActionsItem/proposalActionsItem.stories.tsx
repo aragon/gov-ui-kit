@@ -208,8 +208,6 @@ export const LongNames: Story = {
     args: {
         index: 0,
         action: generateProposalAction({
-            // value: '100000000000',
-            // data: '0x',
             to: '0x767f4616E322e36AF4d2d63f0b35c256545b25C9',
             inputData: {
                 function:
