@@ -39,7 +39,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         chainId,
         tokenSymbol,
         tokenAmount,
-        tokenPrice,
+        amountUsd,
         type = TransactionType.ACTION,
         status = TransactionStatus.PENDING,
         date,
@@ -54,10 +54,10 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     const processedHref = 'href' in otherProps && otherProps.href != null ? otherProps.href : blockExplorerHref;
 
     const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
-
-    const fiatValue = Number(tokenAmount ?? 0) * Number(tokenPrice ?? 0);
-    const formattedTokenPrice = formatterUtils.formatNumber(fiatValue, { format: NumberFormat.FIAT_TOTAL_SHORT });
-
+    const formattedTokenPrice = formatterUtils.formatNumber(amountUsd, {
+        format: NumberFormat.FIAT_TOTAL_SHORT,
+        fallback: '-',
+    });
     const formattedTokenAmount =
         type === TransactionType.ACTION || formattedTokenValue == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
 

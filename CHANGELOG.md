@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Rename `TransactionDataListItem` property from `tokenPrice` to `amountUsd` for transaction price
+
 ## [1.0.61] - 2024-12-29
 
 ### Added
