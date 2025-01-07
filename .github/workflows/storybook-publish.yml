@@ -1,9 +1,9 @@
 name: Build and Publish Storybook to GitHub Pages
- 
+
 on:
   push:
     branches:
-      - 'main'
+      - "main"
   workflow_dispatch:
 
 permissions:
@@ -14,7 +14,7 @@ permissions:
 env:
   NODE_VERSION: 20
   NODE_CACHE: "yarn"
- 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
