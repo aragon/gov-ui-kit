@@ -46,7 +46,6 @@ export const MultiBody: Story = {
             { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
             { address: '0xbC7f20ebB9AeDe6DF4965eCAAcfBb24927Ae16E7' },
         ],
-        result: { stage: { title: 'Founders Approval Council', id: '1' }, approvalAmount: 4, approvalThreshold: 6 },
     },
 };
 

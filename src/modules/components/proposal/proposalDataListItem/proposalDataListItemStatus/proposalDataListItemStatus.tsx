@@ -21,7 +21,6 @@ export interface IProposalDataListItemStatusProps
 const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
     [ProposalStatus.CHALLENGED, 'warning'],
-    [ProposalStatus.VETOED, 'warning'],
 ]);
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
@@ -43,7 +42,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const { copy } = useGukModulesContext();
 
     return (
-        <div className="flex w-full items-center justify-between gap-x-4 md:gap-x-6">
+        <div className="flex min-h-6 w-full items-center justify-between gap-x-4 md:gap-x-6">
             <div className="flex min-w-0 items-center gap-x-1">
                 <Tag
                     label={copy.proposalDataListItemStatus.statusLabel[status]}
@@ -71,11 +70,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                             <Rerender>{(now) => getFormattedProposalDate(date, now, copy)}</Rerender>
                         )}
                     </span>
-                    {isOngoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} responsiveSize={{ md: 'md' }} />}
+                    {isOngoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} size="sm" />}
                     {isOngoing && !voted && <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />}
-                    {!isOngoing && !voted && date && (
-                        <AvatarIcon icon={IconType.CALENDAR} responsiveSize={{ md: 'md' }} />
-                    )}
+                    {!isOngoing && !voted && date && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
                 </div>
             )}
         </div>

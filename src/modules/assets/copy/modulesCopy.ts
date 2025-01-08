@@ -85,7 +85,7 @@ export const modulesCopy = {
         totalHoldersTerm: 'Total token holders',
     },
     proposalDataListItemStatus: {
-        voted: "You've voted",
+        voted: "Voted",
         ago: 'ago',
         left: 'left',
         in: (statusContext: string) => `in ${statusContext}`,

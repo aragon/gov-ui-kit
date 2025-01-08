@@ -55,5 +55,5 @@ export const proposalStatusToTagVariant: Record<ProposalStatus, TagVariant> = {
     [ProposalStatus.PENDING]: 'neutral',
     [ProposalStatus.EXECUTABLE]: 'info',
     [ProposalStatus.REJECTED]: 'critical',
-    [ProposalStatus.VETOED]: 'warning',
+    [ProposalStatus.VETOED]: 'critical',
 };
