@@ -11,10 +11,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Introduce `statusContext` property to `<ProposalDataListItem />` module component
 
+## Changed
+
+- Remove `<MajorityVotingResult />` and `<ApprovalThresholdResult />` sub-components for `<ProposalDataListItem />`
+
+## [1.0.62] - 2025-01-08
+
+### Fixed
+
+- Fix `AssetTransfer` module component to not link to the block explorer for native transfers
+
 ### Changed
 
+- Update `<DialogHeader />` core component to not truncate description strings
+- Update style of `<ProposalActionItem />` module component, render link to block explorer for target address
 - Rename `tokenPrice` property to `amountUsd` on `<TransactionDataListItem />` module component
-- Remove `<MajorityVotingResult />` and `<ApprovalThresholdResult />` sub-components for `<ProposalDataListItem />`
+- Update workflow to deploy Storybook application to Github pages
 - Update minor and patch NPM dependencies
 - Update `Yarn` version to 4.6.0
 

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { zeroAddress } from 'viem';
 import { GukModulesProvider } from '../../gukModulesProvider';
 import { AssetTransfer, type IAssetTransferProps } from './assetTransfer';
 
@@ -67,6 +68,14 @@ describe('<AssetTransfer /> component', () => {
 
     it('does not render block explorer link for asset when asset address is not defined', () => {
         const assetAddress = undefined;
+        render(createTestComponent({ assetAddress }));
+
+        const links = screen.queryByRole('link');
+        expect(links).not.toBeInTheDocument();
+    });
+
+    it('does not render block explorer link for asset when asset address is zeroAddress', () => {
+        const assetAddress = zeroAddress;
         render(createTestComponent({ assetAddress }));
 
         const links = screen.queryByRole('link');

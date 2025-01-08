@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { zeroAddress } from 'viem';
 import { AssetTransfer } from './assetTransfer';
 
 const meta: Meta<typeof AssetTransfer> = {
@@ -29,6 +30,23 @@ export const Default: Story = {
         assetAmount: 1,
         assetName: 'Ethereum',
         assetFiatPrice: 3850,
+        chainId: 1,
+    },
+};
+
+/**
+ * Usage example of the AssetTransfer module component with mocked Native Transfer.
+ */
+export const ZeroAddressAsset: Story = {
+    args: {
+        sender: { address: '0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5' },
+        recipient: { address: '0x47ca69389783E0ab6B7297318F89B51c80D63bc7' },
+        assetName: 'BNB Coin',
+        assetSymbol: 'BNB',
+        assetIconSrc: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png',
+        assetAmount: 2,
+        assetAddress: zeroAddress,
+        assetFiatPrice: 710,
         chainId: 1,
     },
 };

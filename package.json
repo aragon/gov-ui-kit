@@ -1,6 +1,6 @@
 {
   "name": "@aragon/gov-ui-kit",
-  "version": "1.0.61",
+  "version": "1.0.62",
   "description": "Implementation of the Aragon's Governance UI Kit",
   "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",
@@ -26,8 +26,7 @@
     "lint:fix": "eslint . --fix",
     "prettify": "prettier . --check",
     "prettify:fix": "prettier . --write",
-    "type-check": "tsc --noemit",
-    "deploy:storybook": "storybook-to-ghpages"
+    "type-check": "tsc --noemit"
   },
   "repository": {
     "type": "git",
@@ -102,7 +101,6 @@
     "@storybook/blocks": "^8.4.7",
     "@storybook/react": "^8.4.7",
     "@storybook/react-webpack5": "^8.4.7",
-    "@storybook/storybook-deployer": "^2.8.16",
     "@svgr/rollup": "^8.1.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.15",

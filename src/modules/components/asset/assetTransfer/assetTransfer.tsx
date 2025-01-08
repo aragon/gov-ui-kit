@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { zeroAddress } from 'viem';
 import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
@@ -57,7 +58,10 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
 
     const senderUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: sender.address });
     const recipientUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: recipient.address });
-    const assetUrl = buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
+
+    // For native transfers we do not want to link to the block explorer
+    const isNativeTransfer = assetAddress === zeroAddress;
+    const assetUrl = isNativeTransfer ? undefined : buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
         format: NumberFormat.TOKEN_AMOUNT_SHORT,
@@ -71,14 +75,6 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: ` `,
     });
-
-    const assetTransferClassNames = classNames(
-        'flex h-16 w-full items-center justify-between rounded-xl border border-neutral-100 bg-neutral-0 px-4', // base
-        'hover:border-neutral-200 hover:shadow-neutral-md', // hover
-        'focus:outline-none focus-visible:rounded-xl focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
-        'active:border-neutral-300 active:shadow-none', // active
-        'md:h-20 md:px-6', // responsive
-    );
 
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
@@ -99,7 +95,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
                 href={assetUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={assetTransferClassNames}
+                className="flex h-16 items-center justify-between px-4 md:h-20 md:px-6"
             >
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />

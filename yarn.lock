@@ -72,7 +72,6 @@ __metadata:
     "@storybook/blocks": "npm:^8.4.7"
     "@storybook/react": "npm:^8.4.7"
     "@storybook/react-webpack5": "npm:^8.4.7"
-    "@storybook/storybook-deployer": "npm:^2.8.16"
     "@svgr/rollup": "npm:^8.1.0"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.15"
@@ -4807,22 +4806,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/9ca588446171491458e9adb5f9cf69b17517feddb4edd876da495843a45fa48a9c9272d4823090546e24a78dd7a93f1dcedef96257054383eb5678bfae6ccc09
-  languageName: node
-  linkType: hard
-
-"@storybook/storybook-deployer@npm:^2.8.16":
-  version: 2.8.16
-  resolution: "@storybook/storybook-deployer@npm:2.8.16"
-  dependencies:
-    git-url-parse: "npm:^12.0.0"
-    glob: "npm:^7.1.3"
-    parse-repo: "npm:^1.0.4"
-    shelljs: "npm:^0.8.1"
-    yargs: "npm:^15.0.0"
-  bin:
-    storybook-to-aws-s3: bin/storybook_to_aws_s3
-    storybook-to-ghpages: bin/storybook_to_ghpages
-  checksum: 10c0/f2473e43cf257b73509c9a737bec3745529cfd93036ff162b087575dcf3ff42c9a3e10a948cf702007bd9e78a042d357032ef93ea4ea3d5d914ced4906b2bf3c
   languageName: node
   linkType: hard
 
@@ -9977,25 +9960,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"git-up@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "git-up@npm:6.0.0"
-  dependencies:
-    is-ssh: "npm:^1.4.0"
-    parse-url: "npm:^7.0.2"
-  checksum: 10c0/a3e7f336358c8c206eecb8b70cb3db740bfe7c23468006debc18dace78852234c23fb622e678e0c3c84ac5f591d927bbe0d47f81e83f0ebe315be66e7d1c4bde
-  languageName: node
-  linkType: hard
-
-"git-url-parse@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "git-url-parse@npm:12.0.0"
-  dependencies:
-    git-up: "npm:^6.0.0"
-  checksum: 10c0/34e7bb26dacead6e4e38a4de2e6c77a61f795ad62f8b572c421876c4aacfd4e7f8159a0ec99a62b2f68890d562b95e8c147892a29dd66b9db9ff111d7d2776ab
-  languageName: node
-  linkType: hard
-
 "glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -10036,7 +10000,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.1.3, glob@npm:^7.1.4":
+"glob@npm:^7.1.3, glob@npm:^7.1.4":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
   dependencies:
@@ -10516,13 +10480,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"interpret@npm:^1.0.0":
-  version: 1.4.0
-  resolution: "interpret@npm:1.4.0"
-  checksum: 10c0/08c5ad30032edeec638485bc3f6db7d0094d9b3e85e0f950866600af3c52e9fd69715416d29564731c479d9f4d43ff3e4d302a178196bdc0e6837ec147640450
-  languageName: node
-  linkType: hard
-
 "interpret@npm:^3.1.1":
   version: 3.1.1
   resolution: "interpret@npm:3.1.1"
@@ -10846,15 +10803,6 @@ __metadata:
   dependencies:
     call-bound: "npm:^1.0.3"
   checksum: 10c0/65158c2feb41ff1edd6bbd6fd8403a69861cf273ff36077982b5d4d68e1d59278c71691216a4a64632bd76d4792d4d1d2553901b6666d84ade13bba5ea7bc7db
-  languageName: node
-  linkType: hard
-
-"is-ssh@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "is-ssh@npm:1.4.0"
-  dependencies:
-    protocols: "npm:^2.0.1"
-  checksum: 10c0/3eb30d1bcb4507cd25562e7ac61a1c0aa31772134c67cec9c3afe6f4d57ec17e8c2892600a608e8e583f32f53f36465b8968c0305f2855cfbff95acfd049e113
   languageName: node
   linkType: hard
 
@@ -12794,7 +12742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-url@npm:^6.0.1, normalize-url@npm:^6.1.0":
+"normalize-url@npm:^6.0.1":
   version: 6.1.0
   resolution: "normalize-url@npm:6.1.0"
   checksum: 10c0/95d948f9bdd2cfde91aa786d1816ae40f8262946e13700bf6628105994fe0ff361662c20af3961161c38a119dc977adeb41fc0b41b1745eb77edaaf9cb22db23
@@ -13181,38 +13129,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse-path@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "parse-path@npm:5.0.0"
-  dependencies:
-    protocols: "npm:^2.0.0"
-  checksum: 10c0/82efbec77ae276bf93d85a66164d27da0c6a17d71bd45c0162698a0c9efa1d8548e09e581014e7cb175de4de8ee4905b71f005aafc436b47790e8aefd5fd2673
-  languageName: node
-  linkType: hard
-
-"parse-repo@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "parse-repo@npm:1.0.4"
-  checksum: 10c0/d7a61b5f7120b3d30e6e84483d03977097869294565f9e9ed682c426cd95678cf1255cc65fb0178ed44ea5ab61b891fffb43cc6f5f869c981c230ef9bbf5df4b
-  languageName: node
-  linkType: hard
-
 "parse-srcset@npm:^1.0.2":
   version: 1.0.2
   resolution: "parse-srcset@npm:1.0.2"
   checksum: 10c0/2f268e3d110d4c53d06ed2a8e8ee61a7da0cee13bf150819a6da066a8ca9b8d15b5600d6e6cae8be940e2edc50ee7c1e1052934d6ec858324065ecef848f0497
-  languageName: node
-  linkType: hard
-
-"parse-url@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "parse-url@npm:7.0.2"
-  dependencies:
-    is-ssh: "npm:^1.4.0"
-    normalize-url: "npm:^6.1.0"
-    parse-path: "npm:^5.0.0"
-    protocols: "npm:^2.0.1"
-  checksum: 10c0/31dbf2f92b2befb808d3f724e9c7e25de5525199bfbeab7da8d3f55988865a0e0bac0d3c2a3cb9497e266e45306186799b9f8eb3e2727467b7e5990ad5ab894f
   languageName: node
   linkType: hard
 
@@ -14353,13 +14273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protocols@npm:^2.0.0, protocols@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "protocols@npm:2.0.1"
-  checksum: 10c0/016cc58a596e401004a028a2f7005e3444bf89ee8f606409c411719374d1e8bba0464fc142a065cce0d19f41669b2f7ffe25a8bde4f16ce3b6eb01fabc51f2e7
-  languageName: node
-  linkType: hard
-
 "proxy-compare@npm:2.5.1":
   version: 2.5.1
   resolution: "proxy-compare@npm:2.5.1"
@@ -14749,15 +14662,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rechoir@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "rechoir@npm:0.6.2"
-  dependencies:
-    resolve: "npm:^1.1.6"
-  checksum: 10c0/22c4bb32f4934a9468468b608417194f7e3ceba9a508512125b16082c64f161915a28467562368eeb15dc16058eb5b7c13a20b9eb29ff9927d1ebb3b5aa83e84
-  languageName: node
-  linkType: hard
-
 "rechoir@npm:^0.8.0":
   version: 0.8.0
   resolution: "rechoir@npm:0.8.0"
@@ -14954,7 +14858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.1, resolve@npm:^1.22.4, resolve@npm:^1.22.8":
+"resolve@npm:^1.1.7, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.1, resolve@npm:^1.22.4, resolve@npm:^1.22.8":
   version: 1.22.8
   resolution: "resolve@npm:1.22.8"
   dependencies:
@@ -14980,7 +14884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@npm%3A^1.1.6#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.14.2#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.8#optional!builtin<compat/resolve>":
+"resolve@patch:resolve@npm%3A^1.1.7#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.14.2#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.19.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.20.0#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.1#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.4#optional!builtin<compat/resolve>, resolve@patch:resolve@npm%3A^1.22.8#optional!builtin<compat/resolve>":
   version: 1.22.8
   resolution: "resolve@patch:resolve@npm%3A1.22.8#optional!builtin<compat/resolve>::version=1.22.8&hash=c3c19d"
   dependencies:
@@ -15414,19 +15318,6 @@ __metadata:
   version: 3.0.0
   resolution: "shebang-regex@npm:3.0.0"
   checksum: 10c0/1dbed0726dd0e1152a92696c76c7f06084eb32a90f0528d11acd764043aacf76994b2fb30aa1291a21bd019d6699164d048286309a278855ee7bec06cf6fb690
-  languageName: node
-  linkType: hard
-
-"shelljs@npm:^0.8.1":
-  version: 0.8.5
-  resolution: "shelljs@npm:0.8.5"
-  dependencies:
-    glob: "npm:^7.0.0"
-    interpret: "npm:^1.0.0"
-    rechoir: "npm:^0.6.2"
-  bin:
-    shjs: bin/shjs
-  checksum: 10c0/feb25289a12e4bcd04c40ddfab51aff98a3729f5c2602d5b1a1b95f6819ec7804ac8147ebd8d9a85dfab69d501bcf92d7acef03247320f51c1552cec8d8e2382
   languageName: node
   linkType: hard
 
@@ -17517,7 +17408,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^15.0.0, yargs@npm:^15.3.1":
+"yargs@npm:^15.3.1":
   version: 15.4.1
   resolution: "yargs@npm:15.4.1"
   dependencies:
