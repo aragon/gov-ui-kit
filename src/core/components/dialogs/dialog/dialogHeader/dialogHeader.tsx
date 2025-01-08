@@ -38,7 +38,7 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
 
     return (
         <div
-            className="flex w-full items-center gap-x-3 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:gap-x-4 md:px-6 md:pt-6"
+            className="flex w-full items-start gap-x-3 rounded-t-xl bg-modal-header px-4 pb-2 pt-4 backdrop-blur-md md:gap-x-4 md:px-6 md:pt-6"
             {...otherProps}
         >
             {showBackButton && (
@@ -50,12 +50,10 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
                     onClick={onBackClick}
                 />
             )}
-            <div className="min-w-0 flex-1 space-y-0.5">
+            <div className="min-w-0 flex-1 gap-0.5">
                 <Title className="flex-1 truncate text-lg leading-tight text-neutral-800">{title}</Title>
                 {description && (
-                    <Description className="flex-1 truncate text-sm leading-normal text-neutral-500">
-                        {description}
-                    </Description>
+                    <Description className="flex-1 text-sm leading-normal text-neutral-500">{description}</Description>
                 )}
             </div>
             <Close asChild={true}>
