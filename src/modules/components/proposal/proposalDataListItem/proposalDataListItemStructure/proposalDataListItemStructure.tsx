@@ -24,7 +24,6 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         id,
         className,
         type,
-        result,
         date,
         tag,
         publisher,

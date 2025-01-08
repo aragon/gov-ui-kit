@@ -2,15 +2,7 @@ import type { IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
 import { type ProposalStatus } from '../../proposalUtils';
 
-export type ProposalType = 'majorityVoting' | 'approvalThreshold' | undefined;
-
-export type ProposalResult<TType extends ProposalType> = TType extends 'majorityVoting'
-    ? IMajorityVotingResult
-    : TType extends 'approvalThreshold'
-      ? IApprovalThresholdResult
-      : undefined;
-
-export type IProposalDataListItemStructureBaseProps<TType extends ProposalType = ProposalType> = IDataListItemProps &
+export type IProposalDataListItemStructureProps = IDataListItemProps &
     IWeb3ComponentProps & {
         /**
          * Proposal id
@@ -29,15 +21,11 @@ export type IProposalDataListItemStructureBaseProps<TType extends ProposalType =
          */
         publisher: IPublisher | IPublisher[];
         /**
-         * Result of the proposal shown only when it is active, challenged or vetoed.
-         */
-        result?: ProposalResult<TType>;
-        /**
          * Proposal status
          */
         status: ProposalStatus;
         /**
-         * Proposal status detail to accompany the tag for extra context
+         * Proposal context for where it is in the voting process to accompany the status
          */
         statusContext?: string;
         /**
@@ -48,10 +36,6 @@ export type IProposalDataListItemStructureBaseProps<TType extends ProposalType =
          * Proposal title
          */
         title: string;
-        /**
-         * Type of the ProposalDataListItem
-         */
-        type?: TType;
         /**
          * Indicates whether the connected wallet has voted
          */
@@ -108,8 +92,3 @@ export interface IMajorityVotingResult extends IProposalResultBase {
      */
     votePercentage: number;
 }
-
-export type IProposalDataListItemStructureProps =
-    | IProposalDataListItemStructureBaseProps<undefined>
-    | IProposalDataListItemStructureBaseProps<'majorityVoting'>
-    | IProposalDataListItemStructureBaseProps<'approvalThreshold'>;

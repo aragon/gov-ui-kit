@@ -16,9 +16,7 @@ import { type IProposalDataListItemStructureProps } from '../proposalDataListIte
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 
 export interface IProposalDataListItemStatusProps
-    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted'> {
-    statusContext?: string;
-}
+    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
 
 const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
