@@ -30,8 +30,8 @@ export const InitialValue: Story = {
 };
 
 /**
-* Usage example with onCancel callback
-*/
+ * Usage example with onCancel callback
+ */
 export const WithOnCancel: Story = {
     args: {
         onCancel: () => alert('Cancel clicked'),

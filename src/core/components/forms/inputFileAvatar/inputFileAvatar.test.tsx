@@ -130,6 +130,4 @@ describe('<InputFileAvatar /> component', () => {
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
         expect(screen.queryByRole('img')).not.toBeInTheDocument();
     });
-
-
 });
