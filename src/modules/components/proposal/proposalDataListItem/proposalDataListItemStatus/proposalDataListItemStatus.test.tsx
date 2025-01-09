@@ -17,7 +17,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     it('displays the date, calendar icon and status', () => {
         const date = 1719563030308;
-        const status = ProposalStatus.ACCEPTED;
+        const status = ProposalStatus.EXECUTABLE;
 
         render(createTestComponent({ date, status }));
 
@@ -67,7 +67,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
         (status) => {
             render(createTestComponent({ status, voted: true }));
 
-            expect(screen.getByText(/You've voted/i)).toBeInTheDocument();
+            expect(screen.getByText(/Voted/i)).toBeInTheDocument();
             expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
         },
     );
@@ -81,7 +81,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {
         render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
 
-        expect(screen.queryByText(/You've voted/i)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Voted/i)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CHECKMARK)).not.toBeInTheDocument();
     });
 });

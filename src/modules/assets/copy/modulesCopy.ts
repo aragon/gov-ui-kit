@@ -85,14 +85,13 @@ export const modulesCopy = {
         totalHoldersTerm: 'Total token holders',
     },
     proposalDataListItemStatus: {
-        voted: "Voted",
+        voted: 'Voted',
         ago: 'ago',
         left: 'left',
         in: (statusContext: string) => `in ${statusContext}`,
         statusLabel: {
-            ACCEPTED: 'Accepted',
+            ACCEPTED: 'Advanceable',
             ACTIVE: 'Active',
-            ADVANCEABLE: 'Advanceable',
             CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
             EXECUTED: 'Executed',
@@ -103,6 +102,7 @@ export const modulesCopy = {
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',
             VETOED: 'Vetoed',
+            UNREACHED: 'Unreached',
         },
     },
     proposalDataListItemStructure: {

@@ -34,7 +34,7 @@ export const Default: Story = {
 export const MultiBody: Story = {
     args: {
         date: Date.now() - 1000000,
-        status: ProposalStatus.ADVANCEABLE,
+        status: ProposalStatus.ACCEPTED,
         statusContext: 'Stage 1',
         title: 'Partnering with WalletConnect on Social Media',
         summary:
