@@ -101,4 +101,35 @@ describe('<InputFileAvatar /> component', () => {
         await user.upload(screen.getByLabelText(label), file);
         await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
     });
+
+    it('displays the initialValue image preview when provided', async () => {
+        const initialValue = 'https://example.com/avatar.png';
+        render(createTestComponent({ initialValue }));
+        const previewImg = await screen.findByRole<HTMLImageElement>('img');
+
+        expect(previewImg).toBeInTheDocument();
+        expect(previewImg.src).toEqual(initialValue);
+    });
+
+    it('fires the onCancel callback when cancel button is clicked', async () => {
+        const user = userEvent.setup();
+        const label = 'test-label';
+        const onCancel = jest.fn();
+
+        const file = new File(['something'], 'test.png', { type: 'image/png' });
+        createObjectURLMock.mockReturnValue('file-src');
+
+        render(createTestComponent({ label, onCancel }));
+        await user.upload(screen.getByLabelText(label), file);
+        const cancelButton = await screen.findByRole('button');
+        expect(cancelButton).toBeInTheDocument();
+
+        await user.click(cancelButton);
+
+        expect(onCancel).toHaveBeenCalled();
+        expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
+        expect(screen.queryByRole('img')).not.toBeInTheDocument();
+    });
+
+
 });
