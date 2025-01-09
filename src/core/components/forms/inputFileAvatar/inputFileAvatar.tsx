@@ -50,13 +50,15 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
         onlySquare,
         variant = 'default',
         disabled,
+        initialValue,
+        onCancel,
         ...otherProps
     } = props;
 
     const { id, ...containerProps } = otherProps;
     const randomId = useRandomId(id);
 
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    const [imagePreview, setImagePreview] = useState<string | null>(initialValue ?? null);
     const [isLoading, setIsLoading] = useState(false);
 
     const onDrop = useCallback(
@@ -110,6 +112,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
+        onCancel?.();
         setImagePreview(null);
         if (imagePreview) {
             URL.revokeObjectURL(imagePreview);

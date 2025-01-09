@@ -48,4 +48,12 @@ export interface IInputFileAvatarProps
      * Optional ID for the file avatar input.
      */
     id?: string;
+    /**
+     *  Optional initial value for the image preview.
+     */
+    initialValue?: string;
+    /**
+     * callback to be fired when cancel is clicked
+     */
+    onCancel?: () => void;
 }
