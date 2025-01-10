@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { InputFileAvatar } from './inputFileAvatar';
+import type { IInputFileAvatarValue } from './inputFileAvatar.api';
 
 const meta: Meta<typeof InputFileAvatar> = {
     title: 'Core/Components/Forms/InputFileAvatar',
@@ -18,23 +20,27 @@ type Story = StoryObj<typeof InputFileAvatar>;
 /**
  * Default usage example of the InputFileAvatar component.
  */
-export const Default: Story = {};
+export const Default: Story = {
+    render: ({ ...props }) => {
+        const [value, setValue] = useState<IInputFileAvatarValue>();
+
+        return <InputFileAvatar {...props} value={value} onChange={setValue} />;
+    },
+};
 
 /**
  * Usage example of the InputFileAvatar component with an initial value.
  */
 export const InitialValue: Story = {
     args: {
-        initialValue: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
+        value: {
+            url: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1696501628',
+        },
     },
-};
+    render: (props) => {
+        const [value, setValue] = useState<IInputFileAvatarValue | undefined>(props.value);
 
-/**
- * Usage example with onCancel callback
- */
-export const WithOnCancel: Story = {
-    args: {
-        onCancel: () => alert('Cancel clicked'),
+        return <InputFileAvatar {...props} value={value} onChange={setValue} />;
     },
 };
 

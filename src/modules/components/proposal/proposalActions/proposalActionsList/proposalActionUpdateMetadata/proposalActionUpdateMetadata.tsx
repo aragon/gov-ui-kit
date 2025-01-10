@@ -28,7 +28,7 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
                         className="md:items-center"
                         term={modulesCopy.proposalActionsUpdateMetadata.logoTerm}
                     >
-                        <Avatar alt="dao-logo" src={metadataToDisplay.logo} responsiveSize={{ md: 'md', sm: 'sm' }} />
+                        <Avatar alt="dao-logo" src={metadataToDisplay.avatar} responsiveSize={{ md: 'md', sm: 'sm' }} />
                     </DefinitionList.Item>
                 )}
                 <DefinitionList.Item term={modulesCopy.proposalActionsUpdateMetadata.nameTerm}>

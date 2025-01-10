@@ -10,14 +10,29 @@ export enum InputFileAvatarError {
     FILE_TOO_LARGE = 'file-too-large',
 }
 
+export interface IInputFileAvatarValue {
+    /**
+     * URL of the image for the preview.
+     */
+    url?: string;
+    /**
+     * File object of the image.
+     */
+    file?: File;
+}
+
 export interface IInputFileAvatarProps
     extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'> {
     /**
-     * Function that is called when a file is selected. Passes the file to the parent component.
+     * Function that is called when a file is selected.
      * If the file is rejected, the function is not called.
-     * If the file is accepted, the function is called with the file as an argument.
+     * If the file is accepted, the function is called with the file as an argument and a url string for generating the preview.
      */
-    onFileSelect?: (file: File) => void;
+    onChange: (value?: IInputFileAvatarValue) => void;
+    /**
+     *  The current value of the input.
+     */
+    value?: IInputFileAvatarValue;
     /**
      * Function that is called when a file is rejected. Passes the error message to the parent component.
      */
@@ -48,12 +63,4 @@ export interface IInputFileAvatarProps
      * Optional ID for the file avatar input.
      */
     id?: string;
-    /**
-     *  Optional initial value for the image preview.
-     */
-    initialValue?: string;
-    /**
-     * callback to be fired when cancel is clicked
-     */
-    onCancel?: () => void;
 }
