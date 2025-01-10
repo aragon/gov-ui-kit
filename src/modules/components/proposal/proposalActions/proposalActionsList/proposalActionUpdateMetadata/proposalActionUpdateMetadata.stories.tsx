@@ -23,13 +23,13 @@ export const Default: Story = {
     args: {
         action: generateProposalActionUpdateMetadata({
             existingMetadata: {
-                logo: 'https://cdn.prod.website-files.com/5e997428d0f2eb13a90aec8c/635283b535e03c60d5aafe64_logo_aragon_isotype.png',
+                avatar: 'https://cdn.prod.website-files.com/5e997428d0f2eb13a90aec8c/635283b535e03c60d5aafe64_logo_aragon_isotype.png',
                 name: 'Aragon DAO',
                 description: 'A description for the Aragon DAO',
                 links: [{ label: 'Aragon DAO', href: 'https://aragon.org/' }],
             },
             proposedMetadata: {
-                logo: 'https://cdn.prod.website-files.com/5e997428d0f2eb13a90aec8c/635283b535e03c60d5aafe64_logo_aragon_isotype.png',
+                avatar: 'https://cdn.prod.website-files.com/5e997428d0f2eb13a90aec8c/635283b535e03c60d5aafe64_logo_aragon_isotype.png',
                 name: 'Aragon X',
                 description: 'Updated description for the AragonX DAO',
                 links: [
