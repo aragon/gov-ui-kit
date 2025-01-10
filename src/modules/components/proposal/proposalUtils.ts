@@ -3,6 +3,8 @@ import type { TagVariant } from '../../../core';
 export enum ProposalStatus {
     ACCEPTED = 'ACCEPTED',
     ACTIVE = 'ACTIVE',
+    ADVANCEABLE = 'ADVANCEABLE',
+    ADVANCED = 'ADVANCED',
     CHALLENGED = 'CHALLENGED',
     DRAFT = 'DRAFT',
     EXECUTED = 'EXECUTED',
@@ -17,8 +19,10 @@ export enum ProposalStatus {
 
 export enum ProposalVotingStatus {
     ACTIVE = 'ACTIVE',
-    PENDING = 'PENDING',
     ACCEPTED = 'ACCEPTED',
+    ADVANCEABLE = 'ADVANCEABLE',
+    ADVANCED = 'ADVANCED',
+    PENDING = 'PENDING',
     EXPIRED = 'EXPIRED',
     REJECTED = 'REJECTED',
     UNREACHED = 'UNREACHED',
@@ -28,6 +32,8 @@ export enum ProposalVotingStatus {
 export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVotingStatus> = {
     [ProposalStatus.ACCEPTED]: ProposalVotingStatus.ACCEPTED,
     [ProposalStatus.ACTIVE]: ProposalVotingStatus.ACTIVE,
+    [ProposalStatus.ADVANCEABLE]: ProposalVotingStatus.ADVANCEABLE,
+    [ProposalStatus.ADVANCED]: ProposalVotingStatus.ADVANCED,
     [ProposalStatus.CHALLENGED]: ProposalVotingStatus.ACTIVE,
     [ProposalStatus.DRAFT]: ProposalVotingStatus.PENDING,
     [ProposalStatus.EXECUTED]: ProposalVotingStatus.ACCEPTED,
@@ -40,9 +46,23 @@ export const proposalStatusToVotingStatus: Record<ProposalStatus, ProposalVoting
     [ProposalStatus.VETOED]: ProposalVotingStatus.VETOED,
 };
 
-export const proposalStatusToTagVariant: Record<ProposalStatus | ProposalVotingStatus, TagVariant> = {
+export const votingStatusToProposalStatus: Record<ProposalVotingStatus, ProposalStatus> = {
+    [ProposalVotingStatus.ACCEPTED]: ProposalStatus.ACCEPTED,
+    [ProposalVotingStatus.ACTIVE]: ProposalStatus.ACTIVE,
+    [ProposalVotingStatus.ADVANCEABLE]: ProposalStatus.ADVANCEABLE,
+    [ProposalVotingStatus.ADVANCED]: ProposalStatus.ADVANCED,
+    [ProposalVotingStatus.PENDING]: ProposalStatus.PENDING,
+    [ProposalVotingStatus.EXPIRED]: ProposalStatus.EXPIRED,
+    [ProposalVotingStatus.REJECTED]: ProposalStatus.REJECTED,
+    [ProposalVotingStatus.UNREACHED]: ProposalStatus.FAILED,
+    [ProposalVotingStatus.VETOED]: ProposalStatus.VETOED,
+};
+
+export const proposalStatusToTagVariant: Record<ProposalStatus, TagVariant> = {
     [ProposalStatus.ACCEPTED]: 'info',
     [ProposalStatus.ACTIVE]: 'info',
+    [ProposalStatus.ADVANCEABLE]: 'info',
+    [ProposalStatus.ADVANCED]: 'success',
     [ProposalStatus.CHALLENGED]: 'warning',
     [ProposalStatus.DRAFT]: 'neutral',
     [ProposalStatus.EXECUTED]: 'success',
@@ -53,5 +73,4 @@ export const proposalStatusToTagVariant: Record<ProposalStatus | ProposalVotingS
     [ProposalStatus.EXECUTABLE]: 'info',
     [ProposalStatus.REJECTED]: 'critical',
     [ProposalStatus.VETOED]: 'critical',
-    [ProposalVotingStatus.UNREACHED]: 'neutral',
 };

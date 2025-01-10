@@ -90,7 +90,9 @@ export const modulesCopy = {
         left: 'left',
         in: (statusContext: string) => `in ${statusContext}`,
         statusLabel: {
-            ACCEPTED: 'Advanceable',
+            ACCEPTED: 'Accepted',
+            ADVANCEABLE: 'Advanceable',
+            ADVANCED: 'Advanced',
             ACTIVE: 'Active',
             CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
@@ -142,6 +144,8 @@ export const modulesCopy = {
             pending: 'is pending',
             active: 'left to vote',
             accepted: 'has been',
+            advanceable: 'is advanceable',
+            advanced: 'has been',
             rejected: 'has been',
             expired: 'has',
             unreached: 'not reached',
@@ -149,6 +153,7 @@ export const modulesCopy = {
         },
         status: {
             accepted: 'accepted',
+            advanced: 'advanced',
             rejected: 'rejected',
             expired: 'expired',
             vetoed: 'vetoed',

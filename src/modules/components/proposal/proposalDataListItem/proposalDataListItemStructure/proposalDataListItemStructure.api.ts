@@ -1,6 +1,6 @@
 import type { IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
-import { type ProposalStatus, type ProposalVotingStatus } from '../../proposalUtils';
+import { type ProposalStatus } from '../../proposalUtils';
 
 export type IProposalDataListItemStructureProps = IDataListItemProps &
     IWeb3ComponentProps & {
@@ -23,7 +23,7 @@ export type IProposalDataListItemStructureProps = IDataListItemProps &
         /**
          * Proposal status
          */
-        status: ProposalStatus | ProposalVotingStatus;
+        status: ProposalStatus;
         /**
          * Proposal context for where it is in the voting process to accompany the status
          */

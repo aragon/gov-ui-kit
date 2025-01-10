@@ -1,15 +1,15 @@
-import { ProposalStatus, ProposalVotingStatus } from '../proposalUtils';
+import { ProposalStatus } from '../proposalUtils';
 
 class ProposalDataListItemUtils {
-    ongoingStatuses: Array<ProposalStatus | ProposalVotingStatus> = [
+    ongoingStatuses: ProposalStatus[] = [
         ProposalStatus.ACTIVE,
+        ProposalStatus.ACCEPTED,
+        ProposalStatus.ADVANCEABLE,
         ProposalStatus.CHALLENGED,
-        ProposalVotingStatus.ACTIVE,
-        ProposalVotingStatus.PENDING,
-        ProposalVotingStatus.ACCEPTED,
+        ProposalStatus.PENDING,
     ];
 
-    isOngoingStatus = (status: ProposalStatus | ProposalVotingStatus) => this.ongoingStatuses.includes(status);
+    isOngoingStatus = (status: ProposalStatus) => this.ongoingStatuses.includes(status);
 }
 
 export const proposalDataListItemUtils = new ProposalDataListItemUtils();
