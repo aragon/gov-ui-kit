@@ -53,5 +53,5 @@ export const proposalStatusToTagVariant: Record<ProposalStatus | ProposalVotingS
     [ProposalStatus.EXECUTABLE]: 'info',
     [ProposalStatus.REJECTED]: 'critical',
     [ProposalStatus.VETOED]: 'critical',
-    [ProposalVotingStatus.UNREACHED]: 'neutral'
+    [ProposalVotingStatus.UNREACHED]: 'neutral',
 };
