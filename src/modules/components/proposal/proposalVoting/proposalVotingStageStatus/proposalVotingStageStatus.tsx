@@ -54,6 +54,7 @@ const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, 
 
 const statusToIcon = new Map<ProposalVotingStatus, { icon: IconType; variant: AvatarIconVariant } | undefined>([
     [ProposalVotingStatus.ACCEPTED, { icon: IconType.CHECKMARK, variant: 'success' }],
+    [ProposalVotingStatus.ADVANCEABLE, { icon: IconType.CHECKMARK, variant: 'success' }],
     [ProposalVotingStatus.REJECTED, { icon: IconType.CLOSE, variant: 'critical' }],
     [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'neutral' }],
     [ProposalVotingStatus.EXPIRED, { icon: IconType.CLOSE, variant: 'critical' }],
