@@ -84,13 +84,12 @@ describe('<InputFileAvatar /> component', () => {
 
     it('clears the current file selection on close button click after an image has been selected', async () => {
         const user = userEvent.setup();
-        const label = 'test-label';
         const file = new File(['something'], 'test.png', { type: 'image/png' });
         const fileSrc = 'file-src';
         const onChange = jest.fn();
         createObjectURLMock.mockReturnValue(fileSrc);
 
-        const { rerender } = render(createTestComponent({ label, onChange, value: { url: fileSrc, file } }));
+        const { rerender } = render(createTestComponent({ onChange, value: { url: fileSrc, file } }));
 
         const cancelButton = await screen.findByRole('button');
         expect(cancelButton).toBeInTheDocument();
@@ -101,7 +100,7 @@ describe('<InputFileAvatar /> component', () => {
             expect(onChange).toHaveBeenCalledWith(undefined);
         });
 
-        rerender(createTestComponent({ label, onChange }));
+        rerender(createTestComponent({ onChange }));
 
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
         expect(screen.queryByTestId('avatar')).not.toBeInTheDocument();
