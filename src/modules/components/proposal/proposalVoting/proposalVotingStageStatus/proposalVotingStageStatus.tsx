@@ -45,7 +45,6 @@ const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, 
     [ProposalVotingStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalVotingStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
     [ProposalVotingStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable,
-    [ProposalVotingStatus.ADVANCED]: copy.proposalVotingStageStatus.secondary.advanced,
     [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
     [ProposalVotingStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
@@ -84,9 +83,6 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 <span className="text-neutral-500">{secondaryText}</span>
                 {status === ProposalVotingStatus.ACCEPTED && (
                     <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
-                )}
-                {status === ProposalVotingStatus.ADVANCED && (
-                    <span className="text-success-800">{copy.proposalVotingStageStatus.status.advanced}</span>
                 )}
                 {status === ProposalVotingStatus.REJECTED && (
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
