@@ -17,7 +17,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     it('displays the date, calendar icon and status', () => {
         const date = 1719563030308;
-        const status = ProposalStatus.EXECUTABLE;
+        const status = ProposalStatus.ACCEPTED;
 
         render(createTestComponent({ date, status }));
 

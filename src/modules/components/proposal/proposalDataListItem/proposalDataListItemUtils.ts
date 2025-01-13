@@ -3,7 +3,6 @@ import { ProposalStatus } from '../proposalUtils';
 class ProposalDataListItemUtils {
     ongoingStatuses: ProposalStatus[] = [
         ProposalStatus.ACTIVE,
-        ProposalStatus.ACCEPTED,
         ProposalStatus.ADVANCEABLE,
         ProposalStatus.CHALLENGED,
         ProposalStatus.PENDING,

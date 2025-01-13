@@ -66,29 +66,3 @@ export interface IProposalResultBase {
      */
     stage?: IProposalStage;
 }
-
-export interface IApprovalThresholdResult extends IProposalResultBase {
-    /**
-     * Number of approvals for the proposal
-     */
-    approvalAmount: number;
-    /**
-     * Proposal approval threshold
-     */
-    approvalThreshold: number;
-}
-
-export interface IMajorityVotingResult extends IProposalResultBase {
-    /**
-     * Winning option
-     */
-    option: string;
-    /**
-     * Number of votes for the winning option
-     */
-    voteAmount: string;
-    /**
-     * Percentage of votes for the winning option
-     */
-    votePercentage: number;
-}

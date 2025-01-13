@@ -8,7 +8,6 @@ describe('proposalDataListItem utils', () => {
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.CHALLENGED)).toBeTruthy();
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.PENDING)).toBeTruthy();
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ADVANCEABLE)).toBeTruthy();
-            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ACCEPTED)).toBeTruthy();
         });
 
         it('returns false for non-ongoing proposal statuses', () => {
