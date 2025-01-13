@@ -109,7 +109,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        onChange();
+        onChange(undefined);
         if (value?.url) {
             URL.revokeObjectURL(value.url);
         }

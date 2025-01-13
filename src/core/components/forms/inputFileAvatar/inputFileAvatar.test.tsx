@@ -75,7 +75,7 @@ describe('<InputFileAvatar /> component', () => {
             expect(onChange).toHaveBeenCalledWith({ url: fileSrc, file });
         });
 
-        rerender(createTestComponent({ label, onChange, value: { url: fileSrc, file } }));
+        rerender(createTestComponent({ onChange, value: { url: fileSrc, file } }));
 
         const previewImg = await screen.findByTestId('avatar');
         expect(previewImg).toBeInTheDocument();
@@ -92,16 +92,13 @@ describe('<InputFileAvatar /> component', () => {
 
         const { rerender } = render(createTestComponent({ label, onChange, value: { url: fileSrc, file } }));
 
-        const previewImg = await screen.findByTestId('avatar');
-        expect(previewImg).toBeInTheDocument();
-
         const cancelButton = await screen.findByRole('button');
         expect(cancelButton).toBeInTheDocument();
 
         await user.click(cancelButton);
 
         await waitFor(() => {
-            expect(onChange).toHaveBeenCalled();
+            expect(onChange).toHaveBeenCalledWith(undefined);
         });
 
         rerender(createTestComponent({ label, onChange }));
