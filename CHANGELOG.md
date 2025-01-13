@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Update `InputFileAvatar` core component to accept optional `initialValue` and `onCancel` properties
+- Update `InputFileAvatar` core component to remove `onFileSelect` property and add `value` and `onChange` properties
 - Update `IProposalActionUpdateMetadataDaoMetadata` interface logo property to `avatar` to better align with actions.
 
 ## [1.0.62] - 2025-01-08

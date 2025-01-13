@@ -21,7 +21,7 @@ type Story = StoryObj<typeof InputFileAvatar>;
  * Default usage example of the InputFileAvatar component.
  */
 export const Default: Story = {
-    render: ({ ...props }) => {
+    render: (props) => {
         const [value, setValue] = useState<IInputFileAvatarValue>();
 
         return <InputFileAvatar {...props} value={value} onChange={setValue} />;

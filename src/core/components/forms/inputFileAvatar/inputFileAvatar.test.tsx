@@ -58,7 +58,7 @@ describe('<InputFileAvatar /> component', () => {
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
     });
 
-    it('displays a preview and calls the onFileSelect callback when a valid file is selected', async () => {
+    it('displays a preview and calls the onChange callback when a valid file is selected', async () => {
         const user = userEvent.setup();
         const label = 'test-label';
         const fileSrc = 'https://chucknorris.com/image.png';
@@ -90,16 +90,7 @@ describe('<InputFileAvatar /> component', () => {
         const onChange = jest.fn();
         createObjectURLMock.mockReturnValue(fileSrc);
 
-        const { rerender } = render(createTestComponent({ label, onChange }));
-
-        const fileInput = screen.getByLabelText(label);
-        await user.upload(fileInput, file);
-
-        await waitFor(() => {
-            expect(onChange).toHaveBeenCalledWith({ url: fileSrc, file });
-        });
-
-        rerender(createTestComponent({ label, onChange, value: { url: fileSrc, file } }));
+        const { rerender } = render(createTestComponent({ label, onChange, value: { url: fileSrc, file } }));
 
         const previewImg = await screen.findByTestId('avatar');
         expect(previewImg).toBeInTheDocument();
