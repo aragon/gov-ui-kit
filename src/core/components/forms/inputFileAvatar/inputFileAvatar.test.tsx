@@ -41,7 +41,10 @@ describe('<InputFileAvatar /> component', () => {
     });
 
     const createTestComponent = (props?: Partial<IInputFileAvatarProps>) => {
-        const completeProps = { ...props };
+        const completeProps = {
+            onChange: jest.fn(),
+            ...props,
+        };
 
         return <InputFileAvatar {...completeProps} />;
     };
@@ -55,37 +58,53 @@ describe('<InputFileAvatar /> component', () => {
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
     });
 
-    it('displays a preview and calls the onFileSelect callback when a valid file is selected', async () => {
+    it('displays a preview and calls the onChange callback when a valid file is selected', async () => {
         const user = userEvent.setup();
         const label = 'test-label';
         const fileSrc = 'https://chucknorris.com/image.png';
-        const file = new File(['(⌐□_□)'], fileSrc, { type: 'image/png' });
-        const onFileSelect = jest.fn();
+        const file = new File(['(⌐□_□)'], 'image.png', { type: 'image/png' });
+        const onChange = jest.fn();
         createObjectURLMock.mockReturnValue(fileSrc);
 
-        render(createTestComponent({ label, onFileSelect }));
-        await user.upload(screen.getByLabelText(label), file);
-        const previewImg = await screen.findByRole<HTMLImageElement>('img');
+        const { rerender } = render(createTestComponent({ label, onChange }));
 
+        const fileInput = screen.getByLabelText<HTMLInputElement>(label);
+        await user.upload(fileInput, file);
+
+        await waitFor(() => {
+            expect(onChange).toHaveBeenCalledWith({ url: fileSrc, file });
+        });
+
+        rerender(createTestComponent({ onChange, value: { url: fileSrc, file } }));
+
+        const previewImg = await screen.findByTestId('avatar');
         expect(previewImg).toBeInTheDocument();
-        expect(previewImg.src).toEqual(fileSrc);
-        expect(onFileSelect).toHaveBeenCalledWith(file);
+        expect(previewImg).toHaveAttribute('src', fileSrc);
     });
 
     it('clears the current file selection on close button click after an image has been selected', async () => {
         const user = userEvent.setup();
-        const label = 'test-label';
         const file = new File(['something'], 'test.png', { type: 'image/png' });
-        createObjectURLMock.mockReturnValue('file-src');
+        const fileSrc = 'file-src';
+        const onChange = jest.fn();
+        createObjectURLMock.mockReturnValue(fileSrc);
 
-        render(createTestComponent({ label }));
-        await user.upload(screen.getByLabelText(label), file);
+        const { rerender } = render(createTestComponent({ onChange, value: { url: fileSrc, file } }));
+
         const cancelButton = await screen.findByRole('button');
         expect(cancelButton).toBeInTheDocument();
 
         await user.click(cancelButton);
+
+        await waitFor(() => {
+            expect(onChange).toHaveBeenCalledWith(undefined);
+        });
+
+        rerender(createTestComponent({ onChange }));
+
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();
-        expect(screen.queryByRole('img')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('avatar')).not.toBeInTheDocument();
+        expect(revokeObjectURLMock).toHaveBeenCalledWith(fileSrc);
     });
 
     it('calls onFileError when file has incorrect dimensions', async () => {
@@ -100,5 +119,14 @@ describe('<InputFileAvatar /> component', () => {
         render(createTestComponent({ label, onFileError, minDimension }));
         await user.upload(screen.getByLabelText(label), file);
         await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
+    });
+
+    it('displays the initialValue image preview when provided', async () => {
+        const value = { url: 'https://example.com/avatar.png' };
+        render(createTestComponent({ value }));
+        const previewImg = await screen.findByRole<HTMLImageElement>('img');
+
+        expect(previewImg).toBeInTheDocument();
+        expect(previewImg.src).toEqual(value.url);
     });
 });

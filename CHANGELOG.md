@@ -10,11 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 
 - Add `statusContext` property to `<ProposalDataListItem />` module component
-- Update `<ProposalDataListItem />` module component to support `ADVANCEABLE` status
 
 ## Changed
 
 - Remove `<MajorityVotingResult />` and `<ApprovalThresholdResult />` sub-components for `<ProposalDataListItem />`
+- Update `InputFileAvatar` core component to remove `onFileSelect` property and add `value` and `onChange` properties
+- Update `IProposalActionUpdateMetadataDaoMetadata` interface logo property to `avatar` to better align with actions.
+- Update `<ProposalDataListItem />` module component to support `ADVANCEABLE` status
 
 ## [1.0.62] - 2025-01-08
 

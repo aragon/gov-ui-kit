@@ -34,7 +34,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
 
         it('renders the correct existing metadata for UPDATE_METADATA', async () => {
             const proposedMetadata = {
-                logo: 'proposed-logo.png',
+                avatar: 'proposed-logo.png',
                 name: 'Proposed Name',
                 description: 'Proposed DAO description',
                 links: [
@@ -44,7 +44,7 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             };
 
             const existingMetadata = {
-                logo: 'existing-logo.png',
+                avatar: 'existing-logo.png',
                 name: 'Existing Name',
                 description: 'Existing DAO description',
                 links: [

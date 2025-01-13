@@ -17,9 +17,9 @@ export interface IProposalActionUpdateMetadataDaoMetadataLink {
 
 export interface IProposalActionUpdateMetadataDaoMetadata {
     /**
-     * URL of the logo, only set for DAO metadata.
+     * URL of the avatar, only set for DAO metadata.
      */
-    logo?: string;
+    avatar?: string;
     /**
      *  Name of the DAO or Plugin.
      */
