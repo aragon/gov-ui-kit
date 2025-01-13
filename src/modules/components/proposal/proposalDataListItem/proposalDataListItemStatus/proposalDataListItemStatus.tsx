@@ -11,15 +11,16 @@ import {
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ProposalStatus, proposalStatusToTagVariant, type ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
 import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
 import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 
 export interface IProposalDataListItemStatusProps
     extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
 
-const proposalStatusToPingVariant = new Map<ProposalStatus | ProposalVotingStatus, StatePingAnimationVariant>([
+const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
+    [ProposalStatus.ADVANCEABLE, 'info'],
     [ProposalStatus.CHALLENGED, 'warning'],
 ]);
 

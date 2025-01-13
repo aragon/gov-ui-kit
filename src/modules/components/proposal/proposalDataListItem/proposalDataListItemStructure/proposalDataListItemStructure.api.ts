@@ -25,7 +25,7 @@ export type IProposalDataListItemStructureProps = IDataListItemProps &
          */
         status: ProposalStatus;
         /**
-         * Proposal context for where it is in the voting process to accompany the status
+         * Provides additional context about the current status of a proposal within a multistage voting process.
          */
         statusContext?: string;
         /**
