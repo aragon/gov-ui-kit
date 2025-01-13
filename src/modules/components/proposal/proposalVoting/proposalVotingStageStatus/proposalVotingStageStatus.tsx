@@ -44,7 +44,7 @@ const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiS
 const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, string> => ({
     [ProposalVotingStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalVotingStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
-    [ProposalVotingStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable,
+    [ProposalVotingStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
     [ProposalVotingStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
@@ -81,7 +81,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 )}
                 {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {status === ProposalVotingStatus.ACCEPTED && (
+                {(status === ProposalVotingStatus.ACCEPTED || status === ProposalVotingStatus.ADVANCEABLE) && (
                     <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
                 )}
                 {status === ProposalVotingStatus.REJECTED && (
