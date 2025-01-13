@@ -41,7 +41,6 @@ const dropzoneErrorToError: Record<string, InputFileAvatarError | undefined> = {
 
 export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
     const {
-        onFileSelect,
         onFileError,
         maxFileSize,
         minDimension,
@@ -50,13 +49,14 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
         onlySquare,
         variant = 'default',
         disabled,
+        value,
+        onChange,
         ...otherProps
     } = props;
 
     const { id, ...containerProps } = otherProps;
     const randomId = useRandomId(id);
 
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const onDrop = useCallback(
@@ -82,8 +82,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                 } else if (isBelowMinDimension ?? isAboveMaxDimension) {
                     onFileError?.(InputFileAvatarError.WRONG_DIMENSION);
                 } else {
-                    setImagePreview(image.src);
-                    onFileSelect?.(file);
+                    onChange({ url: image.src, file });
                 }
 
                 setIsLoading(false);
@@ -97,7 +96,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
             image.src = URL.createObjectURL(file);
         },
-        [maxDimension, minDimension, onFileError, onFileSelect, onlySquare],
+        [maxDimension, minDimension, onChange, onFileError, onlySquare],
     );
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -110,9 +109,9 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
     const handleCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
-        setImagePreview(null);
-        if (imagePreview) {
-            URL.revokeObjectURL(imagePreview);
+        onChange(undefined);
+        if (value?.url) {
+            URL.revokeObjectURL(value.url);
         }
     };
 
@@ -129,9 +128,9 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
         <InputContainer id={randomId} useCustomWrapper={true} {...containerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames}>
                 <input {...getInputProps()} id={randomId} />
-                {imagePreview ? (
+                {value?.url ? (
                     <div className="relative">
-                        <Avatar src={imagePreview} size="lg" className="cursor-pointer" data-testid="avatar" />
+                        <Avatar src={value.url} size="lg" className="cursor-pointer" data-testid="avatar" />
                         <button
                             onClick={handleCancel}
                             className={classNames(
@@ -146,7 +145,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                 ) : (
                     <>
                         {isLoading && <Spinner size="lg" variant="neutral" />}
-                        {!imagePreview && !isLoading && (
+                        {!value?.url && !isLoading && (
                             <Icon icon={IconType.PLUS} size="lg" className={classNames(addIconClasses)} />
                         )}
                     </>
