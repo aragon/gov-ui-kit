@@ -88,7 +88,7 @@ export const modulesCopy = {
         voted: 'Voted',
         ago: 'ago',
         left: 'left',
-        in: `in`,
+        in: 'in',
         statusLabel: {
             ACCEPTED: 'Accepted',
             ADVANCEABLE: 'Advanceable',
