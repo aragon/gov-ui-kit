@@ -34,7 +34,7 @@ const getFormattedProposalDate = (date: string | number, now: number, copy: Modu
 export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusProps> = (props) => {
     const { date, status, statusContext, voted } = props;
 
-    const isOngoing = status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE;
+    const isOngoing = status === ProposalStatus.ACTIVE;
     const showStatusContext =
         statusContext != null && (status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE);
     const isOngoingAndVoted = isOngoing && voted;
@@ -75,9 +75,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                     {status === ProposalStatus.ACTIVE && !voted && (
                         <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />
                     )}
-                    {status !== ProposalStatus.ACTIVE && !voted && date && (
-                        <AvatarIcon icon={IconType.CALENDAR} size="sm" />
-                    )}
+                    {status !== ProposalStatus.ACTIVE && date && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
                 </div>
             )}
         </div>
