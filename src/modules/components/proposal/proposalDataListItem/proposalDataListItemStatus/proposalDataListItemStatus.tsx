@@ -13,7 +13,6 @@ import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
 import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
-import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 
 export interface IProposalDataListItemStatusProps
     extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
@@ -21,7 +20,6 @@ export interface IProposalDataListItemStatusProps
 const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
     [ProposalStatus.ADVANCEABLE, 'info'],
-    [ProposalStatus.CHALLENGED, 'warning'],
 ]);
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
@@ -36,7 +34,8 @@ const getFormattedProposalDate = (date: string | number, now: number, copy: Modu
 export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusProps> = (props) => {
     const { date, status, statusContext, voted } = props;
 
-    const isOngoing = proposalDataListItemUtils.isOngoingStatus(status);
+    const isOngoing = status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE;
+    const showStatusContext = statusContext != null && isOngoing;
     const isOngoingAndVoted = isOngoing && voted;
     const showStatusMetadata = status !== ProposalStatus.DRAFT;
 
@@ -50,10 +49,11 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                     variant={proposalStatusToTagVariant[status]}
                     className="shrink-0"
                 />
-                {statusContext && (
-                    <span className="truncate text-sm leading-tight md:text-base">
-                        {copy.proposalDataListItemStatus.in(statusContext)}
-                    </span>
+                {showStatusContext && (
+                    <div className="truncate text-sm leading-tight md:text-base">
+                        <span className="text-neutral-500">{copy.proposalDataListItemStatus.in} </span>
+                        {statusContext}
+                    </div>
                 )}
             </div>
             {showStatusMetadata && (
@@ -61,8 +61,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                     <span
                         className={classNames('text-sm leading-tight md:text-base', {
                             'text-info-800': status === ProposalStatus.ACTIVE,
-                            'text-warning-800':
-                                status === ProposalStatus.CHALLENGED || status === ProposalStatus.VETOED,
+                            'text-warning-800': status === ProposalStatus.VETOED,
                             'text-neutral-800': !isOngoing,
                         })}
                     >

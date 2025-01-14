@@ -8,4 +8,3 @@ export const ProposalDataListItem = {
 
 export * from './proposalDataListItemSkeleton';
 export * from './proposalDataListItemStructure';
-export * from './proposalDataListItemUtils';

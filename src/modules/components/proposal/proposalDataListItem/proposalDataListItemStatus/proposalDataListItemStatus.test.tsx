@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import { DateFormat, IconType, formatterUtils } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { ProposalStatus } from '../../proposalUtils';
-import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
 
 describe('<ProposalDataListItemStatus /> component', () => {
@@ -50,7 +49,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 
-    test.each(proposalDataListItemUtils.ongoingStatuses)(
+    test.each([ProposalStatus.ACTIVE, ProposalStatus.ADVANCEABLE])(
         'displays the date and a pinging indicator when the status is %s and voted is false',
         (status) => {
             const date = 1719563030308;
@@ -62,7 +61,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
         },
     );
 
-    test.each(proposalDataListItemUtils.ongoingStatuses)(
+    test.each([ProposalStatus.ACTIVE, ProposalStatus.ADVANCEABLE])(
         'displays a you-voted label with an icon checkmark when the status is %s and voted is true',
         (status) => {
             render(createTestComponent({ status, voted: true }));
@@ -72,10 +71,18 @@ describe('<ProposalDataListItemStatus /> component', () => {
         },
     );
 
-    it('displays the status context when statusContext is provided', () => {
+    it('displays the status context when statusContext is provided and status is ongoing', () => {
         const statusContext = 'Stage 1';
-        render(createTestComponent({ statusContext }));
-        expect(screen.getByText(modulesCopy.proposalDataListItemStatus.in(statusContext))).toBeInTheDocument();
+        const status = ProposalStatus.ACTIVE;
+        render(createTestComponent({ statusContext, status }));
+        expect(screen.getByText(statusContext)).toBeInTheDocument();
+    });
+
+    it('does not display the status context when statusContext is provided and status is final', () => {
+        const statusContext = 'Stage 1';
+        const status = ProposalStatus.EXECUTED;
+        render(createTestComponent({ statusContext, status }));
+        expect(screen.getByText(statusContext)).toBeInTheDocument();
     });
 
     it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {

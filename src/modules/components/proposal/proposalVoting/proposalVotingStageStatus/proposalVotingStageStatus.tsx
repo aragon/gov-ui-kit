@@ -44,7 +44,6 @@ const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiS
 const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, string> => ({
     [ProposalVotingStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalVotingStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
-    [ProposalVotingStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
     [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
     [ProposalVotingStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
@@ -54,7 +53,6 @@ const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, 
 
 const statusToIcon = new Map<ProposalVotingStatus, { icon: IconType; variant: AvatarIconVariant } | undefined>([
     [ProposalVotingStatus.ACCEPTED, { icon: IconType.CHECKMARK, variant: 'success' }],
-    [ProposalVotingStatus.ADVANCEABLE, { icon: IconType.CHECKMARK, variant: 'success' }],
     [ProposalVotingStatus.REJECTED, { icon: IconType.CLOSE, variant: 'critical' }],
     [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'neutral' }],
     [ProposalVotingStatus.EXPIRED, { icon: IconType.CLOSE, variant: 'critical' }],
@@ -82,7 +80,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 )}
                 {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {(status === ProposalVotingStatus.ACCEPTED || status === ProposalVotingStatus.ADVANCEABLE) && (
+                {status === ProposalVotingStatus.ACCEPTED && (
                     <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
                 )}
                 {status === ProposalVotingStatus.REJECTED && (

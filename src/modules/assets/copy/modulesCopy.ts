@@ -88,12 +88,11 @@ export const modulesCopy = {
         voted: 'Voted',
         ago: 'ago',
         left: 'left',
-        in: (statusContext: string) => `in ${statusContext}`,
+        in: `in`,
         statusLabel: {
             ACCEPTED: 'Accepted',
             ADVANCEABLE: 'Advanceable',
             ACTIVE: 'Active',
-            CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
             EXECUTED: 'Executed',
             EXPIRED: 'Expired',
