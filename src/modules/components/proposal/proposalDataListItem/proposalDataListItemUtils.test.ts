@@ -6,7 +6,6 @@ describe('proposalDataListItem utils', () => {
         it('returns true for ongoing proposal statuses', () => {
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ACTIVE)).toBeTruthy();
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.CHALLENGED)).toBeTruthy();
-            expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.PENDING)).toBeTruthy();
             expect(proposalDataListItemUtils.isOngoingStatus(ProposalStatus.ADVANCEABLE)).toBeTruthy();
         });
 

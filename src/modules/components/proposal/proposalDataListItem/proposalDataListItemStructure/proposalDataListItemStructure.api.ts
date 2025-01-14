@@ -48,21 +48,3 @@ export interface IPublisher extends ICompositeAddress {
      */
     link?: string;
 }
-
-export interface IProposalStage {
-    /**
-     * Name of the proposal stage
-     */
-    title?: string;
-    /**
-     * Id of the proposal stage
-     */
-    id: string | number;
-}
-
-export interface IProposalResultBase {
-    /**
-     * Proposal stage
-     */
-    stage?: IProposalStage;
-}

@@ -19,7 +19,6 @@ export enum ProposalStatus {
 export enum ProposalVotingStatus {
     ACTIVE = 'ACTIVE',
     ACCEPTED = 'ACCEPTED',
-    ADVANCEABLE = 'ADVANCEABLE',
     PENDING = 'PENDING',
     EXPIRED = 'EXPIRED',
     REJECTED = 'REJECTED',
