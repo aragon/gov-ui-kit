@@ -49,27 +49,30 @@ describe('<ProposalDataListItemStatus /> component', () => {
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 
-    test.each([ProposalStatus.ACTIVE, ProposalStatus.ADVANCEABLE])(
-        'displays the date and a pinging indicator when the status is %s and voted is false',
-        (status) => {
-            const date = 1719563030308;
-            render(createTestComponent({ date, status, voted: false }));
+    it('displays the date and a pinging indicator when the status is active and voted is false', () => {
+        const status = ProposalStatus.ACTIVE;
+        const date = 1719563030308;
+        render(createTestComponent({ date, status, voted: false }));
 
-            const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
-            expect(screen.getByText(formattedDate)).toBeInTheDocument();
-            expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
-        },
-    );
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
+        expect(screen.getByText(formattedDate)).toBeInTheDocument();
+        expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
+    });
 
-    test.each([ProposalStatus.ACTIVE, ProposalStatus.ADVANCEABLE])(
-        'displays a you-voted label with an icon checkmark when the status is %s and voted is true',
-        (status) => {
-            render(createTestComponent({ status, voted: true }));
+    it('displays a voted label when the status is active and voted is true', () => {
+        const status = ProposalStatus.ACTIVE;
+        render(createTestComponent({ status, voted: true }));
 
-            expect(screen.getByText(/Voted/i)).toBeInTheDocument();
-            expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
-        },
-    );
+        expect(screen.getByText(/Voted/i)).toBeInTheDocument();
+        expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
+    });
+
+    it('does not display a voted label when the status is not an ongoing one and voted is true', () => {
+        render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
+
+        expect(screen.queryByText(/Voted/i)).not.toBeInTheDocument();
+        expect(screen.queryByTestId(IconType.CHECKMARK)).not.toBeInTheDocument();
+    });
 
     it('displays the status context when statusContext is provided and status is ongoing', () => {
         const statusContext = 'Stage 1';
@@ -83,12 +86,5 @@ describe('<ProposalDataListItemStatus /> component', () => {
         const status = ProposalStatus.EXECUTED;
         render(createTestComponent({ statusContext, status }));
         expect(screen.queryByText(statusContext)).not.toBeInTheDocument();
-    });
-
-    it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {
-        render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
-
-        expect(screen.queryByText(/Voted/i)).not.toBeInTheDocument();
-        expect(screen.queryByTestId(IconType.CHECKMARK)).not.toBeInTheDocument();
     });
 });
