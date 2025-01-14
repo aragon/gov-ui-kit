@@ -9,8 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Update `InputFileAvatar` core component to remove `onFileSelect` property and add `value` and `onChange` properties
-- Update `IProposalActionUpdateMetadataDaoMetadata` interface logo property to `avatar` to better align with actions.
+- Update `InputFileAvatar` core component to remove `onFileSelect` property and use `value` and `onChange` properties
+  instead
+- Update `IProposalActionUpdateMetadataDaoMetadata` interface `logo` property to `avatar` to better align with actions.
+- Bump `softprops/action-gh-release` from 2.2.0 to 2.2.1
 
 ## [1.0.62] - 2025-01-08
 
