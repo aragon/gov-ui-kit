@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update `InputFileAvatar` core component to remove `onFileSelect` property and add `value` and `onChange` properties
 - Update `IProposalActionUpdateMetadataDaoMetadata` interface logo property to `avatar` to better align with actions.
 - Update `<ProposalDataListItem />` module component to support `ADVANCEABLE` status
+- Bump `softprops/action-gh-release` from 2.2.0 to 2.2.1
 
 ## [1.0.62] - 2025-01-08
 

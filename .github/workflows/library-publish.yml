@@ -41,7 +41,7 @@ jobs:
           version: "${{ steps.package-version.outputs.current-version }}"
           path: ./CHANGELOG.md
       - name: Create release
-        uses: softprops/action-gh-release@v2.2.0
+        uses: softprops/action-gh-release@v2.2.1
         with:
           prerelease: false
           body: ${{ steps.read-changelog.outputs.changes }}
