@@ -35,7 +35,8 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const { date, status, statusContext, voted } = props;
 
     const isOngoing = status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE;
-    const showStatusContext = statusContext != null && isOngoing;
+    const showStatusContext =
+        statusContext != null && (status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE);
     const isOngoingAndVoted = isOngoing && voted;
     const showStatusMetadata = status !== ProposalStatus.DRAFT;
 
@@ -71,8 +72,12 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         )}
                     </span>
                     {isOngoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} size="sm" />}
-                    {isOngoing && !voted && <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />}
-                    {!isOngoing && !voted && date && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
+                    {status === ProposalStatus.ACTIVE && !voted && (
+                        <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />
+                    )}
+                    {status !== ProposalStatus.ACTIVE && !voted && date && (
+                        <AvatarIcon icon={IconType.CALENDAR} size="sm" />
+                    )}
                 </div>
             )}
         </div>

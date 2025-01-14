@@ -82,7 +82,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
         const statusContext = 'Stage 1';
         const status = ProposalStatus.EXECUTED;
         render(createTestComponent({ statusContext, status }));
-        expect(screen.getByText(statusContext)).toBeInTheDocument();
+        expect(screen.queryByText(statusContext)).not.toBeInTheDocument();
     });
 
     it('does not display a you-voted label when the status is not an ongoing one and the voted is true', () => {
