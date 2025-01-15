@@ -4,7 +4,6 @@ import { AlertInline, type IAlertInlineProps } from './alertInline';
 describe('<AlertInline />', () => {
     const createTestComponent = (props?: Partial<IAlertInlineProps>) => {
         const completeProps: IAlertInlineProps = {
-            variant: 'critical',
             message: 'Message',
             ...props,
         };

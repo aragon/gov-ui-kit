@@ -36,7 +36,7 @@ describe('<CardSummary /> component', () => {
         const label = 'action-test';
         const onClick = jest.fn();
         const action = { label, onClick };
-        render(createTestComponent({ action }));
+        render(createTestComponent({ action, isStacked: false }));
 
         const button = screen.getByRole('button', { name: label });
         expect(button).toBeInTheDocument();

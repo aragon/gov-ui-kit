@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react';
 import * as wagmi from 'wagmi';
 import { type Chain, mainnet, polygon, sepolia } from 'wagmi/chains';
-import { ChainEntityType, useBlockExplorer } from './useBlockExplorer';
+import { useBlockExplorer } from './useBlockExplorer';
+import { ChainEntityType } from './useBlockExplorer.api';
 
 describe('useBlockExplorer hook', () => {
     const useChainsSpy = jest.spyOn(wagmi, 'useChains');
