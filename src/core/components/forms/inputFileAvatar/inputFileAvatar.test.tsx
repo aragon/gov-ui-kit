@@ -107,18 +107,18 @@ describe('<InputFileAvatar /> component', () => {
         expect(revokeObjectURLMock).toHaveBeenCalledWith(fileSrc);
     });
 
-    it('calls onFileError when file has incorrect dimensions', async () => {
+    it('calls onChange and sets error property when file has incorrect dimensions', async () => {
         const user = userEvent.setup();
         (window.Image.prototype as HTMLImageElement).width = 800;
 
         const label = 'test-label';
         const file = new File(['test'], 'test.png', { type: 'image/png' });
-        const onFileError = jest.fn();
+        const onChange = jest.fn();
         const minDimension = 1000;
 
-        render(createTestComponent({ label, onFileError, minDimension }));
+        render(createTestComponent({ label, onChange, minDimension }));
         await user.upload(screen.getByLabelText(label), file);
-        await waitFor(() => expect(onFileError).toHaveBeenCalledWith(InputFileAvatarError.WRONG_DIMENSION));
+        await waitFor(() => expect(onChange).toHaveBeenCalledWith({ error: InputFileAvatarError.WRONG_DIMENSION }));
     });
 
     it('displays the initialValue image preview when provided', async () => {
@@ -128,5 +128,27 @@ describe('<InputFileAvatar /> component', () => {
 
         expect(previewImg).toBeInTheDocument();
         expect(previewImg.src).toEqual(value.url);
+    });
+
+    it('renders the cancel button when error is present and clears error on button click', async () => {
+        const user = userEvent.setup();
+        const onChange = jest.fn();
+
+        const { rerender } = render(
+            createTestComponent({
+                onChange,
+                value: { error: InputFileAvatarError.WRONG_DIMENSION },
+            }),
+        );
+
+        const cancelButton = await screen.findByRole('button');
+        expect(cancelButton).toBeInTheDocument();
+
+        await user.click(cancelButton);
+
+        expect(onChange).toHaveBeenCalledWith(undefined);
+
+        rerender(createTestComponent({ onChange }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 });

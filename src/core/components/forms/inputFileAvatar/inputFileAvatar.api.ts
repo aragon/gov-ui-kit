@@ -19,6 +19,10 @@ export interface IInputFileAvatarValue {
      * File object of the image.
      */
     file?: File;
+    /**
+     * Error message if image upload fails.
+     */
+    error?: InputFileAvatarError;
 }
 
 export interface IInputFileAvatarProps
@@ -33,10 +37,6 @@ export interface IInputFileAvatarProps
      *  The current value of the input.
      */
     value?: IInputFileAvatarValue;
-    /**
-     * Function that is called when a file is rejected. Passes the error message to the parent component.
-     */
-    onFileError?: (error: InputFileAvatarError) => void;
     /**
      * Allowed file extensions, it must be an object with the keys set to the MIME type
      * and the values an array of file extensions (see https://developer.mozilla.org/en-US/docs/Web/API/window/showOpenFilePicker#accept)
