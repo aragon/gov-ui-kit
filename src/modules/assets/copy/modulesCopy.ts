@@ -97,7 +97,6 @@ export const modulesCopy = {
             EXECUTED: 'Executed',
             EXPIRED: 'Expired',
             FAILED: 'Failed',
-            PARTIALLY_EXECUTED: 'Partially executed',
             PENDING: 'Pending',
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',

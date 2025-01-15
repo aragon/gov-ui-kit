@@ -29,8 +29,8 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
     const { date, status, statusContext, voted } = props;
 
     const isActive = status === ProposalStatus.ACTIVE;
-    const showStatusContext =
-        statusContext != null && (status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE);
+
+    const showStatusContext = statusContext != null && (isActive || status === ProposalStatus.ADVANCEABLE);
     const showStatusMetadata = status !== ProposalStatus.DRAFT;
 
     const { copy } = useGukModulesContext();
@@ -54,8 +54,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                 <div className="flex items-center gap-x-2 md:gap-x-3">
                     <span
                         className={classNames('text-sm leading-tight md:text-base', {
-                            'text-info-800': status === ProposalStatus.ACTIVE,
-                            'text-warning-800': status === ProposalStatus.VETOED,
+                            'text-info-800': isActive,
                             'text-neutral-800': !isActive,
                         })}
                     >
