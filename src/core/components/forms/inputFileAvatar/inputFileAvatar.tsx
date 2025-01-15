@@ -127,7 +127,8 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
         <InputContainer id={randomId} useCustomWrapper={true} {...containerProps}>
             <div {...getRootProps()} className={inputAvatarClassNames}>
                 <input {...getInputProps()} id={randomId} />
-                {value?.url ? (
+
+                {value?.url || value?.error ? (
                     <div className="relative">
                         <Avatar src={value.url} size="lg" className="cursor-pointer" data-testid="avatar" />
                         <button

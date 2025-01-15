@@ -129,4 +129,26 @@ describe('<InputFileAvatar /> component', () => {
         expect(previewImg).toBeInTheDocument();
         expect(previewImg.src).toEqual(value.url);
     });
+
+    it('renders the cancel button when error is present and clears error on button click', async () => {
+        const user = userEvent.setup();
+        const onChange = jest.fn();
+
+        const { rerender } = render(
+            createTestComponent({
+                onChange,
+                value: { error: InputFileAvatarError.WRONG_DIMENSION },
+            }),
+        );
+
+        const cancelButton = await screen.findByRole('button');
+        expect(cancelButton).toBeInTheDocument();
+
+        await user.click(cancelButton);
+
+        expect(onChange).toHaveBeenCalledWith(undefined);
+
+        rerender(createTestComponent({ onChange }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
 });
