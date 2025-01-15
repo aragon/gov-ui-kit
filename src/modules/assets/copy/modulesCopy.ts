@@ -17,14 +17,6 @@ export const modulesCopy = {
         delegations: 'Delegations',
         votingPower: 'Voting Power',
     },
-    approvalThresholdResult: {
-        stage: 'Stage',
-        outOf: (threshold: string) => `of ${threshold} members`,
-    },
-    majorityVotingResult: {
-        winningOption: 'Winning Option',
-        stage: 'Stage',
-    },
     proposalActionsContainer: {
         emptyHeader: 'No actions added',
     },
@@ -93,18 +85,18 @@ export const modulesCopy = {
         totalHoldersTerm: 'Total token holders',
     },
     proposalDataListItemStatus: {
-        voted: "You've voted",
+        voted: 'Voted',
         ago: 'ago',
         left: 'left',
+        in: 'in',
         statusLabel: {
             ACCEPTED: 'Accepted',
+            ADVANCEABLE: 'Advanceable',
             ACTIVE: 'Active',
-            CHALLENGED: 'Challenged',
             DRAFT: 'Draft',
             EXECUTED: 'Executed',
             EXPIRED: 'Expired',
             FAILED: 'Failed',
-            PARTIALLY_EXECUTED: 'Partially executed',
             PENDING: 'Pending',
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',

@@ -3,10 +3,7 @@ import { useAccount } from 'wagmi';
 import { DataList, Heading, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ApprovalThresholdResult } from '../approvalThresholdResult';
-import { MajorityVotingResult } from '../majorityVotingResult';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
-import { proposalDataListItemUtils } from '../proposalDataListItemUtils';
 import { type IProposalDataListItemStructureProps, type IPublisher } from './proposalDataListItemStructure.api';
 
 export const maxPublishersDisplayed = 3;
@@ -27,11 +24,11 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         id,
         className,
         type,
-        result,
         date,
         tag,
         publisher,
         status,
+        statusContext,
         summary,
         title,
         voted,
@@ -41,8 +38,6 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
 
     const { address: connectedAddress, isConnected } = useAccount({ config });
     const { copy } = useGukModulesContext();
-
-    const isOngoing = proposalDataListItemUtils.isOngoingStatus(status);
 
     const parsedPublisher = Array.isArray(publisher)
         ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
@@ -55,7 +50,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
             className={classNames('flex flex-col gap-y-4 py-4 md:gap-y-4 md:py-6', className)}
             {...otherProps}
         >
-            <ProposalDataListItemStatus date={date} status={status} voted={voted} />
+            <ProposalDataListItemStatus date={date} status={status} voted={voted} statusContext={statusContext} />
             <div className="flex flex-col gap-y-1">
                 <Heading size="h3" as="h2" className="flex gap-x-2 md:gap-x-3">
                     {id && <span className="shrink-0 text-neutral-500">{id}</span>}
@@ -63,13 +58,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                 </Heading>
                 <p className="line-clamp-2 leading-normal text-neutral-500 md:text-lg">{summary}</p>
             </div>
-
-            {isOngoing && type === 'approvalThreshold' && result && <ApprovalThresholdResult {...result} />}
-
-            {isOngoing && type === 'majorityVoting' && result && <MajorityVotingResult {...result} />}
-
             {children}
-
             <div className="flex items-center justify-between gap-x-4 md:gap-x-6">
                 <div
                     className={classNames(
