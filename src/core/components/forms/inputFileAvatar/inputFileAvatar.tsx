@@ -41,7 +41,6 @@ const dropzoneErrorToError: Record<string, InputFileAvatarError | undefined> = {
 
 export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
     const {
-        onFileError,
         maxFileSize,
         minDimension,
         maxDimension,
@@ -64,7 +63,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
             if (rejectedFiles.length > 0) {
                 const dropzoneError = rejectedFiles[0].errors[0].code;
                 const internalError = dropzoneErrorToError[dropzoneError] ?? InputFileAvatarError.UNKNOWN_ERROR;
-                onFileError?.(internalError);
+                onChange({ error: internalError });
 
                 return;
             }
@@ -78,9 +77,9 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                 const isAboveMaxDimension = maxDimension && (image.width > maxDimension || image.height > maxDimension);
 
                 if (onlySquare && image.height !== image.width) {
-                    onFileError?.(InputFileAvatarError.SQUARE_ONLY);
+                    onChange({ error: InputFileAvatarError.SQUARE_ONLY });
                 } else if (isBelowMinDimension ?? isAboveMaxDimension) {
-                    onFileError?.(InputFileAvatarError.WRONG_DIMENSION);
+                    onChange({ error: InputFileAvatarError.WRONG_DIMENSION });
                 } else {
                     onChange({ url: image.src, file });
                 }
@@ -91,12 +90,12 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
             image.addEventListener('load', onImageLoad);
             image.addEventListener('error', () => {
                 setIsLoading(false);
-                onFileError?.(InputFileAvatarError.UNKNOWN_ERROR);
+                onChange({ error: InputFileAvatarError.UNKNOWN_ERROR });
             });
 
             image.src = URL.createObjectURL(file);
         },
-        [maxDimension, minDimension, onChange, onFileError, onlySquare],
+        [maxDimension, minDimension, onChange, onlySquare],
     );
 
     const { getRootProps, getInputProps } = useDropzone({
