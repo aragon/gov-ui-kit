@@ -67,17 +67,25 @@ describe('<ProposalDataListItemStatus /> component', () => {
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 
-    it('does not display a voted label when the status is not an ongoing one and voted is true', () => {
+    it('does not display a voted label when the status is not active and voted is true', () => {
         render(createTestComponent({ status: ProposalStatus.EXECUTED, voted: true }));
 
         expect(screen.queryByText(/Voted/i)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CHECKMARK)).not.toBeInTheDocument();
     });
 
-    it('displays the status context when statusContext is provided and status is ongoing', () => {
+    it('displays the status context when statusContext is provided and status is active', () => {
         const statusContext = 'Stage 1';
         const status = ProposalStatus.ACTIVE;
         render(createTestComponent({ statusContext, status }));
+        expect(screen.getByText(statusContext)).toBeInTheDocument();
+    });
+
+    it('displays the status context when statusContext is provided and status is advanceable', () => {
+        const statusContext = 'Stage 1';
+        const status = ProposalStatus.ADVANCEABLE;
+        render(createTestComponent({ status, statusContext }));
+        expect(screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[status])).toBeInTheDocument();
         expect(screen.getByText(statusContext)).toBeInTheDocument();
     });
 

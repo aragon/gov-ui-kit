@@ -102,7 +102,6 @@ export const modulesCopy = {
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',
             VETOED: 'Vetoed',
-            UNREACHED: 'Unreached',
         },
     },
     proposalDataListItemStructure: {

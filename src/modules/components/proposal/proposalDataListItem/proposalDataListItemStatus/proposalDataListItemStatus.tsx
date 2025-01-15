@@ -19,7 +19,6 @@ export interface IProposalDataListItemStatusProps
 
 const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
     [ProposalStatus.ACTIVE, 'info'],
-    [ProposalStatus.ADVANCEABLE, 'info'],
 ]);
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
@@ -34,10 +33,9 @@ const getFormattedProposalDate = (date: string | number, now: number, copy: Modu
 export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusProps> = (props) => {
     const { date, status, statusContext, voted } = props;
 
-    const isOngoing = status === ProposalStatus.ACTIVE;
+    const isActive = status === ProposalStatus.ACTIVE;
     const showStatusContext =
         statusContext != null && (status === ProposalStatus.ACTIVE || status === ProposalStatus.ADVANCEABLE);
-    const isOngoingAndVoted = isOngoing && voted;
     const showStatusMetadata = status !== ProposalStatus.DRAFT;
 
     const { copy } = useGukModulesContext();
@@ -63,19 +61,17 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         className={classNames('text-sm leading-tight md:text-base', {
                             'text-info-800': status === ProposalStatus.ACTIVE,
                             'text-warning-800': status === ProposalStatus.VETOED,
-                            'text-neutral-800': !isOngoing,
+                            'text-neutral-800': !isActive,
                         })}
                     >
-                        {isOngoingAndVoted && copy.proposalDataListItemStatus.voted}
-                        {!isOngoingAndVoted && date != null && (
+                        {isActive && voted && copy.proposalDataListItemStatus.voted}
+                        {(!isActive || !voted) && date != null && (
                             <Rerender>{(now) => getFormattedProposalDate(date, now, copy)}</Rerender>
                         )}
                     </span>
-                    {isOngoingAndVoted && <AvatarIcon icon={IconType.CHECKMARK} size="sm" />}
-                    {status === ProposalStatus.ACTIVE && !voted && (
-                        <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />
-                    )}
-                    {status !== ProposalStatus.ACTIVE && date && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
+                    {isActive && voted && <AvatarIcon icon={IconType.CHECKMARK} size="sm" />}
+                    {isActive && !voted && <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />}
+                    {!isActive && date && !voted && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
                 </div>
             )}
         </div>
