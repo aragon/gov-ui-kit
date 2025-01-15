@@ -44,14 +44,6 @@ const alertVariantToMessageClassNames: Record<AlertVariant, string> = {
     warning: 'text-warning-800',
 };
 
-/**
- * AlertCard Component
- *
- * Displays an alert card with an icon, a main message, and an optional description.
- *
- * @param {IAlertCardProps} props - Component properties.
- * @returns {React.ReactElement} Rendered AlertCard component.
- */
 export const AlertCard: React.FC<IAlertCardProps> = (props) => {
     const { className, description, message, variant = 'info', ...otherProps } = props;
 
