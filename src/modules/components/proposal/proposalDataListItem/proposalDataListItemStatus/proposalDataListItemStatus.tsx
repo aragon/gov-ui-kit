@@ -7,7 +7,6 @@ import {
     Rerender,
     StatePingAnimation,
     Tag,
-    type StatePingAnimationVariant,
 } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -16,10 +15,6 @@ import { type IProposalDataListItemStructureProps } from '../proposalDataListIte
 
 export interface IProposalDataListItemStatusProps
     extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
-
-const proposalStatusToPingVariant = new Map<ProposalStatus, StatePingAnimationVariant>([
-    [ProposalStatus.ACTIVE, 'info'],
-]);
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
     const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
@@ -70,8 +65,8 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                         )}
                     </span>
                     {isActive && voted && <AvatarIcon icon={IconType.CHECKMARK} size="sm" />}
-                    {isActive && !voted && <StatePingAnimation variant={proposalStatusToPingVariant.get(status)} />}
-                    {!isActive && date && !voted && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
+                    {isActive && !voted && <StatePingAnimation variant="info" />}
+                    {!isActive && date && <AvatarIcon icon={IconType.CALENDAR} size="sm" />}
                 </div>
             )}
         </div>
