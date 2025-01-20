@@ -213,7 +213,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onBlur={handleInputBlur}
                 rows={1}
                 className={classNames(
-                    '!md:px-4 resize-none whitespace-normal !px-3',
+                    '!md:px-4 min-h-11 resize-none whitespace-normal !px-3',
                     { 'whitespace-normal': isFocused },
                     inputClassName,
                 )}
