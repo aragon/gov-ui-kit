@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Update minor and patch NPM dependencies
+- Bump `framer-motion` from 11.17.1 to 12.0.0
 
 ### Fixed
 
