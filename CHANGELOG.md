@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Update minor and patch NPM dependencies
+
 ### Fixed
 
 - Updated minimum height of `<AddressInput />` to resolve displacement of placeholder text on mount
