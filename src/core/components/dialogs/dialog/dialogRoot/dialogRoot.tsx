@@ -2,61 +2,9 @@ import { Content, Overlay, Portal, Root } from '@radix-ui/react-dialog';
 import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { responsiveUtils } from '../../../../utils';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
-
-export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
-    /**
-     * Children of the component.
-     */
-    children?: ReactNode;
-    /**
-     * Additional CSS class names for custom styling of the dialog's content container.
-     */
-    containerClassName?: string;
-    /**
-     * Determines whether interactions with elements outside of the dialog will be disabled.
-     * @default true
-     */
-    modal?: boolean;
-    /**
-     * Manages the visibility state of the dialog.
-     */
-    open?: boolean;
-    /**
-     * Additional CSS class names for custom styling of the overlay behind the dialog.
-     */
-    overlayClassName?: string;
-    /**
-     * Handler called when focus moves to the trigger after closing
-     */
-    onCloseAutoFocus?: (e: Event) => void;
-    /**
-     * Handler called when the escape key is pressed while the dialog is opened. Closes the dialog by default.
-     */
-    onEscapeKeyDown?: (e: KeyboardEvent) => void;
-    /**
-     * Handler called when an interaction (pointer or focus event) happens outside the bounds of the component
-     */
-    onInteractOutside?: (e: Event) => void;
-    /**
-     * Handler called when focus moves into the component after opening
-     */
-    onOpenAutoFocus?: (e: Event) => void;
-    /**
-     * Callback function invoked when the open state of the dialog changes.
-     */
-    onOpenChange?: (open: boolean) => void;
-    /**
-     * Handler called when a pointer event occurs outside the bounds of the component
-     */
-    onPointerDownOutside?: (e: Event) => void;
-    /**
-     * Keeps the focus inside the Dialog when set to true.
-     * @default true
-     */
-    useFocusTrap?: boolean;
-}
+import { responsiveSizeDialogClassNames, type IDialogRootProps } from './dialogRoot.api';
 
 /**
  * `Dialog.Root` component.
@@ -64,6 +12,7 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
 export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
     const {
         children,
+        size = 'md',
         containerClassName,
         overlayClassName,
         onCloseAutoFocus,
@@ -81,10 +30,18 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         overlayClassName,
     );
 
-    const containerClassNames = classNames(
-        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+    const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
+
+    const backdrawClassNames = classNames(
+        'fixed inset-0 bottom-2 top-12 px-2 md:bottom-6 md:top-60 md:px-6 lg:inset-y-12',
+        'flex flex-col justify-end lg:justify-start',
+    );
+
+    const modalClassNames = classNames(
+        'mx-auto flex max-h-screen w-full flex-col overflow-auto',
+        'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-content-z-index)]',
+        sizeClassNames,
         containerClassName,
     );
 
@@ -102,24 +59,26 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             />
                         </Overlay>
                         <FocusScope trapped={useFocusTrap}>
-                            <Content
-                                className={containerClassNames}
-                                onCloseAutoFocus={onCloseAutoFocus}
-                                onEscapeKeyDown={onEscapeKeyDown}
-                                onInteractOutside={onInteractOutside}
-                                onOpenAutoFocus={onOpenAutoFocus}
-                                onPointerDownOutside={onPointerDownOutside}
-                                asChild={true}
-                            >
-                                <motion.div
-                                    variants={dialogContentAnimationVariants}
-                                    initial="closed"
-                                    animate="open"
-                                    exit="exit"
+                            <div className={backdrawClassNames}>
+                                <Content
+                                    className={modalClassNames}
+                                    onCloseAutoFocus={onCloseAutoFocus}
+                                    onEscapeKeyDown={onEscapeKeyDown}
+                                    onInteractOutside={onInteractOutside}
+                                    onOpenAutoFocus={onOpenAutoFocus}
+                                    onPointerDownOutside={onPointerDownOutside}
+                                    asChild={true}
                                 >
-                                    {children}
-                                </motion.div>
-                            </Content>
+                                    <motion.div
+                                        variants={dialogContentAnimationVariants}
+                                        initial="closed"
+                                        animate="open"
+                                        exit="exit"
+                                    >
+                                        {children}
+                                    </motion.div>
+                                </Content>
+                            </div>
                         </FocusScope>
                     </Portal>
                 )}

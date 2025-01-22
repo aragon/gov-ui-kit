@@ -1,1 +1,2 @@
-export { DialogRoot, type IDialogRootProps } from './dialogRoot';
+export { DialogRoot } from './dialogRoot';
+export * from './dialogRoot.api';

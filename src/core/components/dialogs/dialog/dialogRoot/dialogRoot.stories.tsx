@@ -34,7 +34,7 @@ export const Default: Story = {
                 <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
                     <Dialog.Header title="Dialog Title" />
                     <Dialog.Content>
-                        <p className="py-2 text-neutral-800">Very important content here!</p>
+                        <div className="h-screen w-full border-2 border-primary-500" />
                     </Dialog.Content>
                     <Dialog.Footer
                         primaryAction={{ label: 'Primary action' }}

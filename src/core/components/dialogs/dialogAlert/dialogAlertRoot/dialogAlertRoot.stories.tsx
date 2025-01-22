@@ -22,7 +22,9 @@ type Story = StoryObj<typeof DialogAlert.Root>;
  * Default usage of the `DialogAlert.Root` component
  */
 export const Default: Story = {
-    args: {},
+    args: {
+        size: 'md',
+    },
     render: (props) => {
         const [open, setOpen] = useState(false);
 
