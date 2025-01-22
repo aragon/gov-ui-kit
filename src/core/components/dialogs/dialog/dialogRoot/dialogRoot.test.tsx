@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { DialogHeader } from '../dialogHeader';
-import { DialogRoot, type IDialogRootProps } from './dialogRoot';
+import { DialogRoot } from './dialogRoot';
+import type { IDialogRootProps } from './dialogRoot.api';
 
 describe('<Dialog.Root/> component', () => {
     const createTestComponent = (rootProps?: Partial<IDialogRootProps>) => {

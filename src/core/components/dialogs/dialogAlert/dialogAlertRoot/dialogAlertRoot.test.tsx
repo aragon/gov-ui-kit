@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { DialogAlertHeader } from '../dialogAlertHeader';
-import { DialogAlertRoot, type IDialogAlertRootProps } from './dialogAlertRoot';
+import { DialogAlertRoot } from './dialogAlertRoot';
+import type { IDialogAlertRootProps } from './dialogAlertRoot.api';
 
 describe('<DialogAlert.Root/> component', () => {
     const createTestComponent = (rootProps?: Partial<IDialogAlertRootProps>) => {
