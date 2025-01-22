@@ -34,12 +34,12 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     const backdrawClassNames = classNames(
         'fixed inset-0 bottom-2 top-12 px-2 md:bottom-6 md:top-60 md:px-6 lg:inset-y-12',
         'flex flex-col justify-end lg:justify-start',
+        'z-[var(--guk-dialog-alert-content-z-index)]',
     );
 
     const modalClassNames = classNames(
         'mx-auto flex max-h-screen w-full flex-col overflow-auto',
         'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
-        'z-[var(--guk-dialog-alert-content-z-index)]',
         {
             sm: 'max-w-[400px]',
             md: 'max-w-[480px]',
