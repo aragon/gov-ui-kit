@@ -29,8 +29,6 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         overlayClassName,
     );
 
-    // const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
-
     // The backdraw is a flex container that fills the screen while aligning
     // and constraining the dialog vertically based on the viewport size.
     const backdrawClassNames = classNames(
