@@ -73,6 +73,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         useFocusTrap = true,
         ...rootProps
     } = props;
+
     const overlayClassNames = classNames(
         'fixed inset-0 bg-modal-overlay backdrop-blur-md',
         'z-[var(--guk-dialog-alert-overlay-z-index)]',
@@ -87,10 +88,12 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     );
 
     const contextValue = useMemo(() => ({ variant }), [variant]);
+
     const handleEscapeKeyDown = (e: KeyboardEvent) => {
         props.onOpenChange?.(false);
         onEscapeKeyDown?.(e);
     };
+
     return (
         <Root {...rootProps}>
             <Trigger />
