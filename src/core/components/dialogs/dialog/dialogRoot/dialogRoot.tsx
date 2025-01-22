@@ -32,6 +32,8 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
 
+    // The backdraw is a flex container that fills the screen while aligning
+    // and constraining the dialog vertically based on the viewport size.
     const backdrawClassNames = classNames(
         'fixed inset-0 bottom-2 top-12 px-2 md:bottom-6 md:top-60 md:px-6 lg:inset-y-12',
         'flex flex-col justify-end lg:justify-start',
