@@ -2,6 +2,6 @@
   /* Z-index property of the dialog overlay */
   --guk-dialog-alert-overlay-z-index: auto;
 
-    /* Z-index property of the dialog content */
-    --guk-dialog-alert-content-z-index: auto;
+  /* Z-index property of the dialog content */
+  --guk-dialog-alert-content-z-index: auto;
 }
