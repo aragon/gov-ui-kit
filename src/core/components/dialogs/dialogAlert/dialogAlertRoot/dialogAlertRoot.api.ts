@@ -3,7 +3,8 @@ import type { IDialogRootProps } from '../../dialog/dialogRoot/dialogRoot.api';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
-export interface IDialogAlertRootProps extends Omit<IDialogRootProps, 'modal'> {
+export interface IDialogAlertRootProps
+    extends Omit<IDialogRootProps, 'modal' | 'onInteractOutside' | 'onPointerDownOutside'> {
     /**
      * The visual style variant of the dialog.
      * @default info
