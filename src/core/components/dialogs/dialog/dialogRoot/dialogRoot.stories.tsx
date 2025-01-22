@@ -22,7 +22,6 @@ type Story = StoryObj<typeof Dialog.Root>;
  * Default usage of the `Dialog.Root` component
  */
 export const Default: Story = {
-    args: {},
     render: (props) => {
         const [open, setOpen] = useState(false);
 
@@ -34,7 +33,7 @@ export const Default: Story = {
                 <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
                     <Dialog.Header title="Dialog Title" />
                     <Dialog.Content>
-                        <div className="h-screen w-full border-2 border-primary-500" />
+                        <p className="py-2 text-neutral-800">Very important content here!</p>
                     </Dialog.Content>
                     <Dialog.Footer
                         primaryAction={{ label: 'Primary action' }}

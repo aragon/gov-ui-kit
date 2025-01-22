@@ -1,2 +1,2 @@
 export { DialogRoot } from './dialogRoot';
-export * from './dialogRoot.api';
+export { responsiveSizeDialogClassNames, type DialogSize, type IDialogRootProps } from './dialogRoot.api';

@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `size` prop to `<Dialog /` and `<DialogAlert />` with max-w responsiveness
+- Add `size` prop to `<Dialog /` and `<DialogAlert />` with `max-w` t-shirt sizing for responsiveness
 
 ### Changed
 
