@@ -3,5 +3,8 @@
   --guk-dialog-overlay-z-index: auto;
 
   /* Z-index property of the dialog content */
+  --guk-dialog-backdraw-z-index: auto;
+
+  /* Z-index property of the dialog content */
   --guk-dialog-content-z-index: auto;
 }

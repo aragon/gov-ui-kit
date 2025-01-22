@@ -3,7 +3,14 @@ import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
-import { type IDialogRootProps } from './dialogRoot.api';
+import type { DialogSize, IDialogRootProps } from './dialogRoot.api';
+
+const responsiveSizeClassNames: Record<DialogSize, string> = {
+    sm: 'max-w-[400px]',
+    md: 'max-w-[480px]',
+    lg: 'max-w-[640px]',
+    xl: 'max-w-[880px]',
+};
 
 /**
  * `Dialog.Root` component.
@@ -34,18 +41,14 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
     const backdrawClassNames = classNames(
         'fixed inset-0 bottom-2 top-12 px-2 md:bottom-6 md:top-60 md:px-6 lg:inset-y-12',
         'flex flex-col justify-end lg:justify-start',
-        'z-[var(--guk-dialog-content-z-index)]',
+        'z-[var(--guk-dialog-backdraw-z-index)]',
     );
 
     const modalClassNames = classNames(
         'mx-auto flex max-h-screen w-full flex-col overflow-auto',
         'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
-        {
-            sm: 'max-w-[400px]',
-            md: 'max-w-[480px]',
-            lg: 'max-w-[640px]',
-            xl: 'max-w-[880px]',
-        }[size],
+        'z-[var(--guk-dialog-content-z-index)]',
+        responsiveSizeClassNames[size],
         containerClassName,
     );
 

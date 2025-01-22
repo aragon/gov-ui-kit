@@ -9,13 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Add `size` prop to `<Dialog /` and `<DialogAlert />` with `max-w` t-shirt sizing for responsiveness
+- Add `size` prop to `<Dialog /` with `max-w` t-shirt sizing for responsiveness
 
 ### Changed
 
 - Update minor and patch NPM dependencies
 - Bump `framer-motion` from 11.17.1 to 12.0.0
-- Adjust layout for `Dialog` components for better responsive placement
+- Adjust layout for `<Dialog />` component for better responsive placement
 
 ### Fixed
 
