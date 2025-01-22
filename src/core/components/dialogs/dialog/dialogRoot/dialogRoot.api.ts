@@ -1,5 +1,4 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import type { ResponsiveAttributeClassMap } from '../../../../types';
 
 export type DialogSize = 'sm' | 'md' | 'lg' | 'xl';
 
@@ -14,10 +13,9 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
     containerClassName?: string;
     /**
      * Size of the dialog.
-     * @default lg
+     * @default md
      */
     size?: DialogSize;
-
     /**
      * Determines whether interactions with elements outside of the dialog will be disabled.
      * @default true
@@ -61,38 +59,3 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
      */
     useFocusTrap?: boolean;
 }
-
-export const responsiveSizeDialogClassNames: ResponsiveAttributeClassMap<DialogSize> = {
-    sm: {
-        default: 'max-w-[400px]',
-        sm: 'sm:max-w-[400px]',
-        md: 'md:max-w-[400px]',
-        lg: 'lg:max-w-[400px]',
-        xl: 'xl:max-w-[400px]',
-        '2xl': 'xl:max-w-[400px]',
-    },
-    md: {
-        default: 'max-w-[480px]',
-        sm: 'sm:max-w-[480px]',
-        md: 'md:max-w-[480px]',
-        lg: 'lg:max-w-[480px]',
-        xl: 'xl:max-w-[480px]',
-        '2xl': 'xl:max-w-[480px]',
-    },
-    lg: {
-        default: 'max-w-[640px]',
-        sm: 'sm:max-w-[640px]',
-        md: 'md:max-w-[640px]',
-        lg: 'lg:max-w-[640px]',
-        xl: 'xl:max-w-[640px]',
-        '2xl': 'xl:max-w-[640px]',
-    },
-    xl: {
-        default: 'max-w-[880px]',
-        sm: 'sm:max-w-[880px]',
-        md: 'md:max-w-[880px]',
-        lg: 'lg:max-w-[880px]',
-        xl: 'xl:max-w-[880px]',
-        '2xl': 'xl:max-w-[880px]',
-    },
-};

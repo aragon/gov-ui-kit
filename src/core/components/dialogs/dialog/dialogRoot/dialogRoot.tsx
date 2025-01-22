@@ -2,9 +2,8 @@ import { Content, Overlay, Portal, Root } from '@radix-ui/react-dialog';
 import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { responsiveUtils } from '../../../../utils';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
-import { responsiveSizeDialogClassNames, type IDialogRootProps } from './dialogRoot.api';
+import { type IDialogRootProps } from './dialogRoot.api';
 
 /**
  * `Dialog.Root` component.
@@ -30,7 +29,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         overlayClassName,
     );
 
-    const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
+    // const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
 
     // The backdraw is a flex container that fills the screen while aligning
     // and constraining the dialog vertically based on the viewport size.
@@ -43,7 +42,12 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         'mx-auto flex max-h-screen w-full flex-col overflow-auto',
         'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-content-z-index)]',
-        sizeClassNames,
+        {
+            sm: 'max-w-[400px]',
+            md: 'max-w-[480px]',
+            lg: 'max-w-[640px]',
+            xl: 'max-w-[880px]',
+        }[size],
         containerClassName,
     );
 

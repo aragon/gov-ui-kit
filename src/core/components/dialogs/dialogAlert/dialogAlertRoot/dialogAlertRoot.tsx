@@ -3,8 +3,6 @@ import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo } from 'react';
-import { responsiveUtils } from '../../../../utils';
-import { responsiveSizeDialogClassNames } from '../../dialog/dialogRoot/dialogRoot.api';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 import { type IDialogAlertRootProps, DialogAlertContext } from './dialogAlertRoot.api';
 
@@ -31,8 +29,6 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         overlayClassName,
     );
 
-    const sizeClassNames = responsiveUtils.generateClassNames(size, {}, responsiveSizeDialogClassNames);
-
     // The backdraw is a flex container that fills the screen while aligning
     // and constraining the dialog vertically based on the viewport size.
     const backdrawClassNames = classNames(
@@ -44,7 +40,12 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         'mx-auto flex max-h-screen w-full flex-col overflow-auto',
         'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-alert-content-z-index)]',
-        sizeClassNames,
+        {
+            sm: 'max-w-[400px]',
+            md: 'max-w-[480px]',
+            lg: 'max-w-[640px]',
+            xl: 'max-w-[880px]',
+        }[size],
         containerClassName,
     );
 
