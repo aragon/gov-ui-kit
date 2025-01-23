@@ -36,17 +36,9 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         overlayClassName,
     );
 
-    // The backdraw is a flex container that fills the screen while aligning
-    // and constraining the dialog vertically based on the viewport size.
-    const backdrawClassNames = classNames(
-        'fixed inset-0 bottom-2 top-12 px-2 md:bottom-6 md:top-60 md:px-6 lg:inset-y-12',
-        'flex flex-col justify-end lg:justify-start',
-        'z-[var(--guk-dialog-backdraw-z-index)]',
-    );
-
-    const modalClassNames = classNames(
-        'mx-auto flex max-h-screen w-full flex-col overflow-auto',
-        'rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
+    const containerClassNames = classNames(
+        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] overflow-auto md:inset-x-6 md:bottom-6 lg:bottom-auto lg:top-12 lg:max-h-[calc(100vh-200px)]',
+        'flex flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-content-z-index)]',
         responsiveSizeClassNames[size],
         containerClassName,
@@ -66,26 +58,24 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                             />
                         </Overlay>
                         <FocusScope trapped={useFocusTrap}>
-                            <div className={backdrawClassNames}>
-                                <Content
-                                    className={modalClassNames}
-                                    onCloseAutoFocus={onCloseAutoFocus}
-                                    onEscapeKeyDown={onEscapeKeyDown}
-                                    onInteractOutside={onInteractOutside}
-                                    onOpenAutoFocus={onOpenAutoFocus}
-                                    onPointerDownOutside={onPointerDownOutside}
-                                    asChild={true}
+                            <Content
+                                className={containerClassNames}
+                                onCloseAutoFocus={onCloseAutoFocus}
+                                onEscapeKeyDown={onEscapeKeyDown}
+                                onInteractOutside={onInteractOutside}
+                                onOpenAutoFocus={onOpenAutoFocus}
+                                onPointerDownOutside={onPointerDownOutside}
+                                asChild={true}
+                            >
+                                <motion.div
+                                    variants={dialogContentAnimationVariants}
+                                    initial="closed"
+                                    animate="open"
+                                    exit="exit"
                                 >
-                                    <motion.div
-                                        variants={dialogContentAnimationVariants}
-                                        initial="closed"
-                                        animate="open"
-                                        exit="exit"
-                                    >
-                                        {children}
-                                    </motion.div>
-                                </Content>
-                            </div>
+                                    {children}
+                                </motion.div>
+                            </Content>
                         </FocusScope>
                     </Portal>
                 )}
