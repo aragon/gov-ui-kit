@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 import type { DialogSize, IDialogRootProps } from './dialogRoot.api';
 
-const responsiveSizeClassNames: Record<DialogSize, string> = {
+const sizeToClassNames: Record<DialogSize, string> = {
     sm: 'max-w-[400px]',
     md: 'max-w-[480px]',
     lg: 'max-w-[640px]',
@@ -40,7 +40,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] overflow-auto md:inset-x-6 md:bottom-6 lg:bottom-auto lg:top-12 lg:max-h-[calc(100vh-200px)]',
         'flex flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-content-z-index)]',
-        responsiveSizeClassNames[size],
+        sizeToClassNames[size],
         containerClassName,
     );
 
