@@ -54,24 +54,9 @@ export const Default: Story = {
 export const ScrollableContent: Story = {
     args: {
         children: (
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet nibh. Vestibulum pellentesque
-                urna eget aliquam tristique. Proin justo nisl, suscipit ac aliquet et, congue id enim. Quisque sed
-                lacinia nulla. Nullam cursus eros quis sapien lobortis, pulvinar laoreet ipsum ornare. Nullam
-                condimentum molestie nunc vel iaculis. Cras dignissim libero et efficitur rhoncus. Donec ut turpis enim.
-                Vestibulum cursus mollis turpis et vehicula. In sit amet odio metus. Morbi elementum leo sit amet
-                sagittis ullamcorper. Nulla pellentesque odio vel mi dignissim sodales. Vestibulum ante ipsum primis in
-                faucibus orci luctus et ultrices posuere cubilia curae; Curabitur venenatis interdum dolor nec blandit.
-                Fusce eu leo non dolor convallis porttitor. Pellentesque feugiat tincidunt iaculis. Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit. Nulla in aliquet nibh. Vestibulum pellentesque urna eget aliquam
-                tristique. Proin justo nisl, suscipit ac aliquet et, congue id enim. Quisque sed lacinia nulla. Nullam
-                cursus eros quis sapien lobortis, pulvinar laoreet ipsum ornare. Nullam condimentum molestie nunc vel
-                iaculis. Cras dignissim libero et efficitur rhoncus. Donec ut turpis enim. Vestibulum cursus mollis
-                turpis et vehicula. In sit amet odio metus. Morbi elementum leo sit amet sagittis ullamcorper. Nulla
-                pellentesque odio vel mi dignissim sodales. Vestibulum ante ipsum primis in faucibus orci luctus et
-                ultrices posuere cubilia curae; Curabitur venenatis interdum dolor nec blandit. Fusce eu leo non dolor
-                convallis porttitor. Pellentesque feugiat tincidunt iaculis.
-            </p>
+            <div className="flex h-screen w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                Overflowing content
+            </div>
         ),
     },
     render: (props) => <ControlledComponent {...props} />,

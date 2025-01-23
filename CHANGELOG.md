@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Add `size` prop to `<Dialog />` core component with `max-w` t-shirt sizing
+
 ### Changed
 
 - Update minor and patch NPM dependencies

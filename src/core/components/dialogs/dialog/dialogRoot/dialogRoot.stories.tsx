@@ -22,7 +22,6 @@ type Story = StoryObj<typeof Dialog.Root>;
  * Default usage of the `Dialog.Root` component
  */
 export const Default: Story = {
-    args: {},
     render: (props) => {
         const [open, setOpen] = useState(false);
 
