@@ -44,7 +44,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const isCurrentUser = isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
 
     const resolvedUserHandle =
-        voter.name != null && voter.name !== '' ? voter.name : addressUtils.truncateAddress(voter.address);
+        voter.name != null && voter.name.length > 0 ? voter.name : addressUtils.truncateAddress(voter.address);
 
     const formattedTokenNumber = formatterUtils.formatNumber(votingPower, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
     const formattedTokenVote =

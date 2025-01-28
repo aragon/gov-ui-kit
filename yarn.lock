@@ -122,7 +122,7 @@ __metadata:
     react-dropzone: "npm:^14.3.0"
     react-hook-form: "npm:^7.54.2"
     react-imask: "npm:^7.6.0"
-    rollup: "npm:^4.32.0"
+    rollup: "npm:^4.32.1"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.14.0"
@@ -133,7 +133,7 @@ __metadata:
     ts-jest: "npm:^29.2.5"
     typescript: "npm:^5.7.3"
     typescript-eslint: "npm:^8.22.0"
-    viem: "npm:^2.22.15"
+    viem: "npm:^2.22.16"
     wagmi: "npm:^2.14.9"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
@@ -14985,7 +14985,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.32.0":
+"rollup@npm:^4.32.1":
   version: 4.32.1
   resolution: "rollup@npm:4.32.1"
   dependencies:
@@ -16805,7 +16805,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.1.1, viem@npm:^2.22.15":
+"viem@npm:^2.1.1, viem@npm:^2.22.16":
   version: 2.22.16
   resolution: "viem@npm:2.22.16"
   dependencies:

@@ -137,7 +137,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "rollup": "^4.32.0",
+    "rollup": "^4.32.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-visualizer": "^5.14.0",
@@ -146,7 +146,7 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.22.0",
-    "viem": "^2.22.15",
+    "viem": "^2.22.16",
     "wagmi": "^2.14.9"
   },
   "bugs": {

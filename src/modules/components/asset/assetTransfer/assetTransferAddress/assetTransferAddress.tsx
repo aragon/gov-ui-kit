@@ -25,7 +25,7 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
     const { participant, addressUrl, txRole } = props;
 
     const resolvedUserHandle =
-        participant.name != null && participant.name !== ''
+        participant.name != null && participant.name.length > 0
             ? participant.name
             : addressUtils.truncateAddress(participant.address);
 
