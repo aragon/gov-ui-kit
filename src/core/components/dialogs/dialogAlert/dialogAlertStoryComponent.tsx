@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { type ReactNode, useState } from 'react';
 import { Button } from '../../button';
 import { DialogAlert, type DialogAlertVariant } from './index';

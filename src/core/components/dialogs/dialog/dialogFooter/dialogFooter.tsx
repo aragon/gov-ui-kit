@@ -46,12 +46,12 @@ export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
     return (
         <div className={footerClassNames} {...otherProps}>
             {primaryAction && (
-                <Button size="lg" {...primaryButtonProps} variant={hasError ? 'critical' : 'primary'}>
+                <Button size="md" {...primaryButtonProps} variant={hasError ? 'critical' : 'primary'}>
                     {primaryLabel}
                 </Button>
             )}
             {secondaryAction && (
-                <Button size="lg" {...secondaryButtonProps} variant="tertiary">
+                <Button size="md" {...secondaryButtonProps} variant="tertiary">
                     {secondaryLabel}
                 </Button>
             )}
