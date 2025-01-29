@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { testLogger } from '../../../../test';
-import { DialogHeader } from '../dialogHeader';
 import { DialogRoot } from '../dialogRoot';
 import { DialogContent, type IDialogContentProps } from './dialogContent';
 
@@ -8,17 +6,16 @@ describe('<Dialog.Content/> component', () => {
     const createTestComponent = (props?: Partial<IDialogContentProps>) => {
         const completeProps: IDialogContentProps = { ...props };
 
+        const hiddenDescription = props?.description ? undefined : 'description';
+
         return (
-            <DialogRoot open={true}>
-                <DialogHeader title="title" />
+            <DialogRoot hiddenTitle="title" hiddenDescription={hiddenDescription} open={true}>
                 <DialogContent {...completeProps} />
             </DialogRoot>
         );
     };
 
     it('renders the given content', () => {
-        // Suppress missing description warning from radix-ui
-        testLogger.suppressErrors();
         const content = 'Test content';
         render(createTestComponent({ children: content }));
         expect(screen.getByText(content)).toBeInTheDocument();

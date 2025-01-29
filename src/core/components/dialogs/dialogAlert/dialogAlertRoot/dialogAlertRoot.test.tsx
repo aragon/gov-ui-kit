@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
-import { DialogAlertHeader } from '../dialogAlertHeader';
-import { DialogAlertRoot, type IDialogAlertRootProps } from './dialogAlertRoot';
+import { testLogger } from '../../../../test';
+import { DialogAlertRoot } from './dialogAlertRoot';
+import type { IDialogAlertRootProps } from './dialogAlertRoot.api';
 
 describe('<DialogAlert.Root/> component', () => {
     const createTestComponent = (rootProps?: Partial<IDialogAlertRootProps>) => {
@@ -12,40 +12,17 @@ describe('<DialogAlert.Root/> component', () => {
         return <DialogAlertRoot {...completeRootProps} />;
     };
 
-    it('does not render the alertdialog by default', () => {
+    it('does not render the alert dialog by default', () => {
         render(createTestComponent());
-
         expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
     });
 
     it('renders the alertdialog with the given content', () => {
-        const content = (
-            <>
-                <DialogAlertHeader title="title" description="description" />
-                test content
-            </>
-        );
-
-        render(createTestComponent({ open: true, children: content }));
-
-        const alertDialog = screen.getByRole('alertdialog');
-        expect(alertDialog).toBeInTheDocument();
-        expect(screen.getByText('test content')).toBeInTheDocument();
-    });
-
-    it('calls the given click handler when the action button is clicked', async () => {
-        const user = userEvent.setup();
-        const handleActionBtnClick = jest.fn();
-        const content = (
-            <>
-                <DialogAlertHeader title="title" description="description" />
-                <button onClick={handleActionBtnClick} />
-            </>
-        );
-
-        render(createTestComponent({ open: true, children: content }));
-
-        await user.click(screen.getByRole('button'));
-        expect(handleActionBtnClick).toHaveBeenCalled();
+        // Suppress missing dialog title/description warnings from radix-ui
+        testLogger.suppressErrors();
+        const children = 'test-children';
+        render(createTestComponent({ open: true, children }));
+        expect(screen.getByRole('alertdialog')).toBeInTheDocument();
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 });

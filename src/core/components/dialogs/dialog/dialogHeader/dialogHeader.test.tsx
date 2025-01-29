@@ -1,4 +1,3 @@
-import { Description } from '@radix-ui/react-dialog';
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../../icon';
@@ -13,8 +12,7 @@ describe('<Dialog.Header/> component', () => {
         };
 
         return (
-            <DialogRoot open={true}>
-                <Description>Dialog description</Description>
+            <DialogRoot hiddenDescription="description" open={true}>
                 <DialogHeader {...completeProps} />
             </DialogRoot>
         );

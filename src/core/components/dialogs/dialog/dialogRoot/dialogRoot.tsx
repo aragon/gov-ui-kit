@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 import type { DialogSize, IDialogRootProps } from './dialogRoot.api';
+import { DialogRootHiddenElement } from './dialogRootHiddenElement';
 
 const sizeToClassNames: Record<DialogSize, string> = {
     sm: 'max-w-[320px]',
@@ -24,6 +25,8 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
         onOpenAutoFocus,
         onPointerDownOutside,
         useFocusTrap = true,
+        hiddenTitle,
+        hiddenDescription,
         ...rootProps
     } = props;
 
@@ -70,6 +73,8 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
                                     animate="open"
                                     exit="exit"
                                 >
+                                    <DialogRootHiddenElement label={hiddenTitle} type="title" />
+                                    <DialogRootHiddenElement label={hiddenDescription} type="description" />
                                     {children}
                                 </motion.div>
                             </Content>

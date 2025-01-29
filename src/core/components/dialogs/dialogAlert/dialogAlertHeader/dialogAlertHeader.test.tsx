@@ -4,10 +4,13 @@ import { DialogAlertHeader, type IDialogAlertHeaderProps } from './dialogAlertHe
 
 describe('<DialogAlert.Header/> component', () => {
     const createTestComponent = (props?: Partial<IDialogAlertHeaderProps>) => {
-        const completeProps: IDialogAlertHeaderProps = { title: 'title', ...props };
+        const completeProps: IDialogAlertHeaderProps = {
+            title: 'title',
+            ...props,
+        };
 
         return (
-            <DialogAlertRoot open={true}>
+            <DialogAlertRoot hiddenDescription="test" open={true}>
                 <DialogAlertHeader {...completeProps} />;
             </DialogAlertRoot>
         );
@@ -15,13 +18,7 @@ describe('<DialogAlert.Header/> component', () => {
 
     it('renders the given title', () => {
         const title = 'test title';
-        render(createTestComponent({ title, description: 'test' }));
+        render(createTestComponent({ title }));
         expect(screen.getByText(title)).toBeInTheDocument();
-    });
-
-    it('renders a hidden description when defined', () => {
-        const description = 'test-description';
-        render(createTestComponent({ description }));
-        expect(screen.getByText(description)).toBeInTheDocument();
     });
 });

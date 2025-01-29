@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { testLogger } from '../../../../test';
 import { DialogRoot } from './dialogRoot';
 import type { IDialogRootProps } from './dialogRoot.api';
 
@@ -9,7 +8,7 @@ describe('<Dialog.Root/> component', () => {
             ...props,
         };
 
-        return <DialogRoot {...completeProps} />;
+        return <DialogRoot hiddenTitle="title" hiddenDescription="description" {...completeProps} />;
     };
 
     it('does not render the dialog by default', () => {
@@ -18,8 +17,6 @@ describe('<Dialog.Root/> component', () => {
     });
 
     it('renders the dialog with the given content', () => {
-        // Suppress missing dialog title/description warnings from radix-ui
-        testLogger.suppressErrors();
         const children = 'test-content';
         render(createTestComponent({ open: true, children }));
         const dialog = screen.getByRole('dialog');

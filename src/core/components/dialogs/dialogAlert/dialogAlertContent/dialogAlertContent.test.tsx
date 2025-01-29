@@ -8,11 +8,9 @@ describe('<DialogAlert.Content/> component', () => {
         return <DialogAlertContent {...completeProps} />;
     };
 
-    it('renders the given content', () => {
-        const content = 'Test content';
-
-        render(createTestComponent({ children: content }));
-
-        expect(screen.getByText(content)).toBeInTheDocument();
+    it('renders the specified children', () => {
+        const children = 'Test content';
+        render(createTestComponent({ children }));
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 });

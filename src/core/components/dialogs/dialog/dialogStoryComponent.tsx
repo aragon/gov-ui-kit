@@ -6,13 +6,19 @@ export const DialogStoryComponent = (component: 'header' | 'content' | 'footer' 
     function DialogStoryComponent(props: object) {
         const [open, setOpen] = useState(false);
 
+        const closeDialog = () => setOpen(false);
+
         return (
             <>
                 <Button variant="primary" onClick={() => setOpen(true)}>
-                    Show Dialog
+                    Open
                 </Button>
                 <Dialog.Root open={open} onOpenChange={setOpen} {...(component === 'root' && props)}>
-                    <Dialog.Header title="Title of the dialog" {...(component === 'header' && props)} />
+                    <Dialog.Header
+                        title="Title of the dialog"
+                        onClose={closeDialog}
+                        {...(component === 'header' && props)}
+                    />
                     <Dialog.Content description="A description for the dialog" {...(component === 'content' && props)}>
                         {'children' in props && props.children != null ? (
                             (props.children as ReactNode)
@@ -23,8 +29,8 @@ export const DialogStoryComponent = (component: 'header' | 'content' | 'footer' 
                         )}
                     </Dialog.Content>
                     <Dialog.Footer
-                        primaryAction={{ label: 'Save', onClick: () => setOpen(false) }}
-                        secondaryAction={{ label: 'Close', onClick: () => setOpen(false) }}
+                        primaryAction={{ label: 'Confirm', onClick: closeDialog }}
+                        secondaryAction={{ label: 'Close', onClick: closeDialog }}
                         {...(component === 'footer' && props)}
                     />
                 </Dialog.Root>
