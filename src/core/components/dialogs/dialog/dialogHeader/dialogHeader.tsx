@@ -33,7 +33,9 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
 
     return (
         <div className={headerClassNames} {...otherProps}>
-            <Title className="flex-1 truncate text-lg leading-tight text-neutral-800">{title}</Title>
+            <Title className="text:lg flex-1 truncate font-normal leading-tight text-neutral-800 md:text-xl">
+                {title}
+            </Title>
             <Close asChild={true}>
                 {onClose != null && (
                     <button onClick={onClose} className={closeButtonClassNames} type="button">
