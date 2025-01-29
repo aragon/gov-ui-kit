@@ -2,7 +2,9 @@
 
 class TestLogger {
     private shouldSuppressErrors = false;
+
     private originalConsoleError = console.error;
+    private originalConsoleWarn = console.warn;
 
     private testErrorLogger = jest.fn((...params) => {
         if (!this.shouldSuppressErrors) {
@@ -10,14 +12,22 @@ class TestLogger {
         }
     });
 
+    private testWarnLogger = jest.fn((...params) => {
+        if (!this.shouldSuppressErrors) {
+            this.originalConsoleWarn.apply(console, params);
+        }
+    });
+
     setup = () => {
         beforeEach(() => {
             console.error = this.testErrorLogger;
+            console.warn = this.testWarnLogger;
         });
 
         afterEach(() => {
             this.shouldSuppressErrors = false;
             console.error = this.originalConsoleError;
+            console.warn = this.originalConsoleWarn;
         });
     };
 

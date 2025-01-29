@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 import { Dialog } from '..';
-import { Button } from '../../../button';
+import { DialogStoryComponent } from '../dialogStoryComponent';
 
 const meta: Meta<typeof Dialog.Header> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Header',
@@ -20,29 +19,24 @@ type Story = StoryObj<typeof Dialog.Header>;
  * Default usage of the `Dialog.Header` component
  */
 export const Default: Story = {
-    args: { title: 'Dialog title', description: 'Optional dialog description' },
-    render: (props) => {
-        const [open, setOpen] = useState(false);
+    args: { title: 'Dialog title' },
+    render: DialogStoryComponent('header'),
+};
 
-        return (
-            <>
-                <Button variant="primary" onClick={() => setOpen(true)}>
-                    Show Dialog
-                </Button>
-                <Dialog.Root open={open} onOpenChange={setOpen}>
-                    <Dialog.Header {...props} />
-                    <Dialog.Content>
-                        <p className="py-2 text-neutral-800">Very important content here!</p>
-                    </Dialog.Content>
-                    <Dialog.Footer
-                        primaryAction={{ label: 'Primary action' }}
-                        secondaryAction={{ label: 'Secondary action' }}
-                        alert={{ message: 'Very informative alert message' }}
-                    />
-                </Dialog.Root>
-            </>
-        );
-    },
+/**
+ * Usage of the `Dialog.Header` component with long titles
+ */
+export const LongTitle: Story = {
+    args: { title: 'Long dialog titles are truncated, long dialog titles are truncated.' },
+    render: DialogStoryComponent('header'),
+};
+
+/**
+ * The `Dialog.Header` component does not render the close button when the onClose property is not set.
+ */
+export const NoCloseButton: Story = {
+    args: { onClose: undefined },
+    render: DialogStoryComponent('header'),
 };
 
 export default meta;

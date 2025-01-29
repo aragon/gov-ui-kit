@@ -6,15 +6,12 @@ import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '
 import type { DialogSize, IDialogRootProps } from './dialogRoot.api';
 
 const sizeToClassNames: Record<DialogSize, string> = {
-    sm: 'max-w-[400px]',
+    sm: 'max-w-[320px]',
     md: 'max-w-[480px]',
     lg: 'max-w-[640px]',
     xl: 'max-w-[880px]',
 };
 
-/**
- * `Dialog.Root` component.
- */
 export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
     const {
         children,
