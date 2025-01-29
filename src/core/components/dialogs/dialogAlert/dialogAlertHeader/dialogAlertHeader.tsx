@@ -44,9 +44,7 @@ export const DialogAlertHeader: React.FC<IDialogAlertHeaderProps> = (props) => {
 
     return (
         <div className={headerClassNames} {...otherProps}>
-            <div className="flex min-w-0 flex-1 items-center">
-                <Title className={titleClassNames}>{title}</Title>
-            </div>
+            <Title className={titleClassNames}>{title}</Title>
             <AvatarIcon icon={dialogAlertVariantToIcon[variant]} variant={variant} size="lg" />
         </div>
     );
