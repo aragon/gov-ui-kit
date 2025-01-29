@@ -11,6 +11,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Bump `actions/setup-node` to 4.2.0
 - Update minor and patch NPM dependencies
+- **BREAKING**: Update implementation of `Dialog` component:
+    - Remove `showBackButton` property from `Header` component
+    - Move `description` property from `Header` to `Content` component
+    - Rename `onCloseClick` to `onClose`, hide close button when property is not specified
+    - Remove `alert` property from `Footer` component
+    - Update `Footer` component to support new `variant` and `hasError` properties
+    - Update `Content` component to support new `noInset` property
+- **BREAKING**: Update implementation of `DialogAlert` component:
+    - Remove `description` property from `Header` in favour of new `hiddenDescription` property on `Root` component
+    - Update `Content` component to support new `noInset` property
 
 ## [1.0.64] - 2025-01-23
 
