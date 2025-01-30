@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 import { DialogAlert } from '..';
-import { Button } from '../../../button';
+import { DialogAlertStoryComponent } from '../dialogAlertStoryComponent';
 
 const meta: Meta<typeof DialogAlert.Header> = {
     title: 'Core/Components/Dialogs/DialogAlert/DialogAlert.Header',
@@ -21,31 +20,15 @@ type Story = StoryObj<typeof DialogAlert.Header>;
  */
 export const Default: Story = {
     args: { title: 'DialogAlert Title' },
-    render: (props) => {
-        const [open, setOpen] = useState(false);
+    render: DialogAlertStoryComponent('header'),
+};
 
-        const handleCloseModal = () => {
-            setOpen(false);
-        };
-
-        return (
-            <>
-                <Button variant="primary" onClick={() => setOpen(true)}>
-                    Show DialogAlert
-                </Button>
-                <DialogAlert.Root open={open} onOpenChange={setOpen}>
-                    <DialogAlert.Header {...props} />
-                    <DialogAlert.Content>
-                        <p>Very important content here!</p>
-                    </DialogAlert.Content>
-                    <DialogAlert.Footer
-                        actionButton={{ label: 'Action', onClick: handleCloseModal }}
-                        cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
-                    />
-                </DialogAlert.Root>
-            </>
-        );
-    },
+/**
+ * Usage of the `DialogAlert.Header` component with long titles
+ */
+export const LongTitle: Story = {
+    args: { title: 'Long alert dialog titles are truncated, long alert dialog titles are truncated.' },
+    render: DialogAlertStoryComponent('header'),
 };
 
 export default meta;

@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { Dialog, type IDialogFooterProps } from '..';
-import { Button } from '../../../button';
-import { IconType } from '../../../icon';
+import { Dialog } from '..';
+import { DialogStoryComponent } from '../dialogStoryComponent';
 
 const meta: Meta<typeof Dialog.Footer> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Footer',
@@ -17,43 +15,35 @@ const meta: Meta<typeof Dialog.Footer> = {
 
 type Story = StoryObj<typeof Dialog.Footer>;
 
-const ControlledComponent = (props: IDialogFooterProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show Dialog
-            </Button>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
-                <Dialog.Header title="Dialog title" description="Optional dialog description" />
-                <Dialog.Content>
-                    <p className="py-2 text-neutral-800">Very important content here!</p>
-                </Dialog.Content>
-                <Dialog.Footer {...props} />
-            </Dialog.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `Dialog.Footer` component
  */
 export const Default: Story = {
-    args: {
-        primaryAction: { label: 'Action', iconRight: IconType.SUCCESS },
-        secondaryAction: { label: 'Cancel' },
-        alert: { message: 'Very informative alert message' },
-    },
-    render: (props) => <ControlledComponent {...props} />,
+    render: DialogStoryComponent('footer'),
 };
 
 /**
- * `Dialog.Footer` component with no actions
+ * The `Dialog.Footer` can be rendered with no actions add bottom spacing and display the dialog shadow
  */
 export const Actionless: Story = {
-    args: {},
-    render: (props) => <ControlledComponent {...props} />,
+    args: { primaryAction: undefined, secondaryAction: undefined },
+    render: DialogStoryComponent('footer'),
+};
+
+/**
+ * Use the wizard variant of the `Dialog.Footer` component to render wizards on dialogs.
+ */
+export const WizardVariant: Story = {
+    args: { variant: 'wizard' },
+    render: DialogStoryComponent('footer'),
+};
+
+/**
+ * Set the `hasError` property to true to display an error feedback on the `Dialog.Footer` component.
+ */
+export const WithError: Story = {
+    args: { hasError: true, variant: 'wizard' },
+    render: DialogStoryComponent('footer'),
 };
 
 export default meta;

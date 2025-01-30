@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { DialogAlert, type IDialogAlertContentProps } from '..';
-import { Button } from '../../../button';
+import { DialogAlert } from '..';
+import { DialogAlertStoryComponent } from '../dialogAlertStoryComponent';
 
 const meta: Meta<typeof DialogAlert.Content> = {
     title: 'Core/Components/Dialogs/DialogAlert/DialogAlert.Content',
@@ -16,66 +15,33 @@ const meta: Meta<typeof DialogAlert.Content> = {
 
 type Story = StoryObj<typeof DialogAlert.Content>;
 
-const ControlledComponent = (props: IDialogAlertContentProps) => {
-    const [open, setOpen] = useState(false);
-
-    const handleCloseModal = () => {
-        setOpen(false);
-    };
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show DialogAlert
-            </Button>
-            <DialogAlert.Root open={open} onOpenChange={setOpen}>
-                <DialogAlert.Header title="DialogAlert Title" />
-                <DialogAlert.Content {...props} />
-                <DialogAlert.Footer
-                    actionButton={{ label: 'Action', onClick: handleCloseModal }}
-                    cancelButton={{ label: 'Cancel', onClick: handleCloseModal }}
-                />
-            </DialogAlert.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `DialogAlert.Content` component
  */
 export const Default: Story = {
-    args: {
-        children: <p>Very important content here!</p>,
-    },
-    render: (props) => <ControlledComponent {...props} />,
+    render: DialogAlertStoryComponent('content'),
 };
 
 /**
- * Usage example of `DialogAlert.Content` component with overflowing content
+ * Usage example of the `DialogAlert.Content` component with overflowing content
  */
 export const ScrollableContent: Story = {
     args: {
         children: (
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in aliquet nibh. Vestibulum pellentesque
-                urna eget aliquam tristique. Proin justo nisl, suscipit ac aliquet et, congue id enim. Quisque sed
-                lacinia nulla. Nullam cursus eros quis sapien lobortis, pulvinar laoreet ipsum ornare. Nullam
-                condimentum molestie nunc vel iaculis. Cras dignissim libero et efficitur rhoncus. Donec ut turpis enim.
-                Vestibulum cursus mollis turpis et vehicula. In sit amet odio metus. Morbi elementum leo sit amet
-                sagittis ullamcorper. Nulla pellentesque odio vel mi dignissim sodales. Vestibulum ante ipsum primis in
-                faucibus orci luctus et ultrices posuere cubilia curae; Curabitur venenatis interdum dolor nec blandit.
-                Fusce eu leo non dolor convallis porttitor. Pellentesque feugiat tincidunt iaculis. Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit. Nulla in aliquet nibh. Vestibulum pellentesque urna eget aliquam
-                tristique. Proin justo nisl, suscipit ac aliquet et, congue id enim. Quisque sed lacinia nulla. Nullam
-                cursus eros quis sapien lobortis, pulvinar laoreet ipsum ornare. Nullam condimentum molestie nunc vel
-                iaculis. Cras dignissim libero et efficitur rhoncus. Donec ut turpis enim. Vestibulum cursus mollis
-                turpis et vehicula. In sit amet odio metus. Morbi elementum leo sit amet sagittis ullamcorper. Nulla
-                pellentesque odio vel mi dignissim sodales. Vestibulum ante ipsum primis in faucibus orci luctus et
-                ultrices posuere cubilia curae; Curabitur venenatis interdum dolor nec blandit. Fusce eu leo non dolor
-                convallis porttitor. Pellentesque feugiat tincidunt iaculis.
-            </p>
+            <div className="flex h-screen w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                Overflowing content
+            </div>
         ),
     },
-    render: (props) => <ControlledComponent {...props} />,
+    render: DialogAlertStoryComponent('content'),
 };
+
+/**
+ * Use the noInset property to remove the default padding and implement a custom dialog layout.
+ */
+export const NoInset: Story = {
+    args: { noInset: true },
+    render: DialogAlertStoryComponent('content'),
+};
+
 export default meta;

@@ -58,4 +58,14 @@ export interface IDialogRootProps extends ComponentPropsWithoutRef<'div'> {
      * @default true
      */
     useFocusTrap?: boolean;
+    /**
+     * An accessible and hidden title for the dialog, to be used when implementing a dialog without a Dialog.Header
+     * component.
+     */
+    hiddenTitle?: string;
+    /**
+     * An accessible and hidden description for the dialog, to be used when implementing a dialog without a description
+     * on the Dialog.Content component.
+     */
+    hiddenDescription?: string;
 }

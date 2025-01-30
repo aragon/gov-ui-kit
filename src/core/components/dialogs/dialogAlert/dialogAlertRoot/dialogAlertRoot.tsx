@@ -1,66 +1,13 @@
-import { Content, Overlay, Portal, Root, Trigger } from '@radix-ui/react-alert-dialog';
+import { Content, Overlay, Portal, Root } from '@radix-ui/react-alert-dialog';
 import { FocusScope } from '@radix-ui/react-focus-scope';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
-import { createContext, useMemo, type ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { useMemo } from 'react';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
+import { DialogAlertContextProvider } from '../dialogAlertContext';
+import type { IDialogAlertRootProps } from './dialogAlertRoot.api';
+import { DialogAlertRootHiddenElement } from './dialogAlertRootHiddenElement';
 
-export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
-
-export interface IDialogAlertRootProps extends ComponentPropsWithoutRef<'div'> {
-    /**
-     * Children of the component.
-     */
-    children?: ReactNode;
-    /**
-     * Additional CSS class names for custom styling of the dialog's content container.
-     */
-    containerClassName?: string;
-    /**
-     * Manages the visibility state of the dialog. Should be implemented alongside `onOpenChange` for controlled usage.
-     */
-    open?: boolean;
-    /**
-     * Additional CSS class names for custom styling of the overlay behind the dialog.
-     */
-    overlayClassName?: string;
-    /**
-     * The visual style variant of the dialog.
-     * @default info
-     */
-    variant?: DialogAlertVariant;
-    /**
-     * Callback function invoked when the open state of the dialog changes.
-     */
-    onOpenChange?: (open: boolean) => void;
-    /**
-     * Handler called when focus moves to the trigger after closing the dialog.
-     */
-    onCloseAutoFocus?: (e: Event) => void;
-    /**
-     * Handler called when focus moves to the destructive action after opening the dialog.
-     */
-    onOpenAutoFocus?: (e: Event) => void;
-    /**
-     * Handler called when the escape key is pressed while the dialog is opened. Closes the dialog by default.
-     */
-    onEscapeKeyDown?: (e: KeyboardEvent) => void;
-    /**
-     * Keeps the focus inside the Alert Dialog when set to true.
-     * @default true
-     */
-    useFocusTrap?: boolean;
-}
-
-export interface IDialogAlertContext {
-    variant: DialogAlertVariant;
-}
-
-export const DialogAlertContext = createContext<IDialogAlertContext>({ variant: 'info' });
-
-/**
- * `DialogAlert.Root` component.
- */
 export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     const {
         children,
@@ -71,6 +18,8 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         onOpenAutoFocus,
         onEscapeKeyDown,
         useFocusTrap = true,
+        hiddenTitle,
+        hiddenDescription,
         ...rootProps
     } = props;
 
@@ -87,7 +36,7 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
         containerClassName,
     );
 
-    const contextValue = useMemo(() => ({ variant }), [variant]);
+    const contextValues = useMemo(() => ({ variant }), [variant]);
 
     const handleEscapeKeyDown = (e: KeyboardEvent) => {
         props.onOpenChange?.(false);
@@ -96,7 +45,6 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
 
     return (
         <Root {...rootProps}>
-            <Trigger />
             <AnimatePresence>
                 {rootProps.open && (
                     <Portal forceMount={true} key="portal">
@@ -122,9 +70,11 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
                                     animate="open"
                                     exit="exit"
                                 >
-                                    <DialogAlertContext.Provider value={contextValue}>
+                                    <DialogAlertRootHiddenElement label={hiddenTitle} type="title" />
+                                    <DialogAlertRootHiddenElement label={hiddenDescription} type="description" />
+                                    <DialogAlertContextProvider value={contextValues}>
                                         {children}
-                                    </DialogAlertContext.Provider>
+                                    </DialogAlertContextProvider>
                                 </motion.div>
                             </Content>
                         </FocusScope>

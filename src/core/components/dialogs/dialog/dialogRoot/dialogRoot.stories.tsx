@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 import { Dialog } from '..';
-import { Button } from '../../../button';
+import { DialogStoryComponent } from '../dialogStoryComponent';
 import style from './index.css?raw';
 
 const meta: Meta<typeof Dialog.Root> = {
@@ -22,28 +21,7 @@ type Story = StoryObj<typeof Dialog.Root>;
  * Default usage of the `Dialog.Root` component
  */
 export const Default: Story = {
-    render: (props) => {
-        const [open, setOpen] = useState(false);
-
-        return (
-            <>
-                <Button variant="primary" onClick={() => setOpen(true)}>
-                    Show Dialog
-                </Button>
-                <Dialog.Root {...props} open={open} onOpenChange={setOpen}>
-                    <Dialog.Header title="Dialog Title" />
-                    <Dialog.Content>
-                        <p className="py-2 text-neutral-800">Very important content here!</p>
-                    </Dialog.Content>
-                    <Dialog.Footer
-                        primaryAction={{ label: 'Primary action' }}
-                        secondaryAction={{ label: 'Secondary action' }}
-                        alert={{ message: 'Very informative alert message' }}
-                    />
-                </Dialog.Root>
-            </>
-        );
-    },
+    render: DialogStoryComponent('root'),
 };
 
 export default meta;

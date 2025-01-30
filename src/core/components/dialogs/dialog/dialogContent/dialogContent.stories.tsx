@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { useState } from 'react';
 import { Dialog } from '..';
-import { Button } from '../../../button';
-import { type IDialogContentProps } from './dialogContent';
+import { DialogStoryComponent } from '../dialogStoryComponent';
 
 const meta: Meta<typeof Dialog.Content> = {
     title: 'Core/Components/Dialogs/Dialog/Dialog.Content',
@@ -17,39 +15,15 @@ const meta: Meta<typeof Dialog.Content> = {
 
 type Story = StoryObj<typeof Dialog.Content>;
 
-const ControlledComponent = (props: IDialogContentProps) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <>
-            <Button variant="primary" onClick={() => setOpen(true)}>
-                Show Dialog
-            </Button>
-            <Dialog.Root open={open} onOpenChange={setOpen}>
-                <Dialog.Header title="Dialog title" description="Optional dialog description" />
-                <Dialog.Content {...props} />
-                <Dialog.Footer
-                    primaryAction={{ label: 'Primary action' }}
-                    secondaryAction={{ label: 'Secondary action' }}
-                    alert={{ message: 'Very informative alert message' }}
-                />
-            </Dialog.Root>
-        </>
-    );
-};
-
 /**
  * Default usage of the `Dialog.Content` component
  */
 export const Default: Story = {
-    args: {
-        children: <p className="py-2 text-neutral-800">Very important content here!</p>,
-    },
-    render: (props) => <ControlledComponent {...props} />,
+    render: DialogStoryComponent('content'),
 };
 
 /**
- * Usage example of `Dialog.Content` component with overflowing content
+ * Usage example of the `Dialog.Content` component with overflowing content
  */
 export const ScrollableContent: Story = {
     args: {
@@ -59,7 +33,26 @@ export const ScrollableContent: Story = {
             </div>
         ),
     },
-    render: (props) => <ControlledComponent {...props} />,
+    render: DialogStoryComponent('content'),
+};
+
+/**
+ * Usage example of the `Dialog.Content` component with a multiline description
+ */
+export const MultilineDescription: Story = {
+    args: {
+        description:
+            'A long description for the dialog which does not get truncated, a long description for the dialog which does not get truncated',
+    },
+    render: DialogStoryComponent('content'),
+};
+
+/**
+ * Use the noInset property to remove the default padding and implement a custom dialog layout.
+ */
+export const NoInset: Story = {
+    args: { noInset: true, description: undefined },
+    render: DialogStoryComponent('content'),
 };
 
 export default meta;

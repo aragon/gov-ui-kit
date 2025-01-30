@@ -1,7 +1,2 @@
-export {
-    DialogAlertContext,
-    DialogAlertRoot,
-    type DialogAlertVariant,
-    type IDialogAlertContext,
-    type IDialogAlertRootProps,
-} from './dialogAlertRoot';
+export { DialogAlertRoot } from './dialogAlertRoot';
+export type { DialogAlertVariant, IDialogAlertRootProps } from './dialogAlertRoot.api';

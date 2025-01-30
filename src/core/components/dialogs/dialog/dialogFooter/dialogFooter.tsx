@@ -1,66 +1,59 @@
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type ComponentPropsWithoutRef } from 'react';
-import { AlertInline, type IAlertInlineProps } from '../../../alerts';
-import { Button, type IButtonBaseProps } from '../../../button';
+import classNames from 'classnames';
+import type { ComponentPropsWithoutRef } from 'react';
+import { Button, type IButtonProps } from '../../../button';
 
-export type IDialogFooterAction = (
-    | Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
-    | Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick' | 'type'>
-) &
-    Pick<IButtonBaseProps, 'iconRight' | 'iconLeft' | 'disabled' | 'isLoading'> & {
-        /**
-         * Button label
-         */
-        label: string;
-    };
+export type IDialogFooterAction = Exclude<IButtonProps, 'children' | 'variant'> & {
+    /**
+     * Label of the action button.
+     */
+    label: string;
+};
 
 export interface IDialogFooterProps extends ComponentPropsWithoutRef<'div'> {
     /**
-     * Optional AlertInline
-     */
-    alert?: IAlertInlineProps;
-    /**
-     * Dialog primary action button
+     * Primary action of the dialog.
      */
     primaryAction?: IDialogFooterAction;
     /**
-     * Dialog secondary action button
+     * Secondary action of the dialog.
      */
     secondaryAction?: IDialogFooterAction;
+    /**
+     * Variant of the dialog footer.
+     * @default default
+     */
+    variant?: 'default' | 'wizard';
+    /**
+     * Displays the primary actions with error variant when set to true.
+     */
+    hasError?: boolean;
 }
 
-/**
- * `Dialog.Footer` component
- */
 export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
-    const { alert, primaryAction, secondaryAction, ...otherProps } = props;
-    const { label: primaryLabel, ...primaryBtnProps } = primaryAction ?? { label: '' };
-    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? { label: '' };
+    const { primaryAction, secondaryAction, variant = 'default', hasError, className, ...otherProps } = props;
 
-    const renderButtonGroup = !!primaryAction || !!secondaryAction;
+    const { label: primaryLabel, ...primaryButtonProps } = primaryAction ?? {};
+
+    const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? {};
+
+    const footerClassNames = classNames(
+        'flex gap-3 rounded-b-xl bg-modal-footer px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
+        { 'flex-col md:flex-row': variant === 'default' },
+        { 'flex-row-reverse justify-between': variant === 'wizard' },
+        className,
+    );
 
     return (
-        <div
-            className="flex flex-col gap-4 rounded-b-xl bg-modal-footer px-4 pb-4 pt-2 backdrop-blur-md md:px-6 md:pb-6"
-            {...otherProps}
-        >
-            {renderButtonGroup && (
-                <div className="flex flex-col gap-3 md:flex-row">
-                    {primaryAction && (
-                        <Button className="w-full md:w-auto" {...primaryBtnProps} size="lg" variant="primary">
-                            {primaryLabel}
-                        </Button>
-                    )}
-                    {secondaryAction && (
-                        <Button className="w-full md:w-auto" {...secondaryButtonProps} variant="tertiary" size="lg">
-                            {secondaryLabel}
-                        </Button>
-                    )}
-                </div>
+        <div className={footerClassNames} {...otherProps}>
+            {primaryAction && (
+                <Button size="md" {...primaryButtonProps} variant={hasError ? 'critical' : 'primary'}>
+                    {primaryLabel}
+                </Button>
             )}
-            {alert && (
-                <div className="flex w-full justify-center md:justify-start">
-                    <AlertInline variant="info" {...alert} />
-                </div>
+            {secondaryAction && (
+                <Button size="md" {...secondaryButtonProps} variant="tertiary">
+                    {secondaryLabel}
+                </Button>
             )}
         </div>
     );
