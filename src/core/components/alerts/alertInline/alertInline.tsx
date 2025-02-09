@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import type React from 'react';
 import { type HTMLAttributes } from 'react';
-
 import { Icon } from '../../icon';
 import { alertVariantToIconType, type AlertVariant } from '../alertUtils';
 
@@ -31,7 +30,6 @@ const variantToTextClassNames: Record<AlertVariant, string> = {
     warning: 'text-warning-800',
 };
 
-/** AlertInline UI Component */
 export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant = 'info', ...rest } = props;
 

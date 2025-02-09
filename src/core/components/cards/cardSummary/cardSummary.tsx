@@ -10,11 +10,8 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
 
     const containerClassNames = classNames(
         'grid grid-cols-[auto_max-content] items-center gap-4 p-4 md:px-6 md:py-5',
-        { 'grid-cols-[auto_max-content] md:gap-5': isStacked },
-        {
-            'grid-cols-[auto_max-content] md:grid-flow-col md:grid-cols-[auto_1fr_1fr_max-content] md:gap-6':
-                !isStacked,
-        },
+        { 'md:gap-5': isStacked },
+        { 'md:grid-flow-col md:grid-cols-[auto_1fr_1fr_max-content] md:gap-6': !isStacked },
     );
 
     return (

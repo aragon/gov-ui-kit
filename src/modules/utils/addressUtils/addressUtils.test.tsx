@@ -58,6 +58,7 @@ describe('address utils', () => {
             testLogger.suppressErrors();
             const value = 'test';
             expect(() => addressUtils.getChecksum(value)).toThrow();
+            expect(() => addressUtils.getChecksum(undefined)).toThrow();
         });
     });
 
@@ -83,6 +84,13 @@ describe('address utils', () => {
             expect(addressUtils.isAddressEqual(validAddress, invalidAddress)).toBeFalsy();
             expect(addressUtils.isAddressEqual(invalidAddress, validAddress)).toBeFalsy();
             expect(addressUtils.isAddressEqual(invalidAddress, invalidAddress)).toBeFalsy();
+        });
+
+        it('returns false when some or both inputs are not defined', () => {
+            const validAddress = '0x253553366Da8546fC250F225fe3d25d0C782303b';
+            expect(addressUtils.isAddressEqual(undefined, validAddress)).toBeFalsy();
+            expect(addressUtils.isAddressEqual(validAddress, undefined)).toBeFalsy();
+            expect(addressUtils.isAddressEqual(undefined, undefined)).toBeFalsy();
         });
     });
 });

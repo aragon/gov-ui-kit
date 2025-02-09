@@ -16,19 +16,19 @@ import {
     type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
-const txHeadingStringList: Record<TransactionType, string> = {
+const typeToHeading: Record<TransactionType, string> = {
     [TransactionType.DEPOSIT]: 'Deposit',
     [TransactionType.WITHDRAW]: 'Withdraw',
     [TransactionType.ACTION]: 'Smart contract action',
 };
 
-const txIconTypeList: Record<TransactionType, IconType> = {
+const typeToIcon: Record<TransactionType, IconType> = {
     [TransactionType.DEPOSIT]: IconType.DEPOSIT,
     [TransactionType.WITHDRAW]: IconType.WITHDRAW,
     [TransactionType.ACTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
 };
 
-const txVariantList: Record<TransactionType, AvatarIconVariant> = {
+const typeToIconVariant: Record<TransactionType, AvatarIconVariant> = {
     [TransactionType.DEPOSIT]: 'success',
     [TransactionType.WITHDRAW]: 'warning',
     [TransactionType.ACTION]: 'info',
@@ -53,13 +53,16 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     const blockExplorerHref = buildEntityUrl({ type: ChainEntityType.TRANSACTION, id: hash });
     const processedHref = 'href' in otherProps && otherProps.href != null ? otherProps.href : blockExplorerHref;
 
-    const formattedTokenValue = formatterUtils.formatNumber(tokenAmount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
-    const formattedTokenPrice = formatterUtils.formatNumber(amountUsd, {
+    const formattedTokenAmount = formatterUtils.formatNumber(tokenAmount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
+    const formattedTransactionValue = formatterUtils.formatNumber(amountUsd, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: '-',
     });
-    const formattedTokenAmount =
-        type === TransactionType.ACTION || formattedTokenValue == null ? '-' : `${formattedTokenValue} ${tokenSymbol}`;
+
+    const processedTokenAmount =
+        type === TransactionType.ACTION || formattedTokenAmount == null
+            ? '-'
+            : `${formattedTokenAmount} ${tokenSymbol}`;
 
     return (
         <DataList.Item
@@ -68,7 +71,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
             {...otherProps}
         >
             {status === TransactionStatus.SUCCESS && (
-                <AvatarIcon variant={txVariantList[type]} icon={txIconTypeList[type]} responsiveSize={{ md: 'md' }} />
+                <AvatarIcon variant={typeToIconVariant[type]} icon={typeToIcon[type]} responsiveSize={{ md: 'md' }} />
             )}
             {status === TransactionStatus.FAILED && (
                 <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
@@ -79,7 +82,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 </div>
             )}
             <div className="flex w-full flex-col items-start gap-y-1 self-center">
-                <span className="leading-tight text-neutral-800 md:text-lg">{txHeadingStringList[type]}</span>
+                <span className="leading-tight text-neutral-800 md:text-lg">{typeToHeading[type]}</span>
                 {date && (
                     <p className="text-sm leading-tight text-neutral-500 md:text-base">
                         {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
@@ -88,8 +91,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
             </div>
 
             <div className="flex shrink-0 flex-col items-end gap-y-1 truncate">
-                <span className="leading-tight text-neutral-800 md:text-lg">{formattedTokenAmount}</span>
-                <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedTokenPrice}</span>
+                <span className="leading-tight text-neutral-800 md:text-lg">{processedTokenAmount}</span>
+                <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedTransactionValue}</span>
             </div>
         </DataList.Item>
     );

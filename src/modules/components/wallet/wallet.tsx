@@ -24,7 +24,9 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         chainId,
         config: wagmiConfig,
     });
+
     const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
+    const resolvedUserTitle = user?.name ?? ensName ?? user?.address;
 
     const buttonClassName = classNames(
         'flex items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
@@ -40,7 +42,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
             {!user && copy.wallet.connect}
             {user && isEnsLoading && <StateSkeletonBar className="hidden md:block" size="lg" width={56} />}
             {user && !isEnsLoading && (
-                <span title={user.name ?? ensName ?? user.address} className="hidden max-w-24 truncate md:block">
+                <span title={resolvedUserTitle} className="hidden max-w-24 truncate md:block">
                     {resolvedUserHandle}
                 </span>
             )}

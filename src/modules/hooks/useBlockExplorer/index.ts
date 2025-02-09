@@ -1,6 +1,8 @@
+export { useBlockExplorer } from './useBlockExplorer';
 export {
     ChainEntityType,
-    useBlockExplorer,
+    type IBlockExplorerDefinitions,
     type IBuildEntityUrlParams,
     type IUseBlockExplorerParams,
-} from './useBlockExplorer';
+    type IUseBlockExplorerReturn,
+} from './useBlockExplorer.api';

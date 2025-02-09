@@ -7,11 +7,7 @@ import type { IButtonProps } from './button.api';
 
 describe('<Button /> component', () => {
     const createTestComponent = (props?: Partial<IButtonProps>) => {
-        const completeProps: IButtonProps = {
-            variant: 'primary',
-            size: 'md',
-            ...props,
-        };
+        const completeProps: IButtonProps = { ...props };
 
         return <Button {...completeProps} />;
     };
@@ -99,6 +95,15 @@ describe('<Button /> component', () => {
         render(createTestComponent({ onClick, href }));
         await user.click(screen.getByRole('link'));
         expect(onClick).toHaveBeenCalled();
+    });
+
+    it('does not throw error when clicking on button and onClick property is not set on link variant', async () => {
+        // Suppress "Not implemented: navigation" warning
+        testLogger.suppressErrors();
+        const user = userEvent.setup();
+        const href = '/test';
+        render(createTestComponent({ href }));
+        await expect(user.click(screen.getByRole('link'))).resolves.toBeUndefined();
     });
 
     it('sets button type by default', () => {

@@ -1,5 +1,5 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { DateFormat, formatterUtils, NumberFormat } from '../../../../../core';
+import { render, screen } from '@testing-library/react';
+import { DateFormat, formatterUtils, IconType, NumberFormat } from '../../../../../core';
 import * as useBlockExplorer from '../../../../hooks';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
@@ -14,9 +14,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
     beforeEach(() => {
         useBlockExplorerSpy.mockReturnValue({
             buildEntityUrl: jest.fn(),
-            getBlockExplorer: jest.fn(),
-            blockExplorer: undefined,
-        });
+        } as unknown as useBlockExplorer.IUseBlockExplorerReturn);
     });
 
     afterEach(() => {
@@ -34,14 +32,13 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         return <TransactionDataListItemStructure {...defaultProps} />;
     };
 
-    it('renders the transaction type', () => {
+    it('renders the transaction type heading', () => {
         const type = TransactionType.ACTION;
         render(createTestComponent({ type }));
-        const transactionTypeHeading = screen.getByText('Smart contract action');
-        expect(transactionTypeHeading).toBeInTheDocument();
+        expect(screen.getByText('Smart contract action')).toBeInTheDocument();
     });
 
-    it('renders the token value and symbol in a deposit', () => {
+    it('renders the token value and symbol for a deposit transaction', () => {
         const tokenSymbol = 'ETH';
         const tokenAmount = 10;
         const type = TransactionType.DEPOSIT;
@@ -54,19 +51,22 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         const amountUsd = '123.21';
         const tokenAmount = 10;
         const type = TransactionType.DEPOSIT;
-        const usdPrice = formatterUtils.formatNumber(amountUsd, {
-            format: NumberFormat.FIAT_TOTAL_SHORT,
-        })!;
+        const usdPrice = formatterUtils.formatNumber(amountUsd, { format: NumberFormat.FIAT_TOTAL_SHORT })!;
         render(createTestComponent({ amountUsd, tokenAmount, type }));
         expect(screen.getByText(usdPrice)).toBeInTheDocument();
     });
 
-    it('renders a failed transaction indicator alongside the transaction type', () => {
-        render(createTestComponent({ type: TransactionType.DEPOSIT, status: TransactionStatus.FAILED }));
-        const failedTransactionText = screen.getByText('Deposit');
-        expect(failedTransactionText).toBeInTheDocument();
-        const closeIcon = screen.getByTestId('CLOSE');
-        expect(closeIcon).toBeInTheDocument();
+    it('renders a failed icon when transaction is failed', () => {
+        const status = TransactionStatus.FAILED;
+        render(createTestComponent({ status }));
+        expect(screen.getByTestId('CLOSE')).toBeInTheDocument();
+    });
+
+    it('renders the related transaction type icon when transaction is successful', () => {
+        const status = TransactionStatus.SUCCESS;
+        const type = TransactionType.DEPOSIT;
+        render(createTestComponent({ status, type }));
+        expect(screen.getByTestId(IconType.DEPOSIT)).toBeInTheDocument();
     });
 
     it('renders the provided date correctly', () => {
@@ -76,20 +76,20 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         expect(screen.getByText(formattedDate)).toBeInTheDocument();
     });
 
-    it('renders with the correct block explorer URL', async () => {
+    it('renders with the correct block explorer URL when href property is not defined', () => {
         const chainId = 1;
         const hash = '0x123';
+        const explorerUrl = 'https://etherscan.io/tx/0x123';
         useBlockExplorerSpy.mockReturnValue({
-            buildEntityUrl: () => 'https://etherscan.io/tx/0x123',
-            getBlockExplorer: jest.fn(),
-            blockExplorer: undefined,
-        });
-
+            buildEntityUrl: () => explorerUrl,
+        } as unknown as useBlockExplorer.IUseBlockExplorerReturn);
         render(createTestComponent({ chainId, hash }));
+        expect(screen.getByRole('link')).toHaveAttribute('href', 'https://etherscan.io/tx/0x123');
+    });
 
-        await waitFor(() => {
-            const linkElement = screen.getByRole<HTMLAnchorElement>('link');
-            expect(linkElement).toHaveAttribute('href', 'https://etherscan.io/tx/0x123');
-        });
+    it('does not override href property when defined', () => {
+        const href = 'https://custom.com/0x123';
+        render(createTestComponent({ href }));
+        expect(screen.getByRole('link')).toHaveAttribute('href', href);
     });
 });
