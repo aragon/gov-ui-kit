@@ -33,7 +33,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const chains = useChains();
     const chain = chains.find((chain) => chain.id === chainId);
-    const nativeSymbol = chain?.nativeCurrency.symbol ?? 'ETH';
+    const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
@@ -120,7 +120,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <AlertCard
                             variant="warning"
                             message={copy.proposalActionsItem.nativeSendAlert}
-                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue, nativeSymbol)}
+                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue, currencySymbol)}
                         />
                     )}
                     {activeViewMode === 'BASIC' && (

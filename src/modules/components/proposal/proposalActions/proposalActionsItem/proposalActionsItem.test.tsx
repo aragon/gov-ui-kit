@@ -158,11 +158,11 @@ describe('<ProposalActionsItem /> component', () => {
 
     it('renders a warning icon and alert when action value is not zero and action is not a native transfer', async () => {
         const action = generateProposalAction({ value: '1000000000000000000', data: '0xabc' });
-        render(createTestComponent({ action }));
+        render(createTestComponent({ action, chainId: 137 }));
         expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
         await userEvent.click(screen.getByRole('button'));
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendAlert)).toBeInTheDocument();
-        expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendDescription('1')));
+        expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendDescription('1', 'POL')));
     });
 
     it('updates active view on view-mode change', async () => {
