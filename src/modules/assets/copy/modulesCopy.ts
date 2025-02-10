@@ -27,8 +27,8 @@ export const modulesCopy = {
     proposalActionsItem: {
         dropdownLabel: 'More',
         nativeSendAlert: 'Proceed with caution',
-        nativeSendDescription: (amount: string) =>
-            `This action attempts to send ${amount} ETH. This could cause the action to fail or result in a loss of funds.`,
+        nativeSendDescription: (amount: string, nativeSymbol: string) =>
+            `This action attempts to send ${amount} ${nativeSymbol}. This could cause the action to fail or result in a loss of funds.`,
         notVerified: {
             function: 'Unknown',
             contract: 'Unverified contract',

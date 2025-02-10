@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
+import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
@@ -29,6 +30,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const { copy } = useGukModulesContext();
     const { buildEntityUrl } = useBlockExplorer({ chainId });
+
+    const chains = useChains();
+    const chain = chains.find((chain) => chain.id === chainId);
+    const nativeSymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
@@ -115,7 +120,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <AlertCard
                             variant="warning"
                             message={copy.proposalActionsItem.nativeSendAlert}
-                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue)}
+                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue, nativeSymbol)}
                         />
                     )}
                     {activeViewMode === 'BASIC' && (
