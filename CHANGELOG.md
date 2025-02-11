@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Bump `actions/setup-python` to 5.4.0
-- Update minor and patch NPM dependencies
+- Update minor and patch dependencies
 - Improve code coverage on core and modules components
 
 ### Fixed
