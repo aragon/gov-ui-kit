@@ -10,12 +10,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Bump `actions/setup-python` to 5.4.0
-- Update minor and patch dependencies
+- Update minor and patch NPM dependencies
 - Improve code coverage on core and modules components
 
 ### Fixed
 
 - Fix documentation pages on primitive variables
+- Use correct token symbol in asset transfer warning for supported chains
 
 ## [1.0.65] - 2025-01-30
 
