@@ -1,6 +1,6 @@
 import { TabsList as RadixTabsList } from '@radix-ui/react-tabs';
 import classNames from 'classnames';
-import { useContext, type ComponentProps } from 'react';
+import { Children, useContext, type ComponentProps } from 'react';
 import { TabsContext } from '../tabsRoot/tabsRoot';
 
 export interface ITabsListProps extends ComponentProps<'div'> {}
@@ -10,6 +10,11 @@ export const TabsList: React.FC<ITabsListProps> = (props) => {
     const { isUnderlined } = useContext(TabsContext);
 
     const tabsListClassNames = classNames('flex gap-x-6', { 'border-b border-neutral-100': isUnderlined }, className);
+
+    // Only render the tabs list if there's more than one child
+    if (Children.count(children) === 1) {
+        return null;
+    }
 
     return (
         <RadixTabsList className={tabsListClassNames} {...otherProps}>
