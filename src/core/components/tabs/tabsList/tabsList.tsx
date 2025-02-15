@@ -11,9 +11,10 @@ export const TabsList: React.FC<ITabsListProps> = (props) => {
 
     const tabsListClassNames = classNames('flex gap-x-6', { 'border-b border-neutral-100': isUnderlined }, className);
 
-    // Only render the tabs list if there's more than one child
-    // If there is a possibility of only a single tab then we must set either defaultValue or value property
-    // on the Tabs.Root component.
+    /* If there is only a single child then the tabs are redundant and we just show the content
+    In this case we don't render the tabs list. Note that we should always set either a defaultValue or value
+    prop on the Tabs.Root component if there is a possibility of only a single child being present
+    Otherwise no tab will be selected and no content will render */
     if (Children.count(children) === 1) {
         return null;
     }
