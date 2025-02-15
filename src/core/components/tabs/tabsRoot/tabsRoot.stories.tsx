@@ -90,5 +90,4 @@ export const SingleTab: Story = {
     ),
 };
 
-
 export default meta;
