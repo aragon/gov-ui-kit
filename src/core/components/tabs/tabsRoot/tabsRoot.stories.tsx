@@ -72,7 +72,7 @@ export const InsideCard: Story = {
 
 /**
  * Usage example of a Tabs component with a single tab with the default value.
- * If there is a chance of only a single tab then we must set either defaultValue or value property
+ * Make sure to set the `defaultValue` or `value` property to select and show the content of the tab.
  */
 export const SingleTab: Story = {
     args: { defaultValue: '1' },

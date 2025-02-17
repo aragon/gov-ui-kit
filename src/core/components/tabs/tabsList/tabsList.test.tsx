@@ -1,8 +1,7 @@
-// TabsRoot.test.tsx
 import { render, screen } from '@testing-library/react';
 import { Tabs, type ITabsListProps } from '../../tabs';
 
-describe('<Tabs.Root /> component', () => {
+describe('<Tabs.List /> component', () => {
     const createSingleTabTestComponent = (props?: Partial<ITabsListProps>) => {
         const completeProps: ITabsListProps = { ...props };
         return (
