@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Bump `elliptic` to 6.6.1
+
 ## [1.0.66] - 2025-02-11
 
 ### Changed
