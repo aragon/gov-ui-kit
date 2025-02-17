@@ -1,7 +1,7 @@
+import { TabsList as RadixTabsList, Tabs as RadixTabsRoot } from '@radix-ui/react-tabs';
 import { render, screen } from '@testing-library/react';
 import { IconType } from '../../icon';
 import { Tabs, type ITabsTriggerProps } from '../../tabs';
-import { TabsList as RadixTabsList, Tabs as RadixTabsRoot } from '@radix-ui/react-tabs';
 
 describe('<Tabs.Trigger /> component', () => {
     const createTestComponent = (props?: Partial<ITabsTriggerProps>) => {
