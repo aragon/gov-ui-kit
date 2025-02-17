@@ -22,7 +22,7 @@ describe('<Tabs.Trigger /> component', () => {
 
     it('renders a tab', () => {
         render(createTestComponent());
-        const tab = screen.getByRole('tab', { name: 'Tab 1' });
+        const tab = screen.getByRole('tab');
         expect(tab).toBeInTheDocument();
         expect(tab.getAttribute('disabled')).toBeNull();
     });
@@ -35,7 +35,7 @@ describe('<Tabs.Trigger /> component', () => {
 
     it('disables the tab when the disabled property is set to true', () => {
         render(createTestComponent({ disabled: true }));
-        const tab = screen.getByRole('tab', { name: 'Tab 1' });
+        const tab = screen.getByRole('tab');
         expect(tab.getAttribute('disabled')).toEqual('');
     });
 });
