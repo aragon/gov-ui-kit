@@ -2,8 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { type ITabsListProps, Tabs } from '../../tabs';
 
 describe('<Tabs.List /> component', () => {
-    const createTestComponent = (props: Partial<ITabsListProps>) => {
-        const completeProps: ITabsListProps = { ...props };
+    const createTestComponent = (props?: Partial<ITabsListProps>) => {
+        const completeProps: ITabsListProps = {
+            ...props,
+        };
+
         return (
             <Tabs.Root>
                 <Tabs.List {...completeProps} />
@@ -11,7 +14,7 @@ describe('<Tabs.List /> component', () => {
         );
     };
 
-    it('should render multiple tab triggers without crashing', () => {
+    it('renders multiple tab triggers', () => {
         const children = [
             <Tabs.Trigger key="1" label="Tab 1" value="1" />,
             <Tabs.Trigger key="2" label="Tab 2" value="2" />,
@@ -22,7 +25,7 @@ describe('<Tabs.List /> component', () => {
         expect(screen.getByText('Tab 2')).toBeInTheDocument();
     });
 
-    it('should render null when only a single tab trigger is present', () => {
+    it('renders null when only a single tab trigger is present', () => {
         const children = <Tabs.Trigger label="Tab 1" value="1" />;
         render(createTestComponent({ children }));
 
