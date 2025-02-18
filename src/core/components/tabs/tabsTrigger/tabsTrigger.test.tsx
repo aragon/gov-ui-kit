@@ -1,3 +1,4 @@
+import { TabsList as RadixTabsList, Tabs as RadixTabsRoot } from '@radix-ui/react-tabs';
 import { render, screen } from '@testing-library/react';
 import { IconType } from '../../icon';
 import { Tabs, type ITabsTriggerProps } from '../../tabs';
@@ -11,11 +12,11 @@ describe('<Tabs.Trigger /> component', () => {
         };
 
         return (
-            <Tabs.Root>
-                <Tabs.List>
+            <RadixTabsRoot>
+                <RadixTabsList>
                     <Tabs.Trigger {...completeProps} />
-                </Tabs.List>
-            </Tabs.Root>
+                </RadixTabsList>
+            </RadixTabsRoot>
         );
     };
 
@@ -33,8 +34,8 @@ describe('<Tabs.Trigger /> component', () => {
     });
 
     it('disables the tab when the disabled property is set to true', () => {
-        const disabled = true;
-        render(createTestComponent({ disabled }));
-        expect(screen.getByRole('tab').getAttribute('disabled')).toEqual('');
+        render(createTestComponent({ disabled: true }));
+        const tab = screen.getByRole('tab');
+        expect(tab.getAttribute('disabled')).toEqual('');
     });
 });

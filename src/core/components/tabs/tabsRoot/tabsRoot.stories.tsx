@@ -70,4 +70,24 @@ export const InsideCard: Story = {
     render: (args) => <Card className="p-6">{reusableStoryComponent(args)}</Card>,
 };
 
+/**
+ * Usage example of a Tabs component with a single tab with the default value.
+ * Make sure to set the `defaultValue` or `value` property to select and show the content of the tab.
+ */
+export const SingleTab: Story = {
+    args: { defaultValue: '1' },
+    render: (args) => (
+        <Tabs.Root {...args}>
+            <Tabs.List>
+                <Tabs.Trigger label="Default Tab" value="1" />
+            </Tabs.List>
+            <Tabs.Content value="1">
+                <div className="flex h-24 w-96 items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Item 1 Content
+                </div>
+            </Tabs.Content>
+        </Tabs.Root>
+    ),
+};
+
 export default meta;
