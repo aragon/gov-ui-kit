@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Update `Tabs.List` component to only render when used with multiple tabs
 - Bump `elliptic` to 6.6.1
+- Update minor and patch NPM dependencies
+- Restore Figma previews on primitive variables documentation pages
 
 ## [1.0.66] - 2025-02-11
 
