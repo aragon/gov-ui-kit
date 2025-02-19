@@ -137,6 +137,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                                 'absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral',
                                 'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
                             )}
+                            type="button"
                             aria-label="Cancel Selection"
                         >
                             <Icon icon={IconType.CLOSE} size="sm" />
