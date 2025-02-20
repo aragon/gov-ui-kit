@@ -45,14 +45,12 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
     const maskMin = min != null ? Number(min) : undefined;
 
     const handleMaskAccept = (_value: string, mask: InputMask<FactoryOpts>) => {
-        // Update the lazy option to display the suffix when the user is deleting the last digits of the input
-        const hideMask = mask.unmaskedValue === '';
-        mask.updateOptions({ lazy: hideMask });
         onChange?.(mask.unmaskedValue);
     };
 
     const result = useIMask<HTMLInputElement>(
         {
+            lazy: false,
             mask: numberMask,
             eager: true, // Displays eventual suffix on user input
             blocks: {

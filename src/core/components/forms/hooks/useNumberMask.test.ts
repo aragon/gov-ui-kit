@@ -102,22 +102,4 @@ describe('useNumberMask hook', () => {
         onAccept?.('', maskValue);
         expect(onChange).toHaveBeenCalledWith(maskValue.unmaskedValue);
     });
-
-    it('updates the lazy option to force displaying the mask pattern when new value is not empty', () => {
-        const onChange = jest.fn();
-        const maskValue = { unmaskedValue: '1', updateOptions: jest.fn() } as unknown as InputMask;
-        renderHook(() => useNumberMask({ onChange }));
-        const { onAccept } = maskMock.mock.calls[0][1] ?? {};
-        onAccept?.('', maskValue);
-        expect(maskValue.updateOptions).toHaveBeenCalledWith({ lazy: false });
-    });
-
-    it('updates the lazy option to hide the mask pattern when new value is empty', () => {
-        const onChange = jest.fn();
-        const maskValue = { unmaskedValue: '', updateOptions: jest.fn() } as unknown as InputMask;
-        renderHook(() => useNumberMask({ onChange }));
-        const { onAccept } = maskMock.mock.calls[0][1] ?? {};
-        onAccept?.('', maskValue);
-        expect(maskValue.updateOptions).toHaveBeenCalledWith({ lazy: true });
-    });
 });
