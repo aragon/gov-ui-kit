@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix InputNumber core component so that it properly handles decimals when there is a default values set
+
 ## [1.0.67] - 2025-02-18
 
 ### Changed
