@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Update `NumberFormat.TOKEN_AMOUNT_SHORT` to round small numbers (between -0.01 and 0.01) to the nearest hundredth
+
 ## [1.0.67] - 2025-02-18
 
 ### Changed
