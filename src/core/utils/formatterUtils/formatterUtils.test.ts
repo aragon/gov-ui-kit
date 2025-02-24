@@ -145,9 +145,11 @@ describe('formatter utils', () => {
             test.each([
                 { value: -1234, result: '-1.23K' },
                 { value: -1234, result: '-1,23K', locale: 'it' },
-                { value: -0.0012, result: '-0' },
+                { value: -0.005, result: '-0.01' },
+                { value: -0.0012, result: '-0.00' },
                 { value: 0, result: '0' },
-                { value: 0.0012, result: '0' },
+                { value: 0.0012, result: '0.00' },
+                { value: 0.005, result: '0.01' },
                 { value: 0.0123456789012345678, result: '0.01' },
                 { value: 0.12345678901234567, result: '0.12' },
                 { value: 123.4567, result: '123.46' },
