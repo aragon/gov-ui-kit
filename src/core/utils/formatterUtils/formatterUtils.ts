@@ -55,6 +55,8 @@ class FormatterUtils {
             withSign,
             fallback = null,
             displayFallback,
+            smallValueThreshold,
+            smallValueFractionDigits,
         } = mergedOptions;
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
@@ -65,15 +67,14 @@ class FormatterUtils {
 
         let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
 
-        // Special case TOKEN_AMOUNT_SHORT and the value is between -0.01 and 0.01
-        // We should round to the nearest hundredth meaning the only valid values are
-        // 0.00, 0.01, -0.01 and -0.00
-        if (format === NumberFormat.TOKEN_AMOUNT_SHORT) {
+        const applySmallValueFormatting = smallValueThreshold != null && smallValueFractionDigits != null;
+
+        if (applySmallValueFormatting) {
             if (parsedValue === 0) {
                 return '0';
             }
-            if (Math.abs(parsedValue) < 0.01) {
-                return parsedValue.toFixed(2);
+            if (Math.abs(parsedValue) < smallValueThreshold) {
+                return parsedValue.toFixed(smallValueFractionDigits);
             }
         }
 
