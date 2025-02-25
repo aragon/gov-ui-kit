@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Update `NumberFormat.TOKEN_AMOUNT_SHORT` to round small numbers (between -0.01 and 0.01) to the nearest hundredth
+- Update `NumberFormat.TOKEN_AMOUNT_SHORT` to round to two decimal places via new `smallValueThreshold` option
 
 ## [1.0.68] - 2025-02-21
 
