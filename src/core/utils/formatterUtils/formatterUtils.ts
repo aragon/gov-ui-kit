@@ -55,6 +55,7 @@ class FormatterUtils {
             withSign,
             fallback = null,
             displayFallback,
+            smallValueThreshold,
         } = mergedOptions;
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
@@ -64,6 +65,15 @@ class FormatterUtils {
         }
 
         let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
+
+        if (smallValueThreshold != null) {
+            if (parsedValue === 0) {
+                return '0';
+            }
+            if (Math.abs(parsedValue) < smallValueThreshold) {
+                return parsedValue.toFixed(2);
+            }
+        }
 
         const fixedFractionDigitsOption = this.getDynamicOption(processedValue, fixedFractionDigits);
         const maxSignificantDigitsOption = this.getDynamicOption(processedValue, maxSignificantDigits);

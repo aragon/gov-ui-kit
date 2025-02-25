@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Update `NumberFormat.TOKEN_AMOUNT_SHORT` to round to two decimal places via new `smallValueThreshold` option
+
 ## [1.0.68] - 2025-02-21
 
 ### Fixed
