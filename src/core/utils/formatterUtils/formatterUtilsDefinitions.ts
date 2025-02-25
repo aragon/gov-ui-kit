@@ -89,8 +89,7 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
     [NumberFormat.TOKEN_AMOUNT_SHORT]: {
         maxFractionDigits: 2,
         useBaseSymbol: true,
-        smallValueThreshold: 0.01,
-        smallValueFractionDigits: 2,
+        minFractionDigits: 2,
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
         maxFractionDigits: 18,
