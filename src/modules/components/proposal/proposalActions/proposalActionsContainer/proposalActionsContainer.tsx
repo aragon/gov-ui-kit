@@ -20,10 +20,30 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const processedChildren = Children.toArray(children);
     const childrenCount = processedChildren.length;
 
-    // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
-    useEffect(() => setActionsCount(childrenCount), [childrenCount, setActionsCount]);
+    // Auto-expand logic:
+    // - If a new action is added, expand it and collapse all others.
+    // - If multiple actions have existed, but all are removed except one, leave the last one expanded.
+    // - When there are no children, cleanup expanded actions with reset.
+    useEffect(() => {
+        const firstChild = processedChildren[0];
+        if (firstChild && typeof firstChild === 'object' && 'props' in firstChild) {
+            if (childrenCount === 0) {
+                setExpandedActions([]);
+            } else if (childrenCount > actionsCount || childrenCount === 1) {
+                // @ts-expect-error: We can safely assume the child has a `props.value`
+                setExpandedActions([firstChild.props.value]);
+            }
+        }
+    }, [childrenCount, actionsCount]);
 
-    const handleAccordionValueChange = (value: string[] = []) => setExpandedActions(value);
+    // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
+    useEffect(() => {
+        setActionsCount(childrenCount);
+    }, [childrenCount, setActionsCount]);
+
+    const handleAccordionValueChange = (value: string[] = []) => {
+        setExpandedActions(value);
+    };
 
     return (
         <Accordion.Container
