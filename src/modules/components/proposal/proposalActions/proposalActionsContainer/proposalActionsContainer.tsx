@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useMemo, type ComponentProps } from 'react';
+import React, { Children, useEffect, type ComponentProps } from 'react';
 import { Accordion, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -17,7 +17,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const { copy } = useGukModulesContext();
     const { actionsCount, setActionsCount, expandedActions, setExpandedActions } = useProposalActionsContext();
 
-    const processedChildren = useMemo(() => Children.toArray(children), [children]);
+    const processedChildren = Children.toArray(children);
     const childrenCount = processedChildren.length;
 
     // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
