@@ -25,17 +25,22 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     // - If multiple actions have existed, but all are removed except one, leave the last one expanded.
     // - When there are no children, cleanup expanded actions with reset.
     useEffect(() => {
+        if (childrenCount === 0) {
+            setExpandedActions([]);
+            return;
+        }
+
         const lastChild = processedChildren[childrenCount - 1];
-        if (lastChild && typeof lastChild === 'object' && 'props' in lastChild) {
-            if (childrenCount === 0) {
-                setExpandedActions([]);
-            } else if (childrenCount > actionsCount || childrenCount === 1) {
-                // @ts-expect-error: We can safely assume the child has a `props.value`
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                setExpandedActions([lastChild.props.value]);
+
+        if (React.isValidElement(lastChild)) {
+            const value = (lastChild.props as IProposalActionsItemProps).value;
+            if (value != null) {
+                if (childrenCount > actionsCount || childrenCount === 1) {
+                    setExpandedActions([value]);
+                }
             }
         }
-    }, [childrenCount, actionsCount]);
+    }, [childrenCount, actionsCount, setExpandedActions]);
 
     // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
     useEffect(() => {
