@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useMemo, useState, type ComponentProps } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ComponentProps } from 'react';
 import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {
@@ -10,17 +10,43 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * @default 0
      */
     actionsCount?: number;
+    /**
+     * List of actions ids that are expanded. To be used for controlling the expanded / collapsed states.
+     */
+    expandedActions?: string[];
+    /**
+     * Callback called when the expanded state of an action changes.
+     */
+    onExpandedActionsChange?: (expandedActions: string[]) => void;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
-    const { actionsCount: actionsCountProp = 0, children, className, ...otherProps } = props;
+    const {
+        actionsCount: actionsCountProp = 0,
+        expandedActions: expandedActionsProp,
+        onExpandedActionsChange,
+        children,
+        className,
+        ...otherProps
+    } = props;
 
-    const [expandedActions, setExpandedActions] = useState<string[]>([]);
-    const [actionsCount, setActionsCount] = useState<number>(actionsCountProp);
+    const [expandedActions, setExpandedActions] = useState(expandedActionsProp ?? []);
+    const [actionsCount, setActionsCount] = useState(actionsCountProp);
+
+    const updateExpandedActions = useCallback(
+        (expandedActions: string[]) => {
+            const callback = onExpandedActionsChange ?? setExpandedActions;
+            callback(expandedActions);
+        },
+        [onExpandedActionsChange],
+    );
+
+    // Update expandedActions array on property change
+    useEffect(() => setExpandedActions(expandedActionsProp ?? []), [expandedActionsProp]);
 
     const contextValues = useMemo(
-        () => ({ actionsCount, setActionsCount, expandedActions, setExpandedActions }),
-        [actionsCount, expandedActions],
+        () => ({ actionsCount, setActionsCount, expandedActions, setExpandedActions: updateExpandedActions }),
+        [actionsCount, expandedActions, updateExpandedActions],
     );
 
     return (

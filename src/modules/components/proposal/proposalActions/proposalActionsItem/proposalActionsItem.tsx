@@ -21,7 +21,7 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
-    const { action, index, CustomComponent, dropdownItems, editMode, formPrefix, chainId, ...web3Props } = props;
+    const { action, index, value, CustomComponent, dropdownItems, editMode, formPrefix, chainId, ...web3Props } = props;
 
     invariant(
         index != null,
@@ -35,7 +35,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
-    const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
@@ -76,7 +75,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={index.toString()} ref={itemRef}>
+        <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
                 <div className="flex min-w-0 flex-col items-start gap-1 md:gap-1.5">
                     <div className="flex w-full flex-row items-center gap-2">
@@ -114,7 +113,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     </LinkBase>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={contentRef} forceMount={editMode ? true : undefined}>
+            <Accordion.ItemContent forceMount={editMode ? true : undefined}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard

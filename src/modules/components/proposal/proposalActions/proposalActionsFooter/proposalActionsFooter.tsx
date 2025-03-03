@@ -4,10 +4,15 @@ import { Button } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
 
-export interface IProposalActionsFooterProps extends ComponentProps<'div'> {}
+export interface IProposalActionsFooterProps extends ComponentProps<'div'> {
+    /**
+     * List of action IDs to be used to toggle the expanded state for all the actions, defaults to the index of the actions.
+     */
+    actionIds?: string[];
+}
 
 export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (props) => {
-    const { className, children, ...otherProps } = props;
+    const { actionIds, className, children, ...otherProps } = props;
 
     const { actionsCount, setExpandedActions, expandedActions } = useProposalActionsContext();
     const { copy } = useGukModulesContext();
@@ -16,7 +21,8 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
         if (expandedActions.length === actionsCount) {
             setExpandedActions([]);
         } else {
-            setExpandedActions(Array.from({ length: actionsCount }, (_, index) => index.toString()));
+            const actions = actionIds ?? Array.from({ length: actionsCount }, (_, index) => index.toString());
+            setExpandedActions(actions);
         }
     };
 
