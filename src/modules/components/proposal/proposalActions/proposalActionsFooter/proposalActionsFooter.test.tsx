@@ -51,4 +51,13 @@ describe('<ProposalActionsFooter /> component', () => {
         await userEvent.click(expandButton);
         expect(setExpandedActions).toHaveBeenCalledWith([]);
     });
+
+    it('uses the actionIds property to expand all actions when set', async () => {
+        const actionIds = ['a', 'b', 'c'];
+        const setExpandedActions = jest.fn();
+        const context = { expandedActions: [], actionsCount: actionIds.length, setExpandedActions };
+        render(createTestComponent({ context, props: { actionIds } }));
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.expand }));
+        expect(setExpandedActions).toHaveBeenCalledWith(actionIds);
+    });
 });
