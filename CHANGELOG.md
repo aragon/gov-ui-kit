@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 
-- Added logic to `<ProposalActionsContainer />` and `<ProposalActionsItem />` for expanding latest action
+- Update `ProposalActions` module components to support controlled accordion state
 - Update `NumberFormat.TOKEN_AMOUNT_SHORT` to round to two decimal places via new `smallValueThreshold` option
 - Disable `postinstall` scripts by default
 
