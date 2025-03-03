@@ -47,10 +47,6 @@ export interface INumberFormat {
      * the fallback when the value is NaN.
      */
     displayFallback?: (value: number) => boolean;
-    /**
-     * Threshold for applying small value formatting
-     */
-    smallValueThreshold?: number;
 }
 
 export enum NumberFormat {
@@ -83,9 +79,9 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         isCurrency: true,
     },
     [NumberFormat.TOKEN_AMOUNT_SHORT]: {
+        fixedFractionDigits: (value) => (value !== 0 && Math.abs(value) < 0.01 ? 2 : undefined),
         maxFractionDigits: 2,
         useBaseSymbol: true,
-        smallValueThreshold: 0.01,
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
         maxFractionDigits: 18,
