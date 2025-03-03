@@ -31,7 +31,7 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      */
     index?: number;
     /**
-     * Value of the action for order & expanded management.
+     * Value of the action used as accordion item value, defaults to the index property if not provided.
      */
     value?: string;
     /**

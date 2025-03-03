@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 import { Button } from '../../../../../core';
 import { generateProposalActionChangeMembers, generateProposalActionChangeSettings, ProposalActions } from '../index';
 
@@ -48,6 +49,50 @@ export const Default: Story = {
             </ProposalActions.Footer>
         </ProposalActions.Root>
     ),
+};
+
+/**
+ * Example usage of the ProposalActions.Root component with controlled accordion state and custom action IDs.
+ */
+export const Controlled: Story = {
+    render: (props) => {
+        const [expandedActions, setExpandedActions] = useState<string[]>([]);
+
+        const actionIds = ['bfaed98c-7892-4e55-9a6c-f32a36cc41cf', 'aca264be-2884-4bab-9445-f29ca0869fdb'];
+        const actions = [
+            {
+                id: actionIds[0],
+                ...generateProposalActionChangeMembers({
+                    inputData: { function: 'removeMembers', contract: 'Multisig', parameters: [] },
+                    members: [{ address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48' }],
+                    to: '0x5283D291DBCF85356A21bA090E6db59121208b44',
+                }),
+            },
+            {
+                id: actionIds[1],
+                ...generateProposalActionChangeMembers({
+                    inputData: { function: 'addMembers', contract: 'Multisig', parameters: [] },
+                    members: [{ address: '0x6cC5F688a315f3dC28A7781717a9A798a59fDA7b' }],
+                    to: '0x5283D291DBCF85356A21bA090E6db59121208b44',
+                }),
+            },
+        ];
+
+        return (
+            <ProposalActions.Root
+                expandedActions={expandedActions}
+                onExpandedActionsChange={setExpandedActions}
+                {...props}
+            >
+                <ProposalActions.Container emptyStateDescription="Proposal has no actions">
+                    {actions.map((action, index) => (
+                        <ProposalActions.Item key={index} action={action} value={action.id} />
+                    ))}
+                </ProposalActions.Container>
+                <ProposalActions.Footer actionIds={actionIds} />
+            </ProposalActions.Root>
+        );
+    },
 };
 
 export default meta;

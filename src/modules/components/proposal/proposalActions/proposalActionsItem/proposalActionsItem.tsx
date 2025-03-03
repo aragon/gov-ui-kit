@@ -35,7 +35,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
-    const contentRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
 
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
@@ -114,7 +113,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     </LinkBase>
                 </div>
             </Accordion.ItemHeader>
-            <Accordion.ItemContent ref={contentRef} forceMount={editMode ? true : undefined}>
+            <Accordion.ItemContent forceMount={editMode ? true : undefined}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard

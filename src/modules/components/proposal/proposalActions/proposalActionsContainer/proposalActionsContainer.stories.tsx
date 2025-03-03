@@ -48,43 +48,6 @@ export const Default: Story = {
 };
 
 /**
- * Example with expanded state of the ProposalActions.Container where the newest action is expanded.
- * When `<ProposalActions.Item />` children components have unique values passed as a prop,
- * the most recent added action will be expanded when mounted and as actions are added.
- */
-export const Expanded: Story = {
-    decorators: ComponentWrapper(1),
-    render: (props) => (
-        <ProposalActions.Container {...props}>
-            <ProposalActions.Item
-                value="0"
-                action={generateProposalAction({
-                    to: '0xEdDb9c0c60044Da5713465C9fbfA4132a9F5537d',
-                    data: '0x23b872dd000000000000000000000000f6bce206b9a72166ec0bee315629064a5e997f8200000000000000',
-                    inputData: {
-                        function: 'addLiquidity',
-                        contract: 'Uniswap V3',
-                        parameters: [{ name: 'amount', type: 'uint256', value: '8645312' }],
-                    },
-                })}
-            />
-            <ProposalActions.Item
-                value="1"
-                action={generateProposalAction({
-                    to: '0xEdDb9c0c60044Da5713465C9fbfA4132a9F5537d',
-                    data: '0x23b872dd000000000000000000000000f6bce206b9a72166ec0bee315629064a5e997f8200000000000000',
-                    inputData: {
-                        function: 'addLiquidity',
-                        contract: 'Uniswap V3',
-                        parameters: [{ name: 'amount', type: 'uint256', value: '8645312' }],
-                    },
-                })}
-            />
-        </ProposalActions.Container>
-    ),
-};
-
-/**
  * The ProposalActions.Container component renders an empty state when actionsCount is set to 0.
  */
 export const Empty: Story = {
