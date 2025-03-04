@@ -1,6 +1,6 @@
 :root {
   /******* Font Weight *******/
-  --guk-font-weight-normal: 500;
+  --guk-font-weight-normal: 400;
   --guk-font-weight-semibold: 600;
 
   /******* Font Size *******/
@@ -28,7 +28,7 @@
 @font-face {
   font-family: "Manrope";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-display: swap;
   src: url("../../fonts/Manrope-Regular.ttf") format("truetype");
 }
