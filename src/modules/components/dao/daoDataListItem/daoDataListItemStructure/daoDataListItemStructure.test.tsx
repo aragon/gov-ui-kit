@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { IconType } from '../../../../../core';
 import { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';
 
 describe('<DaoDataListItemStructure /> component', () => {
@@ -44,5 +45,13 @@ describe('<DaoDataListItemStructure /> component', () => {
         const network = 'ethereum';
         render(createTestComponent({ network }));
         expect(screen.getByText(network)).toBeInTheDocument();
+    });
+
+    it('hides the DAO ens and displays an external link icon when the isExternal property is set to true', () => {
+        const isExternal = true;
+        const ens = 'test-dao.eth';
+        render(createTestComponent({ isExternal, ens }));
+        expect(screen.getByTestId(IconType.LINK_EXTERNAL)).toBeInTheDocument();
+        expect(screen.queryByText(ens)).not.toBeInTheDocument();
     });
 });
