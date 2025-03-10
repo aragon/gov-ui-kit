@@ -1,5 +1,6 @@
 import type React from 'react';
 import { AvatarIcon, DataList, Heading, Icon, IconType, type IDataListItemProps } from '../../../../../core';
+import { addressUtils } from '../../../../utils';
 import { DaoAvatar } from '../../daoAvatar';
 
 export type IDaoDataListItemStructureProps = IDataListItemProps & {
@@ -36,6 +37,8 @@ export type IDaoDataListItemStructureProps = IDataListItemProps & {
 export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> = (props) => {
     const { name, logoSrc, description, network, address, ens, isExternal, ...otherProps } = props;
 
+    const truncatedAddress = addressUtils.truncateAddress(address);
+
     return (
         <DataList.Item className="grid gap-y-3 py-4 md:gap-y-4 md:py-6" {...otherProps}>
             <div className="flex w-full justify-between gap-2">
@@ -45,7 +48,7 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                     </Heading>
                     {!isExternal && (
                         <Heading size="h5" as="h3" className="truncate">
-                            {ens ?? address}
+                            {ens ?? truncatedAddress}
                         </Heading>
                     )}
                 </div>
