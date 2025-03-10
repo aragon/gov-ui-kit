@@ -29,6 +29,20 @@ export const Default: Story = {
 };
 
 /**
+ * Usage of the ToggleGroup component with space-between variant.
+ */
+export const SpaceBetween: Story = {
+    args: { variant: 'space-between' },
+    render: (props) => (
+        <ToggleGroup className="w-full" {...props}>
+            <Toggle value="default" label="Default" />
+            <Toggle value="optimistic" label="Optimistic" />
+            <Toggle value="timelock" label="Timelock" />
+        </ToggleGroup>
+    ),
+};
+
+/**
  * Controlled usage example of the ToggleGroup component.
  */
 export const Controlled: Story = {
