@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Support `xs` size on `<Avatar />` core component
+- Add `variant` property to `<ToggleGroup />` core component to support space-between spacing
+
 ### Changed
 
 - Update Manrope font weight for Regular variant from 500 to 400
