@@ -21,6 +21,14 @@ export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {
 }
 
 const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
+    xs: {
+        default: 'text-xs',
+        sm: 'sm:text-xs',
+        md: 'md:text-xs',
+        lg: 'lg:text-xs',
+        xl: 'xl:text-xs',
+        '2xl': '2xl:text-xs',
+    },
     sm: {
         default: 'text-sm',
         sm: 'sm:text-sm',
