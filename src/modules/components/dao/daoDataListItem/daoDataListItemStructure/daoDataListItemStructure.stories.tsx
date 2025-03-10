@@ -24,7 +24,7 @@ export const Default: Story = {
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
         network: 'Ethereum',
-        ens: 'patito.dao.eth',
+        address: '0xc6B61B776367b236648399ACF4A0bc5aDe70708F',
     },
 };
 
