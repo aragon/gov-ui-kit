@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.70] - 2025-03-11
+
 ### Added
 
 - Update `<DaoDataListItem.Structure />` module component to support new `isExternal` property
