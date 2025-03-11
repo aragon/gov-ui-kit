@@ -20,11 +20,11 @@ type Story = StoryObj<typeof DaoDataListItemStructure>;
 export const Default: Story = {
     args: {
         name: 'Patito DAO',
-        logoSrc: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
+        logoSrc: 'https://pbs.twimg.com/profile_images/1851934141782331394/Z0ZqlyIo_400x400.png',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        network: 'Ethereum Mainnet',
-        ens: 'patito.dao.eth',
+        network: 'Ethereum',
+        address: '0xc6B61B776367b236648399ACF4A0bc5aDe70708F',
     },
 };
 
@@ -32,10 +32,9 @@ export const Default: Story = {
 export const LongNames: Story = {
     args: {
         name: 'A DAO With An Extremely Long Name That Should Be Truncated DAO',
-        logoSrc: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        network: 'Ethereum Mainnet',
+        network: 'Ethereum',
         ens: 'a_dao_with_an_extremely_long_ens_name_that_should_be_truncated.dao.eth',
     },
 };
@@ -48,8 +47,24 @@ export const Fallback: Story = {
         name: 'Patito DAO',
         description:
             'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
-        network: 'Ethereum Mainnet',
+        network: 'Ethereum',
         ens: 'patito.dao.eth',
+    },
+};
+
+/**
+ * Usage of the DaoDataListItem component with external link.
+ */
+export const External: Story = {
+    args: {
+        name: 'Lido',
+        logoSrc: 'https://pbs.twimg.com/profile_images/1721880644345622528/G2czctJJ_400x400.jpg',
+        description:
+            "The Lido DAO governs key parameters of Ethereum's largest liquid staking protocol using the voting power of LDO.",
+        network: 'Ethereum',
+        href: 'https://vote.lido.fi/',
+        target: '_blank',
+        isExternal: true,
     },
 };
 
