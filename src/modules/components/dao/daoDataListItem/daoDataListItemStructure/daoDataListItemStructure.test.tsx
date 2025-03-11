@@ -48,11 +48,9 @@ describe('<DaoDataListItemStructure /> component', () => {
         expect(screen.getByText(network)).toBeInTheDocument();
     });
 
-    it('hides the DAO ens and displays an external link icon when the isExternal property is set to true', () => {
+    it('displays an external link icon when the isExternal property is set to true', () => {
         const isExternal = true;
-        const ens = 'test-dao.eth';
-        render(createTestComponent({ isExternal, ens }));
+        render(createTestComponent({ isExternal }));
         expect(screen.getByTestId(IconType.LINK_EXTERNAL)).toBeInTheDocument();
-        expect(screen.queryByText(ens)).not.toBeInTheDocument();
     });
 });

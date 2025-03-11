@@ -46,11 +46,9 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                     <Heading size="h3" as="h2" className="truncate">
                         {name}
                     </Heading>
-                    {!isExternal && (
-                        <Heading size="h5" as="h3" className="truncate">
-                            {ens ?? truncatedAddress}
-                        </Heading>
-                    )}
+                    <Heading size="h5" as="h3" className="truncate">
+                        {ens ?? truncatedAddress}
+                    </Heading>
                 </div>
                 <DaoAvatar name={name} src={logoSrc} size="md" responsiveSize={{ md: 'lg' }} />
             </div>

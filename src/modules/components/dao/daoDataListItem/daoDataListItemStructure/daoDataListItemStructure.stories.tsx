@@ -62,7 +62,6 @@ export const External: Story = {
         description:
             "The Lido DAO governs key parameters of Ethereum's largest liquid staking protocol using the voting power of LDO.",
         network: 'Ethereum',
-        address: '0x0000000000000000000000000000000000000000',
         href: 'https://vote.lido.fi/',
         target: '_blank',
         isExternal: true,
