@@ -13,23 +13,33 @@ describe('<AssetDataListItem.Structure /> component', () => {
         return <AssetDataListItemStructure {...completeProps} />;
     };
 
-    it('renders token name and symbol', () => {
-        const props = { name: 'Ethereum', symbol: 'ETH' };
-        render(createTestComponent(props));
-        expect(screen.getByText(props.name)).toBeInTheDocument();
-        expect(screen.getByText(props.symbol)).toBeInTheDocument();
+    it('renders the token name and symbol', () => {
+        const name = 'Ethereum';
+        const symbol = 'ETH';
+        render(createTestComponent({ name, symbol }));
+        expect(screen.getByText(name)).toBeInTheDocument();
+        expect(screen.getByText(/ETH/)).toBeInTheDocument();
     });
 
-    it('correctly renders amount and fiat price', () => {
-        const props = { amount: 10, fiatPrice: 1250 };
-        render(createTestComponent(props));
+    it('correctly renders the amount and fiat value', () => {
+        const amount = 10;
+        const fiatPrice = 1250;
+        const symbol = 'SOL';
+        render(createTestComponent({ amount, fiatPrice, symbol }));
         expect(screen.getByText('$12.50K')).toBeInTheDocument();
-        expect(screen.getByText(props.amount)).toBeInTheDocument();
+        expect(screen.getByText(`${amount.toString()} ${symbol}`)).toBeInTheDocument();
     });
 
-    it('renders unknown with fiatPrice is not set', () => {
-        const props = { fiatPrice: undefined };
-        render(createTestComponent(props));
+    it('renders unknown when fiatPrice is not set', () => {
+        const fiatPrice = undefined;
+        render(createTestComponent({ fiatPrice }));
         expect(screen.getByText('Unknown')).toBeInTheDocument();
+    });
+
+    it('hides the fiat value when hideValue is set to true', () => {
+        const fiatPrice = undefined;
+        const hideValue = true;
+        render(createTestComponent({ fiatPrice, hideValue }));
+        expect(screen.queryByText('Unknown')).not.toBeInTheDocument();
     });
 });

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update `<DaoDataListItem.Structure />` module component to support new `isExternal` property
 - Support `xs` size on `<Avatar />` core component
 - Add `variant` property to `<ToggleGroup />` core component to support space-between spacing
+- Update `<AssetDataListItem />` module component to support `hideValue` property
 
 ### Changed
 

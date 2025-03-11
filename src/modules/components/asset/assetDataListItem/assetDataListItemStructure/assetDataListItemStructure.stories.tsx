@@ -41,13 +41,26 @@ export const LongName: Story = {
 };
 
 /**
- *  Usage of the AssetDataListItem without fiatPrice.
+ * Usage of the AssetDataListItem component without fiatPrice.
  */
 export const UnknownPrice: Story = {
     args: {
         name: 'Ethereum',
         amount: 420.69,
         symbol: 'ETH',
+    },
+};
+
+/**
+ * Set the hideValue property to true to only render the token amount.
+ */
+export const WithoutValue: Story = {
+    args: {
+        name: 'Solana',
+        logoSrc: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
+        amount: 2.479283,
+        symbol: 'SOL',
+        hideValue: true,
     },
 };
 

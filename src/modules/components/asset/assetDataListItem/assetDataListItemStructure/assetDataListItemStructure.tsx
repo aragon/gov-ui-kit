@@ -24,24 +24,25 @@ export type IAssetDataListItemStructureProps = IDataListItemProps & {
      * The fiat price of the asset.
      */
     fiatPrice?: number | string;
+    /**
+     * Hides the asset value when set to true.
+     */
+    hideValue?: boolean;
 };
 
 export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructureProps> = (props) => {
-    const { logoSrc, name, amount, symbol, fiatPrice, className, ...otherProps } = props;
+    const { logoSrc, name, amount, symbol, fiatPrice, className, hideValue, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
-    const fiatAmount = Number(amount) * Number(fiatPrice);
-
-    const formattedAmount = formatterUtils.formatNumber(amount, {
-        format: NumberFormat.TOKEN_AMOUNT_SHORT,
-        fallback: '',
-    });
-
-    const formattedPrice = formatterUtils.formatNumber(fiatAmount, {
+    const fiatValue = Number(amount) * Number(fiatPrice);
+    const formattedValue = formatterUtils.formatNumber(fiatValue, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
         fallback: copy.assetDataListItemStructure.unknown,
     });
+
+    const formattedAmount = formatterUtils.formatNumber(amount, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
+    const parsedAmount = `${formattedAmount!} ${symbol}`;
 
     return (
         <DataList.Item
@@ -54,11 +55,14 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
             </div>
             <div className="flex min-w-0 gap-x-2 text-right">
                 <div className="flex min-w-0 flex-col gap-y-1">
-                    <span className="text-base leading-tight text-neutral-800 md:text-lg">{formattedPrice}</span>
-                    <div className="flex items-center gap-1">
-                        <p className="text-sm leading-tight text-neutral-500 md:text-base">{formattedAmount}</p>
-                        <p className="truncate text-sm leading-tight text-neutral-500 md:text-base">{symbol}</p>
-                    </div>
+                    <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">
+                        {hideValue ? parsedAmount : formattedValue}
+                    </span>
+                    {!hideValue && (
+                        <span className="truncate text-sm leading-tight text-neutral-500 md:text-base">
+                            {parsedAmount}
+                        </span>
+                    )}
                 </div>
             </div>
         </DataList.Item>
