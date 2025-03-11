@@ -59,24 +59,24 @@ __metadata:
     "@radix-ui/react-toggle-group": "npm:^1.1.0"
     "@radix-ui/react-tooltip": "npm:^1.1.0"
     "@radix-ui/react-visually-hidden": "npm:^1.1.0"
-    "@rollup/plugin-commonjs": "npm:^28.0.2"
+    "@rollup/plugin-commonjs": "npm:^28.0.3"
     "@rollup/plugin-image": "npm:^3.0.3"
     "@rollup/plugin-node-resolve": "npm:^16.0.0"
     "@rollup/plugin-terser": "npm:^0.4.4"
     "@rollup/plugin-typescript": "npm:^12.1.2"
-    "@storybook/addon-designs": "npm:^8.2.0"
-    "@storybook/addon-essentials": "npm:^8.6.3"
-    "@storybook/addon-links": "npm:^8.6.3"
+    "@storybook/addon-designs": "npm:^8.2.1"
+    "@storybook/addon-essentials": "npm:^8.6.4"
+    "@storybook/addon-links": "npm:^8.6.4"
     "@storybook/addon-styling-webpack": "npm:^1.0.1"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.5"
-    "@storybook/blocks": "npm:^8.6.3"
-    "@storybook/react": "npm:^8.6.3"
-    "@storybook/react-webpack5": "npm:^8.6.3"
-    "@storybook/test": "npm:^8.6.3"
+    "@storybook/blocks": "npm:^8.6.4"
+    "@storybook/react": "npm:^8.6.4"
+    "@storybook/react-webpack5": "npm:^8.6.4"
+    "@storybook/test": "npm:^8.6.4"
     "@svgr/rollup": "npm:^8.1.0"
     "@svgr/webpack": "npm:^8.1.0"
     "@tailwindcss/typography": "npm:^0.5.16"
-    "@tanstack/react-query": "npm:^5.67.0"
+    "@tanstack/react-query": "npm:^5.67.2"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.2.0"
@@ -94,17 +94,17 @@ __metadata:
     "@types/react": "npm:^19.0.10"
     "@types/react-dom": "npm:^19.0.4"
     "@types/sanitize-html": "npm:^2.13.0"
-    autoprefixer: "npm:^10.4.20"
+    autoprefixer: "npm:^10.4.21"
     blockies-ts: "npm:^1.0.0"
     classnames: "npm:^2.5.0"
     cross-env: "npm:^7.0.3"
-    eslint: "npm:^9.21.0"
+    eslint: "npm:^9.22.0"
     eslint-import-resolver-typescript: "npm:^3.8.3"
     eslint-plugin-import: "npm:^2.31.0"
     eslint-plugin-jsx-a11y: "npm:^6.10.2"
     eslint-plugin-react: "npm:^7.37.4"
     eslint-plugin-react-hooks: "npm:^5.2.0"
-    eslint-plugin-storybook: "npm:^0.11.3"
+    eslint-plugin-storybook: "npm:^0.11.4"
     eslint-plugin-tailwindcss: "npm:^3.18.0"
     eslint-plugin-testing-library: "npm:^7.1.1"
     framer-motion: "npm:^12.4.0"
@@ -123,18 +123,18 @@ __metadata:
     react-dropzone: "npm:^14.3.0"
     react-hook-form: "npm:^7.54.2"
     react-imask: "npm:^7.6.0"
-    rollup: "npm:^4.34.9"
+    rollup: "npm:^4.35.0"
     rollup-plugin-peer-deps-external: "npm:^2.2.4"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-visualizer: "npm:^5.14.0"
     sanitize-html: "npm:^2.14.0"
-    storybook: "npm:^8.6.3"
+    storybook: "npm:^8.6.4"
     tailwindcss: "npm:^3.4.17"
     tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.2.6"
     typescript: "npm:^5.8.2"
-    typescript-eslint: "npm:^8.25.0"
-    viem: "npm:^2.23.5"
+    typescript-eslint: "npm:^8.26.1"
+    viem: "npm:^2.23.9"
     wagmi: "npm:^2.14.12"
   peerDependencies:
     "@tailwindcss/typography": ^0.5.0
@@ -3806,7 +3806,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/plugin-commonjs@npm:^28.0.2":
+"@rollup/plugin-commonjs@npm:^28.0.3":
   version: 28.0.3
   resolution: "@rollup/plugin-commonjs@npm:28.0.3"
   dependencies:
@@ -4376,7 +4376,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-designs@npm:^8.2.0":
+"@storybook/addon-designs@npm:^8.2.1":
   version: 8.2.1
   resolution: "@storybook/addon-designs@npm:8.2.1"
   dependencies:
@@ -4419,7 +4419,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-essentials@npm:^8.6.3":
+"@storybook/addon-essentials@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/addon-essentials@npm:8.6.4"
   dependencies:
@@ -4450,7 +4450,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^8.6.3":
+"@storybook/addon-links@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/addon-links@npm:8.6.4"
   dependencies:
@@ -4531,7 +4531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/blocks@npm:8.6.4, @storybook/blocks@npm:^8.6.3":
+"@storybook/blocks@npm:8.6.4, @storybook/blocks@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/blocks@npm:8.6.4"
   dependencies:
@@ -4760,7 +4760,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react-webpack5@npm:^8.6.3":
+"@storybook/react-webpack5@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/react-webpack5@npm:8.6.4"
   dependencies:
@@ -4779,7 +4779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/react@npm:8.6.4, @storybook/react@npm:^8.6.3":
+"@storybook/react@npm:8.6.4, @storybook/react@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/react@npm:8.6.4"
   dependencies:
@@ -4804,7 +4804,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/test@npm:^8.6.3":
+"@storybook/test@npm:^8.6.4":
   version: 8.6.4
   resolution: "@storybook/test@npm:8.6.4"
   dependencies:
@@ -5024,7 +5024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.67.0":
+"@tanstack/react-query@npm:^5.67.2":
   version: 5.67.2
   resolution: "@tanstack/react-query@npm:5.67.2"
   dependencies:
@@ -5821,17 +5821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.25.0, @typescript-eslint/scope-manager@npm:^8.15.0":
-  version: 8.25.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.25.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.25.0"
-    "@typescript-eslint/visitor-keys": "npm:8.25.0"
-  checksum: 10c0/0a53a07873bdb569be38053ec006009cc8ba6b12c538b6df0935afd18e431cb17da1eb15b0c9cd267ac211c47aaa44fbc8d7ff3b7b44ff711621ff305fa3b355
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/scope-manager@npm:8.26.1":
+"@typescript-eslint/scope-manager@npm:8.26.1, @typescript-eslint/scope-manager@npm:^8.15.0":
   version: 8.26.1
   resolution: "@typescript-eslint/scope-manager@npm:8.26.1"
   dependencies:
@@ -5856,35 +5846,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.25.0":
-  version: 8.25.0
-  resolution: "@typescript-eslint/types@npm:8.25.0"
-  checksum: 10c0/b39addbee4be4d66e3089c2d01f9f1d69cedc13bff20e4fa9ed0ca5a0e7591d7c6e41ab3763c8c35404f971bc0fbf9f7867dbc2832740e5b63ee0049d60289f5
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:8.26.1":
   version: 8.26.1
   resolution: "@typescript-eslint/types@npm:8.26.1"
   checksum: 10c0/805b239b57854fc12eae9e2bec6ccab24bac1d30a762c455f22c73b777a5859c64c58b4750458bd0ab4aadd664eb95cbef091348a071975acac05b15ebea9f1b
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:8.25.0":
-  version: 8.25.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.25.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.25.0"
-    "@typescript-eslint/visitor-keys": "npm:8.25.0"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.2"
-    is-glob: "npm:^4.0.3"
-    minimatch: "npm:^9.0.4"
-    semver: "npm:^7.6.0"
-    ts-api-utils: "npm:^2.0.1"
-  peerDependencies:
-    typescript: ">=4.8.4 <5.8.0"
-  checksum: 10c0/fc9de1c4f6ab81fb80b632dedef84d1ecf4c0abdc5f5246698deb6d86d5c6b5d582ef8a44fdef445bf7fbfa6658db516fe875c9d7c984bf4802e3a508b061856
   languageName: node
   linkType: hard
 
@@ -5906,7 +5871,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.26.1":
+"@typescript-eslint/utils@npm:8.26.1, @typescript-eslint/utils@npm:^8.15.0, @typescript-eslint/utils@npm:^8.8.1":
   version: 8.26.1
   resolution: "@typescript-eslint/utils@npm:8.26.1"
   dependencies:
@@ -5918,31 +5883,6 @@ __metadata:
     eslint: ^8.57.0 || ^9.0.0
     typescript: ">=4.8.4 <5.9.0"
   checksum: 10c0/a5cb3bdf253cc8e8474a2ed8666c0a6194abe56f44039c6623bef0459ed17d0276ed6e40c70d35bd8ec4d41bafc255e4d3025469f32ac692ba2d89e7579c2a26
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/utils@npm:^8.15.0, @typescript-eslint/utils@npm:^8.8.1":
-  version: 8.25.0
-  resolution: "@typescript-eslint/utils@npm:8.25.0"
-  dependencies:
-    "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@typescript-eslint/scope-manager": "npm:8.25.0"
-    "@typescript-eslint/types": "npm:8.25.0"
-    "@typescript-eslint/typescript-estree": "npm:8.25.0"
-  peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
-    typescript: ">=4.8.4 <5.8.0"
-  checksum: 10c0/cd15c4919f02899fd3975049a0a051a1455332a108c085a3e90ae9872e2cddac7f20a9a2c616f1366fca84274649e836ad6a437c9c5ead0bdabf5a123d12403f
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:8.25.0":
-  version: 8.25.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.25.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.25.0"
-    eslint-visitor-keys: "npm:^4.2.0"
-  checksum: 10c0/7eb84c5899a25b1eb89d3c3f4be3ff18171f934669c57e2530b6dfa5fdd6eaae60629f3c89d06f4c8075fd1c701de76c0b9194e2922895c661ab6091e48f7db9
   languageName: node
   linkType: hard
 
@@ -7035,7 +6975,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.4.20":
+"autoprefixer@npm:^10.4.21":
   version: 10.4.21
   resolution: "autoprefixer@npm:10.4.21"
   dependencies:
@@ -7480,14 +7420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001688":
-  version: 1.0.30001699
-  resolution: "caniuse-lite@npm:1.0.30001699"
-  checksum: 10c0/e87b3a0602c3124131f6a21f1eb262378e17a2ee3089e3c472ac8b9caa85cf7d6a219655379302c29c6f10a74051f2a712639d7f98ee0444c73fefcbaf25d519
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001702":
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001688, caniuse-lite@npm:^1.0.30001702":
   version: 1.0.30001703
   resolution: "caniuse-lite@npm:1.0.30001703"
   checksum: 10c0/ed88e318da28e9e59c4ac3a2e3c42859558b7b713aebf03696a1f916e4ed4b70734dda82be04635e2b62ec355b8639bbed829b7b12ff528d7f9cc31a3a5bea91
@@ -9299,7 +9232,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-storybook@npm:^0.11.3":
+"eslint-plugin-storybook@npm:^0.11.4":
   version: 0.11.4
   resolution: "eslint-plugin-storybook@npm:0.11.4"
   dependencies:
@@ -9371,7 +9304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.21.0":
+"eslint@npm:^9.22.0":
   version: 9.22.0
   resolution: "eslint@npm:9.22.0"
   dependencies:
@@ -15220,7 +15153,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.34.9":
+"rollup@npm:^4.35.0":
   version: 4.35.0
   resolution: "rollup@npm:4.35.0"
   dependencies:
@@ -15804,7 +15737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook@npm:^8.6.3":
+"storybook@npm:^8.6.4":
   version: 8.6.4
   resolution: "storybook@npm:8.6.4"
   dependencies:
@@ -16608,7 +16541,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-eslint@npm:^8.25.0":
+"typescript-eslint@npm:^8.26.1":
   version: 8.26.1
   resolution: "typescript-eslint@npm:8.26.1"
   dependencies:
@@ -17055,7 +16988,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:^2.1.1, viem@npm:^2.23.5":
+"viem@npm:^2.1.1, viem@npm:^2.23.9":
   version: 2.23.9
   resolution: "viem@npm:2.23.9"
   dependencies:
@@ -17483,7 +17416,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:8.18.1":
+"ws@npm:8.18.1, ws@npm:^8.11.0, ws@npm:^8.2.3":
   version: 8.18.1
   resolution: "ws@npm:8.18.1"
   peerDependencies:
@@ -17510,21 +17443,6 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 10c0/bd7d5f4aaf04fae7960c23dcb6c6375d525e00f795dd20b9385902bd008c40a94d3db3ce97d878acc7573df852056ca546328b27b39f47609f80fb22a0a9b61d
-  languageName: node
-  linkType: hard
-
-"ws@npm:^8.11.0, ws@npm:^8.2.3":
-  version: 8.18.0
-  resolution: "ws@npm:8.18.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ">=5.0.2"
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 10c0/25eb33aff17edcb90721ed6b0eb250976328533ad3cd1a28a274bd263682e7296a6591ff1436d6cbc50fa67463158b062f9d1122013b361cec99a05f84680e06
   languageName: node
   linkType: hard
 
