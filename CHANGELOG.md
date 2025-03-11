@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Update Manrope font weight for Regular variant from 500 to 400
+- Update minor and patch NPM dependencies
 
 ## [1.0.69] - 2025-03-03
 
