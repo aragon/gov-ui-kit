@@ -25,5 +25,5 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component value={value?.toString()} disabled={true} {...commonProps} />;
+    return <Component value={value?.toString()} disabled={true} {...commonProps} placeholder="0x..." />;
 };

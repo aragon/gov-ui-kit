@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { formatUnits } from 'viem';
+import { formatUnits, zeroAddress } from 'viem';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
@@ -91,26 +91,28 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
                         )}
                     </div>
-                    <LinkBase
-                        className="flex w-full items-center gap-2 md:gap-3"
-                        href={targetAddressUrl}
-                        target="_blank"
-                    >
-                        <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
-                            {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
-                        </p>
-                        {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
-                        <object type="unknown">
-                            <Link
-                                className="shrink-0"
-                                href={targetAddressUrl}
-                                target="_blank"
-                                iconRight={IconType.LINK_EXTERNAL}
-                            >
-                                {addressUtils.truncateAddress(action.to)}
-                            </Link>
-                        </object>
-                    </LinkBase>
+                    <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                        {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
+                    </p>
+                    {!addressUtils.isAddressEqual(action.to, zeroAddress) && (
+                        <LinkBase
+                            className="flex w-full items-center gap-2 md:gap-3"
+                            href={targetAddressUrl}
+                            target="_blank"
+                        >
+                            {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
+                            <object type="unknown">
+                                <Link
+                                    className="shrink-0"
+                                    href={targetAddressUrl}
+                                    target="_blank"
+                                    iconRight={IconType.LINK_EXTERNAL}
+                                >
+                                    {addressUtils.truncateAddress(action.to)}
+                                </Link>
+                            </object>
+                        </LinkBase>
+                    )}
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>

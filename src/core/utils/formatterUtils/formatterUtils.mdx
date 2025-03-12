@@ -20,7 +20,7 @@ export const FormatExampleTable = ({ values, formats, isDate }) => (
                 <tr key={value}>
                     <td>{value}</td>
                     {formats.map((format) => (
-                        <td key={format} className="first-letter:capitalize">
+                        <td key={format}>
                             {isDate
                                 ? formatterUtils.formatDate(value, { format })
                                 : formatterUtils.formatNumber(value, { format })}
