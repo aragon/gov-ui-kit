@@ -36,7 +36,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         (values: NestedProposalActionFormValues) => {
             const functionParameters = proposalActionsDecoderUtils.formValuesToFunctionParameters(values, formPrefix);
             const actionAbi = [{ type: 'function', name: inputData?.function, inputs: inputData?.parameters }];
-            let data: string | undefined = undefined;
+            let data = '0x';
 
             try {
                 data = encodeFunctionData({ abi: actionAbi, args: functionParameters });

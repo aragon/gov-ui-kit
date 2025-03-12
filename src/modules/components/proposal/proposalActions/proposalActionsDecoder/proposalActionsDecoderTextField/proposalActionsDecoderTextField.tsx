@@ -7,12 +7,12 @@ import { ProposalActionsDecoderTextFieldWatch } from './proposalActionsDecoderTe
 
 export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTextFieldProps> = (props) => {
     const { parameter, mode, hideLabels, component = 'input', fieldName, formPrefix, className } = props;
-    const { name, notice, value, type } = parameter;
+    const { name, notice, value } = parameter;
 
     const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
     const formFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
 
-    const commonProps = { placeholder: type, className, ...inputLabels };
+    const commonProps = { placeholder: '0x...', className, ...inputLabels };
     const fieldProps = { parameter, component, fieldName: formFieldName, ...commonProps };
 
     if (mode === ProposalActionsDecoderMode.WATCH) {
@@ -25,5 +25,5 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component value={value?.toString()} disabled={true} {...commonProps} placeholder="0x..." />;
+    return <Component value={value?.toString()} disabled={true} {...commonProps} />;
 };
