@@ -129,7 +129,9 @@ class FormatterUtils {
         const shouldUseRelativeCalendar = useRelativeCalendar && this.isYesterdayTodayTomorrow(dateObject);
 
         if (shouldUseRelativeCalendar) {
-            const relativeCalendarDate = dateObject.toRelativeCalendar({ locale: this.dateLocale })!.charAt(0).toUpperCase() + dateObject.toRelativeCalendar({ locale: this.dateLocale })!.slice(1);
+            const relativeCalendarDate =
+                dateObject.toRelativeCalendar({ locale: this.dateLocale })!.charAt(0).toUpperCase() +
+                dateObject.toRelativeCalendar({ locale: this.dateLocale })!.slice(1);
             const dateTime = dateObject.toLocaleString(
                 { ...DateTime.TIME_SIMPLE, hourCycle: 'h23' },
                 { locale: this.dateLocale },
