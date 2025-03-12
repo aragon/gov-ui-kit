@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits, zeroAddress } from 'viem';
 import { useChains } from 'wagmi';
-import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -96,7 +96,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
                         </p>
                         {!addressUtils.isAddressEqual(action.to, zeroAddress) && (
-                            <LinkBase href={targetAddressUrl} target="_blank">
+                            <>
                                 {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                                 <object type="unknown">
                                     <Link
@@ -108,7 +108,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                         {addressUtils.truncateAddress(action.to)}
                                     </Link>
                                 </object>
-                            </LinkBase>
+                            </>
                         )}
                     </div>
                 </div>

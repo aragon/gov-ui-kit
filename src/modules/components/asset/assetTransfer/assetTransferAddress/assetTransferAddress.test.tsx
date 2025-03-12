@@ -43,7 +43,7 @@ describe('<AssetTransferAddress /> component', () => {
         const participant = { address: '0x028F5Ca0b3A3A14e44AB8af660B53D1e428457e7' };
         render(createTestComponent({ participant }));
 
-        expect(screen.getByText('0x02…57e7')).toBeInTheDocument();
+        expect(screen.getByText('0x028F…57e7')).toBeInTheDocument();
     });
 
     it('renders ENS name over address when available', () => {
