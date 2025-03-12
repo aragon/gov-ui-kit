@@ -91,28 +91,26 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
                         )}
                     </div>
-                    <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
-                        {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
-                    </p>
-                    {!addressUtils.isAddressEqual(action.to, zeroAddress) && (
-                        <LinkBase
-                            className="flex w-full items-center gap-2 md:gap-3"
-                            href={targetAddressUrl}
-                            target="_blank"
-                        >
-                            {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
-                            <object type="unknown">
-                                <Link
-                                    className="shrink-0"
-                                    href={targetAddressUrl}
-                                    target="_blank"
-                                    iconRight={IconType.LINK_EXTERNAL}
-                                >
-                                    {addressUtils.truncateAddress(action.to)}
-                                </Link>
-                            </object>
-                        </LinkBase>
-                    )}
+                    <div className="flex w-full items-center gap-2 md:gap-3">
+                        <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                            {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
+                        </p>
+                        {!addressUtils.isAddressEqual(action.to, zeroAddress) && (
+                            <LinkBase href={targetAddressUrl} target="_blank">
+                                {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
+                                <object type="unknown">
+                                    <Link
+                                        className="shrink-0"
+                                        href={targetAddressUrl}
+                                        target="_blank"
+                                        iconRight={IconType.LINK_EXTERNAL}
+                                    >
+                                        {addressUtils.truncateAddress(action.to)}
+                                    </Link>
+                                </object>
+                            </LinkBase>
+                        )}
+                    </div>
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
