@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Bump `@babel/runtime-corejs3` to 7.26.10
+
 ## [1.0.70] - 2025-03-11
 
 ### Added
