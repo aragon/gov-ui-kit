@@ -57,17 +57,17 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
 
             render(createTestComponent({ action }));
 
-            expect(screen.getByText('Existing Name')).toBeInTheDocument();
-            expect(screen.getByText('Existing Link 1')).toBeInTheDocument();
-            expect(screen.getByText('Existing Link 2')).toBeInTheDocument();
-            expect(screen.getByText('Existing DAO description')).toBeInTheDocument();
-
-            await userEvent.click(screen.getByText('Proposed'));
-
             expect(screen.getByText('Proposed Name')).toBeInTheDocument();
             expect(screen.getByText('Proposed Link 1')).toBeInTheDocument();
             expect(screen.getByText('Proposed Link 2')).toBeInTheDocument();
             expect(screen.getByText('Proposed DAO description')).toBeInTheDocument();
+
+            await userEvent.click(screen.getByText('Existing'));
+
+            expect(screen.getByText('Existing Name')).toBeInTheDocument();
+            expect(screen.getByText('Existing Link 1')).toBeInTheDocument();
+            expect(screen.getByText('Existing Link 2')).toBeInTheDocument();
+            expect(screen.getByText('Existing DAO description')).toBeInTheDocument();
         });
     });
 
@@ -120,11 +120,11 @@ describe('<ProposalActionUpdateMetadata /> component', () => {
             });
 
             render(createTestComponent({ action }));
-            expect(screen.getByText('Existing Key')).toBeInTheDocument();
-
-            await userEvent.click(screen.getByText('Proposed'));
-
             expect(screen.getByText('Proposed Key')).toBeInTheDocument();
+
+            await userEvent.click(screen.getByText('Existing'));
+
+            expect(screen.getByText('Existing Key')).toBeInTheDocument();
         });
     });
 });

@@ -42,7 +42,7 @@ describe('address utils', () => {
 
         it('correctly truncates the address', () => {
             const value = '0xe11bfcbdd43745d4aa6f4f18e24ad24f4623af04';
-            const expectedValue = '0xe1…af04';
+            const expectedValue = '0xe11b…af04';
             expect(addressUtils.truncateAddress(value)).toEqual(expectedValue);
         });
     });

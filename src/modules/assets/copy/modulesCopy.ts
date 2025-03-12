@@ -104,7 +104,7 @@ export const modulesCopy = {
         },
     },
     proposalDataListItemStructure: {
-        by: 'By',
+        by: 'by',
         creators: 'creators',
     },
     proposalVotingTabs: {

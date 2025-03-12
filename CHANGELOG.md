@@ -10,6 +10,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Bump `@babel/runtime-corejs3` to 7.26.10
+- `<ProposalActionUpdateMetaData >` shows and selects proposed metadata changes first
+- Apply various case fixes to helper text
+- Remove responsive sizing of text for `<p>` tags with tailwind-prose className usage
+- `<ProposalActionItem  />` now uses placeholder text of “0x…”
+- `FormatterUtils` now truncates addresses to six leading characters and four trailing characters
+- Custom actions sent to the burn address no longer generate a link on `<ProposalActionItem />`
 
 ## [1.0.70] - 2025-03-11
 

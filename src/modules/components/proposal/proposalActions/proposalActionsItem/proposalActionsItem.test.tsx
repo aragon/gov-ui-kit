@@ -84,7 +84,7 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ to });
         const chainId = 1;
         render(createTestComponent({ action, chainId }));
-        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0xF2…690F' });
+        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0xF26a…690F' });
         expect(link).toBeInTheDocument();
         expect(link.href).toEqual(`https://etherscan.io/address/${to}`);
     });

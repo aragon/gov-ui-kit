@@ -24,7 +24,7 @@ class AddressUtils {
      */
     truncateAddress = (address = ''): string =>
         this.isAddress(address)
-            ? `${address.slice(0, 4)}…${address.slice(address.length - 4, address.length)}`
+            ? `${address.slice(0, 6)}…${address.slice(address.length - 4, address.length)}`
             : address;
 
     /**
