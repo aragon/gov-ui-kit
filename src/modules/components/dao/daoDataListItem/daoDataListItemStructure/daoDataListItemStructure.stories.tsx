@@ -53,6 +53,20 @@ export const Fallback: Story = {
 };
 
 /**
+ * Usage of the DaoDataListItem without an address or ens.
+ */
+export const WithoutAddressOrENS: Story = {
+    name: 'Without address or ENS',
+    args: {
+        name: 'Patito DAO',
+        logoSrc: 'https://pbs.twimg.com/profile_images/1851934141782331394/Z0ZqlyIo_400x400.png',
+        description:
+            'Papito DAO is responsible for maximizing effective coordination and collaboration between different Patito teams and enabling them to perform at their best ability with the highest velocity they can achieve. Our main focus is on managing the day-to-day tasks of the Patito Guilds, such as enabling contractual relationships, legal operations, accounting, finance, and HR. We are also responsible for addressing any issues that may arise within the teams and deploying new tools, and infrastructure to ensure smooth operations.',
+        network: 'Ethereum',
+    },
+};
+
+/**
  * Usage of the DaoDataListItem component with external link.
  */
 export const External: Story = {
