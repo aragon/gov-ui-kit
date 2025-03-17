@@ -290,6 +290,9 @@ module.exports = {
                         },
                         p: {
                             fontSize: theme('fontSize.base'),
+                            '@screen md': {
+                                fontSize: theme('fontSize.lg'),
+                            },
                         },
                         a: {
                             color: theme('colors.primary.400'),

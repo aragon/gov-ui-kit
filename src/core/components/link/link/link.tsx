@@ -28,6 +28,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         iconRight,
         onClick,
         className,
+        textClassName,
         target,
         rel,
         ...otherProps
@@ -41,6 +42,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         variantToLabelClassNames[processedVariant],
         className,
     );
+
+    const innerTextClassName = classNames('truncate', textClassName);
 
     const linkRel = target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel;
 
@@ -57,7 +60,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
             {...otherProps}
         >
             <div className="flex items-center gap-x-2">
-                <span className="truncate">{children}</span>
+                <span className={innerTextClassName}>{children}</span>
                 {iconRight && <Icon icon={iconRight} size="sm" />}
             </div>
             {description && (

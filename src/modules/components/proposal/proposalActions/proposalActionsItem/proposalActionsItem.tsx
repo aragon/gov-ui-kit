@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { formatUnits, zeroAddress } from 'viem';
+import { formatUnits } from 'viem';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
@@ -95,21 +95,17 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
                         </p>
-                        {!addressUtils.isAddressEqual(action.to, zeroAddress) && (
-                            <>
-                                {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
-                                <object type="unknown">
-                                    <Link
-                                        className="shrink-0"
-                                        href={targetAddressUrl}
-                                        target="_blank"
-                                        iconRight={IconType.LINK_EXTERNAL}
-                                    >
-                                        {addressUtils.truncateAddress(action.to)}
-                                    </Link>
-                                </object>
-                            </>
-                        )}
+                        {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
+                        <object type="unknown">
+                            <Link
+                                className="shrink-0"
+                                href={targetAddressUrl}
+                                target="_blank"
+                                iconRight={IconType.LINK_EXTERNAL}
+                            >
+                                {addressUtils.truncateAddress(action.to)}
+                            </Link>
+                        </object>
                     </div>
                 </div>
             </Accordion.ItemHeader>
