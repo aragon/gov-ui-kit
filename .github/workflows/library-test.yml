@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: 20
+  NODE_VERSION: 20.18
   NODE_CACHE: "yarn"
 
 jobs:
@@ -48,7 +48,6 @@ jobs:
       - name: Run tests with coverage
         run: |
           set -eo pipefail
-          node -v
           yarn test:coverage
       - name: Check types
         run: yarn type-check
