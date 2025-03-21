@@ -48,6 +48,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           set -eo pipefail
+          node -v
           yarn test:coverage
       - name: Check types
         run: yarn type-check
