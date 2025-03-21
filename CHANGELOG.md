@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update DAO name vertical alignment in `<DaoDataListItem.Structure />` component to be centered in the case when no
   address is provided
 
+### Fixed
+
+- Fix `<ProposalActions />` module component to render correct form data when moving actions
+
 ## [1.0.70] - 2025-03-11
 
 ### Added
