@@ -22,7 +22,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         useFormContextSpy.mockReturnValue(generateFormContext());
         useControllerSpy.mockReturnValue({
             fieldState: { error: undefined },
-            field: {},
+            field: { onChange: jest.fn() },
         } as unknown as ReactHookForm.UseControllerReturn);
         useWatchSpy.mockReturnValue({});
     });
