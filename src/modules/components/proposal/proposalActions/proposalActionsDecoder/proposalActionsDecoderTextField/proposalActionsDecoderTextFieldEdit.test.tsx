@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as ReactHookForm from 'react-hook-form';
+import * as useFormContext from '../../../../../hooks';
 import {
     ProposalActionsDecoderTextFieldEdit,
     type IProposalActionsDecoderTextFieldEditProps,
@@ -13,19 +14,19 @@ jest.mock('react-hook-form', () => ({
 
 describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
     const useControllerSpy = jest.spyOn(ReactHookForm, 'useController');
-    const useWatchSpy = jest.spyOn(ReactHookForm, 'useWatch');
+    const useFormContextSpy = jest.spyOn(useFormContext, 'useFormContext');
 
     beforeEach(() => {
         useControllerSpy.mockReturnValue({
             fieldState: { error: undefined },
-            field: {},
+            field: { onChange: jest.fn() },
         } as unknown as ReactHookForm.UseControllerReturn);
-        useWatchSpy.mockReturnValue('' as unknown as object);
+        useFormContextSpy.mockReturnValue({ watch: jest.fn() } as unknown as useFormContext.UseFormContextReturn);
     });
 
     afterEach(() => {
         useControllerSpy.mockReset();
-        useWatchSpy.mockReset();
+        useFormContextSpy.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IProposalActionsDecoderTextFieldEditProps>) => {
@@ -45,7 +46,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         } as unknown as ReactHookForm.UseControllerReturn;
         const fieldName = 'parameter.0.value';
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ fieldName }));
 
         expect(useControllerSpy).toHaveBeenCalledWith({
@@ -102,7 +105,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: 'tru', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         await userEvent.type(screen.getByRole('textbox'), 'e');
         expect(onChange).toHaveBeenCalledWith(true);
@@ -116,7 +121,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: 'TR', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         await userEvent.type(screen.getByRole('textbox'), 'U');
         expect(onChange).toHaveBeenCalledWith('tru');
@@ -130,7 +137,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: 'ab--32.', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         await userEvent.type(screen.getByRole('textbox'), '1');
         expect(onChange).toHaveBeenCalledWith('-321');
@@ -144,7 +153,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: '0x00', onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         await userEvent.type(screen.getByRole('textbox'), '-');
         expect(onChange).toHaveBeenCalledWith(
@@ -160,7 +171,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: parameter.value, onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         expect(onChange).toHaveBeenCalledWith([]);
     });
@@ -173,7 +186,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
             field: { value: parameter.value, onChange },
         } as unknown as ReactHookForm.UseControllerReturn;
         useControllerSpy.mockReturnValue(controllerReturn);
-        useWatchSpy.mockReturnValue(controllerReturn.field.value as object);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
         render(createTestComponent({ parameter }));
         expect(onChange).not.toHaveBeenCalled();
     });
