@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - Update `eslint-import-resolver-typescript` to v4
+- Bump `actions/setup-node` to 4.3.0
 
 ## [1.0.71] - 2025-03-21
 
