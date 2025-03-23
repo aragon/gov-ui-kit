@@ -155,7 +155,7 @@
   },
   "homepage": "https://github.com/aragon/gov-ui-kit#readme",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "exports": {
     ".": {
