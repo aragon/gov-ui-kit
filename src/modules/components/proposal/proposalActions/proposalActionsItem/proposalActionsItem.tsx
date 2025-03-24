@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { useChains } from 'wagmi';
-import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -91,7 +91,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
                         )}
                     </div>
-                    <div className="flex w-full items-center gap-2 md:gap-3">
+                    <LinkBase
+                        className="flex w-full items-center gap-2 md:gap-3"
+                        href={targetAddressUrl}
+                        target="_blank"
+                    >
                         <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
                         </p>
@@ -106,7 +110,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 {addressUtils.truncateAddress(action.to)}
                             </Link>
                         </object>
-                    </div>
+                    </LinkBase>
                 </div>
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
