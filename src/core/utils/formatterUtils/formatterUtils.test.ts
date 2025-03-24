@@ -30,7 +30,7 @@ describe('formatter utils', () => {
         describe('generic amounts', () => {
             test.each([
                 { value: -1234, result: '-1,234' },
-                { value: -1234, result: '-1.234', locale: 'it' },
+                { value: -1234, result: '-1.234', locale: 'de' },
                 { value: -123, result: '-123' },
                 { value: 0, result: '0' },
                 { value: 123, result: '123' },
@@ -50,7 +50,7 @@ describe('formatter utils', () => {
 
             test.each([
                 { value: -1234, result: '-1.23K' },
-                { value: -1234, result: '-1,23K', locale: 'it' },
+                { value: -1234, result: '-1,23K', locale: 'de' },
                 { value: -123, result: '-123' },
                 { value: 0, result: '0' },
                 { value: 123, result: '123' },
@@ -72,7 +72,7 @@ describe('formatter utils', () => {
         describe('fiat total amounts', () => {
             test.each([
                 { value: -1234.56789, result: '-$1,234.57' },
-                { value: -1234.56789, result: '-1.234,57 USD', locale: 'it' },
+                { value: -1234.56789, result: '-1.234,57 $', locale: 'de' },
                 { value: -0.012345678, result: '-$0.01' },
                 { value: -0.0012345678, result: '-$0.00' },
                 { value: 0, result: '$0.00' },
@@ -120,7 +120,7 @@ describe('formatter utils', () => {
         describe('token amounts', () => {
             test.each([
                 { value: -1234.5678, result: '-1,234.5678' },
-                { value: -1234.5678, result: '-1.234,5678', locale: 'it' },
+                { value: -1234.5678, result: '-1.234,5678', locale: 'de' },
                 { value: -0.0123456789012345678, result: '-0.012345678901234568' },
                 { value: 0, result: '0' },
                 { value: 0.0012, result: '0.0012' },
@@ -144,7 +144,7 @@ describe('formatter utils', () => {
 
             test.each([
                 { value: -1234, result: '-1.23K' },
-                { value: -1234, result: '-1,23K', locale: 'it' },
+                { value: -1234, result: '-1,23K', locale: 'de' },
                 { value: -0.005, result: '-0.01' },
                 { value: -0.0012, result: '-0.00' },
                 { value: 0, result: '0' },
@@ -168,7 +168,7 @@ describe('formatter utils', () => {
         describe('token prices', () => {
             test.each([
                 { value: -1234.56789, result: '-$1,234.57' },
-                { value: -1234.56789, result: '-1.234,57 USD', locale: 'it' },
+                { value: -1234.56789, result: '-1.234,57 $', locale: 'de' },
                 { value: -0.0012345678, result: '-$0.001235' },
                 { value: 0, result: 'Unknown' },
                 { value: 0.0012345678, result: '$0.001235' },

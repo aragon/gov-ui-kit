@@ -38,17 +38,20 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
     const { name, logoSrc, description, network, address, ens, isExternal, ...otherProps } = props;
 
     const truncatedAddress = addressUtils.truncateAddress(address);
+    const addressLine = ens ?? truncatedAddress;
 
     return (
         <DataList.Item className="grid gap-y-3 py-4 md:gap-y-4 md:py-6" {...otherProps}>
             <div className="flex w-full justify-between gap-2">
-                <div className="grid shrink gap-y-1.5 text-neutral-800">
+                <div className="grid shrink items-center gap-y-1.5 text-neutral-800">
                     <Heading size="h3" as="h2" className="truncate">
                         {name}
                     </Heading>
-                    <Heading size="h5" as="h3" className="truncate">
-                        {ens ?? truncatedAddress}
-                    </Heading>
+                    {!!addressLine && (
+                        <Heading size="h5" as="h3" className="truncate">
+                            {addressLine}
+                        </Heading>
+                    )}
                 </div>
                 <DaoAvatar name={name} src={logoSrc} size="md" responsiveSize={{ md: 'lg' }} />
             </div>

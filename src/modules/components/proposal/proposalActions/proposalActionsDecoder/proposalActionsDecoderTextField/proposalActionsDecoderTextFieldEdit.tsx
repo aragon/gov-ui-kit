@@ -1,6 +1,7 @@
 import { useEffect, type ChangeEvent } from 'react';
-import { useController, useWatch } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import { InputText, TextArea } from '../../../../../../core';
+import { useFormContext } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import { proposalActionsDecoderUtils, type ProposalActionsFieldValue } from '../proposalActionsDecoderUtils';
 import type { IProposalActionsDecoderTextFieldComponentProps } from './proposalActionsDecoderTextField.api';
@@ -14,13 +15,16 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
     const isArrayType = proposalActionsDecoderUtils.isArrayType(type);
 
     const { copy } = useGukModulesContext();
+    const { watch } = useFormContext<Record<string, ProposalActionsFieldValue>>(true);
 
     const errorMessages = copy.proposalActionsDecoder.validation;
     const validateFunction = (value: ProposalActionsFieldValue) =>
         proposalActionsDecoderUtils.validateValue(value, { label: name, type, required: true, errorMessages });
 
     // Watch value for changes as useControlled does not return updated value for array types
-    const fieldValue = useWatch<Record<string, ProposalActionsFieldValue>>({ name: fieldName });
+    // Note: using watch instead of useWatch because of form values being out of sync otherwise
+    const fieldValue = watch(fieldName);
+
     const { fieldState, field } = useController<Record<string, ProposalActionsFieldValue>>({
         name: fieldName,
         rules: { validate: !isArrayType ? validateFunction : undefined },

@@ -7,7 +7,7 @@ on:
       - synchronize
 
 env:
-  NODE_VERSION: 20
+  NODE_VERSION: 22
   NODE_CACHE: "yarn"
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
       - name: Setup Node
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v4.3.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: ${{ env.NODE_CACHE }}

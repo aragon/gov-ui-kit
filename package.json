@@ -1,6 +1,6 @@
 {
   "name": "@aragon/gov-ui-kit",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "description": "Implementation of the Aragon's Governance UI Kit",
   "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",
@@ -118,7 +118,7 @@
     "autoprefixer": "^10.4.21",
     "cross-env": "^7.0.3",
     "eslint": "^9.22.0",
-    "eslint-import-resolver-typescript": "^3.8.3",
+    "eslint-import-resolver-typescript": "^4.2.2",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.4",
@@ -155,7 +155,7 @@
   },
   "homepage": "https://github.com/aragon/gov-ui-kit#readme",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "exports": {
     ".": {
