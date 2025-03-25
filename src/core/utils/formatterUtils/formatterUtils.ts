@@ -77,14 +77,12 @@ class FormatterUtils {
 
         const cacheKey = `number/${this.numberLocale}/${this.currencyLocale}/${isCurrency?.toString() ?? '-'}/${maxDigits?.toString() ?? '-'}/${minDigits?.toString() ?? '-'}`;
 
-        if (!cache[cacheKey]) {
-            cache[cacheKey] = new Intl.NumberFormat(this.numberLocale, {
-                style: isCurrency ? 'currency' : undefined,
-                currency: isCurrency ? this.currencyLocale : undefined,
-                maximumFractionDigits: maxDigits,
-                minimumFractionDigits: minDigits,
-            });
-        }
+        cache[cacheKey] ??= new Intl.NumberFormat(this.numberLocale, {
+            style: isCurrency ? 'currency' : undefined,
+            currency: isCurrency ? this.currencyLocale : undefined,
+            maximumFractionDigits: maxDigits,
+            minimumFractionDigits: minDigits,
+        });
 
         const baseRange = this.baseSymbolRanges.find((range) => Math.abs(processedValue) >= range.value);
         const baseRangeDenominator =
