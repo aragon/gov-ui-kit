@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.72] - 2025-03-25
+
 ### Added
 
 - Expose textClassName property on `<Link />` to allow custom text styling
