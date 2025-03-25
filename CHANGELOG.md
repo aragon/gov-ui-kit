@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Update `eslint-import-resolver-typescript` to v4
 - Bump `actions/setup-node` to 4.3.0
 - Update configs to use Node v22
+- Update minor and patch NPM dependencies
 
 ## [1.0.71] - 2025-03-21
 
