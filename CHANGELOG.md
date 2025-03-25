@@ -10,12 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 
 - `<ProposalActionUpdateMetaData >` shows and selects proposed metadata changes first
-- "Friendly dates" from `FormatterUtils` like `Today`, `Tomorrow`, `Yesterday` are now capitalized on the string output
-  by default
-- `FormatterUtils` now truncates addresses to six leading characters and four trailing characters (e.g. `0x1234...5678`)
+- Link exposes a 'textClassName' property to allow for custom text styling
+- `FormatterUtils` truncates addresses to six leading characters and four trailing characters (e.g. `0x1234...5678`)
 - Remove vertical margin on `<p>` tags with tailwind-prose
-- `<ProposalActionItem  />` now uses placeholder text of “0x…” for raw calldata when no calldata is provided
-- Custom actions sent to the burn address no longer generate a link on `<ProposalActionItem />`
 - Update `eslint-import-resolver-typescript` to v4
 - Bump `actions/setup-node` to 4.3.0
 - Update configs to use Node v22
