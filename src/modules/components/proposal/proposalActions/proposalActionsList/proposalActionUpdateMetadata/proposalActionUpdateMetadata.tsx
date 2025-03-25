@@ -5,7 +5,7 @@ import { ProposalActionType } from '../../proposalActionsDefinitions';
 import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
 
 export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadataProps> = (props) => {
-    const [toggleValue, setToggleValue] = useState<string | undefined>('existingMetadata');
+    const [toggleValue, setToggleValue] = useState<string | undefined>('proposedMetadata');
     const { action } = props;
     const { proposedMetadata, existingMetadata } = action;
     const metadataToDisplay = toggleValue === 'proposedMetadata' ? proposedMetadata : existingMetadata;
@@ -18,8 +18,8 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
     return (
         <div className="flex w-full flex-col gap-2">
             <ToggleGroup value={toggleValue} onChange={setToggleValue} isMultiSelect={false}>
-                <Toggle label={modulesCopy.proposalActionsUpdateMetadata.existingToggle} value="existingMetadata" />
                 <Toggle label={modulesCopy.proposalActionsUpdateMetadata.proposedToggle} value="proposedMetadata" />
+                <Toggle label={modulesCopy.proposalActionsUpdateMetadata.existingToggle} value="existingMetadata" />
             </ToggleGroup>
 
             <DefinitionList.Container>

@@ -289,6 +289,8 @@ module.exports = {
                             },
                         },
                         p: {
+                            marginTop: '0',
+                            marginBottom: '0',
                             fontSize: theme('fontSize.base'),
                             '@screen md': {
                                 fontSize: theme('fontSize.lg'),

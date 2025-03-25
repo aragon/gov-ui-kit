@@ -7,8 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Expose textClassName property on `<Link />` to allow custom text styling
+
 ### Changed
 
+- Prioritize 'Proposed' metadata changes tab in `<ProposalActionUpdateMetaData />`
+- Truncate addresses in FormatterUtils to show six leading and four trailing characters (e.g., 0x1234...5678)
+- Remove vertical margin from `<p>` tags styled with tailwind-prose
 - Update `eslint-import-resolver-typescript` to v4
 - Bump `actions/setup-node` to 4.3.0
 - Update configs to use Node v22

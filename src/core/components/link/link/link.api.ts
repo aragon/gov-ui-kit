@@ -21,4 +21,8 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      * Optional description text.
      */
     description?: string;
+    /**
+     * Classnames to be applied directly to the link text.
+     */
+    textClassName?: string;
 }
