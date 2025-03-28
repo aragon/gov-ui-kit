@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Update `<ProposalVotingBreakdownToken />` 'support' logic to correctly include 'Yes' count without 'Abstain'
+
 ## [1.0.72] - 2025-03-25
 
 ### Added
