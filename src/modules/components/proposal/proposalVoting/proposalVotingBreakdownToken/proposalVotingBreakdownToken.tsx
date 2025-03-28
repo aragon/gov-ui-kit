@@ -56,13 +56,9 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     const totalAbstainNumber = Number(totalAbstain);
 
     const optionValues = [
-        { name: copy.proposalVotingBreakdownToken.option.yes, value: Number(totalYesNumber), variant: 'success' },
-        {
-            name: copy.proposalVotingBreakdownToken.option.abstain,
-            value: Number(totalAbstainNumber),
-            variant: 'neutral',
-        },
-        { name: copy.proposalVotingBreakdownToken.option.no, value: Number(totalNoNumber), variant: 'critical' },
+        { name: copy.proposalVotingBreakdownToken.option.yes, value: totalYesNumber, variant: 'success' },
+        { name: copy.proposalVotingBreakdownToken.option.abstain, value: totalAbstainNumber, variant: 'neutral' },
+        { name: copy.proposalVotingBreakdownToken.option.no, value: totalNoNumber, variant: 'critical' },
     ] as const;
 
     const totalSupplyNumber = Number(tokenTotalSupply);
