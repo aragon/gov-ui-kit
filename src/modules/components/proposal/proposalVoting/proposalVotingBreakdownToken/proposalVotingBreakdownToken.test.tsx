@@ -72,8 +72,8 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         render(createTestComponent({ totalAbstain, totalNo, totalYes, supportThreshold, tokenSymbol }));
 
         const countableVotes = totalYes + totalNo;
-        const supportPercentage = countableVotes > 0 ? (totalYes / countableVotes) * 100 : 0;
-        const roundedSupportPercentage = Math.round(supportPercentage).toString();
+        const supportPercentage = (totalYes / countableVotes) * 100;
+        const roundedSupportPercentage = Math.round((totalYes / countableVotes) * 100).toString();
         const percentagePattern = new RegExp(`^${roundedSupportPercentage}(\\.\\d)?%$`);
 
         // eslint-disable-next-line testing-library/no-node-access

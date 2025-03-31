@@ -109,7 +109,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                     description={{
                         value: formattedTotalYes,
                         text: copy.proposalVotingBreakdownToken.support.description(
-                            `${formattedCountableVotes!.toString()} ${tokenSymbol}`,
+                            `${formattedCountableVotes!} ${tokenSymbol}`,
                         ),
                     }}
                     showPercentage={true}
