@@ -7,6 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Reorder 'Exising' and 'Proposed' settings in `<ProposalActionChangeSettings />` module component
+- Increase max width of `<Wallet />` component to handle latest address truncation changes
+
 ## [1.0.72] - 2025-03-25
 
 ### Added
