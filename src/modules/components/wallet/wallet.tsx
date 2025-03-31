@@ -42,7 +42,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
             {!user && copy.wallet.connect}
             {user && isEnsLoading && <StateSkeletonBar className="hidden md:block" size="lg" width={56} />}
             {user && !isEnsLoading && (
-                <span title={resolvedUserTitle} className="hidden max-w-24 truncate md:block">
+                <span title={resolvedUserTitle} className="hidden max-w-28 truncate md:block">
                     {resolvedUserHandle}
                 </span>
             )}
