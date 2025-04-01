@@ -63,7 +63,7 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         });
     });
 
-    it('correctly renders the current winning option with support indicator', () => {
+    it('correctly renders the support percentage and indicator', () => {
         const totalYes = 2400;
         const totalNo = 5000;
         const totalAbstain = 2600;
@@ -71,22 +71,25 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         const tokenSymbol = 'TTT';
         render(createTestComponent({ totalAbstain, totalNo, totalYes, supportThreshold, tokenSymbol }));
 
+        const countableVotes = totalYes + totalNo;
+        const supportPercentage = (totalYes / countableVotes) * 100;
+        const percentagePattern = new RegExp(`^${Math.round(supportPercentage).toString()}(\\.\\d)?%$`);
+
         // eslint-disable-next-line testing-library/no-node-access
         const progressbarContainer = within(screen.getAllByRole('progressbar')[3].parentElement!);
+
         expect(screen.getByText('Support')).toBeInTheDocument();
-        expect(progressbarContainer.getByText('50%')).toBeInTheDocument();
-        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual('50');
+        expect(progressbarContainer.getByText(percentagePattern)).toBeInTheDocument();
+        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual(supportPercentage.toString());
         expect(progressbarContainer.getByTestId('progress-indicator').dataset.value).toEqual(
             supportThreshold.toString(),
         );
 
-        const formattedValue = formatterUtils.formatNumber(totalNo, { format: NumberFormat.GENERIC_SHORT })!;
-        const formattedTotal = formatterUtils.formatNumber(totalNo + totalYes + totalAbstain, {
-            format: NumberFormat.GENERIC_SHORT,
-        })!;
+        const formattedYes = formatterUtils.formatNumber(totalYes, { format: NumberFormat.GENERIC_SHORT })!;
+        const formattedCountable = formatterUtils.formatNumber(countableVotes, { format: NumberFormat.GENERIC_SHORT })!;
 
-        expect(progressbarContainer.getByText(formattedValue)).toBeInTheDocument();
-        expect(progressbarContainer.getByText(`of ${formattedTotal} ${tokenSymbol}`)).toBeInTheDocument();
+        expect(progressbarContainer.getByText(formattedYes)).toBeInTheDocument();
+        expect(progressbarContainer.getByText(`of ${formattedCountable} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
     it('correctly renders the details for the minimum participation', () => {

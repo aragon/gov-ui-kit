@@ -51,10 +51,14 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
 
     const { copy } = useGukModulesContext();
 
+    const totalYesNumber = Number(totalYes);
+    const totalNoNumber = Number(totalNo);
+    const totalAbstainNumber = Number(totalAbstain);
+
     const optionValues = [
-        { name: copy.proposalVotingBreakdownToken.option.yes, value: Number(totalYes), variant: 'success' },
-        { name: copy.proposalVotingBreakdownToken.option.abstain, value: Number(totalAbstain), variant: 'neutral' },
-        { name: copy.proposalVotingBreakdownToken.option.no, value: Number(totalNo), variant: 'critical' },
+        { name: copy.proposalVotingBreakdownToken.option.yes, value: totalYesNumber, variant: 'success' },
+        { name: copy.proposalVotingBreakdownToken.option.abstain, value: totalAbstainNumber, variant: 'neutral' },
+        { name: copy.proposalVotingBreakdownToken.option.no, value: totalNoNumber, variant: 'critical' },
     ] as const;
 
     const totalSupplyNumber = Number(tokenTotalSupply);
@@ -69,13 +73,13 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
         format: NumberFormat.GENERIC_SHORT,
     })!;
 
-    const winningOption = Math.max(...optionValues.map((option) => option.value));
-    const winningOptionPercentage = totalVotes > 0 ? (winningOption / totalVotes) * 100 : 0;
-    const formattedWinningOption = formatterUtils.formatNumber(winningOption, { format: NumberFormat.GENERIC_SHORT });
-
+    const countableVotes = totalYesNumber + totalNoNumber;
+    const supportPercentage = countableVotes > 0 ? (totalYesNumber / countableVotes) * 100 : 0;
+    const formattedCountableVotes = formatterUtils.formatNumber(countableVotes, { format: NumberFormat.GENERIC_SHORT });
+    const formattedTotalYes = formatterUtils.formatNumber(totalYesNumber, { format: NumberFormat.GENERIC_SHORT });
     const currentParticipationPercentage = (totalVotes / minParticipationToken) * 100;
 
-    const supportReached = winningOptionPercentage >= supportThreshold;
+    const supportReached = supportPercentage >= supportThreshold;
     const minParticipationReached = currentParticipationPercentage >= minParticipation;
 
     return (
@@ -101,11 +105,11 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
             <ProposalVotingProgress.Container direction="col">
                 <ProposalVotingProgress.Item
                     name={copy.proposalVotingBreakdownToken.support.name}
-                    value={winningOptionPercentage}
+                    value={supportPercentage}
                     description={{
-                        value: formattedWinningOption,
+                        value: formattedTotalYes,
                         text: copy.proposalVotingBreakdownToken.support.description(
-                            `${formattedTotalVotes} ${tokenSymbol}`,
+                            `${formattedCountableVotes!} ${tokenSymbol}`,
                         ),
                     }}
                     showPercentage={true}
