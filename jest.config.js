@@ -9,7 +9,7 @@ const config = {
     globalSetup: '<rootDir>/src/core/test/globalSetup.ts',
     transform: {
         '^.+\\.svg$': '<rootDir>/src/core/test/svgTransform.js',
-        '^.+\\.m?[tj]sx?$': ['ts-jest', { isolatedModules: true }],
+        '^.+\\.m?[tj]sx?$': ['ts-jest', { tsconfig: { isolatedModules: true } }],
     },
     transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs|wagmi|@wagmi))'],
 };
