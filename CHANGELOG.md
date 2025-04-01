@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [1.0.73] - 2025-04-01
+
 ### Fixed
 
 - Update `<ProposalVotingBreakdownToken />` module component to fix calculation of vote support
