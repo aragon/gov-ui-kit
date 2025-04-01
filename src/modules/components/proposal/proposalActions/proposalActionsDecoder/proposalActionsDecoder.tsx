@@ -43,7 +43,6 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             } catch (error: unknown) {
                 // Form values are not valid, ignore error.
             } finally {
-                // @ts-expect-error Design limitation of react-hook-form (see https://github.com/orgs/react-hook-form/discussions/7764)
                 setValue(dataFieldName, data);
             }
         },
