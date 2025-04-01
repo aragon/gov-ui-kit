@@ -73,8 +73,7 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
 
         const countableVotes = totalYes + totalNo;
         const supportPercentage = (totalYes / countableVotes) * 100;
-        const roundedSupportPercentage = Math.round((totalYes / countableVotes) * 100).toString();
-        const percentagePattern = new RegExp(`^${roundedSupportPercentage}(\\.\\d)?%$`);
+        const percentagePattern = new RegExp(`^${Math.round(supportPercentage).toString()}(\\.\\d)?%$`);
 
         // eslint-disable-next-line testing-library/no-node-access
         const progressbarContainer = within(screen.getAllByRole('progressbar')[3].parentElement!);
