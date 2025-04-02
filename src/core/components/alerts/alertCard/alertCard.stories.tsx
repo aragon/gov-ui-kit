@@ -14,13 +14,6 @@ const meta: Meta<typeof AlertCard> = {
 
 type Story = StoryObj<typeof AlertCard>;
 
-const DefaultChildComponent = (childCount: number) =>
-    [...Array<number>(childCount)].map((_, index) => (
-        <div key={`item-${index.toString()}`} className="py-2">
-            Item {index + 1} content
-        </div>
-    ));
-
 /**
  * Default usage example of AlertCard component.
  */
@@ -37,7 +30,19 @@ export const Default: Story = {
 export const WithCustomChildren: Story = {
     args: {
         message: 'Alert message',
-        children: DefaultChildComponent(4),
+        children: (
+            <div className="flex flex-col gap-2">
+                <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                    Info content
+                </div>
+                <div className="flex h-24 w-full items-center justify-center border border-dashed border-critical-300 bg-critical-100">
+                    Critical content
+                </div>
+                <div className="flex h-24 w-full items-center justify-center border border-dashed border-success-300 bg-success-100">
+                    Success content
+                </div>
+            </div>
+        ),
     },
 };
 
