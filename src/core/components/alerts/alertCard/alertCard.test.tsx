@@ -16,11 +16,11 @@ describe('<AlertCard /> component', () => {
         expect(screen.getByRole('alert')).toBeInTheDocument();
     });
 
-    it('renders the alert message and description', () => {
-        const description = 'Alert Description';
+    it('renders the alert message and children', () => {
+        const children = 'Alert Description';
         const message = 'Alert Message';
-        render(createTestComponent({ description, message }));
-        expect(screen.getByText(description)).toBeVisible();
+        render(createTestComponent({ children, message }));
+        expect(screen.getByText(children)).toBeVisible();
         expect(screen.getByText(message)).toBeVisible();
     });
 });
