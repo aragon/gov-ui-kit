@@ -29,12 +29,12 @@ export const Default: Story = {
 /**
  * Usage example of the AlertCard component with custom children.
  */
-export const WithChildren: Story = {
+export const WithCustomChildren: Story = {
     args: {
         message: 'Alert message',
         children: (
             <div className="flex flex-col gap-3">
-                <p className="text-sm text-critical-500">Custom alert description</p>
+                <p className="text-xl text-critical-500">Custom alert description</p>
                 <Link href="www.example.com" target="_blank" iconRight={IconType.LINK_EXTERNAL}>
                     www.example.com
                 </Link>

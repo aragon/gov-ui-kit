@@ -116,11 +116,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
-                        <AlertCard
-                            variant="warning"
-                            message={copy.proposalActionsItem.nativeSendAlert}
-                            description={copy.proposalActionsItem.nativeSendDescription(formattedValue, currencySymbol)}
-                        />
+                        <AlertCard variant="warning" message={copy.proposalActionsItem.nativeSendAlert}>
+                            {copy.proposalActionsItem.nativeSendDescription(formattedValue, currencySymbol)}
+                        </AlertCard>
                     )}
                     {activeViewMode === 'BASIC' && (
                         <ProposalActionsItemBasicView
