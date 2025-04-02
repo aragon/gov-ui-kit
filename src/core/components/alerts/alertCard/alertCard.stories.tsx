@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AlertCard } from './alertCard';
+import { Link } from '../../link';
+import { IconType } from '../../icon';
 
 const meta: Meta<typeof AlertCard> = {
     title: 'Core/Components/Alerts/AlertCard',
@@ -20,7 +22,24 @@ type Story = StoryObj<typeof AlertCard>;
 export const Default: Story = {
     args: {
         message: 'Alert message',
-        description: 'Alert description',
+        children: 'Alert description',
+    },
+};
+
+/**
+ * Usage example of the AlertCard component with custom children.
+ */
+export const WithChildren: Story = {
+    args: {
+        message: 'Alert message',
+        children: (
+            <div className="flex flex-col gap-3">
+                <p className="text-sm text-critical-500">Custom alert description</p>
+                <Link href="www.example.com" target="_blank" iconRight={IconType.LINK_EXTERNAL}>
+                    www.example.com
+                </Link>
+            </div>
+        ),
     },
 };
 
