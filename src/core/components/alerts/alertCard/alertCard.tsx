@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { type HTMLAttributes, type ReactNode } from 'react';
+import { type HTMLAttributes } from 'react';
 import { Icon } from '../../icon';
 import { alertVariantToIconType, type AlertVariant } from '../alertUtils';
 
@@ -9,10 +9,6 @@ export interface IAlertCardProps extends HTMLAttributes<HTMLDivElement> {
      * The alert message.
      */
     message: string;
-    /**
-     * Optional description for the alert.
-     */
-    description?: ReactNode;
     /**
      * Variant of the alert.
      * @default info
@@ -45,7 +41,7 @@ const alertVariantToMessageClassNames: Record<AlertVariant, string> = {
 };
 
 export const AlertCard: React.FC<IAlertCardProps> = (props) => {
-    const { className, description, message, variant = 'info', ...otherProps } = props;
+    const { className, children, message, variant = 'info', ...otherProps } = props;
 
     return (
         <div
@@ -68,10 +64,10 @@ export const AlertCard: React.FC<IAlertCardProps> = (props) => {
                     {message}
                 </p>
             </div>
-            {description && (
-                <p className="ml-6 text-sm font-normal leading-normal text-neutral-500 md:ml-7 md:text-base">
-                    {description}
-                </p>
+            {children && (
+                <div className="ml-6 text-sm font-normal leading-normal text-neutral-500 md:ml-7 md:text-base">
+                    {children}
+                </div>
             )}
         </div>
     );

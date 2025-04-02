@@ -20,7 +20,21 @@ type Story = StoryObj<typeof AlertCard>;
 export const Default: Story = {
     args: {
         message: 'Alert message',
-        description: 'Alert description',
+        children: 'Alert description',
+    },
+};
+
+/**
+ * Usage example of the AlertCard component with custom children.
+ */
+export const WithCustomChildren: Story = {
+    args: {
+        message: 'Alert message',
+        children: (
+            <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+                Customisable content
+            </div>
+        ),
     },
 };
 
