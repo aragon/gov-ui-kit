@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+- **BREAKING**: Update implementation of `AlertCard` component:
+    - Remove `description` property from the `AlertCard` component and prefer passing of children instead
+
 ## [1.0.73] - 2025-04-01
 
 ### Fixed
