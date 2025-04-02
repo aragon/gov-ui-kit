@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Remove 'overflow-auto' from <DialogRoot /> causing issue with content scroll
+
 ## [1.0.74] - 2025-04-02
 
 - **BREAKING**: Update implementation of `AlertCard` component:
