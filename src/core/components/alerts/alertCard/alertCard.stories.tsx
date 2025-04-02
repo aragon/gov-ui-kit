@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { IconType } from '../../icon';
-import { Link } from '../../link';
 import { AlertCard } from './alertCard';
 
 const meta: Meta<typeof AlertCard> = {
@@ -15,6 +13,13 @@ const meta: Meta<typeof AlertCard> = {
 };
 
 type Story = StoryObj<typeof AlertCard>;
+
+const DefaultChildComponent = (childCount: number) =>
+    [...Array<number>(childCount)].map((_, index) => (
+        <div key={`item-${index.toString()}`} className="py-2">
+            Item {index + 1} content
+        </div>
+    ));
 
 /**
  * Default usage example of AlertCard component.
@@ -32,14 +37,7 @@ export const Default: Story = {
 export const WithCustomChildren: Story = {
     args: {
         message: 'Alert message',
-        children: (
-            <div className="flex flex-col gap-3">
-                <p className="text-xl text-critical-500">Custom alert description</p>
-                <Link href="www.example.com" target="_blank" iconRight={IconType.LINK_EXTERNAL}>
-                    www.example.com
-                </Link>
-            </div>
-        ),
+        children: DefaultChildComponent(4),
     },
 };
 

@@ -64,9 +64,11 @@ export const AlertCard: React.FC<IAlertCardProps> = (props) => {
                     {message}
                 </p>
             </div>
-            <div className="ml-6 text-sm font-normal leading-normal text-neutral-500 md:ml-7 md:text-base">
-                {children}
-            </div>
+            {children && (
+                <div className="ml-6 text-sm font-normal leading-normal text-neutral-500 md:ml-7 md:text-base">
+                    {children}
+                </div>
+            )}
         </div>
     );
 };
