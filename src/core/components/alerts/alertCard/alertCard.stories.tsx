@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { AlertCard } from './alertCard';
-import { Link } from '../../link';
 import { IconType } from '../../icon';
+import { Link } from '../../link';
+import { AlertCard } from './alertCard';
 
 const meta: Meta<typeof AlertCard> = {
     title: 'Core/Components/Alerts/AlertCard',
