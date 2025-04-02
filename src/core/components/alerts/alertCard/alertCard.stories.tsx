@@ -33,13 +33,7 @@ export const WithCustomChildren: Story = {
         children: (
             <div className="flex flex-col gap-2">
                 <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
-                    Info content
-                </div>
-                <div className="flex h-24 w-full items-center justify-center border border-dashed border-critical-300 bg-critical-100">
-                    Critical content
-                </div>
-                <div className="flex h-24 w-full items-center justify-center border border-dashed border-success-300 bg-success-100">
-                    Success content
+                    Customisable content
                 </div>
             </div>
         ),
