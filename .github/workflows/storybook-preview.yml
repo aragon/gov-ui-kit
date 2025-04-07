@@ -13,6 +13,7 @@ concurrency:
 jobs:
   deploy:
     uses: ./.github/workflows/shared-deploy.yml
+    if: contains(github.event.pull_request.labels.*.name, 'preview')
     secrets: inherit
 
   comment:
