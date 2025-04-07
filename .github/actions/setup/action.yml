@@ -1,0 +1,43 @@
+name: "Setup"
+description: "This action checks out the commit, sets up Node and installs the dependencies using yarn."
+
+inputs:
+  fetch-depth:
+    description: "The number of commits to fetch when checking out the repository"
+    required: false
+    default: "1"
+  token:
+    description: "GitHub token used for authentication"
+    required: false
+    default: ${{ github.token }}
+  registry-url:
+    description: "URL of the registry used for Node setup"
+    required: false
+    default: "https://registry.npmjs.org"
+  node-version:
+    description: "The version of Node.js to use for the workflow"
+    required: false
+    default: "22"
+  node-cache:
+    description: "Specifies which package manager to use for caching"
+    required: false
+    default: "yarn"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4.2.2
+      with:
+        repository: ${{ inputs.repository }}
+        fetch-depth: ${{ inputs.fetch-depth }}
+        token: ${{ inputs.token }}
+    - name: Setup Node
+      uses: actions/setup-node@v4.2.0
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.node-cache }}
+        registry-url: ${{ inputs.registry-url }}
+    - name: Install dependencies
+      shell: bash
+      run: yarn install --immutable
