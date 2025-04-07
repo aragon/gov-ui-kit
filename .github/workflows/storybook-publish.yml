@@ -10,21 +10,12 @@ permissions:
   pages: write
   id-token: write
 
-env:
-  NODE_VERSION: 22
-  NODE_CACHE: "yarn"
-
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - name: Setup Node
-        uses: actions/setup-node@v4.3.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
       - name: Deploy Storybook
         uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:

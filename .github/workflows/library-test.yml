@@ -10,23 +10,12 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  NODE_VERSION: 22
-  NODE_CACHE: "yarn"
-
 jobs:
   prepare:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - name: Setup Node
-        uses: actions/setup-node@v4.3.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-      - name: Install dependencies
-        run: yarn install --immutable
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
       - name: Build library
         run: yarn build
       - name: Build storybook
@@ -36,15 +25,11 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - name: Setup Node
-        uses: actions/setup-node@v4.3.0
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-      - name: Install dependencies
-        run: yarn install --immutable
+          # Checkout full history to correclty check changeset status
+          fetch-depth: 0
       - name: Run tests with coverage
         run: |
           set -eo pipefail
@@ -55,6 +40,6 @@ jobs:
         run: yarn lint
       - name: Check prettier
         run: yarn prettify
-      - name: Enforce changelog
-        if: github.ref != 'refs/heads/main'
-        uses: dangoslen/changelog-enforcer@v3.6.1
+      - name: Check changeset
+        if: github.event_name == 'pull_request'
+        run: yarn changeset status --since origin/main
