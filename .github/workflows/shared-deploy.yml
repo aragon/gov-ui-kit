@@ -26,8 +26,6 @@ jobs:
     steps:
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
-      - name: Build Storybook
-        run: yarn build:storybook
       - name: Bundle Vercel application
         run: yarn vercel build ${{ env.VERCEL_ARGS }} --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
       - name: Vercel deployment
