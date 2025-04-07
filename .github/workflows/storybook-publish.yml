@@ -5,21 +5,13 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
-      - name: Deploy Storybook
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: yarn install --immutable
-          build_command: yarn build:storybook
-          path: storybook-static
-          checkout: false
+  deploy:
+    uses: ./.github/workflows/shared-deploy.yml
+    secrets: inherit
+    with:
+      domain: "uikit.aragon.org"

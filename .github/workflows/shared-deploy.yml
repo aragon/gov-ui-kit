@@ -1,0 +1,40 @@
+name: Storybook Shared Deploy
+
+on:
+  workflow_call:
+    inputs:
+      domain:
+        description: "Assign the new deployment URL to the speficied input when set"
+        required: false
+        type: string
+    outputs:
+      deploymentUrl:
+        description: "The URL of the Vercel deployment"
+        value: ${{ jobs.deploy.outputs.deploymentUrl }}
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_SCOPE: aragon-app
+  VERCEL_ARGS: ${{ (inputs.domain != '' && '--prod') || '' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      deploymentUrl: ${{ steps.set-deployment-url.outputs.deploymentUrl }}
+    steps:
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
+      - name: Build Storybook
+        run: yarn build:storybook
+      - name: Bundle Vercel application
+        run: yarn vercel build ${{ env.VERCEL_ARGS }} --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
+      - name: Vercel deployment
+        run: yarn vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} --skip-domain --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }} > deployment-url.txt
+      - name: Set output
+        id: set-deployment-url
+        run: echo "deploymentUrl=$(cat deployment-url.txt)" >> $GITHUB_OUTPUT
+      - name: Set deployment alias
+        if: ${{ inputs.domain != '' }}
+        run: yarn vercel alias ${{ steps.set-deployment-url.outputs.deploymentUrl }} ${{ inputs.domain }} --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
