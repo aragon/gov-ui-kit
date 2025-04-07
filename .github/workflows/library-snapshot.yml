@@ -11,6 +11,8 @@ jobs:
         uses: aragon/gov-ui-kit/.github/actions/setup@main
         with:
           token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Build library
+        run: yarn build
       - name: Update version
         run: yarn changeset version --snapshot
         env:
