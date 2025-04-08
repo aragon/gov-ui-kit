@@ -15,7 +15,9 @@ updates:
           - "storybook"
 
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/"
+      - "/.github/actions/*/action.yaml"
     schedule:
       interval: "weekly"
     groups:

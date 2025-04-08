@@ -5,30 +5,13 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-env:
-  NODE_VERSION: 22
-  NODE_CACHE: "yarn"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - name: Setup Node
-        uses: actions/setup-node@v4.3.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-      - name: Deploy Storybook
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: yarn install --immutable
-          build_command: yarn build:storybook
-          path: storybook-static
-          checkout: false
+  deploy:
+    uses: ./.github/workflows/shared-deploy.yml
+    secrets: inherit
+    with:
+      domain: "uikit.aragon.org"

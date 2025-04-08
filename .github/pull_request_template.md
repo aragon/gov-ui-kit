@@ -21,7 +21,6 @@ Task: [APP-0000](https://aragonassociation.atlassian.net/browse/APP-0000)
 - [ ] Confirmed there are no new warnings or errors in the browser console
 - [ ] Made the corresponding changes to the documentation
 - [ ] Added tests that prove my fix is effective or that my feature works
-- [ ] Updated the `CHANGELOG.md` file after the [UPCOMING] title and before the latest version
 - [ ] (For User Stories only) Double-checked that all Acceptance Criteria are satisified
 - [ ] Confirmed there are no new warnings on automated tests
 - [ ] Selected the correct base branch

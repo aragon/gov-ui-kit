@@ -1,31 +1,15 @@
 name: Library Publish
 
 on:
-  push:
-    tags:
-      - "*"
-
-env:
-  NODE_VERSION: 22
-  NODE_CACHE: "yarn"
+  release:
+    types: [published]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.2.2
-      - name: Setup Node
-        uses: actions/setup-node@v4.3.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: ${{ env.NODE_CACHE }}
-          registry-url: "https://registry.npmjs.org"
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Get package version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
       - name: Build library
         run: yarn build
       - name: Publish library
@@ -34,14 +18,3 @@ jobs:
           yarn npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Read changelog entry for version
-        id: read-changelog
-        uses: mindsers/changelog-reader-action@v2.2.3
-        with:
-          version: "${{ steps.package-version.outputs.current-version }}"
-          path: ./CHANGELOG.md
-      - name: Create release
-        uses: softprops/action-gh-release@v2.2.1
-        with:
-          prerelease: false
-          body: ${{ steps.read-changelog.outputs.changes }}
