@@ -13,8 +13,6 @@ on:
         value: ${{ jobs.deploy.outputs.deploymentUrl }}
 
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   VERCEL_SCOPE: aragon-app
   VERCEL_ARGS: ${{ (inputs.domain != '' && '--prod') || '' }}
 
@@ -26,13 +24,18 @@ jobs:
     steps:
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
+      - name: Download credentials
+        uses: aragon/github-templates/steps/credential-retrieval@v0.1
+        with:
+          op-token: "${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}"
+          op-vault: "kv_gov-ui-kit_infra"
       - name: Bundle Vercel application
-        run: yarn vercel build ${{ env.VERCEL_ARGS }} --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
+        run: yarn vercel build ${{ env.VERCEL_ARGS }} --yes --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
       - name: Vercel deployment
-        run: yarn vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} --skip-domain --yes --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }} > deployment-url.txt
+        run: yarn vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} --skip-domain --yes --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }} > deployment-url.txt
       - name: Set output
         id: set-deployment-url
         run: echo "deploymentUrl=$(cat deployment-url.txt)" >> $GITHUB_OUTPUT
       - name: Set deployment alias
         if: ${{ inputs.domain != '' }}
-        run: yarn vercel alias ${{ steps.set-deployment-url.outputs.deploymentUrl }} ${{ inputs.domain }} --token=${{ secrets.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
+        run: yarn vercel alias ${{ steps.set-deployment-url.outputs.deploymentUrl }} ${{ inputs.domain }} --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
