@@ -1,0 +1,28 @@
+name: Library Snapshot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
+        with:
+          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Build library
+        run: yarn build
+      - name: Update version
+        run: yarn changeset version --snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Get package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Publish snapshot
+        run: |
+          yarn config set npmAuthToken ${{ secrets.NPM_TOKEN }}
+          yarn npm publish --access public --tag ${{ steps.package-version.outputs.current-version}}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
