@@ -8,6 +8,8 @@
 
 ## [1.0.74] - 2025-04-02
 
+### Changed
+
 - **BREAKING**: Update implementation of `AlertCard` component:
     - Remove `description` property from the `AlertCard` component in favour of `children` property
 
