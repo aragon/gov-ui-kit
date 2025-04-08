@@ -1,3 +1,4 @@
+import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { IconType } from '../../../../../core';
@@ -14,10 +15,7 @@ const defaultRender = (props: IProposalActionsItemProps) => {
                     <ProposalActions.Item {...props} />
                 </ProposalActions.Container>
             </ProposalActions.Root>
-            {
-                //TODO: enable devtools when library is fixed (see https://github.com/react-hook-form/devtools/issues/220)
-                // <DevTool control={methods.control} />
-            }
+            <DevTool control={methods.control} />
         </FormProvider>
     );
 };
