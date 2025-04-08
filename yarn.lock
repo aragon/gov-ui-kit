@@ -5282,21 +5282,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.72.0":
-  version: 5.72.0
-  resolution: "@tanstack/query-core@npm:5.72.0"
-  checksum: 10c0/a22a4536d90069718a8e1d46832ca27d870a5080e98f37021163d4fea4fe2ea499fd7cd3452de340b8805c2378f56f5967bf924eb66105d626f731804500f206
+"@tanstack/query-core@npm:5.72.1":
+  version: 5.72.1
+  resolution: "@tanstack/query-core@npm:5.72.1"
+  checksum: 10c0/e89963af090a35db5b11859cd54c5940cb7c47cfef121e3ed9260c06c42328e58b69805ffa4fd962fc39ad8c74f2e97a35787685e546a1357d9e4316ae8a9462
   languageName: node
   linkType: hard
 
 "@tanstack/react-query@npm:^5.72.0":
-  version: 5.72.0
-  resolution: "@tanstack/react-query@npm:5.72.0"
+  version: 5.72.1
+  resolution: "@tanstack/react-query@npm:5.72.1"
   dependencies:
-    "@tanstack/query-core": "npm:5.72.0"
+    "@tanstack/query-core": "npm:5.72.1"
   peerDependencies:
     react: ^18 || ^19
-  checksum: 10c0/e6b1963bb3a8cd5f68fde8b9a22222450137bf1384fd242c9757ff37feb70abd2627c24763a70d79aa6492f52b4763cff48787bce796662d8359db95e8e33ab9
+  checksum: 10c0/2e07d47b559ef6cdd29376c01a40c50241bcd730ea4b6b71fc6d0138d6609b762ddd3ecafa39f4dad670a8f5a45db890f9088120fdf918402b8e0973ce4dec0d
   languageName: node
   linkType: hard
 
@@ -6411,12 +6411,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/next@npm:4.7.4":
-  version: 4.7.4
-  resolution: "@vercel/next@npm:4.7.4"
+"@vercel/next@npm:4.7.6":
+  version: 4.7.6
+  resolution: "@vercel/next@npm:4.7.6"
   dependencies:
     "@vercel/nft": "npm:0.27.10"
-  checksum: 10c0/624969b60358bf1108337af801ae2e32be3389663c4399cb9ccf8974ad741224b6ff4e82c7ad9b89ec89cac9e7952329092abaead81131aa1655d9d6ac2672ac
+  checksum: 10c0/873d2e714cff38c36b24a36aa87c6d95ade4823917c00c8a455e55e41ec16ee3e040dd74c0d93e22a4da06b8e084af30f1c939a1586dfcf5205aa1a4b927967b
   languageName: node
   linkType: hard
 
@@ -6471,10 +6471,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/python@npm:4.7.1":
-  version: 4.7.1
-  resolution: "@vercel/python@npm:4.7.1"
-  checksum: 10c0/b8112de4e4153eb5dbe7646019bbe52bef83f99ac316e53701de149341ae3655922db4a338c941a65b525559723e1daae254b9e85084a1c09a417e2001c52885
+"@vercel/python@npm:4.7.2":
+  version: 4.7.2
+  resolution: "@vercel/python@npm:4.7.2"
+  checksum: 10c0/09e27a4a99561ce472cc6c88f85710c24ae49d0939075ca6c55aa9264d94c529be844c8acc78eed72b8ec42cdebb94cd81106bbf543027ac3005b94e058fa0b6
   languageName: node
   linkType: hard
 
@@ -18900,16 +18900,16 @@ __metadata:
   linkType: hard
 
 "vercel@npm:^41.4.1":
-  version: 41.4.1
-  resolution: "vercel@npm:41.4.1"
+  version: 41.5.0
+  resolution: "vercel@npm:41.5.0"
   dependencies:
     "@vercel/build-utils": "npm:10.5.1"
     "@vercel/fun": "npm:1.1.5"
     "@vercel/go": "npm:3.2.1"
     "@vercel/hydrogen": "npm:1.2.0"
-    "@vercel/next": "npm:4.7.4"
+    "@vercel/next": "npm:4.7.6"
     "@vercel/node": "npm:5.1.14"
-    "@vercel/python": "npm:4.7.1"
+    "@vercel/python": "npm:4.7.2"
     "@vercel/redwood": "npm:2.3.0"
     "@vercel/remix-builder": "npm:5.4.3"
     "@vercel/ruby": "npm:2.2.0"
@@ -18919,7 +18919,7 @@ __metadata:
   bin:
     vc: dist/vc.js
     vercel: dist/vc.js
-  checksum: 10c0/6b51854793618a2bc0d7d49e0d0a8cfbccfc9ac3569e217a3022b9c2fe67c459cb0af2093bc24f60c779bdce008619888b5b272b575bce99827d823905262a78
+  checksum: 10c0/718902a37c6837ee5578fe6a97e416338a3623ad9a5edcb2097b87e51dc046d429f426a74cba6e3c0de6d112341ab29a639e15f89e6b55840fa41a5dd8605ab5
   languageName: node
   linkType: hard
 
