@@ -146,31 +146,34 @@ class FormatterUtils {
         if (isDuration) {
             const now = DateTime.local();
             const diffMillis = dateObject.diff(now).as('milliseconds');
-
+        
             const chosenUnit =
                 this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ??
                 'seconds';
-
+        
             const diffValue = Duration.fromMillis(diffMillis).as(chosenUnit);
             const roundedValue = Math.round(diffValue);
-
+        
             const roundedDuration = Duration.fromObject(
                 { [chosenUnit]: roundedValue },
                 { locale: this.dateLocale },
             ).shiftTo(...this.relativeDateOrder);
-
-            const clean = (duration: Duration): Duration => {
+        
+            // Because the shift allows to do things like 12 months as 1 year,
+            // we 'clean the shifted duration by removing all zero-valued units.
+            // This prevents verbose strings like "1 year, 0 months, 0 days..."
+            const cleanZeroes = (duration: Duration): Duration => {
                 const entries = Object.entries(duration.toObject()).filter(([, value]) => {
                     const num = value as number | undefined;
                     return Math.abs(num ?? 0) > 0;
                 });
-
+        
                 return Duration.fromObject(Object.fromEntries(entries) as Partial<Record<DurationUnit, number>>, {
                     locale: this.dateLocale,
                 });
             };
-
-            const finalDuration = clean(diffMillis < 0 ? roundedDuration.negate() : roundedDuration);
+        
+            const finalDuration = cleanZeroes(diffMillis < 0 ? roundedDuration.negate() : roundedDuration);
             return finalDuration.toHuman() || '0 seconds';
         }
 

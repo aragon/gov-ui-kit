@@ -330,9 +330,9 @@ describe('formatter utils', () => {
                 { value: '2000-02-10T11:11:48', result: '0 seconds', now: '2000-02-10T11:11:48' }, // 0 seconds
                 { value: '2000-02-10T11:11:45', result: '1 second', now: '2000-02-10T11:11:44' }, // 1 second
                 { value: '2000-02-10T11:12:59', result: '2 minutes', now: '2000-02-10T11:11:10' }, // 1 minute 49 seconds
-                { value: '2000-02-10T12:10:55', result: '59 minutes', now: '2000-02-10T11:11:55' }, // exactly 59 minutes 0 seconds
+                { value: '2000-02-10T12:10:55', result: '59 minutes', now: '2000-02-10T11:11:55' }, // exactly 59 minutes
                 { value: '2000-02-10T12:11:56', result: '1 hour', now: '2000-02-10T11:11:55' }, // 1 hour 1 second
-                { value: '2000-02-11T09:11:56', result: '22 hours', now: '2000-02-10T11:11:55' }, // 21 hours 60 minutes 1 second
+                { value: '2000-02-11T09:11:56', result: '22 hours', now: '2000-02-10T11:11:55' }, // 22 hours 1 second
                 { value: '2000-02-11T23:55:01', result: '2 days', now: '2000-02-10T11:11:55' }, // 1 day 12 hours 43 minutes 6 seconds
                 { value: '2001-04-02T11:41:11', result: '1 month', now: '2001-03-03T11:41:11' }, // exactly 30 days
                 { value: '2001-04-05T20:26:00', result: '1 month', now: '2001-03-03T11:41:11' }, // 33 days 8 hours 45 minutes
