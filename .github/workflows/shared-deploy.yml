@@ -13,7 +13,6 @@ on:
         value: ${{ jobs.deploy.outputs.deploymentUrl }}
 
 env:
-  VERCEL_SCOPE: aragon-app
   VERCEL_ARGS: ${{ (inputs.domain != '' && '--prod') || '' }}
 
 jobs:
