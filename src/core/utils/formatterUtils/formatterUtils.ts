@@ -143,6 +143,7 @@ class FormatterUtils {
             return dateObject.toRelative({ locale: this.dateLocale });
         }
 
+        // New rounding flow: compute → round → reconstruct → normalize → clean → stringify
         if (isDuration) {
             const now = DateTime.local();
             const diffMillis = dateObject.diff(now).as('milliseconds');
@@ -159,8 +160,8 @@ class FormatterUtils {
                 { locale: this.dateLocale },
             ).shiftTo(...this.relativeDateOrder);
 
-            // Because the shiftTo method allows to do things like 12 months as 1 year,
-            // we 'clean the shifted duration by removing all zero-valued units.
+            // Because the shiftTo method is needed for things like 12 months as 1 year,
+            // we 'clean' the shifted duration by removing all zero-valued units.
             // This prevents unwieldy strings like "1 year, 0 months, 0 days..."
             const cleanZeroes = (duration: Duration): Duration => {
                 const entries = Object.entries(duration.toObject()).filter(([, value]) => {
