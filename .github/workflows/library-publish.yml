@@ -10,6 +10,10 @@ jobs:
     steps:
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
+        with:
+          # Make sure to checkout the main branch with the bumped version on the package.json file as Github does the
+          # checkout of the commit SHA that triggered the publish workflow by default
+          ref: main
       - name: Build library
         run: yarn build
       - name: Publish library
