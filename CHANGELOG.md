@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.1.0
+
+### Minor Changes
+
+- [`8413957`](https://github.com/aragon/gov-ui-kit/commit/84139578d63eede344d90a725bf76f33f8964089) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update release workflow, implement snapshot and preview workflows
+
+- [#448](https://github.com/aragon/gov-ui-kit/pull/448) [`a71a873`](https://github.com/aragon/gov-ui-kit/commit/a71a87330452bdb5eb602a6f186e053c3bcf5144) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update minor and patch NPM dependencies
+
 ## [1.0.75] - 2025-04-02
 
 ### Fixed
@@ -47,8 +55,7 @@
 ### Changed
 
 - Bump `@babel/runtime-corejs3` to 7.26.10
-- Update DAO name vertical alignment in `<DaoDataListItem.Structure />` component to be centered in the case when no
-  address is provided
+- Update DAO name vertical alignment in `<DaoDataListItem.Structure />` component to be centered in the case when no address is provided
 
 ### Fixed
 
@@ -147,13 +154,11 @@
 
 ### Changed
 
-- Update `InputFileAvatar` core component to remove `onFileSelect` and `onFileError` properties and use `value` and
-  `onChange` properties instead
+- Update `InputFileAvatar` core component to remove `onFileSelect` and `onFileError` properties and use `value` and `onChange` properties instead
 - Update `IProposalActionUpdateMetadataDaoMetadata` interface `logo` property to `avatar` to better align with actions
 - Bump `softprops/action-gh-release` from 2.2.0 to 2.2.1
 - Update minor and patch NPM dependencies
-- Update `<ProposalDataListItem />` module component to include `statusContext` property and support `ADVANCEABLE`
-  status
+- Update `<ProposalDataListItem />` module component to include `statusContext` property and support `ADVANCEABLE` status
 - Remove `<MajorityVotingResult />` and `<ApprovalThresholdResult />` sub-components for `<ProposalDataListItem />`
 
 ## [1.0.62] - 2025-01-08
@@ -192,8 +197,7 @@
 - Bump `softprops/action-gh-release` from 2.1.0 to 2.2.0
 - Bump `@rollup/plugin-node-resolve` from 15.3.0 to 16.0.0
 - Update minor and patch NPM dependencies
-- Update `AssetDataListItemStructure` module component to remove the `priceChange` property and related logic for
-  calculating percentage change
+- Update `AssetDataListItemStructure` module component to remove the `priceChange` property and related logic for calculating percentage change
 
 ## [1.0.59] - 2024-12-11
 
@@ -202,8 +206,7 @@
 - Fix color of body name on `<ProposalVoting.BodyContext />` module component
 - Fix re-render issue on `<AddressInput />` module component when `onAccept` prop changes on every render
 - Update `<CheckboxCard />` core component to set full-width to `children` property wrapper
-- Update `<ProposalActions.Item />` module component to display correct feedback for actions with data and value and
-  disable decoded view for actions without parameters
+- Update `<ProposalActions.Item />` module component to display correct feedback for actions with data and value and disable decoded view for actions without parameters
 
 ### Changed
 
@@ -216,8 +219,7 @@
 
 ### Added
 
-- Update `ProposalActions` module component to improve rendering of decoded parameters and support and "edit" mode
-  through the `editMode` property
+- Update `ProposalActions` module component to improve rendering of decoded parameters and support and "edit" mode through the `editMode` property
 
 ### Changed
 
@@ -228,14 +230,12 @@
 
 ### Added
 
-- Add new `ProposalVoting` module components (`ProposalVotingBodyContent`, `ProposalVotingBodySummary`,
-  `ProposalVotingBodySummaryList` and `ProposalVotingBodySummaryListItem`)
+- Add new `ProposalVoting` module components (`ProposalVotingBodyContent`, `ProposalVotingBodySummary`, `ProposalVotingBodySummaryList` and `ProposalVotingBodySummaryListItem`)
 - Add story and export `ProposalVotingProgress` module component
 
 ### Changed
 
-- Update `ProposalVotingStage` module component to accept new optional `bodyList` prop and update rendering logic to
-  handle multi body proposals per stage.
+- Update `ProposalVotingStage` module component to accept new optional `bodyList` prop and update rendering logic to handle multi body proposals per stage.
 
 ## [1.0.56] - 2024-11-26
 
@@ -260,14 +260,12 @@
 
 ### Added
 
-- Update `VoteDataListItem` component to add "Voted" string and possibility to customise it through the
-  `confirmationLabel` property
+- Update `VoteDataListItem` component to add "Voted" string and possibility to customise it through the `confirmationLabel` property
 - Update `formatterUtils` documentation to add number formatting examples
 
 ### Fixed
 
-- Update layout of `DataListItem` core component and layouts of components using it (Asset, Dao, Member, Proposal,
-  Transaction, Vote)
+- Update layout of `DataListItem` core component and layouts of components using it (Asset, Dao, Member, Proposal, Transaction, Vote)
 - Update implementation of `DataListItem` skeleton components for better parity and no layout shift
 - Improve responsiveness for `DefinitionList` container and items for middle breakpoints
 - Update `DaoAvatar` to correctly set text size depending on `size` property
@@ -300,8 +298,7 @@
 
 ### Fixed
 
-- Update `ProposalVoting.Container` module component to make stages accordion controlled and support updating the
-  current active stage programmatically
+- Update `ProposalVoting.Container` module component to make stages accordion controlled and support updating the current active stage programmatically
 - Fix `VoteProposalDataListItem` module component to truncate long proposal IDs
 
 ### Changed
@@ -348,15 +345,12 @@
 
 ### Added
 
-- Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is
-  selected
+- Add optional `children` property to `RadioCard` and `CheckboxCard` core components displayed only when component is selected
 
 ### Changed
 
-- Update `RadioCard` and `CheckboxCard` core components to have optional description property, fix alignment when no
-  description provided
-- Update `<ProposalDataListItem.Structure >` module component to make proposal type property optional and support custom
-  proposal results
+- Update `RadioCard` and `CheckboxCard` core components to have optional description property, fix alignment when no description provided
+- Update `<ProposalDataListItem.Structure >` module component to make proposal type property optional and support custom proposal results
 - Bump `actions/checkout` from 4.2.0 to 4.2.1
 - Update minor and patch NPM dependencies
 
@@ -365,8 +359,7 @@
 ### Added
 
 - Update `Tabs` core component to handle disabled tab trigger state
-- Support `forceMount` property on `Accordion` core component and `ProposalVotingStage` module component to correctly
-  render dynamic content on proposal stages
+- Support `forceMount` property on `Accordion` core component and `ProposalVotingStage` module component to correctly render dynamic content on proposal stages
 
 ### Fixed
 
@@ -375,8 +368,7 @@
 
 ### Changed
 
-- Update `<ProposalVotingTabs />` module component to disable `Breakdown` and `Votes` tabs when voting status is not
-  active
+- Update `<ProposalVotingTabs />` module component to disable `Breakdown` and `Votes` tabs when voting status is not active
 - Bump `actions/setup-node` from 4.0.3 to 4.0.4
 - Bump `actions/checkout` from 4.1.7 to 4.2.0
 - Update minor and patch NPM dependencies
@@ -386,8 +378,7 @@
 
 ### Added
 
-- Add optional `confirmationLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string
-  when needed
+- Add optional `confirmationLabel` prop to the `VoteProposalDataListItem` component in order to pass a custom string when needed
 - Add new `xs` size for core `Avatar` component
 
 ## [1.0.46] - 2024-09-21
@@ -397,18 +388,15 @@
 - Add `IconType.BLOCKCHAIN_WALLETCONNECT` and associated asset
 - Add `EmptyState` fallback to ProposalActions when no actions provided
 - Support `dropdownItems` property on `ProposalActions` module component to display custom actions
-- Update `ProposalActions` component to support `actionKey` property and forward `index` property to sub action
-  components
+- Update `ProposalActions` component to support `actionKey` property and forward `index` property to sub action components
 
 ### Changed
 
 - Update layout of `EmptyState` for centering
 - Update `AccordionItem` border classes for usage within bordered containers
-- Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with
-  "Expand all" (eg. 'Execute actions' button, etc)
+- Update `ProposalAction` to handle an `EmptyState` fallback for no actions passed, improve layout of children with "Expand all" (eg. 'Execute actions' button, etc)
 - Update `DataListItem` component to support button rendering and standalone usage
-- Make `IProposalAction` type generic on ProposalAction module component to support actions with additional parameters
-  when used inside a form (e.g. actions with an additional `index` parameter)
+- Make `IProposalAction` type generic on ProposalAction module component to support actions with additional parameters when used inside a form (e.g. actions with an additional `index` parameter)
 - Update minor and patch versions of NPM dependencies
 - Bump `micromatch` from 4.0.7 to 4.0.8
 - Bump `webpack` from 5.91.0 to 5.94.0
@@ -426,8 +414,7 @@
 
 - Update illustration SVGs with custom CSS color customizations
 - Add `isLoading` property to `<Spinner />` core component to render static spinners
-- Update the interfaces of the `<Dialog.Footer />` and `<DialogAlert.Footer />` core components to support the
-  `disabled` and `isLoading` properties for the footer buttons
+- Update the interfaces of the `<Dialog.Footer />` and `<DialogAlert.Footer />` core components to support the `disabled` and `isLoading` properties for the footer buttons
 
 ### Fixed
 
@@ -439,15 +426,12 @@
 
 - Implement `useRandomId` hook and update fields components to use it
 - Update `<TextAreaRichText />` core component to expose `immediatelyRender` property for SSR usage
-- Update `<RadioGroup />`, `<CheckboxGroup />` and `<Switch />` core components to render the `InputContainer` component
-  and support the label, helpText, alert and isOptional properties.
+- Update `<RadioGroup />`, `<CheckboxGroup />` and `<Switch />` core components to render the `InputContainer` component and support the label, helpText, alert and isOptional properties.
 
 ### Fixed
 
-- Update `<Wallet />` module component to correctly propagate custom `chainId` and `wagmi` configs to `<MemberAvatar />`
-  component
-- Fix `FIAT_TOTAL_SHORT`, `FIAT_TOTAL_LONG`, `TOKEN_AMOUNT_SHORT` and `PERCENTAGE_SHORT` formats to truncate small
-  numbers
+- Update `<Wallet />` module component to correctly propagate custom `chainId` and `wagmi` configs to `<MemberAvatar />` component
+- Fix `FIAT_TOTAL_SHORT`, `FIAT_TOTAL_LONG`, `TOKEN_AMOUNT_SHORT` and `PERCENTAGE_SHORT` formats to truncate small numbers
 - Hide ens loader indicator on `<Wallet />` module component for mobile devices
 - Fix Storybook stories path of `<Checkbox />` core components
 - Move `<Radio />` core components under `/forms` folder
@@ -457,8 +441,7 @@
 ### Changed
 
 - Default `type` attribute of `<Button />` core component to `button`
-- Rename `label` property on `<Switch />` core component to `inlineLabel` to also support the existing `label` property
-  from the `InputContainer` component.
+- Rename `label` property on `<Switch />` core component to `inlineLabel` to also support the existing `label` property from the `InputContainer` component.
 - Update minor and patch NPM dependencies
 - Bump `elliptic` from `6.5.5` to `6.5.7`
 
@@ -472,23 +455,20 @@
 ### Changed
 
 - Update `@typescript-eslint` packages to v8
-- Remove "Summary" section from `ProposalActionTokenMint` module component and update action interface to only support
-  one receiver
+- Remove "Summary" section from `ProposalActionTokenMint` module component and update action interface to only support one receiver
 - Update minor and patch NPM dependencies
 
 ## [1.0.42] - 2024-08-07
 
 ### Fixed
 
-- Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set to
-  zero
+- Hide minimum participation details on `ProposalVotingBreakdownToken` module component when minParticipation is set to zero
 - Correctly forward web3 params (e.g. `chainId`) to native `ProposalActions` components
 - Fix ENS name truncation on `<Wallet />` module component
 - Update `<Wallet />` module component to only resolve user ENS name when name property is not set
 - Fix expand behaviour of `TextAreaRichText` core component when used inside a dialog and hide the input label
 - Fix `NumberInput` component to correctly update values on plus / minus buttons click
-- Fix `ProposalVotingBreakdownToken` module component to display correct progress variant when min-participation and
-  support are equal to the threshold required
+- Fix `ProposalVotingBreakdownToken` module component to display correct progress variant when min-participation and support are equal to the threshold required
 
 ### Added
 
@@ -512,8 +492,7 @@
 ### Added
 
 - Export `VoteIndicator` type from `Vote` module
-- Update `useBlockExplorer` hook to export a `getBlockExplorer` function, update `buildEntityUrl` function to support a
-  `chainId` parameter which overrides the `chainId` hook parameter
+- Update `useBlockExplorer` hook to export a `getBlockExplorer` function, update `buildEntityUrl` function to support a `chainId` parameter which overrides the `chainId` hook parameter
 
 ### Changed
 
@@ -524,8 +503,7 @@
 ### Added
 
 - Implement `ProposalAction` and `ProposalVoting` module components
-- Handle `WithdrawToken`, `ChangeMembers`, `UpdateMetadata`, `ChangeSettings` and `TokenMint` actions on
-  `ProposalActions` module component
+- Handle `WithdrawToken`, `ChangeMembers`, `UpdateMetadata`, `ChangeSettings` and `TokenMint` actions on `ProposalActions` module component
 - Add optional `hideLabelTokenVoting` and `tokenSymbol` props to the `MemberDataListItemStructure` module component
 - Implement `invariant` core utility
 
@@ -534,8 +512,7 @@
 - Renamed `votingPower` prop to `tokenAmount` in the `MemberDataListItemStructure` module component
 - Update interface for `Accordion.Container` to expose value prop
 - Update styles on `Tabs.List` for latest spec
-- Rename `indicator` property of `<Progress />` core component to `thresholdIndicator` and set `data-value` property to
-  indicator component to easier test its value
+- Rename `indicator` property of `<Progress />` core component to `thresholdIndicator` and set `data-value` property to indicator component to easier test its value
 - Bump `softprops/action-gh-release` from 2.0.6 to 2.0.8
 - Bump `ws` from 7.5.9 to 7.5.10
 - Update minor and patch NPM dependencies
@@ -624,8 +601,7 @@
 
 ### Added
 
-- Handle new `layoutClassnames` property on `DataList.Container` component to simplify implementation of custom
-  `DataList` layouts
+- Handle new `layoutClassnames` property on `DataList.Container` component to simplify implementation of custom `DataList` layouts
 - Create `ssrUtils` core utilities
 
 ## [1.0.33] - 2024-06-06
@@ -677,8 +653,7 @@
 
 - Implement `DefinitionList` core component
 - Implement `TransactionDataListItem.Skeleton` module component
-- Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs
-  components.
+- Implement `OdsCoreProvider`, `LinkBase` and `AvatarBase` core components to support `Link` and `Image` NextJs components.
 
 ### Changed
 
@@ -692,8 +667,7 @@
 
 ### Added
 
-- Implement `MemberDataListItem.Skeleton`, `AssetDataListItem.Skeleton`, and `DaoDataListItem.Skeleton` module
-  components
+- Implement `MemberDataListItem.Skeleton`, `AssetDataListItem.Skeleton`, and `DaoDataListItem.Skeleton` module components
 - Implement `Tabs` core component
 - Custom CSS property added for `Collapsible` to adjust z-index
 
@@ -762,8 +736,7 @@
 - Add `stageId` and `stageTitle` properties to `IApprovalThresholdResult` & `IMajorityVotingResult` interfaces
 - Add `id` and optional `tag` properties to `ProposalDataListItemStructure`
 - Remove `publisherProfileLink` and `protocolUpdate` properties from `ProposalDataListItemStructure`
-- Update `date` and `result` properties of `ProposalDataListItemStructure` to be optional and `publisher` to allow for
-  multiple publishers
+- Update `date` and `result` properties of `ProposalDataListItemStructure` to be optional and `publisher` to allow for multiple publishers
 
 ### Fixed
 
@@ -799,8 +772,7 @@
 
 ### Added
 
-- Implement `DaoDataListItem.Structure`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure`,
-  `MemberDataListItem.Structure`, `AssetDataListItem.Structure`, and `AddressInput` module components
+- Implement `DaoDataListItem.Structure`, `ProposalDataListItem.Structure`, `TransactionDataListItem.Structure`, `MemberDataListItem.Structure`, `AssetDataListItem.Structure`, and `AddressInput` module components
 - Implement `StatePingAnimation` core component
 - Implement `addressUtils` and `ensUtils` module utilities
 - Implement `useDebouncedValue` core hook and `clipboardUtils` core utility
@@ -817,8 +789,7 @@
 ### Fixed
 
 - Reexport module components
-- Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g.
-  `wagmi/chains`)
+- Library build process to avoid bundling dependencies and peer-dependencies when using subfolders import (e.g. `wagmi/chains`)
 - Formatter utility to support negative numbers
 
 ## [1.0.20] - 2024-03-13
@@ -958,8 +929,7 @@
 
 ### Added
 
-- Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and
-  `RadioCard` components
+- Implement `CardEmptyState`, `EmptyState`, `Checkbox`, `CheckboxGroup`, `CheckboxCard`, `RadioGroup`, `Radio`, and `RadioCard` components
 - Export all component types
 - Handle style transitions on `ActionItem`, `Button` and `Toggle` components
 - Property `defaultValue` to `ToggleGroup` component to set an initial value for uncontrolled usage
