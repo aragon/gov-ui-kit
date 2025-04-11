@@ -48,7 +48,12 @@ export const DataListPagination: React.FC<IDataListPaginationProps> = (props) =>
             </Button>
             {itemsCount > 0 && (
                 <>
-                    <Progress value={progressValue} size="sm" responsiveSize={{ md: 'md' }} />
+                    <Progress
+                        variant={hasMore ? 'primary' : 'neutral'}
+                        value={progressValue}
+                        size="sm"
+                        responsiveSize={{ md: 'md' }}
+                    />
                     <p className="shrink-0 text-base font-normal leading-tight text-neutral-500">
                         <span className="text-neutral-800">{currentlyDisplayed} </span>
                         <span>

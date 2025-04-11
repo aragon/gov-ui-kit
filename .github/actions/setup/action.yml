@@ -10,6 +10,9 @@ inputs:
     description: "GitHub token used for authentication"
     required: false
     default: ${{ github.token }}
+  ref:
+    description: "The branch, tag or SHA to checkout."
+    required: false
   registry-url:
     description: "URL of the registry used for Node setup"
     required: false
@@ -29,9 +32,9 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4.2.2
       with:
-        repository: ${{ inputs.repository }}
         fetch-depth: ${{ inputs.fetch-depth }}
         token: ${{ inputs.token }}
+        ref: ${{ inputs.ref }}
     - name: Setup Node
       uses: actions/setup-node@v4.2.0
       with:
