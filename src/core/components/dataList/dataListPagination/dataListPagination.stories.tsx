@@ -32,7 +32,7 @@ export const Default: Story = {
 };
 
 /**
- * Default usage example of the DataList.Pagination component with a short list.
+ * Usage example of the DataList.Pagination component with no more elements to load.
  */
 export const ShortList: Story = {
     args: {},
