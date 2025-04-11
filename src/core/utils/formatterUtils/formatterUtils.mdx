@@ -193,8 +193,9 @@ The `YEAR_MONTH` format only displays the year and month of the specified date a
 
 ### DURATION
 
-The `DURATION` format returns the date difference between the specified date and now. It uses the largest date unit that
-is greater than 1.
+The DURATION format returns the difference between a specified date and now, expressed in the largest unit with a value
+of 1 or more. That unit is rounded to the nearest whole number, and smaller units are not shown. For example: 1hr 53min
+12sec → '2 hours'
 
 **Examples**:
 

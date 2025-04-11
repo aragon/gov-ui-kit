@@ -144,14 +144,23 @@ class FormatterUtils {
         }
 
         if (isDuration) {
-            const dateDiff = dateObject.diffNow(this.relativeDateOrder);
-            const nonZeroUnit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.get(unit)) > 0) ?? 'seconds';
-            const roundedDiffUnit = Duration.fromObject(
-                { [nonZeroUnit]: Math.floor(dateDiff.get(nonZeroUnit)) },
-                { locale: this.dateLocale },
-            );
+            const diffMillis = dateObject.diffNow().as('milliseconds');
 
-            return roundedDiffUnit.valueOf() < 0 ? roundedDiffUnit.negate().toHuman() : roundedDiffUnit.toHuman();
+            const chosenUnit =
+                this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ??
+                'seconds';
+
+            const diffValue = Duration.fromMillis(diffMillis).as(chosenUnit);
+            const roundedValue = Math.round(diffValue);
+
+            const roundedDuration = Duration.fromObject(
+                { [chosenUnit]: roundedValue },
+                { locale: this.dateLocale },
+            )
+
+            const duration = diffMillis < 0 ? roundedDuration.negate() : roundedDuration;
+
+            return duration.toHuman();
         }
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
