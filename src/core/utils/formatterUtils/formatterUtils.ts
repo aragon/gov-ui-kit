@@ -143,10 +143,8 @@ class FormatterUtils {
             return dateObject.toRelative({ locale: this.dateLocale });
         }
 
-        // New rounding flow: compute → round → reconstruct → normalize → clean → stringify
         if (isDuration) {
-            const now = DateTime.local();
-            const diffMillis = dateObject.diff(now).as('milliseconds');
+            const diffMillis = dateObject.diffNow().as('milliseconds');
 
             const chosenUnit =
                 this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ??
@@ -161,7 +159,7 @@ class FormatterUtils {
             )
 
             const duration = diffMillis < 0 ? roundedDuration.negate() : roundedDuration;
-            
+
             return duration.toHuman();
         }
 
