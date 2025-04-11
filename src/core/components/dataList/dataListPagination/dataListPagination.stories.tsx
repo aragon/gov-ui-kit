@@ -31,4 +31,21 @@ export const Default: Story = {
     ),
 };
 
+/**
+ * Default usage example of the DataList.Pagination component with a short list.
+ */
+export const ShortList: Story = {
+    args: {},
+    render: (props) => (
+        <DataList.Root pageSize={10} itemsCount={3} entityLabel="Users">
+            <DataList.Container>
+                {[...Array<number>(3)].map((_value, index) => (
+                    <DataList.Item key={index}>User {index}</DataList.Item>
+                ))}
+            </DataList.Container>
+            <DataList.Pagination {...props} />
+        </DataList.Root>
+    ),
+};
+
 export default meta;
