@@ -142,26 +142,23 @@ class FormatterUtils {
         if (useRelativeDate) {
             const now = DateTime.now();
             const diffMillis = dateObject.diffNow().as('milliseconds');
-        
+
             const [chosenUnit, roundedDiff] = this.getRoundedUnitValue(diffMillis);
-        
+
             const target = now.plus({ [chosenUnit]: roundedDiff });
-        
+
             return target.toRelative({ locale: this.dateLocale });
         }
 
         if (isDuration) {
             const diffMillis = dateObject.diffNow().as('milliseconds');
-        
+
             const [chosenUnit, roundedValue] = this.getRoundedUnitValue(diffMillis);
-        
-            const roundedDuration = Duration.fromObject(
-                { [chosenUnit]: roundedValue },
-                { locale: this.dateLocale }
-            );
-        
+
+            const roundedDuration = Duration.fromObject({ [chosenUnit]: roundedValue }, { locale: this.dateLocale });
+
             const duration = diffMillis < 0 ? roundedDuration.negate() : roundedDuration;
-        
+
             return duration.toHuman();
         }
 
@@ -192,12 +189,11 @@ class FormatterUtils {
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
 
     private getRoundedUnitValue(diffMillis: number): [DurationUnit, number] {
-        const chosenUnit = this.relativeDateOrder.find(
-            (unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1
-        ) ?? 'seconds';
-    
+        const chosenUnit =
+            this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ?? 'seconds';
+
         const roundedValue = Math.round(Duration.fromMillis(diffMillis).as(chosenUnit));
-    
+
         return [chosenUnit, roundedValue];
     }
 
