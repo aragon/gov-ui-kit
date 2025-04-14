@@ -37,7 +37,7 @@ export const DialogRoot: React.FC<IDialogRootProps> = (props) => {
     );
 
     const containerClassNames = classNames(
-        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] md:inset-x-6 md:bottom-6 lg:bottom-auto lg:top-12 lg:max-h-[calc(100vh-200px)]',
+        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] focus:outline-none md:inset-x-6 md:bottom-6 lg:bottom-auto lg:top-12 lg:max-h-[calc(100vh-200px)]',
         'flex flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-content-z-index)]',
         sizeToClassNames[size],
