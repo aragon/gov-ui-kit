@@ -325,8 +325,8 @@ describe('formatter utils', () => {
 
         describe('DURATION format', () => {
             test.each([
-                { value: '2000-02-10T11:11:48', result: '7 seconds', now: '2000-02-10T11:11:55' }, // 7 seconds
-                { value: '2000-02-10T11:11:48', result: '7 secondi', now: '2000-02-10T11:11:55', locale: 'it' }, // 7 seconds (Italian)
+                { value: '2000-02-10T11:11:48', result: '7 seconds', now: '2000-02-10T11:11:55' },
+                { value: '2000-02-10T11:11:48', result: '7 secondi', now: '2000-02-10T11:11:55', locale: 'it' },
                 { value: '2000-02-10T11:11:48', result: '0 seconds', now: '2000-02-10T11:11:48' },
                 { value: '2000-02-10T11:11:45', result: '1 second', now: '2000-02-10T11:11:44' },
                 { value: '2000-02-10T11:12:59', result: '2 minutes', now: '2000-02-10T11:11:10' },
@@ -355,12 +355,12 @@ describe('formatter utils', () => {
                 { value: '2020-02-10T14:39:49', result: '2 seconds ago', now: '2020-02-10T14:39:51' },
                 { value: '2020-02-10T14:39:51', result: 'in 0 seconds', now: '2020-02-10T14:39:51' },
                 { value: '2004-10-25T20:21:33', result: 'in 10 seconds', now: '2004-10-25T20:21:23' },
-                { value: '2004-10-26T20:21:22', result: 'in 23 hours', now: '2004-10-25T20:21:23' },
+                { value: '2004-10-26T20:21:22', result: 'in 1 day', now: '2004-10-25T20:21:23' },
                 { value: '2004-10-26T20:21:23', result: 'in 1 day', now: '2004-10-25T20:21:23' },
-                { value: '2004-11-24T20:21:23', result: 'in 30 days', now: '2004-10-25T20:21:23' },
+                { value: '2004-11-24T20:21:23', result: 'in 1 month', now: '2004-10-25T20:21:23' },
                 { value: '2004-11-29T12:12:41', result: 'in 1 month', now: '2004-10-25T20:21:23' },
-                { value: '2011-10-10T11:01:00', result: 'in 1 year', now: '2010-04-10T11:01:00' },
-                { value: '2019-11-20T11:01:00', result: 'in 9 years', now: '2010-04-10T11:01:00' },
+                { value: '2011-10-10T11:01:00', result: 'in 2 years', now: '2010-04-10T11:01:00' },
+                { value: '2019-11-20T11:01:00', result: 'in 10 years', now: '2010-04-10T11:01:00' },
             ])('formats $value as $result using RELATIVE format (now: $now)', ({ value, result, now, locale }) => {
                 setLocale({ date: locale });
                 setTime(now);

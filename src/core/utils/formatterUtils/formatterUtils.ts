@@ -140,26 +140,28 @@ class FormatterUtils {
         }
 
         if (useRelativeDate) {
-            return dateObject.toRelative({ locale: this.dateLocale });
+            const now = DateTime.now();
+            const diffMillis = dateObject.diffNow().as('milliseconds');
+        
+            const [chosenUnit, roundedDiff] = this.getRoundedUnitValue(diffMillis);
+        
+            const target = now.plus({ [chosenUnit]: roundedDiff });
+        
+            return target.toRelative({ locale: this.dateLocale });
         }
 
         if (isDuration) {
             const diffMillis = dateObject.diffNow().as('milliseconds');
-
-            const chosenUnit =
-                this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ??
-                'seconds';
-
-            const diffValue = Duration.fromMillis(diffMillis).as(chosenUnit);
-            const roundedValue = Math.round(diffValue);
-
+        
+            const [chosenUnit, roundedValue] = this.getRoundedUnitValue(diffMillis);
+        
             const roundedDuration = Duration.fromObject(
                 { [chosenUnit]: roundedValue },
-                { locale: this.dateLocale },
-            )
-
+                { locale: this.dateLocale }
+            );
+        
             const duration = diffMillis < 0 ? roundedDuration.negate() : roundedDuration;
-
+        
             return duration.toHuman();
         }
 
@@ -188,6 +190,16 @@ class FormatterUtils {
     ): TOptionValue | undefined => (typeof option === 'function' ? option(value) : option);
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
+
+    private getRoundedUnitValue(diffMillis: number): [DurationUnit, number] {
+        const chosenUnit = this.relativeDateOrder.find(
+            (unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1
+        ) ?? 'seconds';
+    
+        const roundedValue = Math.round(Duration.fromMillis(diffMillis).as(chosenUnit));
+    
+        return [chosenUnit, roundedValue];
+    }
 
     private significantDigitsToFractionDigits = (value: number, digits: number, fallback?: number) =>
         value === 0 ? fallback : Math.floor(digits - Math.log10(Math.abs(value)));
