@@ -140,26 +140,18 @@ class FormatterUtils {
         }
 
         if (useRelativeDate) {
-            const now = DateTime.now();
-            const diffMillis = dateObject.diffNow().as('milliseconds');
+            const [unit, roundedDiff] = this.getRoundedDateUnitDiff(dateObject);
+            const roundedTarget = DateTime.now().plus({ [unit]: roundedDiff });
 
-            const [chosenUnit, roundedDiff] = this.getRoundedUnitValue(diffMillis);
-
-            const target = now.plus({ [chosenUnit]: roundedDiff });
-
-            return target.toRelative({ locale: this.dateLocale });
+            return roundedTarget.toRelative({ locale: this.dateLocale });
         }
 
         if (isDuration) {
-            const diffMillis = dateObject.diffNow().as('milliseconds');
+            const [unit, roundedDiff] = this.getRoundedDateUnitDiff(dateObject);
+            const roundedDuration = Duration.fromObject({ [unit]: roundedDiff }, { locale: this.dateLocale });
+            const processedDuration = roundedDuration.valueOf() < 0 ? roundedDuration.negate() : roundedDuration;
 
-            const [chosenUnit, roundedValue] = this.getRoundedUnitValue(diffMillis);
-
-            const roundedDuration = Duration.fromObject({ [chosenUnit]: roundedValue }, { locale: this.dateLocale });
-
-            const duration = diffMillis < 0 ? roundedDuration.negate() : roundedDuration;
-
-            return duration.toHuman();
+            return processedDuration.toHuman();
         }
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
@@ -188,14 +180,13 @@ class FormatterUtils {
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
 
-    private getRoundedUnitValue(diffMillis: number): [DurationUnit, number] {
-        const chosenUnit =
-            this.relativeDateOrder.find((unit) => Math.abs(Duration.fromMillis(diffMillis).as(unit)) >= 1) ?? 'seconds';
+    private getRoundedDateUnitDiff = (target: DateTime): [DurationUnit, number] => {
+        const dateDiff = target.diffNow();
+        const unit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.as(unit)) >= 1) ?? 'seconds';
+        const roundedValue = Math.round(dateDiff.as(unit));
 
-        const roundedValue = Math.round(Duration.fromMillis(diffMillis).as(chosenUnit));
-
-        return [chosenUnit, roundedValue];
-    }
+        return [unit, roundedValue];
+    };
 
     private significantDigitsToFractionDigits = (value: number, digits: number, fallback?: number) =>
         value === 0 ? fallback : Math.floor(digits - Math.log10(Math.abs(value)));
