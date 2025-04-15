@@ -140,18 +140,18 @@ class FormatterUtils {
         }
 
         if (useRelativeDate) {
-            return dateObject.toRelative({ locale: this.dateLocale });
+            const [unit, roundedDiff] = this.getRoundedDateUnitDiff(dateObject);
+            const roundedTarget = DateTime.now().plus({ [unit]: roundedDiff });
+
+            return roundedTarget.toRelative({ locale: this.dateLocale });
         }
 
         if (isDuration) {
-            const dateDiff = dateObject.diffNow(this.relativeDateOrder);
-            const nonZeroUnit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.get(unit)) > 0) ?? 'seconds';
-            const roundedDiffUnit = Duration.fromObject(
-                { [nonZeroUnit]: Math.floor(dateDiff.get(nonZeroUnit)) },
-                { locale: this.dateLocale },
-            );
+            const [unit, roundedDiff] = this.getRoundedDateUnitDiff(dateObject);
+            const roundedDuration = Duration.fromObject({ [unit]: roundedDiff }, { locale: this.dateLocale });
+            const processedDuration = roundedDuration.valueOf() < 0 ? roundedDuration.negate() : roundedDuration;
 
-            return roundedDiffUnit.valueOf() < 0 ? roundedDiffUnit.negate().toHuman() : roundedDiffUnit.toHuman();
+            return processedDuration.toHuman();
         }
 
         return dateObject.toLocaleString({ ...dateFormat, hourCycle: 'h23' }, { locale: this.dateLocale });
@@ -179,6 +179,14 @@ class FormatterUtils {
     ): TOptionValue | undefined => (typeof option === 'function' ? option(value) : option);
 
     private getDecimalPlaces = (value: number) => value.toString().split('.')[0].length;
+
+    private getRoundedDateUnitDiff = (target: DateTime): [DurationUnit, number] => {
+        const dateDiff = target.diffNow();
+        const unit = this.relativeDateOrder.find((unit) => Math.abs(dateDiff.as(unit)) >= 1) ?? 'seconds';
+        const roundedValue = Math.round(dateDiff.as(unit));
+
+        return [unit, roundedValue];
+    };
 
     private significantDigitsToFractionDigits = (value: number, digits: number, fallback?: number) =>
         value === 0 ? fallback : Math.floor(digits - Math.log10(Math.abs(value)));
