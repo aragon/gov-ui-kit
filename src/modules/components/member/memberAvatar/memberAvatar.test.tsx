@@ -5,6 +5,7 @@ import { polygon } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import * as wagmi from 'wagmi';
 import { ssrUtils } from '../../../../core';
+import { RadixImageMock } from '../../../../core/test';
 import { MemberAvatar, type IMemberAvatarProps } from './memberAvatar';
 
 describe('<MemberAvatar /> component', () => {
@@ -24,15 +25,7 @@ describe('<MemberAvatar /> component', () => {
     };
 
     beforeEach(() => {
-        (window.Image as unknown) = class MockImage {
-            onload = jest.fn();
-            src = '';
-            constructor() {
-                setTimeout(() => {
-                    this.onload();
-                }, 100);
-            }
-        };
+        (window.Image as unknown) = RadixImageMock;
     });
 
     afterEach(() => {
