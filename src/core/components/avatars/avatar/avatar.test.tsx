@@ -1,31 +1,21 @@
 import { render, screen } from '@testing-library/react';
+import { RadixImageMock } from '../../../test';
 import { Avatar, type IAvatarProps } from './avatar';
 
 describe('<Avatar /> component', () => {
+    const originalGlobalImage = global.Image;
+
     const createTestComponent = (props?: Partial<IAvatarProps>) => {
         const completeProps: IAvatarProps = { ...props };
 
         return <Avatar {...completeProps} />;
     };
 
-    // need to mock global Image as radix-ui only renders
-    // an <img/> once it has been loaded therefore the usual
-    // img events can't be fired with testing-library.
-    const originalGlobalImage = global.Image;
-
-    beforeAll(() => {
-        (window.Image as unknown) = class MockImage {
-            onload = jest.fn();
-            src = '';
-            constructor() {
-                setTimeout(() => {
-                    this.onload();
-                }, 100);
-            }
-        };
+    beforeEach(() => {
+        (window.Image as unknown) = RadixImageMock;
     });
 
-    afterAll(() => {
+    afterEach(() => {
         global.Image = originalGlobalImage;
     });
 
@@ -56,7 +46,6 @@ describe('<Avatar /> component', () => {
     it('renders the image with provided alt text after it has loaded', async () => {
         const altText = 'test';
         render(createTestComponent({ alt: altText, src: 'img.jpg' }));
-
         const image = await screen.findByRole('img');
         expect(image).toBeInTheDocument();
         expect(image).toHaveAttribute('alt', altText);

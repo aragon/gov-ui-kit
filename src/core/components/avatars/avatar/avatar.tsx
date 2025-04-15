@@ -78,7 +78,7 @@ const responsiveSizeClasses: ResponsiveAttributeClassMap<AvatarSize> = {
 export const Avatar: React.FC<IAvatarProps> = (props) => {
     const { alt = 'avatar', className, fallback, responsiveSize, size = 'sm', ...imageProps } = props;
 
-    const [imgLoading, setImgLoading] = useState(true);
+    const [imgLoading, setImgLoading] = useState(false);
 
     const containerClassNames = classNames(
         'flex shrink-0 items-center justify-center overflow-hidden rounded-full [position:var(--guk-avatar-container-position)]',
@@ -86,9 +86,7 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
         className,
     );
 
-    const handleOnLoadingStatusChange = (status: string) => {
-        setImgLoading(status === 'loading');
-    };
+    const handleOnLoadingStatusChange = (status: string) => setImgLoading(status === 'loading');
 
     const showFallback = fallback != null && !imgLoading;
 
