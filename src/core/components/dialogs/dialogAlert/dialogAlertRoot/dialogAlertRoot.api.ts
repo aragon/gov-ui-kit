@@ -2,11 +2,18 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 export type DialogAlertVariant = 'critical' | 'info' | 'success' | 'warning';
 
+export type DialogAlertSize = 'sm' | 'md' | 'lg' | 'xl';
+
 export interface IDialogAlertRootProps extends ComponentPropsWithoutRef<'div'> {
     /**
      * Children of the component.
      */
     children?: ReactNode;
+    /**
+     * Size of the dialog.
+     * @default md
+     */
+    size?: DialogAlertSize;
     /**
      * Additional CSS class names for custom styling of the dialog's content container.
      */

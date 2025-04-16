@@ -5,12 +5,20 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useMemo } from 'react';
 import { dialogContentAnimationVariants, dialogOverlayAnimationVariants } from '../../dialogUtils';
 import { DialogAlertContextProvider } from '../dialogAlertContext';
-import type { IDialogAlertRootProps } from './dialogAlertRoot.api';
+import type { DialogAlertSize, IDialogAlertRootProps } from './dialogAlertRoot.api';
 import { DialogAlertRootHiddenElement } from './dialogAlertRootHiddenElement';
+
+const sizeToClassNames: Record<DialogAlertSize, string> = {
+    sm: 'max-w-[320px]',
+    md: 'max-w-[480px]',
+    lg: 'max-w-[640px]',
+    xl: 'max-w-[880px]',
+};
 
 export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     const {
         children,
+        size = 'md',
         containerClassName,
         overlayClassName,
         variant = 'info',
@@ -30,9 +38,10 @@ export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
     );
 
     const containerClassNames = classNames(
-        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-[120px] lg:max-h-[calc(100vh-200px)]',
-        'flex max-w-[480px] flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md md:min-w-[480px]',
+        'fixed inset-x-2 bottom-2 mx-auto max-h-[calc(100vh-80px)] lg:bottom-auto lg:top-12 lg:max-h-[calc(100vh-200px)]',
+        'flex flex-col rounded-xl border border-neutral-100 bg-neutral-0 shadow-neutral-md',
         'z-[var(--guk-dialog-alert-content-z-index)]',
+        sizeToClassNames[size],
         containerClassName,
     );
 
