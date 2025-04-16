@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 1.2.0
+
+### Minor Changes
+
+- [#455](https://github.com/aragon/gov-ui-kit/pull/455) [`68e45a8`](https://github.com/aragon/gov-ui-kit/commit/68e45a883ab25616eec253f07ca2bdd76dda51f0) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#453](https://github.com/aragon/gov-ui-kit/pull/453) [`2de2ac9`](https://github.com/aragon/gov-ui-kit/commit/2de2ac95d38e4e9343fd27739dd2dfa633dd4feb) Thanks [@shan8851](https://github.com/shan8851)! - Add outline none to dialog to fix unwanted styling when user focuses inside
+
+- [#454](https://github.com/aragon/gov-ui-kit/pull/454) [`ee9bf52`](https://github.com/aragon/gov-ui-kit/commit/ee9bf5243bc2e7f9009c8b9f551b46fca51052a5) Thanks [@shan8851](https://github.com/shan8851)! - Fix `DropdownItem` core component to prevent default click behaviour when disabled
+
+- [#452](https://github.com/aragon/gov-ui-kit/pull/452) [`858ffa2`](https://github.com/aragon/gov-ui-kit/commit/858ffa257cf60474aca77084ce0a8b0ea9102d03) Thanks [@shan8851](https://github.com/shan8851)! - Update core `DataListPagination` component to apply different variant to the progress bar when there are no more items to show
+
+- [#450](https://github.com/aragon/gov-ui-kit/pull/450) [`513c119`](https://github.com/aragon/gov-ui-kit/commit/513c119e87b4424dd98763a428e0b5e63e6dba0f) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update DURATION formatting to round to nearest significant unit
+
 ## 1.1.0
 
 ### Minor Changes
