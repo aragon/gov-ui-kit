@@ -5,31 +5,21 @@ import tailwindConfig from '../../../../tailwind.config';
 
 <Meta title="Theme/Tokens/Primitive/Spacing" />
 
-export const getSpacingConfig = () => {
-    const spacers = Object.entries(tailwindConfig.theme?.spacing ?? {});
-    const spacerItems = spacers.map(([key, value]) => {
-        const parsedKey = parseFloat(key);
-        const pxSize = Number.isNaN(parsedKey) ? 1 : 4 * parsedKey;
-        const remSize = Number.isNaN(parsedKey) ? 1 : pxSize / 16;
+export const exampleValues = ['0', '0.25', '0.5', '1', '2', '3', '4', '5', '10', '16', '32', '64', '128'];
 
-        return { key, px: pxSize, rem: remSize, value };
-    });
+export const DisplayComponent = ({ value }) => {
+    const pxValue = parseFloat(value) * 4;
 
-    return spacerItems.sort((a, b) => a.px - b.px);
-
-};
-
-export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
     return (
         <tr>
-            <td className="border-b px-4 py-2">{name}</td>
-            <td className="border-b px-4 py-2">{`${sizeRem}${sizeRem === 1 || sizeRem === 0 ? 'px' : 'rem'}`}</td>
-            <td className="border-b px-4 py-2">{`${sizePx}px`}</td>
+            <td className="border-b px-4 py-2">w-{value}</td>
+            <td className="border-b px-4 py-2">{`${pxValue}px`}</td>
             <td className="border-b px-4 py-2">
-                <div style={{ width: value }} className="bg-primary-300 h-6" />
+                <div style={{ width: pxValue }} className="bg-primary-300 h-6" />
             </td>
         </tr>
     );
+
 };
 
 # Spacing
@@ -39,14 +29,13 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
         <thead>
             <tr className="text-left">
                 <th className="border-b px-4 py-2">Name</th>
-                <th className="border-b px-4 py-2">Size</th>
                 <th className="border-b px-4 py-2">Pixels</th>
                 <th className="border-b" />
             </tr>
         </thead>
         <tbody>
-            {getSpacingConfig().map(({ key, px, rem, value }) => (
-                <DisplayComponent key={key} name={key} sizePx={px} sizeRem={rem} value={value} />
+            {exampleValues.map((spacing) => (
+                <DisplayComponent key={spacing} value={spacing} />
             ))}
         </tbody>
     </table>

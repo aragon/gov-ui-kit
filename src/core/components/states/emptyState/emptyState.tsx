@@ -36,7 +36,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
             {objectIllustration && (
                 <IllustrationObject
                     className={classNames({
-                        'h-auto w-full max-w-[160px]': isStacked,
+                        'h-auto w-full max-w-40': isStacked,
                         'order-last h-auto w-full max-w-20 justify-self-end rounded-full bg-neutral-50': !isStacked,
                     })}
                     {...objectIllustration}

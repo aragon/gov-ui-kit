@@ -61,7 +61,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         immediatelyRender,
         editorProps: {
             attributes: {
-                class: 'outline-hidden p-4 [overflow-wrap:anywhere]! prose prose-neutral min-h-[160px] h-full max-w-none leading-normal',
+                class: 'outline-hidden p-4 [overflow-wrap:anywhere]! prose prose-neutral min-h-40 h-full max-w-none leading-normal',
                 role: 'textbox',
                 'aria-labelledby': randomId,
             },
