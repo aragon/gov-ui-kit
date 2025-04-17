@@ -57,7 +57,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                     })}
                 >
                     <p
-                        className={classNames('font-normal leading-tight text-neutral-800', {
+                        className={classNames('leading-tight font-normal text-neutral-800', {
                             'text-xl md:text-2xl': isStacked,
                             'text-base md:text-lg': !isStacked,
                         })}
@@ -65,7 +65,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                         {heading}
                     </p>
                     <p
-                        className={classNames('font-normal leading-tight text-neutral-500', {
+                        className={classNames('leading-tight font-normal text-neutral-500', {
                             'text-sm md:text-base': isStacked,
                             'text-xs md:text-sm': !isStacked,
                         })}
@@ -75,7 +75,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 </div>
                 <div
                     className={classNames({
-                        'border-w-full flex flex-col items-stretch space-x-0 space-y-3 md:flex-row md:justify-center md:space-x-4 md:space-y-0':
+                        'border-w-full flex flex-col items-stretch space-y-3 space-x-0 md:flex-row md:justify-center md:space-y-0 md:space-x-4':
                             isStacked,
                         'flex flex-row flex-wrap gap-3': !isStacked,
                     })}

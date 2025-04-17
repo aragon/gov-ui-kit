@@ -21,7 +21,7 @@ export const Default: Story = {
     render: (props: IDefinitionListContainerProps) => (
         <DefinitionList.Container {...props}>
             <DefinitionList.Item term="Standard Definition Term">
-                <div className="flex h-96 w-full items-center justify-center border border-dashed bg-success-100">
+                <div className="bg-success-100 flex h-96 w-full items-center justify-center border border-dashed">
                     Any React Node Child
                 </div>
             </DefinitionList.Item>
@@ -44,7 +44,7 @@ export const Default: Story = {
                 metus porttitor, laoreet elit eu, luctus orci. Sed volutpat elit ac mi porta facilisis.
             </DefinitionList.Item>
             <DefinitionList.Item term="Third Term (with a super duper longer label which will to 1 line high when smaller than 'md' breakpoint and stacked) ">
-                <div className="flex h-48 w-full items-center justify-center border border-dashed bg-warning-100">
+                <div className="bg-warning-100 flex h-48 w-full items-center justify-center border border-dashed">
                     Any React Node Child
                 </div>
             </DefinitionList.Item>
