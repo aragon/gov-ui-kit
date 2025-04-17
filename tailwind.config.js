@@ -59,13 +59,6 @@ module.exports = {
 
             none: 'var(--guk-shadow-none)',
         },
-        screens: {
-            sm: '640px',
-            md: '786px',
-            lg: '1024px',
-            xl: '1280px',
-            '2xl': '1536px',
-        },
         fontFamily: {
             sans: [`var(--guk-font-family)`],
         },
