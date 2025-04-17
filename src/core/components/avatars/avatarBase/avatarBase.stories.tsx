@@ -14,7 +14,7 @@ type Story = StoryObj<typeof AvatarBase>;
  */
 export const Default: Story = {
     args: {
-        src: 'https://cdn.discordapp.com/icons/672466989217873929/acffa3e9e09ac5962ff803a5f8649040.webp?size=240',
+        src: 'https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv',
     },
 };
 

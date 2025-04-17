@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
-import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../../tailwind.config';
 
 <Meta title="Theme/Tokens/Primitive/Typography" />
@@ -9,7 +8,7 @@ import tailwindConfig from '../../../../tailwind.config';
 # Typography
 
 <div className="w-full sb-unstyled">
-    {Object.keys(resolveConfig(tailwindConfig).theme?.lineHeight ?? {}).map((lineHeight) => {
+    {Object.keys(tailwindConfig.theme?.lineHeight ?? {}).map((lineHeight) => {
         const lineHeightClasses = classNames({
             'leading-normal': lineHeight === 'normal',
             'leading-tight': lineHeight === 'tight',
@@ -25,7 +24,7 @@ import tailwindConfig from '../../../../tailwind.config';
                     {`leading-${lineHeight}`}
                 </p>
                 <div className="mt-5 flex w-full gap-x-10">
-                    {Object.keys(resolveConfig(tailwindConfig).theme?.fontWeight ?? {}).map((weight) => {
+                    {Object.keys(tailwindConfig.theme?.fontWeight ?? {}).map((weight) => {
                         const fontWeightClasses = classNames({
                             'font-normal': weight === 'normal',
                             'font-semibold': weight === 'semibold',
@@ -50,7 +49,7 @@ import tailwindConfig from '../../../../tailwind.config';
                                     {`font-${weight}`}
                                 </p>
                                 <div className="mt-5 space-y-5">
-                                    {Object.keys(resolveConfig(tailwindConfig).theme?.fontSize ?? {}).reverse().map((size) => {
+                                    {Object.keys(tailwindConfig.theme?.fontSize ?? {}).reverse().map((size) => {
                                         const classes = classNames(lineHeightClasses, fontWeightClasses, {
                                             'text-xs': size === 'xs',
                                             'text-sm': size === 'sm',
