@@ -7,10 +7,10 @@ import type { DialogSize, IDialogRootProps } from './dialogRoot.api';
 import { DialogRootHiddenElement } from './dialogRootHiddenElement';
 
 const sizeToClassNames: Record<DialogSize, string> = {
-    sm: 'max-w-[320px]',
-    md: 'max-w-[480px]',
-    lg: 'max-w-[640px]',
-    xl: 'max-w-[880px]',
+    sm: 'max-w-80',
+    md: 'max-w-120',
+    lg: 'max-w-160',
+    xl: 'max-w-220',
 };
 
 export const DialogRoot: React.FC<IDialogRootProps> = (props) => {

@@ -1,37 +1,3 @@
-:root {
-  --guk-space-base: 4px;
-  --guk-space-0: calc(var(--guk-space-base) * 0);
-  --guk-space-0-25: calc(var(--guk-space-base) * 0.25);
-  --guk-space-0-5: calc(var(--guk-space-base) * 0.5);
-  --guk-space-1-5: calc(var(--guk-space-base) * 1.5);
-  --guk-space-2: calc(var(--guk-space-base) * 2);
-  --guk-space-2-5: calc(var(--guk-space-base) * 2.5);
-  --guk-space-3: calc(var(--guk-space-base) * 3);
-  --guk-space-3-5: calc(var(--guk-space-base) * 3.5);
-  --guk-space-4: calc(var(--guk-space-base) * 4);
-  --guk-space-5: calc(var(--guk-space-base) * 5);
-  --guk-space-6: calc(var(--guk-space-base) * 6);
-  --guk-space-7: calc(var(--guk-space-base) * 7);
-  --guk-space-8: calc(var(--guk-space-base) * 8);
-  --guk-space-9: calc(var(--guk-space-base) * 9);
-  --guk-space-10: calc(var(--guk-space-base) * 10);
-  --guk-space-11: calc(var(--guk-space-base) * 11);
-  --guk-space-12: calc(var(--guk-space-base) * 12);
-  --guk-space-14: calc(var(--guk-space-base) * 14);
-  --guk-space-16: calc(var(--guk-space-base) * 16);
-  --guk-space-20: calc(var(--guk-space-base) * 20);
-  --guk-space-24: calc(var(--guk-space-base) * 24);
-  --guk-space-28: calc(var(--guk-space-base) * 28);
-  --guk-space-32: calc(var(--guk-space-base) * 32);
-  --guk-space-36: calc(var(--guk-space-base) * 36);
-  --guk-space-40: calc(var(--guk-space-base) * 40);
-  --guk-space-44: calc(var(--guk-space-base) * 44);
-  --guk-space-48: calc(var(--guk-space-base) * 48);
-  --guk-space-52: calc(var(--guk-space-base) * 52);
-  --guk-space-56: calc(var(--guk-space-base) * 56);
-  --guk-space-60: calc(var(--guk-space-base) * 60);
-  --guk-space-64: calc(var(--guk-space-base) * 64);
-  --guk-space-72: calc(var(--guk-space-base) * 72);
-  --guk-space-80: calc(var(--guk-space-base) * 80);
-  --guk-space-96: calc(var(--guk-space-base) * 96);
+@theme {
+  --spacing: 4px;
 }
