@@ -43,7 +43,7 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     return (
         <EditorContent
             editor={parser}
-            className={classNames('prose', className)}
+            className={classNames('prose prose-neutral', className)}
             data-testid="doc-parser"
             {...otherProps}
         />
