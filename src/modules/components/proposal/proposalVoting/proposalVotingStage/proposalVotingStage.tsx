@@ -68,13 +68,13 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     {...otherProps}
                 >
                     {bodyList && bodyList.length > 1 && (
-                        <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                        <p className="text-lg leading-tight font-normal text-neutral-800">{name}</p>
                     )}
                     <ProposalVotingStageStatus
                         status={status}
                         endDate={endDate}
                         isMultiStage={false}
-                        className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
+                        className={classNames({ 'md:absolute md:top-9 md:right-9': !bodyList })}
                     />
                     {children}
                 </Card>
@@ -88,10 +88,10 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                 <Accordion.ItemHeader>
                     <div className="flex grow flex-row justify-between gap-4 md:gap-6">
                         <div className="flex flex-col items-start gap-1">
-                            <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                            <p className="text-lg leading-tight font-normal text-neutral-800">{name}</p>
                             <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
                         </div>
-                        <p className="mt-1 text-sm font-normal leading-tight text-neutral-500">
+                        <p className="mt-1 text-sm leading-tight font-normal text-neutral-500">
                             {copy.proposalVotingStage.stage(index! + 1)}
                         </p>
                     </div>

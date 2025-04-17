@@ -119,7 +119,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
     const inputAvatarClassNames = classNames(
         'group flex size-16 items-center justify-center rounded-full bg-neutral-0 hover:shadow-neutral',
-        'focus:outline-none focus-visible:ring focus-visible:ring-offset',
+        'focus:outline-hidden focus-visible:ring focus-visible:ring-offset',
         containerClasses,
     );
 
@@ -134,8 +134,8 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                         <button
                             onClick={handleCancel}
                             className={classNames(
-                                'absolute -right-1 -top-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral',
-                                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+                                'bg-neutral-0 shadow-neutral absolute -top-1 -right-1 cursor-pointer rounded-full p-1',
+                                'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring',
                             )}
                             type="button"
                             aria-label="Cancel Selection"

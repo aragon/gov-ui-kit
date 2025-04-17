@@ -60,7 +60,7 @@ export const CustomResults: Story = {
         summary: 'Pass the custom proposal results as children property to render a custom UI.',
         publisher: { address: '0x17C6808fA04DC9de98eaCfeb4c66B352067c1cDD' },
         children: (
-            <div className="flex h-24 w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+            <div className="border-info-300 bg-info-100 flex h-24 w-full items-center justify-center border border-dashed">
                 Custom results breakdown
             </div>
         ),
