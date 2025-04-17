@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': patch
 ---
 
-Update DialogAlert component for 'size' prop
+Update `DialogAlert` core component to support `size` property
