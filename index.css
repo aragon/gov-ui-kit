@@ -1,4 +1,4 @@
-@import "./src" layer(base);
+@import "./src";
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
