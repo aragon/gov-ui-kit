@@ -177,7 +177,7 @@ const FoundersApprovalContent: React.FC<FoundersApprovalContentProps> = (props) 
  */
 export const MultiStage: Story = {
     args: {
-        className: 'max-w-[560px]',
+        className: 'max-w-140',
     },
     render: (args) => {
         const [activeStage, setActiveStage] = useState<string | undefined>('0');
@@ -223,7 +223,7 @@ export const MultiStage: Story = {
  */
 export const SingleStage: Story = {
     args: {
-        className: 'max-w-[560px]',
+        className: 'max-w-140',
     },
     render: (args) => {
         const [search, setSearch] = useState<string | undefined>('');
@@ -256,7 +256,7 @@ export const SingleStage: Story = {
  */
 export const SingleStageMultiBody: Story = {
     args: {
-        className: 'max-w-[560px]',
+        className: 'max-w-140',
     },
     render: (args) => {
         const bodyList = ['Token holder voting', 'Founders approval'];
@@ -315,7 +315,7 @@ export const SingleStageMultiBody: Story = {
  */
 export const MultiStageMultiBody: Story = {
     args: {
-        className: 'max-w-[560px]',
+        className: 'max-w-140',
     },
     render: (args) => {
         const bodyList = ['Token holder voting', 'Founders approval'];

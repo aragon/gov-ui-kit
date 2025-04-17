@@ -1,20 +1,10 @@
-:root {
-  --guk-border-radius-md: 4px;
-  --guk-border-radius-lg: 8px;
-  --guk-border-radius-xl: 12px;
-  --guk-border-radius-2xl: 16px;
-  --guk-border-radius-3xl: 24px;
-  --guk-border-radius-full: 9999px;
-  --guk-border-radius-none: none;
-}
-
 @theme {
   --radius-*: initial;
-  --radius-md: var(--guk-border-radius-md);
-  --radius-lg: var(--guk-border-radius-lg);
-  --radius-xl: var(--guk-border-radius-xl);
-  --radius-2xl: var(--guk-border-radius-2xl);
-  --radius-3xl: var(--guk-border-radius-3xl);
-  --radius-full: var(--guk-border-radius-full);
-  --radius-none: var(--guk-border-radius-none);
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+  --radius-none: none;
 }

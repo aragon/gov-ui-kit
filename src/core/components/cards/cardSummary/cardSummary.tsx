@@ -16,11 +16,7 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
 
     return (
         <Card
-            className={classNames(
-                { 'w-[320px] md:w-[480px]': isStacked },
-                { 'w-[320px] md:w-[640px]': !isStacked },
-                className,
-            )}
+            className={classNames({ 'w-80 md:w-120': isStacked }, { 'w-80 md:w-160': !isStacked }, className)}
             {...otherProps}
         >
             <div className={containerClassNames}>

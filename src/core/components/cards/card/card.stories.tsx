@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Card>;
  */
 export const Default: Story = {
     args: {
-        className: 'min-w-[320px]',
+        className: 'min-w-80',
         children: (
             <div className="flex flex-col items-center p-2">
                 <p className="text-xs leading-normal font-semibold">Example</p>
