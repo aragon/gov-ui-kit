@@ -9,10 +9,10 @@ import type { DialogAlertSize, IDialogAlertRootProps } from './dialogAlertRoot.a
 import { DialogAlertRootHiddenElement } from './dialogAlertRootHiddenElement';
 
 const sizeToClassNames: Record<DialogAlertSize, string> = {
-    sm: 'max-w-[320px]',
-    md: 'max-w-[480px]',
-    lg: 'max-w-[640px]',
-    xl: 'max-w-[880px]',
+    sm: 'max-w-80',
+    md: 'max-w-120',
+    lg: 'max-w-160',
+    xl: 'max-w-220',
 };
 
 export const DialogAlertRoot: React.FC<IDialogAlertRootProps> = (props) => {
