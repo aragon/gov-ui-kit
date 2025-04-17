@@ -118,7 +118,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             <RadixDropdown.Portal>
                 <RadixDropdown.Content
                     className={classNames(
-                        'flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm',
+                        'bg-neutral-0 shadow-neutral-sm flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 p-2',
                         'z-[var(--guk-dropdown-container-content-z-index)]',
                         { 'max-h-[var(--radix-dropdown-menu-content-available-height)]': constrainContentHeight },
                         { 'max-w-[var(--radix-dropdown-menu-content-available-width)]': constrainContentWidth },
