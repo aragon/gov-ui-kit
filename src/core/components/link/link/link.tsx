@@ -36,7 +36,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
 
     const processedVariant = disabled ? 'disabled' : variant;
     const linkClassName = classNames(
-        'inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded text-sm leading-tight',
+        'inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded-md text-sm leading-tight',
         'focus:outline-hidden focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
         'md:gap-y-1 md:text-base',
         variantToLabelClassNames[processedVariant],
