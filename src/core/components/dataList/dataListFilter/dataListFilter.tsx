@@ -107,7 +107,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                 <input
                     type="search"
                     className={classNames(
-                        'search-cancel:appearance-none size-full truncate bg-transparent pl-3 caret-neutral-500 outline-hidden',
+                        'search-cancel-hidden size-full truncate bg-transparent pl-3 caret-neutral-500 outline-hidden',
                         'placeholder:text-base placeholder:leading-tight placeholder:font-normal placeholder:text-neutral-300',
                     )}
                     onFocus={handleInputFocus}
