@@ -31,7 +31,7 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
     return (
         <InputContainer variant={variant} {...otherContainerProps}>
             <input
-                className={classNames('spin-buttons:appearance-none', inputClassName)}
+                className={classNames('spin-buttons-hidden', inputClassName)}
                 ref={ref}
                 max={max}
                 min={min}
