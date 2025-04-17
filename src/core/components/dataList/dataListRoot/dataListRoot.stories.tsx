@@ -31,8 +31,8 @@ const ListItemComponentLoading = () => (
     <DataListItem className="flex animate-pulse flex-row items-center gap-2 py-4 md:py-6">
         <div className="size-6 rounded-full bg-neutral-50" />
         <div className="flex grow flex-col gap-2">
-            <div className="h-2 grow rounded bg-neutral-50" />
-            <div className="h-2 w-1/3 rounded bg-neutral-50" />
+            <div className="h-2 grow rounded-md bg-neutral-50" />
+            <div className="h-2 w-1/3 rounded-md bg-neutral-50" />
         </div>
     </DataListItem>
 );

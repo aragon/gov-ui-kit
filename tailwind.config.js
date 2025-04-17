@@ -123,15 +123,6 @@ module.exports = {
         ringOffsetWidth: {
             DEFAULT: '2px',
         },
-        borderRadius: {
-            DEFAULT: 'var(--guk-border-rounded)',
-            lg: 'var(--guk-border-rounded-lg)',
-            xl: 'var(--guk-border-rounded-xl)',
-            '2xl': 'var(--guk-border-rounded-2xl)',
-            '3xl': 'var(--guk-border-rounded-3xl)',
-            full: 'var(--guk-border-rounded-full)',
-            none: 'var(--guk-border-rounded-none)',
-        },
         boxShadow: {
             'neutral-sm': 'var(--guk-shadow-neutral-sm)',
             neutral: 'var(--guk-shadow-neutral)',
