@@ -74,43 +74,6 @@ module.exports = {
             },
             transparent: 'var(--guk-color-transparent)',
         },
-        spacing: {
-            0: 'var(--guk-space-0)', // 0px
-            0.25: 'var(--guk-space-0-25)', // 1px
-            0.5: 'var(--guk-space-0-5)', // 2px
-            1: 'var(--guk-space-base)', // 4px
-            1.5: 'var(--guk-space-1-5)', // 6px
-            2: 'var(--guk-space-2)', // 8px
-            2.5: 'var(--guk-space-2-5)', // 10px
-            3: 'var(--guk-space-3)', // 12px
-            3.5: 'var(--guk-space-3-5)', // 14px
-            4: 'var(--guk-space-4)', // 16px
-            5: 'var(--guk-space-5)', // 20px
-            6: 'var(--guk-space-6)', // 24px
-            7: 'var(--guk-space-7)', // 28px
-            8: 'var(--guk-space-8)', // 32px
-            9: 'var(--guk-space-9)', // 36px
-            10: 'var(--guk-space-10)', // 40px
-            11: 'var(--guk-space-11)', // 44px
-            12: 'var(--guk-space-12)', // 48px
-            14: 'var(--guk-space-14)', // 56px
-            16: 'var(--guk-space-16)', // 64px
-            20: 'var(--guk-space-20)', // 80px
-            24: 'var(--guk-space-24)', // 96px
-            28: 'var(--guk-space-28)', // 112px
-            32: 'var(--guk-space-32)', // 128px
-            36: 'var(--guk-space-36)', // 144px
-            40: 'var(--guk-space-40)', // 160px
-            44: 'var(--guk-space-44)', // 176px
-            48: 'var(--guk-space-48)', // 192px
-            52: 'var(--guk-space-52)', // 208px
-            56: 'var(--guk-space-56)', // 224px
-            60: 'var(--guk-space-60)', // 240px
-            64: 'var(--guk-space-64)', // 256px
-            72: 'var(--guk-space-72)', // 288px
-            80: 'var(--guk-space-80)', // 320px
-            96: 'var(--guk-space-96)', // 384px
-        },
         ringWidth: {
             DEFAULT: '3px',
         },
