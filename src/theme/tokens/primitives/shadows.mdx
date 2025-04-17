@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
-import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../../tailwind.config';
 
 <Meta title="Theme/Tokens/Primitive/Shadows" />
@@ -15,7 +14,7 @@ export const DisplayComponent = ({ className, children, style }) => (
     </div>
 );
 
-export const shadows = Object.entries(resolveConfig(tailwindConfig).theme?.boxShadow ?? {});
+export const shadows = Object.entries(tailwindConfig.theme?.boxShadow ?? {});
 export const shadowVariants = {
     neutral: shadows.filter((shadow) => shadow[0].includes('neutral')),
     primary: shadows.filter((shadow) => shadow[0].includes('primary')),

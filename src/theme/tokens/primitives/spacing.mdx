@@ -1,13 +1,12 @@
 import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
-import resolveConfig from 'tailwindcss/resolveConfig';
 import classNames from 'classnames';
 import tailwindConfig from '../../../../tailwind.config';
 
 <Meta title="Theme/Tokens/Primitive/Spacing" />
 
 export const getSpacingConfig = () => {
-    const spacers = Object.entries(resolveConfig(tailwindConfig).theme?.spacing ?? {});
+    const spacers = Object.entries(tailwindConfig.theme?.spacing ?? {});
     const spacerItems = spacers.map(([key, value]) => {
         const parsedKey = parseFloat(key);
         const pxSize = Number.isNaN(parsedKey) ? 1 : 4 * parsedKey;

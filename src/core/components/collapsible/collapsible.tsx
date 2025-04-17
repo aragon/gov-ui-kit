@@ -98,7 +98,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                     ) : (
                         <button
                             onClick={toggle}
-                            className="group text-primary-400 hover:text-primary-600 active:text-primary-800 flex items-center"
+                            className="group text-primary-400 hover:text-primary-600 active:text-primary-800 flex cursor-pointer items-center"
                         >
                             {isOpen ? buttonLabelOpened : buttonLabelClosed}
                             <Icon

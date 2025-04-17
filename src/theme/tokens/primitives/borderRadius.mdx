@@ -1,7 +1,6 @@
 import { Meta } from '@storybook/blocks';
 import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
-import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '../../../../tailwind.config';
 
 <Meta title="Theme/Tokens/Primitive/Border Radius" />
@@ -13,7 +12,7 @@ export const DisplayComponent = ({ className, children }) => (
 # Border Radius
 
 <div className="flex flex-wrap p-14 gap-14 bg-neutral-50 text-neutral-800">
-    {Object.keys(resolveConfig(tailwindConfig).theme?.borderRadius ?? {}).map((token) => {
+    {Object.keys(tailwindConfig.theme?.borderRadius ?? {}).map((token) => {
         const classes = classNames('border', {
             'rounded-full': token === 'full',
             'rounded-3xl': token === '3xl',

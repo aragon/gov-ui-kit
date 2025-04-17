@@ -25,20 +25,20 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
 
 const responsiveIndicatorSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
     sm: {
-        default: 'h-2',
-        sm: 'sm:h-2',
-        md: 'md:h-2',
-        lg: 'lg:h-2',
-        xl: 'xl:h-2',
-        '2xl': '2xl:h-2',
+        default: 'h-2 -top-1/2',
+        sm: 'sm:h-2 sm:-top-1/2',
+        md: 'md:h-2 md:-top-1/2',
+        lg: 'lg:h-2 lg:-top-1/2',
+        xl: 'xl:h-2 xl:-top-1/2',
+        '2xl': '2xl:h-2 2xl:-top-1/2',
     },
     md: {
-        default: 'h-4',
-        sm: 'sm:h-4',
-        md: 'md:h-4',
-        lg: 'lg:h-4',
-        xl: 'xl:h-4',
-        '2xl': '2xl:h-4',
+        default: 'h-4 -top-1',
+        sm: 'sm:h-4 sm:-top-1',
+        md: 'md:h-4 md:-top-1',
+        lg: 'lg:h-4 lg:-top-1',
+        xl: 'xl:h-4 xl:-top-1',
+        '2xl': '2xl:h-4 2xl:-top-1',
     },
 };
 

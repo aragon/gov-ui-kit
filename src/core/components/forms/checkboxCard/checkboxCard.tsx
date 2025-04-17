@@ -73,13 +73,13 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             onCheckedChange={onCheckedChange}
             disabled={disabled}
             className={classNames(
-                'group flex min-w-0 flex-col gap-3 outline-hidden transition-all', // Layout
+                'group flex min-w-0 cursor-pointer flex-col gap-3 outline-hidden transition-all', // Layout
                 'bg-neutral-0 rounded-xl border px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
                 'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring', // Focus
                 'border-primary-400 shadow-primary hover:shadow-primary-md', // Checked/indeterminate & hover
                 'data-[state=unchecked]:enabled:shadow-neutral-sm data-[state=unchecked]:enabled:border-neutral-100', // Unchecked
                 'data-[state=unchecked]:enabled:hover:shadow-neutral', // Unchecked hover
-                'disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // Checked/indeterminate & disabled
+                'disabled:cursor-default disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // Checked/indeterminate & disabled
                 'disabled:data-[state=unchecked]:border-neutral-200', // Disabled & unchecked
                 className,
             )}

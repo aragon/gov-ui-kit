@@ -30,8 +30,9 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
             <RadixAccordionTrigger
                 className={classNames(
-                    'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden group-data-disabled:bg-neutral-100 md:gap-x-6 md:px-6 md:py-5',
+                    'relative flex flex-1 cursor-pointer items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
                     'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring',
+                    'group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
                     className,
                 )}
                 ref={ref}
