@@ -204,9 +204,9 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     const commonClasses = [
         'flex flex-row items-center justify-center group', // Layout
         'leading-tight font-normal', // Typography
-        'border transition-all cursor:pointer', // Commons
+        'border transition-all cursor-pointer', // Commons
         'outline-hidden focus:outline-hidden focus-visible:ring focus-visible:ring-offset', // States
-        'active:shadow-none aria-disabled:shadow-none', // Active/Disabled states
+        'active:shadow-none aria-disabled:shadow-none aria-disabled:cursor-default', // Active/Disabled states
     ];
 
     const variantClasses = variantToClassNames[variant].filter((classes) => {
