@@ -3,3 +3,7 @@
 ---
 
 Migrate library to Tailwind CSS v4
+
+**Breaking**:
+
+- Remove `rounded` class in favour of `rounded-md`
