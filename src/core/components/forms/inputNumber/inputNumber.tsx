@@ -110,7 +110,7 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
                 min={min}
                 inputMode="numeric"
                 onKeyDown={handleKeyDown}
-                className={classNames('spin-buttons:appearance-none text-center', inputClassName)}
+                className={classNames('spin-buttons-hidden text-center', inputClassName)}
                 {...otherInputProps}
             />
             {!disabled && (
