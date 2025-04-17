@@ -205,7 +205,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         'flex flex-row items-center justify-center group', // Layout
         'leading-tight font-normal', // Typography
         'border transition-all cursor:pointer', // Commons
-        'outline-none focus:outline-none focus-visible:ring focus-visible:ring-offset', // States
+        'outline-hidden focus:outline-hidden focus-visible:ring focus-visible:ring-offset', // States
         'active:shadow-none aria-disabled:shadow-none', // Active/Disabled states
     ];
 

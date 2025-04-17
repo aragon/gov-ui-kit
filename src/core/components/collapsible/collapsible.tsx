@@ -71,7 +71,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
 
     const footerClassName = classNames(
         {
-            'left-0 z-[var(--guk-collapsible-overlay-z-index)] flex w-full items-end bg-gradient-to-t from-neutral-0 from-40% to-transparent':
+            'left-0 z-[var(--guk-collapsible-overlay-z-index)] flex w-full items-end bg-linear-to-t from-neutral-0 from-40% to-transparent':
                 showOverlay,
         },
         { 'absolute bottom-0 h-28 md:h-32': !isOpen && showOverlay },
@@ -98,13 +98,13 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                     ) : (
                         <button
                             onClick={toggle}
-                            className="group flex items-center text-primary-400 hover:text-primary-600 active:text-primary-800"
+                            className="group text-primary-400 hover:text-primary-600 active:text-primary-800 flex items-center"
                         >
                             {isOpen ? buttonLabelOpened : buttonLabelClosed}
                             <Icon
                                 icon={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                                 size="sm"
-                                className="ml-2 text-primary-300 group-hover:text-primary-500 group-active:text-primary-700"
+                                className="text-primary-300 group-hover:text-primary-500 group-active:text-primary-700 ml-2"
                             />
                         </button>
                     )}

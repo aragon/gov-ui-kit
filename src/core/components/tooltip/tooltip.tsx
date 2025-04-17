@@ -95,7 +95,7 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
                     <Content
                         className={classNames(
                             variantToContentClassName[variant],
-                            'flex min-h-6 items-center rounded px-1.5 text-sm font-semibold leading-tight',
+                            'flex min-h-6 items-center rounded px-1.5 text-sm leading-tight font-semibold',
                             className,
                         )}
                         sideOffset={1}

@@ -59,20 +59,20 @@ export const Switch: React.FC<ISwitchProps> = (props) => {
     const switchClassNames = classNames(
         'group peer w-10 cursor-default rounded-[40px] border border-neutral-200 bg-neutral-0 p-1 shadow-neutral-sm', // Default
         'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // Checked
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
+        'focus:outline-hidden focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
         'disabled:bg-neutral-100 disabled:data-[state=checked]:border-neutral-200 disabled:data-[state=checked]:shadow-none', // Disabled
     );
 
     const thumbClassNames = classNames(
         'block size-4 rounded-full bg-neutral-300 transition-transform duration-100 will-change-transform', // Default
         'data-[state=checked]:translate-x-[14px] data-[state=checked]:bg-primary-400', // Checked
-        'group-disabled:bg-neutral-200 group-disabled:data-[state=checked]:bg-neutral-300', // Disabled
+        'group-disabled:bg-neutral-200 data-[state=checked]:group-disabled:bg-neutral-300', // Disabled
     );
 
     const labelClassNames = classNames(
         'pl-2 text-sm font-normal leading-tight text-neutral-500 md:pl-3 md:text-base', // Default
         'peer-data-[state=checked]:text-neutral-800', // Checked
-        'peer-disabled:text-neutral-300 peer-disabled:peer-data-[state=checked]:text-neutral-800', // Disabled
+        'peer-disabled:text-neutral-300 peer-data-[state=checked]:peer-disabled:text-neutral-800', // Disabled
     );
 
     return (

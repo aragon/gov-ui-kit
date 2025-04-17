@@ -43,7 +43,7 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
             />
             <p
                 className={classNames(
-                    'text-xs font-normal leading-tight md:text-base',
+                    'text-xs leading-tight font-normal md:text-base',
                     variantToTextClassNames[variant],
                 )}
             >

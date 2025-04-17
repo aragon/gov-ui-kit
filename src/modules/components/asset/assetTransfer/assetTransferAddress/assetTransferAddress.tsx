@@ -36,8 +36,8 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             rel="noopener noreferrer"
             className={classNames(
                 'group flex h-20 items-center space-x-4 border-neutral-100 px-4', //base
-                'hover:border-neutral-200 hover:shadow-neutral-md', //hover
-                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', //focus
+                'hover:shadow-neutral-md hover:border-neutral-200', //hover
+                'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring', //focus
                 'active:border-neutral-300 active:shadow-none', //active
                 'md:w-1/2 md:p-6', //responsive
                 {
@@ -45,8 +45,8 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     'rounded-b-xl md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base
                 },
                 {
-                    'border-x border-t md:border-y md:border-l md:border-r-0': txRole === 'sender', // sender borders
-                    'border-x border-b md:border-y md:border-l-0 md:border-r': txRole === 'recipient', // recipient borders
+                    'border-x border-t md:border-y md:border-r-0 md:border-l': txRole === 'sender', // sender borders
+                    'border-x border-b md:border-y md:border-r md:border-l-0': txRole === 'recipient', // recipient borders
                 },
                 {
                     'focus-visible:rounded-t-xl md:focus-visible:rounded-l-xl md:focus-visible:rounded-r-none':
@@ -64,17 +64,17 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                 avatarSrc={participant.avatarSrc}
             />
             <div className="flex min-w-0 flex-col">
-                <span className="text-xs font-normal leading-tight text-neutral-500 md:text-sm">
+                <span className="text-xs leading-tight font-normal text-neutral-500 md:text-sm">
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
                 <div className="flex items-center space-x-1">
-                    <span className="truncate text-sm font-normal leading-tight text-neutral-800 md:text-base">
+                    <span className="truncate text-sm leading-tight font-normal text-neutral-800 md:text-base">
                         {resolvedUserHandle}
                     </span>
                     <Icon
                         icon={IconType.LINK_EXTERNAL}
                         size="sm"
-                        className="float-right text-neutral-300 group-hover:text-primary-300 group-active:text-primary-400"
+                        className="group-hover:text-primary-300 group-active:text-primary-400 float-right text-neutral-300"
                     />
                 </div>
             </div>

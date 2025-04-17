@@ -92,7 +92,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     <div className="flex w-full flex-row items-center gap-2">
                         <p
                             className={classNames(
-                                'truncate text-base font-normal leading-tight md:text-lg',
+                                'truncate text-base leading-tight font-normal md:text-lg',
                                 functionNameStyle,
                             )}
                         >
@@ -107,7 +107,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         href={targetAddressUrl}
                         target="_blank"
                     >
-                        <p className="truncate text-sm font-normal leading-tight text-neutral-500 md:text-base">
+                        <p className="truncate text-sm leading-tight font-normal text-neutral-500 md:text-base">
                             {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
                         </p>
                         {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}

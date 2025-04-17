@@ -67,7 +67,7 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
     return (
         <div
             className={classNames('flex flex-row justify-between gap-2 px-4 py-3 md:gap-3', {
-                'bg-gradient-to-b from-neutral-50': !disabled,
+                'bg-linear-to-b from-neutral-50': !disabled,
             })}
         >
             <div className="flex flex-row flex-wrap gap-2 md:gap-3">

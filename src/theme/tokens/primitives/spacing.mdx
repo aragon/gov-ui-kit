@@ -27,7 +27,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
             <td className="border-b px-4 py-2">{`${sizeRem}${sizeRem === 1 || sizeRem === 0 ? 'px' : 'rem'}`}</td>
             <td className="border-b px-4 py-2">{`${sizePx}px`}</td>
             <td className="border-b px-4 py-2">
-                <div style={{ width: value }} className="h-6 bg-primary-300" />
+                <div style={{ width: value }} className="bg-primary-300 h-6" />
             </td>
         </tr>
     );
@@ -36,7 +36,7 @@ export const DisplayComponent = ({ name, value, sizePx, sizeRem }) => {
 # Spacing
 
 <div className="flex">
-    <table className="px-4-collapse bg-white table-fixed border-b text-neutral-800">
+    <table className="px-4-collapse table-fixed border-b bg-white text-neutral-800">
         <thead>
             <tr className="text-left">
                 <th className="border-b px-4 py-2">Name</th>
