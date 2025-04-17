@@ -232,141 +232,130 @@ module.exports = {
                 'modal-header': 'linear-gradient(180deg, #F5F7FA 0%, rgba(245, 247, 250, 0) 100%)',
                 'modal-footer': 'linear-gradient(180deg, rgba(245, 247, 250, 0) 0%, #F5F7FA 100%)',
             },
-            typography: ({ theme }) => ({
+            typography: {
                 DEFAULT: {
                     css: {
-                        '--tw-prose-body': theme('colors.neutral.500'),
-                        '--tw-prose-headings': theme('colors.neutral.800'),
-                        '--tw-prose-lead': theme('colors.neutral.600'),
-                        '--tw-prose-links': theme('colors.primary.400'),
+                        '--tw-prose-body': 'var(--guk-color-neutral-500)',
+                        '--tw-prose-headings': 'var(--guk-color-neutral-800)',
+                        '--tw-prose-lead': 'var(--guk-color-neutral-600)',
+                        '--tw-prose-links': 'var(--guk-color-primary-400)',
 
-                        color: theme('colors.neutral.500'),
+                        color: 'var(--guk-color-neutral-500)',
                         maxWidth: 'none',
 
                         h1: {
-                            marginTop: theme('spacing.2'),
-                            marginBottom: theme('spacing.10'),
-                            fontSize: theme('fontSize.2xl'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.3xl'),
+                            marginTop: 'var(--guk-space-2)',
+                            marginBottom: 'var(--guk-space-10)',
+                            fontSize: 'var(--guk-font-size-2xl)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-3xl)',
                             },
                         },
                         h2: {
-                            marginTop: theme('spacing.2'),
-                            marginBottom: theme('spacing.8'),
-                            fontSize: theme('fontSize.xl'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.2xl'),
+                            marginTop: 'var(--guk-space-2)',
+                            marginBottom: 'var(--guk-space-8)',
+                            fontSize: 'var(--guk-font-size-xl)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-2xl)',
                             },
                         },
                         h3: {
-                            marginTop: theme('spacing.2'),
-                            marginBottom: theme('spacing.6'),
-                            fontSize: theme('fontSize.lg'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.xl'),
+                            marginTop: 'var(--guk-space-2)',
+                            marginBottom: 'var(--guk-space-6)',
+                            fontSize: 'var(--guk-font-size-lg)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-xl)',
                             },
                         },
                         h4: {
-                            marginBottom: theme('spacing.4'),
-                            fontSize: theme('fontSize.base'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.lg'),
+                            marginBottom: 'var(--guk-space-4)',
+                            fontSize: 'var(--guk-font-size-base)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-lg)',
                             },
                         },
                         h5: {
-                            marginBottom: theme('spacing.2'),
-                            fontSize: theme('fontSize.sm'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.base'),
+                            marginBottom: 'var(--guk-space-2)',
+                            fontSize: 'var(--guk-font-size-sm)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-base)',
                             },
                         },
                         h6: {
-                            marginBottom: theme('spacing.1'),
-                            fontSize: theme('fontSize.xs'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.sm'),
+                            marginBottom: 'var(--guk-space-base)',
+                            fontSize: 'var(--guk-font-size-xs)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-sm)',
                             },
                         },
                         p: {
                             marginTop: '0',
                             marginBottom: '0',
-                            fontSize: theme('fontSize.base'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.lg'),
+                            fontSize: 'var(--guk-font-size-base)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-lg)',
                             },
                         },
                         a: {
-                            color: theme('colors.primary.400'),
+                            color: 'var(--guk-color-primary-400)',
                             textDecoration: 'none',
-                            '&:hover': {
-                                color: theme('colors.primary.600'),
-                            },
-                            '&:active': {
-                                color: theme('colors.primary.800'),
-                            },
+                            '&:hover': { color: 'var(--guk-color-primary-600)' },
+                            '&:active': { color: 'var(--guk-color-primary-800)' },
                         },
                         strong: {
-                            fontSize: theme('fontSize.base'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.lg'),
+                            fontSize: 'var(--guk-font-size-base)',
+                            color: 'var(--guk-color-neutral-500)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-lg)',
                             },
-                            color: theme('colors.neutral.500'),
                         },
                         em: {
-                            fontSize: theme('fontSize.base'),
-                            '@screen md': {
-                                fontSize: theme('fontSize.lg'),
+                            fontSize: 'var(--guk-font-size-base)',
+                            color: 'var(--guk-color-neutral-500)',
+                            '@media (min-width: 786px)': {
+                                fontSize: 'var(--guk-font-size-lg)',
                             },
-                            color: theme('colors.neutral.500'),
                         },
                         blockquote: {
-                            borderRadius: theme('borderRadius.lg'),
-                            border: `1px solid ${theme('colors.neutral.200')}`,
-                            backgroundColor: theme('colors.neutral.50'),
-                            padding: theme('spacing.10'),
-                            boxShadow: theme('boxShadow.md'),
+                            borderRadius: 'var(--guk-border-rounded-lg)',
+                            border: `1px solid var(--guk-color-neutral-200)`,
+                            backgroundColor: 'var(--guk-color-neutral-50)',
+                            padding: 'var(--guk-space-10)',
+                            boxShadow: 'var(--guk-shadow-neutral-md)',
                         },
                         pre: {
-                            borderRadius: theme('borderRadius.lg'),
-                            backgroundColor: theme('colors.neutral.900'),
-                            color: theme('colors.neutral.50'),
+                            borderRadius: 'var(--guk-border-rounded-lg)',
+                            backgroundColor: 'var(--guk-color-neutral-900)',
+                            color: 'var(--guk-color-neutral-50)',
                         },
                         code: {
-                            backgroundColor: theme('colors.neutral.900'),
-                            color: theme('colors.neutral.50'),
-                            padding: theme('spacing.1'),
-                            'border-radius': '0.25rem',
+                            backgroundColor: 'var(--guk-color-neutral-900)',
+                            color: 'var(--guk-color-neutral-50)',
+                            padding: 'var(--guk-space-base)',
+                            borderRadius: '0.25rem',
                         },
-                        'code::before': {
-                            content: '""',
-                            'padding-left': '0.25rem',
-                        },
-                        'code::after': {
-                            content: '""',
-                            'padding-right': '0.25rem',
-                        },
+                        'code::before': { content: '""', 'padding-left': '0.25rem' },
+                        'code::after': { content: '""', 'padding-right': '0.25rem' },
                         img: {
                             overflow: 'hidden',
-                            borderRadius: theme('borderRadius.xl'),
-                            boxShadow: theme('boxShadow.md'),
+                            borderRadius: 'var(--guk-border-rounded-xl)',
+                            boxShadow: 'var(--guk-shadow-neutral-md)',
                         },
                         video: {
                             overflow: 'hidden',
-                            borderRadius: theme('borderRadius.xl'),
-                            boxShadow: theme('boxShadow.md'),
+                            borderRadius: 'var(--guk-border-rounded-xl)',
+                            boxShadow: 'var(--guk-shadow-neutral-md)',
                         },
                         hr: {
-                            marginTop: theme('spacing.10'),
-                            borderColor: theme('colors.neutral.200'),
+                            marginTop: 'var(--guk-space-10)',
+                            borderColor: 'var(--guk-color-neutral-200)',
                         },
                     },
                 },
-            }),
+            },
         },
     },
     plugins: [
-        require('@tailwindcss/typography'),
         require('tailwindcss/plugin')(({ addVariant }) => {
             addVariant('search-cancel', '&::-webkit-search-cancel-button');
             addVariant('calendar-icon', ['&::-webkit-calendar-picker-indicator', '&::-webkit-inner-spin-button']);
