@@ -117,7 +117,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     value={searchValue}
                 />
                 {displayClearIcon && (
-                    <button className="mr-2 p-2.5 md:mr-4" onClick={handleClear}>
+                    <button className="mr-2 cursor-pointer p-2.5 md:mr-4" onClick={handleClear}>
                         <Icon icon={IconType.CLOSE} size="sm" className="text-neutral-300" />
                     </button>
                 )}
