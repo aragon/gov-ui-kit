@@ -75,7 +75,7 @@ export const InputSearch = forwardRef<HTMLInputElement, IInputSearchProps>((prop
                 {...otherInputProps}
             />
             {displayClearIcon && (
-                <button className="mr-4" onClick={handleClear}>
+                <button className="mr-4 cursor-pointer" onClick={handleClear}>
                     <Icon icon={IconType.CLOSE} className="text-neutral-600" />
                 </button>
             )}
