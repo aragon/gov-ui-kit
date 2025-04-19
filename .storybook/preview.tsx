@@ -32,7 +32,7 @@ const preview: Preview = {
             values: [
                 {
                     name: 'neutral-50',
-                    value: 'var(--guk-color-neutral-50)',
+                    value: 'var(--color-neutral-50)',
                 },
             ],
         },
