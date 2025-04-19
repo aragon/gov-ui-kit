@@ -11,19 +11,19 @@ import { InputFileAvatarError, type IInputFileAvatarProps } from './inputFileAva
 const stateToClassNames: Record<InputVariant | 'disabled', { containerClasses: string[]; addIconClasses: string[] }> = {
     default: {
         containerClasses: [
-            'border-[1px] border-neutral-100 hover:border-neutral-200 border-dashed cursor-pointer focus-visible:ring-primary',
+            'border-[1px] border-neutral-100 hover:border-neutral-200 border-dashed cursor-pointer focus-ring-primary',
         ],
         addIconClasses: ['text-neutral-400 group-hover:text-neutral-600'],
     },
     warning: {
         containerClasses: [
-            'border-[1px] border-warning-300 hover:border-warning-400 border-dashed cursor-pointer focus-visible:ring-warning',
+            'border-[1px] border-warning-300 hover:border-warning-400 border-dashed cursor-pointer focus-ring-warning',
         ],
         addIconClasses: ['text-warning-500 group-hover:text-warning-600'],
     },
     critical: {
         containerClasses: [
-            'border-[1px] border-critical-500 hover:border-critical-600 border-dashed cursor-pointer focus-visible:ring-critical',
+            'border-[1px] border-critical-500 hover:border-critical-600 border-dashed cursor-pointer focus-ring-critical',
         ],
         addIconClasses: ['text-critical-500 group-hover:text-critical-600'],
     },
@@ -119,7 +119,6 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
     const inputAvatarClassNames = classNames(
         'group flex size-16 items-center justify-center rounded-full bg-neutral-0 hover:shadow-neutral',
-        'focus:outline-hidden focus-visible:ring focus-visible:ring-offset',
         containerClasses,
     );
 
@@ -134,8 +133,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                         <button
                             onClick={handleCancel}
                             className={classNames(
-                                'bg-neutral-0 shadow-neutral absolute -top-1 -right-1 cursor-pointer rounded-full p-1',
-                                'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring',
+                                'bg-neutral-0 shadow-neutral focus-ring-primary absolute -top-1 -right-1 cursor-pointer rounded-full p-1',
                             )}
                             type="button"
                             aria-label="Cancel Selection"

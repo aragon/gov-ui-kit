@@ -2,18 +2,6 @@
 module.exports = {
     content: ['./src/**/*.{jsx,ts,tsx,mdx}', './docs/**/*.{jsx,tsx,mdx}', '.storybook/*.{jsx,tsx}'],
     theme: {
-        ringWidth: {
-            DEFAULT: '3px',
-        },
-        ringColor: {
-            primary: 'var(--guk-color-primary-200)',
-            success: 'var(--guk-color-success-200)',
-            warning: 'var(--guk-color-warning-200)',
-            critical: 'var(--guk-color-critical-200)',
-        },
-        ringOffsetWidth: {
-            DEFAULT: '2px',
-        },
         boxShadow: {
             'neutral-sm': 'var(--guk-shadow-neutral-sm)',
             neutral: 'var(--guk-shadow-neutral)',
