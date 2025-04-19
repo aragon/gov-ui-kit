@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/blocks';
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
+
+<Meta title="Theme/Tokens/Primitive/Breakpoints" />
+
+export const breakpoints = ['sm', 'md', 'lg', 'xl', '2xl'];
+
+export const DisplayComponent = ({ name }) => {
+    const [breakpointValue, setBreakpointValue] = useState();
+
+    useEffect(() => {
+        const value = getComputedStyle(document.documentElement).getPropertyValue(`--breakpoint-${name}-px`)
+        setBreakpointValue(value);
+    }, [name]);
+
+    return (
+        <tr>
+            <td className="border-b px-4 py-2">{name}</td>
+            <td className="border-b px-4 py-2">{breakpointValue / 16}rem</td>
+            <td className="border-b px-4 py-2">{breakpointValue}px</td>
+        </tr>
+    );
+
+};
+
+# Breakpoints
+
+<div className="flex">
+    <table className="px-4-collapse w-full table-fixed border-b bg-white text-neutral-800">
+        <thead>
+            <tr className="text-left">
+                <th className="border-b px-4 py-2">Name</th>
+                <th className="border-b px-4 py-2">Rem</th>
+                <th className="border-b px-4 py-2">Pixels</th>
+            </tr>
+        </thead>
+        <tbody>
+            {breakpoints.map((breakpoint) => (
+                <DisplayComponent key={breakpoint} name={breakpoint} />
+            ))}
+        </tbody>
+    </table>
+</div>

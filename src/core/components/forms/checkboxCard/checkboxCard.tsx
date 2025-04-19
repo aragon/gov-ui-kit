@@ -73,13 +73,12 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
             onCheckedChange={onCheckedChange}
             disabled={disabled}
             className={classNames(
-                'group flex min-w-0 flex-col gap-3 outline-none transition-all', // Layout
-                'rounded-xl border bg-neutral-0 px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
-                'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // Focus
+                'group flex min-w-0 cursor-pointer flex-col gap-3 outline-hidden transition-all', // Layout
+                'bg-neutral-0 focus-ring-primary rounded-xl border px-4 py-3 md:gap-4 md:px-6 md:py-4', // Style
                 'border-primary-400 shadow-primary hover:shadow-primary-md', // Checked/indeterminate & hover
-                'data-[state=unchecked]:enabled:border-neutral-100 data-[state=unchecked]:enabled:shadow-neutral-sm', // Unchecked
+                'data-[state=unchecked]:enabled:shadow-neutral-sm data-[state=unchecked]:enabled:border-neutral-100', // Unchecked
                 'data-[state=unchecked]:enabled:hover:shadow-neutral', // Unchecked hover
-                'disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // Checked/indeterminate & disabled
+                'disabled:cursor-default disabled:border-neutral-300 disabled:bg-neutral-100 disabled:shadow-none', // Checked/indeterminate & disabled
                 'disabled:data-[state=unchecked]:border-neutral-200', // Disabled & unchecked
                 className,
             )}
@@ -87,18 +86,18 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
         >
             <div className={classNames('flex w-full min-w-0 flex-row gap-3', { 'items-center': !description })}>
                 {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
-                <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm font-normal leading-tight md:gap-1 md:text-base">
+                <div className="flex min-w-0 flex-1 flex-col items-start gap-0.5 text-sm leading-tight font-normal md:gap-1 md:text-base">
                     <p
                         id={randomId}
                         className={classNames(
                             'max-w-full cursor-pointer truncate text-neutral-800 group-data-[state=unchecked]:text-neutral-800',
-                            'group-data-[disabled]:cursor-default group-data-[disabled]:group-data-[state=unchecked]:text-neutral-300',
+                            'group-data-disabled:cursor-default group-data-[state=unchecked]:group-data-disabled:text-neutral-300',
                         )}
                     >
                         {label}
                     </p>
                     {description && (
-                        <p className="max-w-full truncate text-neutral-500 group-data-[disabled]:text-neutral-300">
+                        <p className="max-w-full truncate text-neutral-500 group-data-disabled:text-neutral-300">
                             {description}
                         </p>
                     )}
@@ -108,12 +107,12 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                     icon={IconType.CHECKBOX}
                     size="md"
                     className={classNames(
-                        'mt-0.5 hidden text-neutral-400 group-data-[state=unchecked]:block group-data-[disabled]:text-neutral-300 md:mt-1',
+                        'mt-0.5 hidden text-neutral-400 group-data-disabled:text-neutral-300 group-data-[state=unchecked]:block md:mt-1',
                         { 'self-start': description },
                     )}
                 />
                 <RadixCheckbox.Indicator
-                    className={classNames('mt-0.5 text-primary-400 group-data-[disabled]:text-neutral-500 md:mt-1', {
+                    className={classNames('text-primary-400 mt-0.5 group-data-disabled:text-neutral-500 md:mt-1', {
                         'self-start': description,
                     })}
                 >
