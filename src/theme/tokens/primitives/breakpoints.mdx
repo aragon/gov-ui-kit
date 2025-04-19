@@ -10,15 +10,15 @@ export const DisplayComponent = ({ name }) => {
     const [breakpointValue, setBreakpointValue] = useState();
 
     useEffect(() => {
-        const value = getComputedStyle(document.documentElement).getPropertyValue(`--breakpoint-${name}`)
+        const value = getComputedStyle(document.documentElement).getPropertyValue(`--breakpoint-${name}-px`)
         setBreakpointValue(value);
     }, [name]);
 
     return (
         <tr>
             <td className="border-b px-4 py-2">{name}</td>
-            <td className="border-b px-4 py-2">{breakpointValue}</td>
-            <td className="border-b px-4 py-2">{`${parseFloat(breakpointValue) * 16}px`}</td>
+            <td className="border-b px-4 py-2">{breakpointValue / 16}rem</td>
+            <td className="border-b px-4 py-2">{breakpointValue}px</td>
         </tr>
     );
 

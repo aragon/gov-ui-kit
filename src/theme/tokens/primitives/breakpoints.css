@@ -1,3 +1,11 @@
+:root {
+  --breakpoint-sm-px: 640;
+  --breakpoint-md-px: 768;
+  --breakpoint-lg-px: 1024;
+  --breakpoint-xl-px: 1280;
+  --breakpoint-2xl-px: 1536;
+}
+
 @theme {
   --breakpoint-*: initial;
   --breakpoint-sm: 40rem;
