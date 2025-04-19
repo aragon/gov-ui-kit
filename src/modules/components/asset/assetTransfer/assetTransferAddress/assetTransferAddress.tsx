@@ -35,11 +35,10 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(
-                'group flex h-20 items-center space-x-4 border-neutral-100 px-4', //base
-                'hover:shadow-neutral-md hover:border-neutral-200', //hover
-                'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring', //focus
-                'active:border-neutral-300 active:shadow-none', //active
-                'md:w-1/2 md:p-6', //responsive
+                'group flex h-20 items-center space-x-4 border-neutral-100 px-4', // default
+                'hover:shadow-neutral-md focus-ring-primary hover:border-neutral-200', // hover / focus
+                'active:border-neutral-300 active:shadow-none', // active
+                'md:w-1/2 md:p-6', // responsive
                 {
                     'rounded-t-xl md:rounded-l-xl md:rounded-r-none': txRole === 'sender', // sender base
                     'rounded-b-xl md:rounded-l-none md:rounded-r-xl md:pl-8': txRole === 'recipient', // recipient base

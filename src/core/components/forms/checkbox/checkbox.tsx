@@ -54,8 +54,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                 onCheckedChange={onCheckedChange}
                 disabled={disabled}
                 className={classNames(
-                    'group/checkbox peer cursor-pointer rounded-md disabled:cursor-default',
-                    'focus-visible:ring-primary focus-visible:ring-offset focus:outline-hidden focus-visible:ring',
+                    'group/checkbox peer focus-ring-primary cursor-pointer rounded-md disabled:cursor-default',
                 )}
                 ref={ref}
                 {...otherProps}

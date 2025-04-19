@@ -13,50 +13,43 @@ const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
         'bg-primary-400 text-neutral-0 border-primary-400 shadow-primary-sm', // Default
         'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary', // Hover
-        'active:bg-primary-800 active:border-primary-800', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-primary-800 active:border-primary-800 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     secondary: [
         'bg-neutral-0 text-primary-400 border-primary-100 shadow-primary-sm', // Default
         'hover:border-primary-200 hover:bg-primary-50 hover:shadow-primary', // Hover
-        'active:border-primary-400 active:bg-neutral-0', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:border-primary-400 active:bg-neutral-0 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     tertiary: [
         'bg-neutral-0 text-neutral-500 border-neutral-100 shadow-neutral-sm', // Default
         'hover:bg-neutral-50 hover:border-neutral-200 hover:shadow-neutral', // Hover
-        'active:bg-neutral-0 active:border-neutral-400 active:text-neutral-800', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-neutral-0 active:border-neutral-400 active:text-neutral-800 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     ghost: [
         'bg-transparent border-transparent text-primary-400', // Default
         'hover:bg-neutral-0', // Hover
-        'active:bg-neutral-0 active:text-primary-600', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-neutral-0 active:text-primary-600 focus-ring-primary', // Active / Focus
         'aria-disabled:text-neutral-300', // Disabled
     ],
     success: [
         'bg-success-100 text-success-800 border-success-300 shadow-success-sm', // Default
         'hover:border-success-500 hover:shadow-success', // Hover
-        'active:bg-neutral-0 active:border-success-600', // Active
-        'focus-visible:ring-success', // Focus
+        'active:bg-neutral-0 active:border-success-600 focus-ring-success', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     warning: [
         'bg-warning-100 text-warning-800 border-warning-300 shadow-warning-sm', // Default
         'hover:border-warning-500 hover:shadow-warning', // Hover
-        'active:bg-neutral-0 active:border-warning-600', // Active
-        'focus-visible:ring-warning', // Focus
+        'active:bg-neutral-0 active:border-warning-600 focus-ring-warning', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     critical: [
         'bg-critical-100 text-critical-800 border-critical-300 shadow-critical-sm', // Default
         'hover:border-critical-500 hover:shadow-critical', // Hover
-        'active:bg-neutral-0 active:border-critical-600', // Active
-        'focus-visible:ring-critical', // Focus
+        'active:bg-neutral-0 active:border-critical-600 focus-ring-critical', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
 };
@@ -205,7 +198,6 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         'flex flex-row items-center justify-center group', // Layout
         'leading-tight font-normal', // Typography
         'border transition-all cursor-pointer', // Commons
-        'outline-hidden focus:outline-hidden focus-visible:ring focus-visible:ring-offset', // States
         'active:shadow-none aria-disabled:shadow-none aria-disabled:cursor-default', // Active/Disabled states
     ];
 

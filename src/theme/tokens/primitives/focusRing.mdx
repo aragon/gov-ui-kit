@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/blocks';
+import { Figma } from '@storybook/addon-designs/blocks';
+import classNames from 'classnames';
+import { useEffect, useRef, useState } from 'react';
+
+<Meta title="Theme/Tokens/Primitive/Focus Ring" />
+
+export const focusVariants = ['primary', 'success', 'warning', 'critical'];
+
+export const FocusSwatch = () => {
+    const buttonRefs = useRef([]);
+
+    return (
+        <div className="bg-neutral-0 rounded-xl border p-8 text-neutral-800">
+            <div className="flex flex-col gap-y-6">
+                <div className="flex flex-row items-center gap-x-10">
+                    <span className="w-24">Swatch</span>
+                    <span>Value</span>
+                </div>
+                {focusVariants.map((variant, index) => (
+                    <div key={variant} className="flex items-center gap-x-10">
+                        <button
+                            ref={element => buttonRefs.current[index] = element}
+                            className={classNames('border border-neutral-200 flex h-24 w-24 rounded-xl', {
+                                'focus-ring-primary': variant === 'primary',
+                                'focus-ring-success': variant === 'success',
+                                'focus-ring-warning': variant === 'warning',
+                                'focus-ring-critical': variant === 'critical',
+                            })}
+                        />
+                        <span>focus-ring-{variant}</span>
+                    </div>
+                ))}
+            </div>
+            <p><strong>Note</strong>: focus the buttons with the keyboard navigation to see the focus style</p>
+        </div>
+    );
+
+};
+
+# Focus Ring
+
+<div className="flex gap-x-20 pt-5 pb-20">
+    <FocusSwatch />
+</div>
+
+## Figma
+
+<Figma url="https://www.figma.com/design/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=8842-13335&m=dev" />
