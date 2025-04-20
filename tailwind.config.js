@@ -2,51 +2,6 @@
 module.exports = {
     content: ['./src/**/*.{jsx,ts,tsx,mdx}', './docs/**/*.{jsx,tsx,mdx}', '.storybook/*.{jsx,tsx}'],
     theme: {
-        boxShadow: {
-            'neutral-sm': 'var(--guk-shadow-neutral-sm)',
-            neutral: 'var(--guk-shadow-neutral)',
-            'neutral-md': 'var(--guk-shadow-neutral-md)',
-            'neutral-ld': 'var(--guk-shadow-neutral-lg)',
-            'neutral-xl': 'var(--guk-shadow-neutral-xl)',
-            'neutral-2xl': 'var(--guk-shadow-neutral-2xl)',
-
-            'primary-sm': 'var(--guk-shadow-primary-sm)',
-            primary: 'var(--guk-shadow-primary)',
-            'primary-md': 'var(--guk-shadow-primary-md)',
-            'primary-lg': 'var(--guk-shadow-primary-lg)',
-            'primary-xl': 'var(--guk-shadow-primary-xl)',
-            'primary-2xl': 'var(--guk-shadow-primary-2xl)',
-
-            'success-sm': 'var(--guk-shadow-success-sm)',
-            success: 'var(--guk-shadow-success)',
-            'success-md': 'var(--guk-shadow-success-md)',
-            'success-lg': 'var(--guk-shadow-success-lg)',
-            'success-xl': 'var(--guk-shadow-success-xl)',
-            'success-2xl': 'var(--guk-shadow-success-2xl)',
-
-            'warning-sm': 'var(--guk-shadow-warning-sm)',
-            warning: 'var(--guk-shadow-warning)',
-            'warning-md': 'var(--guk-shadow-warning-md)',
-            'warning-lg': 'var(--guk-shadow-warning-lg)',
-            'warning-xl': 'var(--guk-shadow-warning-xl)',
-            'warning-2xl': 'var(--guk-shadow-warning-2xl)',
-
-            'critical-sm': 'var(--guk-shadow-critical-sm)',
-            critical: 'var(--guk-shadow-critical)',
-            'critical-md': 'var(--guk-shadow-critical-md)',
-            'critical-lg': 'var(--guk-shadow-critical-lg)',
-            'critical-xl': 'var(--guk-shadow-critical-xl)',
-            'critical-2xl': 'var(--guk-shadow-critical-2xl)',
-
-            'info-sm': 'var(--guk-shadow-info-sm)',
-            info: 'var(--guk-shadow-info)',
-            'info-md': 'var(--guk-shadow-info-md)',
-            'info-lg': 'var(--guk-shadow-info-lg)',
-            'info-xl': 'var(--guk-shadow-info-xl)',
-            'info-2xl': 'var(--guk-shadow-info-2xl)',
-
-            none: 'var(--guk-shadow-none)',
-        },
         fontFamily: {
             sans: [`var(--guk-font-family)`],
         },
