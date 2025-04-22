@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { AvatarIcon, IconType, Tabs, type AvatarIconVariant, type ITabsContentProps } from '../../../../../core';
-import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
@@ -16,46 +15,33 @@ export interface IProposalVotingBreakdownExternalProps extends Omit<ITabsContent
     isOptimistic: boolean;
 }
 
-const statusToLabel = (copy: ModulesCopy, mode: 'default' | 'optimistic'): Record<ProposalVotingStatus, string> => ({
-    [ProposalVotingStatus.PENDING]: copy.proposalVotingBreakdownExternal[mode].pending,
-    [ProposalVotingStatus.ACTIVE]: copy.proposalVotingBreakdownExternal[mode].pending,
-    [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingBreakdownExternal[mode].success,
-    [ProposalVotingStatus.REJECTED]: copy.proposalVotingBreakdownExternal[mode].failure,
-    [ProposalVotingStatus.EXPIRED]: copy.proposalVotingBreakdownExternal[mode].failure,
-    [ProposalVotingStatus.UNREACHED]: copy.proposalVotingBreakdownExternal[mode].failure,
-    [ProposalVotingStatus.VETOED]: copy.proposalVotingBreakdownExternal[mode].failure,
-});
+// Just an internal type to help with the mapping (ProposalVotingStatus -> VotingPhase -> UI properties).
+type VotingPhase = 'pending' | 'success' | 'failure';
 
-const successText = 'text-success-800';
-const failureText = 'text-critical-800';
-const neutralText = 'text-neutral-500';
-const statusToLabelColor = (): Record<ProposalVotingStatus, string> => ({
-    [ProposalVotingStatus.PENDING]: neutralText,
-    [ProposalVotingStatus.ACTIVE]: neutralText,
-    [ProposalVotingStatus.ACCEPTED]: successText,
-    [ProposalVotingStatus.REJECTED]: failureText,
-    [ProposalVotingStatus.EXPIRED]: failureText,
-    [ProposalVotingStatus.UNREACHED]: failureText,
-    [ProposalVotingStatus.VETOED]: failureText,
-});
+const statusToPhase: Record<ProposalVotingStatus, VotingPhase> = {
+    [ProposalVotingStatus.PENDING]: 'pending',
+    [ProposalVotingStatus.ACTIVE]: 'pending',
+    [ProposalVotingStatus.ACCEPTED]: 'success',
+    [ProposalVotingStatus.REJECTED]: 'failure',
+    [ProposalVotingStatus.EXPIRED]: 'failure',
+    [ProposalVotingStatus.UNREACHED]: 'failure',
+    [ProposalVotingStatus.VETOED]: 'failure',
+};
 
-const statusToIcon = new Map<ProposalVotingStatus, { icon: IconType; variant: AvatarIconVariant } | undefined>([
-    [ProposalVotingStatus.ACCEPTED, { icon: IconType.CHECKMARK, variant: 'success' }],
-    [ProposalVotingStatus.REJECTED, { icon: IconType.CLOSE, variant: 'critical' }],
-    [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'neutral' }],
-    [ProposalVotingStatus.EXPIRED, { icon: IconType.CLOSE, variant: 'critical' }],
-    [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'critical' }],
-    [ProposalVotingStatus.VETOED, { icon: IconType.CLOSE, variant: 'critical' }],
+const phaseToIcon = new Map<VotingPhase, { icon: IconType; variant: AvatarIconVariant } | undefined>([
+    ['success', { icon: IconType.CHECKMARK, variant: 'success' }],
+    ['failure', { icon: IconType.CLOSE, variant: 'critical' }],
 ]);
 
 export const ProposalVotingBreakdownExternal: React.FC<IProposalVotingBreakdownExternalProps> = (props) => {
     const { status, isOptimistic, children, ...otherProps } = props;
-
     const { copy } = useGukModulesContext();
 
-    const statusLabel = statusToLabel(copy, isOptimistic ? 'optimistic' : 'default')[status];
-    const statusLabelColor = statusToLabelColor()[status];
-    const statusIcon = statusToIcon.get(status);
+    const phase = statusToPhase[status];
+    const statusLabel = copy.proposalVotingBreakdownExternal[isOptimistic ? 'optimistic' : 'default'][phase];
+    const statusLabelColor =
+        phase === 'success' ? 'text-success-800' : phase === 'failure' ? 'text-critical-800' : 'text-neutral-500';
+    const statusIcon = phaseToIcon.get(phase);
 
     return (
         <Tabs.Content value={ProposalVotingTab.BREAKDOWN} {...otherProps}>
