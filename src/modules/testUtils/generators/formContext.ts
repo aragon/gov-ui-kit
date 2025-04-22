@@ -24,6 +24,7 @@ export const generateFormContext = (context?: Partial<UseFormContextReturn>): Us
         isSubmitting: false,
         isValid: false,
         isValidating: false,
+        isReady: false,
         disabled: false,
         submitCount: 0,
         dirtyFields: {},
