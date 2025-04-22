@@ -4,7 +4,6 @@ import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
-import { ProposalVotingProgress } from '../proposalVotingProgress';
 
 export interface IProposalVotingBreakdownExternalProps extends Omit<ITabsContentProps, 'value'> {
     /**
@@ -60,12 +59,16 @@ export const ProposalVotingBreakdownExternal: React.FC<IProposalVotingBreakdownE
 
     return (
         <Tabs.Content value={ProposalVotingTab.BREAKDOWN} {...otherProps}>
-            <ProposalVotingProgress.Container>
-                <div className={classNames('flex w-full flex-row justify-between', statusLabelColor)}>
-                    {statusLabel}
-                    {statusIcon && <AvatarIcon icon={statusIcon.icon} variant={statusIcon.variant} />}
-                </div>
-            </ProposalVotingProgress.Container>
+            <div
+                className={classNames(
+                    'rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 shadow-neutral-sm md:px-6 md:py-5',
+                    'flex w-full min-w-fit flex-row justify-between gap-2',
+                    statusLabelColor,
+                )}
+            >
+                {statusLabel}
+                {statusIcon && <AvatarIcon icon={statusIcon.icon} variant={statusIcon.variant} />}
+            </div>
             {children}
         </Tabs.Content>
     );
