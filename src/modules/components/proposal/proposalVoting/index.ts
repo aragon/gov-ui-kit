@@ -2,6 +2,7 @@ import { ProposalVotingBodyContent } from './proposalVotingBodyContent';
 import { ProposalVotingBodySummary } from './proposalVotingBodySummary';
 import { ProposalVotingBodySummaryList } from './proposalVotingBodySummaryList';
 import { ProposalVotingBodySummaryListItem } from './proposalVotingBodySummaryListItem';
+import { ProposalVotingBreakdownExternal } from './proposalVotingBreakdownExternal';
 import { ProposalVotingBreakdownMultisig } from './proposalVotingBreakdownMultisig';
 import { ProposalVotingBreakdownToken } from './proposalVotingBreakdownToken';
 import { ProposalVotingContainer } from './proposalVotingContainer';
@@ -13,6 +14,7 @@ import { ProposalVotingVotes } from './proposalVotingVotes';
 export const ProposalVoting = {
     BreakdownMultisig: ProposalVotingBreakdownMultisig,
     BreakdownToken: ProposalVotingBreakdownToken,
+    BreakdownExternal: ProposalVotingBreakdownExternal,
     Container: ProposalVotingContainer,
     Details: ProposalVotingDetails,
     Stage: ProposalVotingStage,
@@ -28,6 +30,7 @@ export * from './proposalVotingBodyContent';
 export * from './proposalVotingBodySummary';
 export * from './proposalVotingBodySummaryList';
 export * from './proposalVotingBodySummaryListItem';
+export * from './proposalVotingBreakdownExternal';
 export * from './proposalVotingBreakdownMultisig';
 export * from './proposalVotingBreakdownToken';
 export * from './proposalVotingContainer';

@@ -131,6 +131,18 @@ export const modulesCopy = {
             description: (value: string) => `of ${value}`,
         },
     },
+    proposalVotingBreakdownExternal: {
+        default: {
+            pending: 'Not approved yet',
+            success: 'Approved',
+            failure: 'Did not approve',
+        },
+        optimistic: {
+            pending: 'Not vetoed yet',
+            success: 'Did not veto',
+            failure: 'Vetoed',
+        },
+    },
     proposalVotingStageStatus: {
         main: {
             proposal: 'Proposal',
