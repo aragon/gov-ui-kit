@@ -1,28 +1,26 @@
-:root {
-  /******* Font Weight *******/
-  --guk-font-weight-normal: 400;
-  --guk-font-weight-semibold: 600;
+@theme {
+  --font-*: initial;
 
-  /******* Font Size *******/
-  --guk-font-size-xs: 0.75rem;
-  --guk-font-size-sm: 0.875rem;
-  --guk-font-size-base: 1rem;
-  --guk-font-size-lg: 1.125rem;
-  --guk-font-size-xl: 1.25rem;
-  --guk-font-size-2xl: 1.5rem;
-  --guk-font-size-3xl: 1.875rem;
-  --guk-font-size-4xl: 2.25rem;
-  --guk-font-size-5xl: 3rem;
-
-  /******* Line Height *******/
-  --guk-line-height-normal: 1.5;
-  --guk-line-height-tight: 1.25;
-  --guk-line-height-relaxed: 1.65;
-
-  /******* Font Family *******/
-  --guk-font-family:
+  --font-sans:
     "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
 }
 
 @font-face {
