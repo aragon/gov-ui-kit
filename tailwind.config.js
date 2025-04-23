@@ -3,11 +3,6 @@ module.exports = {
     content: ['./src/**/*.{jsx,ts,tsx,mdx}', './docs/**/*.{jsx,tsx,mdx}', '.storybook/*.{jsx,tsx}'],
     theme: {
         extend: {
-            backgroundImage: {
-                'modal-overlay': 'linear-gradient(180deg, rgba(245, 247, 250, 0) 0%, #F5F7FA 100%)',
-                'modal-header': 'linear-gradient(180deg, #F5F7FA 0%, rgba(245, 247, 250, 0) 100%)',
-                'modal-footer': 'linear-gradient(180deg, rgba(245, 247, 250, 0) 0%, #F5F7FA 100%)',
-            },
             typography: {
                 DEFAULT: {
                     css: {
