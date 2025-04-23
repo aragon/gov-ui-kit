@@ -73,3 +73,11 @@
   /* Transparent */
   --color-transparent: transparent;
 }
+
+@utility gradient-neutral-50-transparent-to-b {
+  @apply bg-linear-to-b from-neutral-50/100 to-neutral-50/0;
+}
+
+@utility gradient-neutral-50-transparent-to-t {
+  @apply bg-linear-to-t from-neutral-50/100 to-neutral-50/0;
+}
