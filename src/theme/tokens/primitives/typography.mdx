@@ -7,70 +7,48 @@ import tailwindConfig from '../../../../tailwind.config';
 
 # Typography
 
+export const lineHeights = ['leading-normal', 'leading-tight', 'leading-relaxed'];
+export const fontWeights = ['font-normal', 'font-semibold'];
+export const fontSizes = [
+    'text-5xl',
+    'text-4xl',
+    'text-3xl',
+    'text-2xl',
+    'text-xl',
+    'text-lg',
+    'text-base',
+    'text-sm',
+    'text-xs',
+];
+
 <div className="w-full sb-unstyled">
-    {Object.keys(tailwindConfig.theme?.lineHeight ?? {}).map((lineHeight) => {
-        const lineHeightClasses = classNames({
-            'leading-normal': lineHeight === 'normal',
-            'leading-tight': lineHeight === 'tight',
-            'leading-relaxed': lineHeight === 'relaxed',
-        });
-
-        return (
-            <div key={lineHeight} className="p-16 pt-0 text-neutral-900">
-                <p className={classNames('text-3xl text-neutral-800', lineHeightClasses)}>
-                    {`Line Height -> ${lineHeight}`}
-                </p>
-                <p className={classNames('text-lg text-neutral-600', lineHeightClasses)}>
-                    {`leading-${lineHeight}`}
-                </p>
-                <div className="mt-5 flex w-full gap-x-10">
-                    {Object.keys(tailwindConfig.theme?.fontWeight ?? {}).map((weight) => {
-                        const fontWeightClasses = classNames({
-                            'font-normal': weight === 'normal',
-                            'font-semibold': weight === 'semibold',
-                        });
-
-                        return (
-                            <div key={weight} className="flex-1">
-                                <p
-                                    className={classNames(
-                                        'text-3xl capitalize text-neutral-800',
-                                        lineHeightClasses,
-                                        fontWeightClasses,
-                                    )}
-                                >
-                                    {weight}
-                                </p>
-                                <p className={classNames(
-                                    'text-lg text-neutral-600',
-                                    lineHeightClasses,
-                                    fontWeightClasses,
-                                )}>
-                                    {`font-${weight}`}
-                                </p>
-                                <div className="mt-5 space-y-5">
-                                    {Object.keys(tailwindConfig.theme?.fontSize ?? {}).reverse().map((size) => {
-                                        const classes = classNames(lineHeightClasses, fontWeightClasses, {
-                                            'text-xs': size === 'xs',
-                                            'text-sm': size === 'sm',
-                                            'text-base': size === 'base',
-                                            'text-lg': size === 'lg',
-                                            'text-xl': size === 'xl',
-                                            'text-2xl': size === '2xl',
-                                            'text-3xl': size === '3xl',
-                                            'text-4xl': size === '4xl',
-                                            'text-5xl': size === '5xl',
-                                        });
-                                        return <p key={size} className={classes}>{`text-${size}`}</p>;
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+    {lineHeights.map((lineHeight) => (
+        <div key={lineHeight} className="p-16 pt-0 text-neutral-900">
+            <p className={classNames('text-3xl text-neutral-800', lineHeight)}>
+                {`Line Height -> ${lineHeight.replace('leading-', '')}`}
+            </p>
+            <p className={classNames('text-lg text-neutral-600', lineHeight)}>
+                {lineHeight}
+            </p>
+            <div className="mt-5 flex w-full gap-x-10">
+                {fontWeights.map((fontWeight) => (
+                    <div key={fontWeight} className="flex-1">
+                        <p className={classNames('text-3xl capitalize text-neutral-800', lineHeight, fontWeight )}>
+                            {fontWeight.replace('font-', '')}
+                        </p>
+                        <p className={classNames('text-lg text-neutral-600', lineHeight, fontWeight )}>
+                            {fontWeight}
+                        </p>
+                        <div className="mt-5 space-y-5">
+                            {fontSizes.map((fontSize) => (
+                                <p key={fontSize} className={classNames(lineHeight, fontWeight, fontSize)}>{fontSize}</p>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
-        );
-    })}
+        </div>
+    ))}
 
 </div>
 

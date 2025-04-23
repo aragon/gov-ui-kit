@@ -2,29 +2,6 @@
 module.exports = {
     content: ['./src/**/*.{jsx,ts,tsx,mdx}', './docs/**/*.{jsx,tsx,mdx}', '.storybook/*.{jsx,tsx}'],
     theme: {
-        fontFamily: {
-            sans: [`var(--guk-font-family)`],
-        },
-        fontSize: {
-            xs: 'var(--guk-font-size-xs)',
-            sm: 'var(--guk-font-size-sm)',
-            base: 'var(--guk-font-size-base)',
-            lg: 'var(--guk-font-size-lg)',
-            xl: 'var(--guk-font-size-xl)',
-            '2xl': 'var(--guk-font-size-2xl)',
-            '3xl': 'var(--guk-font-size-3xl)',
-            '4xl': 'var(--guk-font-size-4xl)',
-            '5xl': 'var(--guk-font-size-5xl)',
-        },
-        fontWeight: {
-            normal: 'var(--guk-font-weight-normal)',
-            semibold: 'var(--guk-font-weight-semibold)',
-        },
-        lineHeight: {
-            normal: 'var(--guk-line-height-normal)',
-            tight: 'var(--guk-line-height-tight)',
-            relaxed: 'var(--guk-line-height-relaxed)',
-        },
         extend: {
             animation: {
                 shake: 'shake 0.82s cubic-bezier(0.36,0.07,0.19,0.97) both',
