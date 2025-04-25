@@ -28,7 +28,7 @@ describe('<ToggleGroup /> component', () => {
         const onChange = jest.fn();
         const value = 'test';
         const children = [<Toggle key={value} value={value} label={value} />];
-        const { rerender } = render(createTestComponent({ onChange, children }));
+        const { rerender } = render(createTestComponent({ onChange, children, value: '' }));
 
         await user.click(screen.getByRole('radio'));
         expect(onChange).toHaveBeenCalledWith(value);
@@ -49,7 +49,7 @@ describe('<ToggleGroup /> component', () => {
             <Toggle key={firstValue} value={firstValue} label={firstValue} />,
             <Toggle key={secondValue} value={secondValue} label={secondValue} />,
         ];
-        const { rerender } = render(createTestComponent({ onChange, children, isMultiSelect }));
+        const { rerender } = render(createTestComponent({ onChange, children, isMultiSelect, value: [] }));
 
         await user.click(screen.getByRole('button', { name: firstValue }));
         const newValue = [firstValue];
