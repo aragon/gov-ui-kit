@@ -108,9 +108,9 @@ export const modulesCopy = {
         creators: 'creators',
     },
     proposalVotingTabs: {
-        breakdown: 'Breakdown',
-        votes: 'Votes',
-        details: 'Details',
+        BREAKDOWN: 'Breakdown',
+        VOTES: 'Votes',
+        DETAILS: 'Details',
     },
     proposalVotingBreakdownMultisig: {
         name: 'Minimum Approval',
