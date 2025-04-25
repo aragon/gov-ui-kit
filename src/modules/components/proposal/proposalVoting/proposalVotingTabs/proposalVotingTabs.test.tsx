@@ -29,11 +29,11 @@ describe('<ProposalVotingTabs /> component', () => {
         expect(detailsTab).toHaveAttribute('aria-selected', 'true');
     });
 
-    it('hides the specified tabs when hideTabs prop is passed', () => {
-        const hideTabs = [ProposalVotingTab.BREAKDOWN, ProposalVotingTab.VOTES];
+    it('hides the specified tab when hideTabs prop is passed', () => {
+        const hideTabs = [ProposalVotingTab.BREAKDOWN];
         render(createTestComponent({ hideTabs }));
         expect(screen.queryByRole('tab', { name: 'Breakdown' })).not.toBeInTheDocument();
-        expect(screen.queryByRole('tab', { name: 'Votes' })).not.toBeInTheDocument();
+        expect(screen.queryByRole('tab', { name: 'Votes' })).toBeInTheDocument();
         expect(screen.getByRole('tab', { name: 'Details' })).toBeInTheDocument();
     });
 
