@@ -33,7 +33,7 @@ describe('<ProposalVotingTabs /> component', () => {
         const hideTabs = [ProposalVotingTab.BREAKDOWN];
         render(createTestComponent({ hideTabs }));
         expect(screen.queryByRole('tab', { name: 'Breakdown' })).not.toBeInTheDocument();
-        expect(screen.queryByRole('tab', { name: 'Votes' })).toBeInTheDocument();
+        expect(screen.getByRole('tab', { name: 'Votes' })).toBeInTheDocument();
         expect(screen.getByRole('tab', { name: 'Details' })).toBeInTheDocument();
     });
 

@@ -5,7 +5,7 @@ import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-import { IProposalVotingTabsProps, ProposalVotingTabs } from '../proposalVotingTabs';
+import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
 export interface IProposalVotingBodyContentProps
     extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
