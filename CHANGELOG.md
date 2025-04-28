@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 1.3.0
+
+### Minor Changes
+
+- [#460](https://github.com/aragon/gov-ui-kit/pull/460) [`94b3bba`](https://github.com/aragon/gov-ui-kit/commit/94b3bba28c35be1b35633adfb5e18c21642d5666) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch dependencies
+
+- [#463](https://github.com/aragon/gov-ui-kit/pull/463) [`3dd95c9`](https://github.com/aragon/gov-ui-kit/commit/3dd95c992de4f8353c9eb56293fedacbeaa37de6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Support customisation of visible tabs on the ProposalVoting component
+
+- [#461](https://github.com/aragon/gov-ui-kit/pull/461) [`ed8a0f2`](https://github.com/aragon/gov-ui-kit/commit/ed8a0f2333cf04000ddc719f66ae68cc4525236a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump softprops/action-gh-release to 2.2.2
+
+### Patch Changes
+
+- [#456](https://github.com/aragon/gov-ui-kit/pull/456) [`5ae74a6`](https://github.com/aragon/gov-ui-kit/commit/5ae74a6da4f912a1def4efdeb477684b3d84c4b0) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `DialogAlert` core component to support `size` property
+
+- [#457](https://github.com/aragon/gov-ui-kit/pull/457) [`d29c913`](https://github.com/aragon/gov-ui-kit/commit/d29c9132d77e7ca712502d6dee76c5d596758a1b) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update Storybook deploy workflow to retrieve secrets from 1Password
+
 ## 1.2.0
 
 ### Minor Changes
