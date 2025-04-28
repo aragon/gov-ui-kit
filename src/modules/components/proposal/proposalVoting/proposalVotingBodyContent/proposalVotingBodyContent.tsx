@@ -5,34 +5,34 @@ import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-import { ProposalVotingTabs } from '../proposalVotingTabs';
+import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
-export interface IProposalVotingBodyContentProps extends ComponentProps<'div'> {
+export interface IProposalVotingBodyContentProps
+    extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
+        ComponentProps<'div'> {
     /**
      * Status of the stage.
      */
     status: ProposalVotingStatus;
     /**
-     * Name of the proposal stage displayed for multi-stage proposals.
+     * Name of the body, only relevant for multi-body stages.
      */
     name?: string;
     /**
-     * plugin address of the body used to determine if the content should be rendered or not.
+     * ID of the body used to determine if the content should be rendered or not, only relevant for multi-body stages.
      */
     bodyId?: string;
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status, className, ...otherProps } = props;
+    const { bodyId, children, name, status, hideTabs, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
-
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
 
     const futureStatuses = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED];
 
     const stateActiveTab = futureStatuses.includes(status) ? ProposalVotingTab.DETAILS : ProposalVotingTab.BREAKDOWN;
-
     const [activeTab, setActiveTab] = useState<string | undefined>(stateActiveTab);
 
     // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
@@ -58,7 +58,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     <p className="text-neutral-800">{name}</p>
                 </>
             )}
-            <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status}>
+            <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
                 {children}
             </ProposalVotingTabs>
         </div>

@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { Tabs, type ITabsRootProps } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
@@ -10,6 +9,10 @@ export interface IProposalVotingTabsProps extends ITabsRootProps {
      */
     status: ProposalVotingStatus;
     /**
+     * Hides the triggers for the specified tab IDs when set.
+     */
+    hideTabs?: ProposalVotingTab[];
+    /**
      * Default proposal voting tab selected.
      * @default ProposalVotingTab.BREAKDOWN
      */
@@ -17,32 +20,28 @@ export interface IProposalVotingTabsProps extends ITabsRootProps {
 }
 
 export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) => {
-    const { defaultValue = ProposalVotingTab.BREAKDOWN, children, status, ...otherProps } = props;
+    const { defaultValue = ProposalVotingTab.BREAKDOWN, hideTabs, status, children, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
-    const contentRef = useRef<HTMLDivElement>(null);
+    const isVotingActive = ![ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED].includes(status);
 
-    const isVotingActive = status !== ProposalVotingStatus.PENDING && status !== ProposalVotingStatus.UNREACHED;
+    const tabs = [
+        { id: ProposalVotingTab.BREAKDOWN, disabled: !isVotingActive },
+        { id: ProposalVotingTab.VOTES, disabled: !isVotingActive },
+        { id: ProposalVotingTab.DETAILS },
+    ];
+
+    const filteredTabs = tabs.filter(({ id }) => !hideTabs?.includes(id));
 
     return (
         <Tabs.Root defaultValue={defaultValue} className="flex flex-col gap-4 md:gap-6" {...otherProps}>
             <Tabs.List>
-                <Tabs.Trigger
-                    label={copy.proposalVotingTabs.breakdown}
-                    value={ProposalVotingTab.BREAKDOWN}
-                    disabled={!isVotingActive}
-                />
-                <Tabs.Trigger
-                    label={copy.proposalVotingTabs.votes}
-                    value={ProposalVotingTab.VOTES}
-                    disabled={!isVotingActive}
-                />
-                <Tabs.Trigger label={copy.proposalVotingTabs.details} value={ProposalVotingTab.DETAILS} />
+                {filteredTabs.map(({ id, disabled }) => (
+                    <Tabs.Trigger key={id} label={copy.proposalVotingTabs[id]} value={id} disabled={disabled} />
+                ))}
             </Tabs.List>
-            <div className="flex grow flex-col" ref={contentRef}>
-                {children}
-            </div>
+            <div className="flex grow flex-col">{children}</div>
         </Tabs.Root>
     );
 };
