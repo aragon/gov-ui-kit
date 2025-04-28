@@ -44,11 +44,16 @@ standalone library:
     npm install @tailwindcss/typography
     ```
 
-- Import the Aragon Governance UI Kit styles in your project entry file (e.g. `src/index.js` or `App.js`):
+- In your main CSS file, import the library styles and theme:
 
     ```typescript
-    import '@aragon/gov-ui-kit/index.css';
+    @import "tailwindcss";
+    @import "../node_modules/@aragon/gov-ui-kit/index.css";
+    @source "../node_modules/@aragon/gov-ui-kit";
     ```
+
+    **NOTE**: Adjust the import paths according to the actual location of the node_modules directory in your project
+    structure.
 
 ## Standalone Setup
 
