@@ -66,7 +66,7 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
                     <DefinitionList.Container>
                         {settings.map(({ term, definition, link }) => (
                             <DefinitionList.Item key={term} term={term} link={link}>
-                                <p className="text-neutral-500">{definition}</p>
+                                {definition}
                             </DefinitionList.Item>
                         ))}
                     </DefinitionList.Container>
