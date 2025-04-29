@@ -65,7 +65,7 @@
     "@tiptap/starter-kit": "^2.11.0",
     "blockies-ts": "^1.0.0",
     "classnames": "^2.5.0",
-    "framer-motion": "^12.7.0",
+    "framer-motion": "^12.9.0",
     "luxon": "^3.6.0",
     "react-dropzone": "^14.3.0",
     "react-imask": "^7.6.0",
@@ -79,8 +79,8 @@
     "react-dom": "^18.2.0 || ^19.0.0",
     "react-hook-form": "^7.55.0",
     "tailwindcss": "^3.4.0",
-    "viem": "^2.27.0",
-    "wagmi": "^2.14.0"
+    "viem": "^2.28.0",
+    "wagmi": "^2.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
@@ -107,7 +107,7 @@
     "@svgr/rollup": "^8.1.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.16",
-    "@tanstack/react-query": "^5.74.4",
+    "@tanstack/react-query": "^5.74.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -139,8 +139,8 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.56.0",
-    "rollup": "^4.40.0",
+    "react-hook-form": "^7.56.1",
+    "rollup": "^4.40.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-visualizer": "^5.14.0",
@@ -148,10 +148,10 @@
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.3.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.0",
-    "vercel": "^41.6.1",
-    "viem": "^2.27.2",
-    "wagmi": "^2.14.16"
+    "typescript-eslint": "^8.31.1",
+    "vercel": "^41.6.2",
+    "viem": "^2.28.0",
+    "wagmi": "^2.15.0"
   },
   "bugs": {
     "url": "https://github.com/aragon/gov-ui-kit/issues"
