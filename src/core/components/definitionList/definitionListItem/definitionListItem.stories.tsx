@@ -46,6 +46,16 @@ export const WithComponent: Story = {
     ),
 };
 
+export const WithLink: Story = {
+    args: {
+        term: 'Website',
+        link: {
+            href: 'https://www.example.com',
+        },
+    },
+    render: (props: IDefinitionListItemProps) => <DefinitionList.Item {...props}>Homepage</DefinitionList.Item>,
+};
+
 /**
  * Usage of the DefinitionList.Item component with a truncated long string.
  */
