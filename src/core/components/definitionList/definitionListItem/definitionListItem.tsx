@@ -21,7 +21,6 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
         href,
         target = '_blank',
         iconRight = IconType.LINK_EXTERNAL,
-        textClassName = 'first-letter:capitalize',
         ...otherLinkProps
     } = link ?? {};
 
@@ -41,7 +40,6 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
                         href={href}
                         target={target}
                         iconRight={iconRight}
-                        textClassName={textClassName}
                         {...otherLinkProps}
                     >
                         {children}
