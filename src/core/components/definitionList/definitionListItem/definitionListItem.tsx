@@ -30,7 +30,7 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             <dt className="line-clamp-1 leading-tight text-neutral-800 md:line-clamp-none">{term}</dt>
             <dd className="min-w-0 leading-tight text-neutral-500">
                 {href == null && children}
-                {href != null && children == null && (
+                {href != null && (
                     <Link href={href} target={target} iconRight={iconRight} {...otherLinkProps}>
                         {children}
                     </Link>
