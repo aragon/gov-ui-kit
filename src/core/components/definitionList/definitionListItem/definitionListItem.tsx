@@ -17,12 +17,7 @@ export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
     const { term, link, children, className, ...otherProps } = props;
 
-    const {
-        href,
-        target = '_blank',
-        iconRight = IconType.LINK_EXTERNAL,
-        ...otherLinkProps
-    } = link ?? {};
+    const { href, target = '_blank', iconRight = IconType.LINK_EXTERNAL, ...otherLinkProps } = link ?? {};
 
     return (
         <div
@@ -36,12 +31,7 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             {href == null && <dd className="min-w-0 leading-tight text-neutral-500">{children}</dd>}
             {href != null && (
                 <dd className="min-w-0 leading-tight text-neutral-500">
-                    <Link
-                        href={href}
-                        target={target}
-                        iconRight={iconRight}
-                        {...otherLinkProps}
-                    >
+                    <Link href={href} target={target} iconRight={iconRight} {...otherLinkProps}>
                         {children}
                     </Link>
                 </dd>
