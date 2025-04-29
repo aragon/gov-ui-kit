@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DateFormat, DefinitionList, formatterUtils, Heading, type ITabsContentProps, Tabs } from '../../../../../core';
-import type { IDefinitionSetting } from '../../../../types/definitionSetting';
+import type { IDefinitionSetting } from '../../../../types';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';

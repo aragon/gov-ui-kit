@@ -1,4 +1,4 @@
-import type { IDefinitionSetting } from '../../../../../types/definitionSetting';
+import type { IDefinitionSetting } from '../../../../../types';
 import type { IProposalAction, IProposalActionComponentProps } from '../../proposalActionsDefinitions';
 
 export interface IProposalActionChangeSettings extends IProposalAction {

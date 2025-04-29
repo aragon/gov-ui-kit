@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime, Settings } from 'luxon';
 import { Tabs } from '../../../../../core';
-import type { IDefinitionSetting } from '../../../../types/definitionSetting';
+import type { IDefinitionSetting } from '../../../../types';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { type IProposalVotingDetailsProps, ProposalVotingDetails } from './proposalVotingDetails';
