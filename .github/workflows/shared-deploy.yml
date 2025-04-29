@@ -25,7 +25,7 @@ jobs:
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
       - name: Download credentials
-        uses: aragon/github-templates/steps/credential-retrieval@v0.3
+        uses: aragon/github-templates/steps/credential-retrieval@v0.4
         with:
           op-token: "${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}"
           op-vault: "kv_gov-ui-kit_infra"
