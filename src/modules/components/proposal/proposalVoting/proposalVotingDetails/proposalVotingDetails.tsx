@@ -1,37 +1,15 @@
 import classNames from 'classnames';
-import {
-    DateFormat,
-    DefinitionList,
-    formatterUtils,
-    Heading,
-    type ILinkProps,
-    type ITabsContentProps,
-    Tabs,
-} from '../../../../../core';
+import { DateFormat, DefinitionList, formatterUtils, Heading, type ITabsContentProps, Tabs } from '../../../../../core';
+import type { IDefinitionSetting } from '../../../../types/definitionSetting';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-
-export interface IProposalVotingDetailsSetting {
-    /**
-     * Term of the setting.
-     */
-    term: string;
-    /**
-     * Value of the setting.
-     */
-    definition: string;
-    /**
-     * Optional link for the setting.
-     */
-    link?: ILinkProps;
-}
 
 export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'value'> {
     /**
      * Governance settings displayed on the details tab.
      */
-    settings?: IProposalVotingDetailsSetting[];
+    settings?: IDefinitionSetting[];
 }
 
 export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (props) => {

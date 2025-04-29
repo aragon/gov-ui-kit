@@ -52,8 +52,8 @@ export const WithLink: Story = {
         link: {
             href: 'https://www.example.com',
         },
+        children: 'Homepage',
     },
-    render: (props: IDefinitionListItemProps) => <DefinitionList.Item {...props}>Homepage</DefinitionList.Item>,
 };
 
 /**
