@@ -28,14 +28,14 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             {...otherProps}
         >
             <dt className="line-clamp-1 leading-tight text-neutral-800 md:line-clamp-none">{term}</dt>
-            {href == null && <dd className="min-w-0 leading-tight text-neutral-500">{children}</dd>}
-            {href != null && (
-                <dd className="min-w-0 leading-tight text-neutral-500">
+            <dd className="min-w-0 leading-tight text-neutral-500">
+                {href == null && children}
+                {href != null && children == null && (
                     <Link href={href} target={target} iconRight={iconRight} {...otherLinkProps}>
                         {children}
                     </Link>
-                </dd>
-            )}
+                )}
+            </dd>
         </div>
     );
 };
