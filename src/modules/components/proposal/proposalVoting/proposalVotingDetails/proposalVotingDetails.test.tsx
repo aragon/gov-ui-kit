@@ -1,13 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime, Settings } from 'luxon';
 import { Tabs } from '../../../../../core';
+import type { IDefinitionSetting } from '../../../../types';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
-import {
-    type IProposalVotingDetailsProps,
-    type IProposalVotingDetailsSetting,
-    ProposalVotingDetails,
-} from './proposalVotingDetails';
+import { type IProposalVotingDetailsProps, ProposalVotingDetails } from './proposalVotingDetails';
 
 describe('<ProposalVotingDetails /> component', () => {
     const originalNow = Settings.now;
@@ -73,7 +70,7 @@ describe('<ProposalVotingDetails /> component', () => {
     });
 
     it('does not render the governance text when settings array is empty', () => {
-        const settings: IProposalVotingDetailsSetting[] = [];
+        const settings: IDefinitionSetting[] = [];
         render(createTestComponent({ settings }));
         expect(screen.queryByText('Governance')).not.toBeInTheDocument();
     });

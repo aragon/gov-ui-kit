@@ -1,25 +1,15 @@
 import classNames from 'classnames';
 import { DateFormat, DefinitionList, formatterUtils, Heading, type ITabsContentProps, Tabs } from '../../../../../core';
+import type { IDefinitionSetting } from '../../../../types';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
-
-export interface IProposalVotingDetailsSetting {
-    /**
-     * Term of the setting.
-     */
-    term: string;
-    /**
-     * Value of the setting.
-     */
-    definition: string;
-}
 
 export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'value'> {
     /**
      * Governance settings displayed on the details tab.
      */
-    settings?: IProposalVotingDetailsSetting[];
+    settings?: IDefinitionSetting[];
 }
 
 export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (props) => {
@@ -41,10 +31,10 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
         >
             <Heading size="h3">{copy.proposalVotingDetails.voting}</Heading>
             <DefinitionList.Container>
-                <DefinitionList.Item term="Starts">
+                <DefinitionList.Item term={copy.proposalVotingDetails.starts}>
                     <p className="text-neutral-500 first-letter:capitalize">{formattedStartDate}</p>
                 </DefinitionList.Item>
-                <DefinitionList.Item term="Expires">
+                <DefinitionList.Item term={copy.proposalVotingDetails.expires}>
                     <p className="text-neutral-500 first-letter:capitalize">{formattedEndDate}</p>
                 </DefinitionList.Item>
             </DefinitionList.Container>
@@ -52,9 +42,9 @@ export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (pro
                 <>
                     <Heading size="h3">{copy.proposalVotingDetails.governance}</Heading>
                     <DefinitionList.Container>
-                        {settings.map(({ term, definition }) => (
-                            <DefinitionList.Item key={term} term={term}>
-                                <p className="text-neutral-500">{definition}</p>
+                        {settings.map(({ term, definition, link }) => (
+                            <DefinitionList.Item key={term} term={term} link={link}>
+                                {definition}
                             </DefinitionList.Item>
                         ))}
                     </DefinitionList.Container>

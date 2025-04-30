@@ -28,4 +28,14 @@ describe('<DefinitionList.Item /> component', () => {
 
         expect(description).toHaveTextContent(children);
     });
+
+    it('renders a link when href is provided', () => {
+        const href = 'https://example.com';
+        const children = 'Click Here';
+        render(createTestComponent({ link: { href }, children }));
+
+        const link = screen.getByRole('link');
+        expect(link).toHaveAttribute('href', href);
+        expect(link).toHaveTextContent(children);
+    });
 });

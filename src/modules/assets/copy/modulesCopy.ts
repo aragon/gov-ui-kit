@@ -155,6 +155,8 @@ export const modulesCopy = {
     proposalVotingDetails: {
         voting: 'Voting',
         governance: 'Governance',
+        starts: 'Starts',
+        expires: 'Expires',
     },
     proposalVotingStage: {
         stage: (index: number) => `Stage ${index.toString()}`,
