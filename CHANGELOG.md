@@ -1,5 +1,19 @@
 # @aragon/gov-ui-kit
 
+## 1.4.0
+
+### Minor Changes
+
+- [#465](https://github.com/aragon/gov-ui-kit/pull/465) [`7ea0aa2`](https://github.com/aragon/gov-ui-kit/commit/7ea0aa205cecc4cbf69e77ef9f9c763d9191f432) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump aragon/github-templates to 0.4
+
+- [#467](https://github.com/aragon/gov-ui-kit/pull/467) [`4315e9c`](https://github.com/aragon/gov-ui-kit/commit/4315e9c91e0ff846e138c82721e3a99e4b894363) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update module components to set ethereum mainnet as default value for chain-id property
+
+- [#464](https://github.com/aragon/gov-ui-kit/pull/464) [`cce53d1`](https://github.com/aragon/gov-ui-kit/commit/cce53d18098e7f96add2c503cc1f04655bffded5) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#466](https://github.com/aragon/gov-ui-kit/pull/466) [`83762be`](https://github.com/aragon/gov-ui-kit/commit/83762bea8b74b8b255d28c18b6671795c6965987) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement 'link' prop and component within `<DefinitionList.Item />`
+
 ## 1.3.0
 
 ### Minor Changes
