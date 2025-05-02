@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { act, render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
 import { IconType, clipboardUtils } from '../../../../core';
@@ -240,6 +241,11 @@ describe('<AddressInput /> component', () => {
         render(createTestComponent({ value, chainId }));
         const queryObject = { query: { enabled: false } };
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
+    });
+
+    it('defaults chain-id to ethereum mainnet when not provided', () => {
+        render(createTestComponent());
+        expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId: mainnet.id }));
     });
 
     it('updates the query cache with the current resolved ens/address when input address is linked to an ENS name', () => {

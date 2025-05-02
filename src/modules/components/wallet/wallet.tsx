@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 import { StateSkeletonBar } from '../../../core';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../types';
@@ -14,7 +15,7 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { user, className, chainId, wagmiConfig, ...otherProps } = props;
+    const { user, className, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 

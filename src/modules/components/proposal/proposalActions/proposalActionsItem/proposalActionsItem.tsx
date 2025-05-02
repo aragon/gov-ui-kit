@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
+import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
@@ -21,7 +22,17 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
-    const { action, index, value, CustomComponent, dropdownItems, editMode, formPrefix, chainId, ...web3Props } = props;
+    const {
+        action,
+        index,
+        value,
+        CustomComponent,
+        dropdownItems,
+        editMode,
+        formPrefix,
+        chainId = mainnet.id,
+        ...web3Props
+    } = props;
 
     invariant(
         index != null,

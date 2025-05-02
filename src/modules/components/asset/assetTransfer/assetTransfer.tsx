@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { zeroAddress } from 'viem';
+import { mainnet } from 'viem/chains';
 import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
@@ -50,7 +51,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         assetAmount,
         assetSymbol,
         assetFiatPrice,
-        chainId,
+        chainId = mainnet.id,
         wagmiConfig,
     } = props;
 

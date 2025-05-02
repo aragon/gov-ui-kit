@@ -14,7 +14,7 @@ export interface IGukModulesContext {
 }
 
 const defaultWagmiConfig = createConfig({
-    chains: [mainnet, sepolia, base, baseSepolia, polygon, polygonAmoy, arbitrum, arbitrumSepolia],
+    chains: [arbitrum, arbitrumSepolia, base, baseSepolia, mainnet, polygon, polygonAmoy, sepolia],
     client: ({ chain }) => createClient({ chain, transport: http() }),
 });
 

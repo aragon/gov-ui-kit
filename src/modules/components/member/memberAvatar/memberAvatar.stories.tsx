@@ -19,4 +19,31 @@ type Story = StoryObj<typeof MemberAvatar>;
  */
 export const Default: Story = {};
 
+/**
+ * Usage example of the MemberAvatar component with an address without an ENS name
+ */
+export const Address: Story = {
+    args: {
+        address: '0x246503df057A9a85E0144b6867a828c99676128B',
+    },
+};
+
+/**
+ * Usage example of the MemberAvatar component with an ENS name
+ */
+export const EnsAvatar: Story = {
+    args: {
+        ensName: 'vitalik.eth',
+    },
+};
+
+/**
+ * Usage example of the MemberAvatar component with a custom avatar logo
+ */
+export const CustomAvatar: Story = {
+    args: {
+        avatarSrc: 'https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv',
+    },
+};
+
 export default meta;

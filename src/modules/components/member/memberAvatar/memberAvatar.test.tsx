@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import * as blockies from 'blockies-ts';
 import * as viem from 'viem';
-import { polygon } from 'viem/chains';
+import { mainnet, polygon } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import * as wagmi from 'wagmi';
 import { ssrUtils } from '../../../../core';
@@ -95,6 +95,11 @@ describe('<MemberAvatar /> component', () => {
         isServerMock.mockReturnValue(true);
         render(createTestComponent({ address }));
         expect(blockiesCreateMock).not.toHaveBeenCalled();
+    });
+
+    it('defaults chain-id to ethereum mainnet when not provided', () => {
+        render(createTestComponent());
+        expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId: mainnet.id }));
     });
 
     it('supports custom chainId and wagmi configurations', () => {

@@ -1,6 +1,7 @@
 import * as blockies from 'blockies-ts';
 import type React from 'react';
 import { type Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
 import { Avatar, ssrUtils, type IAvatarProps } from '../../../../core';
@@ -23,7 +24,7 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'>, IWeb
 }
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
-    const { ensName, address, avatarSrc, chainId, wagmiConfig, ...otherProps } = props;
+    const { ensName, address, avatarSrc, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
 
     const isValidAddress = addressUtils.isAddress(address);
     const isValidENSName = ensUtils.isEnsName(ensName);

@@ -20,7 +20,6 @@ const parsePublisher = (publisher: IPublisher, isConnected: boolean, connectedAd
 export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStructureProps> = (props) => {
     const {
         wagmiConfig: config,
-        chainId,
         id,
         className,
         type,

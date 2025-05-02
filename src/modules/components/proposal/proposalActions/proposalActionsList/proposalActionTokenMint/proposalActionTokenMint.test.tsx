@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { mainnet } from 'viem/chains';
 import { GukModulesProvider } from '../../../../gukModulesProvider';
 import { ProposalActionTokenMint } from './proposalActionTokenMint';
 import type { IProposalActionTokenMintProps } from './proposalActionTokenMint.api';
@@ -58,6 +59,7 @@ describe('<ProposalActionTokenMint /> component', () => {
     });
 
     it('renders the block explorer link with the correct URL', () => {
+        const chainId = mainnet.id;
         const receiver = {
             currentBalance: '0',
             newBalance: '10',
@@ -65,7 +67,7 @@ describe('<ProposalActionTokenMint /> component', () => {
             name: 'Some Name',
         };
         const action = generateProposalActionTokenMint({ receiver });
-        render(createTestComponent({ action }));
+        render(createTestComponent({ action, chainId }));
         const memberItem = screen.getByTestId('member-data-list-item');
         expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${receiver.address}`);
     });
