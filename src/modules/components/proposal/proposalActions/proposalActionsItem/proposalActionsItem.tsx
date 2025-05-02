@@ -21,7 +21,17 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 export const ProposalActionsItem = <TAction extends IProposalAction = IProposalAction>(
     props: IProposalActionsItemProps<TAction>,
 ) => {
-    const { action, index, value, CustomComponent, dropdownItems, editMode, formPrefix, chainId, ...web3Props } = props;
+    const {
+        action,
+        index,
+        value,
+        CustomComponent,
+        dropdownItems,
+        editMode,
+        formPrefix,
+        chainId = 1,
+        ...web3Props
+    } = props;
 
     invariant(
         index != null,

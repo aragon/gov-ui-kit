@@ -50,7 +50,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
         assetAmount,
         assetSymbol,
         assetFiatPrice,
-        chainId,
+        chainId = 1,
         wagmiConfig,
     } = props;
 

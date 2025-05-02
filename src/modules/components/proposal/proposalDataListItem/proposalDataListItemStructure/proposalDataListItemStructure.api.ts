@@ -3,7 +3,7 @@ import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../ty
 import { type ProposalStatus } from '../../proposalUtils';
 
 export type IProposalDataListItemStructureProps = IDataListItemProps &
-    IWeb3ComponentProps & {
+    Omit<IWeb3ComponentProps, 'chainId'> & {
         /**
          * Proposal id
          */

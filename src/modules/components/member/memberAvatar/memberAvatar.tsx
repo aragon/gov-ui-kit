@@ -23,7 +23,7 @@ export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'>, IWeb
 }
 
 export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
-    const { ensName, address, avatarSrc, chainId, wagmiConfig, ...otherProps } = props;
+    const { ensName, address, avatarSrc, chainId = 1, wagmiConfig, ...otherProps } = props;
 
     const isValidAddress = addressUtils.isAddress(address);
     const isValidENSName = ensUtils.isEnsName(ensName);

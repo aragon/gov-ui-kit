@@ -14,7 +14,7 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
 }
 
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { user, className, chainId, wagmiConfig, ...otherProps } = props;
+    const { user, className, chainId = 1, wagmiConfig, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
