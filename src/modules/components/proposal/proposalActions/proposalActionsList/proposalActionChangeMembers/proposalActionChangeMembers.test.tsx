@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { mainnet } from 'viem/chains';
 import { modulesCopy } from '../../../../../assets';
 import { GukModulesProvider } from '../../../../gukModulesProvider';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
@@ -68,9 +69,10 @@ describe('<ProposalActionChangeMembers /> component', () => {
     });
 
     it('renders the correct block explorer link for the member', () => {
+        const chainId = mainnet.id;
         const members = [{ address: '0x742d35Cc6634C0532925a3b844Bc454e4438f44e' }];
         const action = generateProposalActionChangeMembers({ members });
-        render(createTestComponent({ action }));
+        render(createTestComponent({ action, chainId }));
 
         const memberItem = screen.getByTestId('member-data-list-item');
         expect(memberItem).toHaveAttribute('data-href', `https://etherscan.io/address/${members[0].address}`);

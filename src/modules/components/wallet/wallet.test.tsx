@@ -1,6 +1,6 @@
 import { type QueryClient } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
-import { sepolia } from 'viem/chains';
+import { mainnet, sepolia } from 'viem/chains';
 import * as wagmi from 'wagmi';
 import { GukModulesProvider } from '../gukModulesProvider';
 import { Wallet, type IWalletProps } from './wallet';
@@ -84,6 +84,12 @@ describe('<Wallet /> component', () => {
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ query: { enabled: false } }));
         expect(screen.getByText('vitalik.eth')).toBeInTheDocument();
         expect(screen.queryByText('0x09…4321')).not.toBeInTheDocument();
+    });
+
+    it('defaults chain-id property to ethereum mainnet when not provided', () => {
+        const user = { address: '0x0987654321098765432109876543210987654321' };
+        render(createTestComponent({ user }));
+        expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId: mainnet.id }));
     });
 
     it('supports custom chainId and wagmi configurations', () => {

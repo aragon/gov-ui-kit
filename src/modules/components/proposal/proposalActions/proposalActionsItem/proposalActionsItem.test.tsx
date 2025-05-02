@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { polygon } from 'viem/chains';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
@@ -82,10 +83,18 @@ describe('<ProposalActionsItem /> component', () => {
     it('renders the truncated address of the action target as link', () => {
         const to = '0xF26a23f3E7B88e93A16970B74Ae6599d2993690F';
         const action = generateProposalAction({ to });
-        const chainId = 1;
+        const chainId = polygon.id;
         render(createTestComponent({ action, chainId }));
         const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0xF26a…690F' });
         expect(link).toBeInTheDocument();
+        expect(link.href).toEqual(`https://polygonscan.com/address/${to}`);
+    });
+
+    it('defaults chain-id to ethereum mainnet when not provided', () => {
+        const to = '0x87D18Ee84e8f4f5709CBf3500179a4C601DA12cE';
+        const action = generateProposalAction({ to });
+        render(createTestComponent({ action }));
+        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0x87D1…12cE' });
         expect(link.href).toEqual(`https://etherscan.io/address/${to}`);
     });
 

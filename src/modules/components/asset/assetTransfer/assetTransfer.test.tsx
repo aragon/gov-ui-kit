@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { zeroAddress } from 'viem';
+import { polygon } from 'viem/chains';
 import { GukModulesProvider } from '../../gukModulesProvider';
 import { AssetTransfer, type IAssetTransferProps } from './assetTransfer';
 
@@ -25,60 +26,57 @@ describe('<AssetTransfer /> component', () => {
         );
     };
 
-    it('renders with minimum props', () => {
+    it('renders the asset name', () => {
         const assetName = 'Bitcoin';
         render(createTestComponent({ assetName }));
-
-        expect(screen.getByText('Bitcoin')).toBeInTheDocument();
+        expect(screen.getByText(assetName)).toBeInTheDocument();
     });
 
-    it('renders the formatted fiat estimate', () => {
+    it('calculates and renders the formatted fiat value', () => {
         const assetFiatPrice = 100;
         const assetAmount = 10;
-
         render(createTestComponent({ assetFiatPrice, assetAmount }));
-        const formattedUsdEstimate = screen.getByText('$1.00K');
-        expect(formattedUsdEstimate).toBeInTheDocument();
+        expect(screen.getByText('$1.00K')).toBeInTheDocument();
     });
 
-    it('renders the asset value and symbol with sign', () => {
+    it('renders the signed asset amount and symbol', () => {
         const assetSymbol = 'ETH';
         const assetAmount = 10;
-
         render(createTestComponent({ assetSymbol, assetAmount }));
-        const assetPrintout = screen.getByText('+10 ETH');
-        expect(assetPrintout).toBeInTheDocument();
+        expect(screen.getByText('+10 ETH')).toBeInTheDocument();
     });
 
     it('renders both avatar elements for the from and to addresses', () => {
         render(createTestComponent());
-
         expect(screen.getAllByTestId('asset-transfer-address')).toHaveLength(2);
     });
 
-    it('configures and applies the correct link for asset when asset address is defined', () => {
-        const assetAddress = '0x0ca620e2dd3147658b8a042b3e7b7cd6f5fa043bf3625140c0dbddcabf47dfb9';
-        render(createTestComponent({ assetAddress }));
-
-        const links = screen.getByRole('link');
-        const expectedTransactionLink = `https://etherscan.io/token/${assetAddress}`;
-
-        expect(links).toHaveAttribute('href', expectedTransactionLink);
+    it('renders the block explorer link of the asset when the assetAddress property is set', () => {
+        const chainId = polygon.id;
+        const assetAddress = '0xE08fcC4283fd8E35FdC49088b502B679E1C779fd';
+        render(createTestComponent({ assetAddress, chainId }));
+        const link = screen.getByRole('link');
+        expect(link).toBeInTheDocument();
+        expect(link).toHaveAttribute('href', `https://polygonscan.com/token/${assetAddress}`);
     });
 
-    it('does not render block explorer link for asset when asset address is not defined', () => {
+    it('defaults chain-id to ethereum mainnet when not provided', () => {
+        const assetAddress = '0x1C727a55eA3c11B0ab7D3a361Fe0F3C47cE6de5d';
+        render(createTestComponent({ assetAddress }));
+        const link = screen.getByRole('link');
+        expect(link).toBeInTheDocument();
+        expect(link).toHaveAttribute('href', `https://etherscan.io/token/${assetAddress}`);
+    });
+
+    it('does not render the block explorer link for the asset when the assetAddress property is not set', () => {
         const assetAddress = undefined;
         render(createTestComponent({ assetAddress }));
-
-        const links = screen.queryByRole('link');
-        expect(links).not.toBeInTheDocument();
+        expect(screen.queryByRole('link')).not.toBeInTheDocument();
     });
 
-    it('does not render block explorer link for asset when asset address is zeroAddress', () => {
+    it('does not render the block explorer link for the asset when the assetAddress property is set to zero address', () => {
         const assetAddress = zeroAddress;
         render(createTestComponent({ assetAddress }));
-
-        const links = screen.queryByRole('link');
-        expect(links).not.toBeInTheDocument();
+        expect(screen.queryByRole('link')).not.toBeInTheDocument();
     });
 });

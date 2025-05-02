@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
+import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
@@ -29,7 +30,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         dropdownItems,
         editMode,
         formPrefix,
-        chainId = 1,
+        chainId = mainnet.id,
         ...web3Props
     } = props;
 

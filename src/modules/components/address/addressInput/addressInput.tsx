@@ -2,6 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
 import { type Address } from 'viem';
+import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
@@ -52,7 +53,14 @@ export interface IAddressInputProps
 }
 
 export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
-    const { value = '', onChange, onAccept, wagmiConfig: wagmiConfigProps, chainId = 1, ...otherProps } = props;
+    const {
+        value = '',
+        onChange,
+        onAccept,
+        wagmiConfig: wagmiConfigProps,
+        chainId = mainnet.id,
+        ...otherProps
+    } = props;
 
     const { containerProps, inputProps } = useInputProps(otherProps);
     const { onFocus, onBlur, className: inputClassName, ...otherInputProps } = inputProps;
