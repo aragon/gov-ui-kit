@@ -58,7 +58,7 @@ const variantToIconClassNames: Record<ButtonVariant, string> = {
     primary: 'text-neutral-0',
     secondary: 'text-primary-300 group-hover:text-primary-400 group-active:text-primary-400',
     tertiary: 'text-neutral-300 group-hover:text-neutral-500 group-active:text-neutral-500',
-    ghost: 'text-neutral-300 group-hover:text-neutral-400 group-active:text-neutral-400',
+    ghost: 'text-primary-300 group-hover:text-primary-400 group-active:text-primary-400',
     success: 'text-success-500 group-hover:text-success-600 group-active:text-success-600',
     warning: 'text-warning-500 group-hover:text-warning-600 group-active:text-warning-600',
     critical: 'text-critical-500 group-hover:text-critical-600 group-active:text-critical-600',
