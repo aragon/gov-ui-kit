@@ -6,7 +6,7 @@ import type { Config } from 'wagmi';
 export interface IWeb3ComponentProps {
     /**
      * ID of the chain to use when making RPC requests.
-     * @default 1 (Ethereum Mainnet)
+     * @default mainnet.id (1)
      */
     chainId?: number;
     /**
