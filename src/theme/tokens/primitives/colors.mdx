@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/blocks';
-import { Figma } from '@storybook/addon-designs/blocks';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
@@ -54,7 +53,7 @@ export const ColorSwatch = ({ colorGroupName }) => {
 
 # Colors
 
-<div className="flex gap-x-20 pt-5 pb-20">
+<div className="flex gap-x-20 pb-20 pt-5">
     <ColorSwatch colorGroupName="primary" />
     <ColorSwatch colorGroupName="neutral" />
 </div>
@@ -67,7 +66,3 @@ export const ColorSwatch = ({ colorGroupName }) => {
     <ColorSwatch colorGroupName="warning" />
     <ColorSwatch colorGroupName="critical" />
 </div>
-
-## Figma
-
-<Figma url="https://www.figma.com/design/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=8842-13335&m=dev" />
