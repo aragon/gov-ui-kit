@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useEffect, useState, type ComponentProps } from 'react';
-import { Button, IconType } from '../../../../../core';
+import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingTab, type IBrandedIdentity } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
@@ -22,10 +22,14 @@ export interface IProposalVotingBodyContentProps
      * ID of the body used to determine if the content should be rendered or not, only relevant for multi-body stages.
      */
     bodyId?: string;
+    /**
+     * If the body is a supported external brand, pass the branded identity.
+     */
+    brandedExternal?: IBrandedIdentity;
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status, hideTabs, className, ...otherProps } = props;
+    const { bodyId, children, name, status, hideTabs, brandedExternal, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
@@ -56,6 +60,12 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                         {copy.proposalVotingBodyContent.back}
                     </Button>
                     <p className="text-neutral-800">{name}</p>
+                    {brandedExternal != null && (
+                        <div className="flex items-center gap-x-1 md:gap-x-2">
+                            <p className="text-neutral-500">{brandedExternal.label}</p>
+                            <Avatar src={brandedExternal.logo} size="sm" />
+                        </div>
+                    )}
                 </>
             )}
             <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>

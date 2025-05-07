@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
-import { AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
+import { Avatar, AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
+import type { IBrandedIdentity } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
 export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
@@ -9,23 +10,32 @@ export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
      */
     id: string;
     /**
+     * If the body is a supported external brand, pass the branded identity.
+     */
+    brandedExternal?: IBrandedIdentity;
+    /**
      * Children to render.
      */
     children: ReactNode;
 };
 
 export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
-    const { id, children, className, ...otherProps } = props;
+    const { id, children, brandedExternal, className, ...otherProps } = props;
 
     const { setActiveBody } = useProposalVotingStageContext();
 
     return (
         <DataListItem
             onClick={() => setActiveBody?.(id)}
-            className={classNames('flex items-center justify-between gap-3 p-6', className)}
+            className={classNames('flex items-center justify-between p-6', className)}
             {...otherProps}
         >
-            {children}
+            <div className="flex items-center gap-x-2 md:gap-x-3">
+                {brandedExternal != null && (
+                    <Avatar src={brandedExternal.logo} size="sm" responsiveSize={{ md: 'md' }} />
+                )}
+                {children}
+            </div>
             <AvatarIcon icon={IconType.CHEVRON_RIGHT} />
         </DataListItem>
     );
