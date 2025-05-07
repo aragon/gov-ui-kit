@@ -3,9 +3,11 @@ import type { ComponentType } from 'react';
 import { Tabs } from '..';
 import { IconType } from '../../icon';
 
+// Render Story twice as the Tabs.List component does not render when having only one tab
 const ComponentWrapper = (Story: ComponentType) => (
     <Tabs.Root>
         <Tabs.List>
+            <Story />
             <Story />
         </Tabs.List>
     </Tabs.Root>
