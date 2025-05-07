@@ -23,7 +23,7 @@ export interface IProposalVotingBodyContentProps
      */
     bodyId?: string;
     /**
-     * If the body is a supported external brand, pass the branded identity.
+     * Branded identity assets for an external body.
      */
     brandedExternal?: IBrandedIdentity;
 }
