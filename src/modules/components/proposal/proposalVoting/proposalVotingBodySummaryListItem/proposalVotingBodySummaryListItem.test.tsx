@@ -48,4 +48,16 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
         expect(screen.getByText('Body name')).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CHEVRON_RIGHT)).toBeInTheDocument();
     });
+
+    it('renders the avatar component when brandedExternal is provided', async () => {
+        const brandedExternal = {
+            label: 'Branded Label',
+            logo: 'https://fastly.picsum.photos/id/204/536/354.jpg?hmac=snZIgqenag_pWqyhXX7PzRmag1UZ2SvMcP2YQ_m6KhE',
+        };
+
+        render(createTestComponent({ brandedExternal }));
+
+        const logo = await screen.findByTestId('fallback');
+        expect(logo).toBeInTheDocument();
+    });
 });

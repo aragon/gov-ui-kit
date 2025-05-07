@@ -149,4 +149,25 @@ describe('<ProposalVotingBodyContent /> component', () => {
         expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
         expect(screen.queryByText('Test Stage')).not.toBeInTheDocument();
     });
+
+    it('renders the avatar component and brand label when brandedExternal is provided', () => {
+        const brandedExternal = {
+            label: 'Sample Label',
+            logo: 'https://example.com/sample-logo.png',
+        };
+
+        const bodyId = 'sampleBodyId';
+        const activeBody = 'sampleBodyId';
+        const contextValues = {
+            activeBody: activeBody,
+            bodyList: [bodyId, 'bodyIdTwo'],
+        };
+
+        render(createTestComponent({ bodyId, brandedExternal }, contextValues));
+
+        expect(screen.getByText(brandedExternal.label)).toBeInTheDocument();
+
+        const logoImage = screen.getByTestId('fallback');
+        expect(logoImage).toBeInTheDocument();
+    });
 });
