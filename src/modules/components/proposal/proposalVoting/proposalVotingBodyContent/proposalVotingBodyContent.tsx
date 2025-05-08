@@ -47,9 +47,9 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     }
 
     return (
-        <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
+        <div className={classNames('flex w-full flex-col', className)} {...otherProps}>
             {bodyList && bodyList.length > 1 && (
-                <>
+                <div className="flex w-full flex-col gap-y-4">
                     <Button
                         className="w-fit"
                         iconLeft={IconType.CHEVRON_LEFT}
@@ -59,14 +59,16 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     >
                         {copy.proposalVotingBodyContent.back}
                     </Button>
-                    <p className="text-neutral-800">{name}</p>
-                    {brandedExternal != null && (
-                        <div className="flex items-center gap-x-1 md:gap-x-2">
-                            <p className="text-neutral-500">{brandedExternal.label}</p>
-                            <Avatar src={brandedExternal.logo} size="sm" />
-                        </div>
-                    )}
-                </>
+                    <div className="flex w-full flex-col gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
+                        <p className="shrink-0 grow truncate text-neutral-800">{name}</p>
+                        {brandedExternal != null && (
+                            <div className="flex items-center gap-x-1 md:gap-x-2">
+                                <p className="text-neutral-500">{brandedExternal.label}</p>
+                                <Avatar src={brandedExternal.logo} size="sm" />
+                            </div>
+                        )}
+                    </div>
+                </div>
             )}
             <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
                 {children}

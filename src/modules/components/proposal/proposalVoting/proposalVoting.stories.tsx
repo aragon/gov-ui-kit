@@ -418,7 +418,7 @@ export const MultiBodyWithExternalBody: Story = {
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
         const safeExample = {
-            logo: 'https://file.notion.so/f/f/5010e4ee-a4be-4f75-a21f-79bde3054f7f/48a22f8f-8c51-4d89-ba70-7cd0d97a7b92/SAFE_token_logo.png?table=block&id=10ce419b-9d7f-48c5-9b78-4b9dca2b6815&spaceId=5010e4ee-a4be-4f75-a21f-79bde3054f7f&expirationTimestamp=1746547200000&signature=r3gTHX1T14ao44vDEMSrrjRo0kgQH3mLTquOgWBQBP4&downloadName=SAFE_token_logo.png',
+            logo: 'https://app.safe.global/images/safe-logo-green.png',
             label: 'Safe{Wallet}',
         };
 
