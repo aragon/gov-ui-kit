@@ -71,24 +71,29 @@ export const Progress: React.FC<IProgressProps> = (props) => {
 
     const sizeClassNames = responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClassNames);
 
-    const containerClassNames = classNames('relative w-full rounded-xl bg-neutral-100', sizeClassNames, className);
-    const indicatorClassNames = classNames('absolute inset-y-0 flex self-center', indicatorSizeClassNames);
-
     return (
-        <RadixProgress.Root value={processedValue} className={containerClassNames} {...otherProps}>
+        <RadixProgress.Root
+            value={processedValue}
+            className={classNames(
+                'relative w-full overflow-hidden rounded-xl bg-neutral-100',
+                sizeClassNames,
+                className,
+            )}
+            {...otherProps}
+        >
             <RadixProgress.Indicator
                 className={classNames(
                     `h-full rounded-l-xl transition-[border-radius,width] duration-500 ease-in-out`,
                     { 'rounded-r-xl': processedValue === 100 },
                     variantToClassNames[variant],
                 )}
-                style={{ width: `${processedValue.toString()}%` }}
+                style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
             />
             {processedIndicator && (
                 <div
                     data-testid="progress-indicator"
                     data-value={processedIndicator}
-                    className={indicatorClassNames}
+                    className={classNames('absolute inset-y-0 flex self-center', indicatorSizeClassNames)}
                     style={{ left: `${processedIndicator.toString()}%`, transform: 'translateX(-50%)' }}
                 >
                     <div className="h-full w-0.5 bg-neutral-50" />
