@@ -13,50 +13,43 @@ const variantToClassNames: Record<ButtonVariant, string[]> = {
     primary: [
         'bg-primary-400 text-neutral-0 border-primary-400 shadow-primary-sm', // Default
         'hover:bg-primary-500 hover:border-primary-500 hover:shadow-primary', // Hover
-        'active:bg-primary-800 active:border-primary-800', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-primary-800 active:border-primary-800 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     secondary: [
         'bg-neutral-0 text-primary-400 border-primary-100 shadow-primary-sm', // Default
         'hover:border-primary-200 hover:bg-primary-50 hover:shadow-primary', // Hover
-        'active:border-primary-400 active:bg-neutral-0', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:border-primary-400 active:bg-neutral-0 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     tertiary: [
         'bg-neutral-0 text-neutral-500 border-neutral-100 shadow-neutral-sm', // Default
         'hover:bg-neutral-50 hover:border-neutral-200 hover:shadow-neutral', // Hover
-        'active:bg-neutral-0 active:border-neutral-400 active:text-neutral-800', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-neutral-0 active:border-neutral-400 active:text-neutral-800 focus-ring-primary', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     ghost: [
         'bg-transparent border-transparent text-primary-400', // Default
         'hover:bg-neutral-0', // Hover
-        'active:bg-neutral-0 active:text-primary-600', // Active
-        'focus-visible:ring-primary', // Focus
+        'active:bg-neutral-0 active:text-primary-600 focus-ring-primary', // Active / Focus
         'aria-disabled:text-neutral-300', // Disabled
     ],
     success: [
         'bg-success-100 text-success-800 border-success-300 shadow-success-sm', // Default
         'hover:border-success-500 hover:shadow-success', // Hover
-        'active:bg-neutral-0 active:border-success-600', // Active
-        'focus-visible:ring-success', // Focus
+        'active:bg-neutral-0 active:border-success-600 focus-ring-success', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     warning: [
         'bg-warning-100 text-warning-800 border-warning-300 shadow-warning-sm', // Default
         'hover:border-warning-500 hover:shadow-warning', // Hover
-        'active:bg-neutral-0 active:border-warning-600', // Active
-        'focus-visible:ring-warning', // Focus
+        'active:bg-neutral-0 active:border-warning-600 focus-ring-warning', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
     critical: [
         'bg-critical-100 text-critical-800 border-critical-300 shadow-critical-sm', // Default
         'hover:border-critical-500 hover:shadow-critical', // Hover
-        'active:bg-neutral-0 active:border-critical-600', // Active
-        'focus-visible:ring-critical', // Focus
+        'active:bg-neutral-0 active:border-critical-600 focus-ring-critical', // Active / Focus
         'aria-disabled:bg-neutral-100 aria-disabled:text-neutral-300 aria-disabled:border-neutral-100', // Disabled
     ],
 };
@@ -65,7 +58,7 @@ const variantToIconClassNames: Record<ButtonVariant, string> = {
     primary: 'text-neutral-0',
     secondary: 'text-primary-300 group-hover:text-primary-400 group-active:text-primary-400',
     tertiary: 'text-neutral-300 group-hover:text-neutral-500 group-active:text-neutral-500',
-    ghost: 'text-neutral-300 group-hover:text-neutral-400 group-active:text-neutral-400',
+    ghost: 'text-primary-300 group-hover:text-primary-400 group-active:text-primary-400',
     success: 'text-success-500 group-hover:text-success-600 group-active:text-success-600',
     warning: 'text-warning-500 group-hover:text-warning-600 group-active:text-warning-600',
     critical: 'text-critical-500 group-hover:text-critical-600 group-active:text-critical-600',
@@ -83,82 +76,82 @@ const variantToSpinnerVariant: Record<ButtonVariant, SpinnerVariant> = {
 
 const responsiveSizeClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        default: 'h-[32px] text-sm rounded-lg gap-0.5',
-        sm: 'sm:h-[32px] sm:text-sm sm:rounded-lg sm:gap-0.5',
-        md: 'md:h-[32px] md:text-sm md:rounded-lg md:gap-0.5',
-        lg: 'lg:h-[32px] lg:text-sm lg:rounded-lg lg:gap-0.5',
-        xl: 'xl:h-[32px] xl:text-sm xl:rounded-lg xl:gap-0.5',
-        '2xl': '2xl:h-[32px] 2xl:text-sm 2xl:rounded-lg 2xl:gap-0.5',
+        default: 'h-8 text-sm rounded-lg gap-0.5',
+        sm: 'sm:h-8 sm:text-sm sm:rounded-lg sm:gap-0.5',
+        md: 'md:h-8 md:text-sm md:rounded-lg md:gap-0.5',
+        lg: 'lg:h-8 lg:text-sm lg:rounded-lg lg:gap-0.5',
+        xl: 'xl:h-8 xl:text-sm xl:rounded-lg xl:gap-0.5',
+        '2xl': '2xl:h-8 2xl:text-sm 2xl:rounded-lg 2xl:gap-0.5',
     },
     md: {
-        default: 'h-[40px] text-base rounded-xl gap-1',
-        sm: 'sm:h-[40px] sm:text-base sm:rounded-xl sm:gap-1',
-        md: 'md:h-[40px] md:text-base md:rounded-xl md:gap-1',
-        lg: 'lg:h-[40px] lg:text-base lg:rounded-xl lg:gap-1',
-        xl: 'xl:h-[40px] xl:text-base xl:rounded-xl xl:gap-1',
-        '2xl': '2xl:h-[40px] 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
+        default: 'h-10 text-base rounded-xl gap-1',
+        sm: 'sm:h-10 sm:text-base sm:rounded-xl sm:gap-1',
+        md: 'md:h-10 md:text-base md:rounded-xl md:gap-1',
+        lg: 'lg:h-10 lg:text-base lg:rounded-xl lg:gap-1',
+        xl: 'xl:h-10 xl:text-base xl:rounded-xl xl:gap-1',
+        '2xl': '2xl:h-10 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
     },
     lg: {
-        default: 'h-[48px] text-base rounded-xl gap-1',
-        sm: 'sm:h-[48px] sm:text-base sm:rounded-xl sm:gap-1',
-        md: 'md:h-[48px] md:text-base md:rounded-xl md:gap-1',
-        lg: 'lg:h-[48px] lg:text-base lg:rounded-xl lg:gap-1',
-        xl: 'xl:h-[48px] xl:text-base xl:rounded-xl xl:gap-1',
-        '2xl': '2xl:h-[48px] 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
+        default: 'h-12 text-base rounded-xl gap-1',
+        sm: 'sm:h-12 sm:text-base sm:rounded-xl sm:gap-1',
+        md: 'md:h-12 md:text-base md:rounded-xl md:gap-1',
+        lg: 'lg:h-12 lg:text-base lg:rounded-xl lg:gap-1',
+        xl: 'xl:h-12 xl:text-base xl:rounded-xl xl:gap-1',
+        '2xl': '2xl:h-12 2xl:text-base 2xl:rounded-xl 2xl:gap-1',
     },
 };
 
 const responsiveDefaultContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        default: 'min-w-[80px] px-2',
-        sm: 'sm:min-w-[80px] sm:px-2',
-        md: 'md:min-w-[80px] md:px-2',
-        lg: 'lg:min-w-[80px] lg:px-2',
-        xl: 'xl:min-w-[80px] xl:px-2',
-        '2xl': '2xl:min-w-[80px] 2xl:px-2',
+        default: 'min-w-20 px-2',
+        sm: 'sm:min-w-20 sm:px-2',
+        md: 'md:min-w-20 md:px-2',
+        lg: 'lg:min-w-20 lg:px-2',
+        xl: 'xl:min-w-20 xl:px-2',
+        '2xl': '2xl:min-w-20 2xl:px-2',
     },
     md: {
-        default: 'min-w-[96px] px-3',
-        sm: 'sm:min-w-[96px] sm:px-3',
-        md: 'md:min-w-[96px] md:px-3',
-        lg: 'lg:min-w-[96px] lg:px-3',
-        xl: 'xl:min-w-[96px] xl:px-3',
-        '2xl': '2xl:min-w-[96px] 2xl:px-3',
+        default: 'min-w-24 px-3',
+        sm: 'sm:min-w-24 sm:px-3',
+        md: 'md:min-w-24 md:px-3',
+        lg: 'lg:min-w-24 lg:px-3',
+        xl: 'xl:min-w-24 xl:px-3',
+        '2xl': '2xl:min-w-24 2xl:px-3',
     },
     lg: {
-        default: 'min-w-[112px] px-4',
-        sm: 'sm:min-w-[112px] sm:px-4',
-        md: 'md:min-w-[112px] md:px-4',
-        lg: 'lg:min-w-[112px] lg:px-4',
-        xl: 'xl:min-w-[112px] xl:px-4',
-        '2xl': '2xl:min-w-[112px] 2xl:px-4',
+        default: 'min-w-28 px-4',
+        sm: 'sm:min-w-28 sm:px-4',
+        md: 'md:min-w-28 md:px-4',
+        lg: 'lg:min-w-28 lg:px-4',
+        xl: 'xl:min-w-28 xl:px-4',
+        '2xl': '2xl:min-w-28 2xl:px-4',
     },
 };
 
 const responsiveOnlyIconContextClassNames: ResponsiveAttributeClassMap<ButtonSize> = {
     sm: {
-        default: 'w-[32px]',
-        sm: 'sm:w-[32px]',
-        md: 'md:w-[32px]',
-        lg: 'lg:w-[32px]',
-        xl: 'xl:w-[32px]',
-        '2xl': '2xl:w-[32px]',
+        default: 'w-8',
+        sm: 'sm:w-8',
+        md: 'md:w-8',
+        lg: 'lg:w-8',
+        xl: 'xl:w-8',
+        '2xl': '2xl:w-8',
     },
     md: {
-        default: 'w-[40px]',
-        sm: 'sm:w-[40px]',
-        md: 'md:w-[40px]',
-        lg: 'lg:w-[40px]',
-        xl: 'xl:w-[40px]',
-        '2xl': '2xl:w-[40px]',
+        default: 'w-10',
+        sm: 'sm:w-10',
+        md: 'md:w-10',
+        lg: 'lg:w-10',
+        xl: 'xl:w-10',
+        '2xl': '2xl:w-10',
     },
     lg: {
-        default: 'w-[48px]',
-        sm: 'sm:w-[48px]',
-        md: 'md:w-[48px]',
-        lg: 'lg:w-[48px]',
-        xl: 'xl:w-[48px]',
-        '2xl': '2xl:w-[48px]',
+        default: 'w-12',
+        sm: 'sm:w-12',
+        md: 'md:w-12',
+        lg: 'lg:w-12',
+        xl: 'xl:w-12',
+        '2xl': '2xl:w-12',
     },
 };
 
@@ -204,9 +197,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     const commonClasses = [
         'flex flex-row items-center justify-center group', // Layout
         'leading-tight font-normal', // Typography
-        'border transition-all cursor:pointer', // Commons
-        'outline-none focus:outline-none focus-visible:ring focus-visible:ring-offset', // States
-        'active:shadow-none aria-disabled:shadow-none', // Active/Disabled states
+        'border transition-all cursor-pointer', // Commons
+        'active:shadow-none aria-disabled:shadow-none aria-disabled:cursor-default', // Active/Disabled states
     ];
 
     const variantClasses = variantToClassNames[variant].filter((classes) => {

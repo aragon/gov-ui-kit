@@ -1,9 +1,10 @@
-:root {
-  --guk-border-rounded: 4px;
-  --guk-border-rounded-lg: 8px;
-  --guk-border-rounded-xl: 12px;
-  --guk-border-rounded-2xl: 16px;
-  --guk-border-rounded-3xl: 24px;
-  --guk-border-rounded-full: 9999px;
-  --guk-border-rounded-none: none;
+@theme {
+  --radius-*: initial;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+  --radius-none: none;
 }

@@ -92,10 +92,10 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
         <div className={classNames('flex flex-col gap-2 md:gap-3', className)} {...otherProps}>
             <div
                 className={classNames(
-                    'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pl-4 md:pr-3',
-                    'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
-                    'text-base font-normal leading-tight',
-                    'hover:border-neutral-200 hover:shadow-neutral',
+                    'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pr-3 md:pl-4',
+                    'bg-neutral-0 shadow-neutral-sm border-neutral-100 text-neutral-500',
+                    'text-base leading-tight font-normal',
+                    'hover:shadow-neutral hover:border-neutral-200',
                     'focus-within:border-primary-400 focus-within:shadow-primary',
                     'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary',
                 )}
@@ -107,8 +107,8 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                 <input
                     type="search"
                     className={classNames(
-                        'size-full truncate bg-transparent pl-3 caret-neutral-500 outline-none search-cancel:appearance-none',
-                        'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300',
+                        'search-cancel-hidden size-full truncate bg-transparent pl-3 caret-neutral-500 outline-hidden',
+                        'placeholder:text-base placeholder:leading-tight placeholder:font-normal placeholder:text-neutral-300',
                     )}
                     onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
@@ -117,7 +117,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                     value={searchValue}
                 />
                 {displayClearIcon && (
-                    <button className="mr-2 p-2.5 md:mr-4" onClick={handleClear}>
+                    <button className="mr-2 cursor-pointer p-2.5 md:mr-4" onClick={handleClear}>
                         <Icon icon={IconType.CLOSE} size="sm" className="text-neutral-300" />
                     </button>
                 )}

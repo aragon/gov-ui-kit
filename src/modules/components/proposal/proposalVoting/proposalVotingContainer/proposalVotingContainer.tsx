@@ -25,11 +25,7 @@ export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = 
                 <>
                     {processedChildren.map((child, index) =>
                         isValidElement<IProposalVotingStageProps>(child)
-                            ? cloneElement(child, {
-                                  ...child.props,
-                                  index,
-                                  isMultiStage,
-                              })
+                            ? cloneElement(child, { ...child.props, index, isMultiStage })
                             : child,
                     )}
                 </>

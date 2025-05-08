@@ -30,7 +30,6 @@ const config: StorybookConfig = {
                 ],
             },
         },
-        '@storybook/addon-designs',
         '@storybook/addon-webpack5-compiler-babel',
     ],
 

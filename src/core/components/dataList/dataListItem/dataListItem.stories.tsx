@@ -20,6 +20,7 @@ type Story = StoryObj<typeof DataList.Item>;
 export const Default: Story = {
     args: {
         children: 'Data list item',
+        className: 'min-h-12',
     },
 };
 
@@ -31,6 +32,7 @@ export const Link: Story = {
         children: 'Link data list item',
         href: 'https://aragon.org',
         target: '_blank',
+        className: 'flex items-center min-h-12',
     },
 };
 
@@ -41,6 +43,7 @@ export const Button: Story = {
     args: {
         children: 'Button data list item',
         onClick: () => null,
+        className: 'min-h-12',
     },
 };
 
