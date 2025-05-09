@@ -157,9 +157,8 @@ describe('<ProposalVotingBodyContent /> component', () => {
         };
 
         const bodyId = 'sampleBodyId';
-        const activeBody = 'sampleBodyId';
         const contextValues = {
-            activeBody: activeBody,
+            activeBody: bodyId,
             bodyList: [bodyId, 'bodyIdTwo'],
         };
 

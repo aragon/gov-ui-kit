@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Button, DataList } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
-import { ProposalVoting, ProposalVotingStatus } from '../index';
+import { ProposalVoting, ProposalVotingStatus, ProposalVotingTab } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Container> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting',
@@ -416,13 +416,10 @@ export const MultiBodyWithExternalBody: Story = {
     render: (args) => {
         const bodyList = ['Token holder voting', 'safe.hyper-protocol.eth'];
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
-        const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
         const safeExample = {
             logo: 'https://app.safe.global/images/safe-logo-green.png',
             label: 'Safe{Wallet}',
         };
-
-        const minApprovals = 5;
 
         return (
             <ProposalVoting.Container {...args}>
@@ -461,12 +458,9 @@ export const MultiBodyWithExternalBody: Story = {
                         status={ProposalVotingStatus.ACTIVE}
                         bodyId="safe.hyper-protocol.eth"
                         brandedExternal={safeExample}
+                        hideTabs={[ProposalVotingTab.VOTES]}
                     >
-                        <FoundersApprovalContent
-                            multisigSearch={multisigSearch}
-                            setMultisigSearch={setMultisigSearch}
-                            minApprovals={minApprovals}
-                        />
+                        <div className="rounded-xl border border-neutral-100 p-4 md:p-6">Not approved yet</div>
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
             </ProposalVoting.Container>
