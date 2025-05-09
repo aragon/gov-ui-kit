@@ -11,6 +11,11 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      */
     actionsCount?: number;
     /**
+     * Raw actions count should match the number of actions that will be decoded from the proposal.
+     * This is used to render the number of loading skeletons when isLoading is true.
+     */
+    rawActionsCount?: number;
+    /**
      * List of actions ids that are expanded. To be used for controlling the expanded / collapsed states.
      */
     expandedActions?: string[];
@@ -18,6 +23,11 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * Callback called when the expanded state of an action changes.
      */
     onExpandedActionsChange?: (expandedActions: string[]) => void;
+    /**
+     * Whether or not the list of actions is loading.
+     * @default false
+     */
+    isLoading?: boolean;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
@@ -25,6 +35,8 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         actionsCount: actionsCountProp = 0,
         expandedActions: expandedActionsProp,
         onExpandedActionsChange,
+        rawActionsCount = 0,
+        isLoading = false,
         children,
         className,
         ...otherProps
@@ -45,8 +57,14 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
     useEffect(() => setExpandedActions(expandedActionsProp ?? []), [expandedActionsProp]);
 
     const contextValues = useMemo(
-        () => ({ actionsCount, setActionsCount, expandedActions, setExpandedActions: updateExpandedActions }),
-        [actionsCount, expandedActions, updateExpandedActions],
+        () => ({
+            actionsCount: isLoading ? rawActionsCount : actionsCount,
+            setActionsCount,
+            expandedActions,
+            setExpandedActions: updateExpandedActions,
+            isLoading,
+        }),
+        [actionsCount, rawActionsCount, expandedActions, updateExpandedActions, isLoading],
     );
 
     return (

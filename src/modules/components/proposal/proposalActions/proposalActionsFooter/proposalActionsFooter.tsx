@@ -14,7 +14,7 @@ export interface IProposalActionsFooterProps extends ComponentProps<'div'> {
 export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (props) => {
     const { actionIds, className, children, ...otherProps } = props;
 
-    const { actionsCount, setExpandedActions, expandedActions } = useProposalActionsContext();
+    const { actionsCount, setExpandedActions, expandedActions, isLoading } = useProposalActionsContext();
     const { copy } = useGukModulesContext();
 
     const handleToggleAll = () => {
@@ -39,7 +39,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             {...otherProps}
         >
             {children}
-            {actionsCount > 1 && (
+            {actionsCount > 1 && !isLoading && (
                 <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:ml-auto">
                     {expandedActions.length === actionsCount
                         ? copy.proposalActionsFooter.collapse
