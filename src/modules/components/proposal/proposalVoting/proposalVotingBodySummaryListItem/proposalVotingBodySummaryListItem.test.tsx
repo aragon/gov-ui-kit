@@ -8,7 +8,7 @@ import {
 } from './proposalVotingBodySummaryListItem';
 
 jest.mock('../../../../../core/components/avatars/avatar', () => ({
-    Avatar: ({ src }: { src?: string }): React.ReactElement => <div data-testid={src}>{src}</div>,
+    Avatar: ({ src }: { src?: string }) => <div data-testid={src} />,
 }));
 
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
