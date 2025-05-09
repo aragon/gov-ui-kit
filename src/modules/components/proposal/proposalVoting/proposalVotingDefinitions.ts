@@ -4,7 +4,7 @@ export enum ProposalVotingTab {
     DETAILS = 'DETAILS',
 }
 
-export interface IBrandedIdentity {
+export interface IProposalVotingBodyBrand {
     /**
      * Logo src of the branded identity.
      */

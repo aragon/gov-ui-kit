@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Avatar, AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
-import type { IBrandedIdentity } from '../proposalVotingDefinitions';
+import type { IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
 export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
@@ -12,7 +12,7 @@ export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
     /**
      * Branded identity assets for an external body.
      */
-    brandedExternal?: IBrandedIdentity;
+    bodyBrand?: IProposalVotingBodyBrand;
     /**
      * Children to render.
      */
@@ -20,7 +20,7 @@ export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
 };
 
 export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
-    const { id, children, brandedExternal, className, ...otherProps } = props;
+    const { id, children, bodyBrand, className, ...otherProps } = props;
 
     const { setActiveBody } = useProposalVotingStageContext();
 
@@ -31,9 +31,7 @@ export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySumm
             {...otherProps}
         >
             <div className="flex items-center gap-x-2 md:gap-x-3">
-                {brandedExternal != null && (
-                    <Avatar src={brandedExternal.logo} size="sm" responsiveSize={{ md: 'md' }} />
-                )}
+                {bodyBrand != null && <Avatar src={bodyBrand.logo} size="sm" responsiveSize={{ md: 'md' }} />}
                 {children}
             </div>
             <AvatarIcon icon={IconType.CHEVRON_RIGHT} />

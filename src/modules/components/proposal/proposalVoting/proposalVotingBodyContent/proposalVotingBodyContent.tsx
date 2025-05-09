@@ -3,7 +3,7 @@ import { useEffect, useState, type ComponentProps } from 'react';
 import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingTab, type IBrandedIdentity } from '../proposalVotingDefinitions';
+import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
@@ -25,11 +25,11 @@ export interface IProposalVotingBodyContentProps
     /**
      * Branded identity assets for an external body.
      */
-    brandedExternal?: IBrandedIdentity;
+    bodyBrand?: IProposalVotingBodyBrand;
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status, hideTabs, brandedExternal, className, ...otherProps } = props;
+    const { bodyId, children, name, status, hideTabs, bodyBrand, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
@@ -61,10 +61,10 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     </Button>
                     <div className="flex w-full flex-col gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
                         <p className="shrink-0 grow truncate text-neutral-800">{name}</p>
-                        {brandedExternal != null && (
+                        {bodyBrand != null && (
                             <div className="flex items-center gap-x-1 md:gap-x-2">
-                                <p className="text-neutral-500">{brandedExternal.label}</p>
-                                <Avatar src={brandedExternal.logo} size="sm" />
+                                <p className="text-neutral-500">{bodyBrand.label}</p>
+                                <Avatar src={bodyBrand.logo} size="sm" />
                             </div>
                         )}
                     </div>

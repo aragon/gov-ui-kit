@@ -265,6 +265,11 @@ export const SingleStageMultiBody: Story = {
 
         const minApprovals = 5;
 
+        const safeExample = {
+            logo: 'https://app.safe.global/images/safe-logo-green.png',
+            label: 'Safe{Wallet}',
+        };
+
         return (
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
@@ -277,7 +282,11 @@ export const SingleStageMultiBody: Story = {
                     <ProposalVoting.BodySummary>
                         <ProposalVoting.BodySummaryList>
                             {bodyList.map((bodyId) => (
-                                <ProposalVoting.BodySummaryListItem key={bodyId} id={bodyId}>
+                                <ProposalVoting.BodySummaryListItem
+                                    key={bodyId}
+                                    id={bodyId}
+                                    bodyBrand={bodyId === 'Founders approval' ? safeExample : undefined}
+                                >
                                     {bodyId}
                                 </ProposalVoting.BodySummaryListItem>
                             ))}
@@ -297,6 +306,8 @@ export const SingleStageMultiBody: Story = {
                         name="Founders approval"
                         status={ProposalVotingStatus.ACTIVE}
                         bodyId="Founders approval"
+                        bodyBrand={safeExample}
+                        hideTabs={[ProposalVotingTab.VOTES]}
                     >
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
@@ -402,65 +413,6 @@ export const MultiStageMultiBody: Story = {
                             setMultisigSearch={setMultisigSearch}
                             minApprovals={minApprovals}
                         />
-                    </ProposalVoting.BodyContent>
-                </ProposalVoting.Stage>
-            </ProposalVoting.Container>
-        );
-    },
-};
-
-export const MultiBodyWithExternalBody: Story = {
-    args: {
-        className: 'max-w-[560px]',
-    },
-    render: (args) => {
-        const bodyList = ['Token holder voting', 'safe.hyper-protocol.eth'];
-        const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
-        const safeExample = {
-            logo: 'https://app.safe.global/images/safe-logo-green.png',
-            label: 'Safe{Wallet}',
-        };
-
-        return (
-            <ProposalVoting.Container {...args}>
-                <ProposalVoting.Stage
-                    name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
-                    startDate={DateTime.now().toMillis()}
-                    endDate={DateTime.now().plus({ days: 5 }).toMillis()}
-                    bodyList={bodyList}
-                >
-                    <ProposalVoting.BodySummary>
-                        <ProposalVoting.BodySummaryList>
-                            {bodyList.map((bodyId) => (
-                                <ProposalVoting.BodySummaryListItem
-                                    key={bodyId}
-                                    id={bodyId}
-                                    brandedExternal={bodyId === 'safe.hyper-protocol.eth' ? safeExample : undefined}
-                                >
-                                    {bodyId}
-                                </ProposalVoting.BodySummaryListItem>
-                            ))}
-                        </ProposalVoting.BodySummaryList>
-                        <p className="text-center text-neutral-500 md:text-right">
-                            <span className="text-neutral-800">1 body</span> required to approve
-                        </p>
-                    </ProposalVoting.BodySummary>
-                    <ProposalVoting.BodyContent
-                        name="Token holder voting"
-                        status={ProposalVotingStatus.ACTIVE}
-                        bodyId="Token holder voting"
-                    >
-                        <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
-                    </ProposalVoting.BodyContent>
-                    <ProposalVoting.BodyContent
-                        name="safe.hyper-protocol.eth"
-                        status={ProposalVotingStatus.ACTIVE}
-                        bodyId="safe.hyper-protocol.eth"
-                        brandedExternal={safeExample}
-                        hideTabs={[ProposalVotingTab.VOTES]}
-                    >
-                        <div className="rounded-xl border border-neutral-100 p-4 md:p-6">Not approved yet</div>
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
             </ProposalVoting.Container>

@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': patch
 ---
 
-Implement branded external bodies on ProposalVoting
+Update ProposalVoting module component to support branded bodies
