@@ -9,7 +9,7 @@ import { IconType } from '../../icon';
 
 export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {}
 
-export const  AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
+export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
     const { children, className, disabled, ...otherProps } = props;
 
     return (
