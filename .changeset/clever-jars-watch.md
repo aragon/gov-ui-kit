@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': patch
 ---
 
-Implement ProposalActionItemsSkeleton component with isLoading state on ProposalActionsRoot
+Implement ProposalActionItemsSkeleton component, update ProposalActions component to support loading state

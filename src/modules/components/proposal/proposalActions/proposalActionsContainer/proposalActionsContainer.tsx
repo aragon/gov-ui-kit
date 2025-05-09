@@ -44,7 +44,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                 />
             )}
             {isLoading
-                ? Array.from({ length: childrenCount }).map((_, index) => <ProposalActionsItemSkeleton key={index} />)
+                ? Array.from({ length: actionsCount }).map((_, index) => <ProposalActionsItemSkeleton key={index} />)
                 : processedChildren.map((child, index) =>
                       React.isValidElement<IProposalActionsItemProps>(child)
                           ? React.cloneElement(child, { ...child.props, index })
