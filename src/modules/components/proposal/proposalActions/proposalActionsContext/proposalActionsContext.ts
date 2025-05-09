@@ -18,7 +18,7 @@ export interface IProposalActionsContext {
      */
     setExpandedActions: (items: string[]) => void;
     /**
-     * Whether or not the list of actions has loaded.
+     * Whether or not the list of actions is loading.
      */
     isLoading: boolean;
 }

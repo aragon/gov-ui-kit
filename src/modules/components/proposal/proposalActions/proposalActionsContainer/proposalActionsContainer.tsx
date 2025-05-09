@@ -3,7 +3,7 @@ import { Accordion, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
 import type { IProposalActionsItemProps } from '../proposalActionsItem';
-import { ProposalActionsItemSkeleton } from '../proposalActionsItemSkeleton/proposalActionsItemSkeleton';
+import { ProposalActionsItemSkeleton } from '../proposalActionsItemSkeleton';
 
 export interface IProposalActionsContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**

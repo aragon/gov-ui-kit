@@ -19,7 +19,7 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      */
     onExpandedActionsChange?: (expandedActions: string[]) => void;
     /**
-     * Whether or not the list of actions has loaded.
+     * Whether or not the list of actions is loading. @default false
      */
     isLoading?: boolean;
 }
