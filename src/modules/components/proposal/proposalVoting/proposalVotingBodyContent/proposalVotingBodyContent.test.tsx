@@ -3,8 +3,8 @@ import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
-jest.mock('../../../../../core', () => ({
-    Avatar: ({ src }: { src?: string }) => <div data-testid={src}>{src}</div>,
+jest.mock('../../../../../core/components/avatars/avatar', () => ({
+    Avatar: ({ src }: { src?: string }): React.ReactElement => <div data-testid={src}>{src}</div>,
 }));
 
 describe('<ProposalVotingBodyContent /> component', () => {
