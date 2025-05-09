@@ -18,6 +18,10 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * Callback called when the expanded state of an action changes.
      */
     onExpandedActionsChange?: (expandedActions: string[]) => void;
+    /**
+     * Whether or not the list of actions has loaded.
+     */
+    isLoading?: boolean;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
@@ -25,6 +29,7 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         actionsCount: actionsCountProp = 0,
         expandedActions: expandedActionsProp,
         onExpandedActionsChange,
+        isLoading = false,
         children,
         className,
         ...otherProps
@@ -45,8 +50,14 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
     useEffect(() => setExpandedActions(expandedActionsProp ?? []), [expandedActionsProp]);
 
     const contextValues = useMemo(
-        () => ({ actionsCount, setActionsCount, expandedActions, setExpandedActions: updateExpandedActions }),
-        [actionsCount, expandedActions, updateExpandedActions],
+        () => ({
+            actionsCount,
+            setActionsCount,
+            expandedActions,
+            setExpandedActions: updateExpandedActions,
+            isLoading,
+        }),
+        [actionsCount, expandedActions, updateExpandedActions, isLoading],
     );
 
     return (

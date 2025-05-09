@@ -17,6 +17,10 @@ export interface IProposalActionsContext {
      * Callback used to update the current expanded actions.
      */
     setExpandedActions: (items: string[]) => void;
+    /**
+     * Whether or not the list of actions has loaded.
+     */
+    isLoading: boolean;
 }
 
 export const proposalActionsContext = createContext<IProposalActionsContext | null>(null);
