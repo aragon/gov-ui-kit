@@ -61,21 +61,20 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         return (
             <ProposalVotingStageContextProvider value={contextValues}>
                 <Card
-                    className={classNames(
-                        'relative flex flex-col gap-4 overflow-hidden p-4 md:gap-6 md:p-6',
-                        className,
-                    )}
+                    className={classNames('relative flex flex-col overflow-hidden p-4 md:p-6', className)}
                     {...otherProps}
                 >
-                    {bodyList && bodyList.length > 1 && (
-                        <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
-                    )}
-                    <ProposalVotingStageStatus
-                        status={status}
-                        endDate={endDate}
-                        isMultiStage={false}
-                        className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
-                    />
+                    <div className="flex flex-col gap-y-2 pb-3 md:pb-4">
+                        {bodyList && bodyList.length > 1 && (
+                            <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                        )}
+                        <ProposalVotingStageStatus
+                            status={status}
+                            endDate={endDate}
+                            isMultiStage={false}
+                            className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
+                        />
+                    </div>
                     {children}
                 </Card>
             </ProposalVotingStageContextProvider>
