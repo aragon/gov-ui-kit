@@ -47,8 +47,15 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         [onExpandedActionsChange],
     );
 
-    // Update expandedActions array on property change
-    useEffect(() => setExpandedActions(expandedActionsProp ?? []), [expandedActionsProp]);
+    useEffect(() => {
+        if (isLoading) {
+            setActionsCount(actionsCountProp);
+        }
+    }, [isLoading, actionsCountProp]);
+
+    useEffect(() => {
+        setExpandedActions(expandedActionsProp ?? []);
+    }, [expandedActionsProp]);
 
     const contextValues = useMemo(
         () => ({
