@@ -100,12 +100,12 @@ export const Controlled: Story = {
  */
 export const Loading: Story = {
     args: {
-        actionsCount: 2,
         isLoading: true,
+        actionsCount: 2,
     },
     render: (props) => (
         <ProposalActions.Root {...props}>
-            <ProposalActions.Container emptyStateDescription="-" />
+            <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
             <ProposalActions.Footer />
         </ProposalActions.Root>
     ),
