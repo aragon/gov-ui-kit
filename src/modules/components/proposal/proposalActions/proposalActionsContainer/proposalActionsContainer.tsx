@@ -22,9 +22,8 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const processedChildren = Children.toArray(children);
     const childrenCount = processedChildren.length;
 
-    // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
     useEffect(() => {
-        if (!isLoading && childrenCount > 0) {
+        if (!isLoading) {
             setActionsCount(childrenCount);
         }
     }, [childrenCount, isLoading, setActionsCount]);
@@ -38,7 +37,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             onValueChange={handleAccordionValueChange}
             {...otherProps}
         >
-            {!isLoading && childrenCount === 0 && (
+            {actionsCount === 0 && (
                 <CardEmptyState
                     heading={copy.proposalActionsContainer.emptyHeader}
                     description={emptyStateDescription}

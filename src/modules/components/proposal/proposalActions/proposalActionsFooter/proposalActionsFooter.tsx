@@ -26,7 +26,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
         }
     };
 
-    if (actionsCount === 0 && children == null) {
+    if ((actionsCount === 0 && children == null) || isLoading) {
         return null;
     }
 
@@ -38,7 +38,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             )}
             {...otherProps}
         >
-            {!isLoading && children}
+            {children}
             {actionsCount > 1 && (
                 <Button
                     onClick={handleToggleAll}
