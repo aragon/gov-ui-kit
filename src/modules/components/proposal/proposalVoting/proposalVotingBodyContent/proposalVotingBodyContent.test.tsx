@@ -4,6 +4,10 @@ import { ProposalVotingStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
+jest.mock('../../../../../core/components/avatars/avatar', () => ({
+    Avatar: ({ src }: { src?: string }) => <div data-testid={src} />,
+}));
+
 describe('<ProposalVotingBodyContent /> component', () => {
     const createTestComponent = (
         props?: Partial<IProposalVotingBodyContentProps>,
@@ -148,5 +152,25 @@ describe('<ProposalVotingBodyContent /> component', () => {
 
         expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
         expect(screen.queryByText('Test Stage')).not.toBeInTheDocument();
+    });
+
+    it('renders the avatar component and brand label when bodyBrand is provided', async () => {
+        const bodyBrand = {
+            label: 'Sample Label',
+            logo: 'https://example.com/sample-logo.png',
+        };
+
+        const bodyId = 'sampleBodyId';
+        const contextValues = {
+            activeBody: bodyId,
+            bodyList: [bodyId, 'bodyIdTwo'],
+        };
+
+        render(createTestComponent({ bodyId, bodyBrand }, contextValues));
+
+        expect(screen.getByText(bodyBrand.label)).toBeInTheDocument();
+
+        const avatar = await screen.findByTestId(bodyBrand.logo);
+        expect(avatar).toBeInTheDocument();
     });
 });

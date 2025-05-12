@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Button, DataList } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
-import { ProposalVoting, ProposalVotingStatus } from '../index';
+import { ProposalVoting, ProposalVotingStatus, ProposalVotingTab } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Container> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting',
@@ -265,6 +265,11 @@ export const SingleStageMultiBody: Story = {
 
         const minApprovals = 5;
 
+        const safeExample = {
+            logo: 'https://app.safe.global/images/safe-logo-green.png',
+            label: 'Safe{Wallet}',
+        };
+
         return (
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
@@ -277,7 +282,11 @@ export const SingleStageMultiBody: Story = {
                     <ProposalVoting.BodySummary>
                         <ProposalVoting.BodySummaryList>
                             {bodyList.map((bodyId) => (
-                                <ProposalVoting.BodySummaryListItem key={bodyId} id={bodyId}>
+                                <ProposalVoting.BodySummaryListItem
+                                    key={bodyId}
+                                    id={bodyId}
+                                    bodyBrand={bodyId === 'Founders approval' ? safeExample : undefined}
+                                >
                                     {bodyId}
                                 </ProposalVoting.BodySummaryListItem>
                             ))}
@@ -297,6 +306,8 @@ export const SingleStageMultiBody: Story = {
                         name="Founders approval"
                         status={ProposalVotingStatus.ACTIVE}
                         bodyId="Founders approval"
+                        bodyBrand={safeExample}
+                        hideTabs={[ProposalVotingTab.VOTES]}
                     >
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}

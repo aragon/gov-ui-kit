@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useEffect, useState, type ComponentProps } from 'react';
-import { Button, IconType } from '../../../../../core';
+import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingStatus } from '../../proposalUtils';
-import { ProposalVotingTab } from '../proposalVotingDefinitions';
+import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
@@ -22,10 +22,14 @@ export interface IProposalVotingBodyContentProps
      * ID of the body used to determine if the content should be rendered or not, only relevant for multi-body stages.
      */
     bodyId?: string;
+    /**
+     * Branded identity assets for an external body.
+     */
+    bodyBrand?: IProposalVotingBodyBrand;
 }
 
 export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps> = (props) => {
-    const { bodyId, children, name, status, hideTabs, className, ...otherProps } = props;
+    const { bodyId, children, name, status, hideTabs, bodyBrand, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
@@ -43,9 +47,9 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     }
 
     return (
-        <div className={classNames('flex w-full flex-col gap-3', className)} {...otherProps}>
+        <div className={classNames('flex w-full flex-col', className)} {...otherProps}>
             {bodyList && bodyList.length > 1 && (
-                <>
+                <div className="flex w-full flex-col gap-y-4">
                     <Button
                         className="w-fit"
                         iconLeft={IconType.CHEVRON_LEFT}
@@ -55,8 +59,16 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     >
                         {copy.proposalVotingBodyContent.back}
                     </Button>
-                    <p className="text-neutral-800">{name}</p>
-                </>
+                    <div className="flex w-full flex-col gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
+                        <p className="shrink-0 grow truncate text-neutral-800">{name}</p>
+                        {bodyBrand != null && (
+                            <div className="flex items-center gap-x-1 md:gap-x-2">
+                                <p className="text-neutral-500">{bodyBrand.label}</p>
+                                <Avatar src={bodyBrand.logo} size="sm" />
+                            </div>
+                        )}
+                    </div>
+                </div>
             )}
             <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
                 {children}
