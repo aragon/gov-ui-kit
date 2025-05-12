@@ -53,7 +53,7 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
         expect(screen.getByTestId(IconType.CHEVRON_RIGHT)).toBeInTheDocument();
     });
 
-    it('renders the avatar component when brandedExternal is provided', async () => {
+    it('renders the avatar component when bodyBrand is provided', async () => {
         const bodyBrand = {
             label: 'Branded Label',
             logo: 'https://fastly.picsum.photos/id/204/536/354.jpg?hmac=snZIgqenag_pWqyhXX7PzRmag1UZ2SvMcP2YQ_m6KhE',

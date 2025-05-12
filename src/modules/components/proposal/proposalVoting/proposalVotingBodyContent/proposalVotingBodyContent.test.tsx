@@ -154,7 +154,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         expect(screen.queryByText('Test Stage')).not.toBeInTheDocument();
     });
 
-    it('renders the avatar component and brand label when brandedExternal is provided', async () => {
+    it('renders the avatar component and brand label when bodyBrand is provided', async () => {
         const bodyBrand = {
             label: 'Sample Label',
             logo: 'https://example.com/sample-logo.png',
