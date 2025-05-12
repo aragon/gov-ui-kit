@@ -9,12 +9,7 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * component is rendered on the server side.
      * @default 0
      */
-    actionsCount?: number;
-    /**
-     * Raw actions count should match the number of actions that will be decoded from the proposal.
-     * This is used to render the number of loading skeletons when isLoading is true.
-     */
-    rawActionsCount?: number;
+    actionsCount: number;
     /**
      * List of actions ids that are expanded. To be used for controlling the expanded / collapsed states.
      */
@@ -35,7 +30,6 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         actionsCount: actionsCountProp = 0,
         expandedActions: expandedActionsProp,
         onExpandedActionsChange,
-        rawActionsCount = 0,
         isLoading = false,
         children,
         className,
@@ -58,13 +52,13 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
 
     const contextValues = useMemo(
         () => ({
-            actionsCount: isLoading ? rawActionsCount : actionsCount,
+            actionsCount,
             setActionsCount,
             expandedActions,
             setExpandedActions: updateExpandedActions,
             isLoading,
         }),
-        [actionsCount, rawActionsCount, expandedActions, updateExpandedActions, isLoading],
+        [actionsCount, expandedActions, updateExpandedActions, isLoading],
     );
 
     return (

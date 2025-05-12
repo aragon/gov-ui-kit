@@ -20,10 +20,8 @@ type Story = StoryObj<typeof ProposalActions.Skeleton>;
 export const Default: Story = {
     render: () => {
         return (
-            <ProposalActions.Root rawActionsCount={1} isLoading={true}>
-                <ProposalActions.Container emptyStateDescription="Proposal has no actions">
-                    <ProposalActions.Skeleton />
-                </ProposalActions.Container>
+            <ProposalActions.Root actionsCount={1} isLoading={true}>
+                <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
             </ProposalActions.Root>
         );
     },

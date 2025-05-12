@@ -95,4 +95,18 @@ export const Controlled: Story = {
     },
 };
 
+/**
+ * Example usage of the ProposalActions.Root component with loading state.
+ */
+export const Loading: Story = {
+    render: () => (
+        <ProposalActions.Root actionsCount={2} isLoading={true}>
+            <ProposalActions.Container emptyStateDescription="Proposal has no actions">
+                <ProposalActions.Skeleton />
+                <ProposalActions.Skeleton />
+            </ProposalActions.Container>
+        </ProposalActions.Root>
+    ),
+};
+
 export default meta;
