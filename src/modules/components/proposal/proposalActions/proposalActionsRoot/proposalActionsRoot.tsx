@@ -47,12 +47,7 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         [onExpandedActionsChange],
     );
 
-    useEffect(() => {
-        if (isLoading) {
-            setActionsCount(actionsCountProp);
-        }
-    }, [isLoading, actionsCountProp]);
-
+    // Update expandedActions array on property change
     useEffect(() => {
         setExpandedActions(expandedActionsProp ?? []);
     }, [expandedActionsProp]);

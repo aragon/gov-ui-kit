@@ -26,10 +26,6 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
         }
     };
 
-    if (isLoading) {
-        return null;
-    }
-
     if (actionsCount === 0 && children == null) {
         return null;
     }
@@ -43,13 +39,26 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             {...otherProps}
         >
             {children}
-            {actionsCount > 1 && (
-                <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:ml-auto">
-                    {expandedActions.length === actionsCount
-                        ? copy.proposalActionsFooter.collapse
-                        : copy.proposalActionsFooter.expand}
-                </Button>
-            )}
+            <div className="flex w-full flex-col gap-y-3 md:flex-row-reverse md:gap-x-12">
+                {actionsCount > 1 && (
+                    <Button
+                        onClick={handleToggleAll}
+                        variant="tertiary"
+                        size="md"
+                        className="shrink-0 md:ml-auto"
+                        disabled={isLoading}
+                    >
+                        {expandedActions.length === actionsCount
+                            ? copy.proposalActionsFooter.collapse
+                            : copy.proposalActionsFooter.expand}
+                    </Button>
+                )}
+                {isLoading && (
+                    <p className="text-center text-sm text-neutral-500 md:text-left">
+                        {copy.proposalActionsFooter.execution}
+                    </p>
+                )}
+            </div>
         </div>
     );
 };

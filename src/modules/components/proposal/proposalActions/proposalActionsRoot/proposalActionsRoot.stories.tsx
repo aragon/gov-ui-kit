@@ -106,6 +106,7 @@ export const Loading: Story = {
     render: (props) => (
         <ProposalActions.Root {...props}>
             <ProposalActions.Container emptyStateDescription="-" />
+            <ProposalActions.Footer />
         </ProposalActions.Root>
     ),
 };
