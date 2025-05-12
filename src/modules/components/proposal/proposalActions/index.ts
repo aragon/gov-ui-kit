@@ -8,7 +8,7 @@ export const ProposalActions = {
     Root: ProposalActionsRoot,
     Container: ProposalActionsContainer,
     Item: ProposalActionsItem,
-    Skeleton: ProposalActionsItemSkeleton,
+    ItemSkeleton: ProposalActionsItemSkeleton,
     Footer: ProposalActionsFooter,
 };
 

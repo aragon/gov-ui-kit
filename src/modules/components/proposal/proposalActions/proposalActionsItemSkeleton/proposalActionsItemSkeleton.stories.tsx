@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { ProposalActions } from '../index';
 
-const meta: Meta<typeof ProposalActions.Skeleton> = {
-    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.Skeleton',
-    component: ProposalActions.Skeleton,
+const meta: Meta<typeof ProposalActions.ItemSkeleton> = {
+    title: 'Modules/Components/Proposal/ProposalActions/ProposalActions.ItemSkeleton',
+    component: ProposalActions.ItemSkeleton,
     parameters: {
         design: {
             type: 'figma',
@@ -12,7 +12,7 @@ const meta: Meta<typeof ProposalActions.Skeleton> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalActions.Skeleton>;
+type Story = StoryObj<typeof ProposalActions.ItemSkeleton>;
 
 /**
  * Default usage example of the ProposalActionsItemSkeleton module component.
