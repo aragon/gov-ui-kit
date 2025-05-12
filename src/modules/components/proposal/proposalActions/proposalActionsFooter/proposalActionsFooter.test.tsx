@@ -61,7 +61,7 @@ describe('<ProposalActionsFooter /> component', () => {
         expect(setExpandedActions).toHaveBeenCalledWith(actionIds);
     });
 
-    it('renders a disabled toggle button when loading and does not invoke handler on click', async () => {
+    it('renders a disabled `Expand all` button when loading more than one action', async () => {
         const setExpandedActions = jest.fn();
         const context = {
             expandedActions: [],
