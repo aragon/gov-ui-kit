@@ -23,7 +23,6 @@ export const modulesCopy = {
     proposalActionsFooter: {
         collapse: 'Collapse all',
         expand: 'Expand all',
-        execution: "The proposal must pass all voting stages before the binding onchain actions are able to be executed."
     },
     proposalActionsItem: {
         dropdownLabel: 'More',
