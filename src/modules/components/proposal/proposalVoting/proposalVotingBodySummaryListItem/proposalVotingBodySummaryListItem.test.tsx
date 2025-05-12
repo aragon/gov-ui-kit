@@ -7,6 +7,10 @@ import {
     ProposalVotingBodySummaryListItem,
 } from './proposalVotingBodySummaryListItem';
 
+jest.mock('../../../../../core/components/avatars/avatar', () => ({
+    Avatar: ({ src }: { src?: string }) => <div data-testid={src} />,
+}));
+
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
     const createTestComponent = (
         props?: Partial<IProposalVotingBodySummaryListItemProps>,
@@ -47,5 +51,17 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
 
         expect(screen.getByText('Body name')).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CHEVRON_RIGHT)).toBeInTheDocument();
+    });
+
+    it('renders the avatar component when bodyBrand is provided', async () => {
+        const bodyBrand = {
+            label: 'Branded Label',
+            logo: 'https://fastly.picsum.photos/id/204/536/354.jpg?hmac=snZIgqenag_pWqyhXX7PzRmag1UZ2SvMcP2YQ_m6KhE',
+        };
+
+        render(createTestComponent({ bodyBrand }));
+
+        const avatar = await screen.findByTestId(bodyBrand.logo);
+        expect(avatar).toBeInTheDocument();
     });
 });
