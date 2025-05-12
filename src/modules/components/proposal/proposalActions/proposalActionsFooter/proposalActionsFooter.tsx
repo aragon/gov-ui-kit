@@ -26,6 +26,10 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
         }
     };
 
+    if (isLoading) {
+        return null;
+    }
+
     if (actionsCount === 0 && children == null) {
         return null;
     }
@@ -39,7 +43,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             {...otherProps}
         >
             {children}
-            {actionsCount > 1 && !isLoading && (
+            {actionsCount > 1 && (
                 <Button onClick={handleToggleAll} variant="tertiary" size="md" className="shrink-0 md:ml-auto">
                     {expandedActions.length === actionsCount
                         ? copy.proposalActionsFooter.collapse

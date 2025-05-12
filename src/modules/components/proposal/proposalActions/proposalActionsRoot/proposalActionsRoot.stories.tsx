@@ -105,7 +105,7 @@ export const Loading: Story = {
     },
     render: (props) => (
         <ProposalActions.Root {...props}>
-            <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
+            <ProposalActions.Container emptyStateDescription="-" />
         </ProposalActions.Root>
     ),
 };

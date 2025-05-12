@@ -9,7 +9,7 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * component is rendered on the server side.
      * @default 0
      */
-    actionsCount: number;
+    actionsCount?: number;
     /**
      * List of actions ids that are expanded. To be used for controlling the expanded / collapsed states.
      */
