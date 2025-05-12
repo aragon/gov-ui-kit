@@ -60,4 +60,23 @@ describe('<ProposalActionsFooter /> component', () => {
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.expand }));
         expect(setExpandedActions).toHaveBeenCalledWith(actionIds);
     });
+
+    it('renders a disabled toggle button when loading and does not invoke handler on click', async () => {
+        const setExpandedActions = jest.fn();
+        const context = {
+            expandedActions: [],
+            actionsCount: 3,
+            setExpandedActions,
+            isLoading: true,
+        };
+        render(createTestComponent({ context }));
+
+        const toggleButton = screen.getByRole('button', {
+            name: modulesCopy.proposalActionsFooter.expand,
+        });
+        expect(toggleButton).toBeDisabled();
+
+        await userEvent.click(toggleButton);
+        expect(setExpandedActions).not.toHaveBeenCalled();
+    });
 });
