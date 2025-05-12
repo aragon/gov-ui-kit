@@ -43,7 +43,7 @@ export const Default: Story = {
                 />
             </ProposalActions.Container>
             <ProposalActions.Footer>
-                <Button size="md" variant="secondary">
+                <Button size="md" className="text-nowrap">
                     Execute actions
                 </Button>
             </ProposalActions.Footer>
