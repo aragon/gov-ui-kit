@@ -38,7 +38,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             )}
             {...otherProps}
         >
-            {!isLoading && children}
+            {children}
             {actionsCount > 1 && (
                 <Button
                     onClick={handleToggleAll}
