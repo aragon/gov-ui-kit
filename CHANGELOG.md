@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 1.5.0
+
+### Minor Changes
+
+- [#472](https://github.com/aragon/gov-ui-kit/pull/472) [`6b2c13f`](https://github.com/aragon/gov-ui-kit/commit/6b2c13fc32983705b701d8e67efbbf54a4e2e107) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#471](https://github.com/aragon/gov-ui-kit/pull/471) [`80fa61d`](https://github.com/aragon/gov-ui-kit/commit/80fa61df455704c6f561bb01a42753a595089b65) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump lint-staged to v16
+
+- [#468](https://github.com/aragon/gov-ui-kit/pull/468) [`3965c45`](https://github.com/aragon/gov-ui-kit/commit/3965c45159cbf3fcf566cd874f35771a6a2bf2bd) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#470](https://github.com/aragon/gov-ui-kit/pull/470) [`8f005a0`](https://github.com/aragon/gov-ui-kit/commit/8f005a043910782cc852f2f07a1acfa7b7f2c0b2) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement ProposalActionItemsSkeleton component, update ProposalActions component to support loading state
+
+- [#469](https://github.com/aragon/gov-ui-kit/pull/469) [`b963051`](https://github.com/aragon/gov-ui-kit/commit/b963051712b6982e3be31ac34ca466af27f868c8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update ProposalVoting module component to support branded bodies
+
 ## 1.4.0
 
 ### Minor Changes
