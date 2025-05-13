@@ -3,6 +3,7 @@ import { Accordion, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
 import type { IProposalActionsItemProps } from '../proposalActionsItem';
+import { ProposalActionsItemSkeleton } from '../proposalActionsItemSkeleton';
 
 export interface IProposalActionsContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**
@@ -15,13 +16,17 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const { emptyStateDescription, children, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
-    const { actionsCount, setActionsCount, expandedActions, setExpandedActions } = useProposalActionsContext();
+    const { actionsCount, setActionsCount, expandedActions, setExpandedActions, isLoading } =
+        useProposalActionsContext();
 
     const processedChildren = Children.toArray(children);
     const childrenCount = processedChildren.length;
 
-    // Update the actions-count context value by calculating the number of proposal-actions-item components rendered.
-    useEffect(() => setActionsCount(childrenCount), [childrenCount, setActionsCount]);
+    useEffect(() => {
+        if (!isLoading) {
+            setActionsCount(childrenCount);
+        }
+    }, [childrenCount, isLoading, setActionsCount]);
 
     const handleAccordionValueChange = (value: string[] = []) => setExpandedActions(value);
 
@@ -41,11 +46,13 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
                     className="border border-neutral-100"
                 />
             )}
-            {processedChildren.map((child, index) =>
-                React.isValidElement<IProposalActionsItemProps>(child)
-                    ? React.cloneElement(child, { ...child.props, index })
-                    : child,
-            )}
+            {isLoading
+                ? Array.from({ length: actionsCount }).map((_, index) => <ProposalActionsItemSkeleton key={index} />)
+                : processedChildren.map((child, index) =>
+                      React.isValidElement<IProposalActionsItemProps>(child)
+                          ? React.cloneElement(child, { ...child.props, index })
+                          : child,
+                  )}
         </Accordion.Container>
     );
 };

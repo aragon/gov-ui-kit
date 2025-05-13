@@ -64,4 +64,16 @@ describe('<ProposalActionsContainer /> component', () => {
         render(createTestComponent({ props: { children }, context }));
         expect(setActionsCount).toHaveBeenCalledWith(1);
     });
+
+    it('renders the correct number of skeletons when loading state is active', () => {
+        const children = [
+            <ProposalActionsItem key={1} action={generateProposalAction()} />,
+            <ProposalActionsItem key={2} action={generateProposalAction()} />,
+        ];
+        const context = { actionsCount: children.length, isLoading: true };
+        render(createTestComponent({ props: { children }, context }));
+
+        const skeletonItems = screen.getAllByLabelText('loading');
+        expect(skeletonItems).toHaveLength(children.length);
+    });
 });

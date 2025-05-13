@@ -43,7 +43,7 @@ export const Default: Story = {
                 />
             </ProposalActions.Container>
             <ProposalActions.Footer>
-                <Button size="md" variant="secondary">
+                <Button size="md" className="text-nowrap">
                     Execute actions
                 </Button>
             </ProposalActions.Footer>
@@ -93,6 +93,22 @@ export const Controlled: Story = {
             </ProposalActions.Root>
         );
     },
+};
+
+/**
+ * Example usage of the ProposalActions.Root component with loading state.
+ */
+export const Loading: Story = {
+    args: {
+        isLoading: true,
+        actionsCount: 2,
+    },
+    render: (props) => (
+        <ProposalActions.Root {...props}>
+            <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
+            <ProposalActions.Footer />
+        </ProposalActions.Root>
+    ),
 };
 
 export default meta;
