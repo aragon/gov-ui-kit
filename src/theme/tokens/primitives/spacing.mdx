@@ -6,7 +6,7 @@ import classNames from 'classnames';
 export const exampleValues = ['0', '0.25', '0.5', '1', '2', '3', '4', '5', '10', '16', '32', '64', '128'];
 
 export const DisplayComponent = ({ value }) => {
-    const pxValue = parseFloat(value) * 4;
+    const pxValue = Number.parseFloat(value) * 4;
 
     return (
         <tr>
