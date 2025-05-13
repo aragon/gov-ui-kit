@@ -259,7 +259,7 @@ export const SingleStageMultiBody: Story = {
         className: 'max-w-[560px]',
     },
     render: (args) => {
-        const bodyList = ['Token holder voting', 'safe.hyper-protcol.eth'];
+        const bodyList = ['Token holder voting', 'Founders approval'];
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
 
@@ -285,7 +285,7 @@ export const SingleStageMultiBody: Story = {
                                 <ProposalVoting.BodySummaryListItem
                                     key={bodyId}
                                     id={bodyId}
-                                    bodyBrand={bodyId === 'safe.hyper-protcol.eth' ? safeExample : undefined}
+                                    bodyBrand={bodyId === 'Founders approval' ? safeExample : undefined}
                                 >
                                     {bodyId}
                                 </ProposalVoting.BodySummaryListItem>
@@ -303,9 +303,9 @@ export const SingleStageMultiBody: Story = {
                         <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
                     </ProposalVoting.BodyContent>
                     <ProposalVoting.BodyContent
-                        name="safe.hyper-protcol.eth"
+                        name="Founders approval"
                         status={ProposalVotingStatus.ACTIVE}
-                        bodyId="safe.hyper-protcol.eth"
+                        bodyId="Founders approval"
                         bodyBrand={safeExample}
                         hideTabs={[ProposalVotingTab.VOTES]}
                     >
