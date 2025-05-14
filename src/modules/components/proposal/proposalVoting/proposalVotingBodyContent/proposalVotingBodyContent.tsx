@@ -60,9 +60,9 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                 </Button>
             )}
             <div className="flex flex-col gap-4 gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
-                {name && <p className="truncate text-neutral-800">{name}</p>}
-                {bodyBrand && (
-                    <div className="flex items-center gap-2 text-neutral-500">
+                {name != null && <p className="truncate text-base text-neutral-800 md:text-lg">{name}</p>}
+                {bodyBrand != null && (
+                    <div className="flex items-center gap-2 text-sm text-neutral-500 md:text-base">
                         <span>{bodyBrand.label}</span>
                         <Avatar src={bodyBrand.logo} size="sm" />
                     </div>

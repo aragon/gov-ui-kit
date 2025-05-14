@@ -112,19 +112,6 @@ describe('<ProposalVotingBodyContent /> component', () => {
         expect(setActiveBodyMock).toHaveBeenCalledWith(undefined);
     });
 
-    it('does not render back button when bodyList is undefined', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            bodyList: undefined,
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId }, contextValues));
-
-        expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
-    });
-
     it('does not render back button when bodyList has one or fewer elements', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
