@@ -70,23 +70,16 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText(name)).toBeInTheDocument();
     });
 
-    it('does not render the stage name for single-stage proposals with a bodyList with a single body', () => {
+    it('renders the stage name for single‐stage proposals', () => {
         const isMultiStage = false;
         const name = 'Stage name';
-        const bodyListSingle = ['body1'];
-        render(createTestComponent({ isMultiStage, name, bodyList: bodyListSingle }));
-        expect(screen.queryByText(name)).not.toBeInTheDocument();
-
-        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
-        expect(screen.queryByText(name)).not.toBeInTheDocument();
-    });
-
-    it('does not render the stage name for single-stage proposals with a bodyList not defined', () => {
-        const isMultiStage = false;
-        const name = 'Stage name';
-
-        render(createTestComponent({ isMultiStage, name, bodyList: undefined }));
-        expect(screen.queryByText(name)).not.toBeInTheDocument();
+        render(
+            createTestComponent({
+                isMultiStage,
+                name,
+            }),
+        );
+        expect(screen.getByText(name)).toBeInTheDocument();
     });
 
     it('renders the stage name for multi-stage proposals with multiple bodies', () => {
