@@ -4,7 +4,7 @@ import { Button, type ButtonSize } from '../button';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
-export type ClipboardVariant = 'button' | 'avatar' | 'avatar-no-bg';
+export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg';
 
 export interface IClipboardProps {
     /**
@@ -31,11 +31,11 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const handleCopyClick = () => handleCopy(text);
 
     const renderContent = () => {
-        if (variant === 'avatar' || variant === 'avatar-no-bg') {
+        if (variant === 'avatar' || variant === 'avatar-white-bg') {
             return (
                 <AvatarIcon
                     variant="primary"
-                    backgroundWhite={variant === 'avatar-no-bg'}
+                    backgroundWhite={variant === 'avatar-white-bg'}
                     icon={icon}
                     size={size}
                     onClick={handleCopyClick}

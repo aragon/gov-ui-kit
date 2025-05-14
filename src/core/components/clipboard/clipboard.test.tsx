@@ -39,9 +39,9 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('renders avatar-no-bg variant', () => {
+    it('renders avatar-white-bg variant', () => {
         const icon = IconType.COPY;
-        render(createTestComponent({ variant: 'avatar-no-bg' }));
+        render(createTestComponent({ variant: 'avatar-white-bg' }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
