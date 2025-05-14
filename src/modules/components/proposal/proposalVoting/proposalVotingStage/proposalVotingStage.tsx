@@ -65,7 +65,9 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     {...otherProps}
                 >
                     <div className="flex flex-col gap-y-1 pb-3 md:pb-4">
-                        <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{name}</p>
+                        {name && (
+                            <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{name}</p>
+                        )}
                         <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
                     </div>
                     {children}

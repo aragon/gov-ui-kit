@@ -77,6 +77,13 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText(name)).toBeInTheDocument();
     });
 
+    it('does not render the stage name for single‐stage proposals when not passed', () => {
+        const isMultiStage = false;
+        const name = 'Stage name';
+        render(createTestComponent({ isMultiStage }));
+        expect(screen.queryByText(name)).not.toBeInTheDocument();
+    });
+
     it('renders the stage name for multi-stage proposals with multiple bodies', () => {
         const isMultiStage = true;
         const name = 'Stage name';
