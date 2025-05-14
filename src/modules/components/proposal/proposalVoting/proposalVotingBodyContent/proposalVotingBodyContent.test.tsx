@@ -54,34 +54,6 @@ describe('<ProposalVotingBodyContent /> component', () => {
         expect(screen.getByRole('tablist')).toBeInTheDocument();
     });
 
-    it('renders back button and name when bodyList has more than one element', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const name = 'Test Stage';
-        const contextValues = {
-            bodyList: ['body1', 'body2'],
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId, name }, contextValues));
-
-        expect(screen.getByRole('button', { name: 'All bodies' })).toBeInTheDocument();
-        expect(screen.getByText(name)).toBeInTheDocument();
-    });
-
-    it('does not render back button and name when bodyList has one or fewer elements', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId }, contextValues));
-
-        expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
-        expect(screen.queryByText('Test Stage')).not.toBeInTheDocument();
-    });
-
     test.each([
         { status: ProposalVotingStatus.PENDING, expectedTab: 'Details' },
         { status: ProposalVotingStatus.UNREACHED, expectedTab: 'Details' },
@@ -140,7 +112,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         expect(setActiveBodyMock).toHaveBeenCalledWith(undefined);
     });
 
-    it('does not render back button and name when bodyList is undefined', () => {
+    it('does not render back button when bodyList is undefined', () => {
         const bodyId = 'body1';
         const activeBody = 'body1';
         const contextValues = {
@@ -151,7 +123,42 @@ describe('<ProposalVotingBodyContent /> component', () => {
         render(createTestComponent({ bodyId }, contextValues));
 
         expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
-        expect(screen.queryByText('Test Stage')).not.toBeInTheDocument();
+    });
+
+    it('does not render back button when bodyList has one or fewer elements', () => {
+        const bodyId = 'body1';
+        const activeBody = 'body1';
+        const contextValues = {
+            activeBody: activeBody,
+        };
+
+        render(createTestComponent({ bodyId }, contextValues));
+
+        expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
+    });
+
+    it('renders back button when bodyList has more than one element', () => {
+        const bodyId = 'body1';
+        const activeBody = 'body1';
+        const contextValues = {
+            bodyList: ['body1', 'body2'],
+            activeBody: activeBody,
+        };
+
+        render(createTestComponent({ bodyId }, contextValues));
+
+        expect(screen.getByRole('button', { name: 'All bodies' })).toBeInTheDocument();
+    });
+
+    it('renders the body name when provided', () => {
+        const bodyId = 'body1';
+        const activeBody = 'body1';
+        const name = 'Active test';
+        const contextValues = { activeBody, bodyList: undefined };
+
+        render(createTestComponent({ bodyId, name }, contextValues));
+
+        expect(screen.getByText(name)).toBeInTheDocument();
     });
 
     it('renders the avatar component and brand label when bodyBrand is provided', async () => {
