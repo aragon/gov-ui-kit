@@ -19,7 +19,7 @@ export const CopyButton: React.FC<ICopyButtonProps> = (props) => {
     const { text, size } = props;
     const { isCopied, handleCopy } = useCopy();
     return (
-        <Tooltip content="Copy">
+        <Tooltip content="Copy" wrapsButton={true}>
             <Button
                 variant="tertiary"
                 iconLeft={isCopied ? IconType.CHECKMARK : IconType.COPY}
