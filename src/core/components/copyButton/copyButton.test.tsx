@@ -41,4 +41,18 @@ describe('<CopyButton /> component', () => {
 
         expect(handleCopySpy).toHaveBeenCalledWith(textToCopy);
     });
+
+    it('renders avatar variant', () => {
+        const icon = IconType.COPY;
+        render(createTestComponent({ variant: 'avatar' }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
+    it('renders avatar-no-bg variant correctly', () => {
+        const icon = IconType.COPY;
+        render(createTestComponent({ variant: 'avatar-no-bg' }));
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
 });

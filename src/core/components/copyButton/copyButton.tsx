@@ -4,7 +4,7 @@ import { Button, type ButtonSize } from '../button';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
-export type CopyButtonVariant = 'button' | 'avatar';
+export type CopyButtonVariant = 'button' | 'avatar' | 'avatar-no-bg';
 
 export interface ICopyButtonProps {
     /**
@@ -31,10 +31,11 @@ export const CopyButton: React.FC<ICopyButtonProps> = (props) => {
     const handleCopyClick = () => handleCopy(text);
 
     const renderContent = () => {
-        if (variant === 'avatar') {
+        if (variant === 'avatar' || variant === 'avatar-no-bg') {
             return (
                 <AvatarIcon
                     variant="primary"
+                    backgroundWhite={variant === 'avatar-no-bg'}
                     icon={icon}
                     size={size}
                     onClick={handleCopyClick}
