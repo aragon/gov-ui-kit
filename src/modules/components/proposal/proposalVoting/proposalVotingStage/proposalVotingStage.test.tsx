@@ -73,12 +73,7 @@ describe('<ProposalVotingStage /> component', () => {
     it('renders the stage name for single‐stage proposals', () => {
         const isMultiStage = false;
         const name = 'Stage name';
-        render(
-            createTestComponent({
-                isMultiStage,
-                name,
-            }),
-        );
+        render(createTestComponent({ isMultiStage, name }));
         expect(screen.getByText(name)).toBeInTheDocument();
     });
 
