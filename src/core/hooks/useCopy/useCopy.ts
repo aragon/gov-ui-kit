@@ -1,7 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import type { IUseCopyReturn } from './useCopy.api';
 
 const resetTimeout = 2000;
+
+export interface IUseCopyReturn {
+    /**
+     * Indicates whether the text has been copied. Resets after timeout of 2 seconds.
+     */
+    isCopied: boolean;
+    /**
+     * Function to copy the text to the clipboard.
+     */
+    handleCopy: (text: string) => Promise<void>;
+}
 
 export const useCopy = (): IUseCopyReturn => {
     const [isCopied, setIsCopied] = useState(false);

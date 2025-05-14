@@ -1,2 +1,1 @@
-export { useCopy } from './useCopy';
-export type { IUseCopyReturn } from './useCopy.api';
+export { useCopy, type IUseCopyReturn } from './useCopy';

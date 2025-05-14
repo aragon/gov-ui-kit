@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CopyButton } from './copyButton';
+import { Clipboard } from './clipboard';
 
-const meta: Meta<typeof CopyButton> = {
-    title: 'Core/Components/CopyButton',
-    component: CopyButton,
+const meta: Meta<typeof Clipboard> = {
+    title: 'Core/Components/Clipboard',
+    component: Clipboard,
     args: {
         text: 'Sample text to copy...',
         size: 'sm',
@@ -20,7 +20,7 @@ const meta: Meta<typeof CopyButton> = {
     },
 };
 
-type Story = StoryObj<typeof CopyButton>;
+type Story = StoryObj<typeof Clipboard>;
 
 /**
  * Default usage example of the Button component.

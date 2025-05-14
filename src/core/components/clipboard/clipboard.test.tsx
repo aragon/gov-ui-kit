@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import * as Hooks from '../../hooks';
 import { IconType } from '../icon';
-import { CopyButton, type ICopyButtonProps } from './copyButton';
+import { Clipboard, type IClipboardProps } from './clipboard';
 
-describe('<CopyButton /> component', () => {
+describe('<Clipboard /> component', () => {
     const useCopySpy = jest.spyOn(Hooks, 'useCopy');
     const handleCopySpy = jest.fn();
 
@@ -19,27 +19,17 @@ describe('<CopyButton /> component', () => {
         handleCopySpy.mockReset();
     });
 
-    const createTestComponent = (props?: Partial<ICopyButtonProps>) => {
-        const completeProps: ICopyButtonProps = { text: 'Text to copy', ...props };
+    const createTestComponent = (props?: Partial<IClipboardProps>) => {
+        const completeProps: IClipboardProps = { text: 'Text to copy', ...props };
 
-        return <CopyButton {...completeProps} />;
+        return <Clipboard {...completeProps} />;
     };
 
-    it('renders a copy button', () => {
+    it('renders button variant', () => {
         const icon = IconType.COPY;
         render(createTestComponent());
         expect(screen.getByRole('button')).toBeInTheDocument();
         expect(screen.getByTestId(icon)).toBeInTheDocument();
-    });
-
-    it('correctly handles the copy action', () => {
-        const textToCopy = 'Text to copy';
-        render(createTestComponent({ text: textToCopy }));
-
-        const button = screen.getByRole('button');
-        button.click();
-
-        expect(handleCopySpy).toHaveBeenCalledWith(textToCopy);
     });
 
     it('renders avatar variant', () => {
@@ -54,5 +44,15 @@ describe('<CopyButton /> component', () => {
         render(createTestComponent({ variant: 'avatar-no-bg' }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
         expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
+    it('correctly handles the copy action', () => {
+        const textToCopy = 'Text to copy';
+        render(createTestComponent({ text: textToCopy }));
+
+        const button = screen.getByRole('button');
+        button.click();
+
+        expect(handleCopySpy).toHaveBeenCalledWith(textToCopy);
     });
 });

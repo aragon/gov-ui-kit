@@ -1,29 +1,29 @@
 import { useCopy } from '../../hooks/';
-import { AvatarIcon } from '../avatars';
+import { AvatarIcon, type AvatarIconSize } from '../avatars';
 import { Button, type ButtonSize } from '../button';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
-export type CopyButtonVariant = 'button' | 'avatar' | 'avatar-no-bg';
+export type ClipboardVariant = 'button' | 'avatar' | 'avatar-no-bg';
 
-export interface ICopyButtonProps {
+export interface IClipboardProps {
     /**
      * Text to be copied to the clipboard.
      */
     text: string;
     /**
-     * Size of the button.
+     * Size of the button or avatar.
      * @default sm
      */
-    size?: ButtonSize;
+    size?: ButtonSize | AvatarIconSize;
     /**
      * Variant of the button.
      * @default button
      */
-    variant?: CopyButtonVariant;
+    variant?: ClipboardVariant;
 }
 
-export const CopyButton: React.FC<ICopyButtonProps> = (props) => {
+export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const { text, size = 'sm', variant = 'button' } = props;
     const { isCopied, handleCopy } = useCopy();
 
