@@ -12,40 +12,32 @@ export interface IDocumentParserProps extends ComponentPropsWithoutRef<'div'> {
      * The stringified document of Markdown or HTML to parse into a styled output.
      */
     document: string;
+    /**
+     * Whether to render the editor on the first render or not.
+     */
+    immediatelyRender?: boolean;
 }
 
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
-    const { children, className, document, ...otherProps } = props;
+    const { children, className, document, immediatelyRender, ...otherProps } = props;
 
     const sanitizeDocument = (document: string): string => {
-        return sanitizeHtml(document, {
-            allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'del']),
-            allowedAttributes: {
-                ...sanitizeHtml.defaults.allowedAttributes,
-                img: ['src', 'alt'],
-                a: ['href', 'title'],
-            },
-            disallowedTagsMode: 'recursiveEscape',
-        });
+        const allowedTags = sanitizeHtml.defaults.allowedTags.concat(['img', 'del']);
+        const disallowedTagsMode = 'recursiveEscape';
+        const allowedAttributes = {
+            ...sanitizeHtml.defaults.allowedAttributes,
+            img: ['src', 'alt'],
+            a: ['href', 'title'],
+        };
+
+        return sanitizeHtml(document, { allowedTags, allowedAttributes, disallowedTagsMode });
     };
 
-    const parser = useEditor({
-        editable: false,
-        extensions: [
-            StarterKit,
-            Image,
-            Markdown,
-            TipTapLink.configure({
-                openOnClick: false,
-            }),
-        ],
-        content: sanitizeDocument(document),
-    });
+    const extensions = [StarterKit, Image, Markdown, TipTapLink.configure({ openOnClick: false })];
+    const parser = useEditor({ editable: false, immediatelyRender, extensions, content: sanitizeDocument(document) });
 
     useEffect(() => {
-        if (parser) {
-            parser.commands.setContent(sanitizeDocument(document), true);
-        }
+        parser?.commands.setContent(sanitizeDocument(document), true);
     }, [document, parser]);
 
     return (
