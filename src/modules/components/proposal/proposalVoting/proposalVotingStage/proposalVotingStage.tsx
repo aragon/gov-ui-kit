@@ -64,16 +64,11 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     className={classNames('relative flex flex-col overflow-hidden p-4 md:p-6', className)}
                     {...otherProps}
                 >
-                    <div className="flex flex-col gap-y-2 pb-3 md:pb-4">
-                        {bodyList && bodyList.length > 1 && (
-                            <p className="text-lg font-normal leading-tight text-neutral-800">{name}</p>
+                    <div className="flex flex-col gap-y-1 pb-3 md:pb-4">
+                        {name && (
+                            <p className="text-base font-normal leading-tight text-neutral-800 md:text-lg">{name}</p>
                         )}
-                        <ProposalVotingStageStatus
-                            status={status}
-                            endDate={endDate}
-                            isMultiStage={false}
-                            className={classNames({ 'md:absolute md:right-9 md:top-9': !bodyList })}
-                        />
+                        <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
                     </div>
                     {children}
                 </Card>

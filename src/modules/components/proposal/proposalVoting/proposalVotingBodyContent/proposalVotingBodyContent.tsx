@@ -49,27 +49,25 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     return (
         <div className={classNames('flex w-full flex-col', className)} {...otherProps}>
             {bodyList && bodyList.length > 1 && (
-                <div className="flex w-full flex-col gap-y-4">
-                    <Button
-                        className="w-fit"
-                        iconLeft={IconType.CHEVRON_LEFT}
-                        variant="tertiary"
-                        onClick={() => setActiveBody?.(undefined)}
-                        size="sm"
-                    >
-                        {copy.proposalVotingBodyContent.back}
-                    </Button>
-                    <div className="flex w-full flex-col gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
-                        <p className="shrink-0 grow truncate text-neutral-800">{name}</p>
-                        {bodyBrand != null && (
-                            <div className="flex items-center gap-x-1 md:gap-x-2">
-                                <p className="text-neutral-500">{bodyBrand.label}</p>
-                                <Avatar src={bodyBrand.logo} size="sm" />
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <Button
+                    className="mb-4 w-fit"
+                    iconLeft={IconType.CHEVRON_LEFT}
+                    variant="tertiary"
+                    size="sm"
+                    onClick={() => setActiveBody?.(undefined)}
+                >
+                    {copy.proposalVotingBodyContent.back}
+                </Button>
             )}
+            <div className="flex flex-col gap-4 gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
+                {name != null && <p className="truncate text-base text-neutral-800 md:text-lg">{name}</p>}
+                {bodyBrand != null && (
+                    <div className="flex items-center gap-2 text-sm text-neutral-500 md:text-base">
+                        <span>{bodyBrand.label}</span>
+                        <Avatar src={bodyBrand.logo} size="sm" />
+                    </div>
+                )}
+            </div>
             <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
                 {children}
             </ProposalVotingTabs>

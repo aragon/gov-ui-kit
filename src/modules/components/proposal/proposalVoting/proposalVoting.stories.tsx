@@ -226,9 +226,7 @@ export const SingleStage: Story = {
         className: 'max-w-[560px]',
     },
     render: (args) => {
-        const [search, setSearch] = useState<string | undefined>('');
-
-        const minApprovals = 5;
+        const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
 
         return (
             <ProposalVoting.Container {...args}>
@@ -239,6 +237,45 @@ export const SingleStage: Story = {
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >
                     <ProposalVoting.BodyContent status={ProposalVotingStatus.ACTIVE}>
+                        <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
+                    </ProposalVoting.BodyContent>
+                </ProposalVoting.Stage>
+            </ProposalVoting.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting module component for single-stage proposals with an external body
+ */
+export const SingleStageExternal: Story = {
+    args: {
+        className: 'max-w-[560px]',
+    },
+    render: (args) => {
+        const [search, setSearch] = useState<string | undefined>('');
+
+        const minApprovals = 5;
+
+        const safeExample = {
+            logo: 'https://app.safe.global/images/safe-logo-green.png',
+            label: 'Safe{Wallet}',
+        };
+
+        return (
+            <ProposalVoting.Container {...args}>
+                <ProposalVoting.Stage
+                    name="Founders approval"
+                    status={ProposalVotingStatus.ACTIVE}
+                    startDate={DateTime.now().toMillis()}
+                    endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
+                >
+                    <ProposalVoting.BodyContent
+                        status={ProposalVotingStatus.ACTIVE}
+                        hideTabs={[ProposalVotingTab.VOTES]}
+                        bodyBrand={safeExample}
+                        name="0x1234...4040"
+                    >
                         <FoundersApprovalContent
                             multisigSearch={search}
                             setMultisigSearch={setSearch}
@@ -329,45 +366,34 @@ export const MultiStageMultiBody: Story = {
         className: 'max-w-[560px]',
     },
     render: (args) => {
-        const bodyList = ['Token holder voting', 'Founders approval'];
+        const bodyList = ['multisig'];
+        const bodyList2 = ['Token holder voting', 'Founders approval'];
         const [activeStage, setActiveStage] = useState<string | undefined>('0');
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
 
         const minApprovals = 5;
 
+        const safeExample = {
+            logo: 'https://app.safe.global/images/safe-logo-green.png',
+            label: 'Safe{Wallet}',
+        };
+
         return (
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
-                    name="Token holder voting"
+                    name="Security council"
                     status={ProposalVotingStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
                     bodyList={bodyList}
                 >
-                    <ProposalVoting.BodySummary>
-                        <ProposalVoting.BodySummaryList>
-                            {bodyList.map((bodyId) => (
-                                <ProposalVoting.BodySummaryListItem key={bodyId} id={bodyId}>
-                                    {bodyId}
-                                </ProposalVoting.BodySummaryListItem>
-                            ))}
-                        </ProposalVoting.BodySummaryList>
-                        <p className="text-center text-neutral-500 md:text-right">
-                            <span className="text-neutral-800">1 body</span> required to approve
-                        </p>
-                    </ProposalVoting.BodySummary>
                     <ProposalVoting.BodyContent
-                        name="Token holder voting"
+                        name="0x1234...4040"
                         status={ProposalVotingStatus.ACTIVE}
-                        bodyId="Token holder voting"
-                    >
-                        <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
-                    </ProposalVoting.BodyContent>
-                    <ProposalVoting.BodyContent
-                        name="Founders approval"
-                        status={ProposalVotingStatus.ACTIVE}
-                        bodyId="Founders approval"
+                        bodyId="multisig"
+                        hideTabs={[ProposalVotingTab.VOTES]}
+                        bodyBrand={safeExample}
                     >
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
@@ -381,16 +407,15 @@ export const MultiStageMultiBody: Story = {
                     status={ProposalVotingStatus.PENDING}
                     startDate={DateTime.now().plus({ days: 7 }).toMillis()}
                     endDate={DateTime.now().plus({ days: 10 }).toMillis()}
-                    bodyList={bodyList}
+                    bodyList={bodyList2}
                 >
                     <ProposalVoting.BodySummary>
                         <ProposalVoting.BodySummaryList>
-                            <ProposalVoting.BodySummaryListItem id={bodyList[0]}>
-                                {bodyList[0]}
-                            </ProposalVoting.BodySummaryListItem>
-                            <ProposalVoting.BodySummaryListItem id={bodyList[1]}>
-                                {bodyList[1]}
-                            </ProposalVoting.BodySummaryListItem>
+                            {bodyList2.map((bodyId) => (
+                                <ProposalVoting.BodySummaryListItem key={bodyId} id={bodyId}>
+                                    {bodyId}
+                                </ProposalVoting.BodySummaryListItem>
+                            ))}
                         </ProposalVoting.BodySummaryList>
                         <p className="text-center text-neutral-500 md:text-right">
                             <span className="text-neutral-800">1 body</span> required to approve
