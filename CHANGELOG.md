@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.6.0
+
+### Minor Changes
+
+- [#473](https://github.com/aragon/gov-ui-kit/pull/473) [`3d73db8`](https://github.com/aragon/gov-ui-kit/commit/3d73db8dfc004a5917ba8d2ea90b51e46289687e) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update DocumentParser core component to expose immediatelyRender prop
+
+### Patch Changes
+
+- [#474](https://github.com/aragon/gov-ui-kit/pull/474) [`8f5d5ce`](https://github.com/aragon/gov-ui-kit/commit/8f5d5ce43f631dcff5bd682ec9ac6a5ae783d7a9) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix ProposalVotingBodyContent to support single external body scenarios
+
 ## 1.5.0
 
 ### Minor Changes
