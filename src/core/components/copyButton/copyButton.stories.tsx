@@ -4,6 +4,11 @@ import { CopyButton } from './copyButton';
 const meta: Meta<typeof CopyButton> = {
     title: 'Core/Components/CopyButton',
     component: CopyButton,
+    args: {
+        text: 'Sample text to copy...',
+        size: 'sm',
+        variant: 'button',
+    },
     argTypes: {
         text: { control: 'text' },
     },
@@ -20,10 +25,6 @@ type Story = StoryObj<typeof CopyButton>;
 /**
  * Default usage example of the Button component.
  */
-export const Default: Story = {
-    args: {
-        text: 'Sample text to copy...',
-    },
-};
+export const Default: Story = {};
 
 export default meta;

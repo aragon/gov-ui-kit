@@ -1,7 +1,10 @@
 import { useCopy } from '../../hooks/';
+import { AvatarIcon } from '../avatars';
 import { Button, type ButtonSize } from '../button';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
+
+export type CopyButtonVariant = 'button' | 'avatar';
 
 export interface ICopyButtonProps {
     /**
@@ -10,22 +13,42 @@ export interface ICopyButtonProps {
     text: string;
     /**
      * Size of the button.
-     * @default lg
+     * @default sm
      */
     size?: ButtonSize;
+    /**
+     * Variant of the button.
+     * @default button
+     */
+    variant?: CopyButtonVariant;
 }
 
 export const CopyButton: React.FC<ICopyButtonProps> = (props) => {
-    const { text, size } = props;
+    const { text, size = 'sm', variant = 'button' } = props;
     const { isCopied, handleCopy } = useCopy();
+
+    const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
+    const handleCopyClick = () => handleCopy(text);
+
+    const renderContent = () => {
+        if (variant === 'avatar') {
+            return (
+                <AvatarIcon
+                    variant="primary"
+                    icon={icon}
+                    size={size}
+                    onClick={handleCopyClick}
+                    className="cursor-pointer"
+                />
+            );
+        }
+
+        return <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />;
+    };
+
     return (
         <Tooltip content="Copy" wrapsButton={true}>
-            <Button
-                variant="tertiary"
-                iconLeft={isCopied ? IconType.CHECKMARK : IconType.COPY}
-                size={size}
-                onClick={() => handleCopy(text)}
-            />
+            {renderContent()}
         </Tooltip>
     );
 };
