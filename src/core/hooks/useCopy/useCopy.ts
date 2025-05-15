@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { clipboardUtils } from '../../utils';
 
 const resetTimeout = 2000;
 
@@ -22,7 +23,7 @@ export const useCopy = (): IUseCopyReturn => {
     }, []);
 
     const handleCopy = async (text: string) => {
-        await navigator.clipboard.writeText(text);
+        await clipboardUtils.copy(text);
         setIsCopied(true);
         timeoutId.current = setTimeout(() => setIsCopied(false), resetTimeout);
     };

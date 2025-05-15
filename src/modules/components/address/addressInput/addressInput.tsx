@@ -16,6 +16,7 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
+import { Clipboard } from '../../../../core/components/clipboard';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
@@ -243,12 +244,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            onClick={() => clipboardUtils.copy(value)}
-                            iconLeft={IconType.COPY}
-                        />
+                        <Clipboard text={value} />
                     </>
                 )}
                 {value.length > 0 && isFocused && (

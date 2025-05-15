@@ -1,17 +1,12 @@
 import { act, renderHook } from '@testing-library/react';
+import { clipboardUtils } from '../../utils';
 import { useCopy } from './useCopy';
 
 describe('useCopy hook', () => {
-    const writeTextSpy = jest.fn();
-
-    Object.assign(navigator, {
-        clipboard: {
-            writeText: writeTextSpy,
-        },
-    });
+    const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
     afterEach(() => {
-        writeTextSpy.mockReset();
+        copyMock.mockReset();
     });
 
     it('should copy text to clipboard and set isCopied to true', async () => {
@@ -21,7 +16,7 @@ describe('useCopy hook', () => {
             await result.current.handleCopy('test text');
         });
 
-        expect(navigator.clipboard.writeText).toHaveBeenCalledWith('test text');
+        expect(copyMock).toHaveBeenCalledWith('test text');
         expect(result.current.isCopied).toBe(true);
     });
 });
