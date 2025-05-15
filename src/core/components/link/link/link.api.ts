@@ -18,15 +18,11 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      */
     disabled?: boolean;
     /**
-     * Optionally show URL as a description below the link text.
+     * Optional description text.
      */
-    showUrl?: boolean;
+    description?: string;
     /**
      * Classnames to be applied directly to the link text.
      */
     textClassName?: string;
-    /**
-     * Whether the link is external. If true, the link will open in a new tab and will have external link icon.
-     */
-    isExternal?: boolean;
 }
