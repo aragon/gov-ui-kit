@@ -54,8 +54,7 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                 onCheckedChange={onCheckedChange}
                 disabled={disabled}
                 className={classNames(
-                    'group/checkbox peer rounded',
-                    'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+                    'group/checkbox peer focus-ring-primary cursor-pointer rounded-md disabled:cursor-default',
                 )}
                 ref={ref}
                 {...otherProps}
@@ -65,10 +64,10 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
                     size="md"
                     className={classNames(
                         'hidden text-neutral-400 group-data-[state=unchecked]/checkbox:block',
-                        'group-hover/root:text-primary-400 group-data-[disabled]/checkbox:text-neutral-300',
+                        'group-hover/root:text-primary-400 group-data-disabled/checkbox:text-neutral-300',
                     )}
                 />
-                <RadixCheckbox.Indicator className="text-primary-400 group-data-[disabled]/checkbox:text-neutral-300">
+                <RadixCheckbox.Indicator className="text-primary-400 group-data-disabled/checkbox:text-neutral-300">
                     <Icon
                         icon={IconType.CHECKBOX_SELECTED}
                         size="md"
@@ -84,9 +83,9 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
             <label
                 htmlFor={randomId}
                 className={classNames(
-                    'cursor-pointer text-sm font-normal leading-tight text-neutral-500 md:text-base',
+                    'cursor-pointer text-sm leading-tight font-normal text-neutral-500 md:text-base',
                     'group-hover/root:text-neutral-800',
-                    'peer-data-[disabled]:cursor-default peer-data-[disabled]:peer-data-[state=unchecked]:text-neutral-300 peer-data-[disabled]:text-neutral-500',
+                    'peer-data-disabled:cursor-default peer-data-disabled:text-neutral-500 peer-data-[state=unchecked]:peer-data-disabled:text-neutral-300',
                     { 'pl-2 md:pl-3': labelPosition === 'right' },
                     { 'pr-2 md:pr-3': labelPosition === 'left' },
                 )}

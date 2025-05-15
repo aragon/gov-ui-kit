@@ -50,4 +50,14 @@ export const Addon: Story = {
     },
 };
 
+/**
+ * Usage example of an input with max length restriction.
+ */
+export const MaxLength: Story = {
+    args: {
+        maxLength: 10,
+        placeholder: 'Input with max length',
+    },
+};
+
 export default meta;

@@ -1,0 +1,72 @@
+@plugin "@tailwindcss/typography";
+
+@utility prose {
+  h1 {
+    @apply mt-2 mb-10 text-2xl md:text-3xl;
+  }
+
+  h2 {
+    @apply mt-2 mb-8 text-xl md:text-2xl;
+  }
+
+  h3 {
+    @apply mt-2 mb-6 text-lg md:text-xl;
+  }
+
+  h4 {
+    @apply mt-0 mb-4 text-base md:text-lg;
+  }
+
+  h5 {
+    @apply mt-0 mb-2 text-sm md:text-base;
+  }
+
+  h6 {
+    @apply mt-0 mb-1 text-xs md:text-sm;
+  }
+
+  p {
+    @apply mt-0 mb-0 text-base md:text-lg;
+  }
+
+  a {
+    @apply text-primary-400 hover:text-primary-600 active:text-primary-800 no-underline;
+  }
+
+  strong {
+    @apply text-base text-neutral-500 md:text-lg;
+  }
+
+  em {
+    @apply text-base text-neutral-500 md:text-lg;
+  }
+
+  blockquote {
+    @apply shadow-neutral-md rounded-lg border border-neutral-200 bg-neutral-50 p-10;
+  }
+
+  pre {
+    @apply rounded-lg bg-neutral-900 text-neutral-50;
+  }
+
+  code {
+    @apply rounded-md bg-neutral-900 p-1 text-neutral-50 before:pl-1 before:content-[''] after:pr-1 after:content-[''];
+  }
+
+  img,
+  video {
+    @apply shadow-neutral-md overflow-hidden rounded-xl;
+  }
+
+  hr {
+    @apply mt-10 border border-neutral-200;
+  }
+}
+
+@utility prose-neutral {
+  --tw-prose-body: var(--color-neutral-500);
+  --tw-prose-headings: var(--color-neutral-800);
+  --tw-prose-lead: var(--color-neutral-600);
+  --tw-prose-links: var(--color-primary-400);
+  --tw-prose-quotes: var(--color-neutral-800);
+}

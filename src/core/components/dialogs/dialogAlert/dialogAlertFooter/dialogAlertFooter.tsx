@@ -34,7 +34,7 @@ export const DialogAlertFooter: React.FC<IDialogAlertFooterProps> = (props) => {
     const reverseButtonOrder = variant === 'warning' || variant === 'critical';
 
     const footerClassNames = classNames(
-        'flex gap-3 rounded-b-xl bg-modal-footer px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
+        'flex gap-3 rounded-b-xl gradient-neutral-50-transparent-to-t px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
         { 'flex-col md:flex-row': !reverseButtonOrder },
         { 'justify-end flex-col-reverse md:flex-row-reverse': reverseButtonOrder },
     );

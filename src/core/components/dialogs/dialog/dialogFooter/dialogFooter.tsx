@@ -37,7 +37,7 @@ export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
     const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? {};
 
     const footerClassNames = classNames(
-        'flex gap-3 rounded-b-xl bg-modal-footer px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
+        'flex gap-3 rounded-b-xl gradient-neutral-50-transparent-to-t px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
         { 'flex-col md:flex-row': variant === 'default' },
         { 'flex-row-reverse justify-between': variant === 'wizard' },
         className,

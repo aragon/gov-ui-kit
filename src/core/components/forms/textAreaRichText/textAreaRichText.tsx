@@ -61,7 +61,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         immediatelyRender,
         editorProps: {
             attributes: {
-                class: 'outline-none p-4 ![overflow-wrap:anywhere] prose prose-neutral min-h-[160px] h-full max-w-none leading-normal',
+                class: 'outline-hidden p-4 [overflow-wrap:anywhere]! prose prose-neutral min-h-40 h-full max-w-none leading-normal',
                 role: 'textbox',
                 'aria-labelledby': randomId,
             },
@@ -106,10 +106,10 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         <InputContainer
             disabled={disabled}
             className={classNames(className, {
-                'fixed left-0 top-0 z-[var(--guk-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
+                'fixed top-0 left-0 z-[var(--guk-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
                     isExpanded,
             })}
-            wrapperClassName={classNames('grow overflow-hidden', { '!rounded-none': isExpanded })}
+            wrapperClassName={classNames('grow overflow-hidden', { 'rounded-none!': isExpanded })}
             id={randomId}
             {...containerProps}
         >

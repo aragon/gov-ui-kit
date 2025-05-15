@@ -1,0 +1,27 @@
+@utility calendar-icon-hidden {
+  &::-webkit-calendar-picker-indicator {
+    appearance: none;
+    display: none;
+  }
+
+  &::-webkit-inner-spin-button {
+    appearance: none;
+    display: none;
+  }
+}
+
+@utility search-cancel-hidden {
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+@utility spin-buttons-hidden {
+  &::-webkit-inner-spin-button {
+    appearance: none;
+  }
+
+  &::-webkit-outer-spin-button {
+    appearance: none;
+  }
+}
