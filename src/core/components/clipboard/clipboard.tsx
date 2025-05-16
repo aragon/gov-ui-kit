@@ -23,6 +23,8 @@ export interface IClipboardProps {
     variant?: ClipboardVariant;
 }
 
+const tooltipText = 'Copy';
+
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const { copyValue, size = 'sm', variant = 'button' } = props;
     const { isCopied, handleCopy } = useCopy();
@@ -30,9 +32,9 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = () => handleCopy(copyValue);
 
-    const renderContent = () => {
-        if (variant === 'avatar' || variant === 'avatar-white-bg') {
-            return (
+    if (variant === 'avatar' || variant === 'avatar-white-bg') {
+        return (
+            <Tooltip content={tooltipText} triggerAsChild={false}>
                 <AvatarIcon
                     variant="primary"
                     backgroundWhite={variant === 'avatar-white-bg'}
@@ -41,15 +43,13 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
                     onClick={handleCopyClick}
                     className="cursor-pointer"
                 />
-            );
-        }
-
-        return <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />;
-    };
+            </Tooltip>
+        );
+    }
 
     return (
-        <Tooltip content="Copy" triggerAsChild={true}>
-            {renderContent()}
+        <Tooltip content={tooltipText} triggerAsChild={true}>
+            <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
         </Tooltip>
     );
 };

@@ -7,6 +7,7 @@ import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
     Button,
+    Clipboard,
     IconType,
     InputContainer,
     Spinner,
@@ -16,7 +17,6 @@ import {
     useInputProps,
     type IInputComponentProps,
 } from '../../../../core';
-import { Clipboard } from '../../../../core/components/clipboard';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
