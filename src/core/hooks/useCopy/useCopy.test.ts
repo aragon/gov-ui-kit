@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
+import { IconType } from '../../components';
 import { clipboardUtils } from '../../utils';
 import { useCopy } from './useCopy';
 
@@ -18,5 +19,6 @@ describe('useCopy hook', () => {
 
         expect(copyMock).toHaveBeenCalledWith('test text');
         expect(result.current.isCopied).toBe(true);
+        expect(result.current.icon).toBe(IconType.CHECKMARK);
     });
 });

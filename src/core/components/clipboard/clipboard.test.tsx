@@ -10,6 +10,7 @@ describe('<Clipboard /> component', () => {
     beforeEach(() => {
         useCopySpy.mockReturnValue({
             isCopied: false,
+            icon: IconType.COPY,
             handleCopy: handleCopySpy,
         });
     });
@@ -35,14 +36,14 @@ describe('<Clipboard /> component', () => {
     it('renders avatar variant', () => {
         const icon = IconType.COPY;
         render(createTestComponent({ variant: 'avatar' }));
-        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByRole('button')).toBeInTheDocument();
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
     it('renders avatar-white-bg variant', () => {
         const icon = IconType.COPY;
         render(createTestComponent({ variant: 'avatar-white-bg' }));
-        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
