@@ -55,4 +55,13 @@ describe('<Clipboard /> component', () => {
 
         expect(handleCopySpy).toHaveBeenCalledWith(textToCopy);
     });
+
+    it('optionally renders children besides the clipboard', () => {
+        const childText = 'Child text';
+        const icon = IconType.COPY;
+        render(createTestComponent({ copyValue: 'Text to copy', children: <p>{childText}</p> }));
+
+        expect(screen.getByText(childText)).toBeInTheDocument();
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
 });

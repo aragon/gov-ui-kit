@@ -21,35 +21,50 @@ export interface IClipboardProps {
      * @default button
      */
     variant?: ClipboardVariant;
+    /**
+     * Optional children to be rendered next to the clipboard.
+     */
+    children?: React.ReactNode;
 }
 
 const tooltipText = 'Copy';
 
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
-    const { copyValue, size = 'sm', variant = 'button' } = props;
+    const { copyValue, size = 'sm', variant = 'button', children } = props;
     const { isCopied, handleCopy } = useCopy();
 
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = () => handleCopy(copyValue);
 
-    if (variant === 'avatar' || variant === 'avatar-white-bg') {
+    const renderClipboard = () => {
+        if (variant === 'avatar' || variant === 'avatar-white-bg') {
+            return (
+                <Tooltip content={tooltipText} triggerAsChild={false}>
+                    <AvatarIcon
+                        variant="primary"
+                        backgroundWhite={variant === 'avatar-white-bg'}
+                        icon={icon}
+                        size={size}
+                        onClick={handleCopyClick}
+                        className="cursor-pointer"
+                    />
+                </Tooltip>
+            );
+        }
+
         return (
-            <Tooltip content={tooltipText} triggerAsChild={false}>
-                <AvatarIcon
-                    variant="primary"
-                    backgroundWhite={variant === 'avatar-white-bg'}
-                    icon={icon}
-                    size={size}
-                    onClick={handleCopyClick}
-                    className="cursor-pointer"
-                />
+            <Tooltip content={tooltipText} triggerAsChild={true}>
+                <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
             </Tooltip>
         );
-    }
+    };
 
-    return (
-        <Tooltip content={tooltipText} triggerAsChild={true}>
-            <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
-        </Tooltip>
+    return children ? (
+        <div className="flex items-center gap-3">
+            {children}
+            {renderClipboard()}
+        </div>
+    ) : (
+        renderClipboard()
     );
 };

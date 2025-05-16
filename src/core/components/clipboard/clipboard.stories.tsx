@@ -33,10 +33,9 @@ export const WithLink: Story = {
         variant: 'avatar-white-bg',
     },
     render: (args) => (
-        <span className="flex items-center gap-3">
+        <Clipboard copyValue={args.copyValue} variant={args.variant}>
             <Link href={args.copyValue}>Link label</Link>
-            <Clipboard copyValue={args.copyValue} variant={args.variant} />
-        </span>
+        </Clipboard>
     ),
 };
 
@@ -46,10 +45,9 @@ export const WithText: Story = {
         variant: 'avatar-white-bg',
     },
     render: (args) => (
-        <span className="flex items-center gap-3">
+        <Clipboard copyValue={args.copyValue} variant={args.variant}>
             <p>{`${args.copyValue.slice(0, 5)}...`}</p>
-            <Clipboard copyValue={args.copyValue} variant={args.variant} />
-        </span>
+        </Clipboard>
     ),
 };
 
