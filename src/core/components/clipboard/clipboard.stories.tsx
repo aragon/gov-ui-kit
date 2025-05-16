@@ -6,7 +6,7 @@ const meta: Meta<typeof Clipboard> = {
     title: 'Core/Components/Clipboard',
     component: Clipboard,
     argTypes: {
-        text: { control: 'text' },
+        copyValue: { control: 'text' },
     },
     parameters: {
         design: {
@@ -23,32 +23,32 @@ type Story = StoryObj<typeof Clipboard>;
  */
 export const Default: Story = {
     args: {
-        text: 'Sample text to copy...',
+        copyValue: 'Sample text to copy...',
     },
 };
 
 export const WithLink: Story = {
     args: {
-        text: 'http://example.com',
+        copyValue: 'http://example.com',
         variant: 'avatar-white-bg',
     },
     render: (args) => (
         <span className="flex items-center gap-3">
-            <Link href={args.text}>Link label</Link>
-            <Clipboard text={args.text} variant={args.variant} />
+            <Link href={args.copyValue}>Link label</Link>
+            <Clipboard copyValue={args.copyValue} variant={args.variant} />
         </span>
     ),
 };
 
 export const WithText: Story = {
     args: {
-        text: '0x123456789',
+        copyValue: '0x123456789',
         variant: 'avatar-white-bg',
     },
     render: (args) => (
         <span className="flex items-center gap-3">
-            <p>{`${args.text.slice(0, 5)}...`}</p>
-            <Clipboard text={args.text} variant={args.variant} />
+            <p>{`${args.copyValue.slice(0, 5)}...`}</p>
+            <Clipboard copyValue={args.copyValue} variant={args.variant} />
         </span>
     ),
 };

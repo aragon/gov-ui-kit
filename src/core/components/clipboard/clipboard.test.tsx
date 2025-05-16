@@ -20,7 +20,7 @@ describe('<Clipboard /> component', () => {
     });
 
     const createTestComponent = (props?: Partial<IClipboardProps>) => {
-        const completeProps: IClipboardProps = { text: 'Text to copy', ...props };
+        const completeProps: IClipboardProps = { copyValue: 'Text to copy', ...props };
 
         return <Clipboard {...completeProps} />;
     };
@@ -48,7 +48,7 @@ describe('<Clipboard /> component', () => {
 
     it('correctly handles the copy action', () => {
         const textToCopy = 'Text to copy';
-        render(createTestComponent({ text: textToCopy }));
+        render(createTestComponent({ copyValue: textToCopy }));
 
         const button = screen.getByRole('button');
         button.click();

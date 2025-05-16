@@ -8,9 +8,9 @@ export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg';
 
 export interface IClipboardProps {
     /**
-     * Text to be copied to the clipboard.
+     * Text value to be copied to the clipboard.
      */
-    text: string;
+    copyValue: string;
     /**
      * Size of the button or avatar.
      * @default sm
@@ -24,11 +24,11 @@ export interface IClipboardProps {
 }
 
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
-    const { text, size = 'sm', variant = 'button' } = props;
+    const { copyValue, size = 'sm', variant = 'button' } = props;
     const { isCopied, handleCopy } = useCopy();
 
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
-    const handleCopyClick = () => handleCopy(text);
+    const handleCopyClick = () => handleCopy(copyValue);
 
     const renderContent = () => {
         if (variant === 'avatar' || variant === 'avatar-white-bg') {

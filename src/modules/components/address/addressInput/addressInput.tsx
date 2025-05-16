@@ -244,7 +244,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />
-                        <Clipboard text={value} />
+                        <Clipboard copyValue={value} />
                     </>
                 )}
                 {value.length > 0 && isFocused && (
