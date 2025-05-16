@@ -7,12 +7,12 @@ import type { ILinkProps, LinkVariant } from './link.api';
 const variantToLabelClassNames: Record<LinkVariant | 'disabled', string[]> = {
     primary: [
         'text-primary-400 cursor-pointer', // Default
-        'hover:text-primary-600', // Hover state
-        'active:text-primary-800', // Active state
+        'hover:text-primary-500', // Hover state
+        'active:text-primary-700', // Active state
     ],
     neutral: [
         'text-neutral-500 cursor-pointer', // Default
-        'hover:text-neutral-800', // Hover state
+        'hover:text-neutral-600', // Hover state
         'active:text-neutral-800', // Active state
     ],
     disabled: ['truncate text-neutral-300'],
@@ -69,7 +69,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
                     className={classNames(
                         'truncate text-xs',
                         'md:text-sm',
-                        disabled ? 'text-neutral-300' : 'text-neutral-500',
+                        disabled ? 'text-neutral-300' : 'text-neutral-400',
                     )}
                 >
                     {href}
