@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { type ComponentPropsWithRef } from 'react';
+import { type ComponentPropsWithRef } from 'react';
 import { Link, type ILinkProps } from '../../link';
 
 export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
