@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Avatar, DefinitionList, IconType, Link, Toggle, ToggleGroup } from '../../../../../../core';
+import { Avatar, DefinitionList, Link, Toggle, ToggleGroup } from '../../../../../../core';
 import { modulesCopy } from '../../../../../assets';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import type { IProposalActionUpdateMetadataProps } from './proposalActionUpdateMetadata.api';
@@ -46,12 +46,7 @@ export const ProposalActionUpdateMetadata: React.FC<IProposalActionUpdateMetadat
                     <ul>
                         {metadataToDisplay.links.map((link, index) => (
                             <li key={index}>
-                                <Link
-                                    description={link.href}
-                                    iconRight={IconType.LINK_EXTERNAL}
-                                    href={link.href}
-                                    target="_blank"
-                                >
+                                <Link href={link.href} showUrl={true} isExternal={true}>
                                     {link.label}
                                 </Link>
                             </li>
