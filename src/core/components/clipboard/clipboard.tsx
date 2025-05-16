@@ -1,4 +1,4 @@
-import { useCopy } from '../../hooks/';
+import { useCopy } from '../../hooks';
 import { AvatarIcon, type AvatarIconSize } from '../avatars';
 import { Button, type ButtonSize } from '../button';
 import { IconType } from '../icon';
@@ -48,7 +48,7 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     };
 
     return (
-        <Tooltip content="Copy" wrapsButton={true}>
+        <Tooltip content="Copy" triggerAsChild={true}>
             {renderContent()}
         </Tooltip>
     );

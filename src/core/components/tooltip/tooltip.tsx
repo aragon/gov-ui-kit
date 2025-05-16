@@ -47,7 +47,7 @@ export interface ITooltipProps {
     /**
      * When `true`, the tooltip will use children button as a trigger, to avoid a button inside a button.
      */
-    wrapsButton?: boolean;
+    triggerAsChild?: boolean;
 }
 
 const variantToArrowFill: Record<TooltipVariant, string> = {
@@ -77,7 +77,7 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
         variant = 'neutral',
         onOpenChange,
         className,
-        wrapsButton,
+        triggerAsChild,
         ...otherProps
     } = props;
 
@@ -90,7 +90,7 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
                 delayDuration={delayDuration}
                 disableHoverableContent={disableHoverableContent}
             >
-                <Trigger asChild={wrapsButton}>{children}</Trigger>
+                <Trigger asChild={triggerAsChild}>{children}</Trigger>
                 <Portal>
                     <Content
                         className={classNames(
