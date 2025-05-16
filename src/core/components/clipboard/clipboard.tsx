@@ -1,6 +1,7 @@
 import { useCopy } from '../../hooks';
 import { AvatarIcon, type AvatarIconSize } from '../avatars';
 import { Button, type ButtonSize } from '../button';
+import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
 export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg';
@@ -26,8 +27,9 @@ const tooltipText = 'Copy';
 
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const { copyValue, size = 'sm', variant = 'button' } = props;
-    const { icon, handleCopy } = useCopy();
+    const { isCopied, handleCopy } = useCopy();
 
+    const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = () => handleCopy(copyValue);
 
     if (variant === 'avatar' || variant === 'avatar-white-bg') {

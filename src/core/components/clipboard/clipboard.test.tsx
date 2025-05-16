@@ -11,7 +11,6 @@ describe('<Clipboard /> component', () => {
     beforeEach(() => {
         useCopySpy.mockReturnValue({
             isCopied: false,
-            icon: IconType.COPY,
             handleCopy: handleCopySpy,
         });
     });
