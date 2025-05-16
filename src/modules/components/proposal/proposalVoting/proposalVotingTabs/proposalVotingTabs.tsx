@@ -1,13 +1,13 @@
 import { Tabs, type ITabsRootProps } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 
 export interface IProposalVotingTabsProps extends ITabsRootProps {
     /**
      * Voting status of the proposal.
      */
-    status: ProposalVotingStatus;
+    status: ProposalStatus;
     /**
      * Hides the triggers for the specified tab IDs when set.
      */
@@ -24,7 +24,7 @@ export const ProposalVotingTabs: React.FC<IProposalVotingTabsProps> = (props) =>
 
     const { copy } = useGukModulesContext();
 
-    const isVotingActive = ![ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED].includes(status);
+    const isVotingActive = ![ProposalStatus.PENDING, ProposalStatus.UNREACHED].includes(status);
 
     const tabs = [
         { id: ProposalVotingTab.BREAKDOWN, disabled: !isVotingActive },

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Accordion } from '../../../../../core';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVoting } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
@@ -22,7 +22,171 @@ type Story = StoryObj<typeof ProposalVoting.Stage>;
 export const Default: Story = {
     args: {
         name: 'Community voting',
-        status: ProposalVotingStatus.ACCEPTED,
+        status: ProposalStatus.ACCEPTED,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that is pending.
+ */
+export const Pending: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.PENDING,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that is active.
+ */
+export const Active: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.ACTIVE,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that can advance now.
+ */
+export const AdvanceableNow: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.ADVANCEABLE,
+        startDate: '2025-05-16T10:00:00.000Z',
+        minAdvance: '2025-05-16T11:00:00.000Z',
+        maxAdvance: '2025-11-16T13:00:00.000Z',
+        endDate: '2025-05-16T18:05:00.000Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that can advance in the future.
+ */
+export const AdvanceableInFuture: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.ADVANCEABLE,
+        startDate: '2025-05-16T10:00:00.000Z',
+        minAdvance: '2025-12-16T14:00:00.000Z',
+        maxAdvance: '2026-05-16T16:00:00.000Z',
+        endDate: '2025-05-16T18:00:00.000Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that has expired.
+ */
+export const Expired: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.EXPIRED,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that has been rejected.
+ */
+export const Rejected: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.REJECTED,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that has been vetoed.
+ */
+export const Vetoed: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.VETOED,
+        startDate: '2024-07-17T08:34:22.719Z',
+        endDate: '2024-07-20T08:34:22.719Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that has been unreached.
+ */
+export const Unreached: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.UNREACHED,
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,

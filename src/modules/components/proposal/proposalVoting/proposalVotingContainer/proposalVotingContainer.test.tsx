@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingStage } from '../proposalVotingStage';
 import { type IProposalVotingContainerProps, ProposalVotingContainer } from './proposalVotingContainer';
 
@@ -15,8 +15,8 @@ describe('<ProposalVotingContainer /> component', () => {
 
     it('renders an accordion container when having more than one child', () => {
         const children = [
-            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} />,
-            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACCEPTED} />,
+            <ProposalVotingStage key="0" status={ProposalStatus.ACCEPTED} />,
+            <ProposalVotingStage key="1" status={ProposalStatus.ACCEPTED} />,
         ];
         render(createTestComponent({ children }));
         expect(screen.getAllByRole('button')).toHaveLength(2);
@@ -38,8 +38,8 @@ describe('<ProposalVotingContainer /> component', () => {
 
     it('sets the defined stage as active when activeStage property is set', () => {
         const children = [
-            <ProposalVotingStage key="0" status={ProposalVotingStatus.VETOED} />,
-            <ProposalVotingStage key="1" status={ProposalVotingStatus.UNREACHED} />,
+            <ProposalVotingStage key="0" status={ProposalStatus.VETOED} />,
+            <ProposalVotingStage key="1" status={ProposalStatus.UNREACHED} />,
         ];
         const activeStage = '1';
         render(createTestComponent({ children, activeStage }));
@@ -50,8 +50,8 @@ describe('<ProposalVotingContainer /> component', () => {
         const onStageClick = jest.fn();
         const activeStage = '1';
         const children = [
-            <ProposalVotingStage key="0" status={ProposalVotingStatus.ACCEPTED} />,
-            <ProposalVotingStage key="1" status={ProposalVotingStatus.ACTIVE} />,
+            <ProposalVotingStage key="0" status={ProposalStatus.ACCEPTED} />,
+            <ProposalVotingStage key="1" status={ProposalStatus.ACTIVE} />,
         ];
         const { rerender } = render(createTestComponent({ children, activeStage, onStageClick }));
         await userEvent.click(screen.getAllByRole('button')[0]);

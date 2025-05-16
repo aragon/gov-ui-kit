@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { IconType } from '../../../../../core';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { type IProposalVotingStageStatusProps, ProposalVotingStageStatus } from './proposalVotingStageStatus';
 
 describe('<ProposalVotingStageStatus /> component', () => {
@@ -15,16 +14,15 @@ describe('<ProposalVotingStageStatus /> component', () => {
     };
 
     it('correctly renders the pending state for single-stage proposals', () => {
-        const status = ProposalVotingStatus.PENDING;
+        const status = ProposalStatus.PENDING;
         const isMultiStage = false;
         render(createTestComponent({ status, isMultiStage }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('is pending')).toBeInTheDocument();
-        expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
     it('correctly renders the pending state for multi-stage proposals', () => {
-        const status = ProposalVotingStatus.PENDING;
+        const status = ProposalStatus.PENDING;
         const isMultiStage = true;
         render(createTestComponent({ status, isMultiStage }));
         expect(screen.getByText('Stage')).toBeInTheDocument();
@@ -32,7 +30,7 @@ describe('<ProposalVotingStageStatus /> component', () => {
     });
 
     it('correctly renders the active state with remaining time to vote', () => {
-        const status = ProposalVotingStatus.ACTIVE;
+        const status = ProposalStatus.ACTIVE;
         const endDate = DateTime.now().plus({ hours: 3, second: 20 }).toMillis();
         render(createTestComponent({ status, endDate }));
         expect(screen.getByText('3 hours')).toBeInTheDocument();
@@ -40,8 +38,8 @@ describe('<ProposalVotingStageStatus /> component', () => {
         expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
     });
 
-    it('handles undefiend end date when state is active', () => {
-        const status = ProposalVotingStatus.ACTIVE;
+    it('handles undefined end date when state is active', () => {
+        const status = ProposalStatus.ACTIVE;
         const endDate = undefined;
         render(createTestComponent({ status, endDate }));
         expect(screen.getByText('-')).toBeInTheDocument();
@@ -50,47 +48,42 @@ describe('<ProposalVotingStageStatus /> component', () => {
     });
 
     it('correctly renders the accepted state', () => {
-        const status = ProposalVotingStatus.ACCEPTED;
+        const status = ProposalStatus.ACCEPTED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('accepted')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 
     it('correctly renders the rejected state', () => {
-        const status = ProposalVotingStatus.REJECTED;
+        const status = ProposalStatus.REJECTED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('rejected')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 
     it('correctly renders the vetoed state', () => {
-        const status = ProposalVotingStatus.VETOED;
+        const status = ProposalStatus.VETOED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('vetoed')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 
     it('correctly renders the expired state', () => {
-        const status = ProposalVotingStatus.EXPIRED;
+        const status = ProposalStatus.EXPIRED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has')).toBeInTheDocument();
         expect(screen.getByText('expired')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 
     it('correctly renders the unreached state', () => {
-        const status = ProposalVotingStatus.UNREACHED;
+        const status = ProposalStatus.UNREACHED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Stage')).toBeInTheDocument();
         expect(screen.getByText('not reached')).toBeInTheDocument();
-        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
     });
 
     it('defaults to pending state when status property is not defined', () => {

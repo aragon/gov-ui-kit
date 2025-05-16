@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingTabsProps, ProposalVotingTabs } from './proposalVotingTabs';
 
 describe('<ProposalVotingTabs /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingTabsProps>) => {
         const completeProps: IProposalVotingTabsProps = {
-            status: ProposalVotingStatus.ACTIVE,
+            status: ProposalStatus.ACTIVE,
             ...props,
         };
 
@@ -37,7 +37,7 @@ describe('<ProposalVotingTabs /> component', () => {
         expect(screen.getByRole('tab', { name: 'Details' })).toBeInTheDocument();
     });
 
-    it.each([{ status: ProposalVotingStatus.PENDING }, { status: ProposalVotingStatus.UNREACHED }])(
+    it.each([{ status: ProposalStatus.PENDING }, { status: ProposalStatus.UNREACHED }])(
         'disables the breakdown and votes tabs when voting status is $status',
         ({ status }) => {
             render(createTestComponent({ status }));

@@ -1,25 +1,16 @@
 import classNames from 'classnames';
 import type { ComponentProps } from 'react';
-import {
-    AvatarIcon,
-    type AvatarIconVariant,
-    DateFormat,
-    formatterUtils,
-    IconType,
-    Rerender,
-    Spinner,
-    StatePingAnimation,
-} from '../../../../../core';
+import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
     /**
      * Status of the proposal.
-     * @default ProposalVotingStatus.PENDING
+     * @default ProposalStatus.PENDING
      */
-    status?: ProposalVotingStatus;
+    status?: ProposalStatus;
     /**
      * End date of the proposal in timestamp or ISO format.
      */
@@ -28,11 +19,19 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
      * Defines if the proposal is a multi-stage proposal.
      */
     isMultiStage?: boolean;
+    /**
+     * Min advance date of the proposal in timestamp or ISO format.
+     */
+    minAdvance?: string | number;
+    /**
+     * Max advance date of the proposal in timestamp or ISO format.
+     */
+    maxAdvance?: string | number;
 }
 
-const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
-    const isSingleStagePending = !isMultiStage && status === ProposalVotingStatus.PENDING;
-    const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalVotingStatus;
+const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
+    const isSingleStagePending = !isMultiStage && status === ProposalStatus.PENDING;
+    const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalStatus;
 
     if ([ACCEPTED, REJECTED, VETOED, EXPIRED].includes(status) || isSingleStagePending) {
         return copy.proposalVotingStageStatus.main.proposal;
@@ -41,61 +40,86 @@ const getStatusText = (status: ProposalVotingStatus, copy: ModulesCopy, isMultiS
     return copy.proposalVotingStageStatus.main.stage;
 };
 
-const statusToSecondaryText = (copy: ModulesCopy): Record<ProposalVotingStatus, string> => ({
-    [ProposalVotingStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
-    [ProposalVotingStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
-    [ProposalVotingStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
-    [ProposalVotingStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
-    [ProposalVotingStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
-    [ProposalVotingStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
-    [ProposalVotingStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
+const statusToSecondaryText = (copy: ModulesCopy, canAdvance?: boolean): Record<ProposalStatus, string> => ({
+    [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
+    [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
+    [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
+    [ProposalStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
+    [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
+    [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
+    [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
+    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(canAdvance),
+    [ProposalStatus.DRAFT]: copy.proposalVotingStageStatus.secondary.draft,
+    [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
+    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
+    [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
 });
 
-const statusToIcon = new Map<ProposalVotingStatus, { icon: IconType; variant: AvatarIconVariant } | undefined>([
-    [ProposalVotingStatus.ACCEPTED, { icon: IconType.CHECKMARK, variant: 'success' }],
-    [ProposalVotingStatus.REJECTED, { icon: IconType.CLOSE, variant: 'critical' }],
-    [ProposalVotingStatus.UNREACHED, { icon: IconType.CLOSE, variant: 'neutral' }],
-    [ProposalVotingStatus.EXPIRED, { icon: IconType.CLOSE, variant: 'critical' }],
-    [ProposalVotingStatus.VETOED, { icon: IconType.CLOSE, variant: 'critical' }],
-]);
-
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
-    const { status = ProposalVotingStatus.PENDING, endDate, isMultiStage, className, ...otherProps } = props;
+    const {
+        status = ProposalStatus.PENDING,
+        endDate,
+        isMultiStage,
+        className,
+        minAdvance,
+        maxAdvance,
+        ...otherProps
+    } = props;
 
     const { copy } = useGukModulesContext();
 
+    const now = Date.now();
+    const minAdvanceTime = minAdvance != null ? new Date(minAdvance).getTime() : NaN;
+    const maxAdvanceTime = maxAdvance != null ? new Date(maxAdvance).getTime() : NaN;
+
+    const canAdvance =
+        status === ProposalStatus.ADVANCEABLE &&
+        !isNaN(minAdvanceTime) &&
+        !isNaN(maxAdvanceTime) &&
+        now >= minAdvanceTime &&
+        now <= maxAdvanceTime;
+
+    const nextAdvanceTarget = now < minAdvanceTime ? minAdvance! : now <= maxAdvanceTime ? maxAdvance! : undefined;
+
     const mainText = getStatusText(status, copy, isMultiStage);
-    const secondaryText = statusToSecondaryText(copy)[status];
-    const statusIcon = statusToIcon.get(status);
+    const secondaryText = statusToSecondaryText(copy, canAdvance)[status];
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
             <div className="flex flex-row gap-0.5">
-                {status === ProposalVotingStatus.ACTIVE && (
+                {status === ProposalStatus.ACTIVE && (
                     <span className="text-primary-400">
                         <Rerender>
                             {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
                         </Rerender>
                     </span>
                 )}
-                {status !== ProposalVotingStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
+                {status === ProposalStatus.ADVANCEABLE && nextAdvanceTarget && (
+                    <span className={classNames({ 'text-neutral-800': !canAdvance, 'text-primary-400': canAdvance })}>
+                        <Rerender>
+                            {() =>
+                                formatterUtils.formatDate(nextAdvanceTarget, {
+                                    format: DateFormat.DURATION,
+                                }) ?? '-'
+                            }
+                        </Rerender>
+                    </span>
+                )}
+                {status !== ProposalStatus.ACTIVE && status !== ProposalStatus.ADVANCEABLE && (
+                    <span className="text-neutral-800">{mainText}</span>
+                )}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {status === ProposalVotingStatus.ACCEPTED && (
+                {status === ProposalStatus.ACCEPTED && (
                     <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
                 )}
-                {status === ProposalVotingStatus.REJECTED && (
+                {status === ProposalStatus.REJECTED && (
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
                 )}
-                {status === ProposalVotingStatus.VETOED && (
+                {status === ProposalStatus.VETOED && (
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
                 )}
-                {status === ProposalVotingStatus.EXPIRED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.expired}</span>
-                )}
             </div>
-            {status === ProposalVotingStatus.PENDING && <Spinner size="md" variant="neutral" />}
-            {status === ProposalVotingStatus.ACTIVE && <StatePingAnimation variant="primary" />}
-            {statusIcon && <AvatarIcon icon={statusIcon.icon} variant={statusIcon.variant} />}
+            {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
         </div>
     );
 };

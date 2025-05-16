@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
@@ -14,7 +14,7 @@ describe('<ProposalVotingBodyContent /> component', () => {
         contextValues?: Partial<IProposalVotingStageContext>,
     ) => {
         const completeProps: IProposalVotingBodyContentProps = {
-            status: ProposalVotingStatus.PENDING,
+            status: ProposalStatus.PENDING,
             name: 'Test Stage',
             bodyId: 'body1',
             ...props,
@@ -55,11 +55,11 @@ describe('<ProposalVotingBodyContent /> component', () => {
     });
 
     test.each([
-        { status: ProposalVotingStatus.PENDING, expectedTab: 'Details' },
-        { status: ProposalVotingStatus.UNREACHED, expectedTab: 'Details' },
-        { status: ProposalVotingStatus.ACTIVE, expectedTab: 'Breakdown' },
-        { status: ProposalVotingStatus.ACCEPTED, expectedTab: 'Breakdown' },
-        { status: ProposalVotingStatus.REJECTED, expectedTab: 'Breakdown' },
+        { status: ProposalStatus.PENDING, expectedTab: 'Details' },
+        { status: ProposalStatus.UNREACHED, expectedTab: 'Details' },
+        { status: ProposalStatus.ACTIVE, expectedTab: 'Breakdown' },
+        { status: ProposalStatus.ACCEPTED, expectedTab: 'Breakdown' },
+        { status: ProposalStatus.REJECTED, expectedTab: 'Breakdown' },
     ])('sets initial activeTab based on status', ({ status, expectedTab }) => {
         const bodyId = 'body1';
         const activeBody = 'body1';
@@ -80,14 +80,12 @@ describe('<ProposalVotingBodyContent /> component', () => {
             activeBody: activeBody,
         };
 
-        const { rerender } = render(
-            createTestComponent({ bodyId, status: ProposalVotingStatus.PENDING }, contextValues),
-        );
+        const { rerender } = render(createTestComponent({ bodyId, status: ProposalStatus.PENDING }, contextValues));
 
         let selectedTab = screen.getByRole('tab', { selected: true });
         expect(selectedTab).toHaveTextContent('Details');
 
-        rerender(createTestComponent({ bodyId, status: ProposalVotingStatus.ACTIVE }, contextValues));
+        rerender(createTestComponent({ bodyId, status: ProposalStatus.ACTIVE }, contextValues));
 
         selectedTab = screen.getByRole('tab', { selected: true });
         expect(selectedTab).toHaveTextContent('Breakdown');
