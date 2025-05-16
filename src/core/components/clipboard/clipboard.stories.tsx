@@ -4,11 +4,6 @@ import { Clipboard } from './clipboard';
 const meta: Meta<typeof Clipboard> = {
     title: 'Core/Components/Clipboard',
     component: Clipboard,
-    args: {
-        text: 'Sample text to copy...',
-        size: 'sm',
-        variant: 'button',
-    },
     argTypes: {
         text: { control: 'text' },
     },
@@ -25,6 +20,10 @@ type Story = StoryObj<typeof Clipboard>;
 /**
  * Default usage example of the Button component.
  */
-export const Default: Story = {};
+export const Default: Story = {
+    args: {
+        text: 'Sample text to copy...',
+    },
+};
 
 export default meta;
