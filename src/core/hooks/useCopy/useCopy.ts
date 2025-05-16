@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconType } from '../../components';
 import { clipboardUtils } from '../../utils';
 
@@ -21,16 +21,19 @@ export interface IUseCopyReturn {
 
 export const useCopy = (): IUseCopyReturn => {
     const [isCopied, setIsCopied] = useState(false);
-    const timeoutId = useRef<NodeJS.Timeout>(undefined);
 
     useEffect(() => {
-        return () => clearTimeout(timeoutId.current);
-    }, []);
+        if (!isCopied) {
+            return;
+        }
+        const timeout = setTimeout(() => setIsCopied(false), resetTimeout);
+
+        return () => clearTimeout(timeout);
+    }, [isCopied]);
 
     const handleCopy = async (text: string) => {
         await clipboardUtils.copy(text);
         setIsCopied(true);
-        timeoutId.current = setTimeout(() => setIsCopied(false), resetTimeout);
     };
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
 

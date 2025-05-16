@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import * as Hooks from '../../hooks';
 import { IconType } from '../icon';
 import { Clipboard, type IClipboardProps } from './clipboard';
@@ -47,12 +48,11 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('correctly handles the copy action', () => {
+    it('correctly handles the copy action', async () => {
         const textToCopy = 'Text to copy';
         render(createTestComponent({ copyValue: textToCopy }));
 
-        const button = screen.getByRole('button');
-        button.click();
+        await userEvent.click(screen.getByRole('button'));
 
         expect(handleCopySpy).toHaveBeenCalledWith(textToCopy);
     });

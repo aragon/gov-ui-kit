@@ -10,7 +10,7 @@ describe('useCopy hook', () => {
         copyMock.mockReset();
     });
 
-    it('should copy text to clipboard and set isCopied to true', async () => {
+    it('handleCopy copies text to clipboard and set isCopied to true', async () => {
         const { result } = renderHook(() => useCopy());
 
         await act(async () => {
@@ -20,5 +20,25 @@ describe('useCopy hook', () => {
         expect(copyMock).toHaveBeenCalledWith('test text');
         expect(result.current.isCopied).toBe(true);
         expect(result.current.icon).toBe(IconType.CHECKMARK);
+    });
+
+    it('resets isCopied to false after timeout', async () => {
+        jest.useFakeTimers();
+        const { result } = renderHook(() => useCopy());
+
+        await act(async () => {
+            await result.current.handleCopy('test text');
+        });
+
+        expect(result.current.isCopied).toBe(true);
+
+        act(() => {
+            jest.advanceTimersByTime(2000);
+        });
+
+        expect(result.current.isCopied).toBe(false);
+        expect(result.current.icon).toBe(IconType.COPY);
+
+        jest.useRealTimers();
     });
 });
