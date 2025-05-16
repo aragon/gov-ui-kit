@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ComponentPropsWithRef } from 'react';
+import React, { type ComponentPropsWithRef } from 'react';
 import { Link, type ILinkProps } from '../../link';
 
 export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
@@ -11,10 +11,14 @@ export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
      * The materials for a Link component if necessary.
      */
     link?: ILinkProps;
+    /**
+     * Optional description text.
+     */
+    description?: string;
 }
 
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
-    const { term, link, children, className, ...otherProps } = props;
+    const { term, link, children, className, description, ...otherProps } = props;
 
     const { href, isExternal = true, ...otherLinkProps } = link ?? {};
 
@@ -27,12 +31,21 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             {...otherProps}
         >
             <dt className="line-clamp-1 leading-tight text-neutral-800 md:line-clamp-none">{term}</dt>
-            <dd className="min-w-0 leading-tight text-neutral-500">
+            <dd
+                className={classNames('min-w-0 leading-tight text-neutral-500', {
+                    'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
+                })}
+            >
                 {href == null && children}
                 {href != null && (
                     <Link href={href} isExternal={isExternal} {...otherLinkProps}>
                         {children}
                     </Link>
+                )}
+                {description != null && (
+                    <p className={classNames('truncate text-xs leading-normal text-neutral-400', 'md:text-sm')}>
+                        {description}
+                    </p>
                 )}
             </dd>
         </div>

@@ -72,4 +72,15 @@ export const TruncateDefinition: Story = {
     ),
 };
 
+export const WithDescription: Story = {
+    args: {
+        term: 'Operating System',
+        link: {
+            href: 'https://www.example.com',
+        },
+        children: '0x1234...1234',
+        description: 'Aragon OSx v1.4',
+    },
+};
+
 export default meta;
