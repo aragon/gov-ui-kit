@@ -5,9 +5,6 @@ import { Clipboard } from './clipboard';
 const meta: Meta<typeof Clipboard> = {
     title: 'Core/Components/Clipboard',
     component: Clipboard,
-    argTypes: {
-        copyValue: { control: 'text' },
-    },
     parameters: {
         design: {
             type: 'figma',
@@ -32,9 +29,9 @@ export const WithLink: Story = {
         copyValue: 'http://example.com',
         variant: 'avatar-white-bg',
     },
-    render: (args) => (
-        <Clipboard copyValue={args.copyValue} variant={args.variant}>
-            <Link href={args.copyValue}>Link label</Link>
+    render: (props) => (
+        <Clipboard {...props}>
+            <Link href={props.copyValue}>Link label</Link>
         </Clipboard>
     ),
 };
@@ -44,9 +41,9 @@ export const WithText: Story = {
         copyValue: '0x123456789',
         variant: 'avatar-white-bg',
     },
-    render: (args) => (
-        <Clipboard copyValue={args.copyValue} variant={args.variant}>
-            <p>{`${args.copyValue.slice(0, 5)}...`}</p>
+    render: (props) => (
+        <Clipboard {...props}>
+            <p>{`${props.copyValue.slice(0, 5)}...`}</p>
         </Clipboard>
     ),
 };

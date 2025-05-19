@@ -36,9 +36,10 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = () => handleCopy(copyValue);
 
-    const renderClipboard = () => {
-        if (variant === 'avatar' || variant === 'avatar-white-bg') {
-            return (
+    return (
+        <div className="flex items-center gap-2">
+            {children}
+            {(variant === 'avatar' || variant === 'avatar-white-bg') && (
                 <Tooltip content={tooltipText} triggerAsChild={false}>
                     <AvatarIcon
                         variant="primary"
@@ -49,22 +50,12 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
                         className="cursor-pointer"
                     />
                 </Tooltip>
-            );
-        }
-
-        return (
-            <Tooltip content={tooltipText} triggerAsChild={true}>
-                <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
-            </Tooltip>
-        );
-    };
-
-    return children ? (
-        <div className="flex items-center gap-2">
-            {children}
-            {renderClipboard()}
+            )}
+            {variant === 'button' && (
+                <Tooltip content={tooltipText} triggerAsChild={true}>
+                    <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
+                </Tooltip>
+            )}
         </div>
-    ) : (
-        renderClipboard()
     );
 };
