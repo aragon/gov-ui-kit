@@ -31,16 +31,20 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
 
 const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
     const isSingleStagePending = !isMultiStage && status === ProposalStatus.PENDING;
-    const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalStatus;
+    const { ACCEPTED, REJECTED, VETOED, EXPIRED, ADVANCEABLE } = ProposalStatus;
 
-    if ([ACCEPTED, REJECTED, VETOED, EXPIRED].includes(status) || isSingleStagePending) {
+    if ([ACCEPTED, REJECTED, VETOED, EXPIRED, ADVANCEABLE].includes(status) || isSingleStagePending) {
         return copy.proposalVotingStageStatus.main.proposal;
     }
 
     return copy.proposalVotingStageStatus.main.stage;
 };
 
-const statusToSecondaryText = (copy: ModulesCopy, canAdvance?: boolean): Record<ProposalStatus, string> => ({
+const statusToSecondaryText = (
+    copy: ModulesCopy,
+    canAdvance?: boolean,
+    isShortWindow?: boolean,
+): Record<ProposalStatus, string> => ({
     [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
     [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
@@ -48,7 +52,7 @@ const statusToSecondaryText = (copy: ModulesCopy, canAdvance?: boolean): Record<
     [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
     [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
     [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
-    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(canAdvance),
+    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(canAdvance, isShortWindow),
     [ProposalStatus.DRAFT]: copy.proposalVotingStageStatus.secondary.draft,
     [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
     [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
@@ -84,8 +88,14 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const nextAdvanceTarget =
         now < minAdvanceTimestamp ? minAdvance! : now <= maxAdvanceTimestamp ? maxAdvance! : undefined;
 
+    const ninetyDays = 90 * 24 * 60 * 60 * 1000;
+    const nextTs = nextAdvanceTarget ? new Date(nextAdvanceTarget).getTime() : NaN;
+    const isShortWindow = isValidTimestamp(nextTs) && nextTs - now <= ninetyDays;
+
     const mainText = getStatusText(status, copy, isMultiStage);
-    const secondaryText = statusToSecondaryText(copy, canAdvance)[status];
+    const secondaryText = statusToSecondaryText(copy, canAdvance, isShortWindow)[status];
+
+    const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortWindow || !canAdvance);
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
@@ -97,18 +107,31 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                         </Rerender>
                     </span>
                 )}
-                {status === ProposalStatus.ADVANCEABLE && nextAdvanceTarget && (
-                    <span className={classNames({ 'text-neutral-800': !canAdvance, 'text-primary-400': canAdvance })}>
-                        <Rerender>
-                            {() =>
-                                formatterUtils.formatDate(nextAdvanceTarget, {
-                                    format: DateFormat.DURATION,
-                                }) ?? '-'
-                            }
-                        </Rerender>
-                    </span>
-                )}
-                {status !== ProposalStatus.ACTIVE && status !== ProposalStatus.ADVANCEABLE && (
+                {status === ProposalStatus.ADVANCEABLE &&
+                    nextAdvanceTarget &&
+                    (!canAdvance ? (
+                        <span className="text-neutral-800">
+                            <Rerender>
+                                {() =>
+                                    formatterUtils.formatDate(nextAdvanceTarget, {
+                                        format: DateFormat.DURATION,
+                                    }) ?? '-'
+                                }
+                            </Rerender>
+                        </span>
+                    ) : isShortWindow ? (
+                        <span className="text-primary-400">
+                            <Rerender>
+                                {() =>
+                                    formatterUtils.formatDate(nextAdvanceTarget, {
+                                        format: DateFormat.DURATION,
+                                    }) ?? '-'
+                                }
+                            </Rerender>
+                        </span>
+                    ) : null)}
+
+                {status !== ProposalStatus.ACTIVE && !hideAdvanceMainText && (
                     <span className="text-neutral-800">{mainText}</span>
                 )}
                 <span className="text-neutral-500">{secondaryText}</span>
@@ -121,8 +144,13 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 {status === ProposalStatus.VETOED && (
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
                 )}
+                {status === ProposalStatus.ADVANCEABLE && canAdvance && !isShortWindow && (
+                    <span className="text-primary-400">{copy.proposalVotingStageStatus.status.advanceable}</span>
+                )}
             </div>
-            {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
+            {(status === ProposalStatus.ACTIVE || (status === ProposalStatus.ADVANCEABLE && canAdvance)) && (
+                <StatePingAnimation variant="primary" />
+            )}
         </div>
     );
 };

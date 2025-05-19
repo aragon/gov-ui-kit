@@ -77,15 +77,37 @@ export const Active: Story = {
 };
 
 /**
- * Usage example of the ProposalVoting.Stage component that can advance now.
+ * Usage example of the ProposalVoting.Stage component that can advance now with a < 90day window.
  */
-export const AdvanceableNow: Story = {
+export const AdvanceableShort: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
         startDate: '2025-05-16T10:00:00.000Z',
         minAdvance: '2025-05-16T11:00:00.000Z',
-        maxAdvance: '2025-11-16T13:00:00.000Z',
+        maxAdvance: '2025-07-16T13:00:00.000Z',
+        endDate: '2025-05-16T18:05:00.000Z',
+        index: 0,
+    },
+    render: (args) => {
+        return (
+            <Accordion.Container isMulti={false}>
+                <ProposalVoting.Stage {...args} />
+            </Accordion.Container>
+        );
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that can advance now with a long window.
+ */
+export const AdvanceableLong: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.ADVANCEABLE,
+        startDate: '2025-05-16T10:00:00.000Z',
+        minAdvance: '2025-05-16T11:00:00.000Z',
+        maxAdvance: '2025-12-16T13:00:00.000Z',
         endDate: '2025-05-16T18:05:00.000Z',
         index: 0,
     },

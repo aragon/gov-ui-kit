@@ -149,12 +149,14 @@ export const modulesCopy = {
             draft: 'is',
             executed: 'has been',
             executable: 'is',
-            advanceable: (canAdvance?: boolean) => (canAdvance ? 'left to advance' : 'until advanceable'),
+            advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
+                canAdvance && isShortWindow ? 'left to advance' : !canAdvance ? 'until advanceable' : 'is',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
             vetoed: 'vetoed',
+            advanceable: 'advanceable',
         },
     },
     proposalVotingDetails: {
