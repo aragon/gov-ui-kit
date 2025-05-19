@@ -12,7 +12,7 @@ jest.mock('../member', () => ({
 jest.mock('../../utils/addressUtils', () => ({
     addressUtils: {
         getChecksum: (address: string) => address,
-        truncateAddress: (address = '') => `${address.slice(0, 4)}…${address.slice(-4)}`,
+        truncateAddress: (address = '') => `${address.slice(0, 6)}…${address.slice(-4)}`,
     },
 }));
 
@@ -63,7 +63,7 @@ describe('<Wallet /> component', () => {
         useEnsNameMock.mockReturnValue({ data: null, isLoading: false } as wagmi.UseEnsNameReturnType);
 
         render(createTestComponent({ user }));
-        expect(screen.getByText('0x09…4321')).toBeInTheDocument();
+        expect(screen.getByText('0x0987…4321')).toBeInTheDocument();
     });
 
     it('resolves and renders the linked ENS name when connected and no user name provided', () => {
@@ -73,7 +73,7 @@ describe('<Wallet /> component', () => {
         render(createTestComponent({ user }));
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ query: { enabled: true } }));
         expect(screen.getByText('vitalik.eth')).toBeInTheDocument();
-        expect(screen.queryByText('0xd8…6045')).not.toBeInTheDocument();
+        expect(screen.queryByText('0xd8dA…6045')).not.toBeInTheDocument();
     });
 
     it('renders user name provided when connected and does not resolve the ENS name', () => {
@@ -83,7 +83,7 @@ describe('<Wallet /> component', () => {
         render(createTestComponent({ user }));
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ query: { enabled: false } }));
         expect(screen.getByText('vitalik.eth')).toBeInTheDocument();
-        expect(screen.queryByText('0x09…4321')).not.toBeInTheDocument();
+        expect(screen.queryByText('0x0987…4321')).not.toBeInTheDocument();
     });
 
     it('defaults chain-id property to ethereum mainnet when not provided', () => {
@@ -101,4 +101,16 @@ describe('<Wallet /> component', () => {
         const avatar = screen.getByTestId('member-avatar-mock');
         expect(avatar.dataset.chainid).toEqual(chainId.toString());
     });
+
+    it.each(['md', 'lg', 'xl'] as const)(
+        'renders user text with correct class when user is connected and showTextFrom="%s"',
+        (size) => {
+            const user = { address: '0x0987654321098765432109876543210987654321' };
+            render(createTestComponent({ user, showTextFrom: size }));
+
+            const text = screen.getByText('0x0987…4321');
+            expect(text).toBeInTheDocument();
+            expect(text).toHaveClass(`${size}:block`);
+        },
+    );
 });
