@@ -150,7 +150,7 @@ export const modulesCopy = {
             executed: 'has been',
             executable: 'is',
             advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
-                canAdvance && isShortWindow ? 'left to advance' : !canAdvance ? 'until advanceable' : 'is',
+                !canAdvance ? 'until advanceable' : isShortWindow ? 'left to advance' : 'is',
         },
         status: {
             accepted: 'accepted',
