@@ -55,6 +55,8 @@ const statusToSecondaryText = (copy: ModulesCopy, canAdvance?: boolean): Record<
     [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
 });
 
+const isValidTimestamp = (ts: number) => Number.isFinite(ts);
+
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
     const {
         status = ProposalStatus.PENDING,
@@ -69,17 +71,18 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const { copy } = useGukModulesContext();
 
     const now = Date.now();
-    const minAdvanceTime = minAdvance != null ? new Date(minAdvance).getTime() : NaN;
-    const maxAdvanceTime = maxAdvance != null ? new Date(maxAdvance).getTime() : NaN;
+    const minAdvanceTimestamp = minAdvance != null ? new Date(minAdvance).getTime() : NaN;
+    const maxAdvanceTimestamp = maxAdvance != null ? new Date(maxAdvance).getTime() : NaN;
 
     const canAdvance =
         status === ProposalStatus.ADVANCEABLE &&
-        !isNaN(minAdvanceTime) &&
-        !isNaN(maxAdvanceTime) &&
-        now >= minAdvanceTime &&
-        now <= maxAdvanceTime;
+        isValidTimestamp(minAdvanceTimestamp) &&
+        isValidTimestamp(maxAdvanceTimestamp) &&
+        now >= minAdvanceTimestamp &&
+        now <= maxAdvanceTimestamp;
 
-    const nextAdvanceTarget = now < minAdvanceTime ? minAdvance! : now <= maxAdvanceTime ? maxAdvance! : undefined;
+    const nextAdvanceTarget =
+        now < minAdvanceTimestamp ? minAdvance! : now <= maxAdvanceTimestamp ? maxAdvance! : undefined;
 
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy, canAdvance)[status];
