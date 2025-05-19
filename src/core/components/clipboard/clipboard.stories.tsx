@@ -24,6 +24,9 @@ export const Default: Story = {
     },
 };
 
+/**
+ * Example of the Clipboard component with a Link as a child.
+ */
 export const WithLink: Story = {
     args: {
         copyValue: 'http://example.com',
@@ -36,6 +39,9 @@ export const WithLink: Story = {
     ),
 };
 
+/**
+ * Example of the Clipboard component with text as a child.
+ */
 export const WithText: Story = {
     args: {
         copyValue: '0x123456789',

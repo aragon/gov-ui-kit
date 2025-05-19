@@ -29,7 +29,7 @@ export interface IClipboardProps {
 }
 
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
-    const { copyValue, size = 'sm', variant = 'button', children } = props;
+    const { copyValue, size = 'sm', variant = 'avatar', children } = props;
     const { isCopied, handleCopy } = useCopy();
 
     const { copy: copyTexts } = useGukCoreContext();
@@ -42,15 +42,16 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
         <div className="flex items-center gap-2">
             {children}
             {(variant === 'avatar' || variant === 'avatar-white-bg') && (
-                <Tooltip content={tooltipText} triggerAsChild={false}>
-                    <AvatarIcon
-                        variant="primary"
-                        backgroundWhite={variant === 'avatar-white-bg'}
-                        icon={icon}
-                        size={size}
-                        onClick={handleCopyClick}
-                        className="cursor-pointer"
-                    />
+                <Tooltip content={tooltipText} triggerAsChild={true}>
+                    <button onClick={handleCopyClick}>
+                        <AvatarIcon
+                            variant="primary"
+                            backgroundWhite={variant === 'avatar-white-bg'}
+                            icon={icon}
+                            size={size}
+                            className="cursor-pointer"
+                        />
+                    </button>
                 </Tooltip>
             )}
             {variant === 'button' && (
