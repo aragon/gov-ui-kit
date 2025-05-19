@@ -75,8 +75,7 @@ describe('<ProposalVotingStageStatus /> component', () => {
         const status = ProposalStatus.EXPIRED;
         render(createTestComponent({ status }));
         expect(screen.getByText('Proposal')).toBeInTheDocument();
-        expect(screen.getByText('has')).toBeInTheDocument();
-        expect(screen.getByText('expired')).toBeInTheDocument();
+        expect(screen.getByText('has expired')).toBeInTheDocument();
     });
 
     it('correctly renders the unreached state', () => {
