@@ -25,7 +25,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         variant = 'primary',
         href,
         isExternal = false,
-        iconRight = isExternal ? IconType.LINK_EXTERNAL : undefined,
         target = isExternal ? '_blank' : undefined,
         onClick,
         className,
@@ -62,7 +61,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         >
             <div className="flex items-center gap-x-1 md:gap-x-1.5">
                 <span className={innerTextClassName}>{children}</span>
-                {iconRight && <Icon icon={iconRight} size="sm" />}
+                {isExternal && <Icon icon={IconType.LINK_EXTERNAL} size="sm" />}
             </div>
             {showUrl && href && (
                 <p

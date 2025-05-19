@@ -112,12 +112,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         </p>
                         {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                         <object type="unknown">
-                            <Link
-                                className="shrink-0"
-                                href={targetAddressUrl}
-                                target="_blank"
-                                iconRight={IconType.LINK_EXTERNAL}
-                            >
+                            <Link className="shrink-0" href={targetAddressUrl} isExternal={true}>
                                 {addressUtils.truncateAddress(action.to)}
                             </Link>
                         </object>
