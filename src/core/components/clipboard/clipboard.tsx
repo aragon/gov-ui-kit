@@ -1,6 +1,7 @@
 import { useCopy } from '../../hooks';
 import { AvatarIcon, type AvatarIconSize } from '../avatars';
 import { Button, type ButtonSize } from '../button';
+import { useGukCoreContext } from '../gukCoreProvider';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
@@ -27,11 +28,12 @@ export interface IClipboardProps {
     children?: React.ReactNode;
 }
 
-const tooltipText = 'Copy';
-
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const { copyValue, size = 'sm', variant = 'button', children } = props;
     const { isCopied, handleCopy } = useCopy();
+
+    const { copy: copyTexts } = useGukCoreContext();
+    const tooltipText = copyTexts.clipboard.copy;
 
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = () => handleCopy(copyValue);
