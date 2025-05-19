@@ -60,7 +60,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
             aria-disabled={disabled}
             {...otherProps}
         >
-            <div className="flex items-center gap-x-1.5">
+            <div className="flex items-center gap-x-1 md:gap-x-1.5">
                 <span className={innerTextClassName}>{children}</span>
                 {iconRight && <Icon icon={iconRight} size="sm" />}
             </div>
