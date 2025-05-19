@@ -89,8 +89,8 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
         now < minAdvanceTimestamp ? minAdvance! : now <= maxAdvanceTimestamp ? maxAdvance! : undefined;
 
     const ninetyDays = 90 * 24 * 60 * 60 * 1000;
-    const nextTs = nextAdvanceTarget ? new Date(nextAdvanceTarget).getTime() : NaN;
-    const isShortWindow = isValidTimestamp(nextTs) && nextTs - now <= ninetyDays;
+    const nextTimestamp = nextAdvanceTarget ? new Date(nextAdvanceTarget).getTime() : NaN;
+    const isShortWindow = isValidTimestamp(nextTimestamp) && nextTimestamp - now <= ninetyDays;
 
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy, canAdvance, isShortWindow)[status];
