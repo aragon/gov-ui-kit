@@ -30,9 +30,9 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
             )}
             {...otherProps}
         >
-            <dt className="line-clamp-1 leading-tight text-neutral-800 md:line-clamp-none">{term}</dt>
+            <dt className="line-clamp-1 leading-normal text-neutral-800 md:line-clamp-none">{term}</dt>
             <dd
-                className={classNames('min-w-0 leading-tight text-neutral-500', {
+                className={classNames('min-w-0 leading-normal text-neutral-500', {
                     'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
                 })}
             >

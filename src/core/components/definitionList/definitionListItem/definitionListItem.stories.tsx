@@ -72,7 +72,7 @@ export const TruncateDefinition: Story = {
     ),
 };
 
-export const WithDescription: Story = {
+export const WithHelpText: Story = {
     args: {
         term: 'Operating System',
         link: {
