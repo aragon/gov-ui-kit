@@ -25,6 +25,9 @@ export const coreCopy = {
     inputNumberMax: {
         max: 'Max',
     },
+    clipboard: {
+        copy: 'Copy',
+    },
 };
 
 export type CoreCopy = typeof coreCopy;
