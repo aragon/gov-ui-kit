@@ -1,1 +1,1 @@
-export { Wallet, type IWalletProps, type TextFromSize } from './wallet';
+export { Wallet, type IWalletProps } from './wallet';
