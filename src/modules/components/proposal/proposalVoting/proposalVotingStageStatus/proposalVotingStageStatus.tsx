@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { DateTime } from 'luxon';
 import type { ComponentProps } from 'react';
 import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
@@ -59,7 +60,15 @@ const statusToSecondaryText = (
     [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
 });
 
-const isValidTimestamp = (ts: number) => Number.isFinite(ts);
+const parseOptionalDateTime = (input?: string | number): DateTime => {
+    if (typeof input === 'string') {
+        return DateTime.fromISO(input);
+    }
+    if (typeof input === 'number') {
+        return DateTime.fromMillis(input);
+    }
+    return DateTime.invalid('missing-input');
+};
 
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
     const {
@@ -74,23 +83,21 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
 
     const { copy } = useGukModulesContext();
 
-    const now = Date.now();
-    const minAdvanceTimestamp = minAdvance != null ? new Date(minAdvance).getTime() : NaN;
-    const maxAdvanceTimestamp = maxAdvance != null ? new Date(maxAdvance).getTime() : NaN;
+    const now = DateTime.now();
+    const minAdvanceDate = parseOptionalDateTime(minAdvance);
+    const maxAdvanceDate = parseOptionalDateTime(maxAdvance);
 
     const canAdvance =
         status === ProposalStatus.ADVANCEABLE &&
-        isValidTimestamp(minAdvanceTimestamp) &&
-        isValidTimestamp(maxAdvanceTimestamp) &&
-        now >= minAdvanceTimestamp &&
-        now <= maxAdvanceTimestamp;
+        minAdvanceDate.isValid &&
+        maxAdvanceDate.isValid &&
+        now >= minAdvanceDate &&
+        now <= maxAdvanceDate;
 
-    const nextAdvanceTarget =
-        now < minAdvanceTimestamp ? minAdvance! : now <= maxAdvanceTimestamp ? maxAdvance! : undefined;
+    const nextAdvanceDateTime =
+        now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
 
-    const ninetyDays = 90 * 24 * 60 * 60 * 1000;
-    const nextTimestamp = nextAdvanceTarget ? new Date(nextAdvanceTarget).getTime() : NaN;
-    const isShortWindow = isValidTimestamp(nextTimestamp) && nextTimestamp - now <= ninetyDays;
+    const isShortWindow = nextAdvanceDateTime?.isValid === true && nextAdvanceDateTime.diff(now, 'days').days <= 90;
 
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy, canAdvance, isShortWindow)[status];
@@ -108,12 +115,12 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                     </span>
                 )}
                 {status === ProposalStatus.ADVANCEABLE &&
-                    nextAdvanceTarget &&
+                    nextAdvanceDateTime &&
                     (!canAdvance ? (
                         <span className="text-neutral-800">
                             <Rerender>
                                 {() =>
-                                    formatterUtils.formatDate(nextAdvanceTarget, {
+                                    formatterUtils.formatDate(nextAdvanceDateTime, {
                                         format: DateFormat.DURATION,
                                     }) ?? '-'
                                 }
@@ -123,7 +130,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                         <span className="text-primary-400">
                             <Rerender>
                                 {() =>
-                                    formatterUtils.formatDate(nextAdvanceTarget, {
+                                    formatterUtils.formatDate(nextAdvanceDateTime, {
                                         format: DateFormat.DURATION,
                                     }) ?? '-'
                                 }
