@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { ComponentType } from 'react';
 import type { DecoratorFunction } from 'storybook/internal/types';
 import { Accordion } from '../../../../../core';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVoting } from '../index';
 
-const ComponentWrapper: DecoratorFunction = (Story: ComponentType, context) => {
+const ComponentWrapper: DecoratorFunction = (Story, context) => {
     const { isMultiStage } = context.args as { isMultiStage?: boolean };
     return (
         <Accordion.Container isMulti={isMultiStage ?? false}>
