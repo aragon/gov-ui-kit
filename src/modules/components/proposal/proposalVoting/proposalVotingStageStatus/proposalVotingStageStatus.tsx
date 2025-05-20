@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { DateTime, Interval } from 'luxon';
 import type { ComponentProps } from 'react';
 import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
+import { useAdvanceable } from './hooks/useAdvanceable';
+import { ProposalVotingStageStatusAdvanceable } from './proposalVotingStageStatusAdvanceable';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
     /**
@@ -45,7 +46,7 @@ const statusToSecondaryText = (
     copy: ModulesCopy,
     isAdvanceableNow?: boolean,
     isShortAdvanceWindow?: boolean,
-): Record<ProposalStatus, string> => ({
+): Partial<Record<ProposalStatus, string>> => ({
     [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
     [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
@@ -57,10 +58,6 @@ const statusToSecondaryText = (
         isAdvanceableNow,
         isShortAdvanceWindow,
     ),
-    [ProposalStatus.DRAFT]: copy.proposalVotingStageStatus.secondary.draft,
-    [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
-    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
-    [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
 });
 
 const statusToStatusText = (
@@ -84,17 +81,6 @@ const statusToStatusText = (
     },
 });
 
-const parseDateTime = (input?: string | number) => {
-    if (!input) {
-        return DateTime.invalid('no input');
-    }
-    if (typeof input === 'string') {
-        return DateTime.fromISO(input);
-    }
-
-    return DateTime.fromMillis(input);
-};
-
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
     const {
         status = ProposalStatus.PENDING,
@@ -107,23 +93,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     } = props;
 
     const { copy } = useGukModulesContext();
-
-    const now = DateTime.now();
-    const minAdvanceDate = parseDateTime(minAdvance);
-    const maxAdvanceDate = parseDateTime(maxAdvance);
-
-    const advanceWindow =
-        minAdvanceDate.isValid && maxAdvanceDate.isValid
-            ? Interval.fromDateTimes(minAdvanceDate, maxAdvanceDate)
-            : undefined;
-
-    const isAdvanceableNow = (status === ProposalStatus.ADVANCEABLE && advanceWindow?.contains(now)) ?? false;
-
-    const nextAdvanceDateTime =
-        now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
-
-    const isShortAdvanceWindow =
-        nextAdvanceDateTime?.isValid === true && nextAdvanceDateTime.diff(now, 'days').days <= 90;
+    const { isAdvanceableNow, isShortAdvanceWindow } = useAdvanceable(minAdvance, maxAdvance);
 
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy, isAdvanceableNow, isShortAdvanceWindow)[status];
@@ -131,9 +101,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortAdvanceWindow || !isAdvanceableNow);
 
     const showStatusText =
-        status === ProposalStatus.ACCEPTED ||
-        status === ProposalStatus.REJECTED ||
-        status === ProposalStatus.VETOED ||
+        [ProposalStatus.ACCEPTED, ProposalStatus.REJECTED, ProposalStatus.VETOED].includes(status) ||
         (status === ProposalStatus.ADVANCEABLE && isAdvanceableNow && !isShortAdvanceWindow);
     const statusText = statusToStatusText(copy)[status];
 
@@ -147,30 +115,9 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                         </Rerender>
                     </span>
                 )}
-                {status === ProposalStatus.ADVANCEABLE &&
-                    nextAdvanceDateTime &&
-                    (!isAdvanceableNow ? (
-                        <span className="text-neutral-800">
-                            <Rerender>
-                                {() =>
-                                    formatterUtils.formatDate(nextAdvanceDateTime, {
-                                        format: DateFormat.DURATION,
-                                    }) ?? '-'
-                                }
-                            </Rerender>
-                        </span>
-                    ) : isShortAdvanceWindow ? (
-                        <span className="text-primary-400">
-                            <Rerender>
-                                {() =>
-                                    formatterUtils.formatDate(nextAdvanceDateTime, {
-                                        format: DateFormat.DURATION,
-                                    }) ?? '-'
-                                }
-                            </Rerender>
-                        </span>
-                    ) : null)}
-
+                {status === ProposalStatus.ADVANCEABLE && (
+                    <ProposalVotingStageStatusAdvanceable minAdvance={minAdvance} maxAdvance={maxAdvance} />
+                )}
                 {status !== ProposalStatus.ACTIVE && !hideAdvanceMainText && (
                     <span className="text-neutral-800">{mainText}</span>
                 )}

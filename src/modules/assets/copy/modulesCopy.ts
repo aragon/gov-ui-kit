@@ -145,10 +145,6 @@ export const modulesCopy = {
             expired: 'has expired',
             unreached: 'not reached',
             vetoed: 'has been',
-            failed: 'has',
-            draft: 'is',
-            executed: 'has been',
-            executable: 'is',
             advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
                 !canAdvance ? 'until advanceable' : isShortWindow ? 'left to advance' : 'is',
         },

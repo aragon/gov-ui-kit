@@ -1,11 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { ComponentType } from 'react';
 import { Accordion } from '../../../../../core';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVoting } from '../index';
 
+const ComponentWrapper = (Story: ComponentType) => (
+    <Accordion.Container isMulti={false}>
+        <Story />
+    </Accordion.Container>
+);
+
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',
     component: ProposalVoting.Stage,
+    decorators: ComponentWrapper,
     parameters: {
         design: {
             type: 'figma',
@@ -27,13 +35,6 @@ export const Default: Story = {
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -47,13 +48,6 @@ export const Pending: Story = {
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -66,13 +60,6 @@ export const Active: Story = {
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
-    },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
     },
 };
 
@@ -89,13 +76,6 @@ export const AdvanceableShort: Story = {
         endDate: '2025-05-16T18:05:00.000Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -110,13 +90,6 @@ export const AdvanceableLong: Story = {
         maxAdvance: '2025-12-16T13:00:00.000Z',
         endDate: '2025-05-16T18:05:00.000Z',
         index: 0,
-    },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
     },
 };
 
@@ -133,13 +106,6 @@ export const AdvanceableInFuture: Story = {
         endDate: '2025-05-16T18:00:00.000Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -152,13 +118,6 @@ export const Expired: Story = {
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
-    },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
     },
 };
 
@@ -173,13 +132,6 @@ export const Rejected: Story = {
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -193,13 +145,6 @@ export const Vetoed: Story = {
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
-    },
 };
 
 /**
@@ -212,13 +157,6 @@ export const Unreached: Story = {
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
-    },
-    render: (args) => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalVoting.Stage {...args} />
-            </Accordion.Container>
-        );
     },
 };
 
