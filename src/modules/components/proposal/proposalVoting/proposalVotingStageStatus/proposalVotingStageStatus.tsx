@@ -84,7 +84,7 @@ const statusToStatusText = (
     },
 });
 
-const parseOptionalDateTime = (input?: string | number) => {
+const parseDateTime = (input?: string | number) => {
     if (!input) {
         return DateTime.invalid('no input');
     }
@@ -109,8 +109,8 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const { copy } = useGukModulesContext();
 
     const now = DateTime.now();
-    const minAdvanceDate = parseOptionalDateTime(minAdvance);
-    const maxAdvanceDate = parseOptionalDateTime(maxAdvance);
+    const minAdvanceDate = parseDateTime(minAdvance);
+    const maxAdvanceDate = parseDateTime(maxAdvance);
 
     const advanceWindow =
         minAdvanceDate.isValid && maxAdvanceDate.isValid
