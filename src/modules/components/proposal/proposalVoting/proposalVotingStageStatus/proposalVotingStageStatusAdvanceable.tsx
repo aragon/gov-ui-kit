@@ -1,9 +1,7 @@
-import classNames from 'classnames';
-import type { ComponentProps } from 'react';
 import { DateFormat, formatterUtils, Rerender } from '../../../../../core';
 import { useAdvanceable } from './hooks/useAdvanceable';
 
-export interface IProposalVotingStageStatusAdvanceableProps extends ComponentProps<'div'> {
+export interface IProposalVotingStageStatusAdvanceableProps {
     /**
      * Min advance date of the proposal in timestamp or ISO format.
      */
@@ -15,7 +13,7 @@ export interface IProposalVotingStageStatusAdvanceableProps extends ComponentPro
 }
 
 export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStageStatusAdvanceableProps> = (props) => {
-    const { minAdvance, maxAdvance, className } = props;
+    const { minAdvance, maxAdvance } = props;
 
     const { isAdvanceableNow, nextAdvanceDateTime, isShortAdvanceWindow } = useAdvanceable(minAdvance, maxAdvance);
 
@@ -26,12 +24,10 @@ export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStage
     }
 
     return (
-        <div className={classNames('flex items-center gap-2', className)}>
-            <span className={isShortAdvanceWindow ? 'text-primary-400' : 'text-neutral-800'}>
-                <Rerender>
-                    {() => formatterUtils.formatDate(nextAdvanceDateTime, { format: DateFormat.DURATION }) ?? '-'}
-                </Rerender>
-            </span>
-        </div>
+        <span className={isShortAdvanceWindow ? 'text-primary-400' : 'text-neutral-800'}>
+            <Rerender>
+                {() => formatterUtils.formatDate(nextAdvanceDateTime, { format: DateFormat.DURATION }) ?? '-'}
+            </Rerender>
+        </span>
     );
 };
