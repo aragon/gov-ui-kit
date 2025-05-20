@@ -30,4 +30,13 @@ export const Default: Story = {
     },
 };
 
+export const External: Story = {
+    args: {
+        children: 'Label',
+        href: 'https://aragon.org',
+        isExternal: true,
+        showUrl: true,
+    },
+};
+
 export default meta;

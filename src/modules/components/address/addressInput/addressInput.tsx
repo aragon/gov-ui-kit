@@ -7,6 +7,7 @@ import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
 import {
     Button,
+    Clipboard,
     IconType,
     InputContainer,
     Spinner,
@@ -243,12 +244,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            onClick={() => clipboardUtils.copy(value)}
-                            iconLeft={IconType.COPY}
-                        />
+                        <Clipboard copyValue={value} variant="button" />
                     </>
                 )}
                 {value.length > 0 && isFocused && (

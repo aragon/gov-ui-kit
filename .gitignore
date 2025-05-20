@@ -17,6 +17,9 @@ typechain
 
 # misc
 .vscode
+.idea
+.cursor
+.cursorignore
 .DS_Store
 *.pem
 .pnp.*

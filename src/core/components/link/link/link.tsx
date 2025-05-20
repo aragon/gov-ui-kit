@@ -1,18 +1,18 @@
 import classNames from 'classnames';
 import React from 'react';
-import { Icon } from '../../icon';
+import { Icon, IconType } from '../../icon';
 import { LinkBase } from '../linkBase';
 import type { ILinkProps, LinkVariant } from './link.api';
 
 const variantToLabelClassNames: Record<LinkVariant | 'disabled', string[]> = {
     primary: [
         'text-primary-400 cursor-pointer', // Default
-        'hover:text-primary-600', // Hover state
-        'active:text-primary-800', // Active state
+        'hover:text-primary-500', // Hover state
+        'active:text-primary-700', // Active state
     ],
     neutral: [
         'text-neutral-500 cursor-pointer', // Default
-        'hover:text-neutral-800', // Hover state
+        'hover:text-neutral-600', // Hover state
         'active:text-neutral-800', // Active state
     ],
     disabled: ['truncate text-neutral-300'],
@@ -23,14 +23,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         children,
         disabled = false,
         variant = 'primary',
-        description,
         href,
-        iconRight,
+        isExternal = false,
+        target = isExternal ? '_blank' : undefined,
         onClick,
         className,
         textClassName,
-        target,
         rel,
+        showUrl,
         ...otherProps
     } = props;
 
@@ -59,13 +59,19 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
             aria-disabled={disabled}
             {...otherProps}
         >
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-1 md:gap-x-1.5">
                 <span className={innerTextClassName}>{children}</span>
-                {iconRight && <Icon icon={iconRight} size="sm" />}
+                {isExternal && <Icon icon={IconType.LINK_EXTERNAL} size="sm" />}
             </div>
-            {description && (
-                <p className={classNames('truncate', disabled ? 'text-neutral-300' : 'text-neutral-500')}>
-                    {description}
+            {showUrl && href && (
+                <p
+                    className={classNames(
+                        'truncate text-xs',
+                        'md:text-sm',
+                        disabled ? 'text-neutral-300' : 'text-neutral-400',
+                    )}
+                >
+                    {href}
                 </p>
             )}
         </LinkBase>
