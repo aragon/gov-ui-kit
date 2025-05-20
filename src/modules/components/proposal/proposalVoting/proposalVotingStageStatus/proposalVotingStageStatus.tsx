@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
+import { DateTime, Interval } from 'luxon';
 import type { ComponentProps } from 'react';
 import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
@@ -60,14 +60,15 @@ const statusToSecondaryText = (
     [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
 });
 
-const parseOptionalDateTime = (input?: string | number): DateTime => {
+const parseOptionalDateTime = (input?: string | number) => {
+    if (!input) {
+        return DateTime.invalid('no input');
+    }
     if (typeof input === 'string') {
         return DateTime.fromISO(input);
     }
-    if (typeof input === 'number') {
-        return DateTime.fromMillis(input);
-    }
-    return DateTime.invalid('missing-input');
+
+    return DateTime.fromMillis(input);
 };
 
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
@@ -87,12 +88,12 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const minAdvanceDate = parseOptionalDateTime(minAdvance);
     const maxAdvanceDate = parseOptionalDateTime(maxAdvance);
 
-    const canAdvance =
-        status === ProposalStatus.ADVANCEABLE &&
-        minAdvanceDate.isValid &&
-        maxAdvanceDate.isValid &&
-        now >= minAdvanceDate &&
-        now <= maxAdvanceDate;
+    const advanceWindow =
+        minAdvanceDate.isValid && maxAdvanceDate.isValid
+            ? Interval.fromDateTimes(minAdvanceDate, maxAdvanceDate)
+            : undefined;
+
+    const canAdvance = (status === ProposalStatus.ADVANCEABLE && advanceWindow?.contains(now)) ?? false;
 
     const nextAdvanceDateTime =
         now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
