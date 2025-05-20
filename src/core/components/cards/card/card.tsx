@@ -6,5 +6,5 @@ export interface ICardProps extends HTMLAttributes<HTMLDivElement> {}
 export const Card: React.FC<ICardProps> = (props) => {
     const { className, ...otherProps } = props;
 
-    return <div className={classNames('rounded-xl bg-neutral-0 shadow-neutral', className)} {...otherProps} />;
+    return <div className={classNames('bg-neutral-0 shadow-neutral rounded-xl', className)} {...otherProps} />;
 };

@@ -1,14 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
+import type { DecoratorFunction } from 'storybook/internal/types';
 import { Accordion } from '../../../../../core';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVoting } from '../index';
 
-const ComponentWrapper = (Story: ComponentType) => (
-    <Accordion.Container isMulti={false}>
-        <Story />
-    </Accordion.Container>
-);
+const ComponentWrapper: DecoratorFunction = (Story: ComponentType, context) => {
+    const { isMultiStage } = context.args as { isMultiStage?: boolean };
+    return (
+        <Accordion.Container isMulti={isMultiStage ?? false}>
+            <Story />
+        </Accordion.Container>
+    );
+};
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',
@@ -30,6 +34,7 @@ type Story = StoryObj<typeof ProposalVoting.Stage>;
 export const Default: Story = {
     args: {
         name: 'Community voting',
+        isMultiStage: true,
         status: ProposalStatus.ACCEPTED,
         startDate: '2024-07-17T08:34:22.719Z',
         endDate: '2024-07-20T08:34:22.719Z',

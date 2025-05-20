@@ -1,0 +1,56 @@
+@theme {
+  --ring-color-*: initial;
+
+  --ring-color-primary: var(--color-primary-200);
+  --ring-color-success: var(--color-success-200);
+  --ring-color-warning: var(--color-warning-200);
+  --ring-color-critical: var(--color-critical-200);
+}
+
+@utility focus-ring {
+  &:focus,
+  &:has(:focus) {
+    outline: none;
+  }
+
+  &:focus-visible,
+  &:has(:focus-visible) {
+    @apply ring-3 ring-offset-3;
+  }
+}
+
+@utility focus-ring-primary {
+  @apply focus-ring;
+
+  &:focus-visible,
+  &:has(:focus-visible) {
+    @apply ring-primary;
+  }
+}
+
+@utility focus-ring-success {
+  @apply focus-ring;
+
+  &:focus-visible,
+  &:has(:focus-visible) {
+    @apply ring-success;
+  }
+}
+
+@utility focus-ring-warning {
+  @apply focus-ring;
+
+  &:focus-visible,
+  &:has(:focus-visible) {
+    @apply ring-warning;
+  }
+}
+
+@utility focus-ring-critical {
+  @apply focus-ring;
+
+  &:focus-visible,
+  &:has(:focus-visible) {
+    @apply ring-critical;
+  }
+}

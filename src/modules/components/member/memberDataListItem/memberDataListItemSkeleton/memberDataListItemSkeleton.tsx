@@ -12,7 +12,7 @@ export const MemberDataListItemSkeleton: React.FC<IMemberDataListItemSkeletonPro
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'flex min-h-[147.5px] flex-col items-start justify-center gap-y-3 bg-neutral-0 py-4 md:min-h-[179px] md:min-w-44 md:gap-y-4 md:py-6',
+                'bg-neutral-0 flex min-h-[147.5px] flex-col items-start justify-center gap-y-3 py-4 md:min-h-[179px] md:min-w-44 md:gap-y-4 md:py-6',
                 className,
             )}
             {...otherProps}

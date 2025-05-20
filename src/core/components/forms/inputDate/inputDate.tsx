@@ -26,7 +26,7 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
         <InputContainer className={classNames('relative', containerClassName)} {...otherContainerProps}>
             <input
                 type="date"
-                className={classNames('absolute calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
+                className={classNames('calendar-icon-hidden absolute', inputClassName)}
                 ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
                 {...otherInputProps}

@@ -30,15 +30,14 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>((props, ref) => 
     const randomId = useRandomId(id);
 
     const itemClasses = classNames(
-        'group peer rounded-full outline-none', // default
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset', // focus
+        'group peer rounded-full outline-hidden cursor-pointer disabled:cursor-default focus-ring-primary',
         { 'order-2': labelPosition === 'left' },
     );
 
     const labelClasses = classNames(
         'cursor-pointer text-base leading-tight text-neutral-500', // default
         'hover:text-neutral-800', // hover
-        'peer-disabled:cursor-default peer-disabled:peer-data-[state=unchecked]:text-neutral-300', // unchecked and disabled
+        'peer-disabled:cursor-default peer-data-[state=unchecked]:peer-disabled:text-neutral-300', // unchecked and disabled
         { 'pr-2 md:pr-3': labelPosition === 'left' },
         { 'pl-2 md:pl-3': labelPosition === 'right' },
     );
@@ -55,7 +54,7 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>((props, ref) => 
             >
                 <Icon
                     icon={IconType.RADIO}
-                    className="text-neutral-300 group-hover:text-primary-400 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
+                    className="group-hover:text-primary-400 text-neutral-300 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
                 />
                 <RadioGroupIndicator className="text-primary-400 group-disabled:text-neutral-300">
                     <Icon icon={IconType.RADIO_SELECTED} />
