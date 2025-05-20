@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useCopy } from '../../hooks';
 import { AvatarIcon, type AvatarIconSize } from '../avatars';
 import { Button, type ButtonSize } from '../button';
@@ -19,9 +20,13 @@ export interface IClipboardProps {
     size?: ButtonSize | AvatarIconSize;
     /**
      * Variant of the button.
-     * @default button
+     * @default avatar
      */
     variant?: ClipboardVariant;
+    /**
+     * Class name to be applied to the wrapper.
+     */
+    className?: string;
     /**
      * Optional children to be rendered next to the clipboard.
      */
@@ -29,7 +34,7 @@ export interface IClipboardProps {
 }
 
 export const Clipboard: React.FC<IClipboardProps> = (props) => {
-    const { copyValue, size = 'sm', variant = 'avatar', children } = props;
+    const { copyValue, size = 'sm', variant = 'avatar', className, children } = props;
     const { isCopied, handleCopy } = useCopy();
 
     const { copy: copyTexts } = useGukCoreContext();
@@ -39,17 +44,16 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const handleCopyClick = () => handleCopy(copyValue);
 
     return (
-        <div className="flex items-center gap-2">
+        <div className={classNames('flex items-center gap-2', className)}>
             {children}
             {(variant === 'avatar' || variant === 'avatar-white-bg') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <button onClick={handleCopyClick}>
+                    <button className="cursor-pointer" onClick={handleCopyClick}>
                         <AvatarIcon
                             variant="primary"
                             backgroundWhite={variant === 'avatar-white-bg'}
                             icon={icon}
                             size={size}
-                            className="cursor-pointer"
                         />
                     </button>
                 </Tooltip>
