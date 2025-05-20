@@ -4,6 +4,7 @@ export * from './avatars';
 export * from './breadcrumbs';
 export * from './button';
 export * from './cards';
+export * from './clipboard';
 export * from './collapsible';
 export * from './dataList';
 export * from './definitionList';

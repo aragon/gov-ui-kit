@@ -39,7 +39,7 @@ export const WithComponent: Story = {
     },
     render: (props: IDefinitionListItemProps) => (
         <DefinitionList.Item {...props}>
-            <div className="flex h-96 w-full items-center justify-center border border-dashed bg-success-100">
+            <div className="bg-success-100 flex h-96 w-full items-center justify-center border border-dashed">
                 Any React Node Child
             </div>
         </DefinitionList.Item>
@@ -70,6 +70,17 @@ export const TruncateDefinition: Story = {
             </div>
         </DefinitionList.Item>
     ),
+};
+
+export const WithHelpText: Story = {
+    args: {
+        term: 'Operating System',
+        link: {
+            href: 'https://www.example.com',
+        },
+        children: '0x1234...1234',
+        description: 'Aragon OSx v1.4',
+    },
 };
 
 export default meta;

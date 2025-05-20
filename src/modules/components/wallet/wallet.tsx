@@ -7,27 +7,20 @@ import { addressUtils } from '../../utils';
 import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
 
-export type TextFromSize = 'md' | 'lg' | 'xl';
-
-const showTextFromClasses: Record<TextFromSize, { padding: string; visibility: string }> = {
-    md: { padding: 'md:pl-4', visibility: 'md:block' },
-    lg: { padding: 'lg:pl-4', visibility: 'lg:block' },
-    xl: { padding: 'xl:pl-4', visibility: 'xl:block' },
-};
-
 export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, IWeb3ComponentProps {
     /**
      * The connected user details.
      */
     user?: ICompositeAddress;
     /**
-     *
+     * Custom class name to control the text styles.
+     * This is useful for controlling visibility of the user handle with breakpoints. @default 'md:block'
      */
-    showTextFrom?: TextFromSize;
+    textClassName?: string;
 }
 
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { user, showTextFrom = 'md', className, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
+    const { user, textClassName = 'md:block', className, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -46,16 +39,16 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         'hover:border-neutral-200 active:bg-neutral-50 active:text-neutral-800',
         'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
         user == null ? 'px-4 py-2.5' : 'p-1',
-        user ? showTextFromClasses[showTextFrom].padding : '',
+        isEnsLoading && 'pl-4',
         className,
     );
 
-    const textBlockClass = classNames('hidden truncate', showTextFromClasses[showTextFrom].visibility);
+    const textBlockClass = classNames('truncate hidden pl-4', textClassName);
 
     return (
         <button className={buttonClassName} {...otherProps}>
             {!user && copy.wallet.connect}
-            {user && isEnsLoading && <StateSkeletonBar className={textBlockClass} size="lg" width={56} />}
+            {user && isEnsLoading && <StateSkeletonBar size="lg" width={56} />}
             {user && !isEnsLoading && (
                 <span title={resolvedUserTitle} className={textBlockClass}>
                     {resolvedUserHandle}

@@ -1,5 +1,4 @@
 import type { AnchorHTMLAttributes } from 'react';
-import { type IconType } from '../../icon';
 
 export type LinkVariant = 'primary' | 'neutral';
 
@@ -10,19 +9,19 @@ export interface ILinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
      */
     variant?: LinkVariant;
     /**
-     * Icon displayed on the right side of the link. Accepts any icon from src/components/icon/iconList.ts.
-     */
-    iconRight?: IconType;
-    /**
      * Whether the link is disabled.
      */
     disabled?: boolean;
     /**
-     * Optional description text.
+     * Optionally show URL as a description below the link text.
      */
-    description?: string;
+    showUrl?: boolean;
     /**
      * Classnames to be applied directly to the link text.
      */
     textClassName?: string;
+    /**
+     * Whether the link is external. If true, the link will open in a new tab and will have external link icon.
+     */
+    isExternal?: boolean;
 }

@@ -15,14 +15,13 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     return (
         <RadixAccordionHeader
             className={classNames(
-                'group relative flex overflow-hidden',
-                'data-[state=open]:bg-gradient-to-b data-[state=open]:from-neutral-50 data-[state=open]:to-neutral-0',
+                'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
             )}
         >
             <div
                 className={classNames(
-                    'absolute inset-0 bg-neutral-0 transition-opacity duration-300',
+                    'bg-neutral-0 absolute inset-0 transition-opacity duration-300',
                     'group-data-[state=closed]:opacity-100 group-data-[state=open]:opacity-0',
                 )}
                 aria-hidden="true"
@@ -30,8 +29,8 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
             <RadixAccordionTrigger
                 className={classNames(
-                    'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-none group-data-[disabled]:bg-neutral-100 md:gap-x-6 md:px-6 md:py-5',
-                    'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+                    'relative flex flex-1 cursor-pointer items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
+                    'focus-ring-primary group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
                     className,
                 )}
                 ref={ref}
@@ -40,7 +39,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {children}
                 <AvatarIcon
                     icon={IconType.CHEVRON_DOWN}
-                    className="transition-transform group-data-[state=open]:rotate-180 group-data-[disabled]:bg-neutral-100 group-data-[disabled]:text-neutral-100"
+                    className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
                 />
             </RadixAccordionTrigger>
         </RadixAccordionHeader>

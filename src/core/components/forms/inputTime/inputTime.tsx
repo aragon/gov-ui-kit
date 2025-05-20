@@ -26,7 +26,7 @@ export const InputTime = forwardRef<HTMLInputElement, IInputTimeProps>((props, r
                 type="time"
                 ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
-                className={classNames('calendar-icon:hidden calendar-icon:appearance-none', inputClassName)}
+                className={classNames('calendar-icon-hidden', inputClassName)}
                 {...otherInputProps}
             />
             {!disabled && (

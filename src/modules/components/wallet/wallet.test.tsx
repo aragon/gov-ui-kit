@@ -101,16 +101,4 @@ describe('<Wallet /> component', () => {
         const avatar = screen.getByTestId('member-avatar-mock');
         expect(avatar.dataset.chainid).toEqual(chainId.toString());
     });
-
-    it.each(['md', 'lg', 'xl'] as const)(
-        'renders user text with correct class when user is connected and showTextFrom="%s"',
-        (size) => {
-            const user = { address: '0x0987654321098765432109876543210987654321' };
-            render(createTestComponent({ user, showTextFrom: size }));
-
-            const text = screen.getByText('0x0987…4321');
-            expect(text).toBeInTheDocument();
-            expect(text).toHaveClass(`${size}:block`);
-        },
-    );
 });

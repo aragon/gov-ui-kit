@@ -67,7 +67,7 @@ export const InputSearch = forwardRef<HTMLInputElement, IInputSearchProps>((prop
             )}
             <input
                 type="search"
-                className={classNames('search-cancel:appearance-none', inputClassName)}
+                className={classNames('search-cancel-hidden', inputClassName)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 ref={mergeRefs([inputRef, ref])}
@@ -75,7 +75,7 @@ export const InputSearch = forwardRef<HTMLInputElement, IInputSearchProps>((prop
                 {...otherInputProps}
             />
             {displayClearIcon && (
-                <button className="mr-4" onClick={handleClear}>
+                <button className="mr-4 cursor-pointer" onClick={handleClear}>
                     <Icon icon={IconType.CLOSE} className="text-neutral-600" />
                 </button>
             )}

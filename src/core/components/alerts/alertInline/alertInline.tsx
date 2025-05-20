@@ -34,7 +34,7 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant = 'info', ...rest } = props;
 
     return (
-        <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded', className)} {...rest}>
+        <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded-md', className)} {...rest}>
             <Icon
                 size="sm"
                 icon={alertVariantToIconType[variant]}
@@ -43,7 +43,7 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
             />
             <p
                 className={classNames(
-                    'text-xs font-normal leading-tight md:text-base',
+                    'text-xs leading-tight font-normal md:text-base',
                     variantToTextClassNames[variant],
                 )}
             >
