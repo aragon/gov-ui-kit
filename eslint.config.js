@@ -8,7 +8,6 @@ const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
 const reactPlugin = require('eslint-plugin-react');
 const reactHooksPlugin = require('eslint-plugin-react-hooks');
 const storybookPlugin = require('eslint-plugin-storybook');
-const tailwindPlugin = require('eslint-plugin-tailwindcss');
 const testingLibraryPlugin = require('eslint-plugin-testing-library');
 
 const tsConfig = require('./tsconfig.json');
@@ -22,7 +21,6 @@ const config = tsEslint.config(
     reactPlugin.configs.flat.recommended,
     reactPlugin.configs.flat['jsx-runtime'],
     ...storybookPlugin.configs['flat/recommended'],
-    ...tailwindPlugin.configs['flat/recommended'],
     ...tsEslint.configs.recommendedTypeChecked,
     ...tsEslint.configs.strictTypeChecked,
     ...tsEslint.configs.stylisticTypeChecked,
@@ -46,9 +44,6 @@ const config = tsEslint.config(
             'import/resolver': {
                 typescript: true,
                 node: true,
-            },
-            tailwindcss: {
-                callees: ['classnames', 'classNames'],
             },
         },
         plugins: {

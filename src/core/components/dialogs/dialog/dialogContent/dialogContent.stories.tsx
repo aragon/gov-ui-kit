@@ -28,7 +28,7 @@ export const Default: Story = {
 export const ScrollableContent: Story = {
     args: {
         children: (
-            <div className="flex h-screen w-full items-center justify-center border border-dashed border-info-300 bg-info-100">
+            <div className="border-info-300 bg-info-100 flex h-screen w-full items-center justify-center border border-dashed">
                 Overflowing content
             </div>
         ),

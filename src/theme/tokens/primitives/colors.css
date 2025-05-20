@@ -1,73 +1,83 @@
-:root {
+@theme {
+  --color-*: initial;
+
   /* Primary */
-  --guk-color-primary-50: #f5f8ff;
-  --guk-color-primary-100: #c4d7ff;
-  --guk-color-primary-200: #93b2ff;
-  --guk-color-primary-300: #628cfe;
-  --guk-color-primary-400: #3164fa;
-  --guk-color-primary-500: #003bf5;
-  --guk-color-primary-600: #0037d2;
-  --guk-color-primary-700: #0031ad;
-  --guk-color-primary-800: #002985;
-  --guk-color-primary-900: #001f5c;
+  --color-primary-50: #f5f8ff;
+  --color-primary-100: #c4d7ff;
+  --color-primary-200: #93b2ff;
+  --color-primary-300: #628cfe;
+  --color-primary-400: #3164fa;
+  --color-primary-500: #003bf5;
+  --color-primary-600: #0037d2;
+  --color-primary-700: #0031ad;
+  --color-primary-800: #002985;
+  --color-primary-900: #001f5c;
 
   /* Neutral */
-  --guk-color-neutral-0: #ffffff;
-  --guk-color-neutral-50: #f5f7fa;
-  --guk-color-neutral-100: #e4e7eb;
-  --guk-color-neutral-200: #cbd2d9;
-  --guk-color-neutral-300: #9aa5b1;
-  --guk-color-neutral-400: #7b8794;
-  --guk-color-neutral-500: #616e7c;
-  --guk-color-neutral-600: #52606d;
-  --guk-color-neutral-700: #3e4c59;
-  --guk-color-neutral-800: #323f4b;
-  --guk-color-neutral-900: #1f2933;
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f5f7fa;
+  --color-neutral-100: #e4e7eb;
+  --color-neutral-200: #cbd2d9;
+  --color-neutral-300: #9aa5b1;
+  --color-neutral-400: #7b8794;
+  --color-neutral-500: #616e7c;
+  --color-neutral-600: #52606d;
+  --color-neutral-700: #3e4c59;
+  --color-neutral-800: #323f4b;
+  --color-neutral-900: #1f2933;
 
   /* Info */
-  --guk-color-info-100: #d1fdfa;
-  --guk-color-info-200: #a4f9fb;
-  --guk-color-info-300: #75e8f3;
-  --guk-color-info-400: #52cfe7;
-  --guk-color-info-500: #1eadd8;
-  --guk-color-info-600: #1588b9;
-  --guk-color-info-700: #0f669b;
-  --guk-color-info-800: #09497d;
-  --guk-color-info-900: #053467;
+  --color-info-100: #d1fdfa;
+  --color-info-200: #a4f9fb;
+  --color-info-300: #75e8f3;
+  --color-info-400: #52cfe7;
+  --color-info-500: #1eadd8;
+  --color-info-600: #1588b9;
+  --color-info-700: #0f669b;
+  --color-info-800: #09497d;
+  --color-info-900: #053467;
 
   /* Success */
-  --guk-color-success-100: #f3fccc;
-  --guk-color-success-200: #e4f99a;
-  --guk-color-success-300: #ccef66;
-  --guk-color-success-400: #b2e040;
-  --guk-color-success-500: #8ecc0a;
-  --guk-color-success-600: #74af07;
-  --guk-color-success-700: #5c9205;
-  --guk-color-success-800: #467603;
-  --guk-color-success-900: #366101;
+  --color-success-100: #f3fccc;
+  --color-success-200: #e4f99a;
+  --color-success-300: #ccef66;
+  --color-success-400: #b2e040;
+  --color-success-500: #8ecc0a;
+  --color-success-600: #74af07;
+  --color-success-700: #5c9205;
+  --color-success-800: #467603;
+  --color-success-900: #366101;
 
   /* Warning */
-  --guk-color-warning-100: #fff3d6;
-  --guk-color-warning-200: #ffe4ad;
-  --guk-color-warning-300: #ffd083;
-  --guk-color-warning-400: #ffbe65;
-  --guk-color-warning-500: #ff9f32;
-  --guk-color-warning-600: #db7d24;
-  --guk-color-warning-700: #b75e19;
-  --guk-color-warning-800: #93430f;
-  --guk-color-warning-900: #7a3009;
+  --color-warning-100: #fff3d6;
+  --color-warning-200: #ffe4ad;
+  --color-warning-300: #ffd083;
+  --color-warning-400: #ffbe65;
+  --color-warning-500: #ff9f32;
+  --color-warning-600: #db7d24;
+  --color-warning-700: #b75e19;
+  --color-warning-800: #93430f;
+  --color-warning-900: #7a3009;
 
   /* Critical */
-  --guk-color-critical-100: #fee4d6;
-  --guk-color-critical-200: #fec3ae;
-  --guk-color-critical-300: #fd9a86;
-  --guk-color-critical-400: #fb7467;
-  --guk-color-critical-500: #f93636;
-  --guk-color-critical-600: #d62736;
-  --guk-color-critical-700: #b31b35;
-  --guk-color-critical-800: #901132;
-  --guk-color-critical-900: #770a30;
+  --color-critical-100: #fee4d6;
+  --color-critical-200: #fec3ae;
+  --color-critical-300: #fd9a86;
+  --color-critical-400: #fb7467;
+  --color-critical-500: #f93636;
+  --color-critical-600: #d62736;
+  --color-critical-700: #b31b35;
+  --color-critical-800: #901132;
+  --color-critical-900: #770a30;
 
   /* Transparent */
-  --guk-color-transparent: transparent;
+  --color-transparent: transparent;
+}
+
+@utility gradient-neutral-50-transparent-to-b {
+  @apply bg-linear-to-b from-neutral-50/100 to-neutral-50/0;
+}
+
+@utility gradient-neutral-50-transparent-to-t {
+  @apply bg-linear-to-t from-neutral-50/100 to-neutral-50/0;
 }

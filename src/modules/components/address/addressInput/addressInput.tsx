@@ -221,7 +221,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 rows={1}
                 className={classNames(
                     // min-h-11 is required to prevent placeholder displacement
-                    '!md:px-4 min-h-11 resize-none !px-3',
+                    '!md:px-4 min-h-11 resize-none px-3!',
                     { 'whitespace-normal': isFocused },
                     inputClassName,
                 )}

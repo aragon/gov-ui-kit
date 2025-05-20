@@ -71,7 +71,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
             <div className="flex flex-row items-center justify-between">
                 <p
                     className={classNames(
-                        'text-base font-normal leading-tight md:text-lg',
+                        'text-base leading-tight font-normal md:text-lg',
                         variantToNameClassNames[variant],
                     )}
                 >
@@ -82,7 +82,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                         {showPercentage && (
                             <p
                                 className={classNames(
-                                    'text-base font-normal leading-tight text-neutral-500 md:text-lg',
+                                    'text-base leading-tight font-normal text-neutral-500 md:text-lg',
                                     { 'text-neutral-500': variant !== 'primary' },
                                     { 'text-primary-400': variant === 'primary' },
                                 )}
@@ -101,7 +101,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                 variant={variant}
                 {...otherProps}
             />
-            <div className="flex flex-row gap-0.5 text-base font-normal leading-tight md:text-lg">
+            <div className="flex flex-row gap-0.5 text-base leading-tight font-normal md:text-lg">
                 <p className="text-neutral-800">{description.value}</p>
                 <p className="text-neutral-500">{description.text}</p>
             </div>

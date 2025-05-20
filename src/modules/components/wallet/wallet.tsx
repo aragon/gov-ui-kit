@@ -30,9 +30,8 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     const resolvedUserTitle = user?.name ?? ensName ?? user?.address;
 
     const buttonClassName = classNames(
-        'flex max-w-44 items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
-        'hover:border-neutral-200 active:bg-neutral-50 active:text-neutral-800',
-        'focus:outline-none focus-visible:ring focus-visible:ring-primary focus-visible:ring-offset',
+        'flex max-w-44 items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all cursor-pointer',
+        'hover:border-neutral-200 active:bg-neutral-50 active:text-neutral-800 disabled:cursor-default focus-ring-primary',
         { 'px-4 py-2.5': user == null },
         { 'p-1 md:pl-4': user != null },
         className,

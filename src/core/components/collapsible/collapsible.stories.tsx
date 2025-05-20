@@ -87,7 +87,7 @@ export const WithImage: Story = {
     render: (args) => (
         <Collapsible {...args}>
             <img
-                src="https://source.unsplash.com/800x600/?landscape"
+                src="https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv"
                 alt="A beautiful landscape"
                 className="h-auto w-full"
             />
