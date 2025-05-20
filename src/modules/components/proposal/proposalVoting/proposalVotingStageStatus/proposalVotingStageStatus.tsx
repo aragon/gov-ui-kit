@@ -98,6 +98,8 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     const mainText = getStatusText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy, isAdvanceableNow, isShortAdvanceWindow)[status];
 
+    // We specifically need the || here
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortAdvanceWindow || !isAdvanceableNow);
 
     const showStatusText =
