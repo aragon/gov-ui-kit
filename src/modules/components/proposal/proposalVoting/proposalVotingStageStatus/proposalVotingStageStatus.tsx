@@ -43,8 +43,8 @@ const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?:
 
 const statusToSecondaryText = (
     copy: ModulesCopy,
-    canAdvance?: boolean,
-    isShortWindow?: boolean,
+    isAdvanceableNow?: boolean,
+    isShortAdvanceWindow?: boolean,
 ): Record<ProposalStatus, string> => ({
     [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
@@ -53,11 +53,35 @@ const statusToSecondaryText = (
     [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
     [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
     [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
-    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(canAdvance, isShortWindow),
+    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(
+        isAdvanceableNow,
+        isShortAdvanceWindow,
+    ),
     [ProposalStatus.DRAFT]: copy.proposalVotingStageStatus.secondary.draft,
     [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
     [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
     [ProposalStatus.FAILED]: copy.proposalVotingStageStatus.secondary.failed,
+});
+
+const statusToStatusText = (
+    copy: ModulesCopy,
+): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
+    [ProposalStatus.ACCEPTED]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStageStatus.status.accepted,
+    },
+    [ProposalStatus.REJECTED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStageStatus.status.rejected,
+    },
+    [ProposalStatus.VETOED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStageStatus.status.vetoed,
+    },
+    [ProposalStatus.ADVANCEABLE]: {
+        className: 'text-primary-400',
+        label: copy.proposalVotingStageStatus.status.advanceable,
+    },
 });
 
 const parseOptionalDateTime = (input?: string | number) => {
@@ -93,17 +117,25 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
             ? Interval.fromDateTimes(minAdvanceDate, maxAdvanceDate)
             : undefined;
 
-    const canAdvance = (status === ProposalStatus.ADVANCEABLE && advanceWindow?.contains(now)) ?? false;
+    const isAdvanceableNow = (status === ProposalStatus.ADVANCEABLE && advanceWindow?.contains(now)) ?? false;
 
     const nextAdvanceDateTime =
         now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
 
-    const isShortWindow = nextAdvanceDateTime?.isValid === true && nextAdvanceDateTime.diff(now, 'days').days <= 90;
+    const isShortAdvanceWindow =
+        nextAdvanceDateTime?.isValid === true && nextAdvanceDateTime.diff(now, 'days').days <= 90;
 
     const mainText = getStatusText(status, copy, isMultiStage);
-    const secondaryText = statusToSecondaryText(copy, canAdvance, isShortWindow)[status];
+    const secondaryText = statusToSecondaryText(copy, isAdvanceableNow, isShortAdvanceWindow)[status];
 
-    const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortWindow || !canAdvance);
+    const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortAdvanceWindow || !isAdvanceableNow);
+
+    const showStatusText =
+        status === ProposalStatus.ACCEPTED ||
+        status === ProposalStatus.REJECTED ||
+        status === ProposalStatus.VETOED ||
+        (status === ProposalStatus.ADVANCEABLE && isAdvanceableNow && !isShortAdvanceWindow);
+    const statusText = statusToStatusText(copy)[status];
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
@@ -117,7 +149,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                 )}
                 {status === ProposalStatus.ADVANCEABLE &&
                     nextAdvanceDateTime &&
-                    (!canAdvance ? (
+                    (!isAdvanceableNow ? (
                         <span className="text-neutral-800">
                             <Rerender>
                                 {() =>
@@ -127,7 +159,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                                 }
                             </Rerender>
                         </span>
-                    ) : isShortWindow ? (
+                    ) : isShortAdvanceWindow ? (
                         <span className="text-primary-400">
                             <Rerender>
                                 {() =>
@@ -143,20 +175,9 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                     <span className="text-neutral-800">{mainText}</span>
                 )}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {status === ProposalStatus.ACCEPTED && (
-                    <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
-                )}
-                {status === ProposalStatus.REJECTED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
-                )}
-                {status === ProposalStatus.VETOED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
-                )}
-                {status === ProposalStatus.ADVANCEABLE && canAdvance && !isShortWindow && (
-                    <span className="text-primary-400">{copy.proposalVotingStageStatus.status.advanceable}</span>
-                )}
+                {showStatusText && <span className={statusText?.className}>{statusText?.label}</span>}
             </div>
-            {(status === ProposalStatus.ACTIVE || (status === ProposalStatus.ADVANCEABLE && canAdvance)) && (
+            {(status === ProposalStatus.ACTIVE || (status === ProposalStatus.ADVANCEABLE && isAdvanceableNow)) && (
                 <StatePingAnimation variant="primary" />
             )}
         </div>
