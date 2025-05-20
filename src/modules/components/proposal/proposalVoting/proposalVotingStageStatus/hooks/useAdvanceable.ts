@@ -23,8 +23,7 @@ export const useAdvanceable = (minAdvance?: string | number, maxAdvance?: string
     const nextAdvanceDateTime =
         now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
 
-    const isShortAdvanceWindow =
-        nextAdvanceDateTime?.isValid === true && nextAdvanceDateTime.diff(now, 'days').days <= 90;
+    const isShortAdvanceWindow = nextAdvanceDateTime?.isValid && nextAdvanceDateTime.diff(now, 'days').days <= 90;
 
     return { isAdvanceableNow, nextAdvanceDateTime, isShortAdvanceWindow };
 };
