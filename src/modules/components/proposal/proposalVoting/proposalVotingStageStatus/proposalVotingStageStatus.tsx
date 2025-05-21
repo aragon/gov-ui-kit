@@ -32,9 +32,9 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
 
 const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
     const isSingleStagePending = !isMultiStage && status === ProposalStatus.PENDING;
-    const { ACCEPTED, REJECTED, VETOED, EXPIRED, ADVANCEABLE } = ProposalStatus;
+    const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalStatus;
 
-    if ([ACCEPTED, REJECTED, VETOED, EXPIRED, ADVANCEABLE].includes(status) || isSingleStagePending) {
+    if ([ACCEPTED, REJECTED, VETOED, EXPIRED].includes(status) || isSingleStagePending) {
         return copy.proposalVotingStageStatus.main.proposal;
     }
 
@@ -70,7 +70,6 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     if (status === ProposalStatus.ADVANCEABLE) {
         return (
             <ProposalVotingStageStatusAdvanceable
-                mainText={mainText}
                 minAdvance={minAdvance}
                 maxAdvance={maxAdvance}
                 className={className}

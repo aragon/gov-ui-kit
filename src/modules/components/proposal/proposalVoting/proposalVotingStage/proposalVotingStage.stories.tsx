@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DateTime } from 'luxon';
 import type { DecoratorFunction } from 'storybook/internal/types';
 import { Accordion } from '../../../../../core';
 import { ProposalStatus } from '../../proposalUtils';
@@ -12,6 +13,12 @@ const ComponentWrapper: DecoratorFunction = (Story, context) => {
         </Accordion.Container>
     );
 };
+
+const now = DateTime.now();
+const twoDaysAgo = now.minus({ days: 2 }).toISO();
+const oneMonthAhead = now.plus({ months: 1 }).toISO();
+const sixMonthsAhead = now.plus({ months: 6 }).toISO();
+const fiveYearsAhead = now.plus({ years: 5 }).toISO();
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',
@@ -70,8 +77,8 @@ export const AdvanceableShort: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: '2025-05-16T11:00:00.000Z',
-        maxAdvance: '2025-07-16T13:00:00.000Z',
+        minAdvance: twoDaysAgo,
+        maxAdvance: oneMonthAhead,
         index: 0,
     },
 };
@@ -83,8 +90,8 @@ export const AdvanceableLong: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: '2025-05-16T11:00:00.000Z',
-        maxAdvance: '2025-12-16T13:00:00.000Z',
+        minAdvance: twoDaysAgo,
+        maxAdvance: sixMonthsAhead,
         index: 0,
     },
 };
@@ -96,8 +103,8 @@ export const AdvanceableInFuture: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: '2025-12-16T14:00:00.000Z',
-        maxAdvance: '2026-05-16T16:00:00.000Z',
+        minAdvance: sixMonthsAhead,
+        maxAdvance: fiveYearsAhead,
         index: 0,
     },
 };

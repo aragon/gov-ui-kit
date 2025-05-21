@@ -81,10 +81,13 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         return (
             <ProposalVotingStageContextProvider value={contextValues}>
                 <Card
-                    className={classNames('relative flex flex-col overflow-hidden p-4 md:p-6', className)}
+                    className={classNames(
+                        'relative flex flex-col gap-3 overflow-hidden p-4 md:gap-4 md:p-6',
+                        className,
+                    )}
                     {...otherProps}
                 >
-                    <div className="flex flex-col gap-y-1 pb-3 md:pb-4">
+                    <div className="flex flex-col gap-y-1">
                         {name && (
                             <p className="text-base leading-tight font-normal text-neutral-800 md:text-lg">{name}</p>
                         )}
