@@ -101,7 +101,6 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                     <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
                 )}
             </div>
-
             {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
         </div>
     );
