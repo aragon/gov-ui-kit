@@ -12,10 +12,15 @@ export interface IWalletProps extends React.ButtonHTMLAttributes<HTMLButtonEleme
      * The connected user details.
      */
     user?: ICompositeAddress;
+    /**
+     * Custom class name to control the text styles, useful for controlling visibility of the user handle.
+     * @default 'md:block'
+     */
+    textClassName?: string;
 }
 
 export const Wallet: React.FC<IWalletProps> = (props) => {
-    const { user, className, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
+    const { user, textClassName = 'md:block', className, chainId = mainnet.id, wagmiConfig, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -37,12 +42,14 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         className,
     );
 
+    const contentClassName = classNames('truncate hidden', textClassName);
+
     return (
         <button className={buttonClassName} {...otherProps}>
             {!user && copy.wallet.connect}
-            {user && isEnsLoading && <StateSkeletonBar className="hidden md:block" size="lg" width={56} />}
+            {user && isEnsLoading && <StateSkeletonBar size="lg" width={56} className={contentClassName} />}
             {user && !isEnsLoading && (
-                <span title={resolvedUserTitle} className="hidden truncate md:block">
+                <span title={resolvedUserTitle} className={contentClassName}>
                     {resolvedUserHandle}
                 </span>
             )}
