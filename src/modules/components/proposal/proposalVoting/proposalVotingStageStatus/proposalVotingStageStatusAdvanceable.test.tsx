@@ -6,9 +6,7 @@ import {
 
 describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingStageStatusAdvanceableProps>) => {
-        const completeProps: IProposalVotingStageStatusAdvanceableProps = {
-            ...props,
-        };
+        const completeProps: IProposalVotingStageStatusAdvanceableProps = { ...props };
 
         return <ProposalVotingStageStatusAdvanceable {...completeProps} />;
     };
