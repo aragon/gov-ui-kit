@@ -2,15 +2,12 @@ import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { ProposalStatus } from '../../proposalUtils';
 import { type IProposalVotingStageStatusProps, ProposalVotingStageStatus } from './proposalVotingStageStatus';
-import * as Advanceable from './proposalVotingStageStatusAdvanceable';
+
+jest.mock('./proposalVotingStageStatusAdvanceable', () => ({
+    ProposalVotingStageStatusAdvanceable: () => <div data-testid="advanceable-component" />,
+}));
 
 describe('<ProposalVotingStageStatus /> component', () => {
-    const advanceableSpy = jest.spyOn(Advanceable, 'ProposalVotingStageStatusAdvanceable');
-
-    beforeEach(() => {
-        advanceableSpy.mockImplementation(() => <div data-testid="advanceable-component" />);
-    });
-
     const createTestComponent = (props?: Partial<IProposalVotingStageStatusProps>) => {
         const completeProps: IProposalVotingStageStatusProps = {
             endDate: 0,

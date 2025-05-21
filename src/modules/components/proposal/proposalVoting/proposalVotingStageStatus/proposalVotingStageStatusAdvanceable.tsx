@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { DateTime, Interval } from 'luxon';
 import type { ComponentProps } from 'react';
-import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../../../../core';
+import { DateFormat, formatterUtils, invariant, Rerender, StatePingAnimation } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export interface IProposalVotingStageStatusAdvanceableProps extends ComponentProps<'div'> {
@@ -15,34 +15,27 @@ export interface IProposalVotingStageStatusAdvanceableProps extends ComponentPro
     maxAdvance?: string | number;
 }
 
-const parseDate = (date?: string | number): DateTime => {
-    if (typeof date === 'string') {
-        return DateTime.fromISO(date);
-    }
-    if (typeof date === 'number') {
-        return DateTime.fromMillis(date);
-    }
-    return DateTime.invalid('missing-input');
-};
+const parseDate = (date: string | number) =>
+    typeof date === 'string' ? DateTime.fromISO(date) : DateTime.fromMillis(date);
 
 export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStageStatusAdvanceableProps> = (props) => {
     const { minAdvance, maxAdvance, className, ...otherProps } = props;
+
+    invariant(minAdvance != null, 'minAdvance is required');
+    invariant(maxAdvance != null, 'maxAdvance is required');
+
     const { copy } = useGukModulesContext();
 
     const now = DateTime.now();
     const minAdvanceDate = parseDate(minAdvance);
     const maxAdvanceDate = parseDate(maxAdvance);
 
-    const advanceWindow =
-        minAdvanceDate.isValid && maxAdvanceDate.isValid
-            ? Interval.fromDateTimes(minAdvanceDate, maxAdvanceDate)
-            : undefined;
-
-    const isAdvanceableNow = advanceWindow?.contains(now) ?? false;
+    const advanceWindow = Interval.fromDateTimes(minAdvanceDate, maxAdvanceDate);
+    const isAdvanceableNow = advanceWindow.contains(now);
 
     const nextAdvanceDate = now < minAdvanceDate ? minAdvanceDate : now <= maxAdvanceDate ? maxAdvanceDate : undefined;
 
-    const isShortWindow = nextAdvanceDate?.isValid && nextAdvanceDate.diff(now, 'days').days <= 90;
+    const isShortWindow = nextAdvanceDate && nextAdvanceDate.diff(now, 'days').days <= 90;
     const isLongWindow = !isShortWindow && isAdvanceableNow;
 
     const mainText = copy.proposalVotingStageStatus.main.proposal;
