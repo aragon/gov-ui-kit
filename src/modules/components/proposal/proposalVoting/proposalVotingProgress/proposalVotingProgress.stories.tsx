@@ -23,9 +23,8 @@ export const TokenVotingProgress: Story = {
         description: { value: '75', text: 'of 100 ETH' },
         value: 75,
         thresholdIndicator: 50,
-        variant: 'primary',
         showPercentage: true,
-        showStatusIcon: true,
+        showStatus: true,
     },
     render: (args) => (
         <ProposalVotingProgress.Container className="min-w-96">
@@ -43,9 +42,8 @@ export const MultisigApprovalProgress: Story = {
         description: { value: '2', text: 'of 5 members' },
         value: 40,
         thresholdIndicator: 50,
-        variant: 'neutral',
         showPercentage: false,
-        showStatusIcon: true,
+        showStatus: true,
     },
     render: (args) => (
         <ProposalVotingProgress.Container className="min-w-96">

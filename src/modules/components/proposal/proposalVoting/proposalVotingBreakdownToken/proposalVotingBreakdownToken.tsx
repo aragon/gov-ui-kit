@@ -57,7 +57,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
 
     const optionValues = [
         { name: copy.proposalVotingBreakdownToken.option.yes, value: totalYesNumber, variant: 'success' },
-        { name: copy.proposalVotingBreakdownToken.option.abstain, value: totalAbstainNumber, variant: 'neutral' },
+        { name: copy.proposalVotingBreakdownToken.option.abstain, value: totalAbstainNumber, variant: 'default' },
         { name: copy.proposalVotingBreakdownToken.option.no, value: totalNoNumber, variant: 'critical' },
     ] as const;
 
@@ -72,15 +72,12 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     const formattedMinParticipationToken = formatterUtils.formatNumber(minParticipationToken, {
         format: NumberFormat.GENERIC_SHORT,
     })!;
+    const minParticipationTokenPercentage = (totalVotes / minParticipationToken) * 100;
 
     const countableVotes = totalYesNumber + totalNoNumber;
-    const supportPercentage = countableVotes > 0 ? (totalYesNumber / countableVotes) * 100 : 0;
     const formattedCountableVotes = formatterUtils.formatNumber(countableVotes, { format: NumberFormat.GENERIC_SHORT });
+    const supportPercentage = countableVotes > 0 ? (totalYesNumber / countableVotes) * 100 : 0;
     const formattedTotalYes = formatterUtils.formatNumber(totalYesNumber, { format: NumberFormat.GENERIC_SHORT });
-    const currentParticipationPercentage = (totalVotes / minParticipationToken) * 100;
-
-    const supportReached = supportPercentage >= supportThreshold;
-    const minParticipationReached = currentParticipationPercentage >= minParticipation;
 
     return (
         <Tabs.Content
@@ -113,14 +110,13 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                         ),
                     }}
                     showPercentage={true}
-                    showStatusIcon={true}
-                    variant={supportReached ? 'primary' : 'neutral'}
+                    showStatus={true}
                     thresholdIndicator={supportThreshold}
                 />
                 {minParticipation > 0 && (
                     <ProposalVotingProgress.Item
                         name={copy.proposalVotingBreakdownToken.minParticipation.name}
-                        value={currentParticipationPercentage}
+                        value={minParticipationTokenPercentage}
                         description={{
                             value: formattedTotalVotes,
                             text: copy.proposalVotingBreakdownToken.minParticipation.description(
@@ -128,8 +124,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
                             ),
                         }}
                         showPercentage={true}
-                        showStatusIcon={true}
-                        variant={minParticipationReached ? 'primary' : 'neutral'}
+                        showStatus={true}
                     />
                 )}
             </ProposalVotingProgress.Container>

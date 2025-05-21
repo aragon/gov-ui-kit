@@ -14,7 +14,7 @@ jest.mock('../../../../../core/components/avatars/avatar', () => ({
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
     const createTestComponent = (
         props?: Partial<IProposalVotingBodySummaryListItemProps>,
-        contextValues?: Partial<IProposalVotingStageContext>,
+        contextValues: Partial<IProposalVotingStageContext> = {},
     ) => {
         const completeProps: IProposalVotingBodySummaryListItemProps = {
             id: 'body1',
@@ -22,14 +22,8 @@ describe('<ProposalVotingBodySummaryListItem /> component', () => {
             ...props,
         };
 
-        const completeContextValues: IProposalVotingStageContext = {
-            startDate: 0,
-            endDate: 0,
-            ...contextValues,
-        };
-
         return (
-            <ProposalVotingStageContextProvider value={completeContextValues}>
+            <ProposalVotingStageContextProvider value={contextValues}>
                 <ProposalVotingBodySummaryListItem {...completeProps} />
             </ProposalVotingStageContextProvider>
         );
