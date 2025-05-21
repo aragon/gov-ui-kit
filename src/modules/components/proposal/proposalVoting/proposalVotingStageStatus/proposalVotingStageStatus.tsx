@@ -4,7 +4,6 @@ import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
-import { useAdvanceable } from './hooks/useAdvanceable';
 import { ProposalVotingStageStatusAdvanceable } from './proposalVotingStageStatusAdvanceable';
 
 export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
@@ -42,11 +41,7 @@ const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?:
     return copy.proposalVotingStageStatus.main.stage;
 };
 
-const statusToSecondaryText = (
-    copy: ModulesCopy,
-    isAdvanceableNow?: boolean,
-    isShortAdvanceWindow?: boolean,
-): Partial<Record<ProposalStatus, string>> => ({
+const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus, string>> => ({
     [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
     [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
     [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
@@ -54,31 +49,6 @@ const statusToSecondaryText = (
     [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
     [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
     [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
-    [ProposalStatus.ADVANCEABLE]: copy.proposalVotingStageStatus.secondary.advanceable(
-        isAdvanceableNow,
-        isShortAdvanceWindow,
-    ),
-});
-
-const statusToStatusText = (
-    copy: ModulesCopy,
-): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
-    [ProposalStatus.ACCEPTED]: {
-        className: 'text-success-800',
-        label: copy.proposalVotingStageStatus.status.accepted,
-    },
-    [ProposalStatus.REJECTED]: {
-        className: 'text-critical-800',
-        label: copy.proposalVotingStageStatus.status.rejected,
-    },
-    [ProposalStatus.VETOED]: {
-        className: 'text-critical-800',
-        label: copy.proposalVotingStageStatus.status.vetoed,
-    },
-    [ProposalStatus.ADVANCEABLE]: {
-        className: 'text-primary-400',
-        label: copy.proposalVotingStageStatus.status.advanceable,
-    },
 });
 
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
@@ -93,19 +63,21 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
     } = props;
 
     const { copy } = useGukModulesContext();
-    const { isAdvanceableNow, isShortAdvanceWindow } = useAdvanceable(minAdvance, maxAdvance);
 
     const mainText = getStatusText(status, copy, isMultiStage);
-    const secondaryText = statusToSecondaryText(copy, isAdvanceableNow, isShortAdvanceWindow)[status];
+    const secondaryText = statusToSecondaryText(copy)[status];
 
-    // We specifically need the || here
-    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    const hideAdvanceMainText = status === ProposalStatus.ADVANCEABLE && (isShortAdvanceWindow || !isAdvanceableNow);
-
-    const showStatusText =
-        [ProposalStatus.ACCEPTED, ProposalStatus.REJECTED, ProposalStatus.VETOED].includes(status) ||
-        (status === ProposalStatus.ADVANCEABLE && isAdvanceableNow && !isShortAdvanceWindow);
-    const statusText = statusToStatusText(copy)[status];
+    if (status === ProposalStatus.ADVANCEABLE) {
+        return (
+            <ProposalVotingStageStatusAdvanceable
+                mainText={mainText}
+                minAdvance={minAdvance}
+                maxAdvance={maxAdvance}
+                className={className}
+                {...otherProps}
+            />
+        );
+    }
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
@@ -117,18 +89,20 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
                         </Rerender>
                     </span>
                 )}
-                {status === ProposalStatus.ADVANCEABLE && (
-                    <ProposalVotingStageStatusAdvanceable minAdvance={minAdvance} maxAdvance={maxAdvance} />
-                )}
-                {status !== ProposalStatus.ACTIVE && !hideAdvanceMainText && (
-                    <span className="text-neutral-800">{mainText}</span>
-                )}
+                {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {showStatusText && <span className={statusText?.className}>{statusText?.label}</span>}
+                {status === ProposalStatus.ACCEPTED && (
+                    <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
+                )}
+                {status === ProposalStatus.REJECTED && (
+                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
+                )}
+                {status === ProposalStatus.VETOED && (
+                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
+                )}
             </div>
-            {(status === ProposalStatus.ACTIVE || (status === ProposalStatus.ADVANCEABLE && isAdvanceableNow)) && (
-                <StatePingAnimation variant="primary" />
-            )}
+
+            {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
         </div>
     );
 };

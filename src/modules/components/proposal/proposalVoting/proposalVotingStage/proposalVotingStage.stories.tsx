@@ -35,8 +35,6 @@ export const Default: Story = {
         name: 'Community voting',
         isMultiStage: true,
         status: ProposalStatus.ACCEPTED,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
@@ -48,8 +46,6 @@ export const Pending: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.PENDING,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
@@ -74,10 +70,8 @@ export const AdvanceableShort: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        startDate: '2025-05-16T10:00:00.000Z',
         minAdvance: '2025-05-16T11:00:00.000Z',
         maxAdvance: '2025-07-16T13:00:00.000Z',
-        endDate: '2025-05-16T18:05:00.000Z',
         index: 0,
     },
 };
@@ -89,10 +83,8 @@ export const AdvanceableLong: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        startDate: '2025-05-16T10:00:00.000Z',
         minAdvance: '2025-05-16T11:00:00.000Z',
         maxAdvance: '2025-12-16T13:00:00.000Z',
-        endDate: '2025-05-16T18:05:00.000Z',
         index: 0,
     },
 };
@@ -104,10 +96,8 @@ export const AdvanceableInFuture: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        startDate: '2025-05-16T10:00:00.000Z',
         minAdvance: '2025-12-16T14:00:00.000Z',
         maxAdvance: '2026-05-16T16:00:00.000Z',
-        endDate: '2025-05-16T18:00:00.000Z',
         index: 0,
     },
 };
@@ -119,8 +109,6 @@ export const Expired: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.EXPIRED,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
@@ -132,8 +120,6 @@ export const Rejected: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.REJECTED,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
@@ -145,8 +131,6 @@ export const Vetoed: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.VETOED,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
@@ -158,8 +142,6 @@ export const Unreached: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.UNREACHED,
-        startDate: '2024-07-17T08:34:22.719Z',
-        endDate: '2024-07-20T08:34:22.719Z',
         index: 0,
     },
 };
