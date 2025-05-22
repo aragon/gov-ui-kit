@@ -21,8 +21,10 @@ const parseDate = (date: string | number) =>
 export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStageStatusAdvanceableProps> = (props) => {
     const { minAdvance, maxAdvance, className, ...otherProps } = props;
 
-    invariant(minAdvance != null, 'minAdvance is required');
-    invariant(maxAdvance != null, 'maxAdvance is required');
+    invariant(
+        minAdvance != null && maxAdvance != null,
+        'ProposalVotingStageStatusAdvanceable: minAdvance and maxAdvance are required',
+    );
 
     const { copy } = useGukModulesContext();
 

@@ -57,7 +57,7 @@ describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
     });
 
     it('throws invariant error if minAdvance is not passed', () => {
-        const errorMessage = 'minAdvance is required';
+        const errorMessage = 'ProposalVotingStageStatusAdvanceable: minAdvance and maxAdvance are required';
         const expectedError = new Error(errorMessage);
         expectedError.name = invariantError;
 
