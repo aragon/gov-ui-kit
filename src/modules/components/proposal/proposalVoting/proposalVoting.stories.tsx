@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Button, DataList } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
-import { ProposalVoting, ProposalVotingStatus, ProposalVotingTab } from '../index';
+import { ProposalStatus, ProposalVoting, ProposalVotingTab } from '../index';
 
 const meta: Meta<typeof ProposalVoting.Container> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting',
@@ -191,21 +191,21 @@ export const MultiStage: Story = {
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
                 >
-                    <ProposalVoting.BodyContent status={ProposalVotingStatus.ACTIVE}>
+                    <ProposalVoting.BodyContent status={ProposalStatus.ACTIVE}>
                         <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
                 <ProposalVoting.Stage
                     name="Founders approval"
-                    status={ProposalVotingStatus.PENDING}
+                    status={ProposalStatus.PENDING}
                     startDate={DateTime.now().plus({ days: 7 }).toMillis()}
                     endDate={DateTime.now().plus({ days: 10 }).toMillis()}
                 >
-                    <ProposalVoting.BodyContent status={ProposalVotingStatus.PENDING}>
+                    <ProposalVoting.BodyContent status={ProposalStatus.PENDING}>
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
                             setMultisigSearch={setMultisigSearch}
@@ -232,11 +232,11 @@ export const SingleStage: Story = {
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >
-                    <ProposalVoting.BodyContent status={ProposalVotingStatus.ACTIVE}>
+                    <ProposalVoting.BodyContent status={ProposalStatus.ACTIVE}>
                         <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
@@ -266,12 +266,12 @@ export const SingleStageExternal: Story = {
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
                     name="Founders approval"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ hours: 7 }).toMillis()}
                 >
                     <ProposalVoting.BodyContent
-                        status={ProposalVotingStatus.ACTIVE}
+                        status={ProposalStatus.ACTIVE}
                         hideTabs={[ProposalVotingTab.VOTES]}
                         bodyBrand={safeExample}
                         name="0x1234...4040"
@@ -311,7 +311,7 @@ export const SingleStageMultiBody: Story = {
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
                     name="Token holder voting"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
                     bodyList={bodyList}
@@ -334,14 +334,14 @@ export const SingleStageMultiBody: Story = {
                     </ProposalVoting.BodySummary>
                     <ProposalVoting.BodyContent
                         name="Token holder voting"
-                        status={ProposalVotingStatus.ACTIVE}
+                        status={ProposalStatus.ACTIVE}
                         bodyId="Token holder voting"
                     >
                         <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
                     </ProposalVoting.BodyContent>
                     <ProposalVoting.BodyContent
                         name="Founders approval"
-                        status={ProposalVotingStatus.ACTIVE}
+                        status={ProposalStatus.ACTIVE}
                         bodyId="Founders approval"
                         bodyBrand={safeExample}
                         hideTabs={[ProposalVotingTab.VOTES]}
@@ -383,14 +383,14 @@ export const MultiStageMultiBody: Story = {
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
                     name="Security council"
-                    status={ProposalVotingStatus.ACTIVE}
+                    status={ProposalStatus.ACTIVE}
                     startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
                     bodyList={bodyList}
                 >
                     <ProposalVoting.BodyContent
                         name="0x1234...4040"
-                        status={ProposalVotingStatus.ACTIVE}
+                        status={ProposalStatus.ACTIVE}
                         bodyId="multisig"
                         hideTabs={[ProposalVotingTab.VOTES]}
                         bodyBrand={safeExample}
@@ -404,7 +404,7 @@ export const MultiStageMultiBody: Story = {
                 </ProposalVoting.Stage>
                 <ProposalVoting.Stage
                     name="Founders approval"
-                    status={ProposalVotingStatus.PENDING}
+                    status={ProposalStatus.PENDING}
                     startDate={DateTime.now().plus({ days: 7 }).toMillis()}
                     endDate={DateTime.now().plus({ days: 10 }).toMillis()}
                     bodyList={bodyList2}
@@ -423,14 +423,14 @@ export const MultiStageMultiBody: Story = {
                     </ProposalVoting.BodySummary>
                     <ProposalVoting.BodyContent
                         name="Token holder voting"
-                        status={ProposalVotingStatus.PENDING}
+                        status={ProposalStatus.PENDING}
                         bodyId="Token holder voting"
                     >
                         <TokenVotingContent tokenSearch={tokenSearch} setTokenSearch={setTokenSearch} />
                     </ProposalVoting.BodyContent>
                     <ProposalVoting.BodyContent
                         name="Founders approval"
-                        status={ProposalVotingStatus.PENDING}
+                        status={ProposalStatus.PENDING}
                         bodyId="Founders approval"
                     >
                         <FoundersApprovalContent

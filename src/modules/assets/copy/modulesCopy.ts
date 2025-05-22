@@ -101,6 +101,7 @@ export const modulesCopy = {
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',
             VETOED: 'Vetoed',
+            UNREACHED: 'Unreached',
         },
     },
     proposalDataListItemStructure: {
@@ -141,15 +142,17 @@ export const modulesCopy = {
             active: 'left to vote',
             accepted: 'has been',
             rejected: 'has been',
-            expired: 'has',
+            expired: 'has expired',
             unreached: 'not reached',
             vetoed: 'has been',
+            advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
+                !canAdvance ? 'until advanceable' : isShortWindow ? 'left to advance' : 'is',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
-            expired: 'expired',
             vetoed: 'vetoed',
+            advanceable: 'advanceable',
         },
     },
     proposalVotingDetails: {

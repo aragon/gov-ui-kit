@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
 
 jest.mock('../proposalVotingStageStatus', () => ({
@@ -13,7 +13,7 @@ jest.mock('../proposalVotingStageStatus', () => ({
 describe('<ProposalVotingStage /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingStageProps>) => {
         const completeProps: IProposalVotingStageProps = {
-            status: ProposalVotingStatus.PENDING,
+            status: ProposalStatus.PENDING,
             startDate: 0,
             endDate: 0,
             ...props,
@@ -33,7 +33,7 @@ describe('<ProposalVotingStage /> component', () => {
     it('renders the proposal stage with its name inside an accordion item', () => {
         const isMultiStage = true;
         const name = 'Stage name';
-        const status = ProposalVotingStatus.ACCEPTED;
+        const status = ProposalStatus.ACCEPTED;
         render(createTestComponent({ isMultiStage, name, status, index: 2 }));
         expect(screen.getByRole('button')).toBeInTheDocument();
         expect(screen.getByText(name)).toBeInTheDocument();
@@ -41,14 +41,14 @@ describe('<ProposalVotingStage /> component', () => {
     });
 
     it('passes correct props to ProposalVotingStageStatus', () => {
-        const status = ProposalVotingStatus.ACTIVE;
+        const status = ProposalStatus.ACTIVE;
         render(createTestComponent({ status }));
         expect(screen.getByTestId('proposal-status-mock')).toHaveTextContent(status);
     });
 
     it('renders the proposal status and content for single-stage proposals', () => {
         const isMultiStage = false;
-        const status = ProposalVotingStatus.REJECTED;
+        const status = ProposalStatus.REJECTED;
         const children = 'test-children';
         render(createTestComponent({ isMultiStage, status, children }));
         expect(screen.getByText(status)).toBeInTheDocument();
