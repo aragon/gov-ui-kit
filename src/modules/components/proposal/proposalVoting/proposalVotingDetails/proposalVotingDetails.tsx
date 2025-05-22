@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { DefinitionList, type ITabsContentProps, Tabs } from '../../../../../core';
 import type { IDefinitionSetting } from '../../../../types';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
@@ -11,25 +10,17 @@ export interface IProposalVotingDetailsProps extends Omit<ITabsContentProps, 'va
 }
 
 export const ProposalVotingDetails: React.FC<IProposalVotingDetailsProps> = (props) => {
-    const { className, settings, ...otherProps } = props;
-
-    const hasSettings = settings != null && settings.length > 0;
+    const { settings, ...otherProps } = props;
 
     return (
-        <Tabs.Content
-            value={ProposalVotingTab.DETAILS}
-            className={classNames('flex flex-col gap-3', className)}
-            {...otherProps}
-        >
-            {hasSettings && (
-                <DefinitionList.Container>
-                    {settings.map(({ term, definition, link }) => (
-                        <DefinitionList.Item key={term} term={term} link={link}>
-                            {definition}
-                        </DefinitionList.Item>
-                    ))}
-                </DefinitionList.Container>
-            )}
+        <Tabs.Content value={ProposalVotingTab.DETAILS} {...otherProps}>
+            <DefinitionList.Container>
+                {settings?.map(({ term, definition, ...otherProps }) => (
+                    <DefinitionList.Item key={term} term={term} {...otherProps}>
+                        {definition}
+                    </DefinitionList.Item>
+                ))}
+            </DefinitionList.Container>
         </Tabs.Content>
     );
 };

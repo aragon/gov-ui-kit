@@ -2,14 +2,16 @@ import type { Meta, StoryObj } from '@storybook/react';
 import type { ComponentType } from 'react';
 import { DefinitionList, type IDefinitionListItemProps } from '../index';
 
+const ComponentWrapper = (Story: ComponentType) => (
+    <DefinitionList.Container>
+        <Story />
+    </DefinitionList.Container>
+);
+
 const meta: Meta<typeof DefinitionList.Item> = {
     title: 'Core/Components/DefinitionList/DefinitionList.Item',
     component: DefinitionList.Item,
-    decorators: (Story: ComponentType) => (
-        <DefinitionList.Container>
-            <Story />
-        </DefinitionList.Container>
-    ),
+    decorators: ComponentWrapper,
     parameters: {
         design: {
             type: 'figma',
@@ -25,8 +27,8 @@ type Story = StoryObj<typeof DefinitionList.Item>;
  */
 export const Default: Story = {
     args: {
-        term: 'First Item Term',
-        children: 'First item description',
+        term: 'Item term',
+        children: 'Item description',
     },
 };
 
@@ -35,7 +37,7 @@ export const Default: Story = {
  */
 export const WithComponent: Story = {
     args: {
-        term: 'First Item Term',
+        term: 'With component term',
     },
     render: (props: IDefinitionListItemProps) => (
         <DefinitionList.Item {...props}>
@@ -46,12 +48,13 @@ export const WithComponent: Story = {
     ),
 };
 
+/**
+ * Use the link property to render the item as a link.
+ */
 export const WithLink: Story = {
     args: {
         term: 'Website',
-        link: {
-            href: 'https://www.example.com',
-        },
+        link: { href: 'https://app.aragon.org' },
         children: 'Homepage',
     },
 };
@@ -72,14 +75,26 @@ export const TruncateDefinition: Story = {
     ),
 };
 
+/**
+ * Use the description property to add a description to the definition list item.
+ */
 export const WithHelpText: Story = {
     args: {
         term: 'Operating System',
-        link: {
-            href: 'https://www.example.com',
-        },
+        link: { href: 'https://app.aragon.org' },
         children: '0x1234...1234',
         description: 'Aragon OSx v1.4',
+    },
+};
+
+/**
+ * Use the copyValue property to render a copy icon and allow users to copy the defined value on the clipboard.
+ */
+export const WithCopyValue: Story = {
+    args: {
+        term: 'Token Voting',
+        copyValue: '0xba9E9Be7859560EF2805476f7997cD4ebE7BaF27',
+        children: '0xba9E...27',
     },
 };
 
