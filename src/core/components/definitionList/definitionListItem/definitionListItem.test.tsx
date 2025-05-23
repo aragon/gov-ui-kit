@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { DefinitionList, type IDefinitionListItemProps } from '../../definitionList';
+import { IconType } from '../../icon';
 
 describe('<DefinitionList.Item /> component', () => {
     const createTestComponent = (props?: Partial<IDefinitionListItemProps>) => {
@@ -11,31 +12,26 @@ describe('<DefinitionList.Item /> component', () => {
         return <DefinitionList.Item {...completeProps} />;
     };
 
-    it('renders the specified term correctly', () => {
+    it('renders the specified term', () => {
         const term = 'Custom Term';
         render(createTestComponent({ term }));
-
-        const termLabel = screen.queryByRole('term');
-
-        expect(termLabel).toHaveTextContent(term);
+        expect(screen.queryByRole('term')).toHaveTextContent(term);
     });
 
-    it('renders the specified description correctly', () => {
-        const children = 'Custom Description';
+    it('renders the specified definition', () => {
+        const children = 'Custom Definition';
         render(createTestComponent({ children }));
-
-        const description = screen.queryByRole('definition');
-
-        expect(description).toHaveTextContent(children);
+        expect(screen.queryByRole('definition')).toHaveTextContent(children);
     });
 
-    it('renders a link when href is provided', () => {
-        const href = 'https://example.com';
-        const children = 'Click Here';
-        render(createTestComponent({ link: { href }, children }));
+    it('renders the specified description', () => {
+        const description = 'Term Description';
+        render(createTestComponent({ description }));
+        expect(screen.getByText(description)).toBeInTheDocument();
+    });
 
-        const link = screen.getByRole('link');
-        expect(link).toHaveAttribute('href', href);
-        expect(link).toHaveTextContent(children);
+    it('renders an icon to copy the defined value when copyValue is set', () => {
+        render(createTestComponent({ copyValue: 'copy-test' }));
+        expect(screen.getByTestId(IconType.COPY)).toBeInTheDocument();
     });
 });

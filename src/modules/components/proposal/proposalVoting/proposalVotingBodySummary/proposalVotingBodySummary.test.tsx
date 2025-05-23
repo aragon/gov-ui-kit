@@ -5,21 +5,15 @@ import { type IProposalVotingBodySummaryProps, ProposalVotingBodySummary } from 
 describe('<ProposalVotingBodySummary /> component', () => {
     const createTestComponent = (
         props?: Partial<IProposalVotingBodySummaryProps>,
-        contextValues?: Partial<IProposalVotingStageContext>,
+        contextValues: Partial<IProposalVotingStageContext> = {},
     ) => {
         const completeProps: IProposalVotingBodySummaryProps = {
             children: 'Test Content',
             ...props,
         };
 
-        const completeContextValues: IProposalVotingStageContext = {
-            startDate: 0,
-            endDate: 0,
-            ...contextValues,
-        };
-
         return (
-            <ProposalVotingStageContextProvider value={completeContextValues}>
+            <ProposalVotingStageContextProvider value={contextValues}>
                 <ProposalVotingBodySummary {...completeProps} />
             </ProposalVotingStageContextProvider>
         );

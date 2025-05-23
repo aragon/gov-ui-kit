@@ -146,16 +146,19 @@ const TokenVotingContent: React.FC<TokenVotingContentProps> = (props) => {
 interface FoundersApprovalContentProps {
     multisigSearch: string | undefined;
     setMultisigSearch: React.Dispatch<React.SetStateAction<string | undefined>>;
-    minApprovals: number;
 }
 
 const FoundersApprovalContent: React.FC<FoundersApprovalContentProps> = (props) => {
-    const { multisigSearch, setMultisigSearch, minApprovals } = props;
+    const { multisigSearch, setMultisigSearch } = props;
     const filteredVotes = filterVotes(multisigVotes, multisigSearch);
 
     return (
         <>
-            <ProposalVoting.BreakdownMultisig approvalsAmount={multisigVotes.length} minApprovals={minApprovals} />
+            <ProposalVoting.BreakdownMultisig
+                approvalsAmount={multisigVotes.length}
+                minApprovals={4}
+                membersCount={10}
+            />
             <ProposalVoting.Votes>
                 <DataList.Root itemsCount={filteredVotes.length} entityLabel="Votes">
                     <DataList.Filter searchValue={multisigSearch} onSearchValueChange={setMultisigSearch} />
@@ -167,7 +170,7 @@ const FoundersApprovalContent: React.FC<FoundersApprovalContentProps> = (props) 
                     <DataList.Pagination />
                 </DataList.Root>
             </ProposalVoting.Votes>
-            <ProposalVoting.Details settings={getMultisigSettings(minApprovals)} />
+            <ProposalVoting.Details settings={getMultisigSettings(4)} />
         </>
     );
 };
@@ -184,8 +187,6 @@ export const MultiStage: Story = {
 
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
-
-        const minApprovals = 4;
 
         return (
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
@@ -209,7 +210,6 @@ export const MultiStage: Story = {
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
                             setMultisigSearch={setMultisigSearch}
-                            minApprovals={minApprovals}
                         />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
@@ -255,13 +255,6 @@ export const SingleStageExternal: Story = {
     render: (args) => {
         const [search, setSearch] = useState<string | undefined>('');
 
-        const minApprovals = 5;
-
-        const safeExample = {
-            logo: 'https://app.safe.global/images/safe-logo-green.png',
-            label: 'Safe{Wallet}',
-        };
-
         return (
             <ProposalVoting.Container {...args}>
                 <ProposalVoting.Stage
@@ -273,14 +266,13 @@ export const SingleStageExternal: Story = {
                     <ProposalVoting.BodyContent
                         status={ProposalStatus.ACTIVE}
                         hideTabs={[ProposalVotingTab.VOTES]}
-                        bodyBrand={safeExample}
+                        bodyBrand={{
+                            logo: 'https://app.safe.global/images/safe-logo-green.png',
+                            label: 'Safe{Wallet}',
+                        }}
                         name="0x1234...4040"
                     >
-                        <FoundersApprovalContent
-                            multisigSearch={search}
-                            setMultisigSearch={setSearch}
-                            minApprovals={minApprovals}
-                        />
+                        <FoundersApprovalContent multisigSearch={search} setMultisigSearch={setSearch} />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
             </ProposalVoting.Container>
@@ -299,8 +291,6 @@ export const SingleStageMultiBody: Story = {
         const bodyList = ['Token holder voting', 'Founders approval'];
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
-
-        const minApprovals = 5;
 
         const safeExample = {
             logo: 'https://app.safe.global/images/safe-logo-green.png',
@@ -349,7 +339,6 @@ export const SingleStageMultiBody: Story = {
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
                             setMultisigSearch={setMultisigSearch}
-                            minApprovals={minApprovals}
                         />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
@@ -372,13 +361,6 @@ export const MultiStageMultiBody: Story = {
         const [tokenSearch, setTokenSearch] = useState<string | undefined>('');
         const [multisigSearch, setMultisigSearch] = useState<string | undefined>('');
 
-        const minApprovals = 5;
-
-        const safeExample = {
-            logo: 'https://app.safe.global/images/safe-logo-green.png',
-            label: 'Safe{Wallet}',
-        };
-
         return (
             <ProposalVoting.Container {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
@@ -393,12 +375,14 @@ export const MultiStageMultiBody: Story = {
                         status={ProposalStatus.ACTIVE}
                         bodyId="multisig"
                         hideTabs={[ProposalVotingTab.VOTES]}
-                        bodyBrand={safeExample}
+                        bodyBrand={{
+                            logo: 'https://app.safe.global/images/safe-logo-green.png',
+                            label: 'Safe{Wallet}',
+                        }}
                     >
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
                             setMultisigSearch={setMultisigSearch}
-                            minApprovals={minApprovals}
                         />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
@@ -436,7 +420,6 @@ export const MultiStageMultiBody: Story = {
                         <FoundersApprovalContent
                             multisigSearch={multisigSearch}
                             setMultisigSearch={setMultisigSearch}
-                            minApprovals={minApprovals}
                         />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>

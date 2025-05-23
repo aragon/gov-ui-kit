@@ -111,10 +111,10 @@ export const modulesCopy = {
     proposalVotingTabs: {
         BREAKDOWN: 'Breakdown',
         VOTES: 'Votes',
-        DETAILS: 'Details',
+        DETAILS: 'Settings',
     },
     proposalVotingBreakdownMultisig: {
-        name: 'Minimum Approval',
+        name: 'Approval',
         description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
@@ -131,6 +131,10 @@ export const modulesCopy = {
             name: 'Minimum participation',
             description: (value: string) => `of ${value}`,
         },
+    },
+    proposalVotingProgressItem: {
+        reached: 'reached',
+        unreached: 'not reached',
     },
     proposalVotingStageStatus: {
         main: {
@@ -154,12 +158,6 @@ export const modulesCopy = {
             vetoed: 'vetoed',
             advanceable: 'advanceable',
         },
-    },
-    proposalVotingDetails: {
-        voting: 'Voting',
-        governance: 'Governance',
-        starts: 'Starts',
-        expires: 'Expires',
     },
     proposalVotingStage: {
         stage: (index: number) => `Stage ${index.toString()}`,
