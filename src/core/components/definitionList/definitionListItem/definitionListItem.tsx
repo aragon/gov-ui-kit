@@ -1,26 +1,27 @@
 import classNames from 'classnames';
 import { type ComponentPropsWithRef } from 'react';
-import { Link, type ILinkProps } from '../../link';
+import { Clipboard } from '../../clipboard';
+import { DefinitionListItemContent, type IDefinitionListItemContentProps } from './definitionListItemContent';
 
-export interface IDefinitionListItemProps extends ComponentPropsWithRef<'div'> {
+export interface IDefinitionListItemProps
+    extends ComponentPropsWithRef<'div'>,
+        Pick<IDefinitionListItemContentProps, 'link'> {
     /**
      * The term to be displayed in the definition list item.
      */
     term: string;
     /**
-     * The materials for a Link component if necessary.
+     * Renders an icon to copy the defined value on the clipboard when set.
      */
-    link?: ILinkProps;
+    copyValue?: string;
     /**
-     * Optional description text.
+     * Optional description text for the definition list item.
      */
     description?: string;
 }
 
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
-    const { term, link, children, className, description, ...otherProps } = props;
-
-    const { href, isExternal = true, ...otherLinkProps } = link ?? {};
+    const { term, link, copyValue, description, className, children, ...otherProps } = props;
 
     return (
         <div
@@ -36,11 +37,11 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
                     'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
                 })}
             >
-                {href == null && children}
-                {href != null && (
-                    <Link href={href} isExternal={isExternal} {...otherLinkProps}>
-                        {children}
-                    </Link>
+                {copyValue == null && <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>}
+                {copyValue != null && (
+                    <Clipboard copyValue={copyValue}>
+                        <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
+                    </Clipboard>
                 )}
                 {description != null && (
                     <p className={classNames('truncate text-xs leading-normal text-neutral-400', 'md:text-sm')}>

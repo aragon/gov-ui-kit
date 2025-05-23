@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { IconType } from '../../../../../core';
+import { modulesCopy } from '../../../../assets';
 import { type IProposalVotingProgressItemProps, ProposalVotingProgressItem } from './proposalVotingProgressItem';
 
 describe('<ProposalVotingProgressItem /> component', () => {
@@ -34,32 +35,35 @@ describe('<ProposalVotingProgressItem /> component', () => {
         expect(screen.getByText('67%')).toBeInTheDocument();
     });
 
-    it('renders a checkmark icon when showStatusIcon is set to true and value is greater or equal to indicator value', () => {
+    it('renders a checkmark icon and "reached" text when showStatus is set to true and value is greater or equal to indicator value', () => {
         const value = 59;
         const thresholdIndicator = 54;
-        const showStatusIcon = true;
-        const { rerender } = render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
+        const showStatus = true;
+        const { rerender } = render(createTestComponent({ value, thresholdIndicator, showStatus }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalVotingProgressItem.reached)).toBeInTheDocument();
 
         const newValue = thresholdIndicator;
-        rerender(createTestComponent({ value: newValue, thresholdIndicator, showStatusIcon }));
+        rerender(createTestComponent({ value: newValue, thresholdIndicator, showStatus }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalVotingProgressItem.reached)).toBeInTheDocument();
     });
 
     it('defaults indicator value to 100 and renders a checkmark icon when value is 100', () => {
         const value = 100;
         const thresholdIndicator = undefined;
-        const showStatusIcon = true;
-        render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
+        const showStatus = true;
+        render(createTestComponent({ value, thresholdIndicator, showStatus }));
         expect(screen.getByTestId(IconType.CHECKMARK)).toBeInTheDocument();
     });
 
-    it('renders a close icon when showStatusIcon is set to true and value is lower than indicator value', () => {
+    it('renders a close icon and "unreached" text when showStatus is set to true and value is lower than indicator value', () => {
         const value = 45;
         const thresholdIndicator = 50;
-        const showStatusIcon = true;
-        render(createTestComponent({ value, thresholdIndicator, showStatusIcon }));
+        const showStatus = true;
+        render(createTestComponent({ value, thresholdIndicator, showStatus }));
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalVotingProgressItem.unreached)).toBeInTheDocument();
     });
 
     it('correctly formats the percentage value', () => {
