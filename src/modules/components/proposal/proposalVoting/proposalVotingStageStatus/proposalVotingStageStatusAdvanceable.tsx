@@ -47,13 +47,8 @@ export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStage
 
     // useEffect is needed to make sure that the component re-renders when state changes from advanceable in the future to advanceable now
     useEffect(() => {
-        const timer = setInterval(() => {
-            setNow(DateTime.now());
-        }, 1000);
-
-        return () => {
-            clearTimeout(timer);
-        };
+        const timer = setInterval(() => setNow(DateTime.now()), 1000);
+        return () => clearTimeout(timer);
     }, []);
 
     if (!nextAdvanceDate && !isAdvanceableNow) {
