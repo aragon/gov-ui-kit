@@ -50,7 +50,7 @@ describe('<VoteDataListItemStructure /> component', () => {
 
         expect(screen.getByTestId('member-avatar')).toBeInTheDocument();
         expect(screen.getByText(formattedAddress)).toBeInTheDocument();
-        expect(screen.getByTestId('tag')).toHaveTextContent('no');
+        expect(screen.getByTestId('tag')).toHaveTextContent('No');
     });
 
     it('renders the formatted token vote amount and symbol', () => {
