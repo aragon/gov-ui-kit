@@ -105,6 +105,11 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         expect(progressbarContainer.getByText(`of ${formattedCountable} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
+    it('correctly renders Veto support label', () => {
+        render(createTestComponent({ isVeto: true }));
+        expect(screen.getByText('Veto support')).toBeInTheDocument();
+    });
+
     it('correctly renders the details for the minimum participation', () => {
         const totalYes = 2400;
         const totalNo = 5000;

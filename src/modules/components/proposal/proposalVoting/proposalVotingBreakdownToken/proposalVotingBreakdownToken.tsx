@@ -124,7 +124,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
             </ProposalVotingProgress.Container>
             <ProposalVotingProgress.Container direction="col">
                 <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownToken.support.name}
+                    name={copy.proposalVotingBreakdownToken.support[isVeto ? 'nameVeto' : 'name']}
                     value={supportPercentage}
                     description={{
                         value: formattedTotalYes,

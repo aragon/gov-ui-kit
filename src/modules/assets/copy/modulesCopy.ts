@@ -128,6 +128,7 @@ export const modulesCopy = {
         },
         support: {
             name: 'Support',
+            nameVeto: 'Veto support',
             description: (value: string) => `of ${value}`,
         },
         minParticipation: {
