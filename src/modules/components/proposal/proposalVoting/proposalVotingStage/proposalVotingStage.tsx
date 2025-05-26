@@ -2,7 +2,7 @@ import { type ComponentProps } from 'react';
 import { Accordion, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalStatus } from '../../proposalUtils';
-import { IProposalVotingContextProviderProps, ProposalVotingContextProvider } from '../proposalVotingContext';
+import { type IProposalVotingContextProviderProps, ProposalVotingContextProvider } from '../proposalVotingContext';
 import { ProposalVotingStatus } from '../proposalVotingStatus';
 
 export interface IProposalVotingStageProps

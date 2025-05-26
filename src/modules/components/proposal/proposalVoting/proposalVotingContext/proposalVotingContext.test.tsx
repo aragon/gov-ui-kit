@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { testLogger } from '../../../../../core/test';
 import { ProposalVotingContextProvider, useProposalVotingContext } from './proposalVotingContext';
-import { IProposalVotingContextProviderProps } from './proposalVotingContext.api';
+import type { IProposalVotingContextProviderProps } from './proposalVotingContext.api';
 
 describe('proposalVotingContext hook', () => {
     const createTestWrapper = (providerProps?: Partial<IProposalVotingContextProviderProps>) =>

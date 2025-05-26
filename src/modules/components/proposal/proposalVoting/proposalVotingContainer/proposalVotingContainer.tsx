@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { type ComponentProps } from 'react';
 import { Card } from '../../../../../core';
 import type { ProposalStatus } from '../../proposalUtils';
-import { IProposalVotingContextProviderProps, ProposalVotingContextProvider } from '../proposalVotingContext';
+import { type IProposalVotingContextProviderProps, ProposalVotingContextProvider } from '../proposalVotingContext';
 import { ProposalVotingStatus } from '../proposalVotingStatus';
 
 export interface IProposalVotingContainerProps
