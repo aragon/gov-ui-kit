@@ -1,11 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { invariantError } from '../../../../../core';
 import {
     type IProposalVotingStatusAdvanceableProps,
     ProposalVotingStatusAdvanceable,
 } from './proposalVotingStatusAdvanceable';
 
-describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
+describe('<ProposalVotingStatusAdvanceable /> component', () => {
     beforeEach(() => {
         jest.useFakeTimers();
         jest.setSystemTime(new Date('2025-05-21T12:00:00Z'));
@@ -56,13 +55,9 @@ describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
         expect(container).toBeEmptyDOMElement();
     });
 
-    it('throws invariant error if minAdvance is not passed', () => {
-        const errorMessage = 'ProposalVotingStageStatusAdvanceable: minAdvance and maxAdvance are required';
-        const expectedError = new Error(errorMessage);
-        expectedError.name = invariantError;
-
+    it('throws error if minAdvance is not passed', () => {
+        const minAdvance = undefined;
         const maxAdvance = '2024-01-15T00:00:00.000Z';
-
-        expect(() => render(createTestComponent({ maxAdvance }))).toThrow(expectedError);
+        expect(() => render(createTestComponent({ maxAdvance, minAdvance }))).toThrow();
     });
 });

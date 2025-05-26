@@ -3,11 +3,11 @@ import { DateTime } from 'luxon';
 import { ProposalStatus } from '../../proposalUtils';
 import { type IProposalVotingStatusProps, ProposalVotingStatus } from './proposalVotingStatus';
 
-jest.mock('./proposalVotingStageStatusAdvanceable', () => ({
-    ProposalVotingStageStatusAdvanceable: () => <div data-testid="advanceable-component" />,
+jest.mock('./proposalVotingStatusAdvanceable', () => ({
+    ProposalVotingStatusAdvanceable: () => <div data-testid="advanceable-component" />,
 }));
 
-describe('<ProposalVotingStageStatus /> component', () => {
+describe('<ProposalVotingStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingStatusProps>) => {
         const completeProps: IProposalVotingStatusProps = {
             endDate: 0,

@@ -2,11 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { AccordionContainer } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { ProposalStatus } from '../../proposalUtils';
-import { IProposalVotingStageStatusProps } from '../proposalVotingStatus';
+import { IProposalVotingStatusProps } from '../proposalVotingStatus';
 import { type IProposalVotingStageProps, ProposalVotingStage } from './proposalVotingStage';
 
-jest.mock('../proposalVotingStageStatus', () => ({
-    ProposalVotingStageStatus: (props: IProposalVotingStageStatusProps) => (
+jest.mock('../proposalVotingStatus', () => ({
+    ProposalVotingStatus: (props: IProposalVotingStatusProps) => (
         <div data-testid="proposal-status-mock">{props.status}</div>
     ),
 }));
@@ -38,7 +38,7 @@ describe('<ProposalVotingStage /> component', () => {
         expect(screen.getByText('Stage 3')).toBeInTheDocument();
     });
 
-    it('passes correct props to ProposalVotingStageStatus', () => {
+    it('passes correct props to ProposalVotingStatus component', () => {
         const status = ProposalStatus.ACTIVE;
         render(createTestComponent({ status }));
         expect(screen.getByTestId('proposal-status-mock')).toHaveTextContent(status);

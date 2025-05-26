@@ -25,7 +25,7 @@ export const ProposalVotingStatusAdvanceable: React.FC<IProposalVotingStatusAdva
 
     invariant(
         minAdvance != null && maxAdvance != null,
-        'ProposalVotingStageStatusAdvanceable: minAdvance and maxAdvance are required',
+        'ProposalVotingStatusAdvanceable: minAdvance and maxAdvance are required',
     );
 
     const { copy } = useGukModulesContext();
@@ -41,9 +41,9 @@ export const ProposalVotingStatusAdvanceable: React.FC<IProposalVotingStatusAdva
     const isShortWindow = nextAdvanceDate && nextAdvanceDate.diff(now, 'days').days <= 90;
     const isLongWindow = !isShortWindow && isAdvanceableNow;
 
-    const mainText = copy.proposalVotingStageStatus.main.proposal;
-    const secondaryText = copy.proposalVotingStageStatus.secondary.advanceable(isAdvanceableNow, isShortWindow);
-    const statusText = copy.proposalVotingStageStatus.status.advanceable;
+    const mainText = copy.proposalVotingStatus.main.proposal;
+    const secondaryText = copy.proposalVotingStatus.secondary.advanceable(isAdvanceableNow, isShortWindow);
+    const statusText = copy.proposalVotingStatus.status.advanceable;
 
     // useEffect is needed to make sure that the component re-renders when state changes from advanceable in the future to advanceable now
     useEffect(() => {

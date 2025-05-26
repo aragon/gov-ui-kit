@@ -35,20 +35,20 @@ const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?:
     const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalStatus;
 
     if ([ACCEPTED, REJECTED, VETOED, EXPIRED].includes(status) || isSingleStagePending) {
-        return copy.proposalVotingStageStatus.main.proposal;
+        return copy.proposalVotingStatus.main.proposal;
     }
 
-    return copy.proposalVotingStageStatus.main.stage;
+    return copy.proposalVotingStatus.main.stage;
 };
 
 const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus, string>> => ({
-    [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
-    [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
-    [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
-    [ProposalStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
-    [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
-    [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
-    [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
+    [ProposalStatus.PENDING]: copy.proposalVotingStatus.secondary.pending,
+    [ProposalStatus.ACTIVE]: copy.proposalVotingStatus.secondary.active,
+    [ProposalStatus.ACCEPTED]: copy.proposalVotingStatus.secondary.accepted,
+    [ProposalStatus.REJECTED]: copy.proposalVotingStatus.secondary.rejected,
+    [ProposalStatus.EXPIRED]: copy.proposalVotingStatus.secondary.expired,
+    [ProposalStatus.UNREACHED]: copy.proposalVotingStatus.secondary.unreached,
+    [ProposalStatus.VETOED]: copy.proposalVotingStatus.secondary.vetoed,
 });
 
 export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props) => {
@@ -91,13 +91,13 @@ export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props
                 {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
                 <span className="text-neutral-500">{secondaryText}</span>
                 {status === ProposalStatus.ACCEPTED && (
-                    <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
+                    <span className="text-success-800">{copy.proposalVotingStatus.status.accepted}</span>
                 )}
                 {status === ProposalStatus.REJECTED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
+                    <span className="text-critical-800">{copy.proposalVotingStatus.status.rejected}</span>
                 )}
                 {status === ProposalStatus.VETOED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
+                    <span className="text-critical-800">{copy.proposalVotingStatus.status.vetoed}</span>
                 )}
             </div>
             {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}

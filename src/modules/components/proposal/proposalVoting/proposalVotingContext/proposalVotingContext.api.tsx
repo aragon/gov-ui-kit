@@ -10,9 +10,9 @@ export interface IProposalVotingContext {
      */
     activeBody?: string;
     /**
-     * Function to set the active body.
+     * Callback triggered to update the current active body.
      */
-    setActiveBody?: (id: string | undefined) => void;
+    setActiveBody?: (id?: string) => void;
 }
 
 export interface IProposalVotingContextProviderProps extends Pick<IProposalVotingContext, 'bodyList'> {
