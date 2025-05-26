@@ -122,6 +122,8 @@ export const modulesCopy = {
             yes: 'Yes',
             no: 'No',
             abstain: 'Abstain',
+            approveDescription: ' to approve',
+            vetoDescription: ' to veto',
         },
         support: {
             name: 'Support',

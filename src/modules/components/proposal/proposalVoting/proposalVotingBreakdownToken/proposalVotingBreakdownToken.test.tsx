@@ -14,6 +14,7 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
             supportThreshold: 0,
             tokenSymbol: '',
             tokenTotalSupply: 1,
+            isVeto: false,
             ...props,
         };
 
