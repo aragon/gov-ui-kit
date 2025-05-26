@@ -122,6 +122,7 @@ const TokenVotingContent: React.FC<TokenVotingContentProps> = (props) => {
                 supportThreshold={50}
                 minParticipation={15}
                 tokenTotalSupply={9451231259}
+                isVeto={false}
             >
                 <Button variant="primary" size="md" className="md:self-start">
                     Vote on proposal
@@ -158,6 +159,7 @@ const FoundersApprovalContent: React.FC<FoundersApprovalContentProps> = (props) 
                 approvalsAmount={multisigVotes.length}
                 minApprovals={4}
                 membersCount={10}
+                isVeto={false}
             />
             <ProposalVoting.Votes>
                 <DataList.Root itemsCount={filteredVotes.length} entityLabel="Votes">
