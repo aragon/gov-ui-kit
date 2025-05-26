@@ -23,6 +23,7 @@ export const Default: Story = {
     args: {
         approvalsAmount: 2,
         minApprovals: 4,
+        membersCount: 10,
     },
     render: (args) => {
         return (

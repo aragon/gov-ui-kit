@@ -101,6 +101,7 @@ export const modulesCopy = {
             EXECUTABLE: 'Executable',
             REJECTED: 'Rejected',
             VETOED: 'Vetoed',
+            UNREACHED: 'Unreached',
         },
     },
     proposalDataListItemStructure: {
@@ -110,10 +111,10 @@ export const modulesCopy = {
     proposalVotingTabs: {
         BREAKDOWN: 'Breakdown',
         VOTES: 'Votes',
-        DETAILS: 'Details',
+        DETAILS: 'Settings',
     },
     proposalVotingBreakdownMultisig: {
-        name: 'Minimum Approval',
+        name: 'Approval',
         description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
@@ -131,6 +132,10 @@ export const modulesCopy = {
             description: (value: string) => `of ${value}`,
         },
     },
+    proposalVotingProgressItem: {
+        reached: 'reached',
+        unreached: 'not reached',
+    },
     proposalVotingStageStatus: {
         main: {
             proposal: 'Proposal',
@@ -141,22 +146,18 @@ export const modulesCopy = {
             active: 'left to vote',
             accepted: 'has been',
             rejected: 'has been',
-            expired: 'has',
+            expired: 'has expired',
             unreached: 'not reached',
             vetoed: 'has been',
+            advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
+                !canAdvance ? 'until advanceable' : isShortWindow ? 'left to advance' : 'is',
         },
         status: {
             accepted: 'accepted',
             rejected: 'rejected',
-            expired: 'expired',
             vetoed: 'vetoed',
+            advanceable: 'advanceable',
         },
-    },
-    proposalVotingDetails: {
-        voting: 'Voting',
-        governance: 'Governance',
-        starts: 'Starts',
-        expires: 'Expires',
     },
     proposalVotingStage: {
         stage: (index: number) => `Stage ${index.toString()}`,

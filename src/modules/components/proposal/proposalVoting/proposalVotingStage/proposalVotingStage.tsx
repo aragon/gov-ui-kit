@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useMemo, useState, type ComponentProps } from 'react';
 import { Accordion, Card, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import type { ProposalVotingStatus } from '../../proposalUtils';
+import type { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { ProposalVotingStageStatus } from '../proposalVotingStageStatus';
 
@@ -10,7 +10,7 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
     /**
      * Status of the stage.
      */
-    status: ProposalVotingStatus;
+    status: ProposalStatus;
     /**
      * Start date of the stage in timestamp or ISO format.
      */
@@ -35,23 +35,41 @@ export interface IProposalVotingStageProps extends ComponentProps<'div'> {
      * List of plugin addresses of bodies.
      */
     bodyList?: string[];
+    /**
+     * Min advance date of the proposal in timestamp or ISO format.
+     */
+    minAdvance?: string | number;
+    /**
+     * Max advance date of the proposal in timestamp or ISO format.
+     */
+    maxAdvance?: string | number;
 }
 
 export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) => {
-    const { name, status, startDate, endDate, index, children, isMultiStage, className, bodyList, ...otherProps } =
-        props;
+    const {
+        name,
+        status,
+        startDate,
+        endDate,
+        index,
+        children,
+        isMultiStage,
+        className,
+        bodyList,
+        minAdvance,
+        maxAdvance,
+        ...otherProps
+    } = props;
 
     const { copy } = useGukModulesContext();
 
-    // Initialise activeBody to the first body in the list when having only one body to display the body overview instead of the body summary
-    const [activeBody, setActiveBody] = useState<string | undefined>(
-        bodyList && bodyList.length === 1 ? bodyList[0] : undefined,
-    );
+    // Initialise activeBody to the first body in the list when having only one body to directly display the body
+    // overview instead of the body summary list
+    const initialActiveBody = bodyList && bodyList.length === 1 ? bodyList[0] : undefined;
+    const [activeBody, setActiveBody] = useState<string | undefined>(initialActiveBody);
 
-    const contextValues = useMemo(
-        () => ({ startDate, endDate, bodyList, activeBody, setActiveBody }),
-        [startDate, endDate, bodyList, activeBody],
-    );
+    const contextValues = useMemo(() => ({ bodyList, activeBody, setActiveBody }), [bodyList, activeBody]);
+
     invariant(
         !isMultiStage || index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
@@ -61,14 +79,23 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
         return (
             <ProposalVotingStageContextProvider value={contextValues}>
                 <Card
-                    className={classNames('relative flex flex-col overflow-hidden p-4 md:p-6', className)}
+                    className={classNames(
+                        'relative flex flex-col gap-3 overflow-hidden p-4 md:gap-4 md:p-6',
+                        className,
+                    )}
                     {...otherProps}
                 >
-                    <div className="flex flex-col gap-y-1 pb-3 md:pb-4">
+                    <div className="flex flex-col gap-y-1">
                         {name && (
                             <p className="text-base leading-tight font-normal text-neutral-800 md:text-lg">{name}</p>
                         )}
-                        <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={false} />
+                        <ProposalVotingStageStatus
+                            status={status}
+                            endDate={endDate}
+                            isMultiStage={false}
+                            minAdvance={minAdvance}
+                            maxAdvance={maxAdvance}
+                        />
                     </div>
                     {children}
                 </Card>
@@ -83,7 +110,13 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                     <div className="flex grow flex-row justify-between gap-4 md:gap-6">
                         <div className="flex flex-col items-start gap-1">
                             <p className="text-lg leading-tight font-normal text-neutral-800">{name}</p>
-                            <ProposalVotingStageStatus status={status} endDate={endDate} isMultiStage={true} />
+                            <ProposalVotingStageStatus
+                                status={status}
+                                endDate={endDate}
+                                isMultiStage={true}
+                                minAdvance={minAdvance}
+                                maxAdvance={maxAdvance}
+                            />
                         </div>
                         <p className="mt-1 text-sm leading-tight font-normal text-neutral-500">
                             {copy.proposalVotingStage.stage(index! + 1)}

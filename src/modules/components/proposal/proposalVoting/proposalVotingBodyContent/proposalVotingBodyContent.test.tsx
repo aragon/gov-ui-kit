@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { modulesCopy } from '../../../../assets';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
@@ -11,22 +12,17 @@ jest.mock('../../../../../core/components/avatars/avatar', () => ({
 describe('<ProposalVotingBodyContent /> component', () => {
     const createTestComponent = (
         props?: Partial<IProposalVotingBodyContentProps>,
-        contextValues?: Partial<IProposalVotingStageContext>,
+        contextValues: Partial<IProposalVotingStageContext> = {},
     ) => {
         const completeProps: IProposalVotingBodyContentProps = {
-            status: ProposalVotingStatus.PENDING,
+            status: ProposalStatus.PENDING,
             name: 'Test Stage',
             bodyId: 'body1',
             ...props,
         };
-        const completeContextValues: IProposalVotingStageContext = {
-            startDate: 0,
-            endDate: 0,
-            ...contextValues,
-        };
 
         return (
-            <ProposalVotingStageContextProvider value={completeContextValues}>
+            <ProposalVotingStageContextProvider value={contextValues}>
                 <ProposalVotingBodyContent {...completeProps} />
             </ProposalVotingStageContextProvider>
         );
@@ -55,11 +51,11 @@ describe('<ProposalVotingBodyContent /> component', () => {
     });
 
     test.each([
-        { status: ProposalVotingStatus.PENDING, expectedTab: 'Details' },
-        { status: ProposalVotingStatus.UNREACHED, expectedTab: 'Details' },
-        { status: ProposalVotingStatus.ACTIVE, expectedTab: 'Breakdown' },
-        { status: ProposalVotingStatus.ACCEPTED, expectedTab: 'Breakdown' },
-        { status: ProposalVotingStatus.REJECTED, expectedTab: 'Breakdown' },
+        { status: ProposalStatus.PENDING, expectedTab: modulesCopy.proposalVotingTabs.DETAILS },
+        { status: ProposalStatus.UNREACHED, expectedTab: modulesCopy.proposalVotingTabs.DETAILS },
+        { status: ProposalStatus.ACTIVE, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
+        { status: ProposalStatus.ACCEPTED, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
+        { status: ProposalStatus.REJECTED, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
     ])('sets initial activeTab based on status', ({ status, expectedTab }) => {
         const bodyId = 'body1';
         const activeBody = 'body1';
@@ -80,17 +76,15 @@ describe('<ProposalVotingBodyContent /> component', () => {
             activeBody: activeBody,
         };
 
-        const { rerender } = render(
-            createTestComponent({ bodyId, status: ProposalVotingStatus.PENDING }, contextValues),
-        );
+        const { rerender } = render(createTestComponent({ bodyId, status: ProposalStatus.PENDING }, contextValues));
 
         let selectedTab = screen.getByRole('tab', { selected: true });
-        expect(selectedTab).toHaveTextContent('Details');
+        expect(selectedTab).toHaveTextContent(modulesCopy.proposalVotingTabs.DETAILS);
 
-        rerender(createTestComponent({ bodyId, status: ProposalVotingStatus.ACTIVE }, contextValues));
+        rerender(createTestComponent({ bodyId, status: ProposalStatus.ACTIVE }, contextValues));
 
         selectedTab = screen.getByRole('tab', { selected: true });
-        expect(selectedTab).toHaveTextContent('Breakdown');
+        expect(selectedTab).toHaveTextContent(modulesCopy.proposalVotingTabs.BREAKDOWN);
     });
 
     it('clicking back button calls setActiveBody with undefined', async () => {

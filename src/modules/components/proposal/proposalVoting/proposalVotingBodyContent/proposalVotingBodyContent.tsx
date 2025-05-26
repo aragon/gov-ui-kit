@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { useEffect, useState, type ComponentProps } from 'react';
 import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { ProposalVotingStatus } from '../../proposalUtils';
+import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
 import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
@@ -13,7 +13,7 @@ export interface IProposalVotingBodyContentProps
     /**
      * Status of the stage.
      */
-    status: ProposalVotingStatus;
+    status: ProposalStatus;
     /**
      * Name of the body, only relevant for multi-body stages.
      */
@@ -34,7 +34,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     const { copy } = useGukModulesContext();
     const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
 
-    const futureStatuses = [ProposalVotingStatus.PENDING, ProposalVotingStatus.UNREACHED];
+    const futureStatuses = [ProposalStatus.PENDING, ProposalStatus.UNREACHED];
 
     const stateActiveTab = futureStatuses.includes(status) ? ProposalVotingTab.DETAILS : ProposalVotingTab.BREAKDOWN;
     const [activeTab, setActiveTab] = useState<string | undefined>(stateActiveTab);

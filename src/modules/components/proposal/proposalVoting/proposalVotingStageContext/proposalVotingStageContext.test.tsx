@@ -10,11 +10,7 @@ import {
 describe('proposalVotingStageContext hook', () => {
     const createTestWrapper = (context?: Partial<IProposalVotingStageContext>) =>
         function TestWrapper(props: { children: ReactNode }) {
-            const completeContext: IProposalVotingStageContext = {
-                startDate: 0,
-                endDate: 0,
-                ...context,
-            };
+            const completeContext: IProposalVotingStageContext = { ...context };
 
             return (
                 <ProposalVotingStageContextProvider value={completeContext}>
@@ -29,7 +25,7 @@ describe('proposalVotingStageContext hook', () => {
     });
 
     it('returns the current values of the data list context', () => {
-        const values = { startDate: '2024-07-18T15:30:29.185Z', endDate: 1721316644948 };
+        const values = { bodyList: ['body-1', 'body-2'] };
         const { result } = renderHook(() => useProposalVotingStageContext(), { wrapper: createTestWrapper(values) });
         expect(result.current).toEqual(values);
     });
