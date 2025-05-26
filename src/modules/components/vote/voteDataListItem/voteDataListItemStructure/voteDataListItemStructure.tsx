@@ -21,6 +21,10 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      */
     voteIndicator: VoteIndicator;
     /**
+     * Additional description for the vote indicator, displayed after the tag.
+     */
+    voteIndicatorDescription?: string;
+    /**
      * If token-based voting, the amount of token voting power used.
      */
     votingPower?: number | string;
@@ -35,8 +39,17 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, confirmationLabel, className, ...otherProps } =
-        props;
+    const {
+        voter,
+        isDelegate,
+        votingPower,
+        tokenSymbol,
+        voteIndicator,
+        voteIndicatorDescription,
+        confirmationLabel,
+        className,
+        ...otherProps
+    } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();
@@ -54,6 +67,8 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const centerInfoClassNames = classNames(
         'flex min-h-[46.5px] w-full min-w-0 shrink flex-col justify-center gap-y-1 leading-tight md:text-lg',
     );
+
+    const voteIndicatorLabel = voteIndicator === 'yesVeto' ? 'Yes' : voteIndicator === 'noVeto' ? 'No' : voteIndicator;
 
     return (
         <DataList.Item
@@ -81,13 +96,14 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             </div>
 
             <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-1.5 md:text-base">
-                <span>{confirmationLabel ?? copy.voteDataListItemStructure.voted}</span>
+                {confirmationLabel && <span>{confirmationLabel}</span>}
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
                     className="capitalize"
-                    label={voteIndicator}
+                    label={voteIndicatorLabel}
                     data-testid="tag"
                 />
+                {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}
             </div>
         </DataList.Item>
     );

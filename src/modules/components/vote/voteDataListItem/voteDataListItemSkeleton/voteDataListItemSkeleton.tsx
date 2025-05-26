@@ -10,7 +10,7 @@ export const VoteDataListItemSkeleton: React.FC<IVoteDataListItemSkeletonProps> 
             tabIndex={0}
             aria-busy="true"
             aria-label="loading"
-            className="flex min-h-[72.5px] items-center gap-x-3 py-1 md:min-h-[88.5px] md:gap-x-4 md:py-0.5"
+            className="flex min-h-[66px] items-center gap-x-3 py-1 md:min-h-[87px] md:gap-x-4 md:py-0.5"
             {...otherProps}
         >
             <StateSkeletonCircular size="sm" responsiveSize={{ md: 'md' }} />

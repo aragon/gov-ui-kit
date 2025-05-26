@@ -1,10 +1,13 @@
 import { type TagVariant } from '../../../core';
 
-export type VoteIndicator = 'yes' | 'no' | 'abstain' | 'approve';
+export type VoteIndicator = 'yes' | 'no' | 'yesVeto' | 'noVeto' | 'abstain' | 'approve' | 'veto';
 
 export const voteIndicatorToTagVariant: Record<VoteIndicator, TagVariant> = {
     yes: 'success',
     no: 'critical',
+    yesVeto: 'critical',
+    noVeto: 'success',
     abstain: 'neutral',
-    approve: 'primary',
+    approve: 'success',
+    veto: 'critical',
 };

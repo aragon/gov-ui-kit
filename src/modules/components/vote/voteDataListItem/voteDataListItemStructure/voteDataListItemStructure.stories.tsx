@@ -21,6 +21,20 @@ export const TokenVoting: Story = {
     args: {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
         voteIndicator: 'yes',
+        voteIndicatorDescription: 'to approve',
+        votingPower: 1230000,
+        tokenSymbol: 'PDC',
+    },
+};
+
+/**
+ * Usage example of the VotesDataListItem module component for a token based vote in optimistic mode.
+ */
+export const TokenVotingVeto: Story = {
+    args: {
+        voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
+        voteIndicator: 'yesVeto',
+        voteIndicatorDescription: 'to veto',
         votingPower: 1230000,
         tokenSymbol: 'PDC',
     },
@@ -46,6 +60,7 @@ export const TokenVotingLongNames: Story = {
             name: 'theLongestEnsDomainEverThatWillTruncateWhenNeeded.eth',
         },
         voteIndicator: 'yes',
+        voteIndicatorDescription: 'to approve',
         votingPower: 123456789,
         tokenSymbol: 'PDC',
     },

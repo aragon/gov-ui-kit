@@ -95,4 +95,11 @@ describe('<VoteDataListItemStructure /> component', () => {
 
         expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
     });
+
+    it('renders the vote indicator description if provided', () => {
+        const voteIndicatorDescription = 'to approve';
+        render(createTestComponent({ voteIndicatorDescription }));
+
+        expect(screen.getByText(voteIndicatorDescription)).toBeInTheDocument();
+    });
 });
