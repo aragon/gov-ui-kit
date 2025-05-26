@@ -34,7 +34,7 @@ export interface IProposalVotingBreakdownTokenProps extends Omit<ITabsContentPro
      */
     tokenTotalSupply: number | string;
     /**
-     * Is the proposal optimistic/veto.
+     * Defines if the voting is optimistic/veto or not.
      */
     isVeto: boolean;
 }
