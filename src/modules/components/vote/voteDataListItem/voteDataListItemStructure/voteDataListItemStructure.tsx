@@ -5,7 +5,7 @@ import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
-import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { voteIndicatorToLabel, voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -68,8 +68,6 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         'flex min-h-[46.5px] w-full min-w-0 shrink flex-col justify-center gap-y-1 leading-tight md:text-lg',
     );
 
-    const voteIndicatorLabel = voteIndicator === 'yesVeto' ? 'Yes' : voteIndicator === 'noVeto' ? 'No' : voteIndicator;
-
     return (
         <DataList.Item
             className={classNames('flex items-center gap-x-3 py-3 md:gap-x-4 md:py-5', className)}
@@ -99,8 +97,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                 {confirmationLabel && <span>{confirmationLabel}</span>}
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
-                    className="capitalize"
-                    label={voteIndicatorLabel}
+                    label={voteIndicatorToLabel[voteIndicator]}
                     data-testid="tag"
                 />
                 {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}

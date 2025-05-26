@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { voteIndicatorToLabel, voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -41,8 +41,6 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
         ...otherProps
     } = props;
 
-    const voteIndicatorLabel = voteIndicator === 'yesVeto' ? 'Yes' : voteIndicator === 'noVeto' ? 'No' : voteIndicator;
-
     return (
         <DataList.Item
             className={classNames(
@@ -60,8 +58,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                     {confirmationLabel && <span>{confirmationLabel}</span>}
                     <Tag
                         variant={voteIndicatorToTagVariant[voteIndicator]}
-                        className="capitalize"
-                        label={voteIndicatorLabel}
+                        label={voteIndicatorToLabel[voteIndicator]}
                         data-testid="tag"
                     />
                     {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}

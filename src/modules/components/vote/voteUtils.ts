@@ -11,3 +11,13 @@ export const voteIndicatorToTagVariant: Record<VoteIndicator, TagVariant> = {
     approve: 'success',
     veto: 'critical',
 };
+
+export const voteIndicatorToLabel: Record<VoteIndicator, string> = {
+    yes: 'Yes',
+    no: 'No',
+    yesVeto: 'Yes',
+    noVeto: 'No',
+    abstain: 'Abstain',
+    approve: 'Approve',
+    veto: 'Veto',
+};
