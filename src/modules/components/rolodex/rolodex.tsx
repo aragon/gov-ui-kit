@@ -7,8 +7,8 @@ const bgColors = ['bg-primary-400', 'bg-success-400', 'bg-warning-400'];
 
 const SLOT_CONFIG = [
     { y: 0, scale: 1, rotX: 0, z: 10 },
-    { y: -30, scale: Math.pow(0.92, 1), rotX: -10, z: 9 },
-    { y: -60, scale: Math.pow(0.92, 2), rotX: -20, z: 8 },
+    { y: -50, scale: Math.pow(0.92, 1), rotX: -10, z: 9 },
+    { y: -90, scale: Math.pow(0.92, 2), rotX: -20, z: 8 },
 ];
 
 export const Rolodex: React.FC = () => {
@@ -19,13 +19,13 @@ export const Rolodex: React.FC = () => {
     const dragY = useMotionValue(0);
     const TH = 50;
 
-    // autoplay: rotate every 3s
+    // autoplay
     useEffect(() => {
         let id: number;
         if (dragging === null && !hovered) {
             id = window.setInterval(() => {
                 setOrder((prev) => [...prev.slice(1), prev[0]]);
-            }, 5000);
+            }, 3500);
         }
         return () => {
             if (typeof id === 'number') {
@@ -42,19 +42,24 @@ export const Rolodex: React.FC = () => {
     };
     const onDrag = (_: unknown, info: { offset: { y: number } }) => setDragUp(info.offset.y < 0);
 
-    const onDragEnd = (i: number, info: { offset: { y: number } }) => {
+    const onDragEnd = async (i: number, info: { offset: { y: number } }) => {
         const rel = idxOf(i);
         let next = [...order];
-        if (rel === 0 && info.offset.y < -TH) next = [order[1], order[0], order[2]];
-        else if (rel === 1 && info.offset.y > TH) next = [order[1], order[0], order[2]];
-        else if (rel === 1 && info.offset.y < -TH) next = [order[0], order[2], order[1]];
-        else if (rel === 2 && info.offset.y > TH) next = [order[2], order[0], order[1]];
+        if (rel === 0 && info.offset.y < -TH) {
+            next = [order[1], order[0], order[2]];
+        } else if (rel === 1 && info.offset.y > TH) {
+            next = [order[1], order[0], order[2]];
+        } else if (rel === 1 && info.offset.y < -TH) {
+            next = [order[0], order[2], order[1]];
+        } else if (rel === 2 && info.offset.y > TH) {
+            next = [order[2], order[0], order[1]];
+        }
         setOrder(next);
 
         // bounce or snap
         if (dragUp) {
             const bounceAmt = rel === 1 ? -40 : -20;
-            animate(dragY, bounceAmt, { type: 'spring', stiffness: 300, damping: 30 }).then(() =>
+            await animate(dragY, bounceAmt, { type: 'spring', stiffness: 300, damping: 30 }).then(() =>
                 animate(dragY, 0, { type: 'spring', stiffness: 300, damping: 30 }),
             );
         } else {
@@ -71,11 +76,13 @@ export const Rolodex: React.FC = () => {
         <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative flex h-[250px] flex-col items-center"
+            className="relative flex h-[400px] flex-col items-center p-6"
         >
             <div className="relative flex h-full w-[300px] items-center justify-center perspective-[800px]">
                 {order.map((cardIdx, rel) => {
-                    if (rel > 2) return null;
+                    if (rel > 2) {
+                        return null;
+                    }
 
                     // determine preview slot while dragging
                     let displayRel = rel;
@@ -140,7 +147,7 @@ export const Rolodex: React.FC = () => {
                             style={{ zIndex }}
                             animate={{ y: animY, scale: animScale, rotateX: animRotX }}
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                            layout
+                            layout={true}
                         >
                             {cards[cardIdx]}
                         </motion.div>
