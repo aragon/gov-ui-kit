@@ -12,6 +12,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         const completeProps: IProposalVotingBreakdownMultisigProps = {
             approvalsAmount: 0,
             minApprovals: 1,
+            membersCount: 2,
             ...props,
         };
 
@@ -29,27 +30,27 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         expect(tabPabel.id).toContain(ProposalVotingTab.BREAKDOWN);
     });
 
-    it('throws error when minApprovals is set to 0', () => {
+    it('throws error when membersCount is set to 0', () => {
         testLogger.suppressErrors();
-        const minApprovals = 0;
-        expect(() => render(createTestComponent({ minApprovals }))).toThrow();
+        const membersCount = 0;
+        expect(() => render(createTestComponent({ membersCount }))).toThrow();
     });
 
-    it('renders a progress based on the current approvals amount and the min approvals', () => {
+    it('renders a progress based on the current approvals amount and the members count', () => {
         const approvalsAmount = 2;
-        const minApprovals = 6;
-        render(createTestComponent({ approvalsAmount, minApprovals }));
+        const membersCount = 6;
+        render(createTestComponent({ approvalsAmount, membersCount }));
 
         const progressbar = screen.getByRole('progressbar');
         expect(progressbar).toBeInTheDocument();
-        expect(progressbar.dataset.value).toEqual(((approvalsAmount / minApprovals) * 100).toString());
+        expect(progressbar.dataset.value).toEqual(((approvalsAmount / membersCount) * 100).toString());
     });
 
     it('renders the correct labels', () => {
         const approvalsAmount = 1000;
-        const minApprovals = 12345;
-        render(createTestComponent({ approvalsAmount, minApprovals }));
-        expect(screen.getByText('Minimum Approval')).toBeInTheDocument();
+        const membersCount = 12345;
+        render(createTestComponent({ approvalsAmount, membersCount }));
+        expect(screen.getByText('Approval')).toBeInTheDocument();
         expect(screen.getByText('1K')).toBeInTheDocument();
         expect(screen.getByText('of 12.35K members')).toBeInTheDocument();
     });

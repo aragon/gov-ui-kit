@@ -63,15 +63,13 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
 
     const { copy } = useGukModulesContext();
 
-    // Initialise activeBody to the first body in the list when having only one body to display the body overview instead of the body summary
-    const [activeBody, setActiveBody] = useState<string | undefined>(
-        bodyList && bodyList.length === 1 ? bodyList[0] : undefined,
-    );
+    // Initialise activeBody to the first body in the list when having only one body to directly display the body
+    // overview instead of the body summary list
+    const initialActiveBody = bodyList && bodyList.length === 1 ? bodyList[0] : undefined;
+    const [activeBody, setActiveBody] = useState<string | undefined>(initialActiveBody);
 
-    const contextValues = useMemo(
-        () => ({ startDate, endDate, bodyList, activeBody, setActiveBody }),
-        [startDate, endDate, bodyList, activeBody],
-    );
+    const contextValues = useMemo(() => ({ bodyList, activeBody, setActiveBody }), [bodyList, activeBody]);
+
     invariant(
         !isMultiStage || index != null,
         'ProposalVotingStage: component must be used inside a ProposalVotingContainer to work properly.',
