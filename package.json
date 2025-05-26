@@ -146,7 +146,7 @@
     "ts-jest": "^29.3.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.32.1",
-    "vercel": "^41.7.8",
+    "vercel": "^42.1.1",
     "viem": "^2.29.4",
     "wagmi": "^2.15.4"
   },
