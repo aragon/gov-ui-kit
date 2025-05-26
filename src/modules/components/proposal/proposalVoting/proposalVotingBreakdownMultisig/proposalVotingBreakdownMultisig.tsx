@@ -16,10 +16,14 @@ export interface IProposalVotingBreakdownMultisigProps extends Omit<ITabsContent
      * Number of members when the proposal was created.
      */
     membersCount: number;
+    /**
+     * Defines if the voting is optimistic/veto or not.
+     */
+    isVeto: boolean;
 }
 
 export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownMultisigProps> = (props) => {
-    const { approvalsAmount, minApprovals, membersCount, children, ...otherProps } = props;
+    const { approvalsAmount, minApprovals, membersCount, isVeto, children, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -36,7 +40,7 @@ export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownM
         <Tabs.Content value={ProposalVotingTab.BREAKDOWN} {...otherProps}>
             <ProposalVotingProgress.Container>
                 <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownMultisig.name}
+                    name={copy.proposalVotingBreakdownMultisig[isVeto ? 'nameVeto' : 'name']}
                     value={currentApprovalsPercentage}
                     description={{ value: formattedApprovals, text: formattedApprovalsText }}
                     showStatus={true}

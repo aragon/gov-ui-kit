@@ -115,6 +115,7 @@ export const modulesCopy = {
     },
     proposalVotingBreakdownMultisig: {
         name: 'Approval',
+        nameVeto: 'Veto',
         description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {

@@ -62,6 +62,18 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
             expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual(progressbarValue);
             expect(progressbarContainer.getByText(progressbarText)).toBeInTheDocument();
         });
+
+        expect(screen.getAllByText('to approve').length).toBe(2);
+    });
+
+    it('renders the veto name description when isVeto is true', () => {
+        const totalYes = 7000;
+        const totalNo = 2000;
+        const totalAbstain = 1000;
+        const supportThreshold = 45;
+        render(createTestComponent({ totalYes, totalNo, totalAbstain, supportThreshold, isVeto: true }));
+
+        expect(screen.getAllByText('to veto').length).toBe(2);
     });
 
     it('correctly renders the support percentage and indicator', () => {

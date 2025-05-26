@@ -13,6 +13,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
             approvalsAmount: 0,
             minApprovals: 1,
             membersCount: 2,
+            isVeto: false,
             ...props,
         };
 
@@ -53,6 +54,13 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         expect(screen.getByText('Approval')).toBeInTheDocument();
         expect(screen.getByText('1K')).toBeInTheDocument();
         expect(screen.getByText('of 12.35K members')).toBeInTheDocument();
+    });
+
+    it('renders Veto label when isVeto is true', () => {
+        const approvalsAmount = 2;
+        const membersCount = 6;
+        render(createTestComponent({ approvalsAmount, membersCount, isVeto: true }));
+        expect(screen.getByText('Veto')).toBeInTheDocument();
     });
 
     it('renders success indicator on min approvals reached', () => {
