@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../gukModulesProvider';
 import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
@@ -17,6 +16,10 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
      */
     voteIndicator: VoteIndicator;
     /**
+     * Additional description for the vote indicator, displayed after the tag.
+     */
+    voteIndicatorDescription?: string;
+    /**
      *  Date of the vote on the proposal in ISO format or as a timestamp
      */
     date?: number | string;
@@ -27,9 +30,18 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
 };
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
-    const { proposalTitle, proposalId, voteIndicator, date, confirmationLabel, className, ...otherProps } = props;
+    const {
+        proposalTitle,
+        proposalId,
+        voteIndicator,
+        voteIndicatorDescription,
+        date,
+        confirmationLabel,
+        className,
+        ...otherProps
+    } = props;
 
-    const { copy } = useGukModulesContext();
+    const voteIndicatorLabel = voteIndicator === 'yesVeto' ? 'Yes' : voteIndicator === 'noVeto' ? 'No' : voteIndicator;
 
     return (
         <DataList.Item
@@ -43,15 +55,16 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <p className="max-w-full shrink-0 truncate text-neutral-500">{proposalId}</p>
                 <p className="truncate text-neutral-800">{proposalTitle}</p>
             </div>
-            <div className="flex items-center gap-x-2 text-sm leading-tight text-neutral-500 md:gap-x-4 md:text-base">
-                <div className="flex items-center gap-x-2">
-                    <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
+            <div className="flex items-center gap-x-4 text-sm leading-tight text-neutral-500 md:gap-x-6 md:text-base">
+                <div className="flex items-center gap-x-1 md:gap-x-2">
+                    {confirmationLabel && <span>{confirmationLabel}</span>}
                     <Tag
                         variant={voteIndicatorToTagVariant[voteIndicator]}
                         className="capitalize"
-                        label={voteIndicator}
+                        label={voteIndicatorLabel}
                         data-testid="tag"
                     />
+                    {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}
                 </div>
                 {date && <p className="mx-1">{formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}</p>}
             </div>

@@ -95,7 +95,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                 )}
             </div>
 
-            <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-1.5 md:text-base">
+            <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-2 md:text-base">
                 {confirmationLabel && <span>{confirmationLabel}</span>}
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}

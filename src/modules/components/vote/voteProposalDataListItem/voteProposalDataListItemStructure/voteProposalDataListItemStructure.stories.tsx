@@ -40,6 +40,32 @@ export const CustomLabel: Story = {
 };
 
 /**
+ * Usage example of the VotesDataListItem module component with a custom indicator description.
+ */
+export const VoteIndicatorDescription: Story = {
+    args: {
+        proposalId: 'PIP-06',
+        proposalTitle: 'Add Member to Council',
+        voteIndicator: 'no',
+        voteIndicatorDescription: 'to approve',
+        date: 1704961234000,
+    },
+};
+
+/**
+ * Usage example of the VotesDataListItem module component with a custom indicator description (veto mode).
+ */
+export const VoteIndicatorDescriptionVeto: Story = {
+    args: {
+        proposalId: 'PIP-06',
+        proposalTitle: 'Add Member to Council',
+        voteIndicator: 'yesVeto',
+        voteIndicatorDescription: 'to veto',
+        date: 1704961234000,
+    },
+};
+
+/**
  * Usage of the VoteProposalDataListItem component with long proposal IDs.
  */
 export const LongProposalId: Story = {
