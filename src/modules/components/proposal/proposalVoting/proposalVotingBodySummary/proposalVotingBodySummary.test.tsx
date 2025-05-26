@@ -1,32 +1,34 @@
 import { render, screen } from '@testing-library/react';
-import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
+import * as useProposalVotingContext from '../proposalVotingContext';
 import { type IProposalVotingBodySummaryProps, ProposalVotingBodySummary } from './proposalVotingBodySummary';
 
 describe('<ProposalVotingBodySummary /> component', () => {
-    const createTestComponent = (
-        props?: Partial<IProposalVotingBodySummaryProps>,
-        contextValues: Partial<IProposalVotingStageContext> = {},
-    ) => {
-        const completeProps: IProposalVotingBodySummaryProps = {
-            children: 'Test Content',
-            ...props,
-        };
+    const useProposalVotingContextSpy = jest.spyOn(useProposalVotingContext, 'useProposalVotingContext');
 
-        return (
-            <ProposalVotingStageContextProvider value={contextValues}>
-                <ProposalVotingBodySummary {...completeProps} />
-            </ProposalVotingStageContextProvider>
-        );
+    beforeEach(() => {
+        useProposalVotingContextSpy.mockReturnValue({});
+    });
+
+    afterEach(() => {
+        useProposalVotingContextSpy.mockReset();
+    });
+
+    const createTestComponent = (props?: Partial<IProposalVotingBodySummaryProps>) => {
+        const completeProps: IProposalVotingBodySummaryProps = { ...props };
+
+        return <ProposalVotingBodySummary {...completeProps} />;
     };
 
     it('renders null when activeBody is set', () => {
-        const contextValues = { activeBody: 'body1' };
-        const { container } = render(createTestComponent(undefined, contextValues));
+        const children = 'test';
+        useProposalVotingContextSpy.mockReturnValue({ activeBody: 'body-1' });
+        const { container } = render(createTestComponent({ children }));
         expect(container).toBeEmptyDOMElement();
     });
 
     it('renders children when activeBody is undefined', () => {
-        render(createTestComponent({ children: 'Some content' }));
-        expect(screen.getByText('Some content')).toBeInTheDocument();
+        const children = 'Some content';
+        render(createTestComponent({ children }));
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 });

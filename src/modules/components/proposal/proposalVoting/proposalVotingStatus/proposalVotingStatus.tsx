@@ -4,9 +4,9 @@ import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
-import { ProposalVotingStageStatusAdvanceable } from './proposalVotingStageStatusAdvanceable';
+import { ProposalVotingStatusAdvanceable } from './proposalVotingStatusAdvanceable';
 
-export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
+export interface IProposalVotingStatusProps extends ComponentProps<'div'> {
     /**
      * Status of the proposal.
      * @default ProposalStatus.PENDING
@@ -51,7 +51,7 @@ const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus
     [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
 });
 
-export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
+export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props) => {
     const {
         status = ProposalStatus.PENDING,
         endDate,
@@ -69,7 +69,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
 
     if (status === ProposalStatus.ADVANCEABLE) {
         return (
-            <ProposalVotingStageStatusAdvanceable
+            <ProposalVotingStatusAdvanceable
                 minAdvance={minAdvance}
                 maxAdvance={maxAdvance}
                 className={className}

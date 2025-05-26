@@ -1,36 +1,35 @@
-import { Children, cloneElement, isValidElement, type ComponentProps } from 'react';
-import { Accordion } from '../../../../../core';
-import { type IProposalVotingStageProps } from '../proposalVotingStage';
+import classNames from 'classnames';
+import { type ComponentProps } from 'react';
+import { Card } from '../../../../../core';
+import type { ProposalStatus } from '../../proposalUtils';
+import { IProposalVotingContextProviderProps, ProposalVotingContextProvider } from '../proposalVotingContext';
+import { ProposalVotingStatus } from '../proposalVotingStatus';
 
-export interface IProposalVotingContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
+export interface IProposalVotingContainerProps
+    extends Pick<IProposalVotingContextProviderProps, 'bodyList'>,
+        ComponentProps<'div'> {
     /**
-     * Active stage that will be expanded for multi-stage proposals.
+     * Status of the proposal.
      */
-    activeStage?: string;
+    status: ProposalStatus;
     /**
-     * Callback called when the user selects a stage, to be used for expanding the current active stage for multi-stage proposals.
+     * End date of the proposal in timestamp or ISO format.
      */
-    onStageClick?: (stage?: string) => void;
+    endDate?: number | string;
 }
 
 export const ProposalVotingContainer: React.FC<IProposalVotingContainerProps> = (props) => {
-    const { children, activeStage, onStageClick, ...otherProps } = props;
-
-    const processedChildren = Children.toArray(children);
-    const isMultiStage = processedChildren.length > 1;
+    const { status, bodyList, endDate, className, children, ...otherProps } = props;
 
     return (
-        <Accordion.Container isMulti={false} value={activeStage} onValueChange={onStageClick} {...otherProps}>
-            {isMultiStage && (
-                <>
-                    {processedChildren.map((child, index) =>
-                        isValidElement<IProposalVotingStageProps>(child)
-                            ? cloneElement(child, { ...child.props, index, isMultiStage })
-                            : child,
-                    )}
-                </>
-            )}
-            {!isMultiStage && children}
-        </Accordion.Container>
+        <ProposalVotingContextProvider bodyList={bodyList}>
+            <Card
+                className={classNames('flex w-full flex-col gap-3 overflow-hidden p-4 md:gap-4 md:p-6', className)}
+                {...otherProps}
+            >
+                <ProposalVotingStatus status={status} endDate={endDate} isMultiStage={false} />
+                {children}
+            </Card>
+        </ProposalVotingContextProvider>
     );
 };

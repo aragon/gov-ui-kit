@@ -1,0 +1,23 @@
+import type { ReactNode } from 'react';
+
+export interface IProposalVotingContext {
+    /**
+     * List of plugin addresses to be displayed in the body summary list.
+     */
+    bodyList?: string[];
+    /**
+     * The active body to be displayed.
+     */
+    activeBody?: string;
+    /**
+     * Function to set the active body.
+     */
+    setActiveBody?: (id: string | undefined) => void;
+}
+
+export interface IProposalVotingContextProviderProps extends Pick<IProposalVotingContext, 'bodyList'> {
+    /**
+     * Children of the component.
+     */
+    children?: ReactNode;
+}

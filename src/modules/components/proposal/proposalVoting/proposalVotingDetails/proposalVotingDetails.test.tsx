@@ -1,31 +1,20 @@
 import { render, screen } from '@testing-library/react';
-import { Settings } from 'luxon';
 import { Tabs } from '../../../../../core';
+import { ProposalVotingContextProvider } from '../proposalVotingContext';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
-import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 import { type IProposalVotingDetailsProps, ProposalVotingDetails } from './proposalVotingDetails';
 
 describe('<ProposalVotingDetails /> component', () => {
-    const originalNow = Settings.now;
-
-    afterEach(() => {
-        Settings.now = originalNow;
-        Settings.defaultZone = 'utc';
-    });
-
-    const createTestComponent = (
-        props?: Partial<IProposalVotingDetailsProps>,
-        context: Partial<IProposalVotingStageContext> = {},
-    ) => {
+    const createTestComponent = (props?: Partial<IProposalVotingDetailsProps>) => {
         const completeProps: IProposalVotingDetailsProps = {
             ...props,
         };
 
         return (
             <Tabs.Root defaultValue={ProposalVotingTab.DETAILS}>
-                <ProposalVotingStageContextProvider value={context}>
+                <ProposalVotingContextProvider>
                     <ProposalVotingDetails {...completeProps} />
-                </ProposalVotingStageContextProvider>
+                </ProposalVotingContextProvider>
             </Tabs.Root>
         );
     };

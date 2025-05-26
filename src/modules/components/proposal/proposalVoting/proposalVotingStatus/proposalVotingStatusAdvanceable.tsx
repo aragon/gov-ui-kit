@@ -4,7 +4,7 @@ import { useEffect, useState, type ComponentProps } from 'react';
 import { DateFormat, formatterUtils, invariant, StatePingAnimation } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
-export interface IProposalVotingStageStatusAdvanceableProps extends ComponentProps<'div'> {
+export interface IProposalVotingStatusAdvanceableProps extends ComponentProps<'div'> {
     /**
      * Min advance date of the proposal in timestamp or ISO format.
      */
@@ -18,7 +18,7 @@ export interface IProposalVotingStageStatusAdvanceableProps extends ComponentPro
 const parseDate = (date: string | number) =>
     typeof date === 'string' ? DateTime.fromISO(date) : DateTime.fromMillis(date);
 
-export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStageStatusAdvanceableProps> = (props) => {
+export const ProposalVotingStatusAdvanceable: React.FC<IProposalVotingStatusAdvanceableProps> = (props) => {
     const { minAdvance, maxAdvance, className, ...otherProps } = props;
 
     const [now, setNow] = useState(DateTime.now());

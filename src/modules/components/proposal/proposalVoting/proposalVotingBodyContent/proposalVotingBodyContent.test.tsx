@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../assets';
 import { ProposalStatus } from '../../proposalUtils';
-import { ProposalVotingStageContextProvider, type IProposalVotingStageContext } from '../proposalVotingStageContext';
+import * as useProposalVotingContext from '../proposalVotingContext';
 import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
 
 jest.mock('../../../../../core/components/avatars/avatar', () => ({
@@ -10,42 +10,38 @@ jest.mock('../../../../../core/components/avatars/avatar', () => ({
 }));
 
 describe('<ProposalVotingBodyContent /> component', () => {
-    const createTestComponent = (
-        props?: Partial<IProposalVotingBodyContentProps>,
-        contextValues: Partial<IProposalVotingStageContext> = {},
-    ) => {
+    const useProposalVotingContextSpy = jest.spyOn(useProposalVotingContext, 'useProposalVotingContext');
+
+    beforeEach(() => {
+        useProposalVotingContextSpy.mockReturnValue({});
+    });
+
+    afterEach(() => {
+        useProposalVotingContextSpy.mockReset();
+    });
+
+    const createTestComponent = (props?: Partial<IProposalVotingBodyContentProps>) => {
         const completeProps: IProposalVotingBodyContentProps = {
             status: ProposalStatus.PENDING,
             name: 'Test Stage',
-            bodyId: 'body1',
             ...props,
         };
 
-        return (
-            <ProposalVotingStageContextProvider value={contextValues}>
-                <ProposalVotingBodyContent {...completeProps} />
-            </ProposalVotingStageContextProvider>
-        );
+        return <ProposalVotingBodyContent {...completeProps} />;
     };
 
-    it('renders null when bodyId does not match activeBody', () => {
+    it('renders null when bodyId does not match the current active body', () => {
         const bodyId = 'body1';
-
+        useProposalVotingContextSpy.mockReturnValue({ activeBody: 'body-2' });
         const { container } = render(createTestComponent({ bodyId }));
         expect(container).toBeEmptyDOMElement();
     });
 
-    it('renders content when bodyId matches activeBody', () => {
+    it('renders the body content when bodyId matches the current active body', () => {
         const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            activeBody: activeBody,
-        };
-
         const children = 'Test Children';
-
-        render(createTestComponent({ bodyId, children }, contextValues));
-
+        useProposalVotingContextSpy.mockReturnValue({ activeBody: bodyId });
+        render(createTestComponent({ bodyId, children }));
         expect(screen.getByText(children)).toBeInTheDocument();
         expect(screen.getByRole('tablist')).toBeInTheDocument();
     });
@@ -56,109 +52,53 @@ describe('<ProposalVotingBodyContent /> component', () => {
         { status: ProposalStatus.ACTIVE, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
         { status: ProposalStatus.ACCEPTED, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
         { status: ProposalStatus.REJECTED, expectedTab: modulesCopy.proposalVotingTabs.BREAKDOWN },
-    ])('sets initial activeTab based on status', ({ status, expectedTab }) => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId, status }, contextValues));
-
+    ])('sets the initial active tab based on status', ({ status, expectedTab }) => {
+        useProposalVotingContextSpy.mockReturnValue({ activeBody: undefined });
+        render(createTestComponent({ status }));
         const selectedTab = screen.getByRole('tab', { selected: true });
         expect(selectedTab).toHaveTextContent(expectedTab);
     });
 
-    it('updates activeTab when status changes', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            activeBody: activeBody,
-        };
-
-        const { rerender } = render(createTestComponent({ bodyId, status: ProposalStatus.PENDING }, contextValues));
-
-        let selectedTab = screen.getByRole('tab', { selected: true });
-        expect(selectedTab).toHaveTextContent(modulesCopy.proposalVotingTabs.DETAILS);
-
-        rerender(createTestComponent({ bodyId, status: ProposalStatus.ACTIVE }, contextValues));
-
-        selectedTab = screen.getByRole('tab', { selected: true });
-        expect(selectedTab).toHaveTextContent(modulesCopy.proposalVotingTabs.BREAKDOWN);
+    it('updates the active tab when the status changes', () => {
+        const { rerender } = render(createTestComponent({ status: ProposalStatus.PENDING }));
+        expect(screen.getByRole('tab', { selected: true })).toHaveTextContent(modulesCopy.proposalVotingTabs.DETAILS);
+        rerender(createTestComponent({ status: ProposalStatus.ACTIVE }));
+        expect(screen.getByRole('tab', { selected: true })).toHaveTextContent(modulesCopy.proposalVotingTabs.BREAKDOWN);
     });
 
-    it('clicking back button calls setActiveBody with undefined', async () => {
-        const user = userEvent.setup();
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const setActiveBodyMock = jest.fn();
-        const contextValues = {
-            bodyList: ['body1', 'body2'],
-            activeBody: activeBody,
-            setActiveBody: setActiveBodyMock,
-        };
-
-        render(createTestComponent({ bodyId }, contextValues));
-
-        const backButton = screen.getByRole('button', { name: 'All bodies' });
-        await user.click(backButton);
-
-        expect(setActiveBodyMock).toHaveBeenCalledWith(undefined);
+    it('resets the current active body when clicking on the back button', async () => {
+        const setActiveBody = jest.fn();
+        const bodyList = ['body-1', 'body-2'];
+        useProposalVotingContextSpy.mockReturnValue({ bodyList, setActiveBody });
+        render(createTestComponent());
+        await userEvent.click(screen.getByRole('button', { name: 'All bodies' }));
+        expect(setActiveBody).toHaveBeenCalledWith(undefined);
     });
 
-    it('does not render back button when bodyList has one or fewer elements', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId }, contextValues));
-
+    it('does not render back button when having one or fewer bodies', () => {
+        const bodyList = ['body-1'];
+        useProposalVotingContextSpy.mockReturnValue({ bodyList });
+        render(createTestComponent());
         expect(screen.queryByRole('button', { name: 'All bodies' })).not.toBeInTheDocument();
     });
 
-    it('renders back button when bodyList has more than one element', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
-        const contextValues = {
-            bodyList: ['body1', 'body2'],
-            activeBody: activeBody,
-        };
-
-        render(createTestComponent({ bodyId }, contextValues));
-
+    it('renders back button when having more than one body', () => {
+        const bodyList = ['body1', 'body2'];
+        useProposalVotingContextSpy.mockReturnValue({ bodyList });
+        render(createTestComponent());
         expect(screen.getByRole('button', { name: 'All bodies' })).toBeInTheDocument();
     });
 
-    it('renders the body name when provided', () => {
-        const bodyId = 'body1';
-        const activeBody = 'body1';
+    it('correctly renders the body name', () => {
         const name = 'Active test';
-        const contextValues = { activeBody, bodyList: undefined };
-
-        render(createTestComponent({ bodyId, name }, contextValues));
-
+        render(createTestComponent({ name }));
         expect(screen.getByText(name)).toBeInTheDocument();
     });
 
     it('renders the avatar component and brand label when bodyBrand is provided', async () => {
-        const bodyBrand = {
-            label: 'Sample Label',
-            logo: 'https://example.com/sample-logo.png',
-        };
-
-        const bodyId = 'sampleBodyId';
-        const contextValues = {
-            activeBody: bodyId,
-            bodyList: [bodyId, 'bodyIdTwo'],
-        };
-
-        render(createTestComponent({ bodyId, bodyBrand }, contextValues));
-
+        const bodyBrand = { label: 'Sample Label', logo: 'https://example.com/sample-logo.png' };
+        render(createTestComponent({ bodyBrand }));
         expect(screen.getByText(bodyBrand.label)).toBeInTheDocument();
-
-        const avatar = await screen.findByTestId(bodyBrand.logo);
-        expect(avatar).toBeInTheDocument();
+        expect(await screen.findByTestId(bodyBrand.logo)).toBeInTheDocument();
     });
 });

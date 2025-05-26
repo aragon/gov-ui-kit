@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { invariantError } from '../../../../../core';
 import {
-    type IProposalVotingStageStatusAdvanceableProps,
-    ProposalVotingStageStatusAdvanceable,
-} from './proposalVotingStageStatusAdvanceable';
+    type IProposalVotingStatusAdvanceableProps,
+    ProposalVotingStatusAdvanceable,
+} from './proposalVotingStatusAdvanceable';
 
 describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
     beforeEach(() => {
@@ -15,10 +15,10 @@ describe('<ProposalVotingStageStatusAdvanceable /> component', () => {
         jest.useRealTimers();
     });
 
-    const createTestComponent = (props?: Partial<IProposalVotingStageStatusAdvanceableProps>) => {
-        const completeProps: IProposalVotingStageStatusAdvanceableProps = { ...props };
+    const createTestComponent = (props?: Partial<IProposalVotingStatusAdvanceableProps>) => {
+        const completeProps: IProposalVotingStatusAdvanceableProps = { ...props };
 
-        return <ProposalVotingStageStatusAdvanceable {...completeProps} />;
+        return <ProposalVotingStatusAdvanceable {...completeProps} />;
     };
 
     it('correctly renders the advanceable state when there is < 90 days to advance', () => {

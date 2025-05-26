@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Avatar, AvatarIcon, DataListItem, IconType, type IDataListItemProps } from '../../../../../core';
+import { useProposalVotingContext } from '../proposalVotingContext';
 import type { IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
-import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 
 export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
     /**
@@ -10,19 +10,19 @@ export type IProposalVotingBodySummaryListItemProps = IDataListItemProps & {
      */
     id: string;
     /**
-     * Branded identity assets for an external body.
+     * Brand definitions of the body.
      */
     bodyBrand?: IProposalVotingBodyBrand;
     /**
-     * Children to render.
+     * Children of the component.
      */
-    children: ReactNode;
+    children?: ReactNode;
 };
 
 export const ProposalVotingBodySummaryListItem: React.FC<IProposalVotingBodySummaryListItemProps> = (props) => {
     const { id, children, bodyBrand, className, ...otherProps } = props;
 
-    const { setActiveBody } = useProposalVotingStageContext();
+    const { setActiveBody } = useProposalVotingContext();
 
     return (
         <DataListItem

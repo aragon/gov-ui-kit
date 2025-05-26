@@ -8,6 +8,7 @@ import { ProposalVotingContainer } from './proposalVotingContainer';
 import { ProposalVotingDetails } from './proposalVotingDetails';
 import { ProposalVotingProgress } from './proposalVotingProgress';
 import { ProposalVotingStage } from './proposalVotingStage';
+import { ProposalVotingStageContainer } from './proposalVotingStageContainer';
 import { ProposalVotingVotes } from './proposalVotingVotes';
 
 export const ProposalVoting = {
@@ -15,6 +16,7 @@ export const ProposalVoting = {
     BreakdownToken: ProposalVotingBreakdownToken,
     Container: ProposalVotingContainer,
     Details: ProposalVotingDetails,
+    StageContainer: ProposalVotingStageContainer,
     Stage: ProposalVotingStage,
     Votes: ProposalVotingVotes,
     BodySummary: ProposalVotingBodySummary,
@@ -35,4 +37,5 @@ export * from './proposalVotingDefinitions';
 export * from './proposalVotingDetails';
 export * from './proposalVotingProgress';
 export * from './proposalVotingStage';
+export * from './proposalVotingStageContainer';
 export * from './proposalVotingVotes';
