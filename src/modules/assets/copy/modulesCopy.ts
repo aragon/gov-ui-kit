@@ -145,6 +145,8 @@ export const modulesCopy = {
             pending: 'is pending',
             active: 'left to vote',
             accepted: 'has been',
+            executable: 'has been',
+            executed: 'has been',
             rejected: 'has been',
             expired: 'has expired',
             unreached: 'not reached',
@@ -157,6 +159,8 @@ export const modulesCopy = {
             rejected: 'rejected',
             vetoed: 'vetoed',
             advanceable: 'advanceable',
+            executed: 'accepted',
+            executable: 'accepted',
         },
     },
     proposalVotingStage: {

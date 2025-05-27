@@ -49,6 +49,33 @@ const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus
     [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
     [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
     [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
+    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
+    [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
+});
+
+const statusToStatusText = (
+    copy: ModulesCopy,
+): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
+    [ProposalStatus.ACCEPTED]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStageStatus.status.accepted,
+    },
+    [ProposalStatus.EXECUTABLE]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStageStatus.status.executable,
+    },
+    [ProposalStatus.EXECUTED]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStageStatus.status.executed,
+    },
+    [ProposalStatus.REJECTED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStageStatus.status.rejected,
+    },
+    [ProposalStatus.VETOED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStageStatus.status.vetoed,
+    },
 });
 
 export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
@@ -78,29 +105,24 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
         );
     }
 
-    return (
-        <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
-            <div className="flex flex-row gap-0.5">
-                {status === ProposalStatus.ACTIVE && (
-                    <span className="text-primary-400">
-                        <Rerender>
-                            {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
-                        </Rerender>
-                    </span>
-                )}
-                {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
-                <span className="text-neutral-500">{secondaryText}</span>
-                {status === ProposalStatus.ACCEPTED && (
-                    <span className="text-success-800">{copy.proposalVotingStageStatus.status.accepted}</span>
-                )}
-                {status === ProposalStatus.REJECTED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.rejected}</span>
-                )}
-                {status === ProposalStatus.VETOED && (
-                    <span className="text-critical-800">{copy.proposalVotingStageStatus.status.vetoed}</span>
-                )}
-            </div>
-            {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
-        </div>
-    );
+
+     const statusText = statusToStatusText(copy)[status];
+
+     return (
+         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
+             <div className="flex flex-row gap-0.5">
+                 {status === ProposalStatus.ACTIVE && (
+                     <span className="text-primary-400">
+                         <Rerender>
+                             {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
+                         </Rerender>
+                     </span>
+                 )}
+                 {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
+                 <span className="text-neutral-500">{secondaryText}</span>
+                 {statusText && <span className={statusText.className}>{statusText.label}</span>}
+             </div>
+             {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
+         </div>
+     );
 };
