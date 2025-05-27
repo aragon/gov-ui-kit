@@ -95,6 +95,22 @@ describe('<ProposalVotingStatus /> component', () => {
         expect(screen.getByText('not reached')).toBeInTheDocument();
     });
 
+    it('correctly renders the executed state', () => {
+        const status = ProposalStatus.EXECUTED;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has been')).toBeInTheDocument();
+        expect(screen.getByText('accepted')).toBeInTheDocument();
+    });
+
+    it('correctly renders the executable state', () => {
+        const status = ProposalStatus.EXECUTABLE;
+        render(createTestComponent({ status }));
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
+        expect(screen.getByText('has been')).toBeInTheDocument();
+        expect(screen.getByText('accepted')).toBeInTheDocument();
+    });
+
     it('defaults to pending state when status property is not defined', () => {
         const status = undefined;
         render(createTestComponent({ status }));

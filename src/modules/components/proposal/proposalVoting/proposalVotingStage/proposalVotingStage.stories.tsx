@@ -143,4 +143,26 @@ export const Unreached: Story = {
     },
 };
 
+/**
+ * Usage example of the ProposalVoting.Stage component that has been executed.
+ */
+export const Executed: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.EXECUTED,
+        index: 0,
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that is executable.
+ */
+export const Executable: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.EXECUTABLE,
+        index: 0,
+    },
+};
+
 export default meta;

@@ -30,11 +30,11 @@ export interface IProposalVotingStatusProps extends ComponentProps<'div'> {
     maxAdvance?: string | number;
 }
 
-const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
+const getMainText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
     const isSingleStagePending = !isMultiStage && status === ProposalStatus.PENDING;
-    const { ACCEPTED, REJECTED, VETOED, EXPIRED } = ProposalStatus;
+    const { ACCEPTED, REJECTED, VETOED, EXPIRED, EXECUTED, EXECUTABLE } = ProposalStatus;
 
-    if ([ACCEPTED, REJECTED, VETOED, EXPIRED].includes(status) || isSingleStagePending) {
+    if ([ACCEPTED, REJECTED, VETOED, EXPIRED, EXECUTED, EXECUTABLE].includes(status) || isSingleStagePending) {
         return copy.proposalVotingStatus.main.proposal;
     }
 
@@ -49,33 +49,44 @@ const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus
     [ProposalStatus.EXPIRED]: copy.proposalVotingStatus.secondary.expired,
     [ProposalStatus.UNREACHED]: copy.proposalVotingStatus.secondary.unreached,
     [ProposalStatus.VETOED]: copy.proposalVotingStatus.secondary.vetoed,
+    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStatus.secondary.executable,
+    [ProposalStatus.EXECUTED]: copy.proposalVotingStatus.secondary.executed,
+});
+
+const statusToText = (copy: ModulesCopy): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
+    [ProposalStatus.ACCEPTED]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStatus.status.accepted,
+    },
+    [ProposalStatus.EXECUTABLE]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStatus.status.executable,
+    },
+    [ProposalStatus.EXECUTED]: {
+        className: 'text-success-800',
+        label: copy.proposalVotingStatus.status.executed,
+    },
+    [ProposalStatus.REJECTED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStatus.status.rejected,
+    },
+    [ProposalStatus.VETOED]: {
+        className: 'text-critical-800',
+        label: copy.proposalVotingStatus.status.vetoed,
+    },
 });
 
 export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props) => {
-    const {
-        status = ProposalStatus.PENDING,
-        endDate,
-        isMultiStage,
-        className,
-        minAdvance,
-        maxAdvance,
-        ...otherProps
-    } = props;
+    const { status = ProposalStatus.PENDING, endDate, isMultiStage, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
-    const mainText = getStatusText(status, copy, isMultiStage);
+    const mainText = getMainText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy)[status];
+    const statusText = statusToText(copy)[status];
 
     if (status === ProposalStatus.ADVANCEABLE) {
-        return (
-            <ProposalVotingStatusAdvanceable
-                minAdvance={minAdvance}
-                maxAdvance={maxAdvance}
-                className={className}
-                {...otherProps}
-            />
-        );
+        return <ProposalVotingStatusAdvanceable className={className} {...otherProps} />;
     }
 
     return (
@@ -90,15 +101,7 @@ export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props
                 )}
                 {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
                 <span className="text-neutral-500">{secondaryText}</span>
-                {status === ProposalStatus.ACCEPTED && (
-                    <span className="text-success-800">{copy.proposalVotingStatus.status.accepted}</span>
-                )}
-                {status === ProposalStatus.REJECTED && (
-                    <span className="text-critical-800">{copy.proposalVotingStatus.status.rejected}</span>
-                )}
-                {status === ProposalStatus.VETOED && (
-                    <span className="text-critical-800">{copy.proposalVotingStatus.status.vetoed}</span>
-                )}
+                {statusText && <span className={statusText.className}>{statusText.label}</span>}
             </div>
             {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
         </div>
