@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
-import { Button, DataList, Tabs } from '../../../../core';
+import { Button, DataList, Progress, Tabs } from '../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItem } from '../../vote';
 import { ProposalStatus, ProposalVoting, ProposalVotingTab } from '../index';
 
@@ -223,7 +223,11 @@ export const MultiBody: Story = {
                 <ProposalVoting.BodySummary>
                     <ProposalVoting.BodySummaryList>
                         <ProposalVoting.BodySummaryListItem id="token">
-                            Token Holders
+                            <div className="flex grow flex-col gap-3">
+                                <p className="text-neutral-800">Token Holders</p>
+                                <Progress variant="neutral" value={30} thresholdIndicator={60} />
+                                <p className="text-neutral-800">30 of 60 ARA</p>
+                            </div>
                         </ProposalVoting.BodySummaryListItem>
                         <ProposalVoting.BodySummaryListItem id="safe" bodyBrand={safeBrand}>
                             Founders Approval
