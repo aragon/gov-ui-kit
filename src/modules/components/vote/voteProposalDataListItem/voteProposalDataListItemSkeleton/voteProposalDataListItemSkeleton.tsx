@@ -10,7 +10,7 @@ export const VoteProposalDataListItemSkeleton: React.FC<IVoteProposalDataListIte
             tabIndex={0}
             aria-busy="true"
             aria-label="loading"
-            className="flex min-h-[70px] items-center gap-x-3 py-1 md:min-h-[94.5px] md:gap-x-4 md:py-0.5"
+            className="flex min-h-[68px] items-center gap-x-3 py-1 md:min-h-[93px] md:gap-x-4 md:py-0.5"
             {...otherProps}
         >
             <div className="flex w-full flex-col gap-y-1 md:gap-y-1.5">

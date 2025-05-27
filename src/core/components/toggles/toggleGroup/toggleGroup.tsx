@@ -12,6 +12,11 @@ export interface IToggleGroupBaseProps<TMulti extends boolean>
      */
     variant?: 'fixed' | 'space-between';
     /**
+     * Orientation of the toggle group.
+     * @default horizontal
+     */
+    orientation?: 'horizontal' | 'vertical';
+    /**
      * Allows multiple toggles to be selected at the same time when set to true.
      */
     isMultiSelect: TMulti;
@@ -32,10 +37,20 @@ export interface IToggleGroupBaseProps<TMulti extends boolean>
 export type IToggleGroupProps = IToggleGroupBaseProps<true> | IToggleGroupBaseProps<false>;
 
 export const ToggleGroup = (props: IToggleGroupProps) => {
-    const { variant = 'fixed', value, defaultValue, onChange, isMultiSelect, className, ...otherProps } = props;
+    const {
+        variant = 'fixed',
+        orientation = 'horizontal',
+        value,
+        defaultValue,
+        onChange,
+        isMultiSelect,
+        className,
+        ...otherProps
+    } = props;
 
     const classes = classNames(
-        'flex flex-row flex-wrap',
+        'flex flex-wrap',
+        orientation === 'vertical' ? 'flex-col' : 'flex-row',
         { 'gap-2 md:gap-3': variant === 'fixed' },
         { 'justify-between gap-y-2': variant === 'space-between' },
         className,
@@ -49,6 +64,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
                 value={value}
                 onValueChange={onChange}
                 defaultValue={defaultValue}
+                orientation={orientation}
                 {...otherProps}
             />
         );
@@ -61,6 +77,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
             value={value}
             onValueChange={onChange}
             defaultValue={defaultValue}
+            orientation={orientation}
             {...otherProps}
         />
     );

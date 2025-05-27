@@ -3,27 +3,27 @@ import { useEffect, useState, type ComponentProps } from 'react';
 import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
+import { useProposalVotingContext } from '../proposalVotingContext';
 import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
-import { useProposalVotingStageContext } from '../proposalVotingStageContext';
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
 export interface IProposalVotingBodyContentProps
     extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
         ComponentProps<'div'> {
     /**
-     * Status of the stage.
+     * Status of the proposal.
      */
     status: ProposalStatus;
     /**
-     * Name of the body, only relevant for multi-body stages.
+     * Name of the body.
      */
-    name?: string;
+    name: string;
     /**
-     * ID of the body used to determine if the content should be rendered or not, only relevant for multi-body stages.
+     * ID of the body used to determine if the content should be rendered or not, only relevant for multi-body proposals.
      */
     bodyId?: string;
     /**
-     * Branded identity assets for an external body.
+     * Brand definitions of the body.
      */
     bodyBrand?: IProposalVotingBodyBrand;
 }
@@ -32,7 +32,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
     const { bodyId, children, name, status, hideTabs, bodyBrand, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
-    const { bodyList, setActiveBody, activeBody } = useProposalVotingStageContext();
+    const { bodyList, setActiveBody, activeBody } = useProposalVotingContext();
 
     const futureStatuses = [ProposalStatus.PENDING, ProposalStatus.UNREACHED];
 
@@ -60,7 +60,7 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                 </Button>
             )}
             <div className="flex flex-col gap-4 gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
-                {name != null && <p className="truncate text-base text-neutral-800 md:text-lg">{name}</p>}
+                <p className="truncate text-base text-neutral-800 md:text-lg">{name}</p>
                 {bodyBrand != null && (
                     <div className="flex items-center gap-2 text-sm text-neutral-500 md:text-base">
                         <span>{bodyBrand.label}</span>

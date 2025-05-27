@@ -5,20 +5,11 @@ import { Accordion } from '../../../../../core';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalVoting } from '../index';
 
-const ComponentWrapper: DecoratorFunction = (Story, context) => {
-    const { isMultiStage } = context.args as { isMultiStage?: boolean };
-    return (
-        <Accordion.Container isMulti={isMultiStage ?? false}>
-            <Story />
-        </Accordion.Container>
-    );
-};
-
-const now = DateTime.now();
-const twoDaysAgo = now.minus({ days: 2 }).toISO();
-const oneMonthAhead = now.plus({ months: 1 }).toISO();
-const sixMonthsAhead = now.plus({ months: 6 }).toISO();
-const fiveYearsAhead = now.plus({ years: 5 }).toISO();
+const ComponentWrapper: DecoratorFunction = (Story) => (
+    <Accordion.Container isMulti={false}>
+        <Story />
+    </Accordion.Container>
+);
 
 const meta: Meta<typeof ProposalVoting.Stage> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Stage',
@@ -40,7 +31,6 @@ type Story = StoryObj<typeof ProposalVoting.Stage>;
 export const Default: Story = {
     args: {
         name: 'Community voting',
-        isMultiStage: true,
         status: ProposalStatus.ACCEPTED,
         index: 0,
     },
@@ -77,8 +67,8 @@ export const AdvanceableShort: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: twoDaysAgo,
-        maxAdvance: oneMonthAhead,
+        minAdvance: DateTime.now().minus({ days: 2 }).toISO(),
+        maxAdvance: DateTime.now().plus({ months: 1 }).toISO(),
         index: 0,
     },
 };
@@ -90,8 +80,8 @@ export const AdvanceableLong: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: twoDaysAgo,
-        maxAdvance: sixMonthsAhead,
+        minAdvance: DateTime.now().minus({ days: 2 }).toISO(),
+        maxAdvance: DateTime.now().plus({ months: 6 }).toISO(),
         index: 0,
     },
 };
@@ -103,8 +93,8 @@ export const AdvanceableInFuture: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.ADVANCEABLE,
-        minAdvance: sixMonthsAhead,
-        maxAdvance: fiveYearsAhead,
+        minAdvance: DateTime.now().plus({ months: 6 }).toISO(),
+        maxAdvance: DateTime.now().plus({ years: 5 }).toISO(),
         index: 0,
     },
 };
@@ -149,6 +139,28 @@ export const Unreached: Story = {
     args: {
         name: 'Community voting',
         status: ProposalStatus.UNREACHED,
+        index: 0,
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that has been executed.
+ */
+export const Executed: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.EXECUTED,
+        index: 0,
+    },
+};
+
+/**
+ * Usage example of the ProposalVoting.Stage component that is executable.
+ */
+export const Executable: Story = {
+    args: {
+        name: 'Community voting',
+        status: ProposalStatus.EXECUTABLE,
         index: 0,
     },
 };

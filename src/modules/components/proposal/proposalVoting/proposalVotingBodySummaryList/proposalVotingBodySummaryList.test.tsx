@@ -6,16 +6,14 @@ import {
 
 describe('<ProposalVotingBodySummaryList /> component', () => {
     const createTestComponent = (props?: Partial<IProposalVotingBodySummaryListProps>) => {
-        const completeProps: IProposalVotingBodySummaryListProps = {
-            children: 'Test Body',
-            ...props,
-        };
+        const completeProps: IProposalVotingBodySummaryListProps = { ...props };
 
         return <ProposalVotingBodySummaryList {...completeProps} />;
     };
 
-    it('renders children', () => {
-        render(createTestComponent({ children: 'Test Content' }));
-        expect(screen.getByText('Test Content')).toBeInTheDocument();
+    it('renders the children property', () => {
+        const children = 'test content';
+        render(createTestComponent({ children }));
+        expect(screen.getByText(children)).toBeInTheDocument();
     });
 });

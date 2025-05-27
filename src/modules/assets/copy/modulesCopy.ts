@@ -115,6 +115,7 @@ export const modulesCopy = {
     },
     proposalVotingBreakdownMultisig: {
         name: 'Approval',
+        nameVeto: 'Veto',
         description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
@@ -122,9 +123,12 @@ export const modulesCopy = {
             yes: 'Yes',
             no: 'No',
             abstain: 'Abstain',
+            approveDescription: ' to approve',
+            vetoDescription: ' to veto',
         },
         support: {
             name: 'Support',
+            nameVeto: 'Veto support',
             description: (value: string) => `of ${value}`,
         },
         minParticipation: {
@@ -136,7 +140,7 @@ export const modulesCopy = {
         reached: 'reached',
         unreached: 'not reached',
     },
-    proposalVotingStageStatus: {
+    proposalVotingStatus: {
         main: {
             proposal: 'Proposal',
             stage: 'Stage',
@@ -145,6 +149,8 @@ export const modulesCopy = {
             pending: 'is pending',
             active: 'left to vote',
             accepted: 'has been',
+            executable: 'has been',
+            executed: 'has been',
             rejected: 'has been',
             expired: 'has expired',
             unreached: 'not reached',
@@ -157,6 +163,8 @@ export const modulesCopy = {
             rejected: 'rejected',
             vetoed: 'vetoed',
             advanceable: 'advanceable',
+            executed: 'accepted',
+            executable: 'accepted',
         },
     },
     proposalVotingStage: {
@@ -168,7 +176,6 @@ export const modulesCopy = {
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
-        voted: 'Voted',
     },
     voteProposalDataListItemStructure: {
         voted: 'Voted',

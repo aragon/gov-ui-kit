@@ -33,6 +33,11 @@ export interface IProposalVotingBreakdownTokenProps extends Omit<ITabsContentPro
      * Total supply of the governance token.
      */
     tokenTotalSupply: number | string;
+    /**
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
+     */
+    isVeto?: boolean;
 }
 
 export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownTokenProps> = (props) => {
@@ -45,6 +50,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
         minParticipation,
         tokenSymbol,
         tokenTotalSupply,
+        isVeto = false,
         children,
         ...otherProps
     } = props;
@@ -56,9 +62,26 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
     const totalAbstainNumber = Number(totalAbstain);
 
     const optionValues = [
-        { name: copy.proposalVotingBreakdownToken.option.yes, value: totalYesNumber, variant: 'success' },
-        { name: copy.proposalVotingBreakdownToken.option.abstain, value: totalAbstainNumber, variant: 'default' },
-        { name: copy.proposalVotingBreakdownToken.option.no, value: totalNoNumber, variant: 'critical' },
+        {
+            name: copy.proposalVotingBreakdownToken.option.yes,
+            nameDescription:
+                copy.proposalVotingBreakdownToken.option[isVeto ? 'vetoDescription' : 'approveDescription'],
+            value: totalYesNumber,
+            variant: isVeto ? 'critical' : 'success',
+        },
+        {
+            name: copy.proposalVotingBreakdownToken.option.abstain,
+            nameDescription: undefined,
+            value: totalAbstainNumber,
+            variant: 'default',
+        },
+        {
+            name: copy.proposalVotingBreakdownToken.option.no,
+            nameDescription:
+                copy.proposalVotingBreakdownToken.option[isVeto ? 'vetoDescription' : 'approveDescription'],
+            value: totalNoNumber,
+            variant: isVeto ? 'success' : 'critical',
+        },
     ] as const;
 
     const totalSupplyNumber = Number(tokenTotalSupply);
@@ -86,10 +109,11 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
             {...otherProps}
         >
             <ProposalVotingProgress.Container direction="row">
-                {optionValues.map(({ name, variant, value }) => (
+                {optionValues.map(({ name, nameDescription, variant, value }) => (
                     <ProposalVotingProgress.Item
                         key={name}
                         name={name}
+                        nameDescription={nameDescription}
                         value={totalVotes > 0 ? (value / totalVotes) * 100 : 0}
                         description={{
                             value: formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT }),
@@ -101,7 +125,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
             </ProposalVotingProgress.Container>
             <ProposalVotingProgress.Container direction="col">
                 <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownToken.support.name}
+                    name={copy.proposalVotingBreakdownToken.support[isVeto ? 'nameVeto' : 'name']}
                     value={supportPercentage}
                     description={{
                         value: formattedTotalYes,

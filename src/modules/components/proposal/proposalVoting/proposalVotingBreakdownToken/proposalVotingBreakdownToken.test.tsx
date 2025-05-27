@@ -61,6 +61,13 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
             expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual(progressbarValue);
             expect(progressbarContainer.getByText(progressbarText)).toBeInTheDocument();
         });
+
+        expect(screen.getAllByText('to approve').length).toBe(2);
+    });
+
+    it('renders the veto name description when isVeto is true', () => {
+        render(createTestComponent({ isVeto: true }));
+        expect(screen.getAllByText('to veto').length).toBe(2);
     });
 
     it('correctly renders the support percentage and indicator', () => {
@@ -90,6 +97,11 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
 
         expect(progressbarContainer.getByText(formattedYes)).toBeInTheDocument();
         expect(progressbarContainer.getByText(`of ${formattedCountable} ${tokenSymbol}`)).toBeInTheDocument();
+    });
+
+    it('correctly renders Veto support label', () => {
+        render(createTestComponent({ isVeto: true }));
+        expect(screen.getByText('Veto support')).toBeInTheDocument();
     });
 
     it('correctly renders the details for the minimum participation', () => {

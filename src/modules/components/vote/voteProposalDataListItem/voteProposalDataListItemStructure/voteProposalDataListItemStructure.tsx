@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -43,11 +43,11 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <p className="max-w-full shrink-0 truncate text-neutral-500">{proposalId}</p>
                 <p className="truncate text-neutral-800">{proposalTitle}</p>
             </div>
-            <div className="flex items-center gap-x-2 text-sm leading-tight text-neutral-500 md:gap-x-4 md:text-base">
-                <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-4 text-sm leading-tight text-neutral-500 md:gap-x-6 md:text-base">
+                <div className="flex items-center gap-x-1 md:gap-x-2">
                     <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
                     <Tag
-                        variant={voteIndicatorToTagVariant[voteIndicator]}
+                        variant={getTagVariant(voteIndicator, false)}
                         className="capitalize"
                         label={voteIndicator}
                         data-testid="tag"
