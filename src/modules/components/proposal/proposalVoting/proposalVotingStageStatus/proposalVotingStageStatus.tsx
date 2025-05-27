@@ -30,7 +30,7 @@ export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
     maxAdvance?: string | number;
 }
 
-const getStatusText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
+const getMainText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: boolean) => {
     const isSingleStagePending = !isMultiStage && status === ProposalStatus.PENDING;
     const { ACCEPTED, REJECTED, VETOED, EXPIRED, EXECUTED, EXECUTABLE } = ProposalStatus;
 
@@ -91,7 +91,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
 
     const { copy } = useGukModulesContext();
 
-    const mainText = getStatusText(status, copy, isMultiStage);
+    const mainText = getMainText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy)[status];
 
     if (status === ProposalStatus.ADVANCEABLE) {
