@@ -32,10 +32,6 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      * If token-based voting, the symbol of the voting power used.
      */
     tokenSymbol?: string;
-    /**
-     *  Custom label for the tag.
-     */
-    confirmationLabel?: string;
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
@@ -46,7 +42,6 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         tokenSymbol,
         voteIndicator,
         voteIndicatorDescription,
-        confirmationLabel,
         className,
         ...otherProps
     } = props;
@@ -94,7 +89,6 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             </div>
 
             <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-2 md:text-base">
-                {confirmationLabel && <span>{confirmationLabel}</span>}
                 <Tag
                     variant={voteIndicatorToTagVariant[voteIndicator]}
                     label={voteIndicatorToLabel[voteIndicator]}

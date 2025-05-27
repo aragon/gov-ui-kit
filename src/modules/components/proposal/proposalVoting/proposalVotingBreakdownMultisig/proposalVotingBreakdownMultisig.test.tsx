@@ -56,9 +56,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
     });
 
     it('renders Veto label when isVeto is true', () => {
-        const approvalsAmount = 2;
-        const membersCount = 6;
-        render(createTestComponent({ approvalsAmount, membersCount, isVeto: true }));
+        render(createTestComponent({ isVeto: true }));
         expect(screen.getByText('Veto')).toBeInTheDocument();
     });
 
