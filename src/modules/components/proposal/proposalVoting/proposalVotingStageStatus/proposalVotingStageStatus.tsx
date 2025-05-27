@@ -105,24 +105,23 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
         );
     }
 
+    const statusText = statusToStatusText(copy)[status];
 
-     const statusText = statusToStatusText(copy)[status];
-
-     return (
-         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
-             <div className="flex flex-row gap-0.5">
-                 {status === ProposalStatus.ACTIVE && (
-                     <span className="text-primary-400">
-                         <Rerender>
-                             {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
-                         </Rerender>
-                     </span>
-                 )}
-                 {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
-                 <span className="text-neutral-500">{secondaryText}</span>
-                 {statusText && <span className={statusText.className}>{statusText.label}</span>}
-             </div>
-             {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
-         </div>
-     );
+    return (
+        <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
+            <div className="flex flex-row gap-0.5">
+                {status === ProposalStatus.ACTIVE && (
+                    <span className="text-primary-400">
+                        <Rerender>
+                            {() => formatterUtils.formatDate(endDate, { format: DateFormat.DURATION }) ?? '-'}
+                        </Rerender>
+                    </span>
+                )}
+                {status !== ProposalStatus.ACTIVE && <span className="text-neutral-800">{mainText}</span>}
+                <span className="text-neutral-500">{secondaryText}</span>
+                {statusText && <span className={statusText.className}>{statusText.label}</span>}
+            </div>
+            {status === ProposalStatus.ACTIVE && <StatePingAnimation variant="primary" />}
+        </div>
+    );
 };
