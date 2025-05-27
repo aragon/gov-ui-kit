@@ -115,6 +115,7 @@ export const modulesCopy = {
     },
     proposalVotingBreakdownMultisig: {
         name: 'Approval',
+        nameVeto: 'Veto',
         description: (count: string) => `of ${count} members`,
     },
     proposalVotingBreakdownToken: {
@@ -122,9 +123,12 @@ export const modulesCopy = {
             yes: 'Yes',
             no: 'No',
             abstain: 'Abstain',
+            approveDescription: ' to approve',
+            vetoDescription: ' to veto',
         },
         support: {
             name: 'Support',
+            nameVeto: 'Veto support',
             description: (value: string) => `of ${value}`,
         },
         minParticipation: {
@@ -172,7 +176,6 @@ export const modulesCopy = {
     voteDataListItemStructure: {
         yourDelegate: 'Your delegate',
         you: 'You',
-        voted: 'Voted',
     },
     voteProposalDataListItemStructure: {
         voted: 'Voted',

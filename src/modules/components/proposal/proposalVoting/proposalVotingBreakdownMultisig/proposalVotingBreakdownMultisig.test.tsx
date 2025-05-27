@@ -55,6 +55,11 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
         expect(screen.getByText('of 12.35K members')).toBeInTheDocument();
     });
 
+    it('renders Veto label when isVeto is true', () => {
+        render(createTestComponent({ isVeto: true }));
+        expect(screen.getByText('Veto')).toBeInTheDocument();
+    });
+
     it('renders success indicator on min approvals reached', () => {
         const approvalsAmount = 6;
         const minApprovals = 3;

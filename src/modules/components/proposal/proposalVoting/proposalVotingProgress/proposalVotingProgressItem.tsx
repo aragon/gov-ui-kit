@@ -27,6 +27,10 @@ export interface IProposalVotingProgressItemProps extends Omit<IProgressProps, '
      */
     name: string;
     /**
+     * Additional description of the name of the voting progress, displayed after the name.
+     */
+    nameDescription?: string;
+    /**
      * Variant of the voting progress item component.
      * @default 'default'
      */
@@ -56,6 +60,7 @@ const variantToNameClassNames: Record<ProgressVariant, string> = {
 export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemProps> = (props) => {
     const {
         name,
+        nameDescription,
         description,
         showPercentage,
         showStatus,
@@ -80,7 +85,10 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
         <div className={classNames('flex w-full grow flex-col gap-3', className)}>
             <div className="flex flex-row items-center justify-between">
                 <div className={classNames('flex flex-row gap-1 text-base leading-tight font-normal md:text-lg')}>
-                    <p className={classNames(variantToNameClassNames[processedVariant])}>{name}</p>
+                    <p className={classNames(variantToNameClassNames[processedVariant])}>
+                        {name}
+                        {nameDescription && <span className="text-neutral-500">{nameDescription}</span>}
+                    </p>
                     {showStatus && isThresholdReached && (
                         <p className="text-primary-400">{copy.proposalVotingProgressItem.reached}</p>
                     )}

@@ -5,7 +5,7 @@ import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
-import { voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -21,6 +21,10 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      */
     voteIndicator: VoteIndicator;
     /**
+     * Additional description for the vote indicator, displayed after the tag.
+     */
+    voteIndicatorDescription?: string;
+    /**
      * If token-based voting, the amount of token voting power used.
      */
     votingPower?: number | string;
@@ -29,14 +33,24 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      */
     tokenSymbol?: string;
     /**
-     *  Custom label for the tag.
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
      */
-    confirmationLabel?: string;
+    isVeto?: boolean;
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
-    const { voter, isDelegate, votingPower, tokenSymbol, voteIndicator, confirmationLabel, className, ...otherProps } =
-        props;
+    const {
+        voter,
+        isDelegate,
+        votingPower,
+        tokenSymbol,
+        voteIndicator,
+        voteIndicatorDescription,
+        className,
+        isVeto = false,
+        ...otherProps
+    } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();
@@ -80,14 +94,14 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                 )}
             </div>
 
-            <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-1.5 md:text-base">
-                <span>{confirmationLabel ?? copy.voteDataListItemStructure.voted}</span>
+            <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-2 md:text-base">
                 <Tag
-                    variant={voteIndicatorToTagVariant[voteIndicator]}
+                    variant={getTagVariant(voteIndicator, isVeto)}
                     className="capitalize"
                     label={voteIndicator}
                     data-testid="tag"
                 />
+                {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}
             </div>
         </DataList.Item>
     );
