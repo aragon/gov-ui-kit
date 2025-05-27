@@ -1,5 +1,12 @@
 import classNames from 'classnames';
-import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
+import {
+    DataList,
+    DateFormat,
+    Tag,
+    formatterUtils,
+    type IDataListItemProps,
+    type TagVariant,
+} from '../../../../../core';
 import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
@@ -32,6 +39,10 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
      * @default false
      */
     isVeto?: boolean;
+    /**
+     * Temp option to override the default tag variant logic.
+     */
+    tagVariant?: TagVariant;
 };
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
@@ -44,6 +55,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
         confirmationLabel,
         className,
         isVeto = false,
+        tagVariant,
         ...otherProps
     } = props;
 
@@ -63,7 +75,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <div className="flex items-center gap-x-1 md:gap-x-2">
                     {confirmationLabel && <span>{confirmationLabel}</span>}
                     <Tag
-                        variant={getTagVariant(voteIndicator, isVeto)}
+                        variant={tagVariant ?? getTagVariant(voteIndicator, isVeto)}
                         className="capitalize"
                         label={voteIndicator}
                         data-testid="tag"

@@ -67,6 +67,20 @@ export const VoteIndicatorDescriptionVeto: Story = {
 };
 
 /**
+ * Usage example of the VotesDataListItem module component with a custom indicator description (veto mode).
+ */
+export const WithTagVariant: Story = {
+    args: {
+        proposalId: 'PIP-06',
+        proposalTitle: 'Add Member to Council',
+        isVeto: true,
+        voteIndicator: 'yes',
+        tagVariant: 'neutral',
+        date: 1704961234000,
+    },
+};
+
+/**
  * Usage of the VoteProposalDataListItem component with long proposal IDs.
  */
 export const LongProposalId: Story = {
