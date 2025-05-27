@@ -67,7 +67,7 @@ export const VoteIndicatorDescriptionVeto: Story = {
 };
 
 /**
- * Usage example of the VotesDataListItem module component with a custom indicator description (veto mode).
+ * Usage example of the VotesDataListItem module component with a custom vote tag variant.
  */
 export const WithTagVariant: Story = {
     args: {
