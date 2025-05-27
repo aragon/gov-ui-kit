@@ -39,7 +39,7 @@ export type IToggleGroupProps = IToggleGroupBaseProps<true> | IToggleGroupBasePr
 export const ToggleGroup = (props: IToggleGroupProps) => {
     const {
         variant = 'fixed',
-        orientation,
+        orientation = 'horizontal',
         value,
         defaultValue,
         onChange,
