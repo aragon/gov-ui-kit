@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': patch
 ---
 
-Add stage status to ProposalVotingStageStatus module component for EXECUTED and EXECUTABLE states
+Update stage status to ProposalVotingStageStatus module component to handle EXECUTED and EXECUTABLE states

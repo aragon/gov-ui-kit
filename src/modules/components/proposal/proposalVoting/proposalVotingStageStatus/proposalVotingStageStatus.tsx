@@ -53,9 +53,7 @@ const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus
     [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
 });
 
-const statusToStatusText = (
-    copy: ModulesCopy,
-): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
+const statusToText = (copy: ModulesCopy): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
     [ProposalStatus.ACCEPTED]: {
         className: 'text-success-800',
         label: copy.proposalVotingStageStatus.status.accepted,
@@ -105,7 +103,7 @@ export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps
         );
     }
 
-    const statusText = statusToStatusText(copy)[status];
+    const statusText = statusToText(copy)[status];
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>
