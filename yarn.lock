@@ -134,7 +134,7 @@ __metadata:
     ts-jest: "npm:^29.3.4"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.32.1"
-    vercel: "npm:^41.7.8"
+    vercel: "npm:^42.1.1"
     viem: "npm:^2.29.4"
     wagmi: "npm:^2.15.4"
   peerDependencies:
@@ -6679,9 +6679,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/remix-builder@npm:5.4.6":
-  version: 5.4.6
-  resolution: "@vercel/remix-builder@npm:5.4.6"
+"@vercel/remix-builder@npm:5.4.7":
+  version: 5.4.7
+  resolution: "@vercel/remix-builder@npm:5.4.7"
   dependencies:
     "@vercel/error-utils": "npm:2.0.3"
     "@vercel/nft": "npm:0.29.2"
@@ -6689,7 +6689,7 @@ __metadata:
     path-to-regexp: "npm:6.1.0"
     path-to-regexp-updated: "npm:path-to-regexp@6.3.0"
     ts-morph: "npm:12.0.0"
-  checksum: 10c0/a42706e67cee12a7eaf02d90061b0339ed97d94b0161a71928ab5771d50f8e66087659f8750935871c03590b81a5f0cd0a7a64eb6f8cc3ee965c52b803687964
+  checksum: 10c0/6eb0d6ac0e7da451e61c7def0b4442259d8fee97256a3a78677fd1544768379925f603def843f9ed08ca7fe0729235e98de4282095ccec5b0b2f2f747dcca942
   languageName: node
   linkType: hard
 
@@ -19132,9 +19132,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vercel@npm:^41.7.8":
-  version: 41.7.8
-  resolution: "vercel@npm:41.7.8"
+"vercel@npm:^42.1.1":
+  version: 42.1.1
+  resolution: "vercel@npm:42.1.1"
   dependencies:
     "@vercel/build-utils": "npm:10.5.1"
     "@vercel/fun": "npm:1.1.6"
@@ -19144,7 +19144,7 @@ __metadata:
     "@vercel/node": "npm:5.1.16"
     "@vercel/python": "npm:4.7.2"
     "@vercel/redwood": "npm:2.3.1"
-    "@vercel/remix-builder": "npm:5.4.6"
+    "@vercel/remix-builder": "npm:5.4.7"
     "@vercel/ruby": "npm:2.2.0"
     "@vercel/static-build": "npm:2.7.7"
     chokidar: "npm:4.0.0"
@@ -19152,7 +19152,7 @@ __metadata:
   bin:
     vc: dist/vc.js
     vercel: dist/vc.js
-  checksum: 10c0/7e91e8f393d06c0c5823eeb3a17643acb5a5d00efcebd0ff166f1f0d0b6d1f0d3832f2910a499b21aac1084e47bec4f95dc22766339d52327392c0db30500d7a
+  checksum: 10c0/e2899f17eec8c262012877c5524f0e01f5c346334f8a2a67c9ecc85a65cd0468ea52292bab47f928c0f0a224df5cec977cf2278a7f283c2de5fab9ac8629320a
   languageName: node
   linkType: hard
 
