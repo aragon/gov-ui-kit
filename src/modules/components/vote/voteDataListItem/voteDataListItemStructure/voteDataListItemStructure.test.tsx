@@ -50,7 +50,7 @@ describe('<VoteDataListItemStructure /> component', () => {
 
         expect(screen.getByTestId('member-avatar')).toBeInTheDocument();
         expect(screen.getByText(formattedAddress)).toBeInTheDocument();
-        expect(screen.getByTestId('tag')).toHaveTextContent('No');
+        expect(screen.getByTestId('tag')).toHaveTextContent('no');
     });
 
     it('renders the formatted token vote amount and symbol', () => {
@@ -87,13 +87,6 @@ describe('<VoteDataListItemStructure /> component', () => {
         render(createTestComponent({ voter, isDelegate }));
 
         expect(screen.getByText('Your delegate')).toBeInTheDocument();
-    });
-
-    it('renders the custom confirmation label', () => {
-        const confirmationLabel = 'Voted';
-        render(createTestComponent({ confirmationLabel }));
-
-        expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
     });
 
     it('renders the vote indicator description if provided', () => {

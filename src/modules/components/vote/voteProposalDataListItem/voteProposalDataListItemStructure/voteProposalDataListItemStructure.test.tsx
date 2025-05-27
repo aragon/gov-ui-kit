@@ -25,10 +25,9 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
     it('renders the vote and the proposal information', () => {
         const proposalId = 'PIP-06';
         const voteIndicator = 'no';
-        const voteIndicatorLabel = 'No';
         render(createTestComponent({ proposalId, voteIndicator }));
 
-        expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicatorLabel);
+        expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicator);
         expect(screen.getByText(proposalId)).toBeInTheDocument();
     });
 

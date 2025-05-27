@@ -1,23 +1,18 @@
 import { type TagVariant } from '../../../core';
 
-export type VoteIndicator = 'yes' | 'no' | 'yesVeto' | 'noVeto' | 'abstain' | 'approve' | 'veto';
+export type VoteIndicator = 'yes' | 'no' | 'abstain' | 'approve' | 'veto';
 
-export const voteIndicatorToTagVariant: Record<VoteIndicator, TagVariant> = {
-    yes: 'success',
-    no: 'critical',
-    yesVeto: 'critical',
-    noVeto: 'success',
-    abstain: 'neutral',
-    approve: 'success',
-    veto: 'critical',
-};
-
-export const voteIndicatorToLabel: Record<VoteIndicator, string> = {
-    yes: 'Yes',
-    no: 'No',
-    yesVeto: 'Yes',
-    noVeto: 'No',
-    abstain: 'Abstain',
-    approve: 'Approve',
-    veto: 'Veto',
+export const getTagVariant = (voteIndicator: VoteIndicator, isVeto?: boolean): TagVariant => {
+    switch (voteIndicator) {
+        case 'yes':
+            return isVeto ? 'critical' : 'success';
+        case 'no':
+            return isVeto ? 'success' : 'critical';
+        case 'veto':
+            return 'critical';
+        case 'approve':
+            return 'success';
+        case 'abstain':
+            return 'neutral';
+    }
 };

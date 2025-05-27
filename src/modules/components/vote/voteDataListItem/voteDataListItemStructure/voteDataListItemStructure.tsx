@@ -5,7 +5,7 @@ import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
-import { voteIndicatorToLabel, voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -32,6 +32,11 @@ export type IVoteDataListItemStructureProps = IDataListItemProps & {
      * If token-based voting, the symbol of the voting power used.
      */
     tokenSymbol?: string;
+    /**
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
+     */
+    isVeto?: boolean;
 };
 
 export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps> = (props) => {
@@ -43,6 +48,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         voteIndicator,
         voteIndicatorDescription,
         className,
+        isVeto = false,
         ...otherProps
     } = props;
     const { address: currentUserAddress, isConnected } = useAccount();
@@ -90,8 +96,9 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
 
             <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-2 md:text-base">
                 <Tag
-                    variant={voteIndicatorToTagVariant[voteIndicator]}
-                    label={voteIndicatorToLabel[voteIndicator]}
+                    variant={getTagVariant(voteIndicator, isVeto)}
+                    className="capitalize"
+                    label={voteIndicator}
                     data-testid="tag"
                 />
                 {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}

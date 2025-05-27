@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { voteIndicatorToLabel, voteIndicatorToTagVariant, type VoteIndicator } from '../../voteUtils';
+import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
     /**
@@ -27,6 +27,11 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
      *   Custom label for the tag
      */
     confirmationLabel?: string;
+    /**
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
+     */
+    isVeto?: boolean;
 };
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
@@ -38,6 +43,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
         date,
         confirmationLabel,
         className,
+        isVeto = false,
         ...otherProps
     } = props;
 
@@ -57,8 +63,9 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <div className="flex items-center gap-x-1 md:gap-x-2">
                     {confirmationLabel && <span>{confirmationLabel}</span>}
                     <Tag
-                        variant={voteIndicatorToTagVariant[voteIndicator]}
-                        label={voteIndicatorToLabel[voteIndicator]}
+                        variant={getTagVariant(voteIndicator, isVeto)}
+                        className="capitalize"
+                        label={voteIndicator}
                         data-testid="tag"
                     />
                     {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}

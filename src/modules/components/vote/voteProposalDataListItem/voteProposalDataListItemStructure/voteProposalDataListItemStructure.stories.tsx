@@ -59,7 +59,8 @@ export const VoteIndicatorDescriptionVeto: Story = {
     args: {
         proposalId: 'PIP-06',
         proposalTitle: 'Add Member to Council',
-        voteIndicator: 'yesVeto',
+        isVeto: true,
+        voteIndicator: 'yes',
         voteIndicatorDescription: 'to veto',
         date: 1704961234000,
     },
