@@ -154,7 +154,7 @@ export const Unreached: Story = {
 };
 
 /**
- * Usage example of the ProposalVoting.Stage component that has been unreached.
+ * Usage example of the ProposalVoting.Stage component that has been executed.
  */
 export const Executed: Story = {
     args: {
@@ -165,7 +165,7 @@ export const Executed: Story = {
 };
 
 /**
- * Usage example of the ProposalVoting.Stage component that has been unreached.
+ * Usage example of the ProposalVoting.Stage component that is executable.
  */
 export const Executable: Story = {
     args: {
