@@ -34,9 +34,10 @@ export interface IProposalVotingBreakdownTokenProps extends Omit<ITabsContentPro
      */
     tokenTotalSupply: number | string;
     /**
-     * Defines if the voting is optimistic/veto or not.
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
      */
-    isVeto: boolean;
+    isVeto?: boolean;
 }
 
 export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownTokenProps> = (props) => {
@@ -49,7 +50,7 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
         minParticipation,
         tokenSymbol,
         tokenTotalSupply,
-        isVeto,
+        isVeto = false,
         children,
         ...otherProps
     } = props;

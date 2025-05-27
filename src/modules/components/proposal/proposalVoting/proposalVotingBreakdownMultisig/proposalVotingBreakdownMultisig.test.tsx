@@ -13,7 +13,6 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
             approvalsAmount: 0,
             minApprovals: 1,
             membersCount: 2,
-            isVeto: false,
             ...props,
         };
 

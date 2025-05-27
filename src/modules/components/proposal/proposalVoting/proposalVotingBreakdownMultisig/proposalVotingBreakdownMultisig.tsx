@@ -17,13 +17,14 @@ export interface IProposalVotingBreakdownMultisigProps extends Omit<ITabsContent
      */
     membersCount: number;
     /**
-     * Defines if the voting is optimistic/veto or not.
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
      */
-    isVeto: boolean;
+    isVeto?: boolean;
 }
 
 export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownMultisigProps> = (props) => {
-    const { approvalsAmount, minApprovals, membersCount, isVeto, children, ...otherProps } = props;
+    const { approvalsAmount, minApprovals, membersCount, isVeto = false, children, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 

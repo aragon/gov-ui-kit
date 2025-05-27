@@ -28,7 +28,6 @@ export const Default: Story = {
         minParticipation: 15,
         tokenSymbol: 'ARA',
         tokenTotalSupply: '45132986',
-        isVeto: false,
     },
     render: (args) => {
         return (
