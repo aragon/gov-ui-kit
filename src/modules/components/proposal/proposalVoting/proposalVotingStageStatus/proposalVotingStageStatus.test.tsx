@@ -98,7 +98,7 @@ describe('<ProposalVotingStageStatus /> component', () => {
     it('correctly renders the executed state', () => {
         const status = ProposalStatus.EXECUTED;
         render(createTestComponent({ status }));
-        expect(screen.getByText('Stage')).toBeInTheDocument();
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('accepted')).toBeInTheDocument();
     });
@@ -106,7 +106,7 @@ describe('<ProposalVotingStageStatus /> component', () => {
     it('correctly renders the executable state', () => {
         const status = ProposalStatus.EXECUTABLE;
         render(createTestComponent({ status }));
-        expect(screen.getByText('Stage')).toBeInTheDocument();
+        expect(screen.getByText('Proposal')).toBeInTheDocument();
         expect(screen.getByText('has been')).toBeInTheDocument();
         expect(screen.getByText('accepted')).toBeInTheDocument();
     });
