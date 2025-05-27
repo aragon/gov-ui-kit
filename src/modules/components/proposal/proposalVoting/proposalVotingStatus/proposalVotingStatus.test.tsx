@@ -1,20 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { ProposalStatus } from '../../proposalUtils';
-import { type IProposalVotingStageStatusProps, ProposalVotingStageStatus } from './proposalVotingStageStatus';
+import { type IProposalVotingStatusProps, ProposalVotingStatus } from './proposalVotingStatus';
 
-jest.mock('./proposalVotingStageStatusAdvanceable', () => ({
-    ProposalVotingStageStatusAdvanceable: () => <div data-testid="advanceable-component" />,
+jest.mock('./proposalVotingStatusAdvanceable', () => ({
+    ProposalVotingStatusAdvanceable: () => <div data-testid="advanceable-component" />,
 }));
 
-describe('<ProposalVotingStageStatus /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalVotingStageStatusProps>) => {
-        const completeProps: IProposalVotingStageStatusProps = {
+describe('<ProposalVotingStatus /> component', () => {
+    const createTestComponent = (props?: Partial<IProposalVotingStatusProps>) => {
+        const completeProps: IProposalVotingStatusProps = {
             endDate: 0,
             ...props,
         };
 
-        return <ProposalVotingStageStatus {...completeProps} />;
+        return <ProposalVotingStatus {...completeProps} />;
     };
 
     it('correctly renders the advanceable component when status is advanceable', () => {

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Tabs } from '../../../../../core';
 import { ProposalVoting } from '../index';
+import { ProposalVotingContextProvider } from '../proposalVotingContext';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
-import { ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
 
 const meta: Meta<typeof ProposalVoting.Details> = {
     title: 'Modules/Components/Proposal/ProposalVoting/ProposalVoting.Details',
@@ -31,11 +31,11 @@ export const Default: Story = {
     },
     render: (args) => {
         return (
-            <ProposalVotingStageContextProvider value={{}}>
+            <ProposalVotingContextProvider>
                 <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
                     <ProposalVoting.Details {...args} />
                 </Tabs.Root>
-            </ProposalVotingStageContextProvider>
+            </ProposalVotingContextProvider>
         );
     },
 };

@@ -4,7 +4,7 @@ import { useEffect, useState, type ComponentProps } from 'react';
 import { DateFormat, formatterUtils, invariant, StatePingAnimation } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
-export interface IProposalVotingStageStatusAdvanceableProps extends ComponentProps<'div'> {
+export interface IProposalVotingStatusAdvanceableProps extends ComponentProps<'div'> {
     /**
      * Min advance date of the proposal in timestamp or ISO format.
      */
@@ -18,14 +18,14 @@ export interface IProposalVotingStageStatusAdvanceableProps extends ComponentPro
 const parseDate = (date: string | number) =>
     typeof date === 'string' ? DateTime.fromISO(date) : DateTime.fromMillis(date);
 
-export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStageStatusAdvanceableProps> = (props) => {
+export const ProposalVotingStatusAdvanceable: React.FC<IProposalVotingStatusAdvanceableProps> = (props) => {
     const { minAdvance, maxAdvance, className, ...otherProps } = props;
 
     const [now, setNow] = useState(DateTime.now());
 
     invariant(
         minAdvance != null && maxAdvance != null,
-        'ProposalVotingStageStatusAdvanceable: minAdvance and maxAdvance are required',
+        'ProposalVotingStatusAdvanceable: minAdvance and maxAdvance are required',
     );
 
     const { copy } = useGukModulesContext();
@@ -41,9 +41,9 @@ export const ProposalVotingStageStatusAdvanceable: React.FC<IProposalVotingStage
     const isShortWindow = nextAdvanceDate && nextAdvanceDate.diff(now, 'days').days <= 90;
     const isLongWindow = !isShortWindow && isAdvanceableNow;
 
-    const mainText = copy.proposalVotingStageStatus.main.proposal;
-    const secondaryText = copy.proposalVotingStageStatus.secondary.advanceable(isAdvanceableNow, isShortWindow);
-    const statusText = copy.proposalVotingStageStatus.status.advanceable;
+    const mainText = copy.proposalVotingStatus.main.proposal;
+    const secondaryText = copy.proposalVotingStatus.secondary.advanceable(isAdvanceableNow, isShortWindow);
+    const statusText = copy.proposalVotingStatus.status.advanceable;
 
     // useEffect is needed to make sure that the component re-renders when state changes from advanceable in the future to advanceable now
     useEffect(() => {

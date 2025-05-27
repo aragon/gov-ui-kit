@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../../../../core';
-import { type IProposalVotingStageContext, ProposalVotingStageContextProvider } from '../proposalVotingStageContext';
+import * as useProposalVotingContext from '../proposalVotingContext';
 import {
     type IProposalVotingBodySummaryListItemProps,
     ProposalVotingBodySummaryListItem,
@@ -12,50 +12,44 @@ jest.mock('../../../../../core/components/avatars/avatar', () => ({
 }));
 
 describe('<ProposalVotingBodySummaryListItem /> component', () => {
-    const createTestComponent = (
-        props?: Partial<IProposalVotingBodySummaryListItemProps>,
-        contextValues: Partial<IProposalVotingStageContext> = {},
-    ) => {
+    const useProposalVotingContextSpy = jest.spyOn(useProposalVotingContext, 'useProposalVotingContext');
+
+    beforeEach(() => {
+        useProposalVotingContextSpy.mockReturnValue({});
+    });
+
+    afterEach(() => {
+        useProposalVotingContextSpy.mockReset();
+    });
+
+    const createTestComponent = (props?: Partial<IProposalVotingBodySummaryListItemProps>) => {
         const completeProps: IProposalVotingBodySummaryListItemProps = {
             id: 'body1',
-            children: 'List Item Content',
             ...props,
         };
 
-        return (
-            <ProposalVotingStageContextProvider value={contextValues}>
-                <ProposalVotingBodySummaryListItem {...completeProps} />
-            </ProposalVotingStageContextProvider>
-        );
+        return <ProposalVotingBodySummaryListItem {...completeProps} />;
     };
 
     it('calls setActiveBody with id when clicked', async () => {
-        const setActiveBodyMock = jest.fn();
-        const user = userEvent.setup();
-        render(createTestComponent({ id: '0x' }, { setActiveBody: setActiveBodyMock }));
-
-        const dataListItem = screen.getByRole('button');
-        await user.click(dataListItem);
-
-        expect(setActiveBodyMock).toHaveBeenCalledWith('0x');
+        const id = 'body-id';
+        const setActiveBody = jest.fn();
+        useProposalVotingContextSpy.mockReturnValue({ setActiveBody });
+        render(createTestComponent({ id }));
+        await userEvent.click(screen.getByRole('button'));
+        expect(setActiveBody).toHaveBeenCalledWith(id);
     });
 
     it('renders the children property and an arrow icon', () => {
-        render(createTestComponent({ children: 'Body name' }));
-
-        expect(screen.getByText('Body name')).toBeInTheDocument();
+        const children = 'body-name';
+        render(createTestComponent({ children }));
+        expect(screen.getByText(children)).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CHEVRON_RIGHT)).toBeInTheDocument();
     });
 
     it('renders the avatar component when bodyBrand is provided', async () => {
-        const bodyBrand = {
-            label: 'Branded Label',
-            logo: 'https://fastly.picsum.photos/id/204/536/354.jpg?hmac=snZIgqenag_pWqyhXX7PzRmag1UZ2SvMcP2YQ_m6KhE',
-        };
-
+        const bodyBrand = { label: 'Branded Label', logo: 'https://logo.com' };
         render(createTestComponent({ bodyBrand }));
-
-        const avatar = await screen.findByTestId(bodyBrand.logo);
-        expect(avatar).toBeInTheDocument();
+        expect(await screen.findByTestId(bodyBrand.logo)).toBeInTheDocument();
     });
 });

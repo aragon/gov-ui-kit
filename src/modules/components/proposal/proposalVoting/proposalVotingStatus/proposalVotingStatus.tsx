@@ -4,9 +4,9 @@ import { DateFormat, formatterUtils, Rerender, StatePingAnimation } from '../../
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
-import { ProposalVotingStageStatusAdvanceable } from './proposalVotingStageStatusAdvanceable';
+import { ProposalVotingStatusAdvanceable } from './proposalVotingStatusAdvanceable';
 
-export interface IProposalVotingStageStatusProps extends ComponentProps<'div'> {
+export interface IProposalVotingStatusProps extends ComponentProps<'div'> {
     /**
      * Status of the proposal.
      * @default ProposalStatus.PENDING
@@ -35,75 +35,59 @@ const getMainText = (status: ProposalStatus, copy: ModulesCopy, isMultiStage?: b
     const { ACCEPTED, REJECTED, VETOED, EXPIRED, EXECUTED, EXECUTABLE } = ProposalStatus;
 
     if ([ACCEPTED, REJECTED, VETOED, EXPIRED, EXECUTED, EXECUTABLE].includes(status) || isSingleStagePending) {
-        return copy.proposalVotingStageStatus.main.proposal;
+        return copy.proposalVotingStatus.main.proposal;
     }
 
-    return copy.proposalVotingStageStatus.main.stage;
+    return copy.proposalVotingStatus.main.stage;
 };
 
 const statusToSecondaryText = (copy: ModulesCopy): Partial<Record<ProposalStatus, string>> => ({
-    [ProposalStatus.PENDING]: copy.proposalVotingStageStatus.secondary.pending,
-    [ProposalStatus.ACTIVE]: copy.proposalVotingStageStatus.secondary.active,
-    [ProposalStatus.ACCEPTED]: copy.proposalVotingStageStatus.secondary.accepted,
-    [ProposalStatus.REJECTED]: copy.proposalVotingStageStatus.secondary.rejected,
-    [ProposalStatus.EXPIRED]: copy.proposalVotingStageStatus.secondary.expired,
-    [ProposalStatus.UNREACHED]: copy.proposalVotingStageStatus.secondary.unreached,
-    [ProposalStatus.VETOED]: copy.proposalVotingStageStatus.secondary.vetoed,
-    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStageStatus.secondary.executable,
-    [ProposalStatus.EXECUTED]: copy.proposalVotingStageStatus.secondary.executed,
+    [ProposalStatus.PENDING]: copy.proposalVotingStatus.secondary.pending,
+    [ProposalStatus.ACTIVE]: copy.proposalVotingStatus.secondary.active,
+    [ProposalStatus.ACCEPTED]: copy.proposalVotingStatus.secondary.accepted,
+    [ProposalStatus.REJECTED]: copy.proposalVotingStatus.secondary.rejected,
+    [ProposalStatus.EXPIRED]: copy.proposalVotingStatus.secondary.expired,
+    [ProposalStatus.UNREACHED]: copy.proposalVotingStatus.secondary.unreached,
+    [ProposalStatus.VETOED]: copy.proposalVotingStatus.secondary.vetoed,
+    [ProposalStatus.EXECUTABLE]: copy.proposalVotingStatus.secondary.executable,
+    [ProposalStatus.EXECUTED]: copy.proposalVotingStatus.secondary.executed,
 });
 
 const statusToText = (copy: ModulesCopy): Partial<Record<ProposalStatus, { className: string; label: string }>> => ({
     [ProposalStatus.ACCEPTED]: {
         className: 'text-success-800',
-        label: copy.proposalVotingStageStatus.status.accepted,
+        label: copy.proposalVotingStatus.status.accepted,
     },
     [ProposalStatus.EXECUTABLE]: {
         className: 'text-success-800',
-        label: copy.proposalVotingStageStatus.status.executable,
+        label: copy.proposalVotingStatus.status.executable,
     },
     [ProposalStatus.EXECUTED]: {
         className: 'text-success-800',
-        label: copy.proposalVotingStageStatus.status.executed,
+        label: copy.proposalVotingStatus.status.executed,
     },
     [ProposalStatus.REJECTED]: {
         className: 'text-critical-800',
-        label: copy.proposalVotingStageStatus.status.rejected,
+        label: copy.proposalVotingStatus.status.rejected,
     },
     [ProposalStatus.VETOED]: {
         className: 'text-critical-800',
-        label: copy.proposalVotingStageStatus.status.vetoed,
+        label: copy.proposalVotingStatus.status.vetoed,
     },
 });
 
-export const ProposalVotingStageStatus: React.FC<IProposalVotingStageStatusProps> = (props) => {
-    const {
-        status = ProposalStatus.PENDING,
-        endDate,
-        isMultiStage,
-        className,
-        minAdvance,
-        maxAdvance,
-        ...otherProps
-    } = props;
+export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props) => {
+    const { status = ProposalStatus.PENDING, endDate, isMultiStage, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
 
     const mainText = getMainText(status, copy, isMultiStage);
     const secondaryText = statusToSecondaryText(copy)[status];
+    const statusText = statusToText(copy)[status];
 
     if (status === ProposalStatus.ADVANCEABLE) {
-        return (
-            <ProposalVotingStageStatusAdvanceable
-                minAdvance={minAdvance}
-                maxAdvance={maxAdvance}
-                className={className}
-                {...otherProps}
-            />
-        );
+        return <ProposalVotingStatusAdvanceable className={className} {...otherProps} />;
     }
-
-    const statusText = statusToText(copy)[status];
 
     return (
         <div className={classNames('flex flex-row items-center gap-2', className)} {...otherProps}>

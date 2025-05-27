@@ -136,7 +136,7 @@ export const modulesCopy = {
         reached: 'reached',
         unreached: 'not reached',
     },
-    proposalVotingStageStatus: {
+    proposalVotingStatus: {
         main: {
             proposal: 'Proposal',
             stage: 'Stage',

@@ -1,11 +1,9 @@
 import classNames from 'classnames';
-import type { ComponentProps, PropsWithChildren } from 'react';
+import type { ComponentProps } from 'react';
 
 export interface IProposalVotingBodySummaryListProps extends ComponentProps<'div'> {}
 
-export const ProposalVotingBodySummaryList: React.FC<PropsWithChildren<IProposalVotingBodySummaryListProps>> = (
-    props,
-) => {
+export const ProposalVotingBodySummaryList: React.FC<IProposalVotingBodySummaryListProps> = (props) => {
     const { children, className, ...otherProps } = props;
 
     return (
