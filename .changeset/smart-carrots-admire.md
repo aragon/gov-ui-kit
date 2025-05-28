@@ -2,4 +2,5 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-**BREAKING**: add `voteIndicatorDescription` instead of `confirmationLabel`
+**BREAKING**: Update `VoteProposalDataListItem` component to use `voteIndicatorDescription` property instead of
+`confirmationLabel`
