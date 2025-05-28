@@ -24,10 +24,24 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
      *   Custom label for the tag
      */
     confirmationLabel?: string;
+    /**
+     * Defines if the voting is for vetoing the proposal or not.
+     * @default false
+     */
+    isVeto?: boolean;
 };
 
 export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListItemStructureProps> = (props) => {
-    const { proposalTitle, proposalId, voteIndicator, date, confirmationLabel, className, ...otherProps } = props;
+    const {
+        proposalTitle,
+        proposalId,
+        voteIndicator,
+        date,
+        confirmationLabel,
+        className,
+        isVeto = false,
+        ...otherProps
+    } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -47,7 +61,7 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
                 <div className="flex items-center gap-x-1 md:gap-x-2">
                     <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
                     <Tag
-                        variant={getTagVariant(voteIndicator, false)}
+                        variant={getTagVariant(voteIndicator, isVeto)}
                         className="capitalize"
                         label={voteIndicator}
                         data-testid="tag"

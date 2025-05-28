@@ -27,6 +27,20 @@ export const Default: Story = {
 };
 
 /**
+ * Usage example of the VoteDataListItem component in veto mode.
+ */
+export const Veto: Story = {
+    args: {
+        proposalId: 'PIP-06',
+        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
+        voteIndicator: 'yes',
+        isVeto: true,
+        date: 1613984914000,
+        confirmationLabel: 'Voting to veto',
+    },
+};
+
+/**
  * Usage example of the VotesDataListItem module component with a custom label.
  */
 export const CustomLabel: Story = {

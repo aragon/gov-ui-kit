@@ -7,7 +7,11 @@ import {
 } from './voteProposalDataListItemStructure';
 
 jest.mock('../../../../../core/components/tag', () => ({
-    Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
+    Tag: ({ label, variant }: { label: string; variant: string }) => (
+        <div data-testid="tag" className={variant}>
+            {label}
+        </div>
+    ),
 }));
 
 describe('<VoteProposalDataListItemStructure /> component', () => {
@@ -43,5 +47,19 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
         render(createTestComponent({ confirmationLabel }));
 
         expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
+    });
+
+    it('renders success vote indicator for yes vote', () => {
+        const voteIndicator = 'yes';
+        render(createTestComponent({ voteIndicator }));
+        expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicator);
+        expect(screen.getByTestId('tag')).toHaveClass('success');
+    });
+
+    it('renders critical vote indicator for yes vote in veto mode', () => {
+        const voteIndicator = 'yes';
+        render(createTestComponent({ voteIndicator, isVeto: true }));
+        expect(screen.getByTestId('tag')).toHaveTextContent(voteIndicator);
+        expect(screen.getByTestId('tag')).toHaveClass('critical');
     });
 });
