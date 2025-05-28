@@ -77,7 +77,15 @@ const statusToText = (copy: ModulesCopy): Partial<Record<ProposalStatus, { class
 });
 
 export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props) => {
-    const { status = ProposalStatus.PENDING, endDate, isMultiStage, className, ...otherProps } = props;
+    const {
+        status = ProposalStatus.PENDING,
+        endDate,
+        isMultiStage,
+        minAdvance,
+        maxAdvance,
+        className,
+        ...otherProps
+    } = props;
 
     const { copy } = useGukModulesContext();
 
@@ -86,7 +94,14 @@ export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props
     const statusText = statusToText(copy)[status];
 
     if (status === ProposalStatus.ADVANCEABLE) {
-        return <ProposalVotingStatusAdvanceable className={className} {...otherProps} />;
+        return (
+            <ProposalVotingStatusAdvanceable
+                minAdvance={minAdvance}
+                maxAdvance={maxAdvance}
+                className={className}
+                {...otherProps}
+            />
+        );
     }
 
     return (
