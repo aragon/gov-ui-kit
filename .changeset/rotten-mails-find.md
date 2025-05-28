@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-Bump vercel to v42
+Bump `vercel` to v42

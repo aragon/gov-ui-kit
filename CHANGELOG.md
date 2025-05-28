@@ -4,11 +4,11 @@
 
 ### Minor Changes
 
-- [#473](https://github.com/aragon/gov-ui-kit/pull/473) [`3d73db8`](https://github.com/aragon/gov-ui-kit/commit/3d73db8dfc004a5917ba8d2ea90b51e46289687e) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update DocumentParser core component to expose immediatelyRender prop
+- [#473](https://github.com/aragon/gov-ui-kit/pull/473) [`3d73db8`](https://github.com/aragon/gov-ui-kit/commit/3d73db8dfc004a5917ba8d2ea90b51e46289687e) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update `<DocumentParser />` core component to expose `immediatelyRender` property for SSR usage
 
 ### Patch Changes
 
-- [#474](https://github.com/aragon/gov-ui-kit/pull/474) [`8f5d5ce`](https://github.com/aragon/gov-ui-kit/commit/8f5d5ce43f631dcff5bd682ec9ac6a5ae783d7a9) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix ProposalVotingBodyContent to support single external body scenarios
+- [#474](https://github.com/aragon/gov-ui-kit/pull/474) [`8f5d5ce`](https://github.com/aragon/gov-ui-kit/commit/8f5d5ce43f631dcff5bd682ec9ac6a5ae783d7a9) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix `<ProposalVotingBodyContent />` module component to support single external body scenarios
 
 ## 1.5.0
 
@@ -16,21 +16,21 @@
 
 - [#472](https://github.com/aragon/gov-ui-kit/pull/472) [`6b2c13f`](https://github.com/aragon/gov-ui-kit/commit/6b2c13fc32983705b701d8e67efbbf54a4e2e107) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
 
-- [#471](https://github.com/aragon/gov-ui-kit/pull/471) [`80fa61d`](https://github.com/aragon/gov-ui-kit/commit/80fa61df455704c6f561bb01a42753a595089b65) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump lint-staged to v16
+- [#471](https://github.com/aragon/gov-ui-kit/pull/471) [`80fa61d`](https://github.com/aragon/gov-ui-kit/commit/80fa61df455704c6f561bb01a42753a595089b65) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `lint-staged` to v16
 
 - [#468](https://github.com/aragon/gov-ui-kit/pull/468) [`3965c45`](https://github.com/aragon/gov-ui-kit/commit/3965c45159cbf3fcf566cd874f35771a6a2bf2bd) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
 
 ### Patch Changes
 
-- [#470](https://github.com/aragon/gov-ui-kit/pull/470) [`8f005a0`](https://github.com/aragon/gov-ui-kit/commit/8f005a043910782cc852f2f07a1acfa7b7f2c0b2) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement ProposalActionItemsSkeleton component, update ProposalActions component to support loading state
+- [#470](https://github.com/aragon/gov-ui-kit/pull/470) [`8f005a0`](https://github.com/aragon/gov-ui-kit/commit/8f005a043910782cc852f2f07a1acfa7b7f2c0b2) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement `<ProposalActionItemsSkeleton />` component, update `<ProposalActions />` component to support loading state
 
-- [#469](https://github.com/aragon/gov-ui-kit/pull/469) [`b963051`](https://github.com/aragon/gov-ui-kit/commit/b963051712b6982e3be31ac34ca466af27f868c8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update ProposalVoting module component to support branded bodies
+- [#469](https://github.com/aragon/gov-ui-kit/pull/469) [`b963051`](https://github.com/aragon/gov-ui-kit/commit/b963051712b6982e3be31ac34ca466af27f868c8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `<ProposalVoting />` module component to support branded bodies
 
 ## 1.4.0
 
 ### Minor Changes
 
-- [#465](https://github.com/aragon/gov-ui-kit/pull/465) [`7ea0aa2`](https://github.com/aragon/gov-ui-kit/commit/7ea0aa205cecc4cbf69e77ef9f9c763d9191f432) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump aragon/github-templates to 0.4
+- [#465](https://github.com/aragon/gov-ui-kit/pull/465) [`7ea0aa2`](https://github.com/aragon/gov-ui-kit/commit/7ea0aa205cecc4cbf69e77ef9f9c763d9191f432) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `aragon/github-templates` to 0.4
 
 - [#467](https://github.com/aragon/gov-ui-kit/pull/467) [`4315e9c`](https://github.com/aragon/gov-ui-kit/commit/4315e9c91e0ff846e138c82721e3a99e4b894363) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update module components to set ethereum mainnet as default value for chain-id property
 
@@ -38,7 +38,7 @@
 
 ### Patch Changes
 
-- [#466](https://github.com/aragon/gov-ui-kit/pull/466) [`83762be`](https://github.com/aragon/gov-ui-kit/commit/83762bea8b74b8b255d28c18b6671795c6965987) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement 'link' prop and component within `<DefinitionList.Item />`
+- [#466](https://github.com/aragon/gov-ui-kit/pull/466) [`83762be`](https://github.com/aragon/gov-ui-kit/commit/83762bea8b74b8b255d28c18b6671795c6965987) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `<DefinitionList.Item />` component to support `link` property
 
 ## 1.3.0
 
@@ -46,13 +46,13 @@
 
 - [#460](https://github.com/aragon/gov-ui-kit/pull/460) [`94b3bba`](https://github.com/aragon/gov-ui-kit/commit/94b3bba28c35be1b35633adfb5e18c21642d5666) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch dependencies
 
-- [#463](https://github.com/aragon/gov-ui-kit/pull/463) [`3dd95c9`](https://github.com/aragon/gov-ui-kit/commit/3dd95c992de4f8353c9eb56293fedacbeaa37de6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Support customisation of visible tabs on the ProposalVoting component
+- [#463](https://github.com/aragon/gov-ui-kit/pull/463) [`3dd95c9`](https://github.com/aragon/gov-ui-kit/commit/3dd95c992de4f8353c9eb56293fedacbeaa37de6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Support customisation of visible tabs on the `<ProposalVoting />` component
 
-- [#461](https://github.com/aragon/gov-ui-kit/pull/461) [`ed8a0f2`](https://github.com/aragon/gov-ui-kit/commit/ed8a0f2333cf04000ddc719f66ae68cc4525236a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump softprops/action-gh-release to 2.2.2
+- [#461](https://github.com/aragon/gov-ui-kit/pull/461) [`ed8a0f2`](https://github.com/aragon/gov-ui-kit/commit/ed8a0f2333cf04000ddc719f66ae68cc4525236a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `softprops/action-gh-release` to 2.2.2
 
 ### Patch Changes
 
-- [#456](https://github.com/aragon/gov-ui-kit/pull/456) [`5ae74a6`](https://github.com/aragon/gov-ui-kit/commit/5ae74a6da4f912a1def4efdeb477684b3d84c4b0) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `DialogAlert` core component to support `size` property
+- [#456](https://github.com/aragon/gov-ui-kit/pull/456) [`5ae74a6`](https://github.com/aragon/gov-ui-kit/commit/5ae74a6da4f912a1def4efdeb477684b3d84c4b0) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `<DialogAlert />` core component to support `size` property
 
 - [#457](https://github.com/aragon/gov-ui-kit/pull/457) [`d29c913`](https://github.com/aragon/gov-ui-kit/commit/d29c9132d77e7ca712502d6dee76c5d596758a1b) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update Storybook deploy workflow to retrieve secrets from 1Password
 
@@ -66,11 +66,11 @@
 
 - [#453](https://github.com/aragon/gov-ui-kit/pull/453) [`2de2ac9`](https://github.com/aragon/gov-ui-kit/commit/2de2ac95d38e4e9343fd27739dd2dfa633dd4feb) Thanks [@shan8851](https://github.com/shan8851)! - Add outline none to dialog to fix unwanted styling when user focuses inside
 
-- [#454](https://github.com/aragon/gov-ui-kit/pull/454) [`ee9bf52`](https://github.com/aragon/gov-ui-kit/commit/ee9bf5243bc2e7f9009c8b9f551b46fca51052a5) Thanks [@shan8851](https://github.com/shan8851)! - Fix `DropdownItem` core component to prevent default click behaviour when disabled
+- [#454](https://github.com/aragon/gov-ui-kit/pull/454) [`ee9bf52`](https://github.com/aragon/gov-ui-kit/commit/ee9bf5243bc2e7f9009c8b9f551b46fca51052a5) Thanks [@shan8851](https://github.com/shan8851)! - Fix `<DropdownItem />` core component to prevent default click behaviour when disabled
 
-- [#452](https://github.com/aragon/gov-ui-kit/pull/452) [`858ffa2`](https://github.com/aragon/gov-ui-kit/commit/858ffa257cf60474aca77084ce0a8b0ea9102d03) Thanks [@shan8851](https://github.com/shan8851)! - Update core `DataListPagination` component to apply different variant to the progress bar when there are no more items to show
+- [#452](https://github.com/aragon/gov-ui-kit/pull/452) [`858ffa2`](https://github.com/aragon/gov-ui-kit/commit/858ffa257cf60474aca77084ce0a8b0ea9102d03) Thanks [@shan8851](https://github.com/shan8851)! - Update `<DataListPagination />` core component to apply neutral variant to the progress bar when there are no more items to show
 
-- [#450](https://github.com/aragon/gov-ui-kit/pull/450) [`513c119`](https://github.com/aragon/gov-ui-kit/commit/513c119e87b4424dd98763a428e0b5e63e6dba0f) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update DURATION formatting to round to nearest significant unit
+- [#450](https://github.com/aragon/gov-ui-kit/pull/450) [`513c119`](https://github.com/aragon/gov-ui-kit/commit/513c119e87b4424dd98763a428e0b5e63e6dba0f) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `DURATION` formatting to round dates to nearest significant unit
 
 ## 1.1.0
 

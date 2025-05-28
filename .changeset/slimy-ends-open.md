@@ -2,4 +2,6 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-Update parameters and info displayed on ProposalVoting module component
+Update style, labels and layout of breakdown components displayed on `<ProposalVoting >` module component
+
+**BREAKING**: Update multisig breakdown component to require `membersCount` property

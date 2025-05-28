@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-Update proposal voting labels to improve clarity in veto case
+Update `<ProposalVoting />` module component and sub-components to handle veto proposals

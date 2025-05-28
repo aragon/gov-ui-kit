@@ -2,5 +2,7 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-**BREAKING**: Remove ProposalVotingStatus enum in favor of using ProposalStatus enum everywhere. Refactor
-ProposalVoting.Stage
+Update status handling of `<ProposalVoting />` module component to correctly show advanceable, executed and executable
+statuses
+
+**BREAKING**: Remove `ProposalVotingStatus` enum in favor of `ProposalStatus`

@@ -2,4 +2,7 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-Add `isVeto` prop to `VoteProposalDataListItem`
+Update `<VoteDataListItem />` and `<VoteProposalDataListItem />` module components to support veto variant and `isVeto`
+property
+
+**BREAKING**: Rename `confirmationLabel` property to `voteIndicatorDescription`
