@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { DataList, DateFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { useGukModulesContext } from '../../../gukModulesProvider';
 import { getTagVariant, type VoteIndicator } from '../../voteUtils';
 
 export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
@@ -17,13 +16,13 @@ export type IVoteProposalDataListItemStructureProps = IDataListItemProps & {
      */
     voteIndicator: VoteIndicator;
     /**
+     * Additional description for the vote indicator, displayed after the tag.
+     */
+    voteIndicatorDescription?: string;
+    /**
      *  Date of the vote on the proposal in ISO format or as a timestamp
      */
     date?: number | string;
-    /**
-     *   Custom label for the tag
-     */
-    confirmationLabel?: string;
     /**
      * Defines if the voting is for vetoing the proposal or not.
      * @default false
@@ -36,14 +35,12 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
         proposalTitle,
         proposalId,
         voteIndicator,
+        voteIndicatorDescription,
         date,
-        confirmationLabel,
         className,
         isVeto = false,
         ...otherProps
     } = props;
-
-    const { copy } = useGukModulesContext();
 
     return (
         <DataList.Item
@@ -59,13 +56,13 @@ export const VoteProposalDataListItemStructure: React.FC<IVoteProposalDataListIt
             </div>
             <div className="flex items-center gap-x-4 text-sm leading-tight text-neutral-500 md:gap-x-6 md:text-base">
                 <div className="flex items-center gap-x-1 md:gap-x-2">
-                    <span>{confirmationLabel ?? copy.voteProposalDataListItemStructure.voted}</span>
                     <Tag
                         variant={getTagVariant(voteIndicator, isVeto)}
                         className="capitalize"
                         label={voteIndicator}
                         data-testid="tag"
                     />
+                    {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}
                 </div>
                 {date && <p className="mx-1">{formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })}</p>}
             </div>

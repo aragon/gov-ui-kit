@@ -42,11 +42,11 @@ describe('<VoteProposalDataListItemStructure /> component', () => {
         expect(screen.getByText('2 days ago')).toBeInTheDocument();
     });
 
-    it('renders the custom label if available', () => {
-        const confirmationLabel = 'Custom label';
-        render(createTestComponent({ confirmationLabel }));
+    it('renders the custom vote indicator description if available', () => {
+        const voteIndicatorDescription = 'Custom description';
+        render(createTestComponent({ voteIndicatorDescription }));
 
-        expect(screen.getByText(confirmationLabel)).toBeInTheDocument();
+        expect(screen.getByText(voteIndicatorDescription)).toBeInTheDocument();
     });
 
     it('renders success vote indicator for yes vote', () => {
