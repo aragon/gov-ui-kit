@@ -22,20 +22,22 @@ export const Default: Story = {
         proposalId: 'PIP-06',
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'yes',
+        voteIndicatorDescription: 'to approve',
         date: 1613984914000,
     },
 };
 
 /**
- * Usage example of the VotesDataListItem module component with a custom label.
+ * Usage example of the VoteDataListItem component in veto mode.
  */
-export const CustomLabel: Story = {
+export const Veto: Story = {
     args: {
         proposalId: 'PIP-06',
-        proposalTitle: 'Add Member to Council',
-        voteIndicator: 'no',
-        date: 1704961234000,
-        confirmationLabel: 'Selected',
+        proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
+        voteIndicator: 'yes',
+        voteIndicatorDescription: 'to veto',
+        isVeto: true,
+        date: 1613984914000,
     },
 };
 

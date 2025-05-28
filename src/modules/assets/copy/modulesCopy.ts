@@ -177,9 +177,6 @@ export const modulesCopy = {
         yourDelegate: 'Your delegate',
         you: 'You',
     },
-    voteProposalDataListItemStructure: {
-        voted: 'Voted',
-    },
     wallet: {
         connect: 'Connect',
     },
