@@ -1,15 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import ReactDOM from 'react-dom';
 import { IconType } from '../../icon';
 import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
 
 describe('<TextAreaRichText /> component', () => {
-    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-    class MockEventClass {}
-
-    (global.ClipboardEvent as unknown) = MockEventClass;
-    (global.DragEvent as unknown) = MockEventClass;
 
     const createPortalMock = jest.spyOn(ReactDOM, 'createPortal');
 
@@ -65,6 +60,20 @@ describe('<TextAreaRichText /> component', () => {
         await userEvent.type(await screen.findByRole('textbox'), 'test');
         await userEvent.clear(screen.getByRole('textbox'));
         expect(onChange).toHaveBeenLastCalledWith('');
+    });
+
+    it('formats pasted markdown content', () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange }));
+        const pasteEvent = new Event('paste', { bubbles: true, cancelable: true });
+        Object.assign(pasteEvent, {
+            clipboardData: {
+                getData: (type: string) => (type === 'text/plain' ? '# Heading' : ''),
+                types: ['text/plain'],
+            },
+        });
+        fireEvent(screen.getByRole('textbox'), pasteEvent);
+        expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
     });
 
     it('renders the textarea as a React portal on expand action click', async () => {
