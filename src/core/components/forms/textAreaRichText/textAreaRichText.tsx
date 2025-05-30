@@ -5,6 +5,7 @@ import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { Markdown } from 'tiptap-markdown';
 import { useRandomId } from '../../../hooks';
 import { InputContainer, type IInputContainerProps } from '../inputContainer';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
@@ -52,6 +53,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         StarterKit,
         Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
         Link,
+        Markdown.configure({ transformPastedText: true }),
     ];
 
     const editor = useEditor({
