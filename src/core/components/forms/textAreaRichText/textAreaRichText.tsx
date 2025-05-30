@@ -2,6 +2,7 @@ import { Link } from '@tiptap/extension-link';
 import { Placeholder } from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
+import { Markdown } from 'tiptap-markdown';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -52,6 +53,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         StarterKit,
         Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
         Link,
+        Markdown,
     ];
 
     const editor = useEditor({

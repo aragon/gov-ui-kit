@@ -67,6 +67,14 @@ describe('<TextAreaRichText /> component', () => {
         expect(onChange).toHaveBeenLastCalledWith('');
     });
 
+    it('formats pasted markdown content', async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange }));
+        const markdown = '# Heading';
+        await userEvent.paste(screen.getByRole('textbox'), markdown);
+        expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
+    });
+
     it('renders the textarea as a React portal on expand action click', async () => {
         const user = userEvent.setup();
         render(createTestComponent());
