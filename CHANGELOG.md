@@ -1,5 +1,62 @@
 # @aragon/gov-ui-kit
 
+## 1.7.0
+
+### Minor Changes
+
+- [#485](https://github.com/aragon/gov-ui-kit/pull/485) [`92244aa`](https://github.com/aragon/gov-ui-kit/commit/92244aaec9022d24375e58fcf0fe153dafdffad7) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#490](https://github.com/aragon/gov-ui-kit/pull/490) [`b5d7769`](https://github.com/aragon/gov-ui-kit/commit/b5d77699d6fcf6cef802755ed0d773598b267276) Thanks [@milosh86](https://github.com/milosh86)! - Update `<VoteDataListItem />` and `<VoteProposalDataListItem />` module components to support veto variant and `isVeto` property
+
+    **BREAKING**: Rename `confirmationLabel` property to `voteIndicatorDescription`
+
+- [#478](https://github.com/aragon/gov-ui-kit/pull/478) [`174572b`](https://github.com/aragon/gov-ui-kit/commit/174572b088b58887ea32b3ea577dc765f1247313) Thanks [@shan8851](https://github.com/shan8851)! - Update status handling of `<ProposalVoting />` module component to correctly show advanceable, executed and executable statuses
+
+    **BREAKING**: Remove `ProposalVotingStatus` enum in favor of `ProposalStatus`
+
+- [#481](https://github.com/aragon/gov-ui-kit/pull/481) [`d42310b`](https://github.com/aragon/gov-ui-kit/commit/d42310b7ea7a34b31941620fea0a873ed6037340) Thanks [@milosh86](https://github.com/milosh86)! - Update `<ToggleGroup />` core component to support `orientation` property
+
+- [#489](https://github.com/aragon/gov-ui-kit/pull/489) [`55bd74f`](https://github.com/aragon/gov-ui-kit/commit/55bd74f187dbdac1c55a3e151bbf005ac4a213e6) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update `<Wallet />` module component to hide connected user info on breakpoints lower than `XL`
+
+- [#486](https://github.com/aragon/gov-ui-kit/pull/486) [`42db993`](https://github.com/aragon/gov-ui-kit/commit/42db99314f5a2f19a16b97a73bd4edca07226175) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `vercel` to v42
+
+- [#483](https://github.com/aragon/gov-ui-kit/pull/483) [`5bec051`](https://github.com/aragon/gov-ui-kit/commit/5bec051e6f4defe20570dd435e2712b4bc6043e6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - **BREAKING** Refactor ProposalVoting component to improve handling of stages:
+
+    - Mark `name` property of `BodyContent` and `Stage` components as required
+    - Rename `Container` component to `StageContainer`, implement new `Container` component for simple governance proposals
+
+- [#475](https://github.com/aragon/gov-ui-kit/pull/475) [`a6c5f35`](https://github.com/aragon/gov-ui-kit/commit/a6c5f35f80b9133e4133c0db987a7bb8e6925888) Thanks [@milosh86](https://github.com/milosh86)! - Implement `<Clipboard />` core component and `useCopy` hook
+
+- [#479](https://github.com/aragon/gov-ui-kit/pull/479) [`14708eb`](https://github.com/aragon/gov-ui-kit/commit/14708ebe56599e327e77ccf3b4f144642541d026) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#487](https://github.com/aragon/gov-ui-kit/pull/487) [`5780554`](https://github.com/aragon/gov-ui-kit/commit/5780554a4d82824c98f635ca826793050a1416a0) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `rollup-plugin-visualizer` to v6
+
+- [#480](https://github.com/aragon/gov-ui-kit/pull/480) [`e2d03bd`](https://github.com/aragon/gov-ui-kit/commit/e2d03bd56578db580634d2909fbc0c37631efdfd) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update style, labels and layout of breakdown components displayed on `<ProposalVoting >` module component
+
+    **BREAKING**: Update multisig breakdown component to require `membersCount` property
+
+- [#476](https://github.com/aragon/gov-ui-kit/pull/476) [`42ff840`](https://github.com/aragon/gov-ui-kit/commit/42ff84020c93c537e2527d452ac0465361e78f24) Thanks [@milosh86](https://github.com/milosh86)! - Update `<Link />` core component colors and spacing, add `description` property to `<DefinitionListItem />` component and update `line-height`
+
+    **BREAKING**: Remove `description` prop from `Link` component in favour of `showUrl` and `iconRight` prop in favour of `isExternal`
+
+- [#480](https://github.com/aragon/gov-ui-kit/pull/480) [`e2d03bd`](https://github.com/aragon/gov-ui-kit/commit/e2d03bd56578db580634d2909fbc0c37631efdfd) Thanks [@cgero-eth](https://github.com/cgero-eth)! - **BREAKING**: Update multisig breakdown component to require "membersCount" property
+
+- [#481](https://github.com/aragon/gov-ui-kit/pull/481) [`d42310b`](https://github.com/aragon/gov-ui-kit/commit/d42310b7ea7a34b31941620fea0a873ed6037340) Thanks [@milosh86](https://github.com/milosh86)! - Update `<ProposalVoting />` module component and sub-components to handle veto proposals
+
+- [#446](https://github.com/aragon/gov-ui-kit/pull/446) [`788134d`](https://github.com/aragon/gov-ui-kit/commit/788134d6f19c7fe88096684c60e4b91ea00c5a4d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Migrate library to Tailwind CSS v4
+
+    **Breaking**:
+
+    - Remove `rounded` class in favour of `rounded-md`
+    - Remove `guk` prefix on primitive CSS custom properties
+    - Implement `focus-ring-[variant]` utilities to be used instead of custom ring classes
+
+### Patch Changes
+
+- [#446](https://github.com/aragon/gov-ui-kit/pull/446) [`788134d`](https://github.com/aragon/gov-ui-kit/commit/788134d6f19c7fe88096684c60e4b91ea00c5a4d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Fix icon color of `<Button />` core component on ghost variant
+
+- [#492](https://github.com/aragon/gov-ui-kit/pull/492) [`8b35979`](https://github.com/aragon/gov-ui-kit/commit/8b35979d736f86a54847e026052f615793251e1a) Thanks [@evanaronson](https://github.com/evanaronson)! - Fix `<TextAreaRichText />` core component to format markdown text pasted from the clipboard
+
 ## 1.6.0
 
 ### Minor Changes
