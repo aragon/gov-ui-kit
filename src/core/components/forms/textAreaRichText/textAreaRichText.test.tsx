@@ -5,12 +5,6 @@ import { IconType } from '../../icon';
 import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
 
 describe('<TextAreaRichText /> component', () => {
-    // eslint-disable-next-line @typescript-eslint/no-extraneous-class
-    class MockEventClass {}
-
-    (global.ClipboardEvent as unknown) = MockEventClass;
-    (global.DragEvent as unknown) = MockEventClass;
-
     const createPortalMock = jest.spyOn(ReactDOM, 'createPortal');
 
     afterEach(() => {
@@ -53,7 +47,7 @@ describe('<TextAreaRichText /> component', () => {
     it('calls the onChange property on input change', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        await userEvent.type(await screen.findByRole('textbox'), 'test');
+        await userEvent.type(screen.getByRole('textbox'), 'test');
         // userEvent.type adds a new line character (\n\n) before tests causing the onChange callback
         // to be called with an empty paragraph before the typed text
         expect(onChange).toHaveBeenLastCalledWith('<p></p><p>test</p>');
@@ -65,6 +59,15 @@ describe('<TextAreaRichText /> component', () => {
         await userEvent.type(await screen.findByRole('textbox'), 'test');
         await userEvent.clear(screen.getByRole('textbox'));
         expect(onChange).toHaveBeenLastCalledWith('');
+    });
+
+    it('formats pasted markdown content', async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange }));
+        const event = { getData: (type: string) => (type === 'text/plain' ? '# Heading' : '') } as DataTransfer;
+        await userEvent.click(screen.getByRole('textbox'));
+        await userEvent.paste(event);
+        expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
     });
 
     it('renders the textarea as a React portal on expand action click', async () => {
