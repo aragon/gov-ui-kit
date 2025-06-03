@@ -22,8 +22,7 @@ const config: StorybookConfig = {
         const plugins = [nodePolyfills({ include: ['path', 'url'] }), svgr({ include: '**/*.svg' })];
         const resolve = { alias: { 'source-map-js': 'source-map' } };
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        const finalConfigs = mergeConfig(viteConfig, { plugins, resolve }) as Record<string, unknown>;
+        const finalConfigs = mergeConfig(viteConfig, { plugins, resolve });
 
         return finalConfigs;
     },
