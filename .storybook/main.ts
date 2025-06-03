@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import type { RollupOptions } from 'rollup';
 import { mergeConfig } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import svgr from 'vite-plugin-svgr';
@@ -21,8 +22,16 @@ const config: StorybookConfig = {
     viteFinal: (viteConfig) => {
         const plugins = [nodePolyfills({ include: ['path', 'url'] }), svgr({ include: '**/*.svg' })];
         const resolve = { alias: { 'source-map-js': 'source-map' } };
+        const rollupOptions: RollupOptions = {
+            onwarn(warning, warn) {
+                if (['MODULE_LEVEL_DIRECTIVE', 'INVALID_ANNOTATION'].includes(warning.code ?? '')) {
+                    return;
+                }
+                warn(warning);
+            },
+        };
 
-        const finalConfigs = mergeConfig(viteConfig, { plugins, resolve });
+        const finalConfigs = mergeConfig(viteConfig, { plugins, resolve, build: { rollupOptions } });
 
         return finalConfigs;
     },
