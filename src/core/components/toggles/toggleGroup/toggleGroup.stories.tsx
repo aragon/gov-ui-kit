@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Toggle } from '../toggle';
 import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';

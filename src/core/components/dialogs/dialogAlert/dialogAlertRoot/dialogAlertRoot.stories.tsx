@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DialogAlert } from '..';
 import { DialogAlertStoryComponent } from '../dialogAlertStoryComponent';
 import style from './index.css?raw';

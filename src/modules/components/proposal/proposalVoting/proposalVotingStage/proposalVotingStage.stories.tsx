@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DateTime } from 'luxon';
 import type { DecoratorFunction } from 'storybook/internal/types';
 import { Accordion } from '../../../../../core';

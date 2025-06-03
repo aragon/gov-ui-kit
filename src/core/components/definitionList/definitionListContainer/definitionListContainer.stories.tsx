@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DefinitionList, type IDefinitionListContainerProps } from '../index';
 
 const meta: Meta<typeof DefinitionList.Container> = {

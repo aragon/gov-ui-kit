@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Tabs } from '../../../../../core';
 import { ProposalVoting } from '../index';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';

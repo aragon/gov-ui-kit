@@ -71,7 +71,7 @@ export const DisplayComponent = ({ shadow, style }) => (
         }
 
         return (
-            <div className={`px-5 py-10 pt-5 ${variant === 'neutral' ? 'bg-neutral-50' : 'bg-neutral-0'}`}>
+            <div key={variant} className={`px-5 py-10 pt-5 ${variant === 'neutral' ? 'bg-neutral-50' : 'bg-neutral-0'}`}>
                 <div>
                     <p className="text-5xl/tight font-semibold capitalize">{variant}</p>
                     <p>
@@ -81,7 +81,7 @@ export const DisplayComponent = ({ shadow, style }) => (
                     <div className="flex gap-x-6">
                         <DisplayComponent style={{ backgroundColor: `var(--color-${variant}-600)` }} />
                         {shadows[variant].map((shadow) => (
-                            <DisplayComponent shadow={shadow} style={{ backgroundColor, color }} />
+                            <DisplayComponent key={shadow} shadow={shadow} style={{ backgroundColor, color }} />
                         ))}
                     </div>
                 </div>

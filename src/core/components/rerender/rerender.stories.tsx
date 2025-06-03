@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Rerender } from './rerender';
 
 const meta: Meta<typeof Rerender> = {

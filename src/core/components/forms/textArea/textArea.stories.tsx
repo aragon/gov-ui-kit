@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState, type ChangeEvent } from 'react';
 import { TextArea } from './textArea';
 

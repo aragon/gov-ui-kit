@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { CheckboxCard } from './checkboxCard';
 
 const meta: Meta<typeof CheckboxCard> = {
