@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Avatar } from '../../avatars';
 import { IconType } from '../../icon';

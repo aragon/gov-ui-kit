@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 import { Dropdown, type IDropdownContainerProps } from '../index';
 import style from './index.css?raw';

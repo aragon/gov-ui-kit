@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-webpack5';
 import '../index.css';
 import { GukModulesProvider } from '../src/modules';
 import { DocsPage } from './components';

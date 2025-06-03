@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { InputDate } from './inputDate';
 
 const meta: Meta<typeof InputDate> = {

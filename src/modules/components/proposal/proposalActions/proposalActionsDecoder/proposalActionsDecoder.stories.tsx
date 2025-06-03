@@ -1,5 +1,5 @@
 import { DevTool } from '@hookform/devtools';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { FormProvider, useForm } from 'react-hook-form';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsDecoder } from './proposalActionsDecoder';

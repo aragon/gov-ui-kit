@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionChangeMembers } from './proposalActionChangeMembers';
 import { generateProposalActionChangeMembers } from './proposalActionChangeMembers.testUtils';
