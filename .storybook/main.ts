@@ -1,40 +1,15 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
-import type { RuleSetRule } from 'webpack';
+import type { StorybookConfig } from '@storybook/react-vite';
+import type { RollupOptions } from 'rollup';
+import { mergeConfig } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import svgr from 'vite-plugin-svgr';
 
 const config: StorybookConfig = {
     stories: ['../docs/**/*.@(md|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.@(md|mdx)'],
 
-    addons: [
-        '@storybook/addon-links',
-        '@storybook/addon-essentials',
-        {
-            name: '@storybook/addon-styling-webpack',
-            options: {
-                rules: [
-                    // Replaces existing CSS rules to support PostCSS
-                    {
-                        test: /\.css$/,
-                        use: [
-                            'style-loader',
-                            {
-                                loader: 'css-loader',
-                                options: { importLoaders: 1 },
-                            },
-                            {
-                                // Gets options from `postcss.config.js`
-                                loader: 'postcss-loader',
-                                options: { implementation: require.resolve('postcss') },
-                            },
-                        ],
-                    },
-                ],
-            },
-        },
-        '@storybook/addon-webpack5-compiler-babel',
-    ],
-
     framework: {
-        name: '@storybook/react-webpack5',
+        name: '@storybook/react-vite',
         options: {},
     },
 
@@ -43,41 +18,32 @@ const config: StorybookConfig = {
         reactDocgen: 'react-docgen-typescript',
     },
 
-    webpackFinal: (webpackConfig) => {
-        // Remove any svg loader already set and use @svgr/webpack to load svgs on Storybook
-        const svgWebpackRule = webpackConfig.module?.rules?.find((rule) => {
-            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule).test instanceof RegExp) {
-                const testRegExp = (rule as RuleSetRule).test as RegExp;
-                return testRegExp.test('.svg');
-            }
+    addons: ['@storybook/addon-docs'],
 
-            return undefined;
-        });
+    viteFinal: (viteConfig) => {
+        // Add polyfills for path, url and source-map-js node modules and plugin for importing svg files
+        const plugins = [
+            nodePolyfills({ include: ['path', 'url'] }),
+            svgr({ include: '**/*.svg' }),
+            viteStaticCopy({ targets: [{ src: './src/theme/fonts/*.ttf', dest: './fonts' }] }),
+        ];
+        const resolve = { alias: { 'source-map-js': 'source-map' } };
 
-        if (typeof svgWebpackRule !== 'string') {
-            (svgWebpackRule as RuleSetRule).exclude = /\.svg$/;
-        }
+        const rollupOptions: RollupOptions = {
+            // Externalize font assets (see https://github.com/storybookjs/storybook/pull/27110)
+            external: [/.*\.ttf/],
+            // Silence "use client" directive and "/* PURE */" comment warnings during Storybook build
+            onwarn: (warning, warn) => {
+                if (['MODULE_LEVEL_DIRECTIVE', 'INVALID_ANNOTATION'].includes(warning.code ?? '')) {
+                    return;
+                }
+                warn(warning);
+            },
+        };
 
-        webpackConfig.module?.rules?.push({
-            test: /\.svg$/,
-            use: ['@svgr/webpack'],
-        });
+        const finalConfigs = mergeConfig(viteConfig, { plugins, resolve, build: { rollupOptions } });
 
-        // Retrieve and update css rule to support raw imports of CSS files using "?raw"
-        const cssRule = webpackConfig.module?.rules?.find((rule) => {
-            if (rule != null && typeof rule !== 'string' && (rule as RuleSetRule).test instanceof RegExp) {
-                const testRegExp = (rule as RuleSetRule).test as RegExp;
-                return testRegExp.test('.css');
-            }
-
-            return undefined;
-        });
-
-        if (cssRule) {
-            (cssRule as RuleSetRule).resourceQuery = { not: [/raw/] };
-        }
-
-        return webpackConfig;
+        return finalConfigs;
     },
 };
 
