@@ -22,19 +22,3 @@
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 }
-
-@font-face {
-  font-family: "Manrope";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./src/theme/fonts/Manrope-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Manrope";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./src/theme/fonts/Manrope-SemiBold.ttf") format("truetype");
-}

@@ -25,6 +25,8 @@ const config: StorybookConfig = {
         const resolve = { alias: { 'source-map-js': 'source-map' } };
 
         const rollupOptions: RollupOptions = {
+            // Externalize font assets (see https://github.com/storybookjs/storybook/pull/27110)
+            external: [/.*\.ttf/],
             // Silence "use client" directive and "/* PURE */" comment warnings during Storybook build
             onwarn: (warning, warn) => {
                 if (['MODULE_LEVEL_DIRECTIVE', 'INVALID_ANNOTATION'].includes(warning.code ?? '')) {
