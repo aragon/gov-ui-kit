@@ -19,6 +19,8 @@ const config: StorybookConfig = {
 
     addons: ['@storybook/addon-docs'],
 
+    staticDirs: ['../src/theme/fonts'],
+
     viteFinal: (viteConfig) => {
         // Add polyfills for path, url and source-map-js node modules and plugin for importing svg files
         const plugins = [nodePolyfills({ include: ['path', 'url'] }), svgr({ include: '**/*.svg' })];
