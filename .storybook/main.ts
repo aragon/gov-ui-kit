@@ -20,9 +20,12 @@ const config: StorybookConfig = {
     addons: ['@storybook/addon-docs'],
 
     viteFinal: (viteConfig) => {
+        // Add polyfills for path, url and source-map-js node modules and plugin for importing svg files
         const plugins = [nodePolyfills({ include: ['path', 'url'] }), svgr({ include: '**/*.svg' })];
         const resolve = { alias: { 'source-map-js': 'source-map' } };
+
         const rollupOptions: RollupOptions = {
+            external: [/.*\.ttf/],
             onwarn(warning, warn) {
                 if (['MODULE_LEVEL_DIRECTIVE', 'INVALID_ANNOTATION'].includes(warning.code ?? '')) {
                     return;
