@@ -25,8 +25,8 @@ const config: StorybookConfig = {
         const resolve = { alias: { 'source-map-js': 'source-map' } };
 
         const rollupOptions: RollupOptions = {
-            external: [/.*\.ttf/],
-            onwarn(warning, warn) {
+            // Silence "use client" directive and "/* PURE */" comment warnings during Storybook build
+            onwarn: (warning, warn) => {
                 if (['MODULE_LEVEL_DIRECTIVE', 'INVALID_ANNOTATION'].includes(warning.code ?? '')) {
                     return;
                 }

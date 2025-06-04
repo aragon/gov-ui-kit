@@ -28,7 +28,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../../fonts/Manrope-Regular.ttf") format("truetype");
+  src: url("./src/theme/fonts/Manrope-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -36,5 +36,5 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("../../fonts/Manrope-SemiBold.ttf") format("truetype");
+  src: url("./src/theme/fonts/Manrope-SemiBold.ttf") format("truetype");
 }
