@@ -52,6 +52,14 @@ const preview: Preview = {
     ],
 
     tags: ['autodocs'],
+
+    // Needed to fix warning on HMR reload (see https://github.com/storybookjs/storybook-addon-pseudo-states/issues/59)
+    globalTypes: {
+        measureEnabled: {},
+        backgrounds: {},
+        outline: {},
+        viewport: {},
+    },
 };
 
 export default preview;
