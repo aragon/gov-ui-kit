@@ -44,7 +44,8 @@ describe('<Collapsible /> component', () => {
 
     it('computes collapsed height based on collapsedLines', () => {
         const children = 'Default Children';
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue({ lineHeight: '20px' } as any);
+        const mockStyles = { lineHeight: '20px' } as unknown as CSSStyleDeclaration;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
         render(createTestComponent({ children, collapsedLines: 3, collapsedSize: 'lg', customCollapsedHeight: 300 }));
 
         const content = screen.getByText('Default Children');
