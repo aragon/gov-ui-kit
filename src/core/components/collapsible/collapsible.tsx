@@ -14,6 +14,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const {
         collapsedSize = 'md',
         customCollapsedHeight,
+        collapsedLines,
         isOpen: isOpenProp,
         defaultOpen = false,
         buttonLabelOpened,
@@ -32,7 +33,8 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const isOpen = isOpenProp ?? isOpenState;
 
     const contentRef = useRef<HTMLDivElement>(null);
-    const maxCollapsedHeight = customCollapsedHeight ?? sizedCollapsedHeights[collapsedSize];
+    const fallbackCollapsedHeight = customCollapsedHeight ?? sizedCollapsedHeights[collapsedSize];
+    const [collapsedHeight, setCollapsedHeight] = useState(fallbackCollapsedHeight);
 
     const toggle = useCallback(() => {
         setIsOpenState(!isOpen);
@@ -42,16 +44,29 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     useEffect(() => {
         const content = contentRef.current;
 
+        const calculateCollapsedHeight = () => {
+            if (collapsedLines && content) {
+                const lineHeight = parseFloat(window.getComputedStyle(content).lineHeight);
+                if (!Number.isNaN(lineHeight)) {
+                    return lineHeight * collapsedLines;
+                }
+            }
+            return customCollapsedHeight ?? sizedCollapsedHeights[collapsedSize];
+        };
+
         const checkOverflow = () => {
             if (!content) {
                 return;
             }
 
+            const currentCollapsedHeight = calculateCollapsedHeight();
+            setCollapsedHeight(currentCollapsedHeight);
+
             const contentHeight = content.scrollHeight;
-            const isContentOverflowing = contentHeight > maxCollapsedHeight;
+            const isContentOverflowing = contentHeight > currentCollapsedHeight;
 
             setIsOverflowing(isContentOverflowing);
-            setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
+            setMaxHeight(isContentOverflowing ? contentHeight : currentCollapsedHeight);
         };
 
         const observer = new ResizeObserver(() => checkOverflow());
@@ -65,9 +80,9 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         return () => {
             observer.disconnect();
         };
-    }, [maxCollapsedHeight]);
+    }, [collapsedSize, customCollapsedHeight, collapsedLines]);
 
-    const maxHeightProcessed = `${(isOpen ? maxHeight : maxCollapsedHeight).toString()}px`;
+    const maxHeightProcessed = `${(isOpen ? maxHeight : collapsedHeight).toString()}px`;
 
     const footerClassName = classNames(
         {

@@ -13,6 +13,11 @@ export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle
      */
     customCollapsedHeight?: number;
     /**
+     * Number of text lines to show while collapsed. Overrides
+     * `collapsedSize` and `customCollapsedHeight` when defined.
+     */
+    collapsedLines?: number;
+    /**
      * Controlled state of the collapsible container.
      * @default false
      */
