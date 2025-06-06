@@ -84,10 +84,9 @@ export const Progress: React.FC<IProgressProps> = (props) => {
                         { 'rounded-r-xl': processedValue === 100 },
                         variantToClassNames[variant],
                     )}
-                    style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
+                    style={{ width: `${processedValue.toString()}%` }}
                 />
             </RadixProgress.Root>
-
             {processedIndicator && (
                 <div
                     data-testid="progress-indicator"
