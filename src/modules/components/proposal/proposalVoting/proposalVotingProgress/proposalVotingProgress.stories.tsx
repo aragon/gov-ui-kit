@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProposalVotingProgress } from '../index';
 
 const meta: Meta<typeof ProposalVotingProgress.Item> = {

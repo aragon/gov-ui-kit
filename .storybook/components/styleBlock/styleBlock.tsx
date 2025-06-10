@@ -1,4 +1,4 @@
-import { Subheading, useOf } from '@storybook/blocks';
+import { Subheading, useOf } from '@storybook/addon-docs/blocks';
 
 export interface ICustomisationDoc {
     /**

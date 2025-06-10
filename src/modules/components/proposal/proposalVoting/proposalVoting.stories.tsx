@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DateTime } from 'luxon';
 import { useState } from 'react';
 import { Button, DataList, Progress, Tabs } from '../../../../core';
