@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
-import { act, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -103,7 +103,7 @@ describe('<AddressInput /> component', () => {
         const onChange = jest.fn();
         render(createTestComponent({ value, onChange }));
 
-        act(() => screen.getByRole('textbox').focus());
+        await userEvent.click(screen.getByRole('textbox'));
         const clearButton = screen.getByRole('button', { name: 'Clear' });
         expect(clearButton).toBeInTheDocument();
 
@@ -170,19 +170,19 @@ describe('<AddressInput /> component', () => {
         expect(onChange).toHaveBeenCalledWith(addressValue);
     });
 
-    it('displays a truncated address when address is valid and input is not focused', () => {
+    it('displays a truncated address when address is valid and input is not focused', async () => {
         const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue('0xeefB…251d')).toBeInTheDocument();
-        act(() => screen.getByRole('textbox').focus());
+        await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
 
-    it('displays a truncated ENS name when ENS is valid and input is not focused', () => {
+    it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
         const value = 'longensname.eth';
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
-        act(() => screen.getByRole('textbox').focus());
+        await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
 
