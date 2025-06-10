@@ -20,8 +20,8 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
         render(createTestComponent({ date, status }));
 
-        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
-        expect(screen.getByText(formattedDate)).toBeInTheDocument();
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
+        expect(screen.getByText(`${formattedDate} ago`)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[status])).toBeInTheDocument();
         expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
     });
@@ -43,9 +43,9 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
         render(createTestComponent({ date, status }));
 
-        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
         expect(screen.getByText(modulesCopy.proposalDataListItemStatus.statusLabel[status])).toBeInTheDocument();
-        expect(screen.queryByText(formattedDate)).not.toBeInTheDocument();
+        expect(screen.queryByText(`${formattedDate} ago`)).not.toBeInTheDocument();
         expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 
@@ -54,8 +54,8 @@ describe('<ProposalDataListItemStatus /> component', () => {
         const date = 1719563030308;
         render(createTestComponent({ date, status, voted: false }));
 
-        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.RELATIVE })!;
-        expect(screen.getByText(formattedDate)).toBeInTheDocument();
+        const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
+        expect(screen.getByText(`${formattedDate} ago`)).toBeInTheDocument();
         expect(screen.getByTestId('statePingAnimation')).toBeInTheDocument();
     });
 
