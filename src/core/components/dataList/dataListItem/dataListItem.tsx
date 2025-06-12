@@ -1,9 +1,12 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, useContext } from 'react';
+import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes, useContext } from 'react';
 import { LinkBase } from '../../link';
 import { dataListContext } from '../dataListContext';
 
-export type IDataListItemProps = ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>;
+export type IDataListItemProps =
+    | ButtonHTMLAttributes<HTMLButtonElement>
+    | AnchorHTMLAttributes<HTMLAnchorElement>
+    | HTMLAttributes<HTMLDivElement>;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
@@ -33,11 +36,15 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         tabIndex: isSkeletonElement ? -1 : 0,
     };
 
-    if (!isLinkElement) {
+    if (isLinkElement) {
+        return <LinkBase {...commonProps} {...otherProps} />;
+    }
+
+    if (isInteractiveElement) {
         const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
 
         return <button type={type} {...commonProps} {...buttonProps} />;
     }
 
-    return <LinkBase {...commonProps} {...otherProps} />;
+    return <div {...commonProps} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;
 };

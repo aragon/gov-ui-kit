@@ -58,9 +58,22 @@ describe('<DataList.Item /> component', () => {
         expect(button.classList).toContain('cursor-pointer');
     });
 
-    it('renders the item as a non interactive button when both onClick and href property are not set', () => {
-        const props = { onClick: undefined, href: undefined };
+    it('renders the item as a non interactive div when both onClick and href property are not set', () => {
+        const props = { children: 'test-data-list-item', onClick: undefined, href: undefined };
         render(createTestComponent({ props }));
-        expect(screen.getByRole('button').classList).not.toContain('cursor-pointer');
+        const button = screen.queryByRole('button', { name: props.children });
+        const link = screen.queryByRole('link', { name: props.children });
+        const text = screen.getByText(props.children);
+        expect(button).not.toBeInTheDocument();
+        expect(link).not.toBeInTheDocument();
+        expect(text).toBeInTheDocument();
+    });
+
+    it('renders the item as an interactive button when onClick property is set', () => {
+        const props = { children: 'test-data-list-item', onClick: jest.fn() };
+        render(createTestComponent({ props }));
+        const button = screen.getByRole('button', { name: props.children });
+        expect(button).toBeInTheDocument();
+        expect(button.classList).toContain('cursor-pointer');
     });
 });

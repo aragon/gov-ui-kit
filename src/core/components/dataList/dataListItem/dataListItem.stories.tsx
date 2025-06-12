@@ -20,7 +20,7 @@ type Story = StoryObj<typeof DataList.Item>;
 export const Default: Story = {
     args: {
         children: 'Data list item',
-        className: 'min-h-12',
+        className: 'flex items-center min-h-12',
     },
 };
 

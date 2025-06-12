@@ -22,7 +22,6 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         wagmiConfig: config,
         id,
         className,
-        type,
         date,
         tag,
         publisher,
