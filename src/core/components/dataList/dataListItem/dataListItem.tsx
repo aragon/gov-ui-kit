@@ -1,7 +1,6 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes, useContext } from 'react';
+import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
-import { dataListContext } from '../dataListContext';
 
 export type IDataListItemProps =
     | ButtonHTMLAttributes<HTMLButtonElement>
@@ -11,15 +10,8 @@ export type IDataListItemProps =
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
 
-    // Use the dataListContext directly to support usage of DataListItem component outside the DataListContextProvider.
-    const { state, childrenItemCount } = useContext(dataListContext) ?? {};
-
-    // The DataListElement is a skeleton element on initial loading or loading state when no items are being
-    // rendered (e.g. after a reset filters action)
-    const isSkeletonElement = state === 'initialLoading' || (state === 'loading' && childrenItemCount === 0);
-
     const isLinkElement = 'href' in otherProps && otherProps.href != null && otherProps.href !== '';
-    const isInteractiveElement = !isSkeletonElement && (isLinkElement || props.onClick != null);
+    const isInteractiveElement = isLinkElement || props.onClick != null;
 
     const actionItemClasses = classNames(
         'w-full rounded-xl border border-neutral-100 bg-neutral-0 px-4 text-left shadow-neutral-sm transition-all', // Default
@@ -30,21 +22,15 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         className,
     );
 
-    const commonProps = {
-        className: actionItemClasses,
-        'aria-hidden': isSkeletonElement,
-        tabIndex: isSkeletonElement ? -1 : 0,
-    };
-
     if (isLinkElement) {
-        return <LinkBase {...commonProps} {...otherProps} />;
+        return <LinkBase className={actionItemClasses} {...otherProps} />;
     }
 
     if (isInteractiveElement) {
         const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
 
-        return <button type={type} {...commonProps} {...buttonProps} />;
+        return <button type={type} className={actionItemClasses} {...buttonProps} />;
     }
 
-    return <div {...commonProps} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;
+    return <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;
 };

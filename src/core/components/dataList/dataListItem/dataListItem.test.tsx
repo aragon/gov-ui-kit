@@ -31,20 +31,6 @@ describe('<DataList.Item /> component', () => {
         expect(link.classList).toContain('cursor-pointer');
     });
 
-    it('marks the item as hidden when the data list is on initialLoading state', () => {
-        const context = { state: 'initialLoading' as const };
-        const props = { href: '/test' };
-        render(createTestComponent({ context, props }));
-        expect(screen.queryByRole('link')).not.toBeInTheDocument();
-    });
-
-    it('marks the item as hidden when the data list is on loading state with no elements being currently rendered', () => {
-        const context = { state: 'loading' as const, childrenItemCount: 0 };
-        const props = { href: '/test' };
-        render(createTestComponent({ context, props }));
-        expect(screen.queryByRole('link')).not.toBeInTheDocument();
-    });
-
     it('does not throw error when not placed inside the DataListContextProvider', () => {
         const context = null;
         expect(() => render(createTestComponent({ context }))).not.toThrow();
