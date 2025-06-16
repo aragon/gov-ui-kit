@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemberDataListItemStructure } from './memberDataListItemStructure';
 
 const meta: Meta<typeof MemberDataListItemStructure> = {

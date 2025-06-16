@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { VoteProposalDataListItem } from '..';
 
 const meta: Meta<typeof VoteProposalDataListItem.Structure> = {

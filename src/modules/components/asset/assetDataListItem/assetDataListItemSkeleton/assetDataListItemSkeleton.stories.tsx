@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AssetDataListItem } from '../../assetDataListItem';
 
 const meta: Meta<typeof AssetDataListItem.Skeleton> = {

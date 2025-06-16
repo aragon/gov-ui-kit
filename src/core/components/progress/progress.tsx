@@ -83,8 +83,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
         >
             <RadixProgress.Indicator
                 className={classNames(
-                    `h-full rounded-l-xl transition-[border-radius,width] duration-500 ease-in-out`,
-                    { 'rounded-r-xl': processedValue === 100 },
+                    `h-full transition-[transform] duration-500 ease-in-out`,
                     variantToClassNames[variant],
                 )}
                 style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
