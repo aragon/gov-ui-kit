@@ -80,11 +80,10 @@ export const Progress: React.FC<IProgressProps> = (props) => {
             >
                 <RadixProgress.Indicator
                     className={classNames(
-                        `h-full rounded-l-xl transition-[border-radius,width] duration-500 ease-in-out`,
-                        { 'rounded-r-xl': processedValue === 100 },
+                        `h-full transition-[transform] duration-500 ease-in-out`,
                         variantToClassNames[variant],
                     )}
-                    style={{ width: `${processedValue.toString()}%` }}
+                    style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
                 />
             </RadixProgress.Root>
             {processedIndicator && (
@@ -92,10 +91,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
                     data-testid="progress-indicator"
                     data-value={processedIndicator}
                     className={classNames('absolute flex self-center', indicatorSizeClassNames)}
-                    style={{
-                        left: `${processedIndicator.toString()}%`,
-                        transform: 'translateX(-50%)',
-                    }}
+                    style={{ left: `${processedIndicator.toString()}%`, transform: 'translateX(-50%)' }}
                 >
                     <div className="h-full w-0.5 bg-neutral-50" />
                     <div className="h-full w-0.5 rounded-full bg-neutral-400" />

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DaoDataListItem } from '../../daoDataListItem';
 
 const meta: Meta<typeof DaoDataListItem.Skeleton> = {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ProposalActionType } from '../../proposalActionsDefinitions';
 import { ProposalActionUpdateMetadata } from './proposalActionUpdateMetadata';
 import { generateProposalActionUpdateMetadata } from './proposalActionUpdateMetadata.testUtils';
