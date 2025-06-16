@@ -1,5 +1,5 @@
 ---
-'@aragon/gov-ui-kit': minor
+'@aragon/gov-ui-kit': patch
 ---
 
-Fix clipping of indicator mark on 'Progress' component
+Fix rendering of threshold indicator on `Progress` core component
