@@ -46,7 +46,7 @@ jobs:
             const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
             readChangelog({ github, context, core });
       - name: Create release
-        uses: softprops/action-gh-release@v2.2.2
+        uses: softprops/action-gh-release@v2.3.2
         with:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"
