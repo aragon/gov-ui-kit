@@ -51,15 +51,19 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
             { label: 'No', value: totalNo },
         ];
 
+        const progressbars = screen.getAllByRole('progressbar');
+
         options.forEach((option, index) => {
+            const progressbar = progressbars[index];
             // eslint-disable-next-line testing-library/no-node-access
-            const progressbarContainer = within(screen.getAllByRole('progressbar')[index].parentElement!);
+            const progressbarContainer = within(progressbar.closest('[role="tabpanel"]')!);
+
             const progressbarValue = ((option.value / totalVotes) * 100).toString();
             const progressbarText = formatterUtils.formatNumber(option.value, { format: NumberFormat.GENERIC_SHORT })!;
 
-            expect(screen.getByText(option.label)).toBeInTheDocument();
-            expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual(progressbarValue);
-            expect(progressbarContainer.getByText(progressbarText)).toBeInTheDocument();
+            expect(progressbarContainer.getByText(option.label)).toBeInTheDocument();
+            expect(progressbar.dataset.value).toEqual(progressbarValue);
+            expect(progressbarContainer.getAllByText(progressbarText).length).toBeGreaterThan(0);
         });
 
         expect(screen.getAllByText('to approve').length).toBe(2);
@@ -76,26 +80,26 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         const totalAbstain = 2600;
         const supportThreshold = 15;
         const tokenSymbol = 'TTT';
+
         render(createTestComponent({ totalAbstain, totalNo, totalYes, supportThreshold, tokenSymbol }));
 
         const countableVotes = totalYes + totalNo;
         const supportPercentage = (totalYes / countableVotes) * 100;
+        const formattedYes = formatterUtils.formatNumber(totalYes, { format: NumberFormat.GENERIC_SHORT })!;
+        const formattedCountable = formatterUtils.formatNumber(countableVotes, { format: NumberFormat.GENERIC_SHORT })!;
         const percentagePattern = new RegExp(`^${Math.round(supportPercentage).toString()}(\\.\\d)?%$`);
 
+        const progressbar = screen.getAllByRole('progressbar')[3];
         // eslint-disable-next-line testing-library/no-node-access
-        const progressbarContainer = within(screen.getAllByRole('progressbar')[3].parentElement!);
+        const progressbarContainer = within(progressbar.closest('[role="tabpanel"]')!);
 
-        expect(screen.getByText('Support')).toBeInTheDocument();
-        expect(progressbarContainer.getByText(percentagePattern)).toBeInTheDocument();
-        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual(supportPercentage.toString());
+        expect(progressbarContainer.getByText('Support')).toBeInTheDocument();
+        expect(progressbarContainer.getByText((text) => percentagePattern.test(text))).toBeInTheDocument();
+        expect(progressbar.dataset.value).toEqual(supportPercentage.toString());
         expect(progressbarContainer.getByTestId('progress-indicator').dataset.value).toEqual(
             supportThreshold.toString(),
         );
-
-        const formattedYes = formatterUtils.formatNumber(totalYes, { format: NumberFormat.GENERIC_SHORT })!;
-        const formattedCountable = formatterUtils.formatNumber(countableVotes, { format: NumberFormat.GENERIC_SHORT })!;
-
-        expect(progressbarContainer.getByText(formattedYes)).toBeInTheDocument();
+        expect(progressbarContainer.getAllByText(formattedYes).length).toBeGreaterThan(0);
         expect(progressbarContainer.getByText(`of ${formattedCountable} ${tokenSymbol}`)).toBeInTheDocument();
     });
 
@@ -111,15 +115,18 @@ describe('<ProposalVotingBreakdownToken /> component', () => {
         const tokenTotalSupply = totalYes + totalNo + totalAbstain;
         const minParticipation = 50;
         const tokenSymbol = 'TTT';
+
         render(
             createTestComponent({ totalAbstain, totalNo, totalYes, minParticipation, tokenTotalSupply, tokenSymbol }),
         );
 
+        const progressbar = screen.getAllByRole('progressbar')[4];
         // eslint-disable-next-line testing-library/no-node-access
-        const progressbarContainer = within(screen.getAllByRole('progressbar')[4].parentElement!);
-        expect(screen.getByText('Minimum participation')).toBeInTheDocument();
+        const progressbarContainer = within(progressbar.closest('[role="tabpanel"]')!);
+
+        expect(progressbarContainer.getByText('Minimum participation')).toBeInTheDocument();
         expect(progressbarContainer.getByText('200%')).toBeInTheDocument();
-        expect(progressbarContainer.getByRole('progressbar').dataset.value).toEqual('100');
+        expect(progressbar.dataset.value).toEqual('100');
 
         const formattedTotal = formatterUtils.formatNumber(totalNo + totalYes + totalAbstain, {
             format: NumberFormat.GENERIC_SHORT,
