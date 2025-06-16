@@ -25,12 +25,12 @@ const responsiveSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
 
 const responsiveIndicatorSizeClassNames: ResponsiveAttributeClassMap<ProgressSize> = {
     sm: {
-        default: 'h-2 -top-1/2',
-        sm: 'sm:h-2 sm:-top-1/2',
-        md: 'md:h-2 md:-top-1/2',
-        lg: 'lg:h-2 lg:-top-1/2',
-        xl: 'xl:h-2 xl:-top-1/2',
-        '2xl': '2xl:h-2 2xl:-top-1/2',
+        default: 'h-3 -top-1',
+        sm: 'sm:h-3 sm:-top-1',
+        md: 'md:h-3 md:-top-1',
+        lg: 'lg:h-3 lg:-top-1',
+        xl: 'xl:h-3 xl:-top-1',
+        '2xl': '2xl:h-3 2xl:-top-1',
     },
     md: {
         default: 'h-4 -top-1',
@@ -86,16 +86,17 @@ export const Progress: React.FC<IProgressProps> = (props) => {
                     style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
                 />
             </RadixProgress.Root>
-            {processedIndicator && (
+            {processedIndicator != null && (
                 <div
                     data-testid="progress-indicator"
                     data-value={processedIndicator}
-                    className={classNames('absolute flex self-center', indicatorSizeClassNames)}
+                    className={classNames(
+                        'border-neutral-0 absolute flex self-center border-2',
+                        indicatorSizeClassNames,
+                    )}
                     style={{ left: `${processedIndicator.toString()}%`, transform: 'translateX(-50%)' }}
                 >
-                    <div className="h-full w-0.5 bg-neutral-50" />
                     <div className="h-full w-0.5 rounded-full bg-neutral-400" />
-                    <div className="h-full w-0.5 bg-neutral-50" />
                 </div>
             )}
         </div>
