@@ -48,9 +48,7 @@ describe('<TextAreaRichText /> component', () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
         await userEvent.type(screen.getByRole('textbox'), 'test');
-        // userEvent.type adds a new line character (\n\n) before tests causing the onChange callback
-        // to be called with an empty paragraph before the typed text
-        expect(onChange).toHaveBeenLastCalledWith('<p></p><p>test</p>');
+        expect(onChange).toHaveBeenLastCalledWith('<p>test</p>');
     });
 
     it('defaults to empty string instead of empty paragraph when input is empty', async () => {
