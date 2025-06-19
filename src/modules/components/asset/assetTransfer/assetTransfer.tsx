@@ -65,8 +65,7 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     const assetUrl = isNativeTransfer ? undefined : buildEntityUrl({ type: ChainEntityType.TOKEN, id: assetAddress });
 
     const formattedTokenValue = formatterUtils.formatNumber(assetAmount, {
-        format: NumberFormat.TOKEN_AMOUNT_SHORT,
-        withSign: true,
+        format: NumberFormat.TOKEN_AMOUNT_LONG,
         fallback: '-',
     })!;
     const formattedTokenAmount = `${formattedTokenValue} ${assetSymbol}`;
