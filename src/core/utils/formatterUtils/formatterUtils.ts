@@ -53,7 +53,7 @@ class FormatterUtils {
             isCurrency,
             isPercentage,
             withSign,
-            fallback = null,
+            fallback,
             displayFallback,
         } = mergedOptions;
 
@@ -62,7 +62,7 @@ class FormatterUtils {
         const fallbackValue = this.getDynamicOption(parsedValue, fallback);
 
         if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
-            return fallbackValue;
+            return fallbackValue ?? null;
         }
 
         let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
