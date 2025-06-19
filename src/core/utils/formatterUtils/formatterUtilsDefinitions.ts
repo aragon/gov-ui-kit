@@ -39,9 +39,10 @@ export interface INumberFormat {
      */
     withSign?: boolean;
     /**
-     * Fallback to display in case the value is null.
+     * Fallback to display in case the value is null. Can be a string or a
+     * function returning a string based on the current value.
      */
-    fallback?: string;
+    fallback?: DynamicOption<number, string>;
     /**
      * Displays the specified fallback when this function returns true, by default the formatter will display
      * the fallback when the value is NaN.
@@ -84,7 +85,9 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         useBaseSymbol: true,
     },
     [NumberFormat.TOKEN_AMOUNT_LONG]: {
-        maxFractionDigits: 18,
+        maxFractionDigits: 6,
+        fallback: (value) => (value < 0 ? '-<0.000001' : '<0.000001'),
+        displayFallback: (value) => Math.abs(value) < 0.000001 && value !== 0,
     },
     [NumberFormat.TOKEN_PRICE]: {
         fixedFractionDigits: (value) => (Math.abs(value) >= 1 ? 2 : undefined),
