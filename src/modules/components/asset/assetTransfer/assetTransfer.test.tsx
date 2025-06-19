@@ -39,11 +39,11 @@ describe('<AssetTransfer /> component', () => {
         expect(screen.getByText('$1.00K')).toBeInTheDocument();
     });
 
-    it('renders the signed asset amount and symbol', () => {
+    it('renders the asset amount and symbol', () => {
         const assetSymbol = 'ETH';
         const assetAmount = 10;
         render(createTestComponent({ assetSymbol, assetAmount }));
-        expect(screen.getByText('+10 ETH')).toBeInTheDocument();
+        expect(screen.getByText('10 ETH')).toBeInTheDocument();
     });
 
     it('renders both avatar elements for the from and to addresses', () => {
