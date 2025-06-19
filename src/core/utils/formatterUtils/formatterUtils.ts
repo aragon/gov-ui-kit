@@ -59,8 +59,10 @@ class FormatterUtils {
 
         const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
 
+        const fallbackValue = this.getDynamicOption(parsedValue, fallback);
+
         if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
-            return fallback;
+            return fallbackValue;
         }
 
         let processedValue = isPercentage ? parsedValue * 100 : parsedValue;
