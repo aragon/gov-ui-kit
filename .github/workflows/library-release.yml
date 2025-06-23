@@ -18,6 +18,11 @@ jobs:
           GPG_PASSPHRASE: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/credential
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
+
+      - name: Setup
+        uses: aragon/gov-ui-kit/.github/actions/setup@main
+        with:
+          token: ${{ steps.load-secret.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6.3.0
         with:
@@ -25,10 +30,6 @@ jobs:
           passphrase: ${{ steps.load-secrets.outputs.GPG_PASSPHRASE }}
           git_user_signingkey: true
           git_commit_gpgsign: true
-      - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
-        with:
-          token: ${{ steps.load-secret.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Update version and changelog
         # Run prettier on CHANGELOG.md file (used for Github release notes) to remove automatic formatting applied by
         # changeset as Github does not support soft line breaks.
