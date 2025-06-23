@@ -1,5 +1,33 @@
 # @aragon/gov-ui-kit
 
+## 1.8.0
+
+### Minor Changes
+
+- [#495](https://github.com/aragon/gov-ui-kit/pull/495) [`40d2eb8`](https://github.com/aragon/gov-ui-kit/commit/40d2eb8675fdb57e3053e4bb1aa7483264e77cda) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#504](https://github.com/aragon/gov-ui-kit/pull/504) [`6dea2ef`](https://github.com/aragon/gov-ui-kit/commit/6dea2ef6a0ade5ee86c8cf21e3b260ed58f527a2) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update jest to v30
+
+- [#507](https://github.com/aragon/gov-ui-kit/pull/507) [`a3ca3bd`](https://github.com/aragon/gov-ui-kit/commit/a3ca3bd3f6a3836d20d6d2277907698644bdac97) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump softprops/action-gh-release to 2.3.2
+
+- [#493](https://github.com/aragon/gov-ui-kit/pull/493) [`a28f933`](https://github.com/aragon/gov-ui-kit/commit/a28f93305dd485e4f1fbf6536647c4165644c983) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update Storybook to v9
+
+- [#499](https://github.com/aragon/gov-ui-kit/pull/499) [`f79bc0d`](https://github.com/aragon/gov-ui-kit/commit/f79bc0d705be2878cd7234663143f7ce3d743d20) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#501](https://github.com/aragon/gov-ui-kit/pull/501) [`e9596f9`](https://github.com/aragon/gov-ui-kit/commit/e9596f99d1f165feb00d890c250b93e13f08b549) Thanks [@milosh86](https://github.com/milosh86)! - Update `DataListItem` component to wrap in `div` when non-interactive
+
+- [#505](https://github.com/aragon/gov-ui-kit/pull/505) [`db681e5`](https://github.com/aragon/gov-ui-kit/commit/db681e5d6663f36ac862456bdca442911f6dfe28) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#506](https://github.com/aragon/gov-ui-kit/pull/506) [`af6e520`](https://github.com/aragon/gov-ui-kit/commit/af6e52056559b72e76812b5754ec3a0ce7963e14) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump Vercel to 43.2.0
+
+### Patch Changes
+
+- [#509](https://github.com/aragon/gov-ui-kit/pull/509) [`2c31c85`](https://github.com/aragon/gov-ui-kit/commit/2c31c85c7f9f05abfd0c6272a2aec94620f1395a) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Update release workflow
+
+- [#502](https://github.com/aragon/gov-ui-kit/pull/502) [`cb04c79`](https://github.com/aragon/gov-ui-kit/commit/cb04c79e9b948127a2b6917b972da4deee900a7a) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix style of threshold indicator on `<Progress />` core component
+
+- [#497](https://github.com/aragon/gov-ui-kit/pull/497) [`3efaf5b`](https://github.com/aragon/gov-ui-kit/commit/3efaf5b29f0fb372ef2023cdd670c298686f9a7c) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix rendering of threshold indicator on `Progress` core component
+
 ## 1.7.0
 
 ### Minor Changes
