@@ -14,7 +14,7 @@ jobs:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/GITHUB_PAT
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
           NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main

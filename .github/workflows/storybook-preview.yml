@@ -29,7 +29,7 @@ jobs:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/GITHUB_PAT
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Comment preview PR
         uses: thollander/actions-comment-pull-request@v3.0.1
         with:

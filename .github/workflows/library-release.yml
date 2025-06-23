@@ -17,7 +17,8 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           GPG_PASSPHRASE: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/credential
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
-          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/GITHUB_PAT
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
+          
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6.3.0
         with:
