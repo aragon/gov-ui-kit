@@ -8,6 +8,14 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
+      - name: Load secrets from OP
+        id: op-load-secret
+        uses: 1password/load-secrets-action@v2.0.0
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
         with:
@@ -18,7 +26,7 @@ jobs:
         run: yarn build
       - name: Publish library
         run: |
-          yarn config set npmAuthToken ${{ secrets.NPM_TOKEN }}
+          yarn config set npmAuthToken ${{ steps.op-load-secret.outputs.NPM_TOKEN }}
           yarn npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ steps.op-load-secret.outputs.NPM_TOKEN }}
