@@ -7,12 +7,21 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Load secrets from OP
+        id: load-secrets
+        uses: 1password/load-secrets-action@v2.0.0
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
+          NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
         with:
           # Checkout full history to correclty check changeset status
           fetch-depth: 0
-          token: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+          token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Check changeset
         run: yarn changeset status --since origin/main
       - name: Build library
@@ -20,15 +29,15 @@ jobs:
       - name: Update version
         run: yarn changeset version --snapshot
         env:
-          GITHUB_TOKEN: ${{ secrets.ARABOT_PAT_TRIGGER_WORKFLOW }}
+          GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Publish snapshot
         run: |
-          yarn config set npmAuthToken ${{ secrets.NPM_TOKEN }}
+          yarn config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
           yarn npm publish --access public --tag ${{ steps.package-version.outputs.current-version }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
       - name: Print snapshot version
         run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }}"

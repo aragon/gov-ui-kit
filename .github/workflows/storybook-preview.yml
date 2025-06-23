@@ -22,9 +22,17 @@ jobs:
     permissions:
       pull-requests: write
     steps:
+      - name: Load secrets from OP
+        id: load-secrets
+        uses: 1password/load-secrets-action@v2.0.0
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Comment preview PR
         uses: thollander/actions-comment-pull-request@v3.0.1
         with:
           message: "🚀 **Preview Deployment:** [View Here](${{ needs.deploy.outputs.deploymentUrl }})"
           comment-tag: preview-url
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
