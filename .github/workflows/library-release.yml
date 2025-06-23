@@ -18,7 +18,6 @@ jobs:
           GPG_PASSPHRASE: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/credential
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
-
       - name: Setup
         uses: aragon/gov-ui-kit/.github/actions/setup@main
         with:
