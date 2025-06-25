@@ -8,11 +8,11 @@ import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, typ
 import {
     Button,
     Clipboard,
+    clipboardUtils,
     IconType,
     InputContainer,
-    Spinner,
-    clipboardUtils,
     mergeRefs,
+    Spinner,
     useDebouncedValue,
     useInputProps,
     type IInputComponentProps,
@@ -83,6 +83,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
 
+    const [hasChecksumError, setHasChecksumError] = useState(false);
+
     const { copy } = useGukModulesContext();
 
     const isDebouncedValueValidEns = ensUtils.isEnsName(debouncedValue);
@@ -148,6 +150,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             return;
         }
 
+        if (!debouncedValue || ensAddress) {
+            setHasChecksumError(false);
+        }
+
         const handleAccept = onAcceptRef.current;
 
         if (ensAddress) {
@@ -155,14 +161,27 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             const normalizedEns = normalize(debouncedValue);
             handleAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress) {
-            // User input is a valid address with or without a ENS name linked to it
-            const checksumAddress = addressUtils.getChecksum(debouncedValue);
-            handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
+            if (!addressUtils.isAddress(debouncedValue, { strict: true })) {
+                // User input is a valid address with or without a ENS name linked to it but doesn't pass checksum
+                setHasChecksumError(true);
+                handleAccept?.(undefined);
+            } else {
+                // Else we pass the checksum address as validated
+                handleAccept?.({ address: debouncedValue, name: ensName ?? undefined });
+                setHasChecksumError(false);
+            }
         } else {
             // User input is not a valid address nor ENS name
             handleAccept?.(undefined);
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading]);
+
+    if (hasChecksumError) {
+        containerProps.alert = {
+            variant: 'critical',
+            message: copy.addressInput.checksum,
+        };
+    }
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
