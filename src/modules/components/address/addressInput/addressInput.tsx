@@ -167,7 +167,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 handleAccept?.(undefined);
             } else {
                 // Else we pass the checksum address as validated
-                handleAccept?.({ address: debouncedValue, name: ensName ?? undefined });
+                const checksumAddress = addressUtils.getChecksum(debouncedValue);
+                handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
                 setHasChecksumError(false);
             }
         } else {
@@ -176,12 +177,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading]);
 
-    if (hasChecksumError) {
-        containerProps.alert = {
-            variant: 'critical',
-            message: copy.addressInput.checksum,
-        };
-    }
+    const alert = hasChecksumError
+        ? { message: copy.addressInput.checksum, variant: 'critical' as const }
+        : containerProps.alert;
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
@@ -227,7 +225,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
           : value;
 
     return (
-        <InputContainer {...containerProps}>
+        <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
                 {!isLoading && <MemberAvatar address={addressValue} chainId={chainId} wagmiConfig={wagmiConfig} />}

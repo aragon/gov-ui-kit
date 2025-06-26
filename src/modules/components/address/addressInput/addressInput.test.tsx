@@ -267,4 +267,18 @@ describe('<AddressInput /> component', () => {
         render(createTestComponent({ value }, queryClient));
         expect(queryClient.setQueryData).toHaveBeenCalledWith(['', { address: resolvedAddress }], value);
     });
+
+    it('displays a critical alert when address checksum is invalid', () => {
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        const isAddressMock = jest.spyOn(addressUtils, 'isAddress');
+        isAddressMock.mockImplementation((_, opts) => {
+            if (opts?.strict) {
+                return false;
+            }
+            return true;
+        });
+        render(createTestComponent({ value }));
+        expect(screen.getByRole('alert')).toHaveTextContent(/checksum/i);
+        isAddressMock.mockRestore();
+    });
 });
