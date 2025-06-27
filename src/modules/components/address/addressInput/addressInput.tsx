@@ -52,7 +52,8 @@ export interface IAddressInputProps
      */
     onAccept?: (value?: IAddressInputResolvedValue) => void;
     /**
-     * Require an address to pass EIP-55 checksum validation. @default true
+     * Require an address to pass EIP-55 checksum validation.
+     * @default true
      */
     enforceChecksum?: boolean;
 }
@@ -159,16 +160,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         setHasChecksumError(shouldShowError);
     }, [enforceChecksum, isDebouncedValueValidAddress, isLoading, isStrictAddress]);
 
-    /**
-     * Trigger onAccept callback when appropriate
-     * - Early return while loading
-     * - If empty → block accept
-     * - If ENS name → normalize and accept
-     * - If address:
-     *   • enforceChecksum is enabled and does not pass → block accept
-     *   • else → return checksum and accept
-     * - All other results → block accept
-     */
+    // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
     useEffect(() => {
         if (isLoading) {
             return;
