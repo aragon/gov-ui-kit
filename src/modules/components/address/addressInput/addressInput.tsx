@@ -51,6 +51,10 @@ export interface IAddressInputProps
      * valid address nor a valid ens name.
      */
     onAccept?: (value?: IAddressInputResolvedValue) => void;
+    /**
+     * Require an address to pass EIP-55 checksum validation. @default true
+     */
+    enforceChecksum?: boolean;
 }
 
 export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
@@ -58,6 +62,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         value = '',
         onChange,
         onAccept,
+        enforceChecksum = true,
         wagmiConfig: wagmiConfigProps,
         chainId = mainnet.id,
         ...otherProps
@@ -144,42 +149,74 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Trigger onChange property when value is a valid address or ENS
+    // Determine if the current input passes EIP-55 checksum
+    const isStrictAddress = addressUtils.isAddress(debouncedValue, { strict: true });
+
+    // Handle error state for checksum invalidation
+    useEffect(() => {
+        const shouldShowError = enforceChecksum && isDebouncedValueValidAddress && !isLoading && !isStrictAddress;
+
+        setHasChecksumError(shouldShowError);
+    }, [enforceChecksum, isDebouncedValueValidAddress, isLoading, isStrictAddress]);
+
+    /**
+     * Trigger onAccept callback when appropriate
+     * - Early return while loading
+     * - If empty → block accept
+     * - If ENS name → normalize and accept
+     * - If address:
+     *   • enforceChecksum is enabled and does not pass → block accept
+     *   • else → return checksum and accept
+     * - All other results → block accept
+     */
     useEffect(() => {
         if (isLoading) {
             return;
         }
 
-        if (!debouncedValue || ensAddress) {
-            setHasChecksumError(false);
-        }
-
         const handleAccept = onAcceptRef.current;
 
-        if (ensAddress) {
-            // User input is a valid ENS name
-            const normalizedEns = normalize(debouncedValue);
-            handleAccept?.({ address: ensAddress, name: normalizedEns });
-        } else if (isDebouncedValueValidAddress) {
-            if (!addressUtils.isAddress(debouncedValue, { strict: true })) {
-                // User input is a valid address with or without a ENS name linked to it but doesn't pass checksum
-                setHasChecksumError(true);
-                handleAccept?.(undefined);
-            } else {
-                // Else we pass the checksum address as validated
-                const checksumAddress = addressUtils.getChecksum(debouncedValue);
-                handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
-                setHasChecksumError(false);
-            }
-        } else {
-            // User input is not a valid address nor ENS name
+        if (!debouncedValue) {
             handleAccept?.(undefined);
+            return;
         }
-    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading]);
 
-    const alert = hasChecksumError
-        ? { message: copy.addressInput.checksum, variant: 'critical' as const }
-        : containerProps.alert;
+        if (ensAddress) {
+            handleAccept?.({
+                address: ensAddress,
+                name: normalize(debouncedValue),
+            });
+            return;
+        }
+
+        if (isDebouncedValueValidAddress) {
+            if (enforceChecksum && !isStrictAddress) {
+                handleAccept?.(undefined);
+                return;
+            }
+
+            handleAccept?.({
+                address: addressUtils.getChecksum(debouncedValue),
+                name: ensName ?? undefined,
+            });
+            return;
+        }
+
+        handleAccept?.(undefined);
+    }, [
+        ensAddress,
+        ensName,
+        debouncedValue,
+        isDebouncedValueValidAddress,
+        isLoading,
+        enforceChecksum,
+        isStrictAddress,
+    ]);
+
+    const alert =
+        enforceChecksum && hasChecksumError
+            ? { message: copy.addressInput.checksum, variant: 'critical' as const }
+            : containerProps.alert;
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
