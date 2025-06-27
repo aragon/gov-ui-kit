@@ -42,6 +42,16 @@ describe('<Collapsible /> component', () => {
         expect(content.style.maxHeight).toBe('150px');
     });
 
+    it('computes collapsed height based on collapsedLines', () => {
+        const children = 'Default Children';
+        const mockStyles = { lineHeight: '20px' } as unknown as CSSStyleDeclaration;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+        render(createTestComponent({ children, collapsedLines: 3, collapsedSize: 'lg', customCollapsedHeight: 300 }));
+
+        const content = screen.getByText('Default Children');
+        expect(content.style.maxHeight).toBe('60px');
+    });
+
     it('handles non-overflowing content correctly', () => {
         const children = 'Default Children';
         const customCollapsedHeight = 300;
