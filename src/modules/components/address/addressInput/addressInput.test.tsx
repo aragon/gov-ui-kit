@@ -19,11 +19,13 @@ describe('<AddressInput /> component', () => {
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
     const getChecksumMock = jest.spyOn(addressUtils, 'getChecksum');
+    const isAddressMock = jest.spyOn(addressUtils, 'isAddress');
 
     const useEnsAddressMock = jest.spyOn(wagmi, 'useEnsAddress');
     const useEnsNameMock = jest.spyOn(wagmi, 'useEnsName');
 
     beforeEach(() => {
+        isAddressMock.mockReturnValue(true);
         getChecksumMock.mockImplementation((value) => value as Address);
         useEnsAddressMock.mockReturnValue({
             data: undefined,
@@ -40,7 +42,8 @@ describe('<AddressInput /> component', () => {
     afterEach(() => {
         pasteMock.mockReset();
         copyMock.mockReset();
-
+        getChecksumMock.mockReset();
+        isAddressMock.mockReset();
         useEnsAddressMock.mockReset();
         useEnsNameMock.mockReset();
     });
@@ -64,6 +67,7 @@ describe('<AddressInput /> component', () => {
 
     it('initialises the input field using the value property', () => {
         const value = 'test.eth';
+        isAddressMock.mockReturnValue(false);
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
@@ -180,6 +184,7 @@ describe('<AddressInput /> component', () => {
 
     it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
         const value = 'longensname.eth';
+        isAddressMock.mockReturnValue(false);
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
         await userEvent.click(screen.getByRole('textbox'));
@@ -221,6 +226,7 @@ describe('<AddressInput /> component', () => {
 
     it('triggers the onAccept property with undefined when input is not a valid address nor ENS', () => {
         const value = 'test';
+        isAddressMock.mockReturnValue(false);
         const onAccept = jest.fn();
         useEnsAddressMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsAddressReturnType);
         render(createTestComponent({ value, onAccept }));
@@ -270,13 +276,7 @@ describe('<AddressInput /> component', () => {
 
     it('displays a critical alert when address checksum is invalid', () => {
         const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
-        const isAddressMock = jest.spyOn(addressUtils, 'isAddress');
-        isAddressMock.mockImplementation((_, opts) => {
-            if (opts?.strict) {
-                return false;
-            }
-            return true;
-        });
+        isAddressMock.mockImplementation((_, opts) => opts?.strict !== true);
         render(createTestComponent({ value }));
         expect(screen.getByRole('alert')).toHaveTextContent(/checksum/i);
         isAddressMock.mockRestore();

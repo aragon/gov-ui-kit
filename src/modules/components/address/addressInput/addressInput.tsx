@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
-import { isAddress, type Address } from 'viem';
+import { type Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
@@ -149,7 +149,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     };
 
     // Determine if the current input passes EIP-55 checksum
-    const isStrictAddress = isAddress(debouncedValue, { strict: true });
+    const isStrictAddress = addressUtils.isAddress(debouncedValue, { strict: true });
     const hasChecksumError = isDebouncedValueValidAddress && enforceChecksum && !isStrictAddress;
 
     // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
