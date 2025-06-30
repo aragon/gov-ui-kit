@@ -93,6 +93,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const isDebouncedValueValidEns = ensUtils.isEnsName(debouncedValue);
     const isDebouncedValueValidAddress = addressUtils.isAddress(debouncedValue);
+    const isDebouncedValueValidStrictAddress = addressUtils.isAddress(debouncedValue, { strict: true });
+
+    const hasChecksumError = enforceChecksum && isDebouncedValueValidAddress && !isDebouncedValueValidStrictAddress;
 
     const {
         data: ensAddress,
@@ -117,10 +120,24 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     });
 
     const displayMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
-
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
+    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        if (!enforceChecksum) {
+            onChange?.(event.target.value);
+        }
+
+        // Expose input value in checksum format when enforceChecksum property is set and value is a valid address. Note
+        // that the strict isAddress check returns false when the hex section of the address is all in uppercase.
+        const { value } = event.target;
+        const hexValue = value.slice(2);
+
+        const isValidAddress = addressUtils.isAddress(value, { strict: true });
+        const isValidUppercaseAddress = addressUtils.isAddress(value) && hexValue === hexValue.toUpperCase();
+
+        const processedValue = isValidAddress || isValidUppercaseAddress ? addressUtils.getChecksum(value) : value;
+        onChange?.(processedValue);
+    };
 
     const toggleDisplayMode = () => {
         const newInputValue = displayMode === 'address' ? ensName : ensAddress;
@@ -147,10 +164,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         setIsFocused(false);
         onBlur?.(event);
     };
-
-    // Determine if the current input passes EIP-55 checksum
-    const isStrictAddress = addressUtils.isAddress(debouncedValue, { strict: true });
-    const hasChecksumError = isDebouncedValueValidAddress && enforceChecksum && !isStrictAddress;
 
     // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
     useEffect(() => {
