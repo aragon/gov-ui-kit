@@ -81,6 +81,17 @@ describe('<AddressInput /> component', () => {
         expect(onChange).toHaveBeenCalledWith(input);
     });
 
+    it('calls the onChange prop with the address in checksum format when enforceChecksum prop is set to true', async () => {
+        const enforceChecksum = true;
+        const onChange = jest.fn();
+        const value = '0x9fc3da866e7df3a1c57ade1a97c9f00a70f010c';
+        getChecksumMock.mockReturnValue('0x9FC3da866e7DF3a1c57adE1a97c9f00a70f010c8');
+        render(createTestComponent({ value, enforceChecksum, onChange }));
+        await userEvent.type(screen.getByRole('textbox'), '8');
+        expect(getChecksumMock).toHaveBeenCalledWith(`${value}8`);
+        expect(onChange).toHaveBeenLastCalledWith('0x9FC3da866e7DF3a1c57adE1a97c9f00a70f010c8');
+    });
+
     it('renders a paste button to read and paste the user clipboard into the input field', async () => {
         const user = userEvent.setup();
         const userClipboard = 'vitalik.eth';
