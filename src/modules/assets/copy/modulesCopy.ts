@@ -7,6 +7,7 @@ export const modulesCopy = {
     addressInput: {
         clear: 'Clear',
         paste: 'Paste',
+        checksum: 'Invalid checksum',
     },
     assetDataListItemStructure: {
         unknown: 'Unknown',
