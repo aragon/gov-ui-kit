@@ -163,5 +163,5 @@
     "./index.css": "./index.css",
     "./build.css": "./build.css"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.2"
 }
