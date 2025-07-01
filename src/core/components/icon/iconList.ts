@@ -46,6 +46,7 @@ import RadioSelected from '../../assets/icons/radio-selected.svg';
 import Radio from '../../assets/icons/radio.svg';
 import Reload from '../../assets/icons/reload.svg';
 import Remove from '../../assets/icons/remove.svg';
+import Rewards from '../../assets/icons/rewards.svg';
 import RichtextBold from '../../assets/icons/richtext-bold.svg';
 import RichtextHeading from '../../assets/icons/richtext-heading.svg';
 import RichtextItalic from '../../assets/icons/richtext-italic.svg';
@@ -114,6 +115,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.RADIO_SELECTED]: RadioSelected,
     [IconType.RELOAD]: Reload,
     [IconType.REMOVE]: Remove,
+    [IconType.REWARDS]: Rewards,
     [IconType.RICHTEXT_BOLD]: RichtextBold,
     [IconType.RICHTEXT_HEADING]: RichtextHeading,
     [IconType.RICHTEXT_ITALIC]: RichtextItalic,

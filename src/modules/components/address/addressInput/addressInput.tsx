@@ -8,11 +8,11 @@ import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, typ
 import {
     Button,
     Clipboard,
+    clipboardUtils,
     IconType,
     InputContainer,
-    Spinner,
-    clipboardUtils,
     mergeRefs,
+    Spinner,
     useDebouncedValue,
     useInputProps,
     type IInputComponentProps,
@@ -51,6 +51,11 @@ export interface IAddressInputProps
      * valid address nor a valid ens name.
      */
     onAccept?: (value?: IAddressInputResolvedValue) => void;
+    /**
+     * Require an address to pass EIP-55 checksum validation.
+     * @default true
+     */
+    enforceChecksum?: boolean;
 }
 
 export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
@@ -58,6 +63,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         value = '',
         onChange,
         onAccept,
+        enforceChecksum = true,
         wagmiConfig: wagmiConfigProps,
         chainId = mainnet.id,
         ...otherProps
@@ -87,6 +93,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const isDebouncedValueValidEns = ensUtils.isEnsName(debouncedValue);
     const isDebouncedValueValidAddress = addressUtils.isAddress(debouncedValue);
+    const isDebouncedValueValidStrictAddress = addressUtils.isAddress(debouncedValue, { strict: true });
+
+    const hasChecksumError = enforceChecksum && isDebouncedValueValidAddress && !isDebouncedValueValidStrictAddress;
 
     const {
         data: ensAddress,
@@ -111,10 +120,24 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     });
 
     const displayMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
-
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => onChange?.(event.target.value);
+    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        if (!enforceChecksum) {
+            onChange?.(event.target.value);
+        }
+
+        // Expose input value in checksum format when enforceChecksum property is set and value is a valid address. Note
+        // that the strict isAddress check returns false when the hex section of the address is all in uppercase.
+        const { value } = event.target;
+        const hexValue = value.slice(2);
+
+        const isValidAddress = addressUtils.isAddress(value, { strict: true });
+        const isValidUppercaseAddress = addressUtils.isAddress(value) && hexValue === hexValue.toUpperCase();
+
+        const processedValue = isValidAddress || isValidUppercaseAddress ? addressUtils.getChecksum(value) : value;
+        onChange?.(processedValue);
+    };
 
     const toggleDisplayMode = () => {
         const newInputValue = displayMode === 'address' ? ensName : ensAddress;
@@ -142,7 +165,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Trigger onChange property when value is a valid address or ENS
+    // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
     useEffect(() => {
         if (isLoading) {
             return;
@@ -154,15 +177,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
             handleAccept?.({ address: ensAddress, name: normalizedEns });
-        } else if (isDebouncedValueValidAddress) {
+        } else if (isDebouncedValueValidAddress && !hasChecksumError) {
             // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
             handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
-            // User input is not a valid address nor ENS name
             handleAccept?.(undefined);
         }
-    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, isLoading]);
+    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
@@ -195,6 +217,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [value, isFocused]);
 
+    const alert = hasChecksumError
+        ? { message: copy.addressInput.checksum, variant: 'critical' as const }
+        : containerProps.alert;
+
     // Display the address or ENS as truncated when the value is a valid address or ENS and input is not focused
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
     const displayTruncatedEns = ensUtils.isEnsName(value) && !isFocused;
@@ -208,7 +234,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
           : value;
 
     return (
-        <InputContainer {...containerProps}>
+        <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
                 {!isLoading && <MemberAvatar address={addressValue} chainId={chainId} wagmiConfig={wagmiConfig} />}

@@ -19,11 +19,13 @@ describe('<AddressInput /> component', () => {
     const copyMock = jest.spyOn(clipboardUtils, 'copy');
 
     const getChecksumMock = jest.spyOn(addressUtils, 'getChecksum');
+    const isAddressMock = jest.spyOn(addressUtils, 'isAddress');
 
     const useEnsAddressMock = jest.spyOn(wagmi, 'useEnsAddress');
     const useEnsNameMock = jest.spyOn(wagmi, 'useEnsName');
 
     beforeEach(() => {
+        isAddressMock.mockReturnValue(true);
         getChecksumMock.mockImplementation((value) => value as Address);
         useEnsAddressMock.mockReturnValue({
             data: undefined,
@@ -40,7 +42,8 @@ describe('<AddressInput /> component', () => {
     afterEach(() => {
         pasteMock.mockReset();
         copyMock.mockReset();
-
+        getChecksumMock.mockReset();
+        isAddressMock.mockReset();
         useEnsAddressMock.mockReset();
         useEnsNameMock.mockReset();
     });
@@ -64,6 +67,7 @@ describe('<AddressInput /> component', () => {
 
     it('initialises the input field using the value property', () => {
         const value = 'test.eth';
+        isAddressMock.mockReturnValue(false);
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
@@ -75,6 +79,17 @@ describe('<AddressInput /> component', () => {
         render(createTestComponent({ onChange }));
         await user.type(screen.getByRole('textbox'), input);
         expect(onChange).toHaveBeenCalledWith(input);
+    });
+
+    it('calls the onChange prop with the address in checksum format when enforceChecksum prop is set to true', async () => {
+        const enforceChecksum = true;
+        const onChange = jest.fn();
+        const value = '0x9fc3da866e7df3a1c57ade1a97c9f00a70f010c';
+        getChecksumMock.mockReturnValue('0x9FC3da866e7DF3a1c57adE1a97c9f00a70f010c8');
+        render(createTestComponent({ value, enforceChecksum, onChange }));
+        await userEvent.type(screen.getByRole('textbox'), '8');
+        expect(getChecksumMock).toHaveBeenCalledWith(`${value}8`);
+        expect(onChange).toHaveBeenLastCalledWith('0x9FC3da866e7DF3a1c57adE1a97c9f00a70f010c8');
     });
 
     it('renders a paste button to read and paste the user clipboard into the input field', async () => {
@@ -180,6 +195,7 @@ describe('<AddressInput /> component', () => {
 
     it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
         const value = 'longensname.eth';
+        isAddressMock.mockReturnValue(false);
         render(createTestComponent({ value }));
         expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
         await userEvent.click(screen.getByRole('textbox'));
@@ -221,6 +237,7 @@ describe('<AddressInput /> component', () => {
 
     it('triggers the onAccept property with undefined when input is not a valid address nor ENS', () => {
         const value = 'test';
+        isAddressMock.mockReturnValue(false);
         const onAccept = jest.fn();
         useEnsAddressMock.mockReturnValue({ data: undefined, isFetching: false } as UseEnsAddressReturnType);
         render(createTestComponent({ value, onAccept }));
@@ -266,5 +283,13 @@ describe('<AddressInput /> component', () => {
         useEnsAddressMock.mockReturnValue({ data: resolvedAddress, isFetching: false } as UseEnsAddressReturnType);
         render(createTestComponent({ value }, queryClient));
         expect(queryClient.setQueryData).toHaveBeenCalledWith(['', { address: resolvedAddress }], value);
+    });
+
+    it('displays a critical alert when address checksum is invalid', () => {
+        const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
+        isAddressMock.mockImplementation((_, opts) => opts?.strict !== true);
+        render(createTestComponent({ value }));
+        expect(screen.getByRole('alert')).toHaveTextContent(/checksum/i);
+        isAddressMock.mockRestore();
     });
 });
