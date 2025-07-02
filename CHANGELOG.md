@@ -1,5 +1,23 @@
 # @aragon/gov-ui-kit
 
+## 1.9.0
+
+### Minor Changes
+
+- [#517](https://github.com/aragon/gov-ui-kit/pull/517) [`02c0969`](https://github.com/aragon/gov-ui-kit/commit/02c096937f52a196c540cff6feed980c39abeb03) Thanks [@shan8851](https://github.com/shan8851)! - Add rewards icon
+
+- [#516](https://github.com/aragon/gov-ui-kit/pull/516) [`d20e6cc`](https://github.com/aragon/gov-ui-kit/commit/d20e6cce3869c47127479275d13ded1116f5bbcd) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#515](https://github.com/aragon/gov-ui-kit/pull/515) [`f12d8e1`](https://github.com/aragon/gov-ui-kit/commit/f12d8e14d01ec42173fa2c23a28c91ea6e6871e1) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update `vite` to v7
+
+- [#514](https://github.com/aragon/gov-ui-kit/pull/514) [`fbd27a2`](https://github.com/aragon/gov-ui-kit/commit/fbd27a268ef9ee9e9523b68c8ca6db66e0da5c48) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement checksum alert on `AddressInput` module component
+
+- [#513](https://github.com/aragon/gov-ui-kit/pull/513) [`4ccb1f9`](https://github.com/aragon/gov-ui-kit/commit/4ccb1f9378920518da80fd813ad152ffbde52c3c) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `pbkdf2` to 3.1.3
+
+- [#511](https://github.com/aragon/gov-ui-kit/pull/511) [`f0162cf`](https://github.com/aragon/gov-ui-kit/commit/f0162cff31edc9a3e1917723ec30a89799e3fa03) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#512](https://github.com/aragon/gov-ui-kit/pull/512) [`43cb8a9`](https://github.com/aragon/gov-ui-kit/commit/43cb8a96e0c67417fa50e204c41964ddab35914f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `vercel` to v44
+
 ## 1.8.0
 
 ### Minor Changes
@@ -49,7 +67,6 @@
 - [#486](https://github.com/aragon/gov-ui-kit/pull/486) [`42db993`](https://github.com/aragon/gov-ui-kit/commit/42db99314f5a2f19a16b97a73bd4edca07226175) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `vercel` to v42
 
 - [#483](https://github.com/aragon/gov-ui-kit/pull/483) [`5bec051`](https://github.com/aragon/gov-ui-kit/commit/5bec051e6f4defe20570dd435e2712b4bc6043e6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - **BREAKING** Refactor ProposalVoting component to improve handling of stages:
-
     - Mark `name` property of `BodyContent` and `Stage` components as required
     - Rename `Container` component to `StageContainer`, implement new `Container` component for simple governance proposals
 
@@ -74,7 +91,6 @@
 - [#446](https://github.com/aragon/gov-ui-kit/pull/446) [`788134d`](https://github.com/aragon/gov-ui-kit/commit/788134d6f19c7fe88096684c60e4b91ea00c5a4d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Migrate library to Tailwind CSS v4
 
     **Breaking**:
-
     - Remove `rounded` class in favour of `rounded-md`
     - Remove `guk` prefix on primitive CSS custom properties
     - Implement `focus-ring-[variant]` utilities to be used instead of custom ring classes
