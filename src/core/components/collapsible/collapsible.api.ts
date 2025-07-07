@@ -1,7 +1,5 @@
 import { type ComponentProps } from 'react';
 
-export type CollapsedSize = 'sm' | 'md' | 'lg';
-
 export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle'> {
     /**
      * Number of text lines to show while collapsed.
@@ -9,7 +7,7 @@ export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle
      */
     collapsedLines?: number;
     /**
-     * Exact pixel height for the collapsible container that will override collapsedSize prop if defined.
+     * Exact pixel height for the collapsible container that will override collapsedLines prop if defined.
      * Overrides collapsedLines when defined.
      */
     collapsedPixels?: number;
