@@ -4,14 +4,15 @@ export type CollapsedSize = 'sm' | 'md' | 'lg';
 
 export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle'> {
     /**
-     * The initial height of the collapsible container while closed.
-     * @default md
+     * Number of text lines to show while collapsed.
+     * @default 3
      */
-    collapsedSize?: CollapsedSize;
+    collapsedLines?: number;
     /**
-     * Custom pixel height for the collapsible container that will override collapsedSize prop if defined.
+     * Exact pixel height for the collapsible container that will override collapsedSize prop if defined.
+     * Overrides collapsedLines when defined.
      */
-    customCollapsedHeight?: number;
+    collapsedPixels?: number;
     /**
      * Controlled state of the collapsible container.
      * @default false

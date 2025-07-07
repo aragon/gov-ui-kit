@@ -4,16 +4,10 @@ import { Button } from '../button';
 import { Icon, IconType } from '../icon';
 import { type ICollapsibleProps } from './collapsible.api';
 
-const sizedCollapsedHeights = {
-    sm: 128,
-    md: 256,
-    lg: 384,
-};
-
 export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const {
-        collapsedSize = 'md',
-        customCollapsedHeight,
+        collapsedLines = 3,
+        collapsedPixels,
         isOpen: isOpenProp,
         defaultOpen = false,
         buttonLabelOpened,
@@ -30,9 +24,26 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const [maxHeight, setMaxHeight] = useState(0);
 
     const isOpen = isOpenProp ?? isOpenState;
-
     const contentRef = useRef<HTMLDivElement>(null);
-    const maxCollapsedHeight = customCollapsedHeight ?? sizedCollapsedHeights[collapsedSize];
+
+    const calculateCollapsedHeight = useCallback(() => {
+        if (collapsedPixels != null) {
+            return collapsedPixels;
+        }
+
+        const defaultLineHeight = 24;
+        if (collapsedLines && contentRef.current) {
+            const lineHeight = parseFloat(window.getComputedStyle(contentRef.current).lineHeight);
+
+            if (!Number.isNaN(lineHeight)) {
+                return lineHeight * collapsedLines;
+            }
+        }
+
+        return collapsedLines * defaultLineHeight;
+    }, [collapsedPixels, collapsedLines]);
+
+    const [collapsedHeight, setCollapsedHeight] = useState(calculateCollapsedHeight());
 
     const toggle = useCallback(() => {
         setIsOpenState(!isOpen);
@@ -42,32 +53,29 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     useEffect(() => {
         const content = contentRef.current;
 
+        if (!content) {
+            return;
+        }
+
         const checkOverflow = () => {
-            if (!content) {
-                return;
-            }
+            const currentCollapsedHeight = calculateCollapsedHeight();
+            setCollapsedHeight(currentCollapsedHeight);
 
             const contentHeight = content.scrollHeight;
-            const isContentOverflowing = contentHeight > maxCollapsedHeight;
+            const isContentOverflowing = contentHeight > currentCollapsedHeight;
 
             setIsOverflowing(isContentOverflowing);
-            setMaxHeight(isContentOverflowing ? contentHeight : maxCollapsedHeight);
+            setMaxHeight(isContentOverflowing ? contentHeight : currentCollapsedHeight);
         };
 
         const observer = new ResizeObserver(() => checkOverflow());
-
-        if (content) {
-            observer.observe(content);
-        }
-
+        observer.observe(content);
         checkOverflow();
 
-        return () => {
-            observer.disconnect();
-        };
-    }, [maxCollapsedHeight]);
+        return () => observer.disconnect();
+    }, [collapsedLines, collapsedPixels, calculateCollapsedHeight]);
 
-    const maxHeightProcessed = `${(isOpen ? maxHeight : maxCollapsedHeight).toString()}px`;
+    const maxHeightProcessed = `${(isOpen ? maxHeight : collapsedHeight).toString()}px`;
 
     const footerClassName = classNames(
         {
