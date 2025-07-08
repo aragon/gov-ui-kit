@@ -23,6 +23,8 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const [isOverflowing, setIsOverflowing] = useState(false);
     const [maxHeight, setMaxHeight] = useState(0);
 
+    const defaultLineHeight = 24;
+
     const isOpen = isOpenProp ?? isOpenState;
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +33,6 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
             return collapsedPixels;
         }
 
-        const defaultLineHeight = 24;
         if (collapsedLines && contentRef.current) {
             const lineHeight = parseFloat(window.getComputedStyle(contentRef.current).lineHeight);
 
@@ -41,9 +42,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         }
 
         return collapsedLines * defaultLineHeight;
-    }, [collapsedPixels, collapsedLines]);
-
-    const [collapsedHeight, setCollapsedHeight] = useState(calculateCollapsedHeight());
+    }, [collapsedPixels, collapsedLines, defaultLineHeight]);
 
     const toggle = useCallback(() => {
         setIsOpenState(!isOpen);
@@ -58,14 +57,12 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         }
 
         const checkOverflow = () => {
-            const currentCollapsedHeight = calculateCollapsedHeight();
-            setCollapsedHeight(currentCollapsedHeight);
-
+            const collapsedHeight = calculateCollapsedHeight();
             const contentHeight = content.scrollHeight;
-            const isContentOverflowing = contentHeight > currentCollapsedHeight;
+            const isContentOverflowing = contentHeight > collapsedHeight;
 
             setIsOverflowing(isContentOverflowing);
-            setMaxHeight(isContentOverflowing ? contentHeight : currentCollapsedHeight);
+            setMaxHeight(isContentOverflowing ? contentHeight : collapsedHeight);
         };
 
         const observer = new ResizeObserver(() => checkOverflow());
@@ -75,7 +72,8 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         return () => observer.disconnect();
     }, [collapsedLines, collapsedPixels, calculateCollapsedHeight]);
 
-    const maxHeightProcessed = `${(isOpen ? maxHeight : collapsedHeight).toString()}px`;
+    const collapsedHeight = calculateCollapsedHeight();
+    const maxHeightProcessed = `${isOpen ? maxHeight.toString() : collapsedHeight.toString()}px`;
 
     const footerClassName = classNames(
         {

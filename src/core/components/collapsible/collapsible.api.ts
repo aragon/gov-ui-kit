@@ -8,7 +8,6 @@ export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle
     collapsedLines?: number;
     /**
      * Exact pixel height for the collapsible container that will override collapsedLines prop if defined.
-     * Overrides collapsedLines when defined.
      */
     collapsedPixels?: number;
     /**
