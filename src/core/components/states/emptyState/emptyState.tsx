@@ -44,10 +44,10 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
             )}
 
             <div
-                className={classNames('flex h-full items-center', {
-                    'w-full flex-col': isStacked,
-                    'space-y-6': (isStacked && !!primaryButton) || !!secondaryButton,
-                    'space-y-4': (!isStacked && !!primaryButton) || !!secondaryButton,
+                className={classNames('flex flex-col', {
+                    'w-full items-center': isStacked,
+                    'space-y-6': (!!primaryButton || !!secondaryButton) && isStacked,
+                    'space-y-3 md:space-y-4': (!!primaryButton || !!secondaryButton) && !isStacked,
                 })}
             >
                 <div
@@ -75,7 +75,7 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
                 </div>
                 <div
                     className={classNames({
-                        'border-w-full flex flex-col items-stretch space-y-3 space-x-0 md:flex-row md:justify-center md:space-y-0 md:space-x-4':
+                        'border-w-full flex w-full flex-col items-stretch space-y-3 space-x-0 sm:w-fit md:flex-row md:justify-center md:space-y-0 md:space-x-4':
                             isStacked,
                         'flex flex-row flex-wrap gap-3': !isStacked,
                     })}
