@@ -102,7 +102,6 @@ export const Controlled: Story = {
     args: {
         buttonLabelOpened: 'Collapse content',
         buttonLabelClosed: 'Expand content',
-        collapsedSize: 'sm',
     },
     render: (args) => {
         const [isOpen, setIsOpen] = useState(false);

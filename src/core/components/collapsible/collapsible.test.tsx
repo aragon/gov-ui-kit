@@ -25,18 +25,10 @@ describe('<Collapsible /> component', () => {
         expect(screen.getByText('Default Children')).toBeInTheDocument();
     });
 
-    it('uses default collapsedSize on collapsible content', () => {
+    it('applies collapsedPixels correctly', () => {
         const children = 'Default Children';
-        render(createTestComponent({ children }));
-
-        const content = screen.getByText('Default Children');
-        expect(content.style.maxHeight).toBe('256px');
-    });
-
-    it('applies customCollapsedHeight correctly', () => {
-        const children = 'Default Children';
-        const customCollapsedHeight = 150;
-        render(createTestComponent({ children, customCollapsedHeight }));
+        const collapsedPixels = 150;
+        render(createTestComponent({ children, collapsedPixels }));
 
         const content = screen.getByText('Default Children');
         expect(content.style.maxHeight).toBe('150px');
@@ -44,11 +36,11 @@ describe('<Collapsible /> component', () => {
 
     it('handles non-overflowing content correctly', () => {
         const children = 'Default Children';
-        const customCollapsedHeight = 300;
+        const collapsedPixels = 300;
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
         jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200);
-        render(createTestComponent({ children, customCollapsedHeight, buttonLabelClosed, buttonLabelOpened }));
+        render(createTestComponent({ children, collapsedPixels, buttonLabelClosed, buttonLabelOpened }));
         const content = screen.getByText('Default Children');
         expect(content.style.maxHeight).toBe('300px');
         expect(screen.queryByText(buttonLabelOpened)).not.toBeInTheDocument();
@@ -120,5 +112,18 @@ describe('<Collapsible /> component', () => {
         render(createTestComponent({ showOverlay }));
         const button = screen.getByRole('button');
         expect(button).toHaveClass('bg-neutral-0');
+    });
+
+    it('computes collapsed height based on collapsedLines and lineHeight correctly', () => {
+        const children = 'Default Children';
+        const collapsedLines = 7;
+        const lineHeight = 16;
+        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+        render(createTestComponent({ children, collapsedLines }));
+
+        const content = screen.getByText(children);
+        const expectedHeight = Number(mockStyles.lineHeight) * collapsedLines;
+        expect(content.style.maxHeight).toBe(`${expectedHeight.toString()}px`);
     });
 });
