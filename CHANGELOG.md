@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.10.0
+
+### Minor Changes
+
+- [#518](https://github.com/aragon/gov-ui-kit/pull/518) [`9745fcf`](https://github.com/aragon/gov-ui-kit/commit/9745fcf7b35a7aa8fb6b60331659d1885c18c73c) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Adjust alignment and behavior of buttons on EmptyState component
+
+- [#519](https://github.com/aragon/gov-ui-kit/pull/519) [`2eef0eb`](https://github.com/aragon/gov-ui-kit/commit/2eef0eb9688c86f86910b8955777c259d7ec5c7f) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Expose new collapsedLines prop on Collapsible component
+
 ## 1.9.0
 
 ### Minor Changes
