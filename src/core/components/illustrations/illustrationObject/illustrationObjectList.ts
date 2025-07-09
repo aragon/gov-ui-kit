@@ -18,6 +18,7 @@ import Security from '../../../assets/illustrations/objects/security.svg';
 import Settings from '../../../assets/illustrations/objects/settings.svg';
 import SmartContract from '../../../assets/illustrations/objects/smart-contract.svg';
 import Success from '../../../assets/illustrations/objects/success.svg';
+import Timelock from '../../../assets/illustrations/objects/timelock.svg';
 import Users from '../../../assets/illustrations/objects/users.svg';
 import Wagmi from '../../../assets/illustrations/objects/wagmi.svg';
 import Wallet from '../../../assets/illustrations/objects/wallet.svg';
@@ -46,6 +47,7 @@ export const illustrationObjectList: Record<IllustrationObjectType, Illustration
     SETTINGS: Settings,
     SMART_CONTRACT: SmartContract,
     SUCCESS: Success,
+    TIMELOCK: Timelock,
     USERS: Users,
     WAGMI: Wagmi,
     WALLET: Wallet,
