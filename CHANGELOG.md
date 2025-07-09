@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.11.0
+
+### Minor Changes
+
+- [#522](https://github.com/aragon/gov-ui-kit/pull/522) [`73d4759`](https://github.com/aragon/gov-ui-kit/commit/73d4759814521f070d892e3105a36cc819a4dbd8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Add 'Timelock' to IllustrationObject assets
+
 ## 1.10.0
 
 ### Minor Changes
