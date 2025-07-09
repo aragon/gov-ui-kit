@@ -18,6 +18,7 @@ export type IllustrationObjectType =
     | 'SETTINGS'
     | 'SMART_CONTRACT'
     | 'SUCCESS'
+    | 'TIMELOCK'
     | 'USERS'
     | 'WAGMI'
     | 'WALLET'
