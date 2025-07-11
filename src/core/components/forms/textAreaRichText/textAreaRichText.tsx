@@ -5,7 +5,7 @@ import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Markdown } from 'tiptap-markdown';
+import { Markdown, type MarkdownStorage } from 'tiptap-markdown';
 import { useRandomId } from '../../../hooks';
 import { type IInputContainerProps, InputContainer } from '../inputContainer';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
@@ -94,14 +94,19 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             let value: string;
             switch (valueFormat) {
                 case 'text':
-                    value = editor.getText() ?? '';
+                    value = editor.getText();
                     break;
                 case 'markdown':
-                    value = editor.storage.markdown?.getMarkdown?.() ?? '';
+                    if (editor.storage.markdown) {
+                        value = (editor.storage.markdown as MarkdownStorage).getMarkdown();
+                    } else {
+                        // Markdown storage not available, falling back to HTML
+                        value = editor.getHTML();
+                    }
                     break;
                 case 'html':
                 default:
-                    value = editor.getHTML() ?? '';
+                    value = editor.getHTML();
                     break;
             }
 
