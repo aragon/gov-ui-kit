@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Markdown } from 'tiptap-markdown';
 import { useRandomId } from '../../../hooks';
-import { InputContainer, type IInputContainerProps } from '../inputContainer';
+import { type IInputContainerProps, InputContainer } from '../inputContainer';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
 export interface ITextAreaRichTextProps
@@ -32,6 +32,13 @@ export interface ITextAreaRichTextProps
      * Whether to render the editor on the first render or not.
      */
     immediatelyRender?: boolean;
+    /**
+     * Format of the input value, which determines how content is interpreted and returned.
+     * Can be serialized HTML, markdown, or plain text.
+     *
+     * @default 'html'
+     */
+    valueFormat?: 'html' | 'markdown' | 'text';
 }
 
 // Classes to properly style the TipTap placeholder
@@ -43,7 +50,17 @@ const placeholderClasses = classNames(
 );
 
 export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
-    const { value, onChange, placeholder, disabled, className, id, immediatelyRender, ...containerProps } = props;
+    const {
+        value,
+        onChange,
+        placeholder,
+        disabled,
+        className,
+        id,
+        immediatelyRender,
+        valueFormat = 'html',
+        ...containerProps
+    } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -69,7 +86,21 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             },
         },
         onUpdate: ({ editor }) => {
-            const value = editor.getText() !== '' ? editor.getHTML() : '';
+            let value: string;
+
+            switch (valueFormat) {
+                case 'markdown':
+                    value = editor.storage.markdown?.getMarkdown?.() ?? '';
+                    break;
+                case 'text':
+                    value = editor.getText() ?? '';
+                    break;
+                case 'html':
+                default:
+                    value = editor.getHTML() ?? '';
+                    break;
+            }
+
             onChange?.(value);
         },
     });
