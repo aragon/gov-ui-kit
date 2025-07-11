@@ -86,14 +86,18 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             },
         },
         onUpdate: ({ editor }) => {
-            let value: string;
+            if (editor.getText() === '') {
+                onChange?.('');
+                return;
+            }
 
+            let value: string;
             switch (valueFormat) {
-                case 'markdown':
-                    value = editor.storage.markdown?.getMarkdown?.() ?? '';
-                    break;
                 case 'text':
                     value = editor.getText() ?? '';
+                    break;
+                case 'markdown':
+                    value = editor.storage.markdown?.getMarkdown?.() ?? '';
                     break;
                 case 'html':
                 default:
