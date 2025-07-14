@@ -1,10 +1,10 @@
-import { SmartContractFunctionDataListItemSkeleton } from "./smartContractFunctionDataListItemSkeleton/smartContractFunctionDataListItemSkeleton";
-import { SmartContractFunctionDataListItemStructure } from "./smartContractFunctionDataListItemStructure";
+import { SmartContractFunctionDataListItemSkeleton } from './smartContractFunctionDataListItemSkeleton/smartContractFunctionDataListItemSkeleton';
+import { SmartContractFunctionDataListItemStructure } from './smartContractFunctionDataListItemStructure';
 
 export const SmartContractFunctionDataListItem = {
     Skeleton: SmartContractFunctionDataListItemSkeleton,
-    Structure: SmartContractFunctionDataListItemStructure
-}
+    Structure: SmartContractFunctionDataListItemStructure,
+};
 
-export * from './smartContractFunctionDataListItemStructure'
-export * from './smartContractFunctionDataListItemSkeleton'
+export * from './smartContractFunctionDataListItemSkeleton';
+export * from './smartContractFunctionDataListItemStructure';

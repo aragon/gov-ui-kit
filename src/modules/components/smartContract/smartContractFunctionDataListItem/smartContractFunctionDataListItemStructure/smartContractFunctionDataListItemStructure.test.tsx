@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { polygon } from 'viem/chains';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
@@ -6,7 +7,6 @@ import {
     type ISmartContractFunctionDataListItemProps,
     SmartContractFunctionDataListItemStructure,
 } from './smartContractFunctionDataListItemStructure';
-import userEvent from '@testing-library/user-event';
 
 describe('<SmartContractFunctionDataListItem.Structure /> component', () => {
     const createTestComponent = (props?: Partial<ISmartContractFunctionDataListItemProps>) => {
