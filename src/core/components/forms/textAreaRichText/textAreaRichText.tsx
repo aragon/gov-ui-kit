@@ -10,6 +10,8 @@ import { useRandomId } from '../../../hooks';
 import { type IInputContainerProps, InputContainer } from '../inputContainer';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
+export type ValueFormat = 'html' | 'markdown' | 'text';
+
 export interface ITextAreaRichTextProps
     extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'> {
     /**
@@ -38,7 +40,7 @@ export interface ITextAreaRichTextProps
      *
      * @default 'html'
      */
-    valueFormat?: 'html' | 'markdown' | 'text';
+    valueFormat?: ValueFormat;
 }
 
 // Classes to properly style the TipTap placeholder
@@ -68,7 +70,11 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     const extensions = [
         StarterKit,
-        Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
+        Placeholder.configure({
+            placeholder,
+            emptyNodeClass: placeholderClasses,
+            showOnlyWhenEditable: false,
+        }),
         Link,
         Markdown.configure({ transformPastedText: true }),
     ];
@@ -91,26 +97,15 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 return;
             }
 
-            let value: string;
-            switch (valueFormat) {
-                case 'text':
-                    value = editor.getText();
-                    break;
-                case 'markdown':
-                    if (editor.storage.markdown) {
-                        value = (editor.storage.markdown as MarkdownStorage).getMarkdown();
-                    } else {
-                        // Markdown storage not available, falling back to HTML
-                        value = editor.getHTML();
-                    }
-                    break;
-                case 'html':
-                default:
-                    value = editor.getHTML();
-                    break;
-            }
+            const handlers: Record<ValueFormat, () => string> = {
+                html: () => editor.getHTML(),
+                markdown: () => (editor.storage.markdown as MarkdownStorage)?.getMarkdown() ?? editor.getHTML(),
+                text: () => editor.getText(),
+            };
 
-            onChange?.(value);
+            const getValue = handlers[valueFormat] ?? handlers.html;
+
+            onChange?.(getValue());
         },
     });
 
@@ -151,7 +146,9 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 'fixed top-0 left-0 z-[var(--guk-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
                     isExpanded,
             })}
-            wrapperClassName={classNames('grow overflow-hidden', { 'rounded-none!': isExpanded })}
+            wrapperClassName={classNames('grow overflow-hidden', {
+                'rounded-none!': isExpanded,
+            })}
             id={randomId}
             {...containerProps}
         >
