@@ -50,13 +50,13 @@ export const WithFunctionSignature: Story = {
  * Example of the SmartContractFunctionDataListItem.Structure component with a remove button.
  */
 export const WithRemoveButton: Story = {
-  args: {
-    contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
-    contractName: 'Uniswap V2 Router',
-    functionName: 'Add liquidity',
-    showRemoveButton: true,
-    onRemoveFunction: () => alert('Function removed'),
-  }
+    args: {
+        contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
+        contractName: 'Uniswap V2 Router',
+        functionName: 'Add liquidity',
+        showRemoveButton: true,
+        onRemove: () => alert('Function removed'),
+    },
 };
 
 export default meta;

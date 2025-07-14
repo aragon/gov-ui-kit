@@ -29,28 +29,29 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      */
     contractAddress: string;
     /**
-     * Function signature. Needed to calculate the function selector
+     * Function signature. Needed to calculate the function selector.
      */
     functionSignature?: string;
     /**
-     * Flag to determine whether or not to show the remove button
+     * Flag to determine whether or not to show the remove button.
      */
     showRemoveButton?: boolean;
     /**
-     * Callback when function is removed
+     * Callback when function is removed.
      */
-    onRemoveFunction?: () => void;
+    onRemove?: () => void;
     /**
-     * The chain ID of the smart contract
+     * The chain ID of the smart contract.
      * @default mainnet.id (1)
      */
     chainId?: number;
     /**
-     * Flag to determine whether or not the item is a child of another component so we can apply the correct styles
+     * Flag to determine whether or not the item is a child of another component so we can apply the correct styles.
      */
     asChild?: boolean;
     /**
-     * Flag to determine whether or not to display warning feedback
+     * Flag to determine whether or not to display warning icon.
+     * @default false
      */
     displayWarning?: boolean;
 };
@@ -65,7 +66,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
         chainId = mainnet.id,
         functionSignature,
         className,
-        onRemoveFunction,
+        onRemove,
         showRemoveButton,
         asChild,
         displayWarning = false,
@@ -113,7 +114,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
                 <Dropdown.Container
                     customTrigger={<Button variant="tertiary" size="md" iconLeft={IconType.DOTS_VERTICAL} />}
                 >
-                    <Dropdown.Item icon={IconType.REMOVE} iconPosition="left" onClick={onRemoveFunction}>
+                    <Dropdown.Item icon={IconType.REMOVE} iconPosition="left" onClick={onRemove}>
                         {copy.smartContractFunctionDataListItemStructure.remove}
                     </Dropdown.Item>
                 </Dropdown.Container>
