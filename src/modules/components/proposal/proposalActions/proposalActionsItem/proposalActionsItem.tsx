@@ -1,12 +1,10 @@
-import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
-import { Accordion, AlertCard, Button, Dropdown, Icon, IconType, invariant, Link, LinkBase } from '../../../../../core';
-import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
-import { addressUtils } from '../../../../utils';
+import { Accordion, AlertCard, Button, Dropdown, IconType, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
+import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
@@ -40,7 +38,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const { copy } = useGukModulesContext();
-    const { buildEntityUrl } = useBlockExplorer({ chainId });
 
     const chains = useChains();
     const chain = chains.find((chain) => chain.id === chainId);
@@ -71,9 +68,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
     const displayWarningFeedback = displayValueWarning || !isAbiAvailable;
-    const functionNameStyle = displayWarningFeedback ? 'text-warning-800' : 'text-neutral-800';
-
-    const targetAddressUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: action.to });
 
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
@@ -85,39 +79,23 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
+    const functionSignature = action.inputData
+        ? `${action.inputData.function}(${action.inputData.parameters.map((param) => param.type).join(' ')})`
+        : undefined;
+
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
-                <div className="flex min-w-0 flex-col items-start gap-1 md:gap-1.5">
-                    <div className="flex w-full flex-row items-center gap-2">
-                        <p
-                            className={classNames(
-                                'truncate text-base leading-tight font-normal md:text-lg',
-                                functionNameStyle,
-                            )}
-                        >
-                            {action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
-                        </p>
-                        {displayWarningFeedback && (
-                            <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />
-                        )}
-                    </div>
-                    <LinkBase
-                        className="flex w-full items-center gap-2 md:gap-3"
-                        href={targetAddressUrl}
-                        target="_blank"
-                    >
-                        <p className="truncate text-sm leading-tight font-normal text-neutral-500 md:text-base">
-                            {action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
-                        </p>
-                        {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
-                        <object type="unknown">
-                            <Link className="shrink-0" href={targetAddressUrl} isExternal={true}>
-                                {addressUtils.truncateAddress(action.to)}
-                            </Link>
-                        </object>
-                    </LinkBase>
-                </div>
+                <SmartContractFunctionDataListItem.Structure
+                    functionName={action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
+                    contractName={action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
+                    contractAddress={action.to}
+                    functionSignature={functionSignature}
+                    chainId={chainId}
+                    className="w-full bg-transparent"
+                    asChild={true}
+                    displayWarning={displayWarningFeedback}
+                />
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">

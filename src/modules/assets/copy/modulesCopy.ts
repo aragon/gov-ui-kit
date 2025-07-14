@@ -181,6 +181,13 @@ export const modulesCopy = {
     wallet: {
         connect: 'Connect',
     },
+    smartContractFunctionDataListItemStructure: {
+        remove: 'Remove',
+        notVerified: {
+            function: 'Unknown',
+            contract: 'Unverified contract',
+        },
+    },
 };
 
 export type ModulesCopy = typeof modulesCopy;
