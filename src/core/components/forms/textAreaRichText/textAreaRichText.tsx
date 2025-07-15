@@ -97,15 +97,23 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 return;
             }
 
-            const handlers: Record<ValueFormat, () => string> = {
+            const handlers: Record<ValueFormat, () => string | undefined> = {
                 html: () => editor.getHTML(),
-                markdown: () => (editor.storage.markdown as MarkdownStorage)?.getMarkdown() ?? editor.getHTML(),
                 text: () => editor.getText(),
+                markdown: () => {
+                    const markdownStorage = editor.storage.markdown as MarkdownStorage | undefined;
+
+                    if (markdownStorage) {
+                        return markdownStorage.getMarkdown();
+                    }
+
+                    return editor.getHTML();
+                },
             };
 
-            const getValue = handlers[valueFormat] ?? handlers.html;
+            const value = handlers[valueFormat]() ?? editor.getHTML();
 
-            onChange?.(getValue());
+            onChange?.(value);
         },
     });
 
