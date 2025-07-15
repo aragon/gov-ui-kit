@@ -53,12 +53,12 @@ describe('<SmartContractFunctionDataListItem.Structure /> component', () => {
         expect(link.href).toEqual(`https://polygonscan.com/address/${contractAddress}`);
     });
 
-        it('defaults chain-id to ethereum mainnet when not provided', () => {
-            const contractAddress = '0x87D18Ee84e8f4f5709CBf3500179a4C601DA12cE';
-            render(createTestComponent({ contractAddress }));
-            const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0x87D1…12cE' });
-            expect(link.href).toEqual(`https://etherscan.io/address/${contractAddress}`);
-        });
+    it('defaults chain-id to ethereum mainnet when not provided', () => {
+        const contractAddress = '0x87D18Ee84e8f4f5709CBf3500179a4C601DA12cE';
+        render(createTestComponent({ contractAddress }));
+        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0x87D1…12cE' });
+        expect(link.href).toEqual(`https://etherscan.io/address/${contractAddress}`);
+    });
 
     it('renders a dropdown to remove the function when showRemoveButton is true', async () => {
         render(createTestComponent({ showRemoveButton: true }));
