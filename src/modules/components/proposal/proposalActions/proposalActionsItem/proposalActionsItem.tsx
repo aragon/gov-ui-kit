@@ -87,8 +87,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
                 <SmartContractFunctionDataListItem.Structure
-                    functionName={action.inputData?.function ?? copy.proposalActionsItem.notVerified.function}
-                    contractName={action.inputData?.contract ?? copy.proposalActionsItem.notVerified.contract}
+                    functionName={action.inputData?.function}
+                    contractName={action.inputData?.contract}
                     contractAddress={action.to}
                     functionSignature={functionSignature}
                     chainId={chainId}

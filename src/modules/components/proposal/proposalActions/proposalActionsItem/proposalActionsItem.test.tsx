@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { polygon } from 'viem/chains';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
@@ -52,50 +51,6 @@ describe('<ProposalActionsItem /> component', () => {
         testLogger.suppressErrors();
         const index = undefined;
         expect(() => render(createTestComponent({ index }))).toThrow();
-    });
-
-    it('renders the function name when smart contract is verified', () => {
-        const functionName = 'mintTokens';
-        const action = generateProposalAction({ inputData: { function: functionName, contract: '', parameters: [] } });
-        render(createTestComponent({ action }));
-        expect(screen.getByText(functionName)).toBeInTheDocument();
-    });
-
-    it('renders a not-verified label for function name when smart contract is not verified', () => {
-        const action = generateProposalAction({ inputData: undefined });
-        render(createTestComponent({ action }));
-        expect(screen.getByText(modulesCopy.proposalActionsItem.notVerified.function)).toBeInTheDocument();
-    });
-
-    it('renders the contract name when smart contract is verified', () => {
-        const contractName = 'Uniswap';
-        const action = generateProposalAction({ inputData: { function: '', contract: contractName, parameters: [] } });
-        render(createTestComponent({ action }));
-        expect(screen.getByText(contractName)).toBeInTheDocument();
-    });
-
-    it('renders a not-verified label for contract name when smart contract is not verified', () => {
-        const action = generateProposalAction({ inputData: undefined });
-        render(createTestComponent({ action }));
-        expect(screen.getByText(modulesCopy.proposalActionsItem.notVerified.contract)).toBeInTheDocument();
-    });
-
-    it('renders the truncated address of the action target as link', () => {
-        const to = '0xF26a23f3E7B88e93A16970B74Ae6599d2993690F';
-        const action = generateProposalAction({ to });
-        const chainId = polygon.id;
-        render(createTestComponent({ action, chainId }));
-        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0xF26a…690F' });
-        expect(link).toBeInTheDocument();
-        expect(link.href).toEqual(`https://polygonscan.com/address/${to}`);
-    });
-
-    it('defaults chain-id to ethereum mainnet when not provided', () => {
-        const to = '0x87D18Ee84e8f4f5709CBf3500179a4C601DA12cE';
-        const action = generateProposalAction({ to });
-        render(createTestComponent({ action }));
-        const link = screen.getByRole<HTMLAnchorElement>('link', { name: '0x87D1…12cE' });
-        expect(link.href).toEqual(`https://etherscan.io/address/${to}`);
     });
 
     it('renders the action on an accordion and expands it on click', async () => {
