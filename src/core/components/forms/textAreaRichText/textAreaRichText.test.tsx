@@ -44,11 +44,32 @@ describe('<TextAreaRichText /> component', () => {
         expect(textbox.getAttribute('aria-labelledby')).toBeDefined();
     });
 
-    it('calls the onChange property on input change', async () => {
+    it('calls the onChange property on input change with the value formatted as serialized HTML by default', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
         await userEvent.type(screen.getByRole('textbox'), 'test');
         expect(onChange).toHaveBeenLastCalledWith('<p>test</p>');
+    });
+
+    it("calls the onChange property on input change with plain text when 'valueFormat' is set to 'text'", async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange, valueFormat: 'text' }));
+        await userEvent.type(screen.getByRole('textbox'), 'test');
+        expect(onChange).toHaveBeenLastCalledWith('test');
+    });
+
+    it("calls the onChange property on input change with serialized HTML when 'valueFormat' is set to 'html'", async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange, valueFormat: 'html' }));
+        await userEvent.type(screen.getByRole('textbox'), 'test');
+        expect(onChange).toHaveBeenLastCalledWith('<p>test</p>');
+    });
+
+    it("calls the onChange property on input change with markdown when 'valueFormat' is set to 'markdown'", async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange, valueFormat: 'markdown' }));
+        await userEvent.type(screen.getByRole('textbox'), '# test');
+        expect(onChange).toHaveBeenLastCalledWith('# test');
     });
 
     it('defaults to empty string instead of empty paragraph when input is empty', async () => {
@@ -62,7 +83,9 @@ describe('<TextAreaRichText /> component', () => {
     it('formats pasted markdown content', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        const event = { getData: (type: string) => (type === 'text/plain' ? '# Heading' : '') } as DataTransfer;
+        const event = {
+            getData: (type: string) => (type === 'text/plain' ? '# Heading' : ''),
+        } as DataTransfer;
         await userEvent.click(screen.getByRole('textbox'));
         await userEvent.paste(event);
         expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
