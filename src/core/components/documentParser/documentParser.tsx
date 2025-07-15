@@ -1,5 +1,4 @@
 import { Image } from '@tiptap/extension-image';
-import TipTapLink from '@tiptap/extension-link';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
@@ -33,11 +32,11 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
         return sanitizeHtml(document, { allowedTags, allowedAttributes, disallowedTagsMode });
     };
 
-    const extensions = [StarterKit, Image, Markdown, TipTapLink.configure({ openOnClick: false })];
+    const extensions = [StarterKit.configure({ link: { openOnClick: false } }), Image, Markdown];
     const parser = useEditor({ editable: false, immediatelyRender, extensions, content: sanitizeDocument(document) });
 
     useEffect(() => {
-        parser?.commands.setContent(sanitizeDocument(document), true);
+        parser.commands.setContent(sanitizeDocument(document));
     }, [document, parser]);
 
     return (

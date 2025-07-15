@@ -36,8 +36,7 @@ This is a **markdown** ~~formatted text~~ with \`inline code\`.
 const x = 10;
 \`\`\`
 
-![Sample Image](https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv)
-`,
+![Sample Image](https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv)`,
     },
 };
 
@@ -57,8 +56,7 @@ export const WithHTML: Story = {
     </li>
 </ul>
 <pre><code>const x = 10;</code></pre>
-<img src="https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv" alt="Sample Image">
-`,
+<img src="https://aragon-1.mypinata.cloud/ipfs/QmX4q3fu1QkSfdVFUAmSUWziCmnXtitp2TVKLbrFVBcPvv" alt="Sample Image">`,
     },
 };
 
