@@ -87,7 +87,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
     const displayWarningFeedback = displayWarning || !hasVerifiedNames;
 
     const containerClassName = asChild
-        ? 'p-0 border-none'
+        ? 'p-0 border-none shadow-none'
         : 'flex items-center justify-between gap-x-3 py-3 md:gap-x-4 md:py-5';
 
     const functionLabelStyle = displayWarningFeedback ? 'text-warning-800' : 'text-neutral-800';
@@ -100,11 +100,11 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
                     {functionSelector && <p className="text-lg text-neutral-500">{functionSelector}</p>}
                     {displayWarningFeedback && <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />}
                 </div>
-                <LinkBase className="flex items-center gap-3" href={blockExplorerHref} target="_blank">
+                <LinkBase className="flex w-fit items-center gap-3" href={blockExplorerHref} target="_blank">
                     <p className="text-neutral-500">{contractLabel}</p>
                     {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                     <object type="unknown">
-                        <Link href={blockExplorerHref} isExternal={true}>
+                        <Link className="shrink-0" href={blockExplorerHref} isExternal={true}>
                             {addressUtils.truncateAddress(contractAddress)}
                         </Link>
                     </object>
