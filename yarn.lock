@@ -81,7 +81,7 @@ __metadata:
     "@tiptap/extension-image": "npm:^2.26.0"
     "@tiptap/extension-link": "npm:^2.26.0"
     "@tiptap/extension-placeholder": "npm:^2.26.0"
-    "@tiptap/extension-text-style": "npm:^2.26.0"
+    "@tiptap/extension-text-style": "npm:^3.0.3"
     "@tiptap/pm": "npm:^2.26.0"
     "@tiptap/react": "npm:^2.26.0"
     "@tiptap/starter-kit": "npm:^2.26.0"
@@ -5647,12 +5647,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-text-style@npm:^2.26.0, @tiptap/extension-text-style@npm:^2.26.1":
+"@tiptap/extension-text-style@npm:^2.26.1":
   version: 2.26.1
   resolution: "@tiptap/extension-text-style@npm:2.26.1"
   peerDependencies:
     "@tiptap/core": ^2.7.0
   checksum: 10c0/f09da5b3f1304ca25a8c115da9ed333fbafcc0acac0e9b2ade18f651a63a9fc522e35c9f9c51962b99fa55a106bb7e0202d121c6ef59aa2bd2282cc5470befb9
+  languageName: node
+  linkType: hard
+
+"@tiptap/extension-text-style@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@tiptap/extension-text-style@npm:3.0.3"
+  peerDependencies:
+    "@tiptap/core": ^3.0.3
+  checksum: 10c0/69e6b9814d4feb5ea6f2d6679174dc0db862ef768b0d0f1eb1cf75df95b9d973aa407e175ecf84189b39df064e42272f5abedb93b363ac32382f426c2b1beffc
   languageName: node
   linkType: hard
 
