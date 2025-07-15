@@ -25,8 +25,9 @@ export const Verified: Story = {
         functionName: 'Add liquidity',
     },
 };
+
 /**
- * Example of the SmartContractFunctionDataListItem.Structure component with unverified function and contract names.
+ * Usage example of the SmartContractFunctionDataListItem.Structure component with unverified function and contract names.
  */
 export const Unverified: Story = {
     args: {
@@ -35,19 +36,19 @@ export const Unverified: Story = {
 };
 
 /**
- * Example of the SmartContractFunctionDataListItem.Structure component with a function signature.
+ * Usage example of the SmartContractFunctionDataListItem.Structure component with a function signature.
  */
 export const WithFunctionSignature: Story = {
     args: {
         contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
         contractName: 'Uniswap V2 Router',
         functionName: 'Add liquidity',
-        functionSignature: 'function addLiquidity(address tokenA, address tokenB)',
+        functionSignature: 'function addLiquidity(address, address)',
     },
 };
 
 /**
- * Example of the SmartContractFunctionDataListItem.Structure component with a remove button.
+ * Usage example of the SmartContractFunctionDataListItem.Structure component with a remove button.
  */
 export const WithRemoveButton: Story = {
     args: {

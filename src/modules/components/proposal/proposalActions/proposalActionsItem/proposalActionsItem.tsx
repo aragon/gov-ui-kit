@@ -80,7 +80,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     const functionSignature = action.inputData
-        ? `${action.inputData.function}(${action.inputData.parameters.map((param) => param.type).join(' ')})`
+        ? `${action.inputData.function}(${action.inputData.parameters.map((param) => param.type).join(',')})`
         : undefined;
 
     return (
