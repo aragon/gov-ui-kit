@@ -1,5 +1,4 @@
-import { Link } from '@tiptap/extension-link';
-import { Placeholder } from '@tiptap/extension-placeholder';
+import { Placeholder } from '@tiptap/extensions';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
@@ -52,7 +51,6 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const extensions = [
         StarterKit,
         Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
-        Link,
         Markdown.configure({ transformPastedText: true }),
     ];
 
@@ -63,7 +61,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
         immediatelyRender,
         editorProps: {
             attributes: {
-                class: 'outline-hidden p-4 [overflow-wrap:anywhere]! prose prose-neutral min-h-40 h-full max-w-none leading-normal',
+                class: 'relative outline-hidden p-4 [overflow-wrap:anywhere]! prose prose-neutral min-h-40 h-full max-w-none leading-normal',
                 role: 'textbox',
                 'aria-labelledby': randomId,
             },
@@ -88,7 +86,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     // Update editable setting on Tiptap editor on disabled property change
     useEffect(() => {
-        editor?.setEditable(!disabled);
+        editor.setEditable(!disabled);
     }, [editor, disabled]);
 
     // Add keydown listener to reset expanded state on ESC key down

@@ -65,7 +65,7 @@ describe('<TextAreaRichText /> component', () => {
         const event = { getData: (type: string) => (type === 'text/plain' ? '# Heading' : '') } as DataTransfer;
         await userEvent.click(screen.getByRole('textbox'));
         await userEvent.paste(event);
-        expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
+        expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1><p></p>');
     });
 
     it('renders the textarea as a React portal on expand action click', async () => {
