@@ -67,7 +67,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
-
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
         { mode: ProposalActionsDecoderView.DECODED, disabled: !supportsDecodedView },
