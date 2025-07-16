@@ -5,10 +5,12 @@ import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Markdown } from 'tiptap-markdown';
+import { Markdown, type MarkdownStorage } from 'tiptap-markdown';
 import { useRandomId } from '../../../hooks';
-import { InputContainer, type IInputContainerProps } from '../inputContainer';
+import { type IInputContainerProps, InputContainer } from '../inputContainer';
 import { TextAreaRichTextActions } from './textAreaRichTextActions';
+
+export type ValueFormat = 'html' | 'markdown' | 'text';
 
 export interface ITextAreaRichTextProps
     extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'> {
@@ -32,6 +34,13 @@ export interface ITextAreaRichTextProps
      * Whether to render the editor on the first render or not.
      */
     immediatelyRender?: boolean;
+    /**
+     * Format of the input value, which determines how content is interpreted and returned.
+     * Can be serialized HTML, markdown, or plain text.
+     *
+     * @default 'html'
+     */
+    valueFormat?: ValueFormat;
 }
 
 // Classes to properly style the TipTap placeholder
@@ -43,7 +52,17 @@ const placeholderClasses = classNames(
 );
 
 export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
-    const { value, onChange, placeholder, disabled, className, id, immediatelyRender, ...containerProps } = props;
+    const {
+        value,
+        onChange,
+        placeholder,
+        disabled,
+        className,
+        id,
+        immediatelyRender,
+        valueFormat = 'html',
+        ...containerProps
+    } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -51,7 +70,11 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     const extensions = [
         StarterKit,
-        Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
+        Placeholder.configure({
+            placeholder,
+            emptyNodeClass: placeholderClasses,
+            showOnlyWhenEditable: false,
+        }),
         Link,
         Markdown.configure({ transformPastedText: true }),
     ];
@@ -69,7 +92,27 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
             },
         },
         onUpdate: ({ editor }) => {
-            const value = editor.getText() !== '' ? editor.getHTML() : '';
+            if (editor.getText() === '') {
+                onChange?.('');
+                return;
+            }
+
+            const handlers: Record<ValueFormat, () => string | undefined> = {
+                html: () => editor.getHTML(),
+                text: () => editor.getText(),
+                markdown: () => {
+                    const markdownStorage = editor.storage.markdown as MarkdownStorage | undefined;
+
+                    if (markdownStorage) {
+                        return markdownStorage.getMarkdown();
+                    }
+
+                    return editor.getHTML();
+                },
+            };
+
+            const value = handlers[valueFormat]() ?? editor.getHTML();
+
             onChange?.(value);
         },
     });
@@ -111,7 +154,9 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 'fixed top-0 left-0 z-[var(--guk-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
                     isExpanded,
             })}
-            wrapperClassName={classNames('grow overflow-hidden', { 'rounded-none!': isExpanded })}
+            wrapperClassName={classNames('grow overflow-hidden', {
+                'rounded-none!': isExpanded,
+            })}
             id={randomId}
             {...containerProps}
         >
