@@ -67,7 +67,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
-    const displayWarningFeedback = displayValueWarning || !isAbiAvailable;
 
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
@@ -79,10 +78,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
-    const functionSignature = action.inputData
-        ? `${action.inputData.function}(${action.inputData.parameters.map((param) => param.type).join(',')})`
-        : undefined;
-
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
@@ -90,11 +85,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     functionName={action.inputData?.function}
                     contractName={action.inputData?.contract}
                     contractAddress={action.to}
-                    functionSignature={functionSignature}
+                    functionParameters={action.inputData?.parameters}
                     chainId={chainId}
                     className="w-full bg-transparent"
                     asChild={true}
-                    displayWarning={displayWarningFeedback}
+                    displayWarning={displayValueWarning}
                 />
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>

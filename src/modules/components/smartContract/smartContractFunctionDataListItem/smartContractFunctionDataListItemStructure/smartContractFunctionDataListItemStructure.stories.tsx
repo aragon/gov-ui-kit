@@ -22,7 +22,7 @@ export const Verified: Story = {
     args: {
         contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
         contractName: 'Uniswap V2 Router',
-        functionName: 'Add liquidity',
+        functionName: 'addLiquidity',
     },
 };
 
@@ -42,8 +42,11 @@ export const WithFunctionSignature: Story = {
     args: {
         contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
         contractName: 'Uniswap V2 Router',
-        functionName: 'Add liquidity',
-        functionSignature: 'function addLiquidity(address, address)',
+        functionName: 'addLiquidity',
+        functionParameters: [
+            { name: 'tokenA', type: 'address', value: 0 },
+            { name: 'tokenB', type: 'address', value: 0 },
+        ],
     },
 };
 
@@ -54,8 +57,7 @@ export const WithRemoveButton: Story = {
     args: {
         contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
         contractName: 'Uniswap V2 Router',
-        functionName: 'Add liquidity',
-        showRemoveButton: true,
+        functionName: 'addLiquidity',
         onRemove: () => alert('Function removed'),
     },
 };

@@ -1,4 +1,4 @@
-import { SmartContractFunctionDataListItemSkeleton } from './smartContractFunctionDataListItemSkeleton/smartContractFunctionDataListItemSkeleton';
+import { SmartContractFunctionDataListItemSkeleton } from './smartContractFunctionDataListItemSkeleton';
 import { SmartContractFunctionDataListItemStructure } from './smartContractFunctionDataListItemStructure';
 
 export const SmartContractFunctionDataListItem = {

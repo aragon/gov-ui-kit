@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { toFunctionSelector } from 'viem';
 import { mainnet } from 'viem/chains';
+import type { IProposalActionInputDataParameter } from '../../..';
 import {
     Button,
     DataList,
@@ -29,13 +30,9 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      */
     contractAddress: string;
     /**
-     * Function signature. Needed to calculate the function selector.
+     * The parameters to pass to the function.
      */
-    functionSignature?: string;
-    /**
-     * Flag to determine whether or not to show the remove button.
-     */
-    showRemoveButton?: boolean;
+    functionParameters?: IProposalActionInputDataParameter[];
     /**
      * Callback when function is removed.
      */
@@ -61,13 +58,12 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
 ) => {
     const {
         functionName,
+        functionParameters,
         contractName,
         contractAddress,
         chainId = mainnet.id,
-        functionSignature,
         className,
         onRemove,
-        showRemoveButton,
         asChild,
         displayWarning = false,
         ...otherProps
@@ -80,6 +76,11 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
 
     const functionLabel = functionName ?? copy.smartContractFunctionDataListItemStructure.notVerified.function;
     const contractLabel = contractName ?? copy.smartContractFunctionDataListItemStructure.notVerified.contract;
+
+    const functionSignature =
+        functionName && functionParameters
+            ? `${functionName}(${functionParameters.map((param) => param.type).join(',')})`
+            : undefined;
 
     const functionSelector = functionSignature ? toFunctionSelector(functionSignature) : undefined;
 
@@ -110,7 +111,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
                     </object>
                 </LinkBase>
             </div>
-            {showRemoveButton && (
+            {onRemove && (
                 <Dropdown.Container
                     customTrigger={<Button variant="tertiary" size="md" iconLeft={IconType.DOTS_VERTICAL} />}
                 >

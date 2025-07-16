@@ -60,8 +60,8 @@ describe('<SmartContractFunctionDataListItem.Structure /> component', () => {
         expect(link.href).toEqual(`https://etherscan.io/address/${contractAddress}`);
     });
 
-    it('renders a dropdown to remove the function when showRemoveButton is true', async () => {
-        render(createTestComponent({ showRemoveButton: true }));
+    it('renders a dropdown to remove the function when onRemove is provided', async () => {
+        render(createTestComponent({ onRemove: () => null }));
         await userEvent.click(screen.getByRole('button'));
         expect(
             screen.getByRole('menuitem', { name: modulesCopy.smartContractFunctionDataListItemStructure.remove }),
