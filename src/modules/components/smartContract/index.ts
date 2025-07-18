@@ -1,1 +1,1 @@
-export * from './smartContractFunctionDataListItem'
+export * from './smartContractFunctionDataListItem';
