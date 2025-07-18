@@ -4,6 +4,7 @@ export * from './dao';
 export * from './gukModulesProvider';
 export * from './member';
 export * from './proposal';
+export * from './smartContract';
 export * from './transaction';
 export * from './vote';
 export * from './wallet';
