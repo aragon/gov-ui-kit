@@ -7,3 +7,4 @@ export * from './proposal';
 export * from './transaction';
 export * from './vote';
 export * from './wallet';
+export * from './smartContract';
