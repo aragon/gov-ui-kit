@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 1.12.0
+
+### Minor Changes
+
+- [#523](https://github.com/aragon/gov-ui-kit/pull/523) [`e153bc2`](https://github.com/aragon/gov-ui-kit/commit/e153bc2503ae1c985b2221453b122bacce735b53) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#529](https://github.com/aragon/gov-ui-kit/pull/529) [`daeaccf`](https://github.com/aragon/gov-ui-kit/commit/daeaccf9928fc2180565fa60610984cb43a4c7bf) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#524](https://github.com/aragon/gov-ui-kit/pull/524) [`74f4834`](https://github.com/aragon/gov-ui-kit/commit/74f483434137eb0b5401f4f89d6754d166d3a957) Thanks [@Fabricevladimir](https://github.com/Fabricevladimir)! - Add `valueFormat` prop in `TextAreaRichText` to control `onChange` output as `html`, `markdown` or `text`
+
 ## 1.11.0
 
 ### Minor Changes
