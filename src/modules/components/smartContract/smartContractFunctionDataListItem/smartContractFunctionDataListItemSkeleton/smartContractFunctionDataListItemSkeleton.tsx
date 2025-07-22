@@ -13,16 +13,17 @@ export const SmartContractFunctionDataListItemSkeleton: React.FC<ISmartContractF
 ) => {
     const { className, asChild, ...otherProps } = props;
 
-    const containerClasses = asChild
-        ? ' border-none shadow-none'
-        : 'border-neutral-0 flex min-h-[67.5px] w-full flex-col gap-3 py-4 md:min-h-[88.5px]';
-
     return (
         <DataList.Item
             tabIndex={!asChild ? 0 : undefined}
             aria-busy={!asChild ? true : undefined}
             aria-label={!asChild ? 'loading' : undefined}
-            className={classNames(containerClasses, className)}
+            className={classNames(
+                'flex w-full flex-col gap-3 py-4',
+                { 'min-h-[67.5px] md:min-h-[88.5px]': !asChild },
+                { 'min-h-[35.5px] border-none !p-0 shadow-none md:min-h-[56.5px]': asChild },
+                className,
+            )}
             {...otherProps}
         >
             <div className="flex w-1/2 md:w-1/3">
