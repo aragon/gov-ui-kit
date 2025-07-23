@@ -57,8 +57,8 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
         'text-sm leading-tight text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate';
 
     const labelClasses = classNames(
-        baseTextClasses,
-        'text-base group-data-[state=checked]:text-neutral-800 group-data-[state=checked]:group-disabled:text-neutral-800',
+        'text-base leading-tight text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate',
+        'group-data-[state=checked]:text-neutral-800 group-data-[state=checked]:group-disabled:text-neutral-800',
     );
 
     return (
