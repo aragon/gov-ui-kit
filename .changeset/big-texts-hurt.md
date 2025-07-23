@@ -1,5 +1,5 @@
 ---
-'@aragon/gov-ui-kit': minor
+'@aragon/gov-ui-kit': patch
 ---
 
-Reduce text size of the descriptions on the RadioCard and CheckboxCard
+Reduce text size of the descriptions on the RadioCard and CheckboxCard components
