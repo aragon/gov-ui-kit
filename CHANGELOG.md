@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.13.1
+
+### Patch Changes
+
+- [#536](https://github.com/aragon/gov-ui-kit/pull/536) [`113b5ac`](https://github.com/aragon/gov-ui-kit/commit/113b5ac3f1ddf0bcf7d14f240caafead6554fcb5) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix `asChild` variant style of SmartContractFunction data list component
+
 ## 1.13.0
 
 ### Minor Changes
