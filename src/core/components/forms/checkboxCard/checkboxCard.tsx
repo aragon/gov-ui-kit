@@ -97,7 +97,7 @@ export const CheckboxCard = forwardRef<HTMLButtonElement, ICheckboxCardProps>((p
                         {label}
                     </p>
                     {description && (
-                        <p className="max-w-full truncate text-neutral-500 group-data-disabled:text-neutral-300">
+                        <p className="max-w-full truncate text-neutral-500 group-data-disabled:text-neutral-300 md:text-sm">
                             {description}
                         </p>
                     )}
