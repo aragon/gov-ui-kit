@@ -54,7 +54,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     );
 
     const baseTextClasses =
-        'text-sm leading-tight text-left text-neutral-500 md:text-base w-full group-disabled:text-neutral-300 truncate';
+        'text-sm leading-tight text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate';
 
     const labelClasses = classNames(
         baseTextClasses,
