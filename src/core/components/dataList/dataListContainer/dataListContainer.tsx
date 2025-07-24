@@ -6,7 +6,10 @@ import { useDataListContext } from '../dataListContext';
 import { DataListContainerSkeletonLoader } from './dataListContainerSkeletonLoader';
 
 export interface IDataListContainerState
-    extends Pick<IEmptyStateProps, 'heading' | 'description' | 'primaryButton' | 'secondaryButton'> {}
+    extends Pick<
+        IEmptyStateProps,
+        'heading' | 'description' | 'objectIllustration' | 'isStacked' | 'primaryButton' | 'secondaryButton'
+    > {}
 
 export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**
@@ -81,13 +84,25 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
         >
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
             {isError && errorState != null && (
-                <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...errorState} />
+                <CardEmptyState
+                    isStacked={errorState.isStacked}
+                    objectIllustration={errorState.objectIllustration ?? { object: 'ERROR' }}
+                    {...errorState}
+                />
             )}
             {isEmpty && emptyState != null && (
-                <CardEmptyState objectIllustration={{ object: 'ERROR' }} {...emptyState} />
+                <CardEmptyState
+                    isStacked={emptyState.isStacked}
+                    objectIllustration={emptyState.objectIllustration ?? { object: 'ERROR' }}
+                    {...emptyState}
+                />
             )}
             {isEmptyFiltered && emptyFilteredState != null && (
-                <CardEmptyState objectIllustration={{ object: 'NOT_FOUND' }} {...emptyFilteredState} />
+                <CardEmptyState
+                    isStacked={emptyFilteredState.isStacked}
+                    objectIllustration={emptyFilteredState.objectIllustration ?? { object: 'NOT_FOUND' }}
+                    {...emptyFilteredState}
+                />
             )}
             {displayItems && paginatedChildren}
         </div>
