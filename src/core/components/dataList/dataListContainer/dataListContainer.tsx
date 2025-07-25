@@ -85,21 +85,18 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
             {isError && errorState != null && (
                 <CardEmptyState
-                    isStacked={errorState.isStacked}
                     objectIllustration={errorState.objectIllustration ?? { object: 'ERROR' }}
                     {...errorState}
                 />
             )}
             {isEmpty && emptyState != null && (
                 <CardEmptyState
-                    isStacked={emptyState.isStacked}
                     objectIllustration={emptyState.objectIllustration ?? { object: 'ERROR' }}
                     {...emptyState}
                 />
             )}
             {isEmptyFiltered && emptyFilteredState != null && (
                 <CardEmptyState
-                    isStacked={emptyFilteredState.isStacked}
                     objectIllustration={emptyFilteredState.objectIllustration ?? { object: 'NOT_FOUND' }}
                     {...emptyFilteredState}
                 />
