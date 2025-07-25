@@ -54,7 +54,7 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     );
 
     const labelClasses = classNames(
-        'text-base leading-tight text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate',
+        'text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate md:text-base',
         'group-data-[state=checked]:text-neutral-800 group-data-[state=checked]:group-disabled:text-neutral-800',
     );
 
@@ -73,12 +73,12 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                 <div
                     className={classNames('flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4', { 'items-center': !description })}
                 >
-                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 md:gap-y-1">
+                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 text-sm leading-tight font-normal md:gap-y-1">
                         <p className={labelClasses} id={labelId}>
                             {label}
                         </p>
                         {description && (
-                            <p className="w-full truncate text-left text-sm leading-tight text-neutral-500 group-disabled:text-neutral-300">
+                            <p className="w-full truncate text-left text-neutral-500 group-disabled:text-neutral-300">
                                 {description}
                             </p>
                         )}
