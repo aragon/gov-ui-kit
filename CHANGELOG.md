@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.14.0
+
+### Minor Changes
+
+- [#538](https://github.com/aragon/gov-ui-kit/pull/538) [`c0375a5`](https://github.com/aragon/gov-ui-kit/commit/c0375a5f0d25ac0861c39f147d9af260b6b32928) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Expose additional props on DataListContainer for more control over EmptyState usage
+
+### Patch Changes
+
+- [#537](https://github.com/aragon/gov-ui-kit/pull/537) [`44ec981`](https://github.com/aragon/gov-ui-kit/commit/44ec981cbff82065e6147e23ec816a783cba777c) Thanks [@evanaronson](https://github.com/evanaronson)! - Reduce text size of the descriptions on the RadioCard and CheckboxCard components
+
 ## 1.13.1
 
 ### Patch Changes
