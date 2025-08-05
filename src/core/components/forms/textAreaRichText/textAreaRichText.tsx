@@ -95,13 +95,10 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                 html: () => editor.getHTML(),
                 text: () => editor.getText(),
                 markdown: () => {
-                    const markdownStorage = editor.storage.markdown as MarkdownStorage | undefined;
+                    const { storage } = editor;
+                    const markdownStorage = 'markdown' in storage ? (storage.markdown as MarkdownStorage) : undefined;
 
-                    if (markdownStorage) {
-                        return markdownStorage.getMarkdown();
-                    }
-
-                    return editor.getHTML();
+                    return markdownStorage?.getMarkdown();
                 },
             };
 
