@@ -1,5 +1,33 @@
 # @aragon/gov-ui-kit
 
+## 1.14.0
+
+### Minor Changes
+
+- [#538](https://github.com/aragon/gov-ui-kit/pull/538) [`c0375a5`](https://github.com/aragon/gov-ui-kit/commit/c0375a5f0d25ac0861c39f147d9af260b6b32928) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Expose additional props on DataListContainer for more control over EmptyState usage
+
+### Patch Changes
+
+- [#537](https://github.com/aragon/gov-ui-kit/pull/537) [`44ec981`](https://github.com/aragon/gov-ui-kit/commit/44ec981cbff82065e6147e23ec816a783cba777c) Thanks [@evanaronson](https://github.com/evanaronson)! - Reduce text size of the descriptions on the RadioCard and CheckboxCard components
+
+## 1.13.1
+
+### Patch Changes
+
+- [#536](https://github.com/aragon/gov-ui-kit/pull/536) [`113b5ac`](https://github.com/aragon/gov-ui-kit/commit/113b5ac3f1ddf0bcf7d14f240caafead6554fcb5) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix `asChild` variant style of SmartContractFunction data list component
+
+## 1.13.0
+
+### Minor Changes
+
+- [#533](https://github.com/aragon/gov-ui-kit/pull/533) [`d98379a`](https://github.com/aragon/gov-ui-kit/commit/d98379acd6c5773bba9651785e86058820af35fe) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#531](https://github.com/aragon/gov-ui-kit/pull/531) [`26c1793`](https://github.com/aragon/gov-ui-kit/commit/26c1793d64c9cf0545fa7396ae5519e54a7efa65) Thanks [@shan8851](https://github.com/shan8851)! - Fix export of SmartContractFunctionDataListItem component
+
+- [#530](https://github.com/aragon/gov-ui-kit/pull/530) [`af2c2d5`](https://github.com/aragon/gov-ui-kit/commit/af2c2d5743dfcca8fdb57b5e5e72af0511642587) Thanks [@shan8851](https://github.com/shan8851)! - Implement SmartContractFunctionDataListItem module component
+
 ## 1.12.0
 
 ### Minor Changes
