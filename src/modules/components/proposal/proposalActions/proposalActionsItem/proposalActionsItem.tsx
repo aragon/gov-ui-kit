@@ -89,7 +89,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     className="w-full bg-transparent"
                     asChild={true}
                     displayWarning={displayValueWarning}
-                    isNative={action.data === '0x'}
+                    isNativeTransfer={action.data === '0x'}
                 />
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
