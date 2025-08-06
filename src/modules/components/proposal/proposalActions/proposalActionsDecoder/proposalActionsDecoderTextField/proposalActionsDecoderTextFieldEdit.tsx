@@ -45,7 +45,7 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
             const newValue = event.target.value;
             const parsedValue = proposalActionsDecoderUtils.validateBoolean(newValue)
                 ? newValue === 'true'
-                : newValue.toString().toLocaleLowerCase();
+                : newValue.toLocaleLowerCase();
             onChange(parsedValue);
         } else if (proposalActionsDecoderUtils.isNumberType(type)) {
             // Allow only numbers and one "-" negative sign
