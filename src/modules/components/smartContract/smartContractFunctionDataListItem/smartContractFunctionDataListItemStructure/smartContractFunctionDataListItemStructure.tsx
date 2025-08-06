@@ -51,6 +51,11 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      * @default false
      */
     displayWarning?: boolean;
+    /**
+     * Flag to determine whether or not function is native transfer.
+     * @default false
+     */
+    isNativeTransfer?: boolean;
 };
 
 export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContractFunctionDataListItemProps> = (
@@ -66,6 +71,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
         onRemove,
         asChild,
         displayWarning = false,
+        isNativeTransfer = false,
         ...otherProps
     } = props;
 
@@ -82,7 +88,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
             ? `${functionName}(${functionParameters.map((param) => param.type).join(',')})`
             : undefined;
 
-    const functionSelector = functionSignature ? toFunctionSelector(functionSignature) : undefined;
+    const functionSelector = functionSignature && !isNativeTransfer ? toFunctionSelector(functionSignature) : undefined;
 
     const hasVerifiedNames = !!functionName && !!contractName;
     const displayWarningFeedback = displayWarning || !hasVerifiedNames;
