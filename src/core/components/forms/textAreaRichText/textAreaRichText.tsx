@@ -98,7 +98,9 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                     const { storage } = editor;
                     const markdownStorage = 'markdown' in storage ? (storage.markdown as MarkdownStorage) : undefined;
 
-                    return markdownStorage?.getMarkdown();
+                    // Replace soft break syntax emitted by tiptap-markdown (backslash + newline)
+                    // with standard two-space newline
+                    return markdownStorage?.getMarkdown().replace(/\\\n/g, '  \n');
                 },
             };
 
