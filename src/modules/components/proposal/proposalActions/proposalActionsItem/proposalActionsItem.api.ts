@@ -27,6 +27,10 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      */
     action: TAction;
     /**
+     * Function selector of the action to be displayed optionally.
+     */
+    actionFunctionSelector?: string;
+    /**
      * Index of the action injected by the <ProposalActions.Container /> component.
      */
     index?: number;

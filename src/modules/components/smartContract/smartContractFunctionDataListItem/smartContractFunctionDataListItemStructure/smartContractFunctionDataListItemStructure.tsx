@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import { toFunctionSelector } from 'viem';
 import { mainnet } from 'viem/chains';
-import type { IProposalActionInputDataParameter } from '../../..';
 import {
     Button,
     DataList,
@@ -30,9 +28,9 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      */
     contractAddress: string;
     /**
-     * The parameters to pass to the function.
+     * Function selector of the given smart contract function.
      */
-    functionParameters?: IProposalActionInputDataParameter[];
+    functionSelector?: string;
     /**
      * Callback when function is removed.
      */
@@ -58,7 +56,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
 ) => {
     const {
         functionName,
-        functionParameters,
+        functionSelector,
         contractName,
         contractAddress,
         chainId = mainnet.id,
@@ -76,13 +74,6 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
 
     const functionLabel = functionName ?? copy.smartContractFunctionDataListItemStructure.notVerified.function;
     const contractLabel = contractName ?? copy.smartContractFunctionDataListItemStructure.notVerified.contract;
-
-    const functionSignature =
-        functionName && functionParameters
-            ? `${functionName}(${functionParameters.map((param) => param.type).join(',')})`
-            : undefined;
-
-    const functionSelector = functionSignature ? toFunctionSelector(functionSignature) : undefined;
 
     const hasVerifiedNames = !!functionName && !!contractName;
     const displayWarningFeedback = displayWarning || !hasVerifiedNames;

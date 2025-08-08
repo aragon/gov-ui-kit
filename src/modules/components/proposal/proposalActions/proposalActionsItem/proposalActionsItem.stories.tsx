@@ -78,6 +78,7 @@ export const VerifiedDecoded: Story = {
                 ],
             },
         }),
+        actionFunctionSelector: '0x7ff36ab5',
     },
 };
 
@@ -98,6 +99,7 @@ export const VerifiedRaw: Story = {
                 parameters: [],
             },
         }),
+        actionFunctionSelector: '0x7ff36ab5',
     },
 };
 

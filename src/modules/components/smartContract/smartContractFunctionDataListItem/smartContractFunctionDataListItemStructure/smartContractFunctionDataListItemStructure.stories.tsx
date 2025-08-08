@@ -36,17 +36,14 @@ export const Unverified: Story = {
 };
 
 /**
- * Usage example of the SmartContractFunctionDataListItem.Structure component with a function signature.
+ * Usage example of the SmartContractFunctionDataListItem.Structure component with a function selector.
  */
-export const WithFunctionSignature: Story = {
+export const WithFunctionSelector: Story = {
     args: {
         contractAddress: '0x1234567890abcdef1234567890abcdef12345678',
         contractName: 'Uniswap V2 Router',
         functionName: 'addLiquidity',
-        functionParameters: [
-            { name: 'tokenA', type: 'address', value: 0 },
-            { name: 'tokenB', type: 'address', value: 0 },
-        ],
+        functionSelector: '0x7ff36ab5',
     },
 };
 

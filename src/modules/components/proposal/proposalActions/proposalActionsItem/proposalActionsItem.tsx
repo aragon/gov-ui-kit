@@ -22,6 +22,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 ) => {
     const {
         action,
+        actionFunctionSelector,
         index,
         value,
         CustomComponent,
@@ -81,10 +82,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
                 <SmartContractFunctionDataListItem.Structure
-                    functionName={action.inputData?.function}
                     contractName={action.inputData?.contract}
                     contractAddress={action.to}
-                    functionParameters={action.inputData?.parameters}
+                    functionName={action.inputData?.function}
+                    functionSelector={actionFunctionSelector}
                     chainId={chainId}
                     className="w-full bg-transparent"
                     asChild={true}
