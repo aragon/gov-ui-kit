@@ -28,7 +28,7 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      */
     contractAddress: string;
     /**
-     * The parameters to pass to the function.
+     * Function selector of the given smart contract function.
      */
     functionSelector?: string;
     /**
