@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { formatUnits } from 'viem';
+import { type AbiStateMutability, formatUnits, toFunctionSelector } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, invariant } from '../../../../../core';
@@ -50,6 +50,17 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const isAbiAvailable = action.inputData != null;
     const supportsDecodedView = isAbiAvailable && action.inputData?.parameters.length;
 
+    const { inputData } = action;
+    const actionFunctionSelector = inputData
+        ? toFunctionSelector({
+              type: 'function',
+              name: inputData.function,
+              inputs: inputData.parameters,
+              outputs: [],
+              stateMutability: inputData.stateMutability as AbiStateMutability,
+          })
+        : undefined;
+
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
             ? 'BASIC'
@@ -81,10 +92,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader className="min-w-0">
                 <SmartContractFunctionDataListItem.Structure
-                    functionName={action.inputData?.function}
                     contractName={action.inputData?.contract}
                     contractAddress={action.to}
-                    functionParameters={action.inputData?.parameters}
+                    functionName={action.inputData?.function}
+                    functionSelector={actionFunctionSelector}
                     chainId={chainId}
                     className="w-full bg-transparent"
                     asChild={true}
