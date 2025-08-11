@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 1.15.0
+
+### Minor Changes
+
+- [#539](https://github.com/aragon/gov-ui-kit/pull/539) [`b3ace0f`](https://github.com/aragon/gov-ui-kit/commit/b3ace0fcf4814fa1d794aa790dd5c7900607571c) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump cross-env to v10
+
+- [#545](https://github.com/aragon/gov-ui-kit/pull/545) [`6d634e3`](https://github.com/aragon/gov-ui-kit/commit/6d634e37248c85f3d51b30304df4cc5412ef4e61) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#544](https://github.com/aragon/gov-ui-kit/pull/544) [`af61040`](https://github.com/aragon/gov-ui-kit/commit/af61040cba3e10da8c9ecb1e9aa701413269c837) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump linkifyjs from 4.2.0 to 4.3.2
+
+- [#543](https://github.com/aragon/gov-ui-kit/pull/543) [`6e11a08`](https://github.com/aragon/gov-ui-kit/commit/6e11a08966e508dbad765330de60b4e98649b50b) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#549](https://github.com/aragon/gov-ui-kit/pull/549) [`3194f3c`](https://github.com/aragon/gov-ui-kit/commit/3194f3cba309e8c997e18e4faaf5913779cd551c) Thanks [@milosh86](https://github.com/milosh86)! - **BREAKING CHANGE:** Update `ProposalActionsItem` and `SmartContractFunctionDataListItemStructure` to accept `functionSelector` as a prop, instead of calculating it internally
+
 ## 1.14.0
 
 ### Minor Changes
