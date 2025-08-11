@@ -28,6 +28,12 @@ describe('<SmartContractFunctionDataListItem.Structure /> component', () => {
         expect(screen.getByText(functionName)).toBeInTheDocument();
     });
 
+    it('renders the function selector when smart contract is verified', () => {
+        const functionSelector = '0xFunSelector';
+        render(createTestComponent({ functionSelector }));
+        expect(screen.getByText(functionSelector)).toBeInTheDocument();
+    });
+
     it('renders a not-verified label for function name and contract name when smart contract is not verified', () => {
         render(createTestComponent());
         expect(
