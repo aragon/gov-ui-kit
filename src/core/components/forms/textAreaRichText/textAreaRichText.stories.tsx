@@ -41,7 +41,15 @@ export const Controlled: Story = {
             '<p>Hello <strong>dev</strong>, check this <a href="https://aragon.org" target="_blank">link</a>.</p>',
         );
 
-        return <TextAreaRichText value={value} onChange={setValue} {...props} />;
+        return (
+            <div className="flex grow flex-col gap-2">
+                <TextAreaRichText value={value} onChange={setValue} {...props} />
+                <div className="flex flex-col gap-1">
+                    <p className="text-md text-neutral-800">Output</p>
+                    <p className="text-neutral-500">{value}</p>
+                </div>
+            </div>
+        );
     },
 };
 
