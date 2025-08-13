@@ -64,8 +64,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
 
-    // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
-    const displayValueWarning = action.value !== '0' && action.data !== '0x';
+    // Native transfer is defined as a transaction with data equal to '0x' indicating no functions are called.
+    const isNativeTransfer = action.data === '0x';
+    // Display value warning when a transaction is sending value but it's not a native transfer.
+    const displayValueWarning = action.value !== '0' && !isNativeTransfer;
+
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
     const viewModes = [
@@ -90,7 +93,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     className="w-full bg-transparent"
                     asChild={true}
                     displayWarning={displayValueWarning}
-                    isNativeTransfer={action.data === '0x'}
+                    isNativeTransfer={isNativeTransfer}
                 />
             </Accordion.ItemHeader>
             <Accordion.ItemContent forceMount={editMode ? true : undefined}>
