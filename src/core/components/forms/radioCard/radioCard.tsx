@@ -53,11 +53,8 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
         className,
     );
 
-    const baseTextClasses =
-        'text-sm leading-tight text-left text-neutral-500 md:text-base w-full group-disabled:text-neutral-300 truncate';
-
     const labelClasses = classNames(
-        baseTextClasses,
+        'text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate md:text-base',
         'group-data-[state=checked]:text-neutral-800 group-data-[state=checked]:group-disabled:text-neutral-800',
     );
 
@@ -74,15 +71,17 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
             <div className="flex size-full items-center gap-x-3 md:gap-x-4">
                 {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
                 <div
-                    className={classNames('flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4', {
-                        'items-center': !description,
-                    })}
+                    className={classNames('flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4', { 'items-center': !description })}
                 >
-                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 md:gap-y-1">
+                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 text-sm leading-tight font-normal md:gap-y-1">
                         <p className={labelClasses} id={labelId}>
                             {label}
                         </p>
-                        {description && <p className={baseTextClasses}>{description}</p>}
+                        {description && (
+                            <p className="w-full truncate text-left text-neutral-500 group-disabled:text-neutral-300">
+                                {description}
+                            </p>
+                        )}
                     </div>
                     {tag && <Tag {...tag} />}
                 </div>

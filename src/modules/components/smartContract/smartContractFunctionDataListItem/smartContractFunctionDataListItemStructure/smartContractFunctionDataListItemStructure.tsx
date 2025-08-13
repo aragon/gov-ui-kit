@@ -1,7 +1,5 @@
 import classNames from 'classnames';
-import { toFunctionSelector } from 'viem';
 import { mainnet } from 'viem/chains';
-import type { IProposalActionInputDataParameter } from '../../..';
 import {
     Button,
     DataList,
@@ -30,9 +28,9 @@ export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
      */
     contractAddress: string;
     /**
-     * The parameters to pass to the function.
+     * Function selector of the given smart contract function.
      */
-    functionParameters?: IProposalActionInputDataParameter[];
+    functionSelector?: string;
     /**
      * Callback when function is removed.
      */
@@ -63,7 +61,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
 ) => {
     const {
         functionName,
-        functionParameters,
+        functionSelector,
         contractName,
         contractAddress,
         chainId = mainnet.id,
@@ -83,13 +81,6 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
     const functionLabel = functionName ?? copy.smartContractFunctionDataListItemStructure.notVerified.function;
     const contractLabel = contractName ?? copy.smartContractFunctionDataListItemStructure.notVerified.contract;
 
-    const functionSignature =
-        functionName && functionParameters
-            ? `${functionName}(${functionParameters.map((param) => param.type).join(',')})`
-            : undefined;
-
-    const functionSelector = functionSignature && !isNativeTransfer ? toFunctionSelector(functionSignature) : undefined;
-
     const hasVerifiedNames = !!functionName && !!contractName;
     const displayWarningFeedback = displayWarning || !hasVerifiedNames;
 
@@ -104,7 +95,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
             <div className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-3">
                     <p className={classNames('text-lg text-neutral-800', functionLabelStyle)}>{functionLabel}</p>
-                    {functionSelector && <p className="text-lg text-neutral-500">{functionSelector}</p>}
+                    {!isNativeTransfer && <p className="text-lg text-neutral-500">{functionSelector}</p>}
                     {displayWarningFeedback && <Icon icon={IconType.WARNING} size="md" className="text-warning-500" />}
                 </div>
                 <LinkBase className="flex w-fit items-center gap-3" href={blockExplorerHref} target="_blank">
