@@ -58,7 +58,7 @@
     "@tiptap/extension-code-block": "^2.26.0",
     "@tiptap/extension-image": "^2.26.0",
     "@tiptap/extension-link": "^2.26.0",
-    "@tiptap/extension-placeholder": "^2.26.0",
+    "@tiptap/extension-placeholder": "^3.3.0",
     "@tiptap/extension-text-style": "^2.26.0",
     "@tiptap/pm": "^2.26.0",
     "@tiptap/react": "^2.26.0",
