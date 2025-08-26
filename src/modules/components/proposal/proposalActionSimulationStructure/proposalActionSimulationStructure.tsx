@@ -1,35 +1,45 @@
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
-import { AvatarIcon, Button, DataList, DefinitionList, formatterUtils, IconType, Spinner } from '../../../../core';
+import { useMemo } from 'react';
+import {
+    AvatarIcon,
+    Button,
+    DataList,
+    DateFormat,
+    DefinitionList,
+    formatterUtils,
+    IconType,
+    Spinner,
+} from '../../../../core';
 import { useGukModulesContext } from '../../gukModulesProvider';
 
 export interface IProposalActionSimulationStructureProps {
     /**
-     * Total number of actions in the proposal
+     * Total number of actions in the proposal.
      */
     totalActions: number;
     /**
-     * Last simulation date
+     * Last simulation date.
      */
-    lastSimulation?: DateTime | string | number;
+    lastSimulation?: DateTime;
     /**
-     * Whether simulation is currently running
+     * Whether simulation is currently running.
      */
     isSimulating?: boolean;
     /**
-     * Whether the proposal can be simulated (controls if Simulate button is shown)
+     * Whether the proposal can be simulated.
      */
     isSimulatable?: boolean;
     /**
-     * Simulation status result
+     * Simulation status result.
      */
     status: 'success' | 'failure' | 'unknown';
     /**
-     * Callback when simulate again button is clicked
+     * Callback when simulate again button is clicked.
      */
     onSimulate?: () => void;
     /**
-     * URL for tenderly simulation
+     * URL for tenderly simulation.
      */
     tenderlyUrl?: string;
     /**
@@ -59,7 +69,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     const { copy } = useGukModulesContext();
     const simulationCopy = copy.proposalActionSimulationStructure;
 
-    const getStatusConfig = () => {
+    const statusConfig = useMemo(() => {
         switch (status) {
             case 'success':
                 return {
@@ -84,44 +94,26 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     variant: 'neutral' as const,
                 };
         }
-    };
+    }, [simulationCopy, status]);
 
-    const statusConfig = getStatusConfig();
-
-    const formatSimulationDate = (date?: DateTime | string | number) => {
+    const formatSimulationDate = (date?: DateTime) => {
         if (!date) {
             return copy.proposalActionSimulationStructure.never;
         }
 
-        const dateTime =
-            typeof date === 'string'
-                ? DateTime.fromISO(date)
-                : typeof date === 'number'
-                  ? DateTime.fromMillis(date)
-                  : date;
-
         const now = DateTime.now();
-        const diffInHours = now.diff(dateTime, 'hours').hours;
-        const diffInDays = now.diff(dateTime, 'days').days;
+        const diffInDays = now.diff(date, 'days').days;
 
-        if (diffInHours < 1) {
-            return 'Now';
-        } else if (diffInDays < 1) {
-            const hours = Math.floor(diffInHours);
-            return `${hours.toString()} hour${hours > 1 ? 's' : ''} ago`;
-        } else if (diffInDays < 7) {
-            const days = Math.floor(diffInDays);
-            return `${days.toString()} day${days > 1 ? 's' : ''} ago`;
-        } else {
-            return formatterUtils.formatDate(dateTime);
-        }
+        return formatterUtils.formatDate(date, {
+            format: diffInDays > 1 ? DateFormat.YEAR_MONTH_DAY_TIME : DateFormat.RELATIVE,
+        });
     };
 
     return (
         <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.totalActionsTerm}>
-                    {`${totalActions.toString()} action${totalActions !== 1 ? 's' : ''}`}
+                    {`${totalActions.toString()} ${totalActions !== 1 ? simulationCopy.actions : simulationCopy.action}`}
                 </DefinitionList.Item>
 
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.lastSimulationTerm}>

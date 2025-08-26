@@ -82,6 +82,8 @@ export const modulesCopy = {
         totalHoldersTerm: 'Total token holders',
     },
     proposalActionSimulationStructure: {
+        action: 'action',
+        actions: 'actions',
         totalActionsTerm: 'Total actions',
         lastSimulationTerm: 'Last simulation',
         never: 'Never',
