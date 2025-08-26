@@ -17,6 +17,10 @@ export interface IProposalActionSimulationStructureProps {
      */
     isSimulating?: boolean;
     /**
+     * Whether the proposal can be simulated (controls if Simulate button is shown)
+     */
+    isSimulatable?: boolean;
+    /**
      * Simulation status result
      */
     status: 'success' | 'failure' | 'unknown';
@@ -40,7 +44,17 @@ export interface IProposalActionSimulationStructureProps {
 }
 
 export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
-    const { totalActions, lastSimulation, isSimulating, status, onSimulate, tenderlyUrl, className, error } = props;
+    const {
+        totalActions,
+        lastSimulation,
+        isSimulating,
+        isSimulatable = true,
+        status,
+        onSimulate,
+        tenderlyUrl,
+        className,
+        error,
+    } = props;
 
     const { copy } = useGukModulesContext();
     const simulationCopy = copy.proposalActionSimulationStructure;
@@ -144,14 +158,20 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 </DefinitionList.Item>
             </DefinitionList.Container>
 
-            <div className="flex flex-col gap-2 md:flex-row md:justify-between">
-                <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isSimulating}>
-                    {isSimulating
-                        ? copy.proposalActionSimulationStructure.simulating
-                        : lastSimulation
-                          ? copy.proposalActionSimulationStructure.simulateAgain
-                          : copy.proposalActionSimulationStructure.simulate}
-                </Button>
+            <div
+                className={classNames('flex flex-col gap-2 md:flex-row md:justify-between', {
+                    'md:justify-end': !isSimulatable,
+                })}
+            >
+                {isSimulatable && (
+                    <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isSimulating}>
+                        {isSimulating
+                            ? copy.proposalActionSimulationStructure.simulating
+                            : lastSimulation
+                              ? copy.proposalActionSimulationStructure.simulateAgain
+                              : copy.proposalActionSimulationStructure.simulate}
+                    </Button>
+                )}
 
                 <Button
                     variant="tertiary"

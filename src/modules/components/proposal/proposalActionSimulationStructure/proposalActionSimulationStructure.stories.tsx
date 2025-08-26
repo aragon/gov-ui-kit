@@ -108,4 +108,29 @@ export const OldSimulation: Story = {
     },
 };
 
+/**
+ * Not simulatable - only shows Tenderly link
+ */
+export const NotSimulatable: Story = {
+    args: {
+        totalActions: 3,
+        lastSimulation: DateTime.now().minus({ hours: 2 }),
+        status: 'success',
+        isSimulatable: false,
+        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+    },
+};
+
+/**
+ * Not simulatable without previous simulation
+ */
+export const NotSimulatableNoSimulation: Story = {
+    args: {
+        totalActions: 1,
+        status: 'unknown',
+        isSimulatable: false,
+        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+    },
+};
+
 export default meta;

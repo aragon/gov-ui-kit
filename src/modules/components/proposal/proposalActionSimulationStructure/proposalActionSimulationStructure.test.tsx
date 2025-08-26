@@ -170,4 +170,43 @@ describe('<ProposalActionSimulationStructure /> component', () => {
 
         expect(screen.getByText('1 hour ago')).toBeInTheDocument();
     });
+
+    it('shows simulate button by default when isSimulatable is not specified', () => {
+        render(createTestComponent());
+
+        expect(screen.getByRole('button', { name: /simulate again/i })).toBeInTheDocument();
+    });
+
+    it('shows simulate button when isSimulatable is true', () => {
+        render(createTestComponent({ isSimulatable: true }));
+
+        expect(screen.getByRole('button', { name: /simulate again/i })).toBeInTheDocument();
+    });
+
+    it('hides simulate button when isSimulatable is false', () => {
+        render(createTestComponent({ isSimulatable: false }));
+
+        expect(screen.queryByRole('button', { name: /simulate again/i })).not.toBeInTheDocument();
+    });
+
+    it('always shows tenderly button regardless of isSimulatable value', () => {
+        render(createTestComponent({ isSimulatable: false, tenderlyUrl: 'https://tenderly.co/test' }));
+
+        expect(screen.queryByRole('button', { name: /simulate again/i })).not.toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /view on tenderly/i })).toBeInTheDocument();
+    });
+
+    it('positions tenderly button on the right when simulate button is not shown', () => {
+        render(createTestComponent({ isSimulatable: false }));
+
+        const tenderlyButton = screen.getByRole('button', { name: /view on tenderly/i });
+        expect(tenderlyButton).toHaveClass('md:ml-auto');
+    });
+
+    it('does not add ml-auto class to tenderly button when simulate button is shown', () => {
+        render(createTestComponent({ isSimulatable: true }));
+
+        const tenderlyButton = screen.getByRole('button', { name: /view on tenderly/i });
+        expect(tenderlyButton).not.toHaveClass('md:ml-auto');
+    });
 });
