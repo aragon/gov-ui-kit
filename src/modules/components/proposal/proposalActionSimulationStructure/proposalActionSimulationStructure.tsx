@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
-import { AvatarIcon, Button, DefinitionList, IconType } from '../../../../core';
+import { AvatarIcon, Button, DataList, DefinitionList, IconType } from '../../../../core';
 import { formatterUtils } from '../../../../core/utils/formatterUtils';
 
 export interface IProposalActionSimulationStructureProps {
@@ -96,7 +96,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     };
 
     return (
-        <div className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
+        <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
                 <DefinitionList.Item term="Total actions">
                     {`${totalActions.toString()} action${totalActions !== 1 ? 's' : ''}`}
@@ -133,6 +133,6 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     View on tenderly
                 </Button>
             </div>
-        </div>
+        </DataList.Item>
     );
 };
