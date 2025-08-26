@@ -16,9 +16,6 @@ const meta: Meta<typeof ProposalActionSimulationStructure> = {
         onSimulateAgain: () => {
             // Mock action
         },
-        onViewOnTenderly: () => {
-            // Mock action
-        },
     },
 };
 
@@ -31,10 +28,7 @@ export const Success: Story = {
     args: {
         totalActions: 3,
         lastSimulation: DateTime.now().minus({ hours: 2 }),
-        executionStatus: {
-            label: 'Likely to succeed',
-            isExecutable: true,
-        },
+        status: 'success',
     },
 };
 
@@ -45,10 +39,7 @@ export const Loading: Story = {
     args: {
         totalActions: 5,
         lastSimulation: DateTime.now().minus({ days: 1 }),
-        executionStatus: {
-            label: 'Simulating...',
-            isLoading: true,
-        },
+        status: 'unknown',
         isSimulating: true,
     },
 };
@@ -60,10 +51,7 @@ export const Failed: Story = {
     args: {
         totalActions: 2,
         lastSimulation: DateTime.now().minus({ hours: 6 }),
-        executionStatus: {
-            label: 'Likely to fail',
-            isExecutable: false,
-        },
+        status: 'failure',
     },
 };
 
@@ -73,10 +61,7 @@ export const Failed: Story = {
 export const NoSimulation: Story = {
     args: {
         totalActions: 1,
-        executionStatus: {
-            label: 'Not simulated',
-            isExecutable: false,
-        },
+        status: 'unknown',
     },
 };
 
@@ -87,10 +72,7 @@ export const WithTenderlyUrl: Story = {
     args: {
         totalActions: 4,
         lastSimulation: DateTime.now().minus({ minutes: 30 }),
-        executionStatus: {
-            label: 'Likely to succeed',
-            isExecutable: true,
-        },
+        status: 'success',
         tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
     },
 };
@@ -102,10 +84,7 @@ export const RecentSimulation: Story = {
     args: {
         totalActions: 7,
         lastSimulation: DateTime.now().minus({ minutes: 5 }),
-        executionStatus: {
-            label: 'Likely to succeed',
-            isExecutable: true,
-        },
+        status: 'success',
     },
 };
 
@@ -116,10 +95,7 @@ export const OldSimulation: Story = {
     args: {
         totalActions: 2,
         lastSimulation: DateTime.now().minus({ weeks: 2 }),
-        executionStatus: {
-            label: 'Likely to succeed',
-            isExecutable: true,
-        },
+        status: 'success',
     },
 };
 

@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
-import { AvatarIcon, Button, DataList, DefinitionList, IconType } from '../../../../core';
-import { formatterUtils } from '../../../../core/utils/formatterUtils';
+import { AvatarIcon, Button, DataList, DefinitionList, formatterUtils, IconType, Spinner } from '../../../../core';
 import { useGukModulesContext } from '../../gukModulesProvider';
 
 export interface IProposalActionSimulationStructureProps {
@@ -14,25 +13,17 @@ export interface IProposalActionSimulationStructureProps {
      */
     lastSimulation?: DateTime | string | number;
     /**
-     * Simulation status and state
+     * Whether simulation is currently running
      */
-    executionStatus: {
-        label: string;
-        isLoading?: boolean;
-        isExecutable?: boolean;
-    };
+    isSimulating?: boolean;
+    /**
+     * Simulation status result
+     */
+    status: 'success' | 'failure' | 'unknown';
     /**
      * Callback when simulate again button is clicked
      */
     onSimulateAgain?: () => void;
-    /**
-     * Callback when view on tenderly button is clicked
-     */
-    onViewOnTenderly?: () => void;
-    /**
-     * Whether the simulate again button is in loading state
-     */
-    isSimulating?: boolean;
     /**
      * URL for tenderly simulation
      */
@@ -47,26 +38,47 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     const {
         totalActions,
         lastSimulation,
-        executionStatus,
-        onSimulateAgain,
-        onViewOnTenderly,
         isSimulating = false,
+        status,
+        onSimulateAgain,
         tenderlyUrl,
         className,
     } = props;
 
     const { copy } = useGukModulesContext();
+    const simulationCopy = copy.proposalActionSimulationStructure;
+
+    const getStatusConfig = () => {
+        switch (status) {
+            case 'success':
+                return {
+                    icon: IconType.CHECKMARK,
+                    label: simulationCopy.likelyToSucceed,
+                    textColor: 'text-success-800',
+                    variant: 'success' as const,
+                };
+            case 'failure':
+                return {
+                    icon: IconType.CRITICAL,
+                    label: simulationCopy.likelyToFail,
+                    textColor: 'text-critical-800',
+                    variant: 'critical' as const,
+                };
+            case 'unknown':
+            default:
+                return {
+                    icon: IconType.INFO,
+                    label: 'Not simulated',
+                    textColor: 'text-neutral-500',
+                    variant: 'neutral' as const,
+                };
+        }
+    };
+
+    const statusConfig = getStatusConfig();
 
     const handleSimulateAgain = () => {
         onSimulateAgain?.();
-    };
-
-    const handleViewOnTenderly = () => {
-        if (tenderlyUrl) {
-            window.open(tenderlyUrl, '_blank');
-        } else {
-            onViewOnTenderly?.();
-        }
     };
 
     const formatSimulationDate = (date?: DateTime | string | number) => {
@@ -106,22 +118,30 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 </DefinitionList.Item>
 
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.lastSimulationTerm}>
-                    {formatSimulationDate(lastSimulation)}
+                    {isSimulating ? (
+                        <span className="text-primary-400 flex items-center gap-2 md:gap-3">
+                            <Spinner size="md" variant="primary" />
+                            {simulationCopy.simulating}
+                        </span>
+                    ) : (
+                        formatSimulationDate(lastSimulation)
+                    )}
                 </DefinitionList.Item>
 
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.executableTerm}>
                     <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
-                            {executionStatus.isLoading ? (
-                                <div className="flex size-6 items-center justify-center">
-                                    <div className="size-5 animate-spin rounded-full border-2 border-neutral-100 border-t-neutral-500" />
-                                </div>
+                            {isSimulating ? (
+                                <span className="text-primary-400 flex items-center gap-2 md:gap-3">
+                                    <Spinner size="md" variant="primary" />
+                                    {simulationCopy.simulating}
+                                </span>
                             ) : (
                                 <div className="flex size-6 items-center justify-center">
-                                    <AvatarIcon icon={IconType.CHECKMARK} size="sm" variant="success" />
+                                    <AvatarIcon icon={statusConfig.icon} size="sm" variant={statusConfig.variant} />
                                 </div>
                             )}
-                            <span className="text-success-800 text-sm">{executionStatus.label}</span>
+                            <span className={classNames('text-sm', statusConfig.textColor)}>{statusConfig.label}</span>
                         </div>
                     </div>
                 </DefinitionList.Item>
@@ -132,7 +152,13 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     {copy.proposalActionSimulationStructure.simulateAgain}
                 </Button>
 
-                <Button variant="tertiary" size="md" onClick={handleViewOnTenderly} iconRight={IconType.LINK_EXTERNAL}>
+                <Button
+                    variant="tertiary"
+                    size="md"
+                    href={tenderlyUrl}
+                    target="_blank"
+                    iconRight={IconType.LINK_EXTERNAL}
+                >
                     {copy.proposalActionSimulationStructure.viewOnTenderly}
                 </Button>
             </div>

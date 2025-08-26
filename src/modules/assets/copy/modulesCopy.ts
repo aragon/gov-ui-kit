@@ -88,8 +88,10 @@ export const modulesCopy = {
         executableTerm: 'Executable',
         simulateAgain: 'Simulate again',
         simulate: 'Simulate',
-        simulating: 'Simulating...',
+        simulating: 'Simulating',
         viewOnTenderly: 'View on Tenderly',
+        likelyToSucceed: 'Likely to succeed',
+        likelyToFail: 'Likely to fail',
     },
     proposalDataListItemStatus: {
         voted: 'Voted',
