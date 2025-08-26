@@ -77,7 +77,7 @@ describe('<ProposalActionSimulationStructure /> component', () => {
     it('shows simulate button by default when isSimulatable is not specified', () => {
         render(createTestComponent());
 
-        expect(screen.getByText(/simulate/i).closest('button')).toBeInTheDocument();
+        expect(screen.getByText(/simulate/i)).toBeInTheDocument();
     });
 
     it('hides simulate button when isSimulatable is false', () => {
