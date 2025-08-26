@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
-import { Button, DefinitionList, Icon, IconType } from '../../../../core';
+import { AvatarIcon, Button, DefinitionList, IconType } from '../../../../core';
 import { formatterUtils } from '../../../../core/utils/formatterUtils';
 
 export interface IProposalActionSimulationStructureProps {
@@ -115,20 +115,10 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                                 </div>
                             ) : (
                                 <div className="flex size-6 items-center justify-center">
-                                    <Icon
-                                        icon={IconType.SUCCESS}
-                                        size="md"
-                                        className={
-                                            executionStatus.isExecutable ? 'text-success-500' : 'text-neutral-400'
-                                        }
-                                    />
+                                    <AvatarIcon icon={IconType.CHECKMARK} size="sm" variant="success" />
                                 </div>
                             )}
-                            <span className="text-sm text-neutral-500">{executionStatus.label}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm text-neutral-500">Label</span>
-                            <Icon icon={IconType.LINK_EXTERNAL} size="sm" className="text-neutral-500" />
+                            <span className="text-success-800 text-sm">{executionStatus.label}</span>
                         </div>
                     </div>
                 </DefinitionList.Item>
