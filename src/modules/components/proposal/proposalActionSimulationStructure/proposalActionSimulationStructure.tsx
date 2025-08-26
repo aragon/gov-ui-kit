@@ -102,10 +102,15 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
         }
 
         const now = DateTime.now();
+        const diffInMinutes = now.diff(date, 'minutes').minutes;
         const diffInDays = now.diff(date, 'days').days;
 
+        if (diffInMinutes < 2) {
+            return copy.proposalActionSimulationStructure.now;
+        }
+
         return formatterUtils.formatDate(date, {
-            format: diffInDays > 1 ? DateFormat.YEAR_MONTH_DAY_TIME : DateFormat.RELATIVE,
+            format: diffInDays > 3 ? DateFormat.YEAR_MONTH_DAY_TIME : DateFormat.RELATIVE,
         });
     };
 

@@ -95,6 +95,7 @@ export const modulesCopy = {
         likelyToSucceed: 'Likely to succeed',
         likelyToFail: 'Likely to fail',
         unknown: 'Unknown',
+        now: 'Now',
     },
     proposalDataListItemStatus: {
         voted: 'Voted',
