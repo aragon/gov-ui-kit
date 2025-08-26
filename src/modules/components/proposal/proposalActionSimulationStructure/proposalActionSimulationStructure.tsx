@@ -176,6 +176,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 <Button
                     variant="tertiary"
                     size="md"
+                    disabled={!tenderlyUrl}
                     href={tenderlyUrl}
                     target="_blank"
                     iconRight={IconType.LINK_EXTERNAL}
