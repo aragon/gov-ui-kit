@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 import { AvatarIcon, Button, DataList, DefinitionList, IconType } from '../../../../core';
 import { formatterUtils } from '../../../../core/utils/formatterUtils';
+import { useGukModulesContext } from '../../gukModulesProvider';
 
 export interface IProposalActionSimulationStructureProps {
     /**
@@ -54,6 +55,8 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
         className,
     } = props;
 
+    const { copy } = useGukModulesContext();
+
     const handleSimulateAgain = () => {
         onSimulateAgain?.();
     };
@@ -68,7 +71,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
 
     const formatSimulationDate = (date?: DateTime | string | number) => {
         if (!date) {
-            return null;
+            return copy.proposalActionSimulationStructure.never;
         }
 
         const dateTime =
@@ -98,15 +101,15 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     return (
         <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
-                <DefinitionList.Item term="Total actions">
+                <DefinitionList.Item term={copy.proposalActionSimulationStructure.totalActionsTerm}>
                     {`${totalActions.toString()} action${totalActions !== 1 ? 's' : ''}`}
                 </DefinitionList.Item>
 
-                <DefinitionList.Item term="Last simulation">
-                    {formatSimulationDate(lastSimulation) ?? 'No simulation yet'}
+                <DefinitionList.Item term={copy.proposalActionSimulationStructure.lastSimulationTerm}>
+                    {formatSimulationDate(lastSimulation)}
                 </DefinitionList.Item>
 
-                <DefinitionList.Item term="Executable">
+                <DefinitionList.Item term={copy.proposalActionSimulationStructure.executableTerm}>
                     <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
                             {executionStatus.isLoading ? (
@@ -126,11 +129,11 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
 
             <div className="flex flex-col gap-2 md:flex-row md:justify-between">
                 <Button variant="secondary" size="md" onClick={handleSimulateAgain} isLoading={isSimulating}>
-                    Simulate again
+                    {copy.proposalActionSimulationStructure.simulateAgain}
                 </Button>
 
                 <Button variant="tertiary" size="md" onClick={handleViewOnTenderly} iconRight={IconType.LINK_EXTERNAL}>
-                    View on tenderly
+                    {copy.proposalActionSimulationStructure.viewOnTenderly}
                 </Button>
             </div>
         </DataList.Item>

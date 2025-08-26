@@ -81,6 +81,16 @@ export const modulesCopy = {
         totalTokenSupplyTerm: 'Total token supply',
         totalHoldersTerm: 'Total token holders',
     },
+    proposalActionSimulationStructure: {
+        totalActionsTerm: 'Total actions',
+        lastSimulationTerm: 'Last simulation',
+        never: 'Never',
+        executableTerm: 'Executable',
+        simulateAgain: 'Simulate again',
+        simulate: 'Simulate',
+        simulating: 'Simulating...',
+        viewOnTenderly: 'View on Tenderly',
+    },
     proposalDataListItemStatus: {
         voted: 'Voted',
         ago: 'ago',
