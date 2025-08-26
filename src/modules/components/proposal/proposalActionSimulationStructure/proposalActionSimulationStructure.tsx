@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { DateTime } from 'luxon';
 import { Button, DefinitionList, Icon, IconType } from '../../../../core';
 import { formatterUtils } from '../../../../core/utils/formatterUtils';
@@ -35,6 +36,10 @@ export interface IProposalActionSimulationStructureProps {
      * URL for tenderly simulation
      */
     tenderlyUrl?: string;
+    /**
+     * Additional class names applied to the wrapper div.
+     */
+    className?: string;
 }
 
 export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
@@ -46,6 +51,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
         onViewOnTenderly,
         isSimulating = false,
         tenderlyUrl,
+        className,
     } = props;
 
     const handleSimulateAgain = () => {
@@ -64,13 +70,14 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
         if (!date) {
             return null;
         }
-        
-        const dateTime = typeof date === 'string' 
-            ? DateTime.fromISO(date) 
-            : typeof date === 'number' 
-                ? DateTime.fromMillis(date) 
-                : date;
-        
+
+        const dateTime =
+            typeof date === 'string'
+                ? DateTime.fromISO(date)
+                : typeof date === 'number'
+                  ? DateTime.fromMillis(date)
+                  : date;
+
         const now = DateTime.now();
         const diffInHours = now.diff(dateTime, 'hours').hours;
         const diffInDays = now.diff(dateTime, 'days').days;
@@ -89,35 +96,35 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     };
 
     return (
-        <div className="flex flex-col gap-4 p-4 pt-1 pb-4">
+        <div className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
                 <DefinitionList.Item term="Total actions">
                     {`${totalActions.toString()} action${totalActions !== 1 ? 's' : ''}`}
                 </DefinitionList.Item>
-                
+
                 <DefinitionList.Item term="Last simulation">
                     {formatSimulationDate(lastSimulation) ?? 'No simulation yet'}
                 </DefinitionList.Item>
-                
+
                 <DefinitionList.Item term="Executable">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
                             {executionStatus.isLoading ? (
-                                <div className="size-6 flex items-center justify-center">
-                                    <div className="size-5 border-2 border-neutral-100 border-t-neutral-500 rounded-full animate-spin" />
+                                <div className="flex size-6 items-center justify-center">
+                                    <div className="size-5 animate-spin rounded-full border-2 border-neutral-100 border-t-neutral-500" />
                                 </div>
                             ) : (
-                                <div className="size-6 flex items-center justify-center">
-                                    <Icon 
-                                        icon={IconType.SUCCESS} 
-                                        size="md" 
-                                        className={executionStatus.isExecutable ? 'text-success-500' : 'text-neutral-400'} 
+                                <div className="flex size-6 items-center justify-center">
+                                    <Icon
+                                        icon={IconType.SUCCESS}
+                                        size="md"
+                                        className={
+                                            executionStatus.isExecutable ? 'text-success-500' : 'text-neutral-400'
+                                        }
                                     />
                                 </div>
                             )}
-                            <span className="text-sm text-neutral-500">
-                                {executionStatus.label}
-                            </span>
+                            <span className="text-sm text-neutral-500">{executionStatus.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="text-sm text-neutral-500">Label</span>
@@ -127,24 +134,12 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 </DefinitionList.Item>
             </DefinitionList.Container>
 
-            <div className="flex flex-col gap-2">
-                <Button
-                    variant="secondary"
-                    size="md"
-                    onClick={handleSimulateAgain}
-                    isLoading={isSimulating}
-                    className="w-full"
-                >
+            <div className="flex flex-col gap-2 md:flex-row md:justify-between">
+                <Button variant="secondary" size="md" onClick={handleSimulateAgain} isLoading={isSimulating}>
                     Simulate again
                 </Button>
-                
-                <Button
-                    variant="tertiary"
-                    size="md"
-                    onClick={handleViewOnTenderly}
-                    iconRight={IconType.LINK_EXTERNAL}
-                    className="w-full"
-                >
+
+                <Button variant="tertiary" size="md" onClick={handleViewOnTenderly} iconRight={IconType.LINK_EXTERNAL}>
                     View on tenderly
                 </Button>
             </div>

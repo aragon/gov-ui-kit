@@ -12,6 +12,7 @@ const meta: Meta<typeof ProposalActionSimulationStructure> = {
         },
     },
     args: {
+        className: 'flex-1',
         onSimulateAgain: () => {
             // Mock action
         },
