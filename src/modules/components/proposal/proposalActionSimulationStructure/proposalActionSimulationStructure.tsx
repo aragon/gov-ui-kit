@@ -23,7 +23,7 @@ export interface IProposalActionSimulationStructureProps {
     /**
      * Callback when simulate again button is clicked
      */
-    onSimulateAgain?: () => void;
+    onSimulate?: () => void;
     /**
      * URL for tenderly simulation
      */
@@ -32,18 +32,15 @@ export interface IProposalActionSimulationStructureProps {
      * Additional class names applied to the wrapper div.
      */
     className?: string;
+    /**
+     *
+     * Optional error message to display.
+     */
+    error?: string;
 }
 
 export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
-    const {
-        totalActions,
-        lastSimulation,
-        isSimulating = false,
-        status,
-        onSimulateAgain,
-        tenderlyUrl,
-        className,
-    } = props;
+    const { totalActions, lastSimulation, isSimulating, status, onSimulate, tenderlyUrl, className, error } = props;
 
     const { copy } = useGukModulesContext();
     const simulationCopy = copy.proposalActionSimulationStructure;
@@ -68,7 +65,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
             default:
                 return {
                     icon: IconType.INFO,
-                    label: 'Not simulated',
+                    label: simulationCopy.unknown,
                     textColor: 'text-neutral-500',
                     variant: 'neutral' as const,
                 };
@@ -76,10 +73,6 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     };
 
     const statusConfig = getStatusConfig();
-
-    const handleSimulateAgain = () => {
-        onSimulateAgain?.();
-    };
 
     const formatSimulationDate = (date?: DateTime | string | number) => {
         if (!date) {
@@ -137,19 +130,27 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                                     {simulationCopy.simulating}
                                 </span>
                             ) : (
-                                <div className="flex size-6 items-center justify-center">
-                                    <AvatarIcon icon={statusConfig.icon} size="sm" variant={statusConfig.variant} />
-                                </div>
+                                <>
+                                    <div className="flex size-6 items-center justify-center">
+                                        <AvatarIcon icon={statusConfig.icon} size="sm" variant={statusConfig.variant} />
+                                    </div>
+                                    <span className={classNames('text-sm', statusConfig.textColor)}>
+                                        {statusConfig.label}
+                                    </span>
+                                </>
                             )}
-                            <span className={classNames('text-sm', statusConfig.textColor)}>{statusConfig.label}</span>
                         </div>
                     </div>
                 </DefinitionList.Item>
             </DefinitionList.Container>
 
             <div className="flex flex-col gap-2 md:flex-row md:justify-between">
-                <Button variant="secondary" size="md" onClick={handleSimulateAgain} isLoading={isSimulating}>
-                    {copy.proposalActionSimulationStructure.simulateAgain}
+                <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isSimulating}>
+                    {isSimulating
+                        ? copy.proposalActionSimulationStructure.simulating
+                        : lastSimulation
+                          ? copy.proposalActionSimulationStructure.simulateAgain
+                          : copy.proposalActionSimulationStructure.simulate}
                 </Button>
 
                 <Button
@@ -162,6 +163,12 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     {copy.proposalActionSimulationStructure.viewOnTenderly}
                 </Button>
             </div>
+            {error && (
+                <p className="text-critical-800 flex items-center gap-2 text-sm">
+                    <AvatarIcon icon={IconType.INFO} size="sm" variant="critical" />
+                    {error}
+                </p>
+            )}
         </DataList.Item>
     );
 };

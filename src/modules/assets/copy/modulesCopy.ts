@@ -92,6 +92,7 @@ export const modulesCopy = {
         viewOnTenderly: 'View on Tenderly',
         likelyToSucceed: 'Likely to succeed',
         likelyToFail: 'Likely to fail',
+        unknown: 'Unknown',
     },
     proposalDataListItemStatus: {
         voted: 'Voted',

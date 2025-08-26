@@ -116,7 +116,7 @@ describe('<ProposalActionSimulationStructure /> component', () => {
         const user = userEvent.setup();
         const onSimulateAgain = jest.fn();
 
-        render(createTestComponent({ onSimulateAgain }));
+        render(createTestComponent({ onSimulate: onSimulateAgain }));
 
         const simulateButton = screen.getByRole('button', { name: /simulate again/i });
         await user.click(simulateButton);

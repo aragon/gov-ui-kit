@@ -13,9 +13,6 @@ const meta: Meta<typeof ProposalActionSimulationStructure> = {
     },
     args: {
         className: 'flex-1',
-        onSimulateAgain: () => {
-            // Mock action
-        },
     },
 };
 
@@ -62,6 +59,18 @@ export const NoSimulation: Story = {
     args: {
         totalActions: 1,
         status: 'unknown',
+    },
+};
+
+/**
+ * With error message displayed
+ */
+export const WithErrorMessage: Story = {
+    args: {
+        totalActions: 2,
+        lastSimulation: DateTime.now(),
+        status: 'unknown',
+        error: 'Simulation failed due to network error. Please try again.',
     },
 };
 
