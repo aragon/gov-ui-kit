@@ -19,13 +19,26 @@ const meta: Meta<typeof ProposalActionSimulationStructure> = {
 type Story = StoryObj<typeof ProposalActionSimulationStructure>;
 
 /**
- * Success state showing a completed simulation with executable actions
+ * Completed simulation with positive outcome
  */
 export const Success: Story = {
     args: {
         totalActions: 3,
-        lastSimulation: DateTime.now().minus({ hours: 2 }),
+        lastSimulation: DateTime.now().minus({ seconds: 10 }),
         status: 'success',
+        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+    },
+};
+
+/**
+ * Completed simulation with negative outcome (can't be executed)
+ */
+export const Failure: Story = {
+    args: {
+        totalActions: 2,
+        lastSimulation: DateTime.now().minus({ seconds: 10 }),
+        status: 'failure',
+        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
     },
 };
 
@@ -35,27 +48,15 @@ export const Success: Story = {
 export const Loading: Story = {
     args: {
         totalActions: 5,
-        lastSimulation: DateTime.now().minus({ days: 1 }),
         status: 'unknown',
         isSimulating: true,
     },
 };
 
 /**
- * Failed simulation with non-executable actions
- */
-export const Failed: Story = {
-    args: {
-        totalActions: 2,
-        lastSimulation: DateTime.now().minus({ hours: 6 }),
-        status: 'failure',
-    },
-};
-
-/**
  * No simulation has been run yet
  */
-export const NoSimulation: Story = {
+export const NoPreviousSimulation: Story = {
     args: {
         totalActions: 1,
         status: 'unknown',
@@ -70,19 +71,7 @@ export const WithErrorMessage: Story = {
         totalActions: 2,
         lastSimulation: DateTime.now(),
         status: 'unknown',
-        error: 'Simulation failed due to network error. Please try again.',
-    },
-};
-
-/**
- * With Tenderly URL for external link
- */
-export const WithTenderlyUrl: Story = {
-    args: {
-        totalActions: 4,
-        lastSimulation: DateTime.now().minus({ minutes: 30 }),
-        status: 'success',
-        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+        error: 'Simulation failed to run. Please try again.',
     },
 };
 
@@ -116,18 +105,6 @@ export const NotSimulatable: Story = {
         totalActions: 3,
         lastSimulation: DateTime.now().minus({ hours: 2 }),
         status: 'success',
-        isSimulatable: false,
-        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
-    },
-};
-
-/**
- * Not simulatable without previous simulation
- */
-export const NotSimulatableNoSimulation: Story = {
-    args: {
-        totalActions: 1,
-        status: 'unknown',
         isSimulatable: false,
         tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
     },
