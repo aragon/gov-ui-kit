@@ -69,8 +69,8 @@ export const NoPreviousSimulation: Story = {
 export const WithErrorMessage: Story = {
     args: {
         totalActions: 2,
-        lastSimulation: DateTime.now(),
-        status: 'unknown',
+        lastSimulation: DateTime.now().minus({ weeks: 2 }),
+        status: 'success',
         error: 'Simulation failed to run. Please try again.',
     },
 };
