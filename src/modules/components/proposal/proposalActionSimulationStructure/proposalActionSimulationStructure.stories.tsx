@@ -81,34 +81,6 @@ export const WithErrorMessage: Story = {
 };
 
 /**
- * Recent simulation (shows "Now")
- */
-export const RecentSimulation: Story = {
-    args: {
-        totalActions: 7,
-        lastSimulation: {
-            timestamp: DateTime.now().minus({ minutes: 5 }).toMillis(),
-            url: 'https://dashboard.tenderly.co/simulation/12345',
-            status: 'success',
-        },
-    },
-};
-
-/**
- * Old simulation (shows formatted date)
- */
-export const OldSimulation: Story = {
-    args: {
-        totalActions: 2,
-        lastSimulation: {
-            timestamp: DateTime.now().minus({ weeks: 2 }).toMillis(),
-            url: 'https://dashboard.tenderly.co/simulation/12345',
-            status: 'success',
-        },
-    },
-};
-
-/**
  * Not simulatable - only shows Tenderly link
  */
 export const NotSimulatable: Story = {

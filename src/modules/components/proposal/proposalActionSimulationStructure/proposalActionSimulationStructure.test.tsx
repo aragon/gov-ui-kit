@@ -41,34 +41,6 @@ describe('<ProposalActionSimulationStructure /> component', () => {
         expect(screen.getByText('Never')).toBeInTheDocument();
     });
 
-    it('renders relative time for recent simulation', () => {
-        const recentTime = DateTime.now().minus({ days: 2 });
-        render(
-            createTestComponent({
-                lastSimulation: {
-                    timestamp: recentTime.toMillis(),
-                    url: 'https://dashboard.tenderly.co/simulation/12345',
-                    status: 'success',
-                },
-            }),
-        );
-        expect(screen.getByText('2 days ago')).toBeInTheDocument();
-    });
-
-    it('renders "Now" for very recent simulation', () => {
-        const veryRecentTime = DateTime.now().minus({ seconds: 30 });
-        render(
-            createTestComponent({
-                lastSimulation: {
-                    timestamp: veryRecentTime.toMillis(),
-                    url: 'https://dashboard.tenderly.co/simulation/12345',
-                    status: 'success',
-                },
-            }),
-        );
-        expect(screen.getByText('Now')).toBeInTheDocument();
-    });
-
     it('renders the execution status label', () => {
         render(
             createTestComponent({

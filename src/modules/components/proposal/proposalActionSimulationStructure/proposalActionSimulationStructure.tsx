@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 import { useMemo } from 'react';
 import {
     AvatarIcon,
@@ -39,7 +38,6 @@ export interface IProposalActionSimulationStructureProps {
      */
     className?: string;
     /**
-     *
      * Optional error message to display.
      */
     error?: string;
@@ -77,24 +75,10 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
         }
     }, [simulationCopy, lastSimulation?.status]);
 
-    const formatSimulationDate = (timestamp?: number) => {
-        if (!timestamp) {
-            return copy.proposalActionSimulationStructure.never;
-        }
-
-        const date = DateTime.fromMillis(timestamp);
-        const now = DateTime.now();
-        const diffInMinutes = now.diff(date, 'minutes').minutes;
-        const diffInDays = now.diff(date, 'days').days;
-
-        if (diffInMinutes < 2) {
-            return copy.proposalActionSimulationStructure.now;
-        }
-
-        return formatterUtils.formatDate(date, {
-            format: diffInDays > 3 ? DateFormat.YEAR_MONTH_DAY_TIME : DateFormat.RELATIVE,
-        });
-    };
+    const formattedTimestamp =
+        formatterUtils.formatDate(lastSimulation?.timestamp, {
+            format: DateFormat.YEAR_MONTH_DAY_TIME,
+        }) ?? simulationCopy.never;
 
     return (
         <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
@@ -110,7 +94,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                             {simulationCopy.simulating}
                         </span>
                     ) : (
-                        formatSimulationDate(lastSimulation?.timestamp)
+                        <span className="inline-block first-letter:capitalize">{formattedTimestamp}</span>
                     )}
                 </DefinitionList.Item>
 
