@@ -54,7 +54,7 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.2.0",
     "@radix-ui/react-visually-hidden": "^1.2.0",
-    "@tiptap/core": "^2.26.0",
+    "@tiptap/core": "^3.3.0",
     "@tiptap/extension-code-block": "^2.26.0",
     "@tiptap/extension-image": "^2.26.0",
     "@tiptap/extension-link": "^2.26.0",
