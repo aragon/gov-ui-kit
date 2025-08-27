@@ -8,7 +8,6 @@ describe('<ProposalActionSimulationStructure /> component', () => {
     const createTestComponent = (props?: Partial<IProposalActionSimulationStructureProps>) => {
         const completeProps: IProposalActionSimulationStructureProps = {
             totalActions: 3,
-            status: 'success',
             ...props,
         };
 
@@ -44,29 +43,62 @@ describe('<ProposalActionSimulationStructure /> component', () => {
 
     it('renders relative time for recent simulation', () => {
         const recentTime = DateTime.now().minus({ days: 2 });
-        render(createTestComponent({ lastSimulation: recentTime }));
+        render(createTestComponent({ 
+            lastSimulation: {
+                timestamp: recentTime.toMillis(),
+                url: 'https://dashboard.tenderly.co/simulation/12345',
+                status: 'success'
+            }
+        }));
         expect(screen.getByText('2 days ago')).toBeInTheDocument();
     });
 
     it('renders "Now" for very recent simulation', () => {
         const veryRecentTime = DateTime.now().minus({ seconds: 30 });
-        render(createTestComponent({ lastSimulation: veryRecentTime }));
+        render(createTestComponent({ 
+            lastSimulation: {
+                timestamp: veryRecentTime.toMillis(),
+                url: 'https://dashboard.tenderly.co/simulation/12345',
+                status: 'success'
+            }
+        }));
         expect(screen.getByText('Now')).toBeInTheDocument();
     });
 
     it('renders the execution status label', () => {
         render(
             createTestComponent({
-                status: 'success',
+                lastSimulation: {
+                    timestamp: DateTime.now().toMillis(),
+                    url: 'https://dashboard.tenderly.co/simulation/12345',
+                    status: 'success'
+                }
             }),
         );
         expect(screen.getByText('Likely to succeed')).toBeInTheDocument();
     });
 
+    it('renders failure status label', () => {
+        render(
+            createTestComponent({
+                lastSimulation: {
+                    timestamp: DateTime.now().toMillis(),
+                    url: 'https://dashboard.tenderly.co/simulation/12345',
+                    status: 'failure'
+                }
+            }),
+        );
+        expect(screen.getByText('Likely to fail')).toBeInTheDocument();
+    });
+
+    it('renders unknown status when no lastSimulation is provided', () => {
+        render(createTestComponent());
+        expect(screen.getByText('Unknown')).toBeInTheDocument();
+    });
+
     it('renders loading state when execution status is loading', () => {
         render(
             createTestComponent({
-                status: 'unknown',
                 isSimulating: true,
             }),
         );

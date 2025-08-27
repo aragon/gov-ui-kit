@@ -24,9 +24,11 @@ type Story = StoryObj<typeof ProposalActionSimulationStructure>;
 export const Success: Story = {
     args: {
         totalActions: 3,
-        lastSimulation: DateTime.now().minus({ seconds: 10 }),
-        status: 'success',
-        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ seconds: 10 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'success',
+        },
     },
 };
 
@@ -36,9 +38,11 @@ export const Success: Story = {
 export const Failure: Story = {
     args: {
         totalActions: 2,
-        lastSimulation: DateTime.now().minus({ seconds: 10 }),
-        status: 'failure',
-        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ seconds: 10 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'failure',
+        },
     },
 };
 
@@ -48,7 +52,6 @@ export const Failure: Story = {
 export const Loading: Story = {
     args: {
         totalActions: 5,
-        status: 'unknown',
         isSimulating: true,
     },
 };
@@ -59,7 +62,6 @@ export const Loading: Story = {
 export const NoPreviousSimulation: Story = {
     args: {
         totalActions: 1,
-        status: 'unknown',
     },
 };
 
@@ -69,8 +71,11 @@ export const NoPreviousSimulation: Story = {
 export const WithErrorMessage: Story = {
     args: {
         totalActions: 2,
-        lastSimulation: DateTime.now().minus({ weeks: 2 }),
-        status: 'success',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ weeks: 2 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'success',
+        },
         error: 'Simulation failed to run. Please try again.',
     },
 };
@@ -81,8 +86,11 @@ export const WithErrorMessage: Story = {
 export const RecentSimulation: Story = {
     args: {
         totalActions: 7,
-        lastSimulation: DateTime.now().minus({ minutes: 5 }),
-        status: 'success',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ minutes: 5 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'success',
+        },
     },
 };
 
@@ -92,8 +100,11 @@ export const RecentSimulation: Story = {
 export const OldSimulation: Story = {
     args: {
         totalActions: 2,
-        lastSimulation: DateTime.now().minus({ weeks: 2 }),
-        status: 'success',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ weeks: 2 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'success',
+        },
     },
 };
 
@@ -103,10 +114,12 @@ export const OldSimulation: Story = {
 export const NotSimulatable: Story = {
     args: {
         totalActions: 3,
-        lastSimulation: DateTime.now().minus({ hours: 2 }),
-        status: 'success',
+        lastSimulation: {
+            timestamp: DateTime.now().minus({ hours: 2 }).toMillis(),
+            url: 'https://dashboard.tenderly.co/simulation/12345',
+            status: 'success',
+        },
         isSimulatable: false,
-        tenderlyUrl: 'https://dashboard.tenderly.co/simulation/12345',
     },
 };
 

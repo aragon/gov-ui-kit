@@ -19,9 +19,9 @@ export interface IProposalActionSimulationStructureProps {
      */
     totalActions: number;
     /**
-     * Last simulation date.
+     * Last simulation data including timestamp, URL, and status.
      */
-    lastSimulation?: DateTime;
+    lastSimulation?: { timestamp: number; url: string; status: 'success' | 'failure' };
     /**
      * Whether simulation is currently running.
      */
@@ -31,17 +31,9 @@ export interface IProposalActionSimulationStructureProps {
      */
     isSimulatable?: boolean;
     /**
-     * Simulation status result.
-     */
-    status: 'success' | 'failure' | 'unknown';
-    /**
      * Callback when simulate again button is clicked.
      */
     onSimulate?: () => void;
-    /**
-     * URL for tenderly simulation.
-     */
-    tenderlyUrl?: string;
     /**
      * Additional class names applied to the wrapper div.
      */
@@ -54,23 +46,13 @@ export interface IProposalActionSimulationStructureProps {
 }
 
 export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
-    const {
-        totalActions,
-        lastSimulation,
-        isSimulating,
-        isSimulatable = true,
-        status,
-        onSimulate,
-        tenderlyUrl,
-        className,
-        error,
-    } = props;
+    const { totalActions, lastSimulation, isSimulating, isSimulatable = true, onSimulate, className, error } = props;
 
     const { copy } = useGukModulesContext();
     const simulationCopy = copy.proposalActionSimulationStructure;
 
     const statusConfig = useMemo(() => {
-        switch (status) {
+        switch (lastSimulation?.status) {
             case 'success':
                 return {
                     icon: IconType.CHECKMARK,
@@ -85,7 +67,6 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     textColor: 'text-critical-800',
                     variant: 'critical' as const,
                 };
-            case 'unknown':
             default:
                 return {
                     icon: IconType.INFO,
@@ -94,13 +75,14 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     variant: 'neutral' as const,
                 };
         }
-    }, [simulationCopy, status]);
+    }, [simulationCopy, lastSimulation?.status]);
 
-    const formatSimulationDate = (date?: DateTime) => {
-        if (!date) {
+    const formatSimulationDate = (timestamp?: number) => {
+        if (!timestamp) {
             return copy.proposalActionSimulationStructure.never;
         }
 
+        const date = DateTime.fromMillis(timestamp);
         const now = DateTime.now();
         const diffInMinutes = now.diff(date, 'minutes').minutes;
         const diffInDays = now.diff(date, 'days').days;
@@ -128,7 +110,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                             {simulationCopy.simulating}
                         </span>
                     ) : (
-                        formatSimulationDate(lastSimulation)
+                        formatSimulationDate(lastSimulation?.timestamp)
                     )}
                 </DefinitionList.Item>
 
@@ -173,8 +155,8 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 <Button
                     variant="tertiary"
                     size="md"
-                    disabled={!tenderlyUrl}
-                    href={tenderlyUrl}
+                    disabled={!lastSimulation?.url}
+                    href={lastSimulation?.url}
                     target="_blank"
                     iconRight={IconType.LINK_EXTERNAL}
                 >
