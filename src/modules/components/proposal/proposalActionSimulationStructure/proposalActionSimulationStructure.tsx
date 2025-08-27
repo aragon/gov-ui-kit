@@ -25,11 +25,11 @@ export interface IProposalActionSimulationStructureProps {
     /**
      * Whether simulation is currently running.
      */
-    isSimulating?: boolean;
+    isLoading?: boolean;
     /**
      * Whether the proposal can be simulated.
      */
-    isSimulatable?: boolean;
+    isEnabled?: boolean;
     /**
      * Callback when simulate again button is clicked.
      */
@@ -46,7 +46,7 @@ export interface IProposalActionSimulationStructureProps {
 }
 
 export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
-    const { totalActions, lastSimulation, isSimulating, isSimulatable = true, onSimulate, className, error } = props;
+    const { totalActions, lastSimulation, isLoading, isEnabled = true, onSimulate, className, error } = props;
 
     const { copy } = useGukModulesContext();
     const simulationCopy = copy.proposalActionSimulationStructure;
@@ -104,7 +104,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 </DefinitionList.Item>
 
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.lastSimulationTerm}>
-                    {isSimulating ? (
+                    {isLoading ? (
                         <span className="text-primary-400 flex items-center gap-2 md:gap-3">
                             <Spinner size="md" variant="primary" />
                             {simulationCopy.simulating}
@@ -117,7 +117,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 <DefinitionList.Item term={copy.proposalActionSimulationStructure.executableTerm}>
                     <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
-                            {isSimulating ? (
+                            {isLoading ? (
                                 <span className="text-primary-400 flex items-center gap-2 md:gap-3">
                                     <Spinner size="md" variant="primary" />
                                     {simulationCopy.simulating}
@@ -139,12 +139,12 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
 
             <div
                 className={classNames('flex flex-col gap-2 md:flex-row md:justify-between', {
-                    'md:justify-end': !isSimulatable,
+                    'md:justify-end': !isEnabled,
                 })}
             >
-                {isSimulatable && (
-                    <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isSimulating}>
-                        {isSimulating
+                {isEnabled && (
+                    <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isLoading}>
+                        {isLoading
                             ? copy.proposalActionSimulationStructure.simulating
                             : lastSimulation
                               ? copy.proposalActionSimulationStructure.simulateAgain

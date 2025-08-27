@@ -52,7 +52,7 @@ export const Failure: Story = {
 export const Loading: Story = {
     args: {
         totalActions: 5,
-        isSimulating: true,
+        isLoading: true,
     },
 };
 
@@ -119,7 +119,7 @@ export const NotSimulatable: Story = {
             url: 'https://dashboard.tenderly.co/simulation/12345',
             status: 'success',
         },
-        isSimulatable: false,
+        isEnabled: false,
     },
 };
 

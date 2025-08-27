@@ -43,25 +43,29 @@ describe('<ProposalActionSimulationStructure /> component', () => {
 
     it('renders relative time for recent simulation', () => {
         const recentTime = DateTime.now().minus({ days: 2 });
-        render(createTestComponent({ 
-            lastSimulation: {
-                timestamp: recentTime.toMillis(),
-                url: 'https://dashboard.tenderly.co/simulation/12345',
-                status: 'success'
-            }
-        }));
+        render(
+            createTestComponent({
+                lastSimulation: {
+                    timestamp: recentTime.toMillis(),
+                    url: 'https://dashboard.tenderly.co/simulation/12345',
+                    status: 'success',
+                },
+            }),
+        );
         expect(screen.getByText('2 days ago')).toBeInTheDocument();
     });
 
     it('renders "Now" for very recent simulation', () => {
         const veryRecentTime = DateTime.now().minus({ seconds: 30 });
-        render(createTestComponent({ 
-            lastSimulation: {
-                timestamp: veryRecentTime.toMillis(),
-                url: 'https://dashboard.tenderly.co/simulation/12345',
-                status: 'success'
-            }
-        }));
+        render(
+            createTestComponent({
+                lastSimulation: {
+                    timestamp: veryRecentTime.toMillis(),
+                    url: 'https://dashboard.tenderly.co/simulation/12345',
+                    status: 'success',
+                },
+            }),
+        );
         expect(screen.getByText('Now')).toBeInTheDocument();
     });
 
@@ -71,8 +75,8 @@ describe('<ProposalActionSimulationStructure /> component', () => {
                 lastSimulation: {
                     timestamp: DateTime.now().toMillis(),
                     url: 'https://dashboard.tenderly.co/simulation/12345',
-                    status: 'success'
-                }
+                    status: 'success',
+                },
             }),
         );
         expect(screen.getByText('Likely to succeed')).toBeInTheDocument();
@@ -84,8 +88,8 @@ describe('<ProposalActionSimulationStructure /> component', () => {
                 lastSimulation: {
                     timestamp: DateTime.now().toMillis(),
                     url: 'https://dashboard.tenderly.co/simulation/12345',
-                    status: 'failure'
-                }
+                    status: 'failure',
+                },
             }),
         );
         expect(screen.getByText('Likely to fail')).toBeInTheDocument();
@@ -99,7 +103,7 @@ describe('<ProposalActionSimulationStructure /> component', () => {
     it('renders loading state when execution status is loading', () => {
         render(
             createTestComponent({
-                isSimulating: true,
+                isLoading: true,
             }),
         );
 
@@ -113,7 +117,7 @@ describe('<ProposalActionSimulationStructure /> component', () => {
     });
 
     it('hides simulate button when isSimulatable is false', () => {
-        render(createTestComponent({ isSimulatable: false }));
+        render(createTestComponent({ isEnabled: false }));
 
         expect(screen.queryByText(/simulate/i)).toBeNull();
     });
