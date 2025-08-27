@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { ProposalActionSimulationStructure } from './proposalActionSimulationStructure';
 
 const meta: Meta<typeof ProposalActionSimulationStructure> = {
-    title: 'Modules/Components/Proposal/ProposalActionSimulationStructure',
+    title: 'Modules/Components/Proposal/ProposalActionSimulation/ProposalActionSimulationStructure',
     component: ProposalActionSimulationStructure,
     parameters: {
         design: {
