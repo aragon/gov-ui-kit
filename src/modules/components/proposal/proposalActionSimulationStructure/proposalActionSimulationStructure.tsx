@@ -121,11 +121,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 </DefinitionList.Item>
             </DefinitionList.Container>
 
-            <div
-                className={classNames('flex flex-col gap-2 md:flex-row md:justify-between', {
-                    'md:justify-end': !isEnabled,
-                })}
-            >
+            <div className={classNames('flex flex-col gap-2 md:flex-row md:justify-between')}>
                 {isEnabled && (
                     <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isLoading}>
                         {isLoading
