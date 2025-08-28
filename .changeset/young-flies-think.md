@@ -2,4 +2,4 @@
 '@aragon/gov-ui-kit': minor
 ---
 
-Implement `ProposalActionSimulationStructure` component
+Implement `ActionSimulation` component
