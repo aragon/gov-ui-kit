@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { DateTime } from 'luxon';
-import { ProposalActionSimulationStructure } from './proposalActionSimulationStructure';
+import { ActionSimulation } from './actionSimulation';
 
-const meta: Meta<typeof ProposalActionSimulationStructure> = {
-    title: 'Modules/Components/Proposal/ProposalActionSimulation/ProposalActionSimulationStructure',
-    component: ProposalActionSimulationStructure,
+const meta: Meta<typeof ActionSimulation> = {
+    title: 'Modules/Components/Action/ActionSimulation',
+    component: ActionSimulation,
     parameters: {
         design: {
             type: 'figma',
@@ -16,7 +16,7 @@ const meta: Meta<typeof ProposalActionSimulationStructure> = {
     },
 };
 
-type Story = StoryObj<typeof ProposalActionSimulationStructure>;
+type Story = StoryObj<typeof ActionSimulation>;
 
 /**
  * Completed simulation with positive outcome

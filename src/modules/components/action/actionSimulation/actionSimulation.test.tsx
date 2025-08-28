@@ -1,19 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { GukCoreProvider } from '../../../../core';
-import type { IProposalActionSimulationStructureProps } from './proposalActionSimulationStructure';
-import { ProposalActionSimulationStructure } from './proposalActionSimulationStructure';
+import type { IActionSimulationProps } from './actionSimulation';
+import { ActionSimulation } from './actionSimulation';
 
-describe('<ProposalActionSimulationStructure /> component', () => {
-    const createTestComponent = (props?: Partial<IProposalActionSimulationStructureProps>) => {
-        const completeProps: IProposalActionSimulationStructureProps = {
+describe('<ActionSimulation /> component', () => {
+    const createTestComponent = (props?: Partial<IActionSimulationProps>) => {
+        const completeProps: IActionSimulationProps = {
             totalActions: 3,
             ...props,
         };
 
         return (
             <GukCoreProvider>
-                <ProposalActionSimulationStructure {...completeProps} />
+                <ActionSimulation {...completeProps} />
             </GukCoreProvider>
         );
     };

@@ -12,7 +12,7 @@ import {
 } from '../../../../core';
 import { useGukModulesContext } from '../../gukModulesProvider';
 
-export interface IProposalActionSimulationStructureProps {
+export interface IActionSimulationProps {
     /**
      * Total number of actions in the proposal.
      */
@@ -43,11 +43,11 @@ export interface IProposalActionSimulationStructureProps {
     error?: string;
 }
 
-export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulationStructureProps> = (props) => {
+export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
     const { totalActions, lastSimulation, isLoading, isEnabled = true, onSimulate, className, error } = props;
 
     const { copy } = useGukModulesContext();
-    const simulationCopy = copy.proposalActionSimulationStructure;
+    const simulationCopy = copy.actionSimulation;
 
     const statusConfig = useMemo(() => {
         switch (lastSimulation?.status) {
@@ -83,11 +83,11 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
     return (
         <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
-                <DefinitionList.Item term={copy.proposalActionSimulationStructure.totalActionsTerm}>
+                <DefinitionList.Item term={copy.actionSimulation.totalActionsTerm}>
                     {`${totalActions.toString()} ${totalActions !== 1 ? simulationCopy.actions : simulationCopy.action}`}
                 </DefinitionList.Item>
 
-                <DefinitionList.Item term={copy.proposalActionSimulationStructure.lastSimulationTerm}>
+                <DefinitionList.Item term={copy.actionSimulation.lastSimulationTerm}>
                     {isLoading ? (
                         <span className="text-primary-400 flex items-center gap-2 md:gap-3">
                             <Spinner size="md" variant="primary" />
@@ -98,7 +98,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     )}
                 </DefinitionList.Item>
 
-                <DefinitionList.Item term={copy.proposalActionSimulationStructure.executableTerm}>
+                <DefinitionList.Item term={copy.actionSimulation.executableTerm}>
                     <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
                             {isLoading ? (
@@ -125,10 +125,10 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                 {isEnabled && (
                     <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isLoading}>
                         {isLoading
-                            ? copy.proposalActionSimulationStructure.simulating
+                            ? copy.actionSimulation.simulating
                             : lastSimulation
-                              ? copy.proposalActionSimulationStructure.simulateAgain
-                              : copy.proposalActionSimulationStructure.simulate}
+                              ? copy.actionSimulation.simulateAgain
+                              : copy.actionSimulation.simulate}
                     </Button>
                 )}
 
@@ -140,7 +140,7 @@ export const ProposalActionSimulationStructure: React.FC<IProposalActionSimulati
                     target="_blank"
                     iconRight={IconType.LINK_EXTERNAL}
                 >
-                    {copy.proposalActionSimulationStructure.viewOnTenderly}
+                    {copy.actionSimulation.viewOnTenderly}
                 </Button>
             </div>
             {error && (

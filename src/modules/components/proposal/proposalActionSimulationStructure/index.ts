@@ -1,1 +1,0 @@
-export { ProposalActionSimulationStructure } from './proposalActionSimulationStructure';
