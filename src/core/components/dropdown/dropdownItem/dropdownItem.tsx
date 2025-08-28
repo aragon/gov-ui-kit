@@ -31,6 +31,10 @@ export interface IDropdownItemProps extends Omit<ComponentProps<'div'>, 'onSelec
      */
     rel?: string;
     /**
+     * Form id to associate the dropdown item with a form. In this case, the dropdown item will behave as a submit button.
+     */
+    formId?: string;
+    /**
      * Disables the dropdown item when set to true.
      */
     disabled?: boolean;
@@ -51,14 +55,33 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
         href,
         target,
         rel,
+        formId,
         ...otherProps
     } = props;
 
+    const renderSubmitButton = formId != null;
     const renderLink = href != null && href.length > 0;
-    const linkRel = target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel;
 
-    const ItemWrapper = renderLink ? 'a' : React.Fragment;
-    const itemWrapperProps = renderLink ? { href, target, rel: linkRel } : {};
+    let ItemWrapper: React.ElementType = React.Fragment;
+    let itemWrapperProps:
+        | React.AnchorHTMLAttributes<HTMLAnchorElement>
+        | React.ButtonHTMLAttributes<HTMLButtonElement>
+        | object = {};
+
+    if (renderLink) {
+        ItemWrapper = 'a';
+        itemWrapperProps = {
+            href,
+            target,
+            rel: target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel,
+        };
+    } else if (renderSubmitButton) {
+        ItemWrapper = 'button';
+        itemWrapperProps = {
+            type: 'submit' as const,
+            form: formId,
+        };
+    }
 
     const defaultIcon = renderLink ? IconType.LINK_EXTERNAL : selected ? IconType.CHECKMARK : undefined;
     const processedIcon = icon ?? defaultIcon;
@@ -66,7 +89,7 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
     return (
         <RadixDropdown.Item
             disabled={disabled}
-            asChild={renderLink}
+            asChild={renderLink || renderSubmitButton}
             className={classNames(
                 'flex items-center gap-3 px-4 py-3', // Layout
                 'cursor-pointer rounded-xl text-base leading-tight focus-visible:outline-hidden', // Style
@@ -79,6 +102,14 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
                 { 'flex-row-reverse justify-end': iconPosition === 'left' && icon != null },
                 className,
             )}
+            onSelect={(event) => {
+                // For submit buttons, we need to prevent the dropdown from closing immediately to allow the form submission to complete properly
+                if (renderSubmitButton) {
+                    event.preventDefault();
+                }
+
+                props.onSelect?.(event);
+            }}
             {...otherProps}
         >
             <ItemWrapper {...itemWrapperProps}>

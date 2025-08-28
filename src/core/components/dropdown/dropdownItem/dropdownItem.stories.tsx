@@ -47,4 +47,27 @@ export const Link: Story = {
     },
 };
 
+/**
+ * Set the `formId` property to the DropdownItem component to render a button of type "submit".
+ */
+export const SubmitButton: Story = {
+    render: (props: IDropdownItemProps) => (
+        <form
+            id="form-id"
+            onSubmit={(e) => {
+                e.preventDefault();
+                alert('Form submitted');
+            }}
+        >
+            <Dropdown.Container label="Dropdown with link">
+                <Dropdown.Item {...props} />
+            </Dropdown.Container>
+        </form>
+    ),
+    args: {
+        children: 'As submit button',
+        formId: 'form-id',
+    },
+};
+
 export default meta;
