@@ -1,2 +1,2 @@
 export { ActionSimulation } from './actionSimulation';
-export type { IActionSimulationRun } from './actionSimulation.api';
+export type { IActionSimulationProps, IActionSimulationRun } from './actionSimulation.api';
