@@ -81,7 +81,7 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                                     <div className="flex size-6 items-center justify-center">
                                         <AvatarIcon icon={statusConfig.icon} size="sm" variant={statusConfig.variant} />
                                     </div>
-                                    <span className={classNames('text-sm', statusConfig.textColor)}>
+                                    <span className={classNames('text-sm md:text-base', statusConfig.textColor)}>
                                         {statusConfig.label}
                                     </span>
                                 </>

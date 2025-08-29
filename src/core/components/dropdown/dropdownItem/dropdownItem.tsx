@@ -83,6 +83,15 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
         };
     }
 
+    const handleSelect = (event: Event) => {
+        // For submit buttons, we need to prevent the dropdown from closing immediately to allow the form submission to complete properly
+        if (renderSubmitButton) {
+            event.preventDefault();
+        }
+
+        props.onSelect?.(event);
+    };
+
     const defaultIcon = renderLink ? IconType.LINK_EXTERNAL : selected ? IconType.CHECKMARK : undefined;
     const processedIcon = icon ?? defaultIcon;
 
@@ -102,14 +111,7 @@ export const DropdownItem: React.FC<IDropdownItemProps> = (props) => {
                 { 'flex-row-reverse justify-end': iconPosition === 'left' && icon != null },
                 className,
             )}
-            onSelect={(event) => {
-                // For submit buttons, we need to prevent the dropdown from closing immediately to allow the form submission to complete properly
-                if (renderSubmitButton) {
-                    event.preventDefault();
-                }
-
-                props.onSelect?.(event);
-            }}
+            onSelect={handleSelect}
             {...otherProps}
         >
             <ItemWrapper {...itemWrapperProps}>
