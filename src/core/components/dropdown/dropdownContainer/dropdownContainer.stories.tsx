@@ -33,6 +33,29 @@ export const Default: Story = {
     },
 };
 
+/**
+ * DropdownContainer component with a variant.
+ */
+export const WithVariant: Story = {
+    render: (props: IDropdownContainerProps) => (
+        <Dropdown.Container {...props}>
+            <Dropdown.Item>First item</Dropdown.Item>
+            <Dropdown.Item>Second item</Dropdown.Item>
+            <Dropdown.Item>Third item with a longer label</Dropdown.Item>
+        </Dropdown.Container>
+    ),
+    args: {
+        label: 'Dropdown',
+        variant: 'secondary',
+    },
+    argTypes: {
+        variant: {
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'tertiary'],
+        },
+    },
+};
+
 export const OnlyIcon: Story = {
     render: (props: IDropdownContainerProps) => (
         <Dropdown.Container {...props}>
