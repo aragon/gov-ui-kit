@@ -35,13 +35,13 @@ export const Success: Story = {
 /**
  * Completed simulation with negative outcome (can't be executed)
  */
-export const Failure: Story = {
+export const Failed: Story = {
     args: {
         totalActions: 2,
         lastSimulation: {
             timestamp: DateTime.now().minus({ seconds: 10 }).toMillis(),
             url: 'https://dashboard.tenderly.co/simulation/12345',
-            status: 'failure',
+            status: 'failed',
         },
     },
 };

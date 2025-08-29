@@ -32,7 +32,6 @@ export const modulesCopy = {
         likelyToSucceed: 'Likely to succeed',
         likelyToFail: 'Likely to fail',
         unknown: 'Unknown',
-        now: 'Now',
     },
     proposalActionsContainer: {
         emptyHeader: 'No actions added',

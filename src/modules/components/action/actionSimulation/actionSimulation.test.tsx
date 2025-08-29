@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { GukCoreProvider } from '../../../../core';
-import type { IActionSimulationProps } from './actionSimulation';
 import { ActionSimulation } from './actionSimulation';
+import type { IActionSimulationProps } from './actionSimulation.api';
 
 describe('<ActionSimulation /> component', () => {
     const createTestComponent = (props?: Partial<IActionSimulationProps>) => {
@@ -60,7 +60,7 @@ describe('<ActionSimulation /> component', () => {
                 lastSimulation: {
                     timestamp: DateTime.now().toMillis(),
                     url: 'https://dashboard.tenderly.co/simulation/12345',
-                    status: 'failure',
+                    status: 'failed',
                 },
             }),
         );

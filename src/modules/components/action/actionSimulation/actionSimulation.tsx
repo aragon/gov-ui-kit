@@ -11,37 +11,7 @@ import {
     Spinner,
 } from '../../../../core';
 import { useGukModulesContext } from '../../gukModulesProvider';
-
-export interface IActionSimulationProps {
-    /**
-     * Total number of actions in the proposal.
-     */
-    totalActions: number;
-    /**
-     * Last simulation data including timestamp, URL, and status.
-     */
-    lastSimulation?: { timestamp: number; url: string; status: 'success' | 'failure' };
-    /**
-     * Whether simulation is currently running.
-     */
-    isLoading?: boolean;
-    /**
-     * Whether the proposal can be simulated.
-     */
-    isEnabled?: boolean;
-    /**
-     * Callback when simulate again button is clicked.
-     */
-    onSimulate?: () => void;
-    /**
-     * Additional class names applied to the wrapper div.
-     */
-    className?: string;
-    /**
-     * Optional error message to display.
-     */
-    error?: string;
-}
+import type { IActionSimulationProps } from './actionSimulation.api';
 
 export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
     const { totalActions, lastSimulation, isLoading, isEnabled = true, onSimulate, className, error } = props;
@@ -58,7 +28,7 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                     textColor: 'text-success-800',
                     variant: 'success' as const,
                 };
-            case 'failure':
+            case 'failed':
                 return {
                     icon: IconType.CRITICAL,
                     label: simulationCopy.likelyToFail,
