@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { GukCoreProvider } from '../../../../core';
+import { modulesCopy } from '../../../assets';
 import { ActionSimulation } from './actionSimulation';
 import type { IActionSimulationProps } from './actionSimulation.api';
+
+const { actionSimulation: actionSimulationCopy } = modulesCopy;
 
 describe('<ActionSimulation /> component', () => {
     const createTestComponent = (props?: Partial<IActionSimulationProps>) => {
@@ -21,9 +24,9 @@ describe('<ActionSimulation /> component', () => {
     it('renders all definition list items', () => {
         render(createTestComponent());
 
-        expect(screen.getByText('Total actions')).toBeInTheDocument();
-        expect(screen.getByText('Last simulation')).toBeInTheDocument();
-        expect(screen.getByText('Executable')).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.totalActionsTerm)).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.lastSimulationTerm)).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.executableTerm)).toBeInTheDocument();
     });
 
     it('renders the total actions count', () => {
@@ -38,7 +41,7 @@ describe('<ActionSimulation /> component', () => {
 
     it('renders "Never" when no last simulation is provided', () => {
         render(createTestComponent());
-        expect(screen.getByText('Never')).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.never)).toBeInTheDocument();
     });
 
     it('renders the execution status label', () => {
@@ -51,7 +54,7 @@ describe('<ActionSimulation /> component', () => {
                 },
             }),
         );
-        expect(screen.getByText('Likely to succeed')).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.likelyToSucceed)).toBeInTheDocument();
     });
 
     it('renders failure status label', () => {
@@ -64,12 +67,12 @@ describe('<ActionSimulation /> component', () => {
                 },
             }),
         );
-        expect(screen.getByText('Likely to fail')).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.likelyToFail)).toBeInTheDocument();
     });
 
     it('renders unknown status when no lastSimulation is provided', () => {
         render(createTestComponent());
-        expect(screen.getByText('Unknown')).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.unknown)).toBeInTheDocument();
     });
 
     it('renders loading state when execution status is loading', () => {
@@ -79,18 +82,18 @@ describe('<ActionSimulation /> component', () => {
             }),
         );
 
-        expect(screen.getAllByText('Simulating')).toHaveLength(3);
+        expect(screen.getAllByText(actionSimulationCopy.simulating)).toHaveLength(3);
     });
 
     it('shows simulate button by default when isSimulatable is not specified', () => {
         render(createTestComponent());
 
-        expect(screen.getByText(/simulate/i)).toBeInTheDocument();
+        expect(screen.getByText(actionSimulationCopy.simulate)).toBeInTheDocument();
     });
 
     it('hides simulate button when isSimulatable is false', () => {
         render(createTestComponent({ isEnabled: false }));
 
-        expect(screen.queryByText(/simulate/i)).toBeNull();
+        expect(screen.queryByText(actionSimulationCopy.simulate)).toBeNull();
     });
 });
