@@ -61,7 +61,7 @@
     "@tiptap/extension-placeholder": "^2.26.0",
     "@tiptap/extension-text-style": "^2.26.0",
     "@tiptap/pm": "^2.26.0",
-    "@tiptap/react": "^2.26.0",
+    "@tiptap/react": "^3.3.0",
     "@tiptap/starter-kit": "^2.26.0",
     "blockies-ts": "^1.0.0",
     "classnames": "^2.5.0",
