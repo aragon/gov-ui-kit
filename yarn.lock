@@ -78,7 +78,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.6.1"
     "@tiptap/core": "npm:^2.26.0"
     "@tiptap/extension-code-block": "npm:^2.26.0"
-    "@tiptap/extension-image": "npm:^2.26.0"
+    "@tiptap/extension-image": "npm:^3.3.0"
     "@tiptap/extension-link": "npm:^2.26.0"
     "@tiptap/extension-placeholder": "npm:^2.26.0"
     "@tiptap/extension-text-style": "npm:^2.26.0"
@@ -5667,12 +5667,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-image@npm:^2.26.0":
-  version: 2.26.1
-  resolution: "@tiptap/extension-image@npm:2.26.1"
+"@tiptap/extension-image@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "@tiptap/extension-image@npm:3.3.0"
   peerDependencies:
-    "@tiptap/core": ^2.7.0
-  checksum: 10c0/9f6880e1ea30a91ac264981f29e7b1245f631db04b9003836199b829c8c7663741f32d4f16309f6973a6865231b13cd336b2ba797e1ad54e3b31608492249bb4
+    "@tiptap/core": ^3.3.0
+  checksum: 10c0/9b504880678fceb3aba017deea642288cd6f24ece1b77034885f260e45024d1f72656e6bbbfefa373c43c01e0975ae15f7e13ce3ac18ecd45e7f026b2d814938
   languageName: node
   linkType: hard
 
