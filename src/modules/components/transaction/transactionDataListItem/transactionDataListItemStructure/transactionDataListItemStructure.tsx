@@ -40,6 +40,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         tokenSymbol,
         tokenAmount,
         amountUsd,
+        hideValue,
         type = TransactionType.ACTION,
         status = TransactionStatus.PENDING,
         date,
@@ -81,7 +82,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
                 </div>
             )}
-            <div className="flex w-full flex-col items-start gap-y-1 self-center">
+            <div className="flex w-full flex-col items-start gap-y-0.5 self-center md:gap-y-1">
                 <span className="leading-tight text-neutral-800 md:text-lg">{typeToHeading[type]}</span>
                 {date && (
                     <p className="text-sm leading-tight text-neutral-500 md:text-base">
@@ -90,9 +91,13 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 )}
             </div>
 
-            <div className="flex shrink-0 flex-col items-end gap-y-1 truncate">
+            <div className="flex h-full shrink-0 flex-col items-end gap-y-0.5 truncate md:gap-y-1">
                 <span className="leading-tight text-neutral-800 md:text-lg">{processedTokenAmount}</span>
-                <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedTransactionValue}</span>
+                {!hideValue && (
+                    <span className="text-sm leading-tight text-neutral-500 md:text-base">
+                        {formattedTransactionValue}
+                    </span>
+                )}
             </div>
         </DataList.Item>
     );

@@ -23,7 +23,15 @@ type Story = StoryObj<typeof TransactionDataListItemStructure>;
 /**
  * Default usage example of the TransactionDataList module component.
  */
-export const Default: Story = {};
+export const Deposit: Story = {
+    args: {
+        status: TransactionStatus.SUCCESS,
+        type: TransactionType.DEPOSIT,
+        tokenAmount: 10,
+        tokenSymbol: 'ETH',
+        date: 1613984914000,
+    },
+};
 
 /**
  * Example of the TransactionDataList component with withdraw transaction.
@@ -48,6 +56,21 @@ export const Failed: Story = {
         tokenSymbol: 'ETH',
         tokenAmount: 10,
         amountUsd: 100,
+        date: 1613984914000,
+    },
+};
+
+/**
+ * Example of the TransactionDataList component without fiat price.
+ */
+export const HideValue: Story = {
+    args: {
+        status: TransactionStatus.SUCCESS,
+        type: TransactionType.DEPOSIT,
+        tokenSymbol: 'ETH',
+        tokenAmount: 10,
+        amountUsd: 100,
+        hideValue: true,
         date: 1613984914000,
     },
 };
