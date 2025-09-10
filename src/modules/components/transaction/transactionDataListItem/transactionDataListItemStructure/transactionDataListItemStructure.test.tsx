@@ -92,4 +92,13 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         render(createTestComponent({ href }));
         expect(screen.getByRole('link')).toHaveAttribute('href', href);
     });
+
+    it('does not render the formatted USD price of the transaction when hideValue flag is set', () => {
+        const amountUsd = '123.21';
+        const tokenAmount = 10;
+        const type = TransactionType.DEPOSIT;
+        const usdPrice = formatterUtils.formatNumber(amountUsd, { format: NumberFormat.FIAT_TOTAL_SHORT })!;
+        render(createTestComponent({ amountUsd, tokenAmount, type, hideValue: true }));
+        expect(screen.queryByText(usdPrice)).not.toBeInTheDocument();
+    });
 });

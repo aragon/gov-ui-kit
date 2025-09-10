@@ -31,6 +31,10 @@ export type ITransactionDataListItemProps = IDataListItemProps & {
      */
     amountUsd?: number | string;
     /**
+     *  Whether to hide the value of the transaction (USD price).
+     */
+    hideValue?: boolean;
+    /**
      * The type of transaction.
      * @default TransactionType.ACTION
      */
