@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.17.0
+
+### Minor Changes
+
+- [#583](https://github.com/aragon/gov-ui-kit/pull/583) [`03cabfa`](https://github.com/aragon/gov-ui-kit/commit/03cabfaf1037c549268c5b25f52e567a30411d98) Thanks [@milosh86](https://github.com/milosh86)! - Add `hideValue` flag to `TransactionDataListItem` to hide fiat value
+
 ## 1.16.0
 
 ### Minor Changes
