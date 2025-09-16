@@ -1,6 +1,6 @@
 {
   "name": "@aragon/gov-ui-kit",
-  "version": "1.15.0",
+  "version": "1.17.0",
   "description": "Implementation of the Aragon's Governance UI Kit",
   "main": "dist/index.es.js",
   "types": "dist/types/src/index.d.ts",

@@ -1,5 +1,31 @@
 # @aragon/gov-ui-kit
 
+## 1.17.0
+
+### Minor Changes
+
+- [#583](https://github.com/aragon/gov-ui-kit/pull/583) [`03cabfa`](https://github.com/aragon/gov-ui-kit/commit/03cabfaf1037c549268c5b25f52e567a30411d98) Thanks [@milosh86](https://github.com/milosh86)! - Add `hideValue` flag to `TransactionDataListItem` to hide fiat value
+
+## 1.16.0
+
+### Minor Changes
+
+- [#560](https://github.com/aragon/gov-ui-kit/pull/560) [`42e1722`](https://github.com/aragon/gov-ui-kit/commit/42e17229ba1948e71678c41df32f967faa5c1f77) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#567](https://github.com/aragon/gov-ui-kit/pull/567) [`b4e3759`](https://github.com/aragon/gov-ui-kit/commit/b4e3759822295f75a6df4398467ebbbf1e76b8d9) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump sha.js to 2.4.12
+
+- [#566](https://github.com/aragon/gov-ui-kit/pull/566) [`3e7e08b`](https://github.com/aragon/gov-ui-kit/commit/3e7e08b1e6405ea2bdcac41ea01fcd62ad668a40) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump vite-plugin-static-copy to 3.1.2
+
+- [#561](https://github.com/aragon/gov-ui-kit/pull/561) [`69d2d79`](https://github.com/aragon/gov-ui-kit/commit/69d2d79456d5244b52495b4d68e2382edb6b577d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump 1password/load-secrets-action to v3
+
+- [#562](https://github.com/aragon/gov-ui-kit/pull/562) [`d2b57ca`](https://github.com/aragon/gov-ui-kit/commit/d2b57ca866b7c2f045497444a90a3275b01fdb26) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump vercel to v46
+
+- [#571](https://github.com/aragon/gov-ui-kit/pull/571) [`11e9e9e`](https://github.com/aragon/gov-ui-kit/commit/11e9e9e3e50e6001bf80bacecabb90c014b888b2) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#552](https://github.com/aragon/gov-ui-kit/pull/552) [`f732799`](https://github.com/aragon/gov-ui-kit/commit/f732799733ae13b651267a2459b9d2a506348d6a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+- [#572](https://github.com/aragon/gov-ui-kit/pull/572) [`f97d58b`](https://github.com/aragon/gov-ui-kit/commit/f97d58b42431f76cf353b4a97b4bae7d41e25dc6) Thanks [@milosh86](https://github.com/milosh86)! - Implement `ActionSimulation` component
+
 ## 1.15.0
 
 ### Minor Changes

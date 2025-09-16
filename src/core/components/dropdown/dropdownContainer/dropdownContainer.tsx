@@ -1,7 +1,7 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
 import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
-import { Button, type IButtonProps } from '../../button';
+import { Button, type ButtonVariant, type IButtonProps } from '../../button';
 import { IconType } from '../../icon';
 
 export interface IDropdownContainerProps extends Omit<ComponentProps<'div'>, 'dir'> {
@@ -62,6 +62,11 @@ export interface IDropdownContainerProps extends Omit<ComponentProps<'div'>, 'di
      * Additional classnames for the dropdown container (e.g. for setting a max width for the dropdown items).
      */
     contentClassNames?: string;
+    /**
+     * Variant of the dropdown.
+     * @default tertiary
+     */
+    variant?: ButtonVariant;
 }
 
 export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
@@ -80,6 +85,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
         constrainContentWidth = true,
         constrainContentHeight = true,
         contentClassNames,
+        variant = 'tertiary',
         ...otherProps
     } = props;
 
@@ -103,7 +109,7 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             <RadixDropdown.Trigger className="group" asChild={true} disabled={disabled}>
                 {customTrigger ?? (
                     <Button
-                        variant="tertiary"
+                        variant={variant}
                         size={size}
                         responsiveSize={responsiveSize}
                         iconLeft={!hasLabel ? triggerIcon : undefined}
