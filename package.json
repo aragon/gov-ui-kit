@@ -66,7 +66,7 @@
     "blockies-ts": "^1.0.0",
     "classnames": "^2.5.0",
     "framer-motion": "^12.23.0",
-    "luxon": "^3.7.2",
+    "luxon": "^3.7.0",
     "react-dropzone": "^14.3.0",
     "react-imask": "^7.6.0",
     "sanitize-html": "^2.17.0",

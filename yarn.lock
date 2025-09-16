@@ -96,7 +96,7 @@ __metadata:
     jest: "npm:^30.1.3"
     jest-environment-jsdom: "npm:^30.1.2"
     lint-staged: "npm:^16.1.6"
-    luxon: "npm:^3.7.2"
+    luxon: "npm:^3.7.0"
     postcss: "npm:^8.5.6"
     postcss-loader: "npm:^8.2.0"
     prettier: "npm:^3.6.2"
@@ -13859,7 +13859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:^3.7.2":
+"luxon@npm:^3.7.0":
   version: 3.7.2
   resolution: "luxon@npm:3.7.2"
   checksum: 10c0/ed8f0f637826c08c343a29dd478b00628be93bba6f068417b1d8896b61cb61c6deacbe1df1e057dbd9298334044afa150f9aaabbeb3181418ac8520acfdc2ae2
