@@ -114,7 +114,7 @@ __metadata:
     sanitize-html: "npm:^2.17.0"
     storybook: "npm:^9.1.6"
     tailwindcss: "npm:^4.1.13"
-    tiptap-markdown: "npm:^0.9.0"
+    tiptap-markdown: "npm:^0.8.10"
     ts-jest: "npm:^29.4.2"
     typescript: "npm:^5.9.2"
     typescript-eslint: "npm:^8.44.0"
@@ -18261,16 +18261,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinyglobby@npm:^0.2.15":
-  version: 0.2.15
-  resolution: "tinyglobby@npm:0.2.15"
-  dependencies:
-    fdir: "npm:^6.5.0"
-    picomatch: "npm:^4.0.3"
-  checksum: 10c0/869c31490d0d88eedb8305d178d4c75e7463e820df5a9b9d388291daf93e8b1eb5de1dad1c1e139767e4269fe75f3b10d5009b2cc14db96ff98986920a186844
-  languageName: node
-  linkType: hard
-
 "tinyrainbow@npm:^2.0.0":
   version: 2.0.0
   resolution: "tinyrainbow@npm:2.0.0"
@@ -18294,17 +18284,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tiptap-markdown@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "tiptap-markdown@npm:0.9.0"
+"tiptap-markdown@npm:^0.8.10":
+  version: 0.8.10
+  resolution: "tiptap-markdown@npm:0.8.10"
   dependencies:
     "@types/markdown-it": "npm:^13.0.7"
     markdown-it: "npm:^14.1.0"
     markdown-it-task-lists: "npm:^2.1.1"
     prosemirror-markdown: "npm:^1.11.1"
   peerDependencies:
-    "@tiptap/core": ^3.0.1
-  checksum: 10c0/d599a93aac549963488394f1112937f9f2d268b1a48640ab5e1ba0b05590d184c26f0b5f714601a82c5437d77691819e1d790e0c14e6dc252a3476b6227b39a1
+    "@tiptap/core": ^2.0.3
+  checksum: 10c0/0102ce7dc2ac6d418f544265a1ed12f5fba4abb4d540837cc1c8508f43bda69521e789342936cd7609194902336df3dbb4398d9765143dcf226e07885482807a
   languageName: node
   linkType: hard
 
