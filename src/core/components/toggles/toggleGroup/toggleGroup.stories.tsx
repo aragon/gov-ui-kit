@@ -43,6 +43,35 @@ export const SpaceBetween: Story = {
 };
 
 /**
+ * Usage of the ToggleGroup component with wrapped variant.
+ */
+export const Wrapped: Story = {
+    args: { variant: 'wrapped' },
+    render: (props) => (
+        <ToggleGroup className="w-full" {...props}>
+            <Toggle value="default" label="Default" />
+            <Toggle value="optimistic" label="Optimistic" />
+            <Toggle value="timelock" label="Timelock" />
+            <Toggle value="active" label="Active" />
+            <Toggle value="inactive" label="Inactive" />
+            <Toggle value="pending" label="Pending" />
+            <Toggle value="red" label="Red" />
+            <Toggle value="blue" label="Blue" />
+            <Toggle value="green" label="Green" />
+            <Toggle value="circle" label="Circle" />
+            <Toggle value="square" label="Square" />
+            <Toggle value="triangle" label="Triangle" />
+            <Toggle value="desktop" label="Desktop" />
+            <Toggle value="tablet" label="Tablet" />
+            <Toggle value="mobile" label="Mobile" />
+            <Toggle value="car" label="Car" />
+            <Toggle value="train" label="Train" />
+            <Toggle value="bike" label="Bike" />
+        </ToggleGroup>
+    ),
+};
+
+/**
  * Controlled usage example of the ToggleGroup component.
  */
 export const Controlled: Story = {

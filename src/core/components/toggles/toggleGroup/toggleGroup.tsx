@@ -8,9 +8,9 @@ export interface IToggleGroupBaseProps<TMulti extends boolean>
     extends Omit<ComponentProps<'div'>, 'value' | 'onChange' | 'defaultValue' | 'ref' | 'dir'> {
     /**
      * Variant of the component defining the spacing between the toggle items.
-     * @default fixed
+     * @default wrapped
      */
-    variant?: 'fixed' | 'space-between';
+    variant?: 'wrapped' | 'space-between';
     /**
      * Orientation of the toggle group.
      * @default horizontal
@@ -38,7 +38,7 @@ export type IToggleGroupProps = IToggleGroupBaseProps<true> | IToggleGroupBasePr
 
 export const ToggleGroup = (props: IToggleGroupProps) => {
     const {
-        variant = 'fixed',
+        variant = 'wrapped',
         orientation = 'horizontal',
         value,
         defaultValue,
@@ -48,11 +48,12 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
         ...otherProps
     } = props;
 
-    const classes = classNames(
-        'flex flex-wrap',
+    const toggleGroupClasses = classNames(
+        'flex flex-wrap w-full',
         orientation === 'vertical' ? 'flex-col' : 'flex-row',
-        { 'gap-2 md:gap-3': variant === 'fixed' },
+        { 'gap-2 md:gap-3': variant === 'wrapped' },
         { 'justify-between gap-y-2': variant === 'space-between' },
+        { 'flex-wrap': variant === 'wrapped' },
         className,
     );
 
@@ -60,7 +61,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
         return (
             <RadixToggleGroup
                 type="multiple"
-                className={classes}
+                className={toggleGroupClasses}
                 value={value}
                 onValueChange={onChange}
                 defaultValue={defaultValue}
@@ -73,7 +74,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
     return (
         <RadixToggleGroup
             type="single"
-            className={classes}
+            className={toggleGroupClasses}
             value={value}
             onValueChange={onChange}
             defaultValue={defaultValue}
