@@ -8,9 +8,9 @@ export interface IToggleGroupBaseProps<TMulti extends boolean>
     extends Omit<ComponentProps<'div'>, 'value' | 'onChange' | 'defaultValue' | 'ref' | 'dir'> {
     /**
      * Variant of the component defining the spacing between the toggle items.
-     * @default wrapped
+     * @default fixed
      */
-    variant?: 'wrapped' | 'space-between';
+    variant?: 'fixed' | 'space-between';
     /**
      * Orientation of the toggle group.
      * @default horizontal
@@ -38,7 +38,7 @@ export type IToggleGroupProps = IToggleGroupBaseProps<true> | IToggleGroupBasePr
 
 export const ToggleGroup = (props: IToggleGroupProps) => {
     const {
-        variant = 'wrapped',
+        variant = 'fixed',
         orientation = 'horizontal',
         value,
         defaultValue,
@@ -51,9 +51,9 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
     const toggleGroupClasses = classNames(
         'flex flex-wrap w-full',
         orientation === 'vertical' ? 'flex-col' : 'flex-row',
-        { 'gap-2 md:gap-3': variant === 'wrapped' },
+        { 'gap-2 md:gap-3': variant === 'fixed' },
         { 'justify-between gap-y-2': variant === 'space-between' },
-        { 'flex-wrap': variant === 'wrapped' },
+        { 'flex-wrap': variant === 'fixed' },
         className,
     );
 
