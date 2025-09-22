@@ -43,10 +43,9 @@ export const SpaceBetween: Story = {
 };
 
 /**
- * Usage of the ToggleGroup component with wrapped variant.
+ * Usage of the ToggleGroup component with many toggles showing wrapped behavior.
  */
 export const Wrapped: Story = {
-    args: { variant: 'wrapped' },
     render: (props) => (
         <ToggleGroup className="w-full" {...props}>
             <Toggle value="default" label="Default" />
