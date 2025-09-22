@@ -32,8 +32,8 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                 return {
                     icon: IconType.CRITICAL,
                     label: simulationCopy.likelyToFail,
-                    textColor: 'text-critical-800',
-                    variant: 'critical' as const,
+                    textColor: 'text-warning-800',
+                    variant: 'warning' as const,
                 };
             default:
                 return {
@@ -103,7 +103,7 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                 )}
 
                 <Button
-                    variant="tertiary"
+                    variant={lastSimulation?.status === 'failed' ? 'warning' : 'tertiary'}
                     size="md"
                     disabled={!lastSimulation?.url}
                     href={lastSimulation?.url}
