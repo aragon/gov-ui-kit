@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.18.0
+
+### Minor Changes
+
+- [#579](https://github.com/aragon/gov-ui-kit/pull/579) [`dca7a8e`](https://github.com/aragon/gov-ui-kit/commit/dca7a8e168e70b3c8ed511092d11c4ee333d0253) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependencies
+
+### Patch Changes
+
+- [#585](https://github.com/aragon/gov-ui-kit/pull/585) [`07dce1d`](https://github.com/aragon/gov-ui-kit/commit/07dce1d007bec82fb76e24917bbc315f9521ff34) Thanks [@milosh86](https://github.com/milosh86)! - Update ActionSimulation variant for failed status
+
 ## 1.17.0
 
 ### Minor Changes
