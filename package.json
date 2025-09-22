@@ -62,7 +62,7 @@
     "@tiptap/extension-text-style": "^2.26.0",
     "@tiptap/pm": "^2.26.0",
     "@tiptap/react": "^2.26.0",
-    "@tiptap/starter-kit": "^2.26.0",
+    "@tiptap/starter-kit": "^3.4.5",
     "blockies-ts": "^1.0.0",
     "classnames": "^2.5.0",
     "framer-motion": "^12.23.0",
