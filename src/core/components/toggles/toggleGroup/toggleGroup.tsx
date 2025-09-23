@@ -48,7 +48,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
         ...otherProps
     } = props;
 
-    const classes = classNames(
+    const toggleGroupClasses = classNames(
         'flex flex-wrap',
         orientation === 'vertical' ? 'flex-col' : 'flex-row',
         { 'gap-2 md:gap-3': variant === 'fixed' },
@@ -60,7 +60,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
         return (
             <RadixToggleGroup
                 type="multiple"
-                className={classes}
+                className={toggleGroupClasses}
                 value={value}
                 onValueChange={onChange}
                 defaultValue={defaultValue}
@@ -73,7 +73,7 @@ export const ToggleGroup = (props: IToggleGroupProps) => {
     return (
         <RadixToggleGroup
             type="single"
-            className={classes}
+            className={toggleGroupClasses}
             value={value}
             onValueChange={onChange}
             defaultValue={defaultValue}
