@@ -72,6 +72,13 @@ describe('<TextAreaRichText /> component', () => {
         expect(onChange).toHaveBeenLastCalledWith('# test');
     });
 
+    it("replaces backslash and newline soft breaks with two-space newlines when valueFormat is 'markdown'", async () => {
+        const onChange = jest.fn();
+        render(createTestComponent({ onChange, valueFormat: 'markdown' }));
+        await userEvent.type(screen.getByRole('textbox'), 'line 1{shift>}{enter}{/shift}line 2');
+        expect(onChange).toHaveBeenLastCalledWith('line 1  \nline 2');
+    });
+
     it('defaults to empty string instead of empty paragraph when input is empty', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
@@ -80,12 +87,10 @@ describe('<TextAreaRichText /> component', () => {
         expect(onChange).toHaveBeenLastCalledWith('');
     });
 
-    it('formats pasted markdown content', async () => {
+    it('correctly formats pasted markdown content', async () => {
         const onChange = jest.fn();
         render(createTestComponent({ onChange }));
-        const event = {
-            getData: (type: string) => (type === 'text/plain' ? '# Heading' : ''),
-        } as DataTransfer;
+        const event = { getData: (type: string) => (type === 'text/plain' ? '# Heading' : '') } as DataTransfer;
         await userEvent.click(screen.getByRole('textbox'));
         await userEvent.paste(event);
         expect(onChange).toHaveBeenLastCalledWith('<h1>Heading</h1>');
