@@ -1,5 +1,5 @@
 import { Image } from '@tiptap/extension-image';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { EditorContent, useEditor, type Editor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useEffect, type ComponentPropsWithoutRef } from 'react';
@@ -33,10 +33,15 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     };
 
     const extensions = [StarterKit.configure({ link: { openOnClick: false } }), Image, Markdown];
-    const parser = useEditor({ editable: false, immediatelyRender, extensions, content: sanitizeDocument(document) });
+    const parser = useEditor({
+        editable: false,
+        immediatelyRender,
+        extensions,
+        content: sanitizeDocument(document),
+    }) as Editor | null;
 
     useEffect(() => {
-        parser.commands.setContent(sanitizeDocument(document));
+        parser?.commands.setContent(sanitizeDocument(document));
     }, [document, parser]);
 
     return (
