@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.19.1
+
+### Patch Changes
+
+- [#591](https://github.com/aragon/gov-ui-kit/pull/591) [`2d631e6`](https://github.com/aragon/gov-ui-kit/commit/2d631e636dbe9ca46744907158a63383479268df) Thanks [@cgero-eth](https://github.com/cgero-eth)! - Fix TextAreaRichText and DocumentParser components after tiptap migration
+
 ## 1.19.0
 
 ### Minor Changes
