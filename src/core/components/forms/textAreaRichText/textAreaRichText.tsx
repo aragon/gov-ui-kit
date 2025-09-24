@@ -1,5 +1,5 @@
 import { Placeholder } from '@tiptap/extensions';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { type Editor, EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
@@ -107,7 +107,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
             onChange?.(value);
         },
-    });
+    }) as Editor | null;
 
     const toggleExpanded = () => setIsExpanded((current) => !current);
 
@@ -122,9 +122,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     }, [isExpanded]);
 
     // Update editable setting on Tiptap editor on disabled property change
-    useEffect(() => {
-        editor.setEditable(!disabled);
-    }, [editor, disabled]);
+    useEffect(() => editor?.setEditable(!disabled), [editor, disabled]);
 
     // Add keydown listener to reset expanded state on ESC key down
     useEffect(() => {
