@@ -68,7 +68,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
     const randomId = useRandomId(id);
 
     const extensions = [
-        StarterKit,
+        StarterKit.configure({ trailingNode: false }),
         Placeholder.configure({ placeholder, emptyNodeClass: placeholderClasses, showOnlyWhenEditable: false }),
         Markdown.configure({ transformPastedText: true }),
     ];
@@ -98,8 +98,7 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
                     const { storage } = editor;
                     const markdownStorage = 'markdown' in storage ? (storage.markdown as MarkdownStorage) : undefined;
 
-                    // Replace soft break syntax emitted by tiptap-markdown (backslash + newline)
-                    // with standard two-space newline
+                    // Replace soft break syntax emitted by tiptap-markdown (backslash + newline) with standard two-space newline
                     return markdownStorage?.getMarkdown().replace(/\\\n/g, '  \n');
                 },
             };
