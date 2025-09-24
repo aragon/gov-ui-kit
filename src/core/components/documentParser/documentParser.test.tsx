@@ -39,4 +39,8 @@ describe('<DocumentParser /> component', () => {
         const rootElement = screen.getByTestId('doc-parser');
         expect(rootElement).toHaveClass('test-class');
     });
+
+    it('does not fail when immediatelyRender is set to false', () => {
+        expect(() => render(createTestComponent({ immediatelyRender: false }))).not.toThrow();
+    });
 });
