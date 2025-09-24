@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 1.19.0
+
+### Minor Changes
+
+- [#589](https://github.com/aragon/gov-ui-kit/pull/589) [`5fb7eeb`](https://github.com/aragon/gov-ui-kit/commit/5fb7eeb9e9ed8a2b7a1cdc756a728ab24362cca1) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update storybook dependencies to 9.1.7
+
+- [#586](https://github.com/aragon/gov-ui-kit/pull/586) [`f5ab47b`](https://github.com/aragon/gov-ui-kit/commit/f5ab47bbecfa43a7790e26dc7a030ed7d770ed00) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update Toggle, ToggleGroup to latest design spec
+
+- [#525](https://github.com/aragon/gov-ui-kit/pull/525) [`67c945e`](https://github.com/aragon/gov-ui-kit/commit/67c945e4066f87891913d84ae141fda613b3e1c1) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump @tiptap to v3
+
+- [#587](https://github.com/aragon/gov-ui-kit/pull/587) [`7932ea3`](https://github.com/aragon/gov-ui-kit/commit/7932ea33727081f7315ae64d432ac3f965ebc63d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update minor and patch NPM dependency
+
 ## 1.18.0
 
 ### Minor Changes
