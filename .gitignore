@@ -53,3 +53,6 @@ generated
 subgraph.yaml
 .bin
 stats.*.html
+
+IDE/AI
+.claude
