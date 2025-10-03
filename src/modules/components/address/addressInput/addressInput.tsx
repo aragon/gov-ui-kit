@@ -82,7 +82,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const { buildEntityUrl } = useBlockExplorer({ chainId });
     const addressUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: value });
 
-    const supportEnsNames = currentChain?.contracts?.ensRegistry != null;
+    const supportEnsNames = currentChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
