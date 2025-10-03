@@ -54,5 +54,5 @@ subgraph.yaml
 .bin
 stats.*.html
 
-IDE/AI
+# IDE/AI
 .claude
