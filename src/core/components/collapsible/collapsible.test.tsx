@@ -114,6 +114,22 @@ describe('<Collapsible /> component', () => {
         expect(button).toHaveClass('bg-neutral-0');
     });
 
+    it('clamps collapsed height to at least overlay height when showOverlay is true', () => {
+        // Simulate small collapsedLines resulting in small height
+        const children = 'Default Children';
+        const collapsedLines = 1;
+        const lineHeight = 12; // would be 12px, but should clamp to 112px
+        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+
+        // Set viewport to < md breakpoint so overlay = 112px
+        Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 });
+        render(createTestComponent({ children, collapsedLines, showOverlay: true }));
+
+        const content = screen.getByText(children);
+        expect(content.style.maxHeight).toBe('112px');
+    });
+
     it('computes collapsed height based on collapsedLines and lineHeight correctly', () => {
         const children = 'Default Children';
         const collapsedLines = 7;
