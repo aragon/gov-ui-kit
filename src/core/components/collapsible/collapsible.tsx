@@ -22,6 +22,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const [isOpenState, setIsOpenState] = useState(defaultOpen);
     const [isOverflowing, setIsOverflowing] = useState(false);
     const [maxHeight, setMaxHeight] = useState(0);
+    const [overlayMinHeight, setOverlayMinHeight] = useState<number>(112);
 
     const defaultLineHeight = 24;
 
@@ -29,20 +30,48 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     const contentRef = useRef<HTMLDivElement>(null);
 
     const calculateCollapsedHeight = useCallback(() => {
+        let collapsedHeightBase: number;
+
         if (collapsedPixels != null) {
-            return collapsedPixels;
-        }
-
-        if (collapsedLines && contentRef.current) {
+            collapsedHeightBase = collapsedPixels;
+        } else if (collapsedLines && contentRef.current && typeof window !== 'undefined') {
             const lineHeight = parseFloat(window.getComputedStyle(contentRef.current).lineHeight);
-
             if (!Number.isNaN(lineHeight)) {
-                return lineHeight * collapsedLines;
+                collapsedHeightBase = lineHeight * collapsedLines;
+            } else {
+                collapsedHeightBase = collapsedLines * defaultLineHeight;
             }
+        } else {
+            collapsedHeightBase = collapsedLines * defaultLineHeight;
         }
 
-        return collapsedLines * defaultLineHeight;
-    }, [collapsedPixels, collapsedLines, defaultLineHeight]);
+        if (showOverlay && !isOpen) {
+            // Clamp to the current overlay min height
+            return Math.max(collapsedHeightBase, overlayMinHeight);
+        }
+
+        return collapsedHeightBase;
+    }, [collapsedPixels, collapsedLines, defaultLineHeight, showOverlay, isOpen, overlayMinHeight]);
+
+    useEffect(() => {
+        if (!showOverlay) {
+            return;
+        }
+
+        const mdBreakpointPx = 768; // Tailwind default 'md'
+        const updateOverlayMinHeight = () => {
+            if (typeof window === 'undefined') {
+                return;
+            }
+            // Tailwind sizes: h-28 (base) => 7rem (112px), md:h-32 => 8rem (128px)
+            const next = window.innerWidth >= mdBreakpointPx ? 128 : 112;
+            setOverlayMinHeight(next);
+        };
+
+        updateOverlayMinHeight();
+        window.addEventListener('resize', updateOverlayMinHeight);
+        return () => window.removeEventListener('resize', updateOverlayMinHeight);
+    }, [showOverlay]);
 
     const toggle = useCallback(() => {
         setIsOpenState(!isOpen);
@@ -69,7 +98,16 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         observer.observe(content);
         checkOverflow();
 
-        return () => observer.disconnect();
+        if (typeof window !== 'undefined') {
+            window.addEventListener('resize', checkOverflow);
+        }
+
+        return () => {
+            observer.disconnect();
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', checkOverflow);
+            }
+        };
     }, [collapsedLines, collapsedPixels, calculateCollapsedHeight]);
 
     const collapsedHeight = calculateCollapsedHeight();
