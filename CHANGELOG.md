@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.20.0
+
+### Minor Changes
+
+- [#593](https://github.com/aragon/gov-ui-kit/pull/593) [`4a56009`](https://github.com/aragon/gov-ui-kit/commit/4a56009488bcf7d8a7e67df8b7ff875403013ab5) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update AddressInput ENS resolution for wagmi v2.16+
+
 ## 1.19.1
 
 ### Patch Changes
