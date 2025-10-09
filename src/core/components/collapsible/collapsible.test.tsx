@@ -45,6 +45,7 @@ describe('<Collapsible /> component', () => {
         expect(content.style.maxHeight).toBe('300px');
         expect(screen.queryByText(buttonLabelOpened)).not.toBeInTheDocument();
         expect(screen.queryByText(buttonLabelClosed)).not.toBeInTheDocument();
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
     it('toggles opened/closed state when button is clicked', async () => {
@@ -111,23 +112,42 @@ describe('<Collapsible /> component', () => {
         const showOverlay = true;
         render(createTestComponent({ showOverlay }));
         const button = screen.getByRole('button');
-        expect(button).toHaveClass('bg-neutral-0');
+        expect(button).toBeInTheDocument();
     });
 
-    it('clamps collapsed height to at least overlay height when showOverlay is true', () => {
-        // Simulate small collapsedLines resulting in small height
+    it('overlay has gradient classes when shown and collapsed', () => {
+        const showOverlay = true;
+        render(createTestComponent({ showOverlay }));
+        const overlay = screen.getByTestId('collapsible-overlay');
+        expect(overlay).toHaveClass('bg-gradient-to-t');
+        expect(overlay).toHaveClass('from-neutral-0');
+        expect(overlay).toHaveClass('to-neutral-0/80');
+    });
+
+    it('uses line-based collapsed height independent of overlay presence', () => {
         const children = 'Default Children';
-        const collapsedLines = 1;
-        const lineHeight = 12; // would be 12px, but should clamp to 112px
+        const collapsedLines = 3;
+        const lineHeight = 20;
         const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
         jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
-
-        // Set viewport to < md breakpoint so overlay = 112px
-        Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 600 });
         render(createTestComponent({ children, collapsedLines, showOverlay: true }));
 
         const content = screen.getByText(children);
-        expect(content.style.maxHeight).toBe('112px');
+        expect(content.style.maxHeight).toBe(`${(collapsedLines * lineHeight).toString()}px`);
+    });
+
+    it('computes overlay height from overlayLines and lineHeight', () => {
+        const children = 'Default Children';
+        const collapsedLines = 5;
+        const overlayLines = 2;
+        const lineHeight = 18;
+        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+
+        render(createTestComponent({ children, collapsedLines, overlayLines, showOverlay: true }));
+        const overlay = screen.getByTestId('collapsible-overlay');
+        const expectedHeight = overlayLines * lineHeight;
+        expect(overlay.style.height).toBe(`${expectedHeight.toString()}px`);
     });
 
     it('computes collapsed height based on collapsedLines and lineHeight correctly', () => {
