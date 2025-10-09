@@ -16,6 +16,30 @@ const meta: Meta<typeof Collapsible> = {
             url: 'https://www.figma.com/file/jfKRr1V9evJUp1uBeyP3Zz/v1.0.0?node-id=10157-27011&t=RVJHJFTrLMnhgYnJ-4',
         },
     },
+    argTypes: {
+        collapsedLines: {
+            control: { type: 'number', min: 1 },
+            description: 'Number of lines to show when collapsed',
+            table: { defaultValue: { summary: '3' } },
+        },
+        overlayLines: {
+            control: { type: 'number', min: 0 },
+            description: 'Number of lines the overlay gradient covers (collapsed)',
+            table: { defaultValue: { summary: '2' } },
+        },
+        collapsedPixels: {
+            control: { type: 'number', min: 0 },
+            description: 'Exact collapsed height in pixels (overrides collapsedLines)',
+        },
+        showOverlay: {
+            control: 'boolean',
+            description: 'Show gradient overlay in collapsed state',
+        },
+        defaultOpen: {
+            control: 'boolean',
+            description: 'Initial open state (uncontrolled mode)',
+        },
+    },
 };
 
 type Story = StoryObj<typeof Collapsible>;
@@ -24,7 +48,13 @@ type Story = StoryObj<typeof Collapsible>;
  * Default usage example of the Collapsible component.
  */
 export const Default: Story = {
-    args: { buttonLabelClosed: 'Read more', buttonLabelOpened: 'Read less' },
+    args: {
+        collapsedLines: 3,
+        overlayLines: 2,
+        showOverlay: false,
+        buttonLabelClosed: 'Read more',
+        buttonLabelOpened: 'Read less',
+    },
     render: (args) => (
         <Collapsible {...args}>
             <p>
@@ -64,7 +94,7 @@ export const Default: Story = {
  * Collapsible component with a short text as the content to show overflow detection.
  */
 export const ShortContent: Story = {
-    args: { buttonLabelClosed: 'Read more', buttonLabelOpened: 'Read less' },
+    args: { buttonLabelClosed: 'Read more', buttonLabelOpened: 'Read less', collapsedLines: 3 },
     render: (args) => (
         <Collapsible {...args}>
             <p>
