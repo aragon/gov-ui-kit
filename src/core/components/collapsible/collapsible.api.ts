@@ -11,6 +11,13 @@ export interface ICollapsibleProps extends Omit<ComponentProps<'div'>, 'onToggle
      */
     collapsedPixels?: number;
     /**
+     * Number of text lines used for the gradient overlay height when collapsed.
+     * Has effect only when `showOverlay` is true and the content is collapsed.
+     * Overlay height will be clamped to at most (collapsedLines - 1).
+     * @default 2
+     */
+    overlayLines?: number;
+    /**
      * Controlled state of the collapsible container.
      * @default false
      */

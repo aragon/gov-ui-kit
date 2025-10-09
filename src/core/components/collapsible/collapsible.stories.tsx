@@ -24,7 +24,10 @@ type Story = StoryObj<typeof Collapsible>;
  * Default usage example of the Collapsible component.
  */
 export const Default: Story = {
-    args: { buttonLabelClosed: 'Read more', buttonLabelOpened: 'Read less' },
+    args: {
+        buttonLabelClosed: 'Read more',
+        buttonLabelOpened: 'Read less',
+    },
     render: (args) => (
         <Collapsible {...args}>
             <p>
@@ -61,6 +64,40 @@ export const Default: Story = {
 };
 
 /**
+ * Collapsible component with overlay gradient effect when collapsed.
+ * Demonstrates the showOverlay prop and overlayLines configuration.
+ */
+export const WithOverlay: Story = {
+    args: {
+        buttonLabelClosed: 'Read more',
+        buttonLabelOpened: 'Read less',
+        showOverlay: true,
+        overlayLines: 2,
+    },
+    render: (args) => (
+        <Collapsible {...args}>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien
+                nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla
+                nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec
+                sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien nec turpis tincidunt
+                scelerisque.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien
+                nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla
+                nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
+            </p>
+        </Collapsible>
+    ),
+};
+
+/**
  * Collapsible component with a short text as the content to show overflow detection.
  */
 export const ShortContent: Story = {
@@ -70,6 +107,38 @@ export const ShortContent: Story = {
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
                 Nulla facilisi.
+            </p>
+        </Collapsible>
+    ),
+};
+
+/**
+ * Collapsible component with custom collapsed lines configuration.
+ */
+export const CustomCollapsedLines: Story = {
+    args: {
+        buttonLabelClosed: 'Read more',
+        buttonLabelOpened: 'Read less',
+        collapsedLines: 5,
+    },
+    render: (args) => (
+        <Collapsible {...args}>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien
+                nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla
+                nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec
+                sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien nec turpis tincidunt
+                scelerisque.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla nec nunc consectetur tincidunt.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque. Nulla facilisi. Nullam nec sapien
+                nec turpis tincidunt scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac nulla
+                nec nunc consectetur tincidunt. Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
+                Nulla facilisi. Nullam nec sapien nec turpis tincidunt scelerisque.
             </p>
         </Collapsible>
     ),
