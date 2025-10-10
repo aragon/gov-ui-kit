@@ -27,9 +27,27 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     }
 
     if (isInteractiveElement) {
-        const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
+        const { onClick, ...divProps } = otherProps as HTMLAttributes<HTMLDivElement>;
 
-        return <button type={type} className={actionItemClasses} {...buttonProps} />;
+        const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+            if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault();
+                onClick(event as unknown as React.MouseEvent<HTMLDivElement>);
+            }
+
+            divProps.onKeyDown?.(event);
+        };
+
+        return (
+            <div
+                role="button"
+                tabIndex={0}
+                className={actionItemClasses}
+                onClick={onClick}
+                onKeyDown={handleKeyDown}
+                {...divProps}
+            />
+        );
     }
 
     return <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;
