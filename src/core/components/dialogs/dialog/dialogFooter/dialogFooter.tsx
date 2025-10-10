@@ -30,14 +30,18 @@ export interface IDialogFooterProps extends ComponentPropsWithoutRef<'div'> {
 }
 
 export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
-    const { primaryAction, secondaryAction, variant = 'default', hasError, className, ...otherProps } = props;
+    const { primaryAction, secondaryAction, variant = 'default', hasError, className, children, ...otherProps } = props;
 
     const { label: primaryLabel, ...primaryButtonProps } = primaryAction ?? {};
 
     const { label: secondaryLabel, ...secondaryButtonProps } = secondaryAction ?? {};
 
     const footerClassNames = classNames(
-        'flex gap-3 rounded-b-xl gradient-neutral-50-transparent-to-t px-4 pb-4 pt-3 backdrop-blur-md md:gap-4 md:px-6 md:pb-6',
+        'gradient-neutral-50-transparent-to-t flex flex-col rounded-b-xl px-4 pt-3 pb-4 backdrop-blur-md md:px-6 md:pb-6',
+    );
+
+    const actionsClassNames = classNames(
+        'flex gap-3 pt-6 md:gap-4 ',
         { 'flex-col md:flex-row': variant === 'default' },
         { 'flex-row-reverse justify-between': variant === 'wizard' },
         className,
@@ -45,16 +49,19 @@ export const DialogFooter: React.FC<IDialogFooterProps> = (props) => {
 
     return (
         <div className={footerClassNames} {...otherProps}>
-            {primaryAction && (
-                <Button size="md" {...primaryButtonProps} variant={hasError ? 'critical' : 'primary'}>
-                    {primaryLabel}
-                </Button>
-            )}
-            {secondaryAction && (
-                <Button size="md" {...secondaryButtonProps} variant="tertiary">
-                    {secondaryLabel}
-                </Button>
-            )}
+            {children}
+            <div className={actionsClassNames}>
+                {primaryAction && (
+                    <Button size="md" {...primaryButtonProps} variant={hasError ? 'critical' : 'primary'}>
+                        {primaryLabel}
+                    </Button>
+                )}
+                {secondaryAction && (
+                    <Button size="md" {...secondaryButtonProps} variant="tertiary">
+                        {secondaryLabel}
+                    </Button>
+                )}
+            </div>
         </div>
     );
 };

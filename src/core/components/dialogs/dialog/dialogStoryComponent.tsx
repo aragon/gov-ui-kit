@@ -22,7 +22,7 @@ export const DialogStoryComponent = (component: 'header' | 'content' | 'footer' 
                         {...(component === 'header' && props)}
                     />
                     <Dialog.Content description="A description for the dialog" {...(component === 'content' && props)}>
-                        {'children' in props && props.children != null ? (
+                        {'children' in props && props.children != null && component === 'content' ? (
                             (props.children as ReactNode)
                         ) : (
                             <div className="border-info-300 bg-info-100 flex h-60 w-full items-center justify-center border border-dashed">
