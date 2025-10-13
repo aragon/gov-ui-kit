@@ -1,11 +1,8 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes } from 'react';
+import { type AnchorHTMLAttributes, type HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
 
-export type IDataListItemProps =
-    | ButtonHTMLAttributes<HTMLButtonElement>
-    | AnchorHTMLAttributes<HTMLAnchorElement>
-    | HTMLAttributes<HTMLDivElement>;
+export type IDataListItemProps = AnchorHTMLAttributes<HTMLAnchorElement> | HTMLAttributes<HTMLDivElement>;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
@@ -27,9 +24,19 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     }
 
     if (isInteractiveElement) {
-        const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
-
-        return <button type={type} className={actionItemClasses} {...buttonProps} />;
+        return (
+            <div
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        props.onClick?.();
+                    }
+                }}
+                className={actionItemClasses}
+                {...(otherProps as HTMLAttributes<HTMLDivElement>)}
+            />
+        );
     }
 
     return <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;

@@ -43,7 +43,7 @@ export const Button: Story = {
     args: {
         children: 'Button data list item',
         onClick: () => null,
-        className: 'min-h-12',
+        className: 'min-h-12 flex items-center',
     },
 };
 
