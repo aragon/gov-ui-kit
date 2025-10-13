@@ -2,7 +2,11 @@ import classNames from 'classnames';
 import { type AnchorHTMLAttributes, type HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
 
-export type IDataListItemProps = AnchorHTMLAttributes<HTMLAnchorElement> | HTMLAttributes<HTMLDivElement>;
+type DivPropsWithCustomClick = Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> & {
+    onClick?: () => void;
+};
+
+export type IDataListItemProps = AnchorHTMLAttributes<HTMLAnchorElement> | DivPropsWithCustomClick;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
@@ -30,7 +34,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
-                        props.onClick?.();
+                        (props as DivPropsWithCustomClick).onClick?.();
                     }
                 }}
                 className={actionItemClasses}
