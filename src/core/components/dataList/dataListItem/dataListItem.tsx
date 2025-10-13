@@ -34,6 +34,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
                 tabIndex={0}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault(); // to prevent page scrolling
                         (props as DivPropsWithCustomClick).onClick?.();
                     }
                 }}
