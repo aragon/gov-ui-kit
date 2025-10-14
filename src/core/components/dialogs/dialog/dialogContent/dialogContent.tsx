@@ -6,7 +6,7 @@ import { type ComponentPropsWithoutRef } from 'react';
 export interface IDialogContentProps extends ComponentPropsWithoutRef<'div'> {
     /**
      * Optional description of the dialog.
-     * @deprecated Consider using the description prop on DialogHeader to keep it sticky with the header.
+     * Considering using the same prop on `DialogContentHeader` for sticky effect.
      */
     description?: string;
     /**

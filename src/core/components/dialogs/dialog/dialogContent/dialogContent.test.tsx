@@ -6,8 +6,10 @@ describe('<Dialog.Content/> component', () => {
     const createTestComponent = (props?: Partial<IDialogContentProps>) => {
         const completeProps: IDialogContentProps = { ...props };
 
+        const hiddenDescription = props?.description ? undefined : 'description';
+
         return (
-            <DialogRoot hiddenTitle="title" open={true}>
+            <DialogRoot hiddenTitle="title" hiddenDescription={hiddenDescription} open={true}>
                 <DialogContent {...completeProps} />
             </DialogRoot>
         );
@@ -19,16 +21,10 @@ describe('<Dialog.Content/> component', () => {
         expect(screen.getByText(content)).toBeInTheDocument();
     });
 
-    it('renders the description when provided', () => {
-        const description = 'test description';
+    it('renders the dialog description when specified', () => {
+        const description = 'test-description';
         render(createTestComponent({ description }));
         expect(screen.getByText(description)).toBeInTheDocument();
-    });
-
-    it('does not render description when not provided', () => {
-        const children = 'content';
-        render(createTestComponent({ children }));
-        const dialog = screen.getByRole('dialog');
-        expect(dialog).not.toHaveAccessibleDescription();
+        expect(screen.getByRole('dialog')).toHaveAccessibleDescription(description);
     });
 });
