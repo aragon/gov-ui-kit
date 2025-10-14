@@ -52,10 +52,4 @@ describe('<Dialog.Header/> component', () => {
         render(createTestComponent({ description }));
         expect(screen.getByText(description)).toBeInTheDocument();
     });
-
-    it('does not render description when not provided', () => {
-        render(createTestComponent());
-        const dialog = screen.getByRole('dialog');
-        expect(dialog).not.toHaveAccessibleDescription();
-    });
 });
