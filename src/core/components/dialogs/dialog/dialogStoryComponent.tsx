@@ -18,10 +18,11 @@ export const DialogStoryComponent = (component: 'header' | 'content' | 'footer' 
                 <Dialog.Root open={open} onOpenChange={setOpen} {...(component === 'root' && props)}>
                     <Dialog.Header
                         title="Title of the dialog"
+                        description="A description for the dialog A description for the dialogA description for the dialogA description for the dialogA description for the dialogA description for the dialogA description for the dialog"
                         onClose={closeDialog}
                         {...(component === 'header' && props)}
                     />
-                    <Dialog.Content description="A description for the dialog" {...(component === 'content' && props)}>
+                    <Dialog.Content {...(component === 'content' && props)}>
                         {'children' in props && props.children != null && component === 'content' ? (
                             (props.children as ReactNode)
                         ) : (

@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes } from 'react';
+import { type AnchorHTMLAttributes, type HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
 
-export type IDataListItemProps =
-    | ButtonHTMLAttributes<HTMLButtonElement>
-    | AnchorHTMLAttributes<HTMLAnchorElement>
-    | HTMLAttributes<HTMLDivElement>;
+type DivPropsWithCustomClick = Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> & {
+    onClick?: () => void;
+};
+
+export type IDataListItemProps = AnchorHTMLAttributes<HTMLAnchorElement> | DivPropsWithCustomClick;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
@@ -27,15 +28,19 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     }
 
     if (isInteractiveElement) {
-        const { onClick, ...divProps } = otherProps as HTMLAttributes<HTMLDivElement>;
+        const { onClick, onKeyDown, ...divProps } = otherProps as DivPropsWithCustomClick;
+
+        const handleClick = () => {
+            onClick?.();
+        };
 
         const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
             if (onClick && (event.key === 'Enter' || event.key === ' ')) {
                 event.preventDefault();
-                onClick(event as unknown as React.MouseEvent<HTMLDivElement>);
+                onClick();
             }
 
-            divProps.onKeyDown?.(event);
+            onKeyDown?.(event);
         };
 
         return (
@@ -43,7 +48,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
                 role="button"
                 tabIndex={0}
                 className={actionItemClasses}
-                onClick={onClick}
+                onClick={handleClick}
                 onKeyDown={handleKeyDown}
                 {...divProps}
             />
