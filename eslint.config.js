@@ -73,6 +73,7 @@ const config = tsEslint.config(
             'react/jsx-boolean-value': ['warn', 'always'],
             'react/self-closing-comp': 'warn',
             'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
+            '@typescript-eslint/no-deprecated': 'warn',
             ...reactHooksPlugin.configs.recommended.rules,
         },
     },
