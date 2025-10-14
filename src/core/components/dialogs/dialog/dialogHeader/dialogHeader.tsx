@@ -10,7 +10,8 @@ export interface IDialogHeaderProps extends ComponentPropsWithoutRef<'div'> {
      */
     title: string;
     /**
-     * Optional description of the dialog.
+     * Optional description of the dialog. When set here, the description stays sticky with the header
+     * and remains visible while scrolling through long content.
      */
     description?: string;
     /**

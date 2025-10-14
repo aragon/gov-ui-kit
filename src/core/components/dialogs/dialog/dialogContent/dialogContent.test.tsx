@@ -18,4 +18,17 @@ describe('<Dialog.Content/> component', () => {
         render(createTestComponent({ children: content }));
         expect(screen.getByText(content)).toBeInTheDocument();
     });
+
+    it('renders the description when provided', () => {
+        const description = 'test description';
+        render(createTestComponent({ description }));
+        expect(screen.getByText(description)).toBeInTheDocument();
+    });
+
+    it('does not render description when not provided', () => {
+        const children = 'content';
+        render(createTestComponent({ children }));
+        const dialog = screen.getByRole('dialog');
+        expect(dialog).not.toHaveAccessibleDescription();
+    });
 });
