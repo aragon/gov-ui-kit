@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type ButtonHTMLAttributes, type HTMLAttributes } from 'react';
+import { type AnchorHTMLAttributes, type HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
 
-export type IDataListItemProps =
-    | ButtonHTMLAttributes<HTMLButtonElement>
-    | AnchorHTMLAttributes<HTMLAnchorElement>
-    | HTMLAttributes<HTMLDivElement>;
+type DivPropsWithCustomClick = Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> & {
+    onClick?: () => void;
+};
+
+export type IDataListItemProps = AnchorHTMLAttributes<HTMLAnchorElement> | DivPropsWithCustomClick;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     const { className, ...otherProps } = props;
@@ -27,9 +28,31 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
     }
 
     if (isInteractiveElement) {
-        const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
+        const { onClick, onKeyDown, ...divProps } = otherProps as DivPropsWithCustomClick;
 
-        return <button type={type} className={actionItemClasses} {...buttonProps} />;
+        const handleClick = () => {
+            onClick?.();
+        };
+
+        const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+            if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+                event.preventDefault();
+                onClick();
+            }
+
+            onKeyDown?.(event);
+        };
+
+        return (
+            <div
+                role="button"
+                tabIndex={0}
+                className={actionItemClasses}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+                {...divProps}
+            />
+        );
     }
 
     return <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;

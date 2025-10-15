@@ -11,8 +11,10 @@ describe('<Dialog.Header/> component', () => {
             ...props,
         };
 
+        const hiddenDescription = props?.description ? undefined : 'description';
+
         return (
-            <DialogRoot hiddenDescription="description" open={true}>
+            <DialogRoot hiddenDescription={hiddenDescription} open={true}>
                 <DialogHeader {...completeProps} />
             </DialogRoot>
         );
@@ -43,5 +45,11 @@ describe('<Dialog.Header/> component', () => {
         render(createTestComponent({ onClose }));
         await userEvent.click(screen.getByRole('button'));
         expect(onClose).toHaveBeenCalled();
+    });
+
+    it('renders the description when provided', () => {
+        const description = 'test description';
+        render(createTestComponent({ description }));
+        expect(screen.getByText(description)).toBeInTheDocument();
     });
 });

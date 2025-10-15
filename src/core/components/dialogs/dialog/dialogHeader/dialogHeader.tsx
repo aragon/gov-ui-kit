@@ -1,4 +1,4 @@
-import { Close, Title } from '@radix-ui/react-dialog';
+import { Close, Description, Title } from '@radix-ui/react-dialog';
 import classNames from 'classnames';
 import { type ComponentPropsWithoutRef } from 'react';
 import { AvatarIcon } from '../../../avatars';
@@ -10,13 +10,18 @@ export interface IDialogHeaderProps extends ComponentPropsWithoutRef<'div'> {
      */
     title: string;
     /**
+     * Optional description of the dialog. When set here, the description stays sticky with the header
+     * and remains visible while scrolling through long content.
+     */
+    description?: string;
+    /**
      * Callback triggered on close button click. The close button is not displayed when the property is not set.
      */
     onClose?: () => void;
 }
 
 export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
-    const { title, onClose, className, ...otherProps } = props;
+    const { title, onClose, className, description, ...otherProps } = props;
 
     const headerClassNames = classNames(
         'relative flex w-full items-start rounded-t-xl gradient-neutral-50-transparent-to-b backdrop-blur-md', // Layout
@@ -31,22 +36,29 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
     );
 
     return (
-        <div className={headerClassNames} {...otherProps}>
-            <Title className="flex-1 truncate text-lg leading-tight font-normal text-neutral-800 md:text-xl">
-                {title}
-            </Title>
-            <Close asChild={true}>
-                {onClose != null && (
-                    <button onClick={onClose} className={closeButtonClassNames} type="button">
-                        <AvatarIcon
-                            icon={IconType.CLOSE}
-                            size="sm"
-                            backgroundWhite={true}
-                            className="group-hover:bg-neutral-50"
-                        />
-                    </button>
-                )}
-            </Close>
+        <div className="flex flex-col items-start gap-y-2">
+            <div className={headerClassNames} {...otherProps}>
+                <Title className="flex-1 truncate text-lg leading-tight font-normal text-neutral-800 md:text-xl">
+                    {title}
+                </Title>
+                <Close asChild={true}>
+                    {onClose != null && (
+                        <button onClick={onClose} className={closeButtonClassNames} type="button">
+                            <AvatarIcon
+                                icon={IconType.CLOSE}
+                                size="sm"
+                                backgroundWhite={true}
+                                className="group-hover:bg-neutral-50"
+                            />
+                        </button>
+                    )}
+                </Close>
+            </div>
+            {description && (
+                <Description className="px-4 pb-3 text-sm leading-normal text-neutral-500 md:px-6 md:pb-4">
+                    {description}
+                </Description>
+            )}
         </div>
     );
 };
