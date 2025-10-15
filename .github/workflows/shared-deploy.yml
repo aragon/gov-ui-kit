@@ -12,6 +12,9 @@ on:
         description: "The URL of the Vercel deployment"
         value: ${{ jobs.deploy.outputs.deploymentUrl }}
 
+permissions:
+  contents: read
+
 env:
   VERCEL_SCOPE: aragon-app
   VERCEL_ARGS: ${{ (inputs.domain != '' && '--prod') || '' }}
