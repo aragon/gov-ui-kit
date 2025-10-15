@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.21.0
+
+### Minor Changes
+
+- [#599](https://github.com/aragon/gov-ui-kit/pull/599) [`116e2c5`](https://github.com/aragon/gov-ui-kit/commit/116e2c5049f5d4642feee69bba28b706790f4fb5) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Update DialogFooter to accept children, DialogHeader to take `description` prop, fix nested button error for semantic HTML
+
+### Patch Changes
+
+- [#594](https://github.com/aragon/gov-ui-kit/pull/594) [`fc75e57`](https://github.com/aragon/gov-ui-kit/commit/fc75e5741e652e68915eda46069204d8665c9390) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Enhance Collapsible component to clamp height based on overlay visibility and viewport size
+
 ## 1.20.0
 
 ### Minor Changes
