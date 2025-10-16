@@ -155,18 +155,17 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 
-    it('displays a button to display the ENS value linked to the address input when address has ENS linked', async () => {
-        const user = userEvent.setup();
+    it('defaults to ENS mode when address has ENS linked (and shows address toggle button)', () => {
         const ensValue = 'vitalik.eth';
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         const onChange = jest.fn();
         useEnsNameMock.mockReturnValue({ data: ensValue, isFetching: false } as UseEnsNameReturnType);
 
         render(createTestComponent({ value, onChange }));
-        const ensButton = screen.getByRole('button', { name: 'ENS' });
-        expect(ensButton).toBeInTheDocument();
-
-        await user.click(ensButton);
+        // Auto-switched to ENS mode -> button should show '0x …' (toggle to address)
+        const addressToggleButton = screen.getByRole('button', { name: '0x …' });
+        expect(addressToggleButton).toBeInTheDocument();
+        // onChange should have been called with the ENS value due to initial ENS defaulting
         expect(onChange).toHaveBeenCalledWith(ensValue);
     });
 
@@ -193,11 +192,11 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });
 
-    it('displays a truncated ENS name when ENS is valid and input is not focused', async () => {
+    it('does not truncate ENS name when input is not focused', async () => {
         const value = 'longensname.eth';
         isAddressMock.mockReturnValue(false);
         render(createTestComponent({ value }));
-        expect(screen.getByDisplayValue('longe…eth')).toBeInTheDocument();
+        expect(screen.getByDisplayValue(value)).toBeInTheDocument();
         await userEvent.click(screen.getByRole('textbox'));
         expect(screen.getByDisplayValue(value)).toBeInTheDocument();
     });

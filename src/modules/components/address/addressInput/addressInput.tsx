@@ -75,12 +75,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
     const onAcceptRef = useRef(onAccept);
+    const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
     const currentChain = wagmiConfig.chains.find(({ id }) => id === chainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
-    const addressUrl = buildEntityUrl({ type: ChainEntityType.ADDRESS, id: value });
 
     const supportEnsNames = currentChain?.contracts?.ensUniversalResolver != null;
 
@@ -119,7 +119,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         query: { enabled: supportEnsNames && isDebouncedValueValidAddress },
     });
 
-    const displayMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
+    const [displayMode, setDisplayMode] = useState<'ens' | 'address'>(ensUtils.isEnsName(value) ? 'ens' : 'address');
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -140,7 +140,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     };
 
     const toggleDisplayMode = () => {
-        const newInputValue = displayMode === 'address' ? ensName : ensAddress;
+        const newMode = displayMode === 'address' ? 'ens' : 'address';
+        const newInputValue = newMode === 'ens' ? ensName : ensAddress;
+        setDisplayMode(newMode);
         onChange?.(newInputValue ?? '');
 
         // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
@@ -162,6 +164,11 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const handleInputBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
         setIsFocused(false);
+        // Trim on blur to avoid false form validation due to spaces/newlines
+        const trimmed = value.trim();
+        if (trimmed !== value) {
+            onChange?.(trimmed);
+        }
         onBlur?.(event);
     };
 
@@ -185,6 +192,20 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             handleAccept?.(undefined);
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
+
+    // Default to ENS mode on first render if an ENS exists for the provided address
+    useEffect(() => {
+        if (appliedInitialEnsModeRef.current) {
+            return;
+        }
+
+        if (!isFocused && ensName && addressUtils.isAddress(value)) {
+            appliedInitialEnsModeRef.current = true;
+            setDisplayMode('ens');
+            onChange?.(ensName);
+            setDebouncedValue(ensName);
+        }
+    }, [ensName, value, isFocused, onChange, setDebouncedValue]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
@@ -221,17 +242,13 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         ? { message: copy.addressInput.checksum, variant: 'critical' as const }
         : containerProps.alert;
 
-    // Display the address or ENS as truncated when the value is a valid address or ENS and input is not focused
+    // Display the address truncated when not focused. Do NOT truncate ENS.
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
-    const displayTruncatedEns = ensUtils.isEnsName(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
+    const addressUrl = addressValue ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue }) : undefined;
 
-    const processedValue = displayTruncatedAddress
-        ? addressUtils.truncateAddress(value)
-        : displayTruncatedEns
-          ? ensUtils.truncateEns(value)
-          : value;
+    const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
     return (
         <InputContainer {...containerProps} alert={alert}>
