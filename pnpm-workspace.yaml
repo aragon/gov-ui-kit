@@ -1,0 +1,4 @@
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+    - '@rollup/rollup-linux-x64-gnu'
+    - '@tailwindcss/oxide-linux-x64-gnu'

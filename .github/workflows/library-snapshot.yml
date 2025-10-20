@@ -19,18 +19,24 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
           NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
+      - name: Checkout actions
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
       - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
+        uses: ./.github/actions/setup
         with:
           # Checkout full history to correclty check changeset status
           fetch-depth: 0
           token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Check changeset
-        run: yarn changeset status --since origin/main
+        run: pnpm changeset status --since origin/main
       - name: Build library
-        run: yarn build
+        run: pnpm build
       - name: Update version
-        run: yarn changeset version --snapshot
+        run: pnpm changeset version --snapshot
         env:
           GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Get package version
@@ -38,9 +44,9 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Publish snapshot
         run: |
-          yarn config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
-          yarn npm publish --access public --tag ${{ steps.package-version.outputs.current-version }}
+          pnpm config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+          pnpm publish --access public --tag snapshot-${{ github.run_id }} --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
       - name: Print snapshot version
-        run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }}"
+        run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }} published with tag 'snapshot-${{ github.run_id }}'"

@@ -20,5 +20,5 @@
     "downlevelIteration": true
   },
   "include": ["src", ".storybook/**/*", "*.config.js"],
-  "exclude": ["node_modules", "dist", "storybook-static", "coverage", ".yarn/**/*"]
+  "exclude": ["node_modules", "dist", "storybook-static", "coverage"]
 }
