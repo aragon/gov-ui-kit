@@ -21,13 +21,43 @@ Storybook reflects the latest design tokens, styles, and components, so should b
 
 [Open in Figma](https://www.figma.com/community/file/1228026689149097807)
 
+## Development Setup
+
+To start developing with the UI Kit:
+
+1. Enable Corepack (one-time setup):
+
+```bash
+corepack enable
+```
+
+2. Install dependencies and setup husky:
+
+```bash
+pnpm install && pnpm run setup
+```
+
+**Note**: pnpm will automatically use the correct Node.js version as configured in the project.
+
+3. Start Storybook for component development:
+
+```bash
+pnpm storybook
+```
+
+4. Build the library:
+
+```bash
+pnpm build
+```
+
 ## Getting started building an application
 
 To start building with the UI Kit, follow our
 [Installation](https://aragon.github.io/gov-ui-kit/?path=/docs/docs-installation) doc. It covers how to set up your
 environment and start importing components.
 
-If you’re looking to launch a custom application more quickly on OSx, check out the
+If you're looking to launch a custom application more quickly on OSx, check out the
 [Governance App Template](https://devs-stg.aragon.org/gov-app-template/1.x/). It demonstrates how to integrate UI Kit
 components into a full-stack governance application, with some common governance patterns pre-built
 

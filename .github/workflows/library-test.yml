@@ -14,35 +14,33 @@ permissions:
   contents: read
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
-      - name: Build library
-        run: yarn build
-      - name: Build storybook
-        run: yarn build:storybook
-
   test:
-    needs: prepare
     runs-on: ubuntu-latest
     steps:
-      - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
+      - name: Checkout actions
+        uses: actions/checkout@v4.2.2
         with:
-          # Checkout full history to correclty check changeset status
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
           fetch-depth: 0
+      - name: Build library
+        run: pnpm build
+      - name: Build storybook
+        run: pnpm build:storybook
       - name: Run tests with coverage
         run: |
           set -eo pipefail
-          yarn test:coverage
+          pnpm test:coverage
       - name: Check types
-        run: yarn type-check
+        run: pnpm type-check
       - name: Check linter
-        run: yarn lint
+        run: pnpm lint
       - name: Check prettier
-        run: yarn prettify
+        run: pnpm prettify
       - name: Check changeset
         if: github.event_name == 'pull_request'
-        run: yarn changeset status --since origin/main
+        run: pnpm changeset status --since origin/main

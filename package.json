@@ -19,7 +19,8 @@
     "build:watch": "rollup -c --watch",
     "build:analyze": "cross-env ANALYZE=true rollup -c",
     "build:storybook": "storybook build",
-    "test": "jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
@@ -63,6 +64,7 @@
     "blockies-ts": "^1.0.0",
     "classnames": "^2.5.0",
     "framer-motion": "^12.23.0",
+    "imask": "7.6.1",
     "luxon": "^3.7.0",
     "react-dropzone": "^14.3.0",
     "react-imask": "^7.6.0",
@@ -92,9 +94,11 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.4",
+    "@rollup/rollup-linux-x64-gnu": "^4.52.5",
     "@storybook/addon-docs": "^9.1.7",
     "@storybook/react-vite": "^9.1.7",
     "@svgr/rollup": "^8.1.0",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.1.15",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/typography": "^0.5.16",
     "@tanstack/react-query": "^5.90.2",
@@ -104,8 +108,9 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
+    "@types/node": "^22.12.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "@types/sanitize-html": "^2.16.0",
     "cross-env": "^10.0.0",
     "eslint": "^9.36.0",
@@ -125,8 +130,8 @@
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.63.0",
     "rollup": "^4.52.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -135,6 +140,7 @@
     "storybook": "^9.1.7",
     "tailwindcss": "^4.1.13",
     "ts-jest": "^29.4.4",
+    "tslib": "2.8.1",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
     "vercel": "^48.1.1",
@@ -143,14 +149,16 @@
     "vite-plugin-node-polyfills": "^0.24.0",
     "vite-plugin-static-copy": "^3.1.2",
     "vite-plugin-svgr": "^4.5.0",
-    "wagmi": "^2.17.2"
+    "wagmi": "^2.17.2",
+    "zod": "^3.23.8"
   },
   "bugs": {
     "url": "https://github.com/aragon/gov-ui-kit/issues"
   },
   "homepage": "https://github.com/aragon/gov-ui-kit#readme",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.0.0",
+    "pnpm": ">=10.0.0"
   },
   "exports": {
     ".": {
@@ -160,5 +168,5 @@
     "./index.css": "./index.css",
     "./build.css": "./build.css"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "pnpm@10.19.0"
 }

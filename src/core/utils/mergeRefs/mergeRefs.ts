@@ -1,4 +1,4 @@
-import type { ForwardedRef, RefCallback, RefObject } from 'react';
+import type { ForwardedRef, MutableRefObject, RefCallback, RefObject } from 'react';
 
 /**
  * Utility to merge multiple React refs, inspired by https://github.com/gregberge/react-merge-refs
@@ -10,8 +10,8 @@ export const mergeRefs = <T = unknown>(
         refs.forEach((ref) => {
             if (typeof ref === 'function') {
                 ref(value);
-            } else if (ref != null) {
-                (ref as RefObject<T | null>).current = value;
+            } else if (ref != null && 'current' in ref) {
+                (ref as MutableRefObject<T | null>).current = value;
             }
         });
     };
