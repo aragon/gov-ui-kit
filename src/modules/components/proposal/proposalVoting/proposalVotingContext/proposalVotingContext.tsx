@@ -8,7 +8,7 @@ export const ProposalVotingContextProvider: React.FC<IProposalVotingContextProvi
 
     // Initialise activeBody to the first body in the list when having only one body to directly display the body
     // overview instead of the body summary list
-    const initialActiveBody = bodyList != null && bodyList.length === 1 ? bodyList[0] : undefined;
+    const initialActiveBody = bodyList?.length === 1 ? bodyList[0] : undefined;
     const [activeBody, setActiveBody] = useState(initialActiveBody);
 
     const contextValues = useMemo(() => ({ bodyList, activeBody, setActiveBody }), [bodyList, activeBody]);
