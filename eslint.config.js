@@ -74,6 +74,9 @@ const config = tsEslint.config(
             'react/self-closing-comp': 'warn',
             'react/jsx-curly-brace-presence': ['warn', { props: 'never', children: 'never' }],
             ...reactHooksPlugin.configs.recommended.rules,
+            // Disable new experimental rules from v7.0.0
+            'react-hooks/set-state-in-effect': 'off',
+            'react-hooks/purity': 'off',
         },
     },
     // Rules for JavaScript files
