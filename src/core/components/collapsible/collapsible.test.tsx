@@ -120,20 +120,27 @@ describe('<Collapsible /> component', () => {
         render(createTestComponent({ showOverlay }));
         const overlay = screen.getByTestId('collapsible-overlay');
         expect(overlay).toHaveClass('bg-gradient-to-t');
-        expect(overlay).toHaveClass('from-neutral-0');
-        expect(overlay).toHaveClass('to-neutral-0/80');
+        expect(overlay).toHaveClass('from-neutral-0/98');
+        expect(overlay).toHaveClass('via-neutral-0/85');
+        expect(overlay).toHaveClass('to-neutral-0/30');
     });
 
-    it('uses line-based collapsed height independent of overlay presence', () => {
+    it('applies CSS line-clamp when using collapsedLines (no collapsedPixels)', () => {
         const children = 'Default Children';
         const collapsedLines = 3;
         const lineHeight = 20;
-        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue({ lineHeight } as unknown as CSSStyleDeclaration);
         render(createTestComponent({ children, collapsedLines, showOverlay: true }));
 
-        const content = screen.getByText(children);
-        expect(content.style.maxHeight).toBe(`${(collapsedLines * lineHeight).toString()}px`);
+        const contentEl = screen.getByTestId('collapsible-content');
+        expect(contentEl).toBeInTheDocument();
+
+        const styleAttr = contentEl.getAttribute('style') ?? '';
+        expect(styleAttr).toContain('-webkit-line-clamp: 3');
+        expect(styleAttr).toContain('display: -webkit-box');
+        expect(styleAttr).toContain('overflow: hidden');
+        // max-height should not be applied when using clamp
+        expect(contentEl.style.maxHeight).toBe('');
     });
 
     it('computes overlay height from overlayLines and lineHeight', () => {
@@ -150,16 +157,16 @@ describe('<Collapsible /> component', () => {
         expect(overlay.style.height).toBe(`${expectedHeight.toString()}px`);
     });
 
-    it('computes collapsed height based on collapsedLines and lineHeight correctly', () => {
+    it('uses clamp styles for collapsedLines and no max-height when collapsedPixels is undefined', () => {
         const children = 'Default Children';
-        const collapsedLines = 7;
-        const lineHeight = 16;
-        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
+        const collapsedLines = 5;
+        jest.spyOn(window, 'getComputedStyle').mockReturnValue({ lineHeight: 16 } as unknown as CSSStyleDeclaration);
         render(createTestComponent({ children, collapsedLines }));
 
-        const content = screen.getByText(children);
-        const expectedHeight = Number(mockStyles.lineHeight) * collapsedLines;
-        expect(content.style.maxHeight).toBe(`${expectedHeight.toString()}px`);
+        const contentEl = screen.getByTestId('collapsible-content');
+        expect(contentEl).toBeInTheDocument();
+        const styleAttr = contentEl.getAttribute('style') ?? '';
+        expect(styleAttr).toContain(`-webkit-line-clamp: ${collapsedLines.toString()}`);
+        expect(contentEl.style.maxHeight).toBe('');
     });
 });
