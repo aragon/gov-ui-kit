@@ -131,11 +131,8 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
 
     const collapsedHeightComputed = utilsCalculateCollapsedHeight(collapsedLines, lineHeightPx, collapsedPixels);
 
-    // When showOverlay is enabled, we should not use line-clamp because:
-    // 1. Rich-text content (headings, lists, etc.) have varying line heights
-    // 2. line-clamp counts block elements, not visual lines
-    // 3. This causes incorrect height calculations and overlay positioning
-    // Instead, we use pixel-based max-height which works correctly with the overlay
+    // Uses pixel-based max-height with overlay to handle rich-text content correctly.
+    // line-clamp counts block elements, not visual lines, causing incorrect heights.
     const useLineClamp = collapsedPixels == null && !showOverlay;
     const collapsedClampStyle: React.CSSProperties =
         !isOpen && useLineClamp
