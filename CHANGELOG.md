@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 1.22.0
+
+### Minor Changes
+
+- [#601](https://github.com/aragon/gov-ui-kit/pull/601) [`4196133`](https://github.com/aragon/gov-ui-kit/commit/41961336bc10c9c5cfea476f20a44555bdfbddaf) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Enhance Address Input form behavior and ENS handling
+
+### Patch Changes
+
+- [#607](https://github.com/aragon/gov-ui-kit/pull/607) [`dadf5a5`](https://github.com/aragon/gov-ui-kit/commit/dadf5a5cd2c5ce85e84a56799f0f023e16bc17d5) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Enhance Collapsible component with rich-text support
+
+- [#604](https://github.com/aragon/gov-ui-kit/pull/604) [`99e8980`](https://github.com/aragon/gov-ui-kit/commit/99e89809529a75c7c9af363dbf3a571c9417f6fc) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix padding issue on DialogFooter
+
 ## 1.21.0
 
 ### Minor Changes
