@@ -74,10 +74,8 @@ describe('<CardCollapsible /> component', () => {
         expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('renders with showOverlay enabled', () => {
-        const showOverlay = true;
-
-        render(createTestComponent({ showOverlay }));
+    it('renders with showOverlay always', () => {
+        render(createTestComponent());
 
         const overlay = screen.getByTestId('collapsible-overlay');
         expect(overlay).toBeInTheDocument();
