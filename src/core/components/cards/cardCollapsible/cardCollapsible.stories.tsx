@@ -120,6 +120,12 @@ export const ComplexRichText: Story = {
             <CardCollapsible {...args}>
                 <div contentEditable={false} role="textbox" translate="no" className="tiptap ProseMirror">
                     <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
+                    <h1>Plugin upgrade</h1>
                     <ul data-tight="true">
                         <li>
                             <p>Supporting timestamp based IVotes tokens</p>
