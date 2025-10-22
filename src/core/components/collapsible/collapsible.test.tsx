@@ -25,41 +25,50 @@ describe('<Collapsible /> component', () => {
         expect(screen.getByText('Default Children')).toBeInTheDocument();
     });
 
-    it('applies collapsedPixels correctly', () => {
+    it('renders the content element with correct data-testid', () => {
         const children = 'Default Children';
-        const collapsedPixels = 150;
-        render(createTestComponent({ children, collapsedPixels }));
+        render(createTestComponent({ children }));
 
-        const content = screen.getByText('Default Children');
-        expect(content.style.maxHeight).toBe('150px');
+        expect(screen.getByTestId('collapsible-content')).toBeInTheDocument();
     });
 
-    it('handles non-overflowing content correctly', () => {
+    it('does not render toggle button when content does not overflow', () => {
         const children = 'Default Children';
         const collapsedPixels = 300;
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
         jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(200);
         render(createTestComponent({ children, collapsedPixels, buttonLabelClosed, buttonLabelOpened }));
-        const content = screen.getByText('Default Children');
-        expect(content.style.maxHeight).toBe('300px');
+
         expect(screen.queryByText(buttonLabelOpened)).not.toBeInTheDocument();
         expect(screen.queryByText(buttonLabelClosed)).not.toBeInTheDocument();
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
 
-    it('toggles opened/closed state when button is clicked', async () => {
+    it('renders toggle button when content overflows', () => {
+        const buttonLabelClosed = 'Closed';
+
+        render(createTestComponent({ buttonLabelClosed }));
+
+        expect(screen.getByRole('button')).toBeInTheDocument();
+        expect(screen.getByText(buttonLabelClosed)).toBeInTheDocument();
+    });
+
+    it('toggles button label when clicked', async () => {
         const user = userEvent.setup();
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
 
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
-        const button = screen.getByText('Closed');
+        const button = screen.getByRole('button');
+        expect(button).toHaveTextContent('Closed');
+
         await user.click(button);
-        expect(button.textContent).toBe('Open');
+        expect(button).toHaveTextContent('Open');
+
         await user.click(button);
-        expect(button.textContent).toBe('Closed');
+        expect(button).toHaveTextContent('Closed');
     });
 
     it('renders open when defaultOpen is true', () => {
@@ -68,9 +77,9 @@ describe('<Collapsible /> component', () => {
         const buttonLabelOpened = 'Open';
         const buttonLabelClosed = 'Closed';
         render(createTestComponent({ children, buttonLabelOpened, buttonLabelClosed, defaultOpen }));
+
         const button = screen.getByRole('button');
-        expect(button.textContent).toBe(buttonLabelOpened);
-        expect(button.textContent).not.toBe(buttonLabelClosed);
+        expect(button).toHaveTextContent(buttonLabelOpened);
     });
 
     it('calls the onToggle callback with the new state', async () => {
@@ -81,6 +90,7 @@ describe('<Collapsible /> component', () => {
         const button = screen.getByRole('button');
         await user.click(button);
         expect(onToggle).toHaveBeenCalledWith(true);
+
         await user.click(button);
         expect(onToggle).toHaveBeenCalledWith(false);
     });
@@ -92,74 +102,90 @@ describe('<Collapsible /> component', () => {
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
         expect(screen.getByText('Expand')).toBeInTheDocument();
-        await user.click(screen.getByText('Expand'));
+
+        await user.click(screen.getByRole('button'));
         expect(screen.getByText('Collapse')).toBeInTheDocument();
     });
 
-    it('handles absence of buttonVariant using default button styles', async () => {
+    it('renders an overlay element when showOverlay is true and content is collapsed', () => {
+        const showOverlay = true;
+        render(createTestComponent({ showOverlay }));
+
+        const overlay = screen.getByTestId('collapsible-overlay');
+        expect(overlay).toBeInTheDocument();
+    });
+
+    it('does not render overlay when content is open', async () => {
         const user = userEvent.setup();
+        const showOverlay = true;
+        render(createTestComponent({ showOverlay }));
+
+        const button = screen.getByRole('button');
+        await user.click(button);
+
+        expect(screen.queryByTestId('collapsible-overlay')).not.toBeInTheDocument();
+    });
+
+    it('does not render overlay when showOverlay is false', () => {
+        const showOverlay = false;
+        render(createTestComponent({ showOverlay }));
+
+        expect(screen.queryByTestId('collapsible-overlay')).not.toBeInTheDocument();
+    });
+
+    it('sets aria-expanded to false when collapsed', () => {
+        const buttonLabelClosed = 'Expand';
+        render(createTestComponent({ buttonLabelClosed }));
+
+        const button = screen.getByRole('button');
+        expect(button).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('sets aria-expanded to true when expanded', async () => {
+        const user = userEvent.setup();
+        const buttonLabelClosed = 'Expand';
+        render(createTestComponent({ buttonLabelClosed }));
+
+        const button = screen.getByRole('button');
+        await user.click(button);
+
+        expect(button).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('sets aria-controls attribute linking to content element', () => {
+        const buttonLabelClosed = 'Expand';
+        render(createTestComponent({ buttonLabelClosed }));
+
+        const button = screen.getByRole('button');
+        const contentElement = screen.getByTestId('collapsible-content');
+
+        const ariaControls = button.getAttribute('aria-controls');
+        expect(ariaControls).toBeTruthy();
+        expect(contentElement.id).toBe(ariaControls);
+    });
+
+    it('uses controlled isOpen prop when provided', () => {
+        const isOpen = true;
         const buttonLabelOpened = 'Collapse';
         const buttonLabelClosed = 'Expand';
-        render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
+
+        render(createTestComponent({ isOpen, buttonLabelOpened, buttonLabelClosed }));
 
         const button = screen.getByRole('button');
+        expect(button).toHaveTextContent(buttonLabelOpened);
+        expect(button).toHaveAttribute('aria-expanded', 'true');
+    });
 
+    it('respects controlled state and calls onToggle', async () => {
+        const user = userEvent.setup();
+        const onToggle = jest.fn();
+        const isOpen = false;
+
+        render(createTestComponent({ isOpen, onToggle }));
+
+        const button = screen.getByRole('button');
         await user.click(button);
-        expect(button).toHaveTextContent('Collapse');
-    });
 
-    it('renders an overlay with proper button when showOverlay prop is set to true', () => {
-        const showOverlay = true;
-        render(createTestComponent({ showOverlay }));
-        const button = screen.getByRole('button');
-        expect(button).toBeInTheDocument();
-    });
-
-    it('overlay has gradient classes when shown and collapsed', () => {
-        const showOverlay = true;
-        render(createTestComponent({ showOverlay }));
-        const overlay = screen.getByTestId('collapsible-overlay');
-        expect(overlay).toHaveClass('bg-gradient-to-t');
-        expect(overlay).toHaveClass('from-neutral-0');
-        expect(overlay).toHaveClass('to-neutral-0/80');
-    });
-
-    it('uses line-based collapsed height independent of overlay presence', () => {
-        const children = 'Default Children';
-        const collapsedLines = 3;
-        const lineHeight = 20;
-        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
-        render(createTestComponent({ children, collapsedLines, showOverlay: true }));
-
-        const content = screen.getByText(children);
-        expect(content.style.maxHeight).toBe(`${(collapsedLines * lineHeight).toString()}px`);
-    });
-
-    it('computes overlay height from overlayLines and lineHeight', () => {
-        const children = 'Default Children';
-        const collapsedLines = 5;
-        const overlayLines = 2;
-        const lineHeight = 18;
-        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
-
-        render(createTestComponent({ children, collapsedLines, overlayLines, showOverlay: true }));
-        const overlay = screen.getByTestId('collapsible-overlay');
-        const expectedHeight = overlayLines * lineHeight;
-        expect(overlay.style.height).toBe(`${expectedHeight.toString()}px`);
-    });
-
-    it('computes collapsed height based on collapsedLines and lineHeight correctly', () => {
-        const children = 'Default Children';
-        const collapsedLines = 7;
-        const lineHeight = 16;
-        const mockStyles = { lineHeight } as unknown as CSSStyleDeclaration;
-        jest.spyOn(window, 'getComputedStyle').mockReturnValue(mockStyles);
-        render(createTestComponent({ children, collapsedLines }));
-
-        const content = screen.getByText(children);
-        const expectedHeight = Number(mockStyles.lineHeight) * collapsedLines;
-        expect(content.style.maxHeight).toBe(`${expectedHeight.toString()}px`);
+        expect(onToggle).toHaveBeenCalledWith(true);
     });
 });

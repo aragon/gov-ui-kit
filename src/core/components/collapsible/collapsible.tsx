@@ -8,7 +8,9 @@ import {
     collapsibleDefaultLineHeight,
     computeContentOverflow,
     computeElementLineHeight,
+    computeOverlayHeightByRatio,
     computeOverlayHeightPx,
+    measureElementHeights,
     calculateCollapsedHeight as utilsCalculateCollapsedHeight,
 } from './collapsibleUtils';
 
@@ -68,13 +70,26 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         const lh = getLineHeight();
         setLineHeightPx(lh);
 
+        // Compute requested collapsed height for open-state maxHeight and overflow comparisons
         const collapsedHeight = utilsCalculateCollapsedHeight(collapsedLines, lh, collapsedPixels);
-        const fullHeight = content.scrollHeight;
+
+        // Measure actual DOM heights with current state (clamped or not)
+        const { clampedClientHeight: clampedH, fullHeight } = measureElementHeights(content);
+
+        // Overflow: compare full height to requested collapsed height
         const overflowing = computeContentOverflow(fullHeight, collapsedHeight);
         setIsOverflowing(overflowing);
         setMaxHeightPx(overflowing ? fullHeight : collapsedHeight);
 
-        const overlayHeight = computeOverlayHeightPx({
+        // Overlay height by ratio of actual clamped height to requested overlayLines
+        const overlayHeightByRatio = computeOverlayHeightByRatio({
+            collapsedLines,
+            overlayLines,
+            clampedClientHeight: clampedH,
+        });
+
+        // Fallback to legacy computation if ratio returns 0 but overlay should show
+        const legacyOverlayFallback = computeOverlayHeightPx({
             showOverlay,
             isOpen,
             collapsedLines,
@@ -82,7 +97,9 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
             lineHeight: lh,
             collapsedHeight,
         });
-        setOverlayHeightPx(overlayHeight);
+
+        const finalOverlayHeight = !showOverlay || isOpen ? 0 : overlayHeightByRatio || legacyOverlayFallback;
+        setOverlayHeightPx(finalOverlayHeight);
     }, [collapsedLines, collapsedPixels, overlayLines, showOverlay, isOpen, getLineHeight]);
 
     const toggle: () => void = useCallback(() => {
@@ -113,9 +130,10 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     }, [recalcMeasurements]);
 
     const collapsedHeightComputed = utilsCalculateCollapsedHeight(collapsedLines, lineHeightPx, collapsedPixels);
-    const maxHeightProcessed: number = isOpen ? maxHeightPx : collapsedHeightComputed;
 
-    const useLineClamp = collapsedPixels == null;
+    // Uses pixel-based max-height with overlay to handle rich-text content correctly.
+    // line-clamp counts block elements, not visual lines, causing incorrect heights.
+    const useLineClamp = collapsedPixels == null && !showOverlay;
     const collapsedClampStyle: React.CSSProperties =
         !isOpen && useLineClamp
             ? {
@@ -140,13 +158,24 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
             <div
                 id={contentId}
                 ref={contentRef}
-                style={{ maxHeight: maxHeightProcessed, ...collapsedClampStyle }}
+                data-testid="collapsible-content"
+                style={{
+                    ...(isOpen
+                        ? { maxHeight: maxHeightPx }
+                        : useLineClamp
+                          ? {}
+                          : { maxHeight: collapsedHeightComputed }),
+                    ...collapsedClampStyle,
+                }}
                 className="relative overflow-hidden transition-all"
             >
                 {children}
                 {isOverflowing && !isOpen && showOverlay && (
                     <div
-                        className={classNames(overlayClassName, 'from-neutral-0 to-neutral-0/80 bg-gradient-to-t')}
+                        className={classNames(
+                            overlayClassName,
+                            'from-neutral-0/100 via-neutral-0/70 to-neutral-0/0 bg-gradient-to-t',
+                        )}
                         style={{ height: overlayHeightPx }}
                         data-testid="collapsible-overlay"
                     />

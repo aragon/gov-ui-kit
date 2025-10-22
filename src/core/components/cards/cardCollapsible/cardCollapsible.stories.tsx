@@ -67,8 +67,89 @@ export const WithImage: Story = {
     },
     render: (args) => (
         <CardCollapsible {...args}>
-            <img src="https://source.unsplash.com/800x600/?landscape" alt="A beautiful landscape" />
+            <img
+                src="https://sample-files.com/downloads/images/jpg/color_test_800x600_118kb.jpg"
+                alt="A beautiful landscape"
+            />
         </CardCollapsible>
+    ),
+};
+
+/**
+ * Complex rich-text content mixing headings, lists, paragraphs and inline code. Similar to Tiptap/ProseMirror output.
+ * CardCollapsible uses pixel-based height (not line-based) since it always shows an overlay.
+ */
+export const ComplexRichText: Story = {
+    args: {
+        buttonLabelClosed: 'Expand',
+        buttonLabelOpened: 'Collapse',
+        defaultOpen: false,
+    },
+    render: (args) => (
+        <>
+            <style>{`
+                .tiptap.ProseMirror {
+                    line-height: 1.5;
+                    color: #111827; /* neutral-900 */
+                }
+                .tiptap.ProseMirror h1 {
+                    font-size: 1.5rem; /* 24px */
+                    line-height: 1.25;
+                    font-weight: 700;
+                    margin: 0 0 0.5rem 0;
+                }
+                .tiptap.ProseMirror ul {
+                    list-style: disc;
+                    padding-left: 1.25rem; /* 20px */
+                    margin: 0.25rem 0 1rem 0;
+                }
+                .tiptap.ProseMirror li {
+                    margin: 0.25rem 0;
+                }
+                .tiptap.ProseMirror p {
+                    margin: 0.25rem 0;
+                }
+                .tiptap.ProseMirror code {
+                    background: rgba(0, 0, 0, 0.05);
+                    padding: 0.1rem 0.25rem;
+                    border-radius: 4px;
+                    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                    font-size: 0.95em;
+                }
+            `}</style>
+            <CardCollapsible {...args}>
+                <div contentEditable={false} role="textbox" translate="no" className="tiptap ProseMirror">
+                    <h1>Plugin upgrade</h1>
+                    <ul data-tight="true">
+                        <li>
+                            <p>Supporting timestamp based IVotes tokens</p>
+                        </li>
+                        <li>
+                            <p>Allowing to freeze token minting</p>
+                        </li>
+                        <li>
+                            <p>Allowing to exclude addresses from the total token supply</p>
+                        </li>
+                    </ul>
+
+                    <h1>Publish New Plugin Version</h1>
+                    <ul data-tight="true">
+                        <li>
+                            <p>
+                                Publishes the TokenVoting Plugin Setup deployed at <code>0x34e23a360b8ac1</code> as
+                                <strong> v1.x</strong> in the <code>example.plugin.dao.eth</code> plugin repository at
+                                <code> 0x111111130a183cABaC0b082b</code>, with release metadata
+                                <code> qqQmWjZArvePnMPgGta</code> and build metadata
+                                <code> qqQmfXUy5Lc4isCRc</code>.
+                            </p>
+                        </li>
+                    </ul>
+                    <p>
+                        <br className="ProseMirror-trailingBreak" />
+                    </p>
+                </div>
+            </CardCollapsible>
+        </>
     ),
 };
 

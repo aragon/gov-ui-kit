@@ -4,6 +4,7 @@ import {
     collapsibleDefaultLineHeight,
     computeContentOverflow,
     computeElementLineHeight,
+    computeOverlayHeightByRatio,
     computeOverlayHeightPx,
     type OverlayHeightParams,
 } from './collapsibleUtils';
@@ -165,6 +166,44 @@ describe('collapsibleUtils', () => {
 
         it('sanitizes negative overlayLines to 0', () => {
             expect(computeOverlayHeightPx({ ...baseParams, overlayLines: -5 })).toBe(0);
+        });
+    });
+
+    describe('computeOverlayHeightByRatio', () => {
+        it('returns 0 when collapsedLines <= 1 or overlayLines <= 0', () => {
+            expect(computeOverlayHeightByRatio({ collapsedLines: 1, overlayLines: 2, clampedClientHeight: 100 })).toBe(
+                0,
+            );
+            expect(computeOverlayHeightByRatio({ collapsedLines: 3, overlayLines: 0, clampedClientHeight: 100 })).toBe(
+                0,
+            );
+        });
+
+        it('computes proportionally to clamped height and caps not to cover all content', () => {
+            // collapsedLines=5, overlayLines=2 => ratio=0.4, clampedHeight=120 => 48px
+            // minVisiblePx=12 ensures we keep at least 12px visible
+            expect(computeOverlayHeightByRatio({ collapsedLines: 5, overlayLines: 2, clampedClientHeight: 120 })).toBe(
+                48,
+            );
+
+            // If ratio would exceed (clamped - minVisiblePx), it is capped
+            const h = 30; // small height
+            const result = computeOverlayHeightByRatio({ collapsedLines: 3, overlayLines: 2, clampedClientHeight: h });
+            expect(result).toBeLessThanOrEqual(h - 12);
+        });
+
+        it('applies min/max overlay pixel constraints', () => {
+            // Very small height -> at least minOverlayPx
+            const small = computeOverlayHeightByRatio({ collapsedLines: 6, overlayLines: 1, clampedClientHeight: 18 });
+            expect(small).toBeGreaterThanOrEqual(16);
+
+            // Very large height -> at most maxOverlayPx
+            const large = computeOverlayHeightByRatio({
+                collapsedLines: 3,
+                overlayLines: 2,
+                clampedClientHeight: 2000,
+            });
+            expect(large).toBeLessThanOrEqual(160);
         });
     });
 });

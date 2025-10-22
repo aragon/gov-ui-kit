@@ -98,3 +98,116 @@ export const computeOverlayHeightPx = (params: OverlayHeightParams): number => {
 
     return effectiveOverlayLines * safeLineHeight;
 };
+
+/**
+ * Result of element height measurements for collapsible calculations.
+ */
+export interface MeasureHeightsResult {
+    /**
+     * The current rendered height of the element in the DOM (with clamp/max-height applied).
+     */
+    clampedClientHeight: number;
+    /**
+     * The full content height with no clamping and no max-height applied.
+     */
+    fullHeight: number;
+}
+
+/**
+ * Measures the current (clamped) clientHeight and the full content height by
+ * creating a hidden clone without clamping and without max-height.
+ *
+ * This allows overflow detection and overlay sizing for mixed-content
+ * rich text (e.g. combinations of h1, ul/li, p, code) where a single
+ * line-height is not representative.
+ */
+export const measureElementHeights = (element: HTMLElement | null): MeasureHeightsResult => {
+    if (element == null || ssrUtils.isServer()) {
+        return { clampedClientHeight: 0, fullHeight: 0 };
+    }
+
+    // Height currently rendered in the DOM (with clamp or max-height applied)
+    const clampedClientHeight = element.clientHeight;
+
+    // Create an off-DOM clone with identical width but without any clamping
+    const clone = element.cloneNode(true) as HTMLElement;
+
+    const inlineSize = element.clientWidth || element.getBoundingClientRect().width || 0;
+
+    // Ensure the clone does not affect layout and renders its full height
+    clone.style.cssText = [
+        'position:absolute',
+        'left:-99999px',
+        'top:0',
+        'visibility:hidden',
+        'pointer-events:none',
+        'contain:layout style size',
+        `inline-size:${inlineSize.toString()}px`,
+        'max-height:none',
+        'overflow:visible',
+        'display:block',
+        '-webkit-line-clamp:unset',
+        'WebkitLineClamp:unset',
+        'WebkitBoxOrient:unset',
+    ].join(';');
+
+    // Append near the original to inherit as many styles as possible
+    const parent = element.parentElement ?? document.body;
+    parent.appendChild(clone);
+    const fullHeight = clone.scrollHeight;
+    clone.remove();
+
+    return { clampedClientHeight, fullHeight };
+};
+
+export interface OverlayRatioParams {
+    /** Number of lines visible when collapsed (requested). */
+    collapsedLines: number;
+    /** Number of lines used for overlay sizing (requested). */
+    overlayLines: number;
+    /** Actual rendered height of the collapsed block (in pixels). */
+    clampedClientHeight: number;
+    /** Minimum visible pixels of content above overlay to avoid full cover. */
+    minVisiblePx?: number;
+    /** Minimum overlay thickness in pixels (after clamping). */
+    minOverlayPx?: number;
+    /** Maximum overlay thickness in pixels (after clamping). */
+    maxOverlayPx?: number;
+}
+
+/**
+ * Computes overlay height as a ratio of the actual visible collapsed height
+ * instead of relying on a single line-height. This makes the overlay robust
+ * for mixed content where each line may have different heights.
+ *
+ * Constraints:
+ * - overlayLines is clamped to [0, collapsedLines - 1]
+ * - overlay cannot cover all visible content; we keep at least `minVisiblePx`
+ * - final result is clamped within [minOverlayPx, maxOverlayPx]
+ */
+export const computeOverlayHeightByRatio = (params: OverlayRatioParams): number => {
+    const {
+        collapsedLines,
+        overlayLines,
+        clampedClientHeight,
+        minVisiblePx = 12,
+        minOverlayPx = 16,
+        maxOverlayPx = 160,
+    } = params;
+
+    if (collapsedLines <= 1 || clampedClientHeight <= 0) {
+        return 0;
+    }
+
+    const safeOverlayLines = Math.min(Math.max(overlayLines, 0), Math.max(0, collapsedLines - 1));
+    if (safeOverlayLines === 0) {
+        return 0;
+    }
+
+    const byRatio = (safeOverlayLines / collapsedLines) * clampedClientHeight;
+    const notAllCovered = Math.max(clampedClientHeight - minVisiblePx, 0);
+    const capped = Math.min(byRatio, notAllCovered);
+
+    const result = Math.min(Math.max(capped, minOverlayPx), maxOverlayPx);
+    return Math.round(result);
+};
