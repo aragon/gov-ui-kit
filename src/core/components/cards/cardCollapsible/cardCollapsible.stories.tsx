@@ -67,21 +67,22 @@ export const WithImage: Story = {
     },
     render: (args) => (
         <CardCollapsible {...args}>
-            <img src="https://source.unsplash.com/800x600/?landscape" alt="A beautiful landscape" />
+            <img
+                src="https://sample-files.com/downloads/images/jpg/color_test_800x600_118kb.jpg"
+                alt="A beautiful landscape"
+            />
         </CardCollapsible>
     ),
 };
 
 /**
- * Complex rich-text content mixing headings, lists, paragraphs and inline code,
- * similar to Tiptap/ProseMirror output. Used to verify clamping and overlay.
+ * Complex rich-text content mixing headings, lists, paragraphs and inline code. Similar to Tiptap/ProseMirror output.
+ * CardCollapsible uses pixel-based height (not line-based) since it always shows an overlay.
  */
 export const ComplexRichText: Story = {
     args: {
         buttonLabelClosed: 'Expand',
         buttonLabelOpened: 'Collapse',
-        collapsedLines: 5,
-        overlayLines: 3,
         defaultOpen: false,
     },
     render: (args) => (
