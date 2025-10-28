@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { normalizeExternalHref } from '../../../utils';
+import { urlUtils } from '../../../utils';
 import { Icon, IconType } from '../../icon';
 import { LinkBase } from '../linkBase';
 import type { ILinkProps, LinkVariant } from './link.api';
@@ -35,7 +35,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         ...otherProps
     } = props;
 
-    const processedHref = typeof href === 'string' && isExternal ? normalizeExternalHref(href) : href;
+    const processedHref = isExternal ? urlUtils.normalizeExternalHref(href) : href;
 
     const processedVariant = disabled ? 'disabled' : variant;
     const linkClassName = classNames(
@@ -49,8 +49,18 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
 
     const linkRel = target === '_blank' ? `noopener noreferrer ${rel ?? ''}` : rel;
 
-    const content = (
-        <>
+    return (
+        <LinkBase
+            ref={ref}
+            onClick={!disabled ? onClick : undefined}
+            href={!disabled ? processedHref : undefined}
+            className={linkClassName}
+            target={target}
+            rel={linkRel}
+            tabIndex={disabled ? -1 : undefined}
+            aria-disabled={disabled}
+            {...otherProps}
+        >
             <div className="flex items-center gap-x-1 md:gap-x-1.5">
                 <span className={innerTextClassName}>{children}</span>
                 {isExternal && <Icon icon={IconType.LINK_EXTERNAL} size="sm" />}
@@ -66,22 +76,6 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
                     {processedHref}
                 </p>
             )}
-        </>
-    );
-
-    return (
-        <LinkBase
-            ref={ref}
-            onClick={!disabled ? onClick : undefined}
-            href={!disabled ? processedHref : undefined}
-            className={linkClassName}
-            target={target}
-            rel={linkRel}
-            tabIndex={disabled ? -1 : undefined}
-            aria-disabled={disabled}
-            {...otherProps}
-        >
-            {content}
         </LinkBase>
     );
 });
