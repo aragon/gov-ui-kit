@@ -9,9 +9,24 @@ const config = {
     globalSetup: '<rootDir>/src/core/test/globalSetup.ts',
     transform: {
         '^.+\\.svg$': '<rootDir>/src/core/test/svgTransform.js',
-        '^.+\\.m?[tj]sx?$': ['ts-jest', { tsconfig: { isolatedModules: true } }],
+        '^.+\\.m?[tj]sx?$': [
+            'ts-jest',
+            {
+                tsconfig: {
+                    isolatedModules: true,
+                    module: 'CommonJS',
+                    target: 'ES2020',
+                    allowJs: true,
+                },
+            },
+        ],
     },
-    transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|react-merge-refs|wagmi|@wagmi))'],
+    // Allow transforming specific ESM deps even under pnpm's nested layout
+    // e.g. node_modules/.pnpm/<pkg>@<ver>/node_modules/<pkg>/...
+    transformIgnorePatterns: [
+        // Transform only wagmi-related ESM; leave viem/abitype in CJS to avoid downlevel issues
+        'node_modules/(?!(?:\\.pnpm/[^/]+/node_modules/)?(wagmi|@wagmi|use-sync-external-store|react-merge-refs)(/|$))',
+    ],
 };
 
 module.exports = config;

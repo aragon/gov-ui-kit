@@ -19,17 +19,23 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
+      - name: Checkout actions
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
       - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
+        uses: ./.github/actions/setup
         with:
           # Make sure to checkout the main branch with the bumped version on the package.json file as Github does the
           # checkout of the commit SHA that triggered the publish workflow by default
           ref: main
       - name: Build library
-        run: yarn build
+        run: pnpm build
       - name: Publish library
         run: |
-          yarn config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
-          yarn npm publish --access public
+          pnpm config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+          pnpm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}

@@ -21,8 +21,14 @@ jobs:
           GPG_PASSPHRASE: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/credential
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
+      - name: Checkout actions
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
       - name: Setup
-        uses: aragon/gov-ui-kit/.github/actions/setup@main
+        uses: ./.github/actions/setup
         with:
           token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Import GPG key
@@ -37,12 +43,12 @@ jobs:
         # changeset as Github does not support soft line breaks.
         # (See https://github.com/changesets/changesets/issues/1452, https://github.com/orgs/community/discussions/10981)
         run: |
-          yarn changeset version
-          yarn prettier --write CHANGELOG.md --print-width 9999999 --ignore-path
+          pnpm changeset version
+          pnpm prettier --write CHANGELOG.md --print-width 9999999 --ignore-path
         env:
           GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Create tag
-        run: yarn changeset tag
+        run: pnpm changeset tag
       - name: Get package version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@v1.3.1

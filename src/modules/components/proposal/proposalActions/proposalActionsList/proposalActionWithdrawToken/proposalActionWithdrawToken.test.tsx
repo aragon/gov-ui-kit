@@ -38,7 +38,8 @@ describe('<ProposalActionWithdrawToken /> component', () => {
 
         render(createTestComponent({ action }));
 
-        expect(AssetTransfer).toHaveBeenCalledWith(
+        const lastCall = (AssetTransfer as jest.Mock).mock.calls.at(-1) as unknown[];
+        expect(lastCall[0]).toEqual(
             expect.objectContaining({
                 sender: action.sender,
                 recipient: action.receiver,
@@ -48,7 +49,6 @@ describe('<ProposalActionWithdrawToken /> component', () => {
                 assetIconSrc: action.token.logo,
                 assetAddress: action.token.address,
             }),
-            undefined,
         );
     });
 });

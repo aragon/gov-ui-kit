@@ -3,4 +3,4 @@ dist
 coverage
 CHANGELOG.md
 storybook-static
-.yarn
+pnpm-lock.yaml
