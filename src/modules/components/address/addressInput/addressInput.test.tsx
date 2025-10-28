@@ -291,4 +291,41 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByRole('alert')).toHaveTextContent(/checksum/i);
         isAddressMock.mockRestore();
     });
+
+    it('always uses mainnet chainId for ENS address resolution regardless of chainId prop', () => {
+        const value = 'vitalik.eth';
+        const chainId = 137; // Polygon
+        isAddressMock.mockReturnValue(false);
+        render(createTestComponent({ value, chainId }));
+
+        expect(useEnsAddressMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                chainId: mainnet.id,
+                name: 'vitalik.eth',
+            }),
+        );
+    });
+
+    it('always uses mainnet chainId for ENS name resolution regardless of chainId prop', () => {
+        const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        const chainId = 137;
+        render(createTestComponent({ value, chainId }));
+
+        expect(useEnsNameMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                chainId: mainnet.id,
+                address: value,
+            }),
+        );
+    });
+
+    it('uses the provided chainId for block explorer link, not the ENS chainId', () => {
+        const value = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        const chainId = 137;
+        render(createTestComponent({ value, chainId }));
+
+        const linkButton = screen.getByRole<HTMLAnchorElement>('link');
+        expect(linkButton).toBeInTheDocument();
+        expect(linkButton.href).toEqual(`https://polygonscan.com/address/${value}`);
+    });
 });
