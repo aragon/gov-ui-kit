@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { urlUtils } from '../../../utils';
 import { Icon, IconType } from '../../icon';
 import { LinkBase } from '../linkBase';
 import type { ILinkProps, LinkVariant } from './link.api';
@@ -34,6 +35,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         ...otherProps
     } = props;
 
+    const processedHref = isExternal ? urlUtils.normalizeExternalHref(href) : href;
+
     const processedVariant = disabled ? 'disabled' : variant;
     const linkClassName = classNames(
         'inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded-md text-sm leading-tight focus-ring-primary',
@@ -50,7 +53,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
         <LinkBase
             ref={ref}
             onClick={!disabled ? onClick : undefined}
-            href={!disabled ? href : undefined}
+            href={!disabled ? processedHref : undefined}
             className={linkClassName}
             target={target}
             rel={linkRel}
@@ -62,7 +65,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
                 <span className={innerTextClassName}>{children}</span>
                 {isExternal && <Icon icon={IconType.LINK_EXTERNAL} size="sm" />}
             </div>
-            {showUrl && href && (
+            {showUrl && processedHref && (
                 <p
                     className={classNames(
                         'truncate text-xs',
@@ -70,7 +73,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
                         disabled ? 'text-neutral-300' : 'text-neutral-400',
                     )}
                 >
-                    {href}
+                    {processedHref}
                 </p>
             )}
         </LinkBase>
