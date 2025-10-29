@@ -80,11 +80,11 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-    const ensChain = wagmiConfig.chains.find(({ id }) => id === ensChainId);
+    const activeChain = wagmiConfig.chains.find(({ id }) => id === chainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const supportEnsNames = ensChain?.contracts?.ensUniversalResolver != null;
+    const supportEnsNames = activeChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
