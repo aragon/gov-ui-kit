@@ -72,17 +72,19 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const { containerProps, inputProps } = useInputProps(otherProps);
     const { onFocus, onBlur, className: inputClassName, ...otherInputProps } = inputProps;
 
+    const ensChainId = mainnet.id;
+
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
     const onAcceptRef = useRef(onAccept);
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-    const currentChain = wagmiConfig.chains.find(({ id }) => id === chainId);
+    const activeChain = wagmiConfig.chains.find(({ id }) => id === chainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const supportEnsNames = currentChain?.contracts?.ensUniversalResolver != null;
+    const supportEnsNames = activeChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -104,7 +106,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     } = useEnsAddress({
         name: isDebouncedValueValidEns ? normalize(debouncedValue) : undefined,
         config: wagmiConfig,
-        chainId,
+        chainId: ensChainId,
         query: { enabled: supportEnsNames && isDebouncedValueValidEns },
     });
 
@@ -115,7 +117,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     } = useEnsName({
         address: debouncedValue as Address,
         config: wagmiConfig,
-        chainId,
+        chainId: ensChainId,
         query: { enabled: supportEnsNames && isDebouncedValueValidAddress },
     });
 
@@ -254,7 +256,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
                 {isLoading && <Spinner variant="neutral" size="lg" />}
-                {!isLoading && <MemberAvatar address={addressValue} chainId={chainId} wagmiConfig={wagmiConfig} />}
+                {!isLoading && <MemberAvatar address={addressValue} chainId={ensChainId} wagmiConfig={wagmiConfig} />}
             </div>
             <textarea
                 type="text"
