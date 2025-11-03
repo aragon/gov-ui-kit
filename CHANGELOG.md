@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 1.23.0
+
+### Minor Changes
+
+- [#610](https://github.com/aragon/gov-ui-kit/pull/610) [`7fc2ac3`](https://github.com/aragon/gov-ui-kit/commit/7fc2ac3862a2e93387cf5d97e5a2d9494136922d) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add normalizeExternalHref utility and integrate it into Link component for external link handling
+
+### Patch Changes
+
+- [#605](https://github.com/aragon/gov-ui-kit/pull/605) [`818f584`](https://github.com/aragon/gov-ui-kit/commit/818f58421cf6e0b9bde9b38d313aa915358cfc68) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Migrate from Yarn to pnpm, update configurations
+
+- [#613](https://github.com/aragon/gov-ui-kit/pull/613) [`29ceba6`](https://github.com/aragon/gov-ui-kit/commit/29ceba6eced6c5769ac66d162ef5bead18f8bb3a) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Use mainnet chainId by default for ENS related lookup while accepting dynamic chainId for explorer link creation
+
 ## 1.22.0
 
 ### Minor Changes
