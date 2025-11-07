@@ -213,22 +213,22 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
     useEffect(() => {
-        if (ensName) {
+        if (ensName && isDebouncedValueValidAddress) {
             const queryKey = [...ensAddressQueryKey];
             (queryKey[1] as UseEnsAddressParameters).name = ensName;
             queryClient.setQueryData(queryKey, debouncedValue);
         }
-    }, [queryClient, ensName, debouncedValue, ensAddressQueryKey]);
+    }, [queryClient, ensName, debouncedValue, isDebouncedValueValidAddress, ensAddressQueryKey]);
 
     // Update react-query cache to avoid fetching the ENS name when the ENS address has been successfully resolved.
     // E.g. user types test.eth which is resolved into 0x..123, therefore set 0x..123 as resolved ENS address of test.eth
     useEffect(() => {
-        if (ensAddress) {
+        if (ensAddress && isDebouncedValueValidEns) {
             const queryKey = [...ensNameQueryKey];
             (queryKey[1] as UseEnsNameParameters).address = ensAddress;
-            queryClient.setQueryData(queryKey, debouncedValue);
+            queryClient.setQueryData(queryKey, normalize(debouncedValue));
         }
-    }, [queryClient, ensAddress, debouncedValue, ensNameQueryKey]);
+    }, [queryClient, ensAddress, debouncedValue, isDebouncedValueValidEns, ensNameQueryKey]);
 
     // Resize textarea element on user input depending on the focus state of the textarea
     useEffect(() => {
