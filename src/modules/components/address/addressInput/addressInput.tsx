@@ -257,7 +257,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
-    const addressUrl = addressValue ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue }) : undefined;
+    const addressUrl = addressValue
+        ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue, chainId })
+        : undefined;
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 

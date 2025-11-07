@@ -342,4 +342,17 @@ describe('<AddressInput /> component', () => {
         expect(linkButton).toBeInTheDocument();
         expect(linkButton.href).toEqual(`https://polygonscan.com/address/${value}`);
     });
+
+    it('uses the correct network explorer when input is an ENS that resolves to an address', () => {
+        const ens = 'alice.eth';
+        const resolvedAddress: Address = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        const chainId = 137; // Polygon
+        useEnsAddressMock.mockReturnValue({ data: resolvedAddress, isFetching: false } as UseEnsAddressReturnType);
+
+        render(createTestComponent({ value: ens, chainId }));
+
+        const linkButton = screen.getByRole<HTMLAnchorElement>('link');
+        expect(linkButton).toBeInTheDocument();
+        expect(linkButton.href).toEqual(`https://polygonscan.com/address/${resolvedAddress}`);
+    });
 });
