@@ -80,11 +80,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-    const activeChain = wagmiConfig.chains.find(({ id }) => id === chainId);
+    const mainnetChain = wagmiConfig.chains.find(({ id }) => id === ensChainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const supportEnsNames = activeChain?.contracts?.ensUniversalResolver != null;
+    // ENS always works on mainnet, so check mainnet for ENS support, not the current chain
+    const supportEnsNames = mainnetChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -208,6 +209,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
+    // Sync displayMode with the current value to ensure button shows correct toggle option
+    useEffect(() => {
+        if (value) {
+            const isEns = ensUtils.isEnsName(value);
+            setDisplayMode(isEns ? 'ens' : 'address');
+        }
+    }, [value]);
+
     // Default to ENS mode on first render if an ENS exists for the provided address
     useEffect(() => {
         if (appliedInitialEnsModeRef.current) {
@@ -260,7 +269,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
-    const addressUrl = addressValue ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue }) : undefined;
+    const addressUrl = addressValue
+        ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue, chainId })
+        : undefined;
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
