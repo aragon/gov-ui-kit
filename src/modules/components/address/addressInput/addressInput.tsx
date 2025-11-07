@@ -196,6 +196,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
+    // Sync displayMode with the current value to ensure button shows correct toggle option
+    useEffect(() => {
+        if (value) {
+            const isEns = ensUtils.isEnsName(value);
+            setDisplayMode(isEns ? 'ens' : 'address');
+        }
+    }, [value]);
+
     // Default to ENS mode on first render if an ENS exists for the provided address
     useEffect(() => {
         if (appliedInitialEnsModeRef.current) {
