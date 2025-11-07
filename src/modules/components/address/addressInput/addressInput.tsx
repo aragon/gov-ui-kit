@@ -80,11 +80,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-    const activeChain = wagmiConfig.chains.find(({ id }) => id === chainId);
+    const mainnetChain = wagmiConfig.chains.find(({ id }) => id === ensChainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const supportEnsNames = activeChain?.contracts?.ensUniversalResolver != null;
+    // ENS always works on mainnet, so check mainnet for ENS support, not the current chain
+    const supportEnsNames = mainnetChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
