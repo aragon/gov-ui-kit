@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useCallback, useEffect } from 'react';
 import { encodeFunctionData } from 'viem';
-import { Button, clipboardUtils } from '../../../../../core';
+import { AlertCard, Button, clipboardUtils } from '../../../../../core';
 import { useFormContext } from '../../../../hooks';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
@@ -49,6 +49,27 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         [inputData, dataFieldName, setValue, formPrefix],
     );
 
+    // Initial encoding for functions with no parameters
+    useEffect(() => {
+        if (
+            mode !== ProposalActionsDecoderMode.EDIT ||
+            view !== ProposalActionsDecoderView.DECODED ||
+            inputData?.parameters.length !== 0
+        ) {
+            return;
+        }
+
+        // For functions with no parameters, encode immediately on mount
+        const actionAbi = [{ type: 'function', name: inputData?.function, inputs: [] }];
+
+        try {
+            const data = encodeFunctionData({ abi: actionAbi, args: [] });
+            setValue(dataFieldName, data);
+        } catch (error: unknown) {
+            console.error('Failed to encode function with no parameters:', error);
+        }
+    }, [mode, view, inputData, dataFieldName, setValue]);
+
     useEffect(() => {
         if (mode !== ProposalActionsDecoderMode.EDIT || view !== ProposalActionsDecoderView.DECODED) {
             return;
@@ -89,19 +110,29 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                     {copy.proposalActionsDecoder.copyData}
                 </Button>
             )}
-            {view === ProposalActionsDecoderView.DECODED &&
-                inputData?.parameters.map((parameter, index) => (
-                    <ProposalActionsDecoderField
-                        key={parameter.name}
-                        parameter={parameter}
-                        mode={mode}
-                        fieldName="value"
-                        formPrefix={proposalActionsDecoderUtils.getFieldName(
-                            `inputData.parameters.${index.toString()}`,
-                            formPrefix,
-                        )}
-                    />
-                ))}
+            {view === ProposalActionsDecoderView.DECODED && (
+                <>
+                    {inputData?.parameters.map((parameter, index) => (
+                        <ProposalActionsDecoderField
+                            key={parameter.name}
+                            parameter={parameter}
+                            mode={mode}
+                            fieldName="value"
+                            formPrefix={proposalActionsDecoderUtils.getFieldName(
+                                `inputData.parameters.${index.toString()}`,
+                                formPrefix,
+                            )}
+                        />
+                    ))}
+                    {inputData?.parameters.length === 0 && (
+                        <AlertCard
+                            className="text-warning-500 flex items-center gap-1 text-sm"
+                            message={copy.proposalActionsDecoder.noParametersMessage}
+                            variant="warning"
+                        />
+                    )}
+                </>
+            )}
         </div>
     );
 };
