@@ -80,11 +80,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
-    const activeChain = wagmiConfig.chains.find(({ id }) => id === chainId);
+    const mainnetChain = wagmiConfig.chains.find(({ id }) => id === ensChainId);
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
-    const supportEnsNames = activeChain?.contracts?.ensUniversalResolver != null;
+    // ENS always works on mainnet, so check mainnet for ENS support, not the current chain
+    const supportEnsNames = mainnetChain?.contracts?.ensUniversalResolver != null;
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -195,6 +196,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
+    // Sync displayMode with the current value to ensure button shows correct toggle option
+    useEffect(() => {
+        if (value) {
+            const isEns = ensUtils.isEnsName(value);
+            setDisplayMode(isEns ? 'ens' : 'address');
+        }
+    }, [value]);
+
     // Default to ENS mode on first render if an ENS exists for the provided address
     useEffect(() => {
         if (appliedInitialEnsModeRef.current) {
@@ -212,22 +221,22 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
     useEffect(() => {
-        if (ensName) {
+        if (ensName && isDebouncedValueValidAddress) {
             const queryKey = [...ensAddressQueryKey];
             (queryKey[1] as UseEnsAddressParameters).name = ensName;
             queryClient.setQueryData(queryKey, debouncedValue);
         }
-    }, [queryClient, ensName, debouncedValue, ensAddressQueryKey]);
+    }, [queryClient, ensName, debouncedValue, isDebouncedValueValidAddress, ensAddressQueryKey]);
 
     // Update react-query cache to avoid fetching the ENS name when the ENS address has been successfully resolved.
     // E.g. user types test.eth which is resolved into 0x..123, therefore set 0x..123 as resolved ENS address of test.eth
     useEffect(() => {
-        if (ensAddress) {
+        if (ensAddress && isDebouncedValueValidEns) {
             const queryKey = [...ensNameQueryKey];
             (queryKey[1] as UseEnsNameParameters).address = ensAddress;
-            queryClient.setQueryData(queryKey, debouncedValue);
+            queryClient.setQueryData(queryKey, normalize(debouncedValue));
         }
-    }, [queryClient, ensAddress, debouncedValue, ensNameQueryKey]);
+    }, [queryClient, ensAddress, debouncedValue, isDebouncedValueValidEns, ensNameQueryKey]);
 
     // Resize textarea element on user input depending on the focus state of the textarea
     useEffect(() => {
@@ -248,7 +257,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
 
     const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
-    const addressUrl = addressValue ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue }) : undefined;
+    const addressUrl = addressValue
+        ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue, chainId })
+        : undefined;
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 

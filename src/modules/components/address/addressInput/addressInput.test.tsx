@@ -243,20 +243,34 @@ describe('<AddressInput /> component', () => {
         expect(onAccept).toHaveBeenCalledWith(undefined);
     });
 
-    it('does not try to resolve address when value is ENS name but current chain-id does not support ens names', () => {
+    it('tries to resolve address when value is ENS name even if current chain-id does not support ens names, because ENS always works on mainnet', () => {
         const value = 'vitalik.eth';
-        const chainId = 137;
+        const chainId = 137; // Polygon doesn't have ENS, but mainnet does
         render(createTestComponent({ value, chainId }));
-        const queryObject = { query: { enabled: false } };
+        // ENS resolution should be enabled because mainnet is configured in defaultWagmiConfig
+        const queryObject = { query: { enabled: true } };
         expect(useEnsAddressMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
     });
 
-    it('does not try to resolve ens when value is a valid address but current chain-id does not support ens names', () => {
+    it('tries to resolve ens when value is a valid address even if current chain-id does not support ens names, because ENS always works on mainnet', () => {
         const value = '0xeefb13c7d42efcc655e528da6d6f7bbcf9a2251d';
-        const chainId = 137;
+        const chainId = 137; // Polygon doesn't have ENS, but mainnet does
         render(createTestComponent({ value, chainId }));
-        const queryObject = { query: { enabled: false } };
+        // ENS resolution should be enabled because mainnet is configured in defaultWagmiConfig
+        const queryObject = { query: { enabled: true } };
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
+    });
+
+    it('does not try to resolve ENS when mainnet is not configured in wagmi config', () => {
+        const value = 'vitalik.eth';
+        const chainId = 137;
+        // Create a wagmi config without mainnet
+        const wagmiConfigWithoutMainnet = {
+            chains: [{ id: 137, contracts: {} }],
+        } as unknown as wagmi.Config;
+        render(createTestComponent({ value, chainId, wagmiConfig: wagmiConfigWithoutMainnet }));
+        const queryObject = { query: { enabled: false } };
+        expect(useEnsAddressMock).toHaveBeenCalledWith(expect.objectContaining(queryObject));
     });
 
     it('defaults chain-id to ethereum mainnet when not provided', () => {
@@ -327,5 +341,18 @@ describe('<AddressInput /> component', () => {
         const linkButton = screen.getByRole<HTMLAnchorElement>('link');
         expect(linkButton).toBeInTheDocument();
         expect(linkButton.href).toEqual(`https://polygonscan.com/address/${value}`);
+    });
+
+    it('uses the correct network explorer when input is an ENS that resolves to an address', () => {
+        const ens = 'alice.eth';
+        const resolvedAddress: Address = '0xeefB13C7D42eFCc655E528dA6d6F7bBcf9A2251d';
+        const chainId = 137; // Polygon
+        useEnsAddressMock.mockReturnValue({ data: resolvedAddress, isFetching: false } as UseEnsAddressReturnType);
+
+        render(createTestComponent({ value: ens, chainId }));
+
+        const linkButton = screen.getByRole<HTMLAnchorElement>('link');
+        expect(linkButton).toBeInTheDocument();
+        expect(linkButton.href).toEqual(`https://polygonscan.com/address/${resolvedAddress}`);
     });
 });
