@@ -76,7 +76,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
     const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
-    const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
+    // Raw view should always be editable in edit mode to allow users to manually adjust calldata if needed
+    const rawViewMode = editMode ? EDIT : READ;
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>

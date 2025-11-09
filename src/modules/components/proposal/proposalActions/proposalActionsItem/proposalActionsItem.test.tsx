@@ -197,13 +197,13 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
 
-    it('renders the raw-view in watch mode when editMode prop is true and action supports decoded view', async () => {
+    it('renders the raw-view in edit mode when editMode prop is true to allow manual calldata editing', async () => {
         const params = [{ name: 'amount', type: 'uint', value: null }];
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         isActionSupportedSpy.mockReturnValue(true);
         render(createTestComponent({ action, editMode: true }));
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
-        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
     });
 });

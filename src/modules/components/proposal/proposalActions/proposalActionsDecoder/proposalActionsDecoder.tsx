@@ -145,11 +145,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                         />
                     ))}
                     {!hasParameters && (
-                        <AlertCard
-                            className="text-warning-500 flex items-center gap-1 text-sm"
-                            message={copy.proposalActionsDecoder.noParametersMessage}
-                            variant="warning"
-                        />
+                        <AlertCard message={copy.proposalActionsDecoder.noParametersMessage} variant="info" />
                     )}
                 </>
             )}
