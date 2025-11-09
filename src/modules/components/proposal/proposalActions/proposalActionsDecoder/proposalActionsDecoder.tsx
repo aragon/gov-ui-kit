@@ -26,11 +26,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
     const hasInputData = inputData != null;
 
     const functionName = inputData?.function ?? '';
-    const parameterShapeKey = JSON.stringify(inputData?.parameters ?? []);
-    const parameters = useMemo(
-        () => (hasInputData ? (inputData?.parameters ?? []) : []),
-        [hasInputData, parameterShapeKey],
-    );
+    const parameters = useMemo(() => (hasInputData ? inputData.parameters : []), [hasInputData, inputData?.parameters]);
 
     const isPayableAction = inputData?.stateMutability === 'payable';
     const hasParameters = parameters.length > 0;
