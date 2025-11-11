@@ -79,12 +79,12 @@ describe('<ProposalActionsItem /> component', () => {
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
     });
 
-    it('defaults the view-mode to raw and read mode when action has no custom component, is verified but has no parameters', async () => {
+    it('defaults the view-mode to decoded and read mode when action has no custom component, is verified but has no parameters', async () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
         const actionDecoder = screen.getByTestId('decoder-mock');
-        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
     });
 

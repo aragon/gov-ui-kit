@@ -60,7 +60,12 @@ describe('<ProposalActionsDecoder /> component', () => {
     it('renders the value field when action is payable', () => {
         const view = ProposalActionsDecoderView.DECODED;
         const action = generateProposalAction({
-            inputData: { function: '', contract: '', stateMutability: 'payable', parameters: [] },
+            inputData: {
+                function: '',
+                contract: '',
+                stateMutability: 'payable',
+                parameters: [{ name: 'amount', type: 'uint', value: '' }],
+            },
         });
         render(createTestComponent({ action, view }));
         expect(screen.getByTestId('value-text-field-mock')).toBeInTheDocument();

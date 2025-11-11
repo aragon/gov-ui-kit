@@ -49,7 +49,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
-    const supportsDecodedView = isAbiAvailable && action.inputData?.parameters.length;
+    const supportsDecodedView = isAbiAvailable;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
