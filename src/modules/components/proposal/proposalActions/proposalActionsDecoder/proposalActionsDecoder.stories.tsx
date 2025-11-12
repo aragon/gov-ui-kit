@@ -103,6 +103,23 @@ export const ReadOnly: Story = {
 };
 
 /**
+ * Usage example of the Decoded view from the ProposalActionsItem component with a function that has no parameters.
+ */
+export const NoParameters: Story = {
+    render: defaultRender,
+    args: {
+        view: ProposalActionsDecoderView.DECODED,
+        action: generateProposalAction({
+            inputData: {
+                function: 'pause',
+                contract: 'TokenVoting',
+                parameters: [],
+            },
+        }),
+    },
+};
+
+/**
  * Usage example of the Decoded view from the ProposalActionsItem component with a payable function.
  */
 export const Payable: Story = {

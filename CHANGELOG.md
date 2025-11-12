@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.23.1
+
+### Patch Changes
+
+- [#616](https://github.com/aragon/gov-ui-kit/pull/616) [`ac92689`](https://github.com/aragon/gov-ui-kit/commit/ac926895e63081826f0c32c60fcf3409e3ce0763) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Fix ENS resolution for chains
+
+- [#614](https://github.com/aragon/gov-ui-kit/pull/614) [`dc3f0a3`](https://github.com/aragon/gov-ui-kit/commit/dc3f0a358cb22ced0edf74525c3b714c6a76f421) Thanks [@dependabot](https://github.com/apps/dependabot)! - Update actions/checkout to 5.0.0
+
 ## 1.23.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { encodeFunctionData } from 'viem';
-import { Button, clipboardUtils } from '../../../../../core';
+import { AlertCard, Button, clipboardUtils } from '../../../../../core';
 import { useFormContext } from '../../../../hooks';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
@@ -23,31 +23,69 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         ...otherProps
     } = props;
     const { value, data, inputData } = action;
+    const hasInputData = inputData != null;
+
+    const functionName = inputData?.function ?? '';
+    const parameters = useMemo(() => (hasInputData ? inputData.parameters : []), [hasInputData, inputData?.parameters]);
+
+    const isPayableAction = inputData?.stateMutability === 'payable';
+    const hasParameters = parameters.length > 0;
 
     const { copy } = useGukModulesContext();
-    const { watch, setValue } = useFormContext<NestedProposalActionFormValues>(
+    const { watch, setValue, getValues } = useFormContext<NestedProposalActionFormValues>(
         mode === ProposalActionsDecoderMode.EDIT,
     );
 
     const dataFieldName = proposalActionsDecoderUtils.getFieldName('data', formPrefix);
-    const isPayableAction = action.inputData?.stateMutability === 'payable';
 
     const updateEncodedData = useCallback(
         (values: NestedProposalActionFormValues) => {
+            if (!hasInputData) {
+                return;
+            }
+
             const functionParameters = proposalActionsDecoderUtils.formValuesToFunctionParameters(values, formPrefix);
-            const actionAbi = [{ type: 'function', name: inputData?.function, inputs: inputData?.parameters }];
-            let data = '0x';
+            const actionAbi = [{ type: 'function', name: functionName, inputs: parameters }];
+            let encodedData = '0x';
 
             try {
-                data = encodeFunctionData({ abi: actionAbi, args: functionParameters });
-            } catch (error: unknown) {
-                // Form values are not valid, ignore error.
+                encodedData = encodeFunctionData({ abi: actionAbi, args: functionParameters });
+            } catch {
+                // Ignore invalid form values.
             } finally {
-                setValue(dataFieldName, data);
+                if (getValues(dataFieldName) !== encodedData) {
+                    setValue(dataFieldName, encodedData);
+                }
             }
         },
-        [inputData, dataFieldName, setValue, formPrefix],
+        [hasInputData, functionName, parameters, dataFieldName, setValue, formPrefix, getValues],
     );
+
+    // Initial encoding for decoded view when the function has no parameters.
+    useEffect(() => {
+        const shouldAutoEncode =
+            hasInputData &&
+            mode === ProposalActionsDecoderMode.EDIT &&
+            view === ProposalActionsDecoderView.DECODED &&
+            !hasParameters;
+
+        if (!shouldAutoEncode) {
+            return;
+        }
+
+        const actionAbi = [{ type: 'function', name: functionName, inputs: [] }];
+        let encodedData = '0x';
+
+        try {
+            encodedData = encodeFunctionData({ abi: actionAbi, args: [] });
+        } catch {
+            // Ignore – keep existing data.
+        }
+
+        if (getValues(dataFieldName) !== encodedData) {
+            setValue(dataFieldName, encodedData);
+        }
+    }, [hasInputData, mode, view, hasParameters, functionName, dataFieldName, setValue, getValues]);
 
     useEffect(() => {
         if (mode !== ProposalActionsDecoderMode.EDIT || view !== ProposalActionsDecoderView.DECODED) {
@@ -61,7 +99,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
         });
 
         return () => unsubscribe();
-    }, [mode, watch, setValue, updateEncodedData, dataFieldName, view, formPrefix]);
+    }, [mode, watch, updateEncodedData, dataFieldName, view, formPrefix]);
 
     const handleCopyDataClick = () => clipboardUtils.copy(action.data);
 
@@ -80,7 +118,6 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 mode={mode}
                 formPrefix={formPrefix}
                 parameter={{ name: 'data', value: data, type: 'bytes' }}
-                // Render the data field as hidden on decoded view to register the field on the form on EDIT mode
                 className={view === ProposalActionsDecoderView.DECODED ? 'hidden' : undefined}
                 component="textarea"
             />
@@ -89,19 +126,25 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                     {copy.proposalActionsDecoder.copyData}
                 </Button>
             )}
-            {view === ProposalActionsDecoderView.DECODED &&
-                inputData?.parameters.map((parameter, index) => (
-                    <ProposalActionsDecoderField
-                        key={parameter.name}
-                        parameter={parameter}
-                        mode={mode}
-                        fieldName="value"
-                        formPrefix={proposalActionsDecoderUtils.getFieldName(
-                            `inputData.parameters.${index.toString()}`,
-                            formPrefix,
-                        )}
-                    />
-                ))}
+            {view === ProposalActionsDecoderView.DECODED && (
+                <>
+                    {parameters.map((parameter, index) => (
+                        <ProposalActionsDecoderField
+                            key={parameter.name}
+                            parameter={parameter}
+                            mode={mode}
+                            fieldName="value"
+                            formPrefix={proposalActionsDecoderUtils.getFieldName(
+                                `inputData.parameters.${index.toString()}`,
+                                formPrefix,
+                            )}
+                        />
+                    ))}
+                    {!hasParameters && (
+                        <AlertCard message={copy.proposalActionsDecoder.noParametersMessage} variant="info" />
+                    )}
+                </>
+            )}
         </div>
     );
 };

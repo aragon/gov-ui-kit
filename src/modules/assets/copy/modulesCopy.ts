@@ -55,6 +55,7 @@ export const modulesCopy = {
     proposalActionsDecoder: {
         copyData: 'Copy data',
         add: 'Add',
+        noParametersMessage: 'This write function has no parameters.',
         validation: {
             required: (label: string) => `${label} is required.`,
             boolean: (label: string) => `${label} must be set to "true" or "false".`,
