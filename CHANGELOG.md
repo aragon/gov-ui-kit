@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.24.0
+
+### Minor Changes
+
+- [#618](https://github.com/aragon/gov-ui-kit/pull/618) [`a11a252`](https://github.com/aragon/gov-ui-kit/commit/a11a25208dd06089cb748c5c8df9925117ef3eb5) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Enable decoded view with helper for custom actions with no params
+
+### Patch Changes
+
+- [#617](https://github.com/aragon/gov-ui-kit/pull/617) [`ea91246`](https://github.com/aragon/gov-ui-kit/commit/ea91246ca3016a36244aede29ffe83c6e69c4161) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix ENS toggle on AddressInput
+
 ## 1.23.1
 
 ### Patch Changes
