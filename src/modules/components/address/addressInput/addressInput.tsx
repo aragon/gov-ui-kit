@@ -296,7 +296,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             <div className="mr-2 flex flex-row gap-2">
                 {canToggleToAddress && (
                     <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
-                        {'0x …'}
+                        0x…
                     </Button>
                 )}
                 {canToggleToEns && (
