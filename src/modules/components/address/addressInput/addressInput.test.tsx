@@ -163,7 +163,7 @@ describe('<AddressInput /> component', () => {
             data: ensValue,
             isFetching: false,
             queryKey: ['', {}],
-        } as UseEnsNameReturnType);
+        } as unknown as UseEnsNameReturnType);
 
         const { rerender } = render(createTestComponent({ value, onChange }));
 
