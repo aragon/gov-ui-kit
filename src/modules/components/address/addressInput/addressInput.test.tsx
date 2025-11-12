@@ -1,5 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -155,15 +155,29 @@ describe('<AddressInput /> component', () => {
         expect(screen.getByTestId('member-avatar-mock')).toBeInTheDocument();
     });
 
-    it('defaults to ENS mode when address has ENS linked (and shows address toggle button)', () => {
+    it('defaults to ENS mode when address has ENS linked (and shows address toggle button)', async () => {
         const ensValue = 'vitalik.eth';
         const value = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         const onChange = jest.fn();
-        useEnsNameMock.mockReturnValue({ data: ensValue, isFetching: false } as UseEnsNameReturnType);
+        useEnsNameMock.mockReturnValue({
+            data: ensValue,
+            isFetching: false,
+            queryKey: ['', {}],
+        } as UseEnsNameReturnType);
 
-        render(createTestComponent({ value, onChange }));
+        const { rerender } = render(createTestComponent({ value, onChange }));
+
+        await waitFor(() => expect(onChange).toHaveBeenCalledWith(ensValue));
+        useEnsAddressMock.mockReturnValue({
+            data: value,
+            isFetching: false,
+            queryKey: ['', {}],
+        } as unknown as UseEnsAddressReturnType);
+
+        rerender(createTestComponent({ value: ensValue, onChange }));
+
         // Auto-switched to ENS mode -> button should show '0x …' (toggle to address)
-        const addressToggleButton = screen.getByRole('button', { name: '0x …' });
+        const addressToggleButton = await screen.findByRole('button', { name: '0x …' });
         expect(addressToggleButton).toBeInTheDocument();
         // onChange should have been called with the ENS value due to initial ENS defaulting
         expect(onChange).toHaveBeenCalledWith(ensValue);
