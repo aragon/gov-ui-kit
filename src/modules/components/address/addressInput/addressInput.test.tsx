@@ -177,7 +177,7 @@ describe('<AddressInput /> component', () => {
         rerender(createTestComponent({ value: ensValue, onChange }));
 
         // Auto-switched to ENS mode -> button should show '0x …' (toggle to address)
-        const addressToggleButton = await screen.findByRole('button', { name: '0x …' });
+        const addressToggleButton = await screen.findByRole('button', { name: '0x…' });
         expect(addressToggleButton).toBeInTheDocument();
         // onChange should have been called with the ENS value due to initial ENS defaulting
         expect(onChange).toHaveBeenCalledWith(ensValue);
@@ -191,7 +191,7 @@ describe('<AddressInput /> component', () => {
         useEnsAddressMock.mockReturnValue({ data: addressValue, isFetching: false } as UseEnsAddressReturnType);
 
         render(createTestComponent({ value, onChange }));
-        const addressButton = screen.getByRole('button', { name: '0x …' });
+        const addressButton = screen.getByRole('button', { name: '0x…' });
         expect(addressButton).toBeInTheDocument();
 
         await user.click(addressButton);
