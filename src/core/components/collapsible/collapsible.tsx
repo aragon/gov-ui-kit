@@ -174,7 +174,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                     <div
                         className={classNames(
                             overlayClassName,
-                            'from-neutral-0/100 via-neutral-0/70 to-neutral-0/0 bg-gradient-to-t',
+                            'from-neutral-0 via-neutral-0/70 to-neutral-0/0 bg-linear-to-t',
                         )}
                         style={{ height: overlayHeightPx }}
                         data-testid="collapsible-overlay"
@@ -191,7 +191,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                             iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                             aria-expanded={isOpen}
                             aria-controls={contentId}
-                            className="relative z-[1]"
+                            className="relative z-1"
                         >
                             {isOpen ? buttonLabelOpened : buttonLabelClosed}
                         </Button>

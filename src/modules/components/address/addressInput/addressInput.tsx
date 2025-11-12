@@ -122,17 +122,19 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         query: { enabled: supportEnsNames && isDebouncedValueValidAddress },
     });
 
-    const [displayMode, setDisplayMode] = useState<'ens' | 'address'>(ensUtils.isEnsName(value) ? 'ens' : 'address');
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
+    const [displayMode, setDisplayMode] = useState<'ens' | 'address'>(ensUtils.isEnsName(value) ? 'ens' : 'address');
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const { value } = event.target;
+
         if (!enforceChecksum) {
-            onChange?.(event.target.value);
+            onChange?.(value);
+            return;
         }
 
         // Expose input value in checksum format when enforceChecksum property is set and value is a valid address. Note
         // that the strict isAddress check returns false when the hex section of the address is all in uppercase.
-        const { value } = event.target;
         const hexValue = value.slice(2);
 
         const isValidAddress = addressUtils.isAddress(value, { strict: true });
@@ -143,18 +145,23 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     };
 
     const toggleDisplayMode = () => {
-        const newMode = displayMode === 'address' ? 'ens' : 'address';
-        const newInputValue = newMode === 'ens' ? ensName : ensAddress;
-        setDisplayMode(newMode);
-        onChange?.(newInputValue ?? '');
+        appliedInitialEnsModeRef.current = true;
 
-        // Update the debounced value without waiting for the debounce timeout to avoid delays on displaying the
-        // ENS/Address buttons because of delayed queries
-        setDebouncedValue(newInputValue ?? '');
+        const newMode = displayMode === 'ens' ? 'address' : 'ens';
+        const nextValue = newMode === 'ens' ? ensName : ensAddress;
+
+        if (!nextValue) {
+            return;
+        }
+
+        setDisplayMode(newMode);
+        onChange?.(nextValue);
+        setDebouncedValue(nextValue);
     };
 
     const handlePasteClick = async () => {
         const text = await clipboardUtils.paste();
+
         onChange?.(text);
     };
 
@@ -196,12 +203,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
-    // Sync displayMode with the current value to ensure button shows correct toggle option
+    // Sync displayMode with the current value to ensure button shows the correct toggle state
     useEffect(() => {
-        if (value) {
-            const isEns = ensUtils.isEnsName(value);
-            setDisplayMode(isEns ? 'ens' : 'address');
-        }
+        const mode = ensUtils.isEnsName(value) ? 'ens' : 'address';
+        setDisplayMode(mode);
     }, [value]);
 
     // Default to ENS mode on first render if an ENS exists for the provided address
@@ -263,6 +268,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
+    const canToggleToAddress = displayMode === 'ens' && ensAddress != null && !isFocused && !isLoading;
+    const canToggleToEns = displayMode === 'address' && ensName != null && !isFocused && !isLoading;
+
     return (
         <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
@@ -286,9 +294,14 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
-                {(ensName != null || ensAddress != null) && !isFocused && (
+                {canToggleToAddress && (
                     <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
-                        {displayMode === 'ens' ? '0x …' : 'ENS'}
+                        0x…
+                    </Button>
+                )}
+                {canToggleToEns && (
+                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                        ENS
                     </Button>
                 )}
                 {addressValue != null && !isFocused && (
