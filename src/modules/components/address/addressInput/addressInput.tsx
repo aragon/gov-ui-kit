@@ -123,7 +123,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     });
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
-    const displayMode: 'ens' | 'address' = ensUtils.isEnsName(value) ? 'ens' : 'address';
+    const [displayMode, setDisplayMode] = useState<'ens' | 'address'>(ensUtils.isEnsName(value) ? 'ens' : 'address');
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
@@ -147,22 +147,16 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     const toggleDisplayMode = () => {
         appliedInitialEnsModeRef.current = true;
 
-        if (displayMode === 'ens') {
-            if (!ensAddress) {
-                return;
-            }
+        const newMode = displayMode === 'ens' ? 'address' : 'ens';
+        const nextValue = newMode === 'ens' ? ensName : ensAddress;
 
-            onChange?.(ensAddress);
-            setDebouncedValue(ensAddress);
+        if (!nextValue) {
             return;
         }
 
-        if (!ensName) {
-            return;
-        }
-
-        onChange?.(ensName);
-        setDebouncedValue(ensName);
+        setDisplayMode(newMode);
+        onChange?.(nextValue);
+        setDebouncedValue(nextValue);
     };
 
     const handlePasteClick = async () => {
@@ -209,6 +203,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
+    // Sync displayMode with the current value to ensure button shows the correct toggle state
+    useEffect(() => {
+        const mode = ensUtils.isEnsName(value) ? 'ens' : 'address';
+        setDisplayMode(mode);
+    }, [value]);
+
     // Default to ENS mode on first render if an ENS exists for the provided address
     useEffect(() => {
         if (appliedInitialEnsModeRef.current) {
@@ -217,6 +217,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
         if (!isFocused && ensName && addressUtils.isAddress(value)) {
             appliedInitialEnsModeRef.current = true;
+            setDisplayMode('ens');
             onChange?.(ensName);
             setDebouncedValue(ensName);
         }
@@ -267,6 +268,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
+    const canToggleToAddress = displayMode === 'ens' && ensAddress != null && !isFocused && !isLoading;
+    const canToggleToEns = displayMode === 'address' && ensName != null && !isFocused && !isLoading;
+
     return (
         <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
@@ -290,13 +294,16 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
-                {((displayMode === 'ens' && ensAddress != null) || (displayMode === 'address' && ensName != null)) &&
-                    !isFocused &&
-                    !isLoading && (
-                        <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
-                            {displayMode === 'ens' ? '0x …' : 'ENS'}
-                        </Button>
-                    )}
+                {canToggleToAddress && (
+                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                        {'0x …'}
+                    </Button>
+                )}
+                {canToggleToEns && (
+                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                        ENS
+                    </Button>
+                )}
                 {addressValue != null && !isFocused && (
                     <>
                         <Button
