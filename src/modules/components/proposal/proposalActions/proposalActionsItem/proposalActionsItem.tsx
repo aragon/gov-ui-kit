@@ -30,7 +30,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         dropdownItems,
         editMode: editModeProp,
         formPrefix,
-        highlight = false,
+        highlight,
         chainId = mainnet.id,
         ...web3Props
     } = props;

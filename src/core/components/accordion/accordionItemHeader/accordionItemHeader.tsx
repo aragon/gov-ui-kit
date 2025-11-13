@@ -3,7 +3,7 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { forwardRef, useEffect, useRef, useState, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
@@ -11,18 +11,43 @@ export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button
     /**
      * Index number to display instead of the chevron icon. Typically used in edit mode to show the action's position.
      */
-    indexIndicator?: number | string;
+    indexIndicator?: number;
     /**
-     * Whether to highlight this item with a pulse animation. Used when an item is moved/reordered.
+     * Trigger value to highlight this item with a pulse animation. Increment this value to retrigger the animation.
+     * Used when an item is moved/reordered. The animation will automatically clear after 1.5 seconds.
+     * @example
+     * const [highlightTrigger, setHighlightTrigger] = useState(0);
+     * // Trigger animation: setHighlightTrigger(prev => prev + 1);
      */
-    highlight?: boolean;
+    highlight?: number;
 }
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
-    const { children, className, disabled, indexIndicator, highlight = false, ...otherProps } = props;
+    const { children, className, disabled, indexIndicator, highlight, ...otherProps } = props;
+
+    const headerRef = useRef<HTMLDivElement>(null);
+    const [isHighlighted, setIsHighlighted] = useState(false);
+
+    // Handle highlight trigger changes and auto-clear after animation
+    useEffect(() => {
+        if (highlight != null && highlight > 0) {
+            setIsHighlighted(true);
+            headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Auto-clear highlight after animation completes
+            const timeout = setTimeout(() => {
+                setIsHighlighted(false);
+            }, 1500);
+
+            return () => clearTimeout(timeout);
+        }
+
+        return undefined;
+    }, [highlight]);
 
     return (
         <RadixAccordionHeader
+            ref={headerRef}
             className={classNames(
                 'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
@@ -53,11 +78,10 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'flex shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-700',
+                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all',
                             {
-                                'size-7 border-2 border-info-500 text-info-500 shadow-[0_0_12px_rgba(0,133,255,0.5)] scale-110':
-                                    highlight,
-                                'size-6 border border-neutral-600 text-neutral-600': !highlight,
+                                'bg-info-500 text-neutral-0 shadow-info animate-pulse': isHighlighted,
+                                'border border-neutral-600 text-neutral-600': !isHighlighted,
                             },
                         )}
                     >

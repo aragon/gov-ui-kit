@@ -58,8 +58,11 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      */
     formPrefix?: string;
     /**
-     * Whether to highlight this item with a pulse animation and scroll into view. Used when an item is moved/reordered.
-     * @default false
+     * Trigger value to highlight this item with a pulse animation and scroll into view. Increment this value to retrigger the animation.
+     * Used when an item is moved/reordered. The animation will automatically clear after 1.5 seconds.
+     * @example
+     * const [highlightTrigger, setHighlightTrigger] = useState(0);
+     * // Trigger animation: setHighlightTrigger(prev => prev + 1);
      */
-    highlight?: boolean;
+    highlight?: number;
 }
