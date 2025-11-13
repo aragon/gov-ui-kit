@@ -31,10 +31,29 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     // Expand all items when in edit mode
     useEffect(() => {
         if (editMode && childrenCount > 0) {
-            const allItemIds = Array.from({ length: childrenCount }, (_, i) => i.toString());
-            setExpandedActions(allItemIds);
+            // Extract actual value props from children (supports UUIDs or any string identifiers)
+            const childValues = processedChildren
+                .map((child) => {
+                    if (React.isValidElement<IProposalActionsItemProps>(child)) {
+                        // Use the value prop if provided, otherwise fall back to string index
+                        return child.props.value ?? child.props.index?.toString();
+                    }
+                    return undefined;
+                })
+                .filter((value): value is string => value != null);
+
+            // Only update if we have values and they're different from current state
+            const currentValuesSet = new Set(expandedActions);
+            const newValuesSet = new Set(childValues);
+            const hasChanged =
+                currentValuesSet.size !== newValuesSet.size ||
+                childValues.some((val) => !currentValuesSet.has(val));
+
+            if (childValues.length > 0 && hasChanged) {
+                setExpandedActions(childValues);
+            }
         }
-    }, [editMode, childrenCount, setExpandedActions]);
+    }, [editMode, childrenCount, processedChildren, expandedActions, setExpandedActions]);
 
     const handleAccordionValueChange = (value: string[] = []) => {
         // Prevent collapsing in edit mode
