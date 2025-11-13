@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState, type ComponentProps } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
 import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {
@@ -36,21 +36,37 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         ...otherProps
     } = props;
 
-    const [expandedActions, setExpandedActions] = useState(expandedActionsProp ?? []);
+    // Determine if component is controlled
+    const isControlled = expandedActionsProp !== undefined;
+
+    const [expandedActionsState, setExpandedActionsState] = useState(expandedActionsProp ?? []);
     const [actionsCount, setActionsCount] = useState(actionsCountProp);
 
+    // Use controlled value if provided, otherwise use internal state
+    const expandedActions = isControlled ? expandedActionsProp : expandedActionsState;
+
     const updateExpandedActions = useCallback(
-        (expandedActions: string[]) => {
-            const callback = onExpandedActionsChange ?? setExpandedActions;
-            callback(expandedActions);
+        (newExpandedActions: string[]) => {
+            if (onExpandedActionsChange) {
+                // Controlled: call the callback
+                onExpandedActionsChange(newExpandedActions);
+            } else {
+                // Uncontrolled: update internal state
+                setExpandedActionsState(newExpandedActions);
+            }
         },
         [onExpandedActionsChange],
     );
 
-    // Update expandedActions array on property change
+    // Only sync prop to state when component switches from uncontrolled to controlled
+    // or on initial mount (not on every prop change)
+    const wasControlled = useRef(isControlled);
     useEffect(() => {
-        setExpandedActions(expandedActionsProp ?? []);
-    }, [expandedActionsProp]);
+        if (isControlled && !wasControlled.current && expandedActionsProp) {
+            setExpandedActionsState(expandedActionsProp);
+        }
+        wasControlled.current = isControlled;
+    }, [isControlled, expandedActionsProp]);
 
     const contextValues = useMemo(
         () => ({
