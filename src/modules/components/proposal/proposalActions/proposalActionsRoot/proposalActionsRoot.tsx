@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useRef, useState, type ComponentProps } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ComponentProps } from 'react';
 import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {
@@ -23,6 +23,11 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * @default false
      */
     isLoading?: boolean;
+    /**
+     * Whether or not the component is in edit mode. When true, all accordions are expanded and show index badges.
+     * @default false
+     */
+    editMode?: boolean;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
@@ -31,42 +36,27 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         expandedActions: expandedActionsProp,
         onExpandedActionsChange,
         isLoading = false,
+        editMode = false,
         children,
         className,
         ...otherProps
     } = props;
 
-    // Determine if component is controlled
-    const isControlled = expandedActionsProp !== undefined;
-
-    const [expandedActionsState, setExpandedActionsState] = useState(expandedActionsProp ?? []);
+    const [expandedActions, setExpandedActions] = useState(expandedActionsProp ?? []);
     const [actionsCount, setActionsCount] = useState(actionsCountProp);
 
-    // Use controlled value if provided, otherwise use internal state
-    const expandedActions = isControlled ? expandedActionsProp : expandedActionsState;
-
     const updateExpandedActions = useCallback(
-        (newExpandedActions: string[]) => {
-            if (onExpandedActionsChange) {
-                // Controlled: call the callback
-                onExpandedActionsChange(newExpandedActions);
-            } else {
-                // Uncontrolled: update internal state
-                setExpandedActionsState(newExpandedActions);
-            }
+        (expandedActions: string[]) => {
+            const callback = onExpandedActionsChange ?? setExpandedActions;
+            callback(expandedActions);
         },
         [onExpandedActionsChange],
     );
 
-    // Only sync prop to state when component switches from uncontrolled to controlled
-    // or on initial mount (not on every prop change)
-    const wasControlled = useRef(isControlled);
+    // Update expandedActions array on property change
     useEffect(() => {
-        if (isControlled && !wasControlled.current && expandedActionsProp) {
-            setExpandedActionsState(expandedActionsProp);
-        }
-        wasControlled.current = isControlled;
-    }, [isControlled, expandedActionsProp]);
+        setExpandedActions(expandedActionsProp ?? []);
+    }, [expandedActionsProp]);
 
     const contextValues = useMemo(
         () => ({
@@ -75,8 +65,9 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
             expandedActions,
             setExpandedActions: updateExpandedActions,
             isLoading,
+            editMode,
         }),
-        [actionsCount, expandedActions, updateExpandedActions, isLoading],
+        [actionsCount, expandedActions, updateExpandedActions, isLoading, editMode],
     );
 
     return (

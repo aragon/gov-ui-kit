@@ -16,7 +16,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     const { emptyStateDescription, children, className, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
-    const { actionsCount, setActionsCount, expandedActions, setExpandedActions, isLoading } =
+    const { actionsCount, setActionsCount, expandedActions, setExpandedActions, isLoading, editMode } =
         useProposalActionsContext();
 
     const processedChildren = Children.toArray(children);
@@ -28,7 +28,20 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
         }
     }, [childrenCount, isLoading, setActionsCount]);
 
-    const handleAccordionValueChange = (value: string[] = []) => setExpandedActions(value);
+    // Expand all items when in edit mode
+    useEffect(() => {
+        if (editMode && childrenCount > 0) {
+            const allItemIds = Array.from({ length: childrenCount }, (_, i) => i.toString());
+            setExpandedActions(allItemIds);
+        }
+    }, [editMode, childrenCount, setExpandedActions]);
+
+    const handleAccordionValueChange = (value: string[] = []) => {
+        // Prevent collapsing in edit mode
+        if (!editMode) {
+            setExpandedActions(value);
+        }
+    };
 
     return (
         <Accordion.Container

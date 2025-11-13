@@ -57,4 +57,9 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      * Form prefix to be prepended to all proposal action text fields.
      */
     formPrefix?: string;
+    /**
+     * Whether to highlight this item with a pulse animation and scroll into view. Used when an item is moved/reordered.
+     * @default false
+     */
+    highlight?: boolean;
 }
