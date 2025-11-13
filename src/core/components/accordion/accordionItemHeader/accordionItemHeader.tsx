@@ -37,7 +37,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
             // Auto-clear highlight after animation completes
             const timeout = setTimeout(() => {
                 setIsHighlighted(false);
-            }, 1500);
+            }, 2000);
 
             return () => clearTimeout(timeout);
         }
@@ -80,8 +80,8 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                         className={classNames(
                             'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all',
                             {
-                                'bg-info-500 text-neutral-0 shadow-info animate-pulse': isHighlighted,
-                                'border border-neutral-600 text-neutral-600': !isHighlighted,
+                                'border-info-400 text-info-600 shadow-info animate-pulse border p-2': isHighlighted,
+                                'border border-neutral-600 p-0 text-neutral-800': !isHighlighted,
                             },
                         )}
                     >
