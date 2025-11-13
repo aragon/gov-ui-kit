@@ -53,10 +53,11 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all',
+                            'flex shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-700',
                             {
-                                'bg-info-500 text-neutral-0 shadow-info animate-pulse': highlight,
-                                'border border-neutral-600 text-neutral-600': !highlight,
+                                'size-7 border-2 border-info-500 text-info-500 shadow-[0_0_12px_rgba(0,133,255,0.5)] scale-110':
+                                    highlight,
+                                'size-6 border border-neutral-600 text-neutral-600': !highlight,
                             },
                         )}
                     >

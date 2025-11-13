@@ -73,7 +73,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     // Scroll into view when item is highlighted (e.g., when moved/reordered)
     useEffect(() => {
         if (highlight) {
-            itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Small delay to ensure DOM has updated after swap
+            setTimeout(() => {
+                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+            }, 50);
         }
     }, [highlight]);
 
