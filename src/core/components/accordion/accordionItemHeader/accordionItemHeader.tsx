@@ -3,17 +3,59 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { forwardRef, useEffect, useRef, useState, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
-export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {}
+export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {
+    /**
+     * Index number to display instead of the chevron icon. Typically used in edit mode to show the action's position.
+     */
+    indexIndicator?: number;
+    /**
+     * Trigger value to highlight this item with a pulse animation. Increment this value to retrigger the animation.
+     * Used when an item is moved/reordered. The animation will automatically clear after 2 seconds.
+     * @example
+     * const [highlightTrigger, setHighlightTrigger] = useState(0);
+     * // Trigger animation: setHighlightTrigger(prev => prev + 1);
+     */
+    highlight?: number;
+}
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
-    const { children, className, disabled, ...otherProps } = props;
+    const { children, className, disabled, indexIndicator, highlight, ...otherProps } = props;
+    const headerRef = useRef<HTMLDivElement>(null);
+    const [isHighlighted, setIsHighlighted] = useState(false);
+
+    // Handle highlight trigger changes and auto-clear after animation
+    useEffect(() => {
+        if (highlight != null && highlight > 0) {
+            setIsHighlighted(true);
+
+            const scrollTimeout = window.setTimeout(() => {
+                headerRef.current?.scrollIntoView({
+                    behavior: 'instant',
+                    block: 'center',
+                    inline: 'nearest',
+                });
+            }, 50);
+
+            const clearHighlightTimeout = window.setTimeout(() => {
+                setIsHighlighted(false);
+            }, 1500);
+
+            return () => {
+                window.clearTimeout(scrollTimeout);
+                window.clearTimeout(clearHighlightTimeout);
+            };
+        }
+
+        return undefined;
+    }, [highlight]);
 
     return (
         <RadixAccordionHeader
+            ref={headerRef}
             className={classNames(
                 'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
@@ -29,18 +71,33 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
             <RadixAccordionTrigger
                 className={classNames(
-                    'relative flex flex-1 cursor-pointer items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
+                    'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
                     'focus-ring-primary group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
+                    {
+                        'cursor-pointer': indexIndicator == null,
+                        'cursor-default': indexIndicator != null,
+                    },
                     className,
                 )}
                 ref={ref}
                 {...otherProps}
             >
                 {children}
-                <AvatarIcon
-                    icon={IconType.CHEVRON_DOWN}
-                    className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
-                />
+                {indexIndicator != null ? (
+                    <span
+                        className={classNames(
+                            'inline-flex w-fit items-center text-sm font-normal whitespace-nowrap transition-colors duration-1500',
+                            isHighlighted ? 'text-info-400' : 'text-neutral-600',
+                        )}
+                    >
+                        {`# ${indexIndicator.toString()}`}
+                    </span>
+                ) : (
+                    <AvatarIcon
+                        icon={IconType.CHEVRON_DOWN}
+                        className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
+                    />
+                )}
             </RadixAccordionTrigger>
         </RadixAccordionHeader>
     );

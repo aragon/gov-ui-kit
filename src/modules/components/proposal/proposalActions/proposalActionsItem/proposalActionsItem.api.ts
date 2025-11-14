@@ -57,4 +57,12 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      * Form prefix to be prepended to all proposal action text fields.
      */
     formPrefix?: string;
+    /**
+     * Trigger value to highlight this item with a pulse animation and scroll into view. Increment this value to retrigger the animation.
+     * Used when an item is moved/reordered. The animation will automatically clear after 1.5 seconds.
+     * @example
+     * const [highlightTrigger, setHighlightTrigger] = useState(0);
+     * // Trigger animation: setHighlightTrigger(prev => prev + 1);
+     */
+    highlight?: number;
 }

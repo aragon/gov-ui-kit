@@ -21,6 +21,10 @@ export interface IProposalActionsContext {
      * Whether or not the list of actions is loading.
      */
     isLoading: boolean;
+    /**
+     * Whether or not the component is in edit mode.
+     */
+    editMode: boolean;
 }
 
 export const proposalActionsContext = createContext<IProposalActionsContext | null>(null);

@@ -4,9 +4,10 @@ import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
+import { ProposalActionsContextProvider } from '../proposalActionsContext';
 import type * as ProposalActionsDecoder from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode, ProposalActionsDecoderView } from '../proposalActionsDecoder';
-import { generateProposalAction } from '../proposalActionsTestUtils';
+import { generateProposalAction, generateProposalActionsContext } from '../proposalActionsTestUtils';
 import { ProposalActionsItem } from './proposalActionsItem';
 import type { IProposalActionsItemProps } from './proposalActionsItem.api';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
@@ -40,9 +41,11 @@ describe('<ProposalActionsItem /> component', () => {
 
         return (
             <GukModulesProvider>
-                <Accordion.Container isMulti={true}>
-                    <ProposalActionsItem {...completeProps} />
-                </Accordion.Container>
+                <ProposalActionsContextProvider value={generateProposalActionsContext()}>
+                    <Accordion.Container isMulti={true}>
+                        <ProposalActionsItem {...completeProps} />
+                    </Accordion.Container>
+                </ProposalActionsContextProvider>
             </GukModulesProvider>
         );
     };

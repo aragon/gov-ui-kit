@@ -5,6 +5,7 @@ import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
+import { useProposalActionsContext } from '../proposalActionsContext';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
@@ -27,8 +28,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         value,
         CustomComponent,
         dropdownItems,
-        editMode,
+        editMode: editModeProp,
         formPrefix,
+        highlight,
         chainId = mainnet.id,
         ...web3Props
     } = props;
@@ -39,13 +41,16 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const { copy } = useGukModulesContext();
+    const { editMode: editModeContext } = useProposalActionsContext();
+
+    // Use prop if provided, otherwise fall back to context
+    const editMode = editModeProp ?? editModeContext;
 
     const chains = useChains();
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
-
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -61,7 +66,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
@@ -80,7 +85,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
-            <Accordion.ItemHeader className="min-w-0">
+            <Accordion.ItemHeader
+                className="min-w-0"
+                indexIndicator={editMode ? index + 1 : undefined}
+                highlight={highlight}
+            >
                 <SmartContractFunctionDataListItem.Structure
                     contractName={action.inputData?.contract}
                     contractAddress={action.to}

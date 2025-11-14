@@ -23,6 +23,11 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      * @default false
      */
     isLoading?: boolean;
+    /**
+     * Whether or not the component is in edit mode. When true, all accordions are expanded and show index badges.
+     * @default false
+     */
+    editMode?: boolean;
 }
 
 export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) => {
@@ -31,6 +36,7 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         expandedActions: expandedActionsProp,
         onExpandedActionsChange,
         isLoading = false,
+        editMode = false,
         children,
         className,
         ...otherProps
@@ -59,8 +65,9 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
             expandedActions,
             setExpandedActions: updateExpandedActions,
             isLoading,
+            editMode,
         }),
-        [actionsCount, expandedActions, updateExpandedActions, isLoading],
+        [actionsCount, expandedActions, updateExpandedActions, isLoading, editMode],
     );
 
     return (
