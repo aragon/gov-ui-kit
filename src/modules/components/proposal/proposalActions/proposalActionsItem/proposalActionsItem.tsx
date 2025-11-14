@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -63,16 +63,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
               ? ProposalActionsDecoderView.DECODED
               : ProposalActionsDecoderView.RAW,
     );
-
-    useEffect(() => {
-        if (highlight != null && highlight > 0) {
-            itemRef.current?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center',
-            });
-        }
-    }, [highlight]);
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);

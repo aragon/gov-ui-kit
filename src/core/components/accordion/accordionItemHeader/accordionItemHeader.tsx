@@ -3,7 +3,7 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, useEffect, useState, type ComponentPropsWithRef } from 'react';
+import { forwardRef, useEffect, useRef, useState, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
 
@@ -24,6 +24,7 @@ export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
     const { children, className, disabled, indexIndicator, highlight, ...otherProps } = props;
+    const headerRef = useRef<HTMLDivElement>(null);
     const [isHighlighted, setIsHighlighted] = useState(false);
 
     // Handle highlight trigger changes and auto-clear after animation
@@ -31,12 +32,23 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
         if (highlight != null && highlight > 0) {
             setIsHighlighted(true);
 
+            const scrollTimeout = window.setTimeout(() => {
+                headerRef.current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'nearest',
+                });
+            }, 50);
+
             // Auto-clear highlight after animation completes
-            const timeout = setTimeout(() => {
+            const clearHighlightTimeout = window.setTimeout(() => {
                 setIsHighlighted(false);
             }, 2000);
 
-            return () => clearTimeout(timeout);
+            return () => {
+                window.clearTimeout(scrollTimeout);
+                window.clearTimeout(clearHighlightTimeout);
+            };
         }
 
         return undefined;
@@ -44,6 +56,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
     return (
         <RadixAccordionHeader
+            ref={headerRef}
             className={classNames(
                 'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
