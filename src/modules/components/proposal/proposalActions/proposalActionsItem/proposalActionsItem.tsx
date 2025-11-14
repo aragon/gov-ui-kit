@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -51,6 +51,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
+    const previousIndexRef = useRef<number>(index);
 
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
@@ -65,9 +66,23 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
               : ProposalActionsDecoderView.RAW,
     );
 
+    // Track index changes for directional scrolling when items are reordered
+    useEffect(() => {
+        const previousIndex = previousIndexRef.current;
+        if (previousIndex !== index && highlight != null) {
+            const movedDown = index > previousIndex;
+            // Scroll to follow the item's movement direction
+            itemRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: movedDown ? 'end' : 'start',
+            });
+        }
+        previousIndexRef.current = index;
+    }, [index, highlight]);
+
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')

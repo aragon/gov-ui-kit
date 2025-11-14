@@ -35,7 +35,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
             // Small delay to ensure DOM has updated
             setTimeout(() => {
-                headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
             }, 50);
 
             // Auto-clear highlight after animation completes
