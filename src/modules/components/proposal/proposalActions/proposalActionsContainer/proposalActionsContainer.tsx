@@ -46,8 +46,7 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
             const currentValuesSet = new Set(expandedActions);
             const newValuesSet = new Set(childValues);
             const hasChanged =
-                currentValuesSet.size !== newValuesSet.size ||
-                childValues.some((val) => !currentValuesSet.has(val));
+                currentValuesSet.size !== newValuesSet.size || childValues.some((val) => !currentValuesSet.has(val));
 
             if (childValues.length > 0 && hasChanged) {
                 setExpandedActions(childValues);

@@ -20,34 +20,49 @@ export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button
      * // Trigger animation: setHighlightTrigger(prev => prev + 1);
      */
     highlight?: number;
+    /**
+     * Controls how the header aligns inside the viewport when highlight scrolling runs.
+     * Defaults to `'start'`. Pass `'end'` when following items that moved downwards.
+     */
+    highlightScrollBlock?: ScrollLogicalPosition;
 }
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
-    const { children, className, disabled, indexIndicator, highlight, ...otherProps } = props;
+    const { children, className, disabled, indexIndicator, highlight, highlightScrollBlock, ...otherProps } = props;
 
     const headerRef = useRef<HTMLDivElement>(null);
+    const previousHighlightRef = useRef<number | undefined>(highlight);
     const [isHighlighted, setIsHighlighted] = useState(false);
 
     // Handle highlight trigger changes and auto-clear after animation
     useEffect(() => {
-        if (highlight != null && highlight > 0) {
-            setIsHighlighted(true);
-
-            // Small delay to ensure DOM has updated
-            setTimeout(() => {
-                headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-            }, 50);
-
-            // Auto-clear highlight after animation completes
-            const timeout = setTimeout(() => {
-                setIsHighlighted(false);
-            }, 2000);
-
-            return () => clearTimeout(timeout);
+        if (highlight == null || previousHighlightRef.current === highlight) {
+            previousHighlightRef.current = highlight;
+            return undefined;
         }
 
-        return undefined;
-    }, [highlight]);
+        previousHighlightRef.current = highlight;
+        setIsHighlighted(true);
+
+        // Small delay to ensure DOM has updated
+        const scrollTimeout = window.setTimeout(() => {
+            headerRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: highlightScrollBlock ?? 'start',
+                inline: 'nearest',
+            });
+        }, 50);
+
+        // Auto-clear highlight after animation completes
+        const clearHighlightTimeout = window.setTimeout(() => {
+            setIsHighlighted(false);
+        }, 2000);
+
+        return () => {
+            window.clearTimeout(scrollTimeout);
+            window.clearTimeout(clearHighlightTimeout);
+        };
+    }, [highlight, highlightScrollBlock]);
 
     return (
         <RadixAccordionHeader
