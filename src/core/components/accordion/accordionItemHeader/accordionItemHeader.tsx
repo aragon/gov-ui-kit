@@ -80,7 +80,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                         className={classNames(
                             'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold',
                             {
-                                'border-info-400 text-info-400 border': isHighlighted,
+                                'border-info-400 text-info-400! border': isHighlighted,
                                 'border border-neutral-600 text-neutral-600': !isHighlighted,
                             },
                         )}
@@ -88,7 +88,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                             isHighlighted
                                 ? {
                                       animation: 'glow 1.8s ease-in-out 1',
-                                      boxShadow: '0 0 0 rgba(59, 130, 246, 0)',
+                                      boxShadow: '0 0 0 rgba(164, 249, 251, 0)',
                                   }
                                 : undefined
                         }
@@ -96,8 +96,8 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                         <style>
                             {`
                                 @keyframes glow {
-                                    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-                                    50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.4); }
+                                    0%, 100% { box-shadow: 0 0 0 0 rgba(164, 249, 251, 0); }
+                                    50% { box-shadow: 0 0 0 8px rgba(164, 249, 251, 0.8); }
                                 }
                             `}
                         </style>
