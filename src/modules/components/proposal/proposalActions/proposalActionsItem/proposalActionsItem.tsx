@@ -51,8 +51,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
-    const previousIndexRef = useRef<number>(index);
-
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -66,19 +64,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
               : ProposalActionsDecoderView.RAW,
     );
 
-    // Track index changes for directional scrolling when items are reordered
     useEffect(() => {
-        const previousIndex = previousIndexRef.current;
-        if (previousIndex !== index && highlight != null) {
-            const movedDown = index > previousIndex;
-            // Scroll to follow the item's movement direction
+        if (highlight != null && highlight > 0) {
             itemRef.current?.scrollIntoView({
                 behavior: 'smooth',
-                block: movedDown ? 'end' : 'start',
+                block: 'center',
             });
         }
-        previousIndexRef.current = index;
-    }, [index, highlight]);
+    }, [highlight]);
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
