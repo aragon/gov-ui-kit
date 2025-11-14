@@ -14,7 +14,7 @@ export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button
     indexIndicator?: number;
     /**
      * Trigger value to highlight this item with a pulse animation. Increment this value to retrigger the animation.
-     * Used when an item is moved/reordered. The animation will automatically clear after 1.5 seconds.
+     * Used when an item is moved/reordered. The animation will automatically clear after 2 seconds.
      * @example
      * const [highlightTrigger, setHighlightTrigger] = useState(0);
      * // Trigger animation: setHighlightTrigger(prev => prev + 1);
@@ -32,7 +32,11 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     useEffect(() => {
         if (highlight != null && highlight > 0) {
             setIsHighlighted(true);
-            headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Small delay to ensure DOM has updated
+            setTimeout(() => {
+                headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+            }, 50);
 
             // Auto-clear highlight after animation completes
             const timeout = setTimeout(() => {
@@ -78,29 +82,34 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold',
+                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300',
                             {
-                                'border-info-400 text-info-400! border': isHighlighted,
                                 'border border-neutral-600 text-neutral-600': !isHighlighted,
                             },
                         )}
                         style={
                             isHighlighted
                                 ? {
-                                      animation: 'glow 1.8s ease-in-out 1',
-                                      boxShadow: '0 0 0 rgba(164, 249, 251, 0)',
+                                      color: '#1588B9',
+                                      borderColor: '#A4F9FB',
+                                      borderWidth: '1px',
+                                      animation: 'glow-pulse 1.8s ease-in-out 1',
                                   }
                                 : undefined
                         }
                     >
-                        <style>
-                            {`
-                                @keyframes glow {
-                                    0%, 100% { box-shadow: 0 0 0 0 rgba(164, 249, 251, 0); }
-                                    50% { box-shadow: 0 0 0 8px rgba(164, 249, 251, 0.8); }
+                        <style>{`
+                            @keyframes glow-pulse {
+                                0%, 100% {
+                                    box-shadow: 0 0 0 0 rgba(164, 249, 251, 0);
+                                    transform: scale(1);
                                 }
-                            `}
-                        </style>
+                                50% {
+                                    box-shadow: 0 0 0 6px rgba(164, 249, 251, 0.6);
+                                    transform: scale(1.1);
+                                }
+                            }
+                        `}</style>
                         {indexIndicator}
                     </span>
                 ) : (
