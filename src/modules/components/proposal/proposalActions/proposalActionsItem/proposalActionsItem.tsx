@@ -68,7 +68,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         if (highlight != null && highlight > 0) {
             itemRef.current?.scrollIntoView({
                 behavior: 'smooth',
-                block: 'start',
+                block: 'center',
                 inline: 'center',
             });
         }
