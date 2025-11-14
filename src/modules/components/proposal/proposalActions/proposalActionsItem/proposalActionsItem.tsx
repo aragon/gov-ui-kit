@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -69,16 +69,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         setActiveViewMode(value);
         itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
-
-    // Scroll into view when item is highlighted (e.g., when moved/reordered)
-    useEffect(() => {
-        if (highlight) {
-            // Small delay to ensure DOM has updated after swap
-            setTimeout(() => {
-                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-            }, 50);
-        }
-    }, [highlight]);
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';

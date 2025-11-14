@@ -32,7 +32,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     useEffect(() => {
         if (highlight != null && highlight > 0) {
             setIsHighlighted(true);
-            headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            headerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             // Auto-clear highlight after animation completes
             const timeout = setTimeout(() => {
@@ -78,13 +78,29 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all',
+                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold',
                             {
-                                'border-info-400 text-info-600 shadow-info animate-pulse border p-2': isHighlighted,
-                                'border border-neutral-600 p-0 text-neutral-800': !isHighlighted,
+                                'border-info-400 text-info-400 border': isHighlighted,
+                                'border border-neutral-600 text-neutral-600': !isHighlighted,
                             },
                         )}
+                        style={
+                            isHighlighted
+                                ? {
+                                      animation: 'glow 1s ease-out 1',
+                                      boxShadow: '0 0 0 rgba(59, 130, 246, 0)',
+                                  }
+                                : undefined
+                        }
                     >
+                        <style>
+                            {`
+                                @keyframes glow {
+                                    0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+                                    50% { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.4); }
+                                }
+                            `}
+                        </style>
                         {indexIndicator}
                     </span>
                 ) : (
