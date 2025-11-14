@@ -87,7 +87,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                         style={
                             isHighlighted
                                 ? {
-                                      animation: 'glow 1s ease-out 1',
+                                      animation: 'glow 1.8s ease-in-out 1',
                                       boxShadow: '0 0 0 rgba(59, 130, 246, 0)',
                                   }
                                 : undefined
