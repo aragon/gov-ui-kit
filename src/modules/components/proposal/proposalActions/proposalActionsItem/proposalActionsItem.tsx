@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -66,16 +66,19 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
               : ProposalActionsDecoderView.RAW,
     );
 
-    const highlightScrollBlock = useMemo<ScrollLogicalPosition | undefined>(() => {
+    // Track index changes for directional scrolling when items are reordered
+    useEffect(() => {
         const previousIndex = previousIndexRef.current;
-        previousIndexRef.current = index;
-
-        if (previousIndex === index) {
-            return undefined;
+        if (previousIndex !== index && highlight != null) {
+            const movedDown = index > previousIndex;
+            // Scroll to follow the item's movement direction
+            itemRef.current?.scrollIntoView({
+                behavior: 'smooth',
+                block: movedDown ? 'end' : 'start',
+            });
         }
-
-        return index > previousIndex ? 'end' : 'start';
-    }, [index]);
+        previousIndexRef.current = index;
+    }, [index, highlight]);
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
@@ -102,7 +105,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                 className="min-w-0"
                 indexIndicator={editMode ? index + 1 : undefined}
                 highlight={highlight}
-                highlightScrollBlock={highlightScrollBlock}
             >
                 <SmartContractFunctionDataListItem.Structure
                     contractName={action.inputData?.contract}
