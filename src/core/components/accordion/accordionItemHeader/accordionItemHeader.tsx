@@ -87,35 +87,11 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-all duration-300',
-                            {
-                                'border border-neutral-600 text-neutral-600': !isHighlighted,
-                            },
+                            'inline-flex w-fit items-center text-sm font-normal whitespace-nowrap transition-colors duration-300',
+                            isHighlighted ? 'text-info-400' : 'text-neutral-600',
                         )}
-                        style={
-                            isHighlighted
-                                ? {
-                                      color: '#1588B9',
-                                      borderColor: '#A4F9FB',
-                                      borderWidth: '1px',
-                                      animation: 'glow-pulse 1.8s ease-in-out 1',
-                                  }
-                                : undefined
-                        }
                     >
-                        <style>{`
-                            @keyframes glow-pulse {
-                                0%, 100% {
-                                    box-shadow: 0 0 0 0 rgba(164, 249, 251, 0);
-                                    transform: scale(1);
-                                }
-                                50% {
-                                    box-shadow: 0 0 0 6px rgba(164, 249, 251, 0.6);
-                                    transform: scale(1.1);
-                                }
-                            }
-                        `}</style>
-                        {indexIndicator}
+                        {`# ${indexIndicator}`}
                     </span>
                 ) : (
                     <AvatarIcon
