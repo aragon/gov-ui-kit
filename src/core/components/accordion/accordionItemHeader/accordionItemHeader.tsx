@@ -34,16 +34,15 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
 
             const scrollTimeout = window.setTimeout(() => {
                 headerRef.current?.scrollIntoView({
-                    behavior: 'smooth',
+                    behavior: 'instant',
                     block: 'center',
                     inline: 'nearest',
                 });
             }, 50);
 
-            // Auto-clear highlight after animation completes
             const clearHighlightTimeout = window.setTimeout(() => {
                 setIsHighlighted(false);
-            }, 2000);
+            }, 1500);
 
             return () => {
                 window.clearTimeout(scrollTimeout);
@@ -87,7 +86,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {indexIndicator != null ? (
                     <span
                         className={classNames(
-                            'inline-flex w-fit items-center text-sm font-normal whitespace-nowrap transition-colors duration-300',
+                            'inline-flex w-fit items-center text-sm font-normal whitespace-nowrap transition-colors duration-1500',
                             isHighlighted ? 'text-info-400' : 'text-neutral-600',
                         )}
                     >
