@@ -90,7 +90,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                             isHighlighted ? 'text-info-400' : 'text-neutral-600',
                         )}
                     >
-                        {`# ${indexIndicator}`}
+                        {`# ${indexIndicator.toString()}`}
                     </span>
                 ) : (
                     <AvatarIcon
