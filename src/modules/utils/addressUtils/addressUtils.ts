@@ -1,4 +1,5 @@
 import { getAddress, isAddress, type Address } from 'viem';
+import { ICompositeAddress } from '../../types';
 
 export interface IIsAddressParams {
     /**
@@ -10,12 +11,19 @@ export interface IIsAddressParams {
 
 class AddressUtils {
     /**
-     * Checks if the given address is a valid address or not
-     * @param address The address to be checked
+     * Checks if the given address is a valid address or not.
+     * Supports both string addresses and ICompositeAddress objects.
+     * @param address The address to be checked (string or ICompositeAddress)
      * @param options Options for the address check (@see IIsAddressParams)
-     * @returns True when the given address is a valid address, false otherwise.
+     * @returns True when the given address is valid, false otherwise.
      */
-    isAddress = (address = '', options: IIsAddressParams = { strict: false }): boolean => isAddress(address, options);
+    isAddress = (
+        address: string | ICompositeAddress | undefined = '',
+        options: IIsAddressParams = { strict: false },
+    ): boolean => {
+        const addressString = typeof address === 'string' ? address : (address?.address ?? '');
+        return isAddress(addressString, options);
+    };
 
     /**
      * Truncates the input address by displaying the first and last 4 characters.

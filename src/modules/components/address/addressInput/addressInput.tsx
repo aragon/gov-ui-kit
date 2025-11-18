@@ -76,11 +76,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
-    const appliedInitialEnsModeRef = useRef(false);
-
-    // Add ref for onAccept and update it during render
     const onAcceptRef = useRef(onAccept);
-    onAcceptRef.current = onAccept;
+    const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
     const mainnetChain = wagmiConfig.chains.find(({ id }) => id === ensChainId);
@@ -176,86 +173,35 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     };
 
     const handleInputBlur = (event: FocusEvent<HTMLTextAreaElement>) => {
-        console.log('👋 Blur event - value before trim:', value);
         setIsFocused(false);
         // Trim on blur to avoid false form validation due to spaces/newlines
         const trimmed = value.trim();
-        console.log('👋 Blur event - trimmed value:', trimmed);
         if (trimmed !== value) {
-            console.log('👋 Blur event - calling onChange with trimmed value');
             onChange?.(trimmed);
         }
         onBlur?.(event);
     };
 
-    // Trigger onAccept callback only when resolution is complete
+    // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
     useEffect(() => {
-        console.group('🔍 AddressInput onAccept Effect');
-        console.log('debouncedValue:', debouncedValue);
-        console.log('isDebouncedValueValidEns:', isDebouncedValueValidEns);
-        console.log('isDebouncedValueValidAddress:', isDebouncedValueValidAddress);
-        console.log('hasChecksumError:', hasChecksumError);
-        console.log('supportEnsNames:', supportEnsNames);
-        console.log('isEnsAddressLoading:', isEnsAddressLoading);
-        console.log('isEnsNameLoading:', isEnsNameLoading);
-        console.log('isLoading:', isLoading);
-        console.log('ensAddress:', ensAddress);
-        console.log('ensName:', ensName);
+        if (isLoading) {
+            return;
+        }
+
+        const handleAccept = onAcceptRef.current;
 
         if (ensAddress) {
-            // User input is a valid ENS name - fully resolved
+            // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
-            const result = { address: ensAddress, name: normalizedEns };
-            console.log('✅ Calling onAccept with ENS:', result);
-            onAcceptRef.current?.(result);
-            console.groupEnd();
-            return;
-        }
-
-        if (isDebouncedValueValidAddress && !hasChecksumError) {
+            handleAccept?.({ address: ensAddress, name: normalizedEns });
+        } else if (isDebouncedValueValidAddress && !hasChecksumError) {
+            // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
-
-            // If ENS is supported and we're loading, wait for it to complete
-            if (supportEnsNames && isEnsNameLoading) {
-                console.log('⏳ Waiting for ENS name resolution...');
-                console.groupEnd();
-                return;
-            }
-
-            // ENS resolution complete (or not supported) - now we can accept
-            const result = { address: checksumAddress, name: ensName ?? undefined };
-            console.log('✅ Calling onAccept with address:', result);
-            onAcceptRef.current?.(result);
-            console.groupEnd();
-            return;
-        }
-
-        // Invalid input and not loading - clear the value
-        if (!isLoading) {
-            console.log('❌ Calling onAccept with undefined (invalid input)');
-            onAcceptRef.current?.(undefined);
+            handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
-            console.log('⏳ Still loading, not calling onAccept');
+            handleAccept?.(undefined);
         }
-
-        console.groupEnd();
-    }, [
-        // REMOVED onAccept from dependencies - using ref instead
-        ensAddress,
-        ensName,
-        debouncedValue,
-        isDebouncedValueValidAddress,
-        hasChecksumError,
-        isLoading,
-        isEnsNameLoading,
-        supportEnsNames,
-    ]);
-
-    // Monitor value changes
-    useEffect(() => {
-        console.log('📝 Value changed:', value);
-        console.log('📝 Debounced value:', debouncedValue);
-    }, [value, debouncedValue]);
+    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
 
     // Sync displayMode with the current value to ensure button shows the correct toggle state
     useEffect(() => {
