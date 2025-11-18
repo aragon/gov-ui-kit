@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { forwardRef, useEffect, useRef, useState, type ComponentPropsWithRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { IconType } from '../../icon';
+import { Tag } from '../../tag';
 
 export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {
     /**
@@ -75,14 +76,11 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
             >
                 {children}
                 {indexIndicator != null ? (
-                    <span
-                        className={classNames(
-                            'inline-flex w-fit items-center text-sm font-normal whitespace-nowrap transition-colors duration-1500',
-                            isHighlighted ? 'text-info-400' : 'text-neutral-600',
-                        )}
-                    >
-                        {`# ${indexIndicator.toString()}`}
-                    </span>
+                    <Tag
+                        label={`#${indexIndicator.toString()}`}
+                        variant={isHighlighted ? 'info' : 'neutral'}
+                        className="flex shrink-0 flex-row transition-colors duration-1500"
+                    />
                 ) : (
                     <AvatarIcon
                         icon={IconType.CHEVRON_DOWN}

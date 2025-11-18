@@ -84,7 +84,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
+        <Accordion.Item value={value ?? index.toString()} highlight={highlight} ref={itemRef}>
             <Accordion.ItemHeader
                 className="min-w-0"
                 indexIndicator={editMode ? index + 1 : undefined}
