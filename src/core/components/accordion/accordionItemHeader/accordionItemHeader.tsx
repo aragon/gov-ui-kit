@@ -31,21 +31,12 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     useEffect(() => {
         if (highlight != null && highlight > 0) {
             setIsHighlighted(true);
-
-            const scrollTimeout = window.setTimeout(() => {
-                headerRef.current?.scrollIntoView({
-                    behavior: 'instant',
-                    block: 'center',
-                    inline: 'nearest',
-                });
-            }, 50);
-
+            headerRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
             const clearHighlightTimeout = window.setTimeout(() => {
                 setIsHighlighted(false);
             }, 1500);
 
             return () => {
-                window.clearTimeout(scrollTimeout);
                 window.clearTimeout(clearHighlightTimeout);
             };
         }

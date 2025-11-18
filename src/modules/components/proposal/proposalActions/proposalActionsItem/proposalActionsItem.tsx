@@ -66,7 +66,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
