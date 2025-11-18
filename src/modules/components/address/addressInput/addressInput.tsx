@@ -76,7 +76,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
-    const onAcceptRef = useRef(onAccept);
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
@@ -182,30 +181,34 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Trigger onAccept callback immediately when we have a valid address, then update with ENS if available
+    // Trigger onAccept callback only when resolution is complete
     useEffect(() => {
-        const handleAccept = onAcceptRef.current;
-
         if (ensAddress) {
             // User input is a valid ENS name - fully resolved
             const normalizedEns = normalize(debouncedValue);
-            handleAccept?.({ address: ensAddress, name: normalizedEns });
-        } else if (isDebouncedValueValidAddress && !hasChecksumError) {
+            onAccept?.({ address: ensAddress, name: normalizedEns });
+            return;
+        }
+
+        if (isDebouncedValueValidAddress && !hasChecksumError) {
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
 
-            // Wait for ENS resolution to complete before calling onAccept
-            if (isEnsNameLoading) {
-                // Still loading ENS name, don't call onAccept yet
+            // If ENS is supported and we're loading, wait for it to complete
+            if (supportEnsNames && isEnsNameLoading) {
                 return;
             }
 
             // ENS resolution complete (or not supported) - now we can accept
-            handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
-        } else if (!isLoading) {
-            // Invalid input and not loading - clear the value
-            handleAccept?.(undefined);
+            onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
+            return;
+        }
+
+        // Invalid input and not loading - clear the value
+        if (!isLoading) {
+            onAccept?.(undefined);
         }
     }, [
+        onAccept,
         ensAddress,
         ensName,
         debouncedValue,
@@ -213,6 +216,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         hasChecksumError,
         isLoading,
         isEnsNameLoading,
+        supportEnsNames,
     ]);
 
     // Sync displayMode with the current value to ensure button shows the correct toggle state
