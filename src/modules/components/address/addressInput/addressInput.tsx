@@ -89,7 +89,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 100 });
+    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
 
     const { copy } = useGukModulesContext();
@@ -187,18 +187,33 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         const handleAccept = onAcceptRef.current;
 
         if (ensAddress) {
-            // User input is a valid ENS name
+            // User input is a valid ENS name - fully resolved
             const normalizedEns = normalize(debouncedValue);
             handleAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress && !hasChecksumError) {
-            // User input is a valid address - fire immediately, ENS name added when available
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
+
+            // Wait for ENS resolution to complete before calling onAccept
+            if (isEnsNameLoading) {
+                // Still loading ENS name, don't call onAccept yet
+                return;
+            }
+
+            // ENS resolution complete (or not supported) - now we can accept
             handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else if (!isLoading) {
-            // Only clear the value when not loading to avoid clearing during ENS resolution
+            // Invalid input and not loading - clear the value
             handleAccept?.(undefined);
         }
-    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
+    }, [
+        ensAddress,
+        ensName,
+        debouncedValue,
+        isDebouncedValueValidAddress,
+        hasChecksumError,
+        isLoading,
+        isEnsNameLoading,
+    ]);
 
     // Sync displayMode with the current value to ensure button shows the correct toggle state
     useEffect(() => {
