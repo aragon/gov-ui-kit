@@ -89,7 +89,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
+    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 100 });
     const [isFocused, setIsFocused] = useState(false);
 
     const { copy } = useGukModulesContext();
