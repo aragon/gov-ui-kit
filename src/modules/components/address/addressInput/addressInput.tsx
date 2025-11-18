@@ -182,12 +182,8 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onBlur?.(event);
     };
 
-    // Trigger onAccept callback when appropriate -- valid address and passes checksum when required
+    // Trigger onAccept callback immediately when we have a valid address, then update with ENS if available
     useEffect(() => {
-        if (isLoading) {
-            return;
-        }
-
         const handleAccept = onAcceptRef.current;
 
         if (ensAddress) {
@@ -195,10 +191,11 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             const normalizedEns = normalize(debouncedValue);
             handleAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress && !hasChecksumError) {
-            // User input is a valid address with or without a ENS name linked to it
+            // User input is a valid address - fire immediately, ENS name added when available
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
             handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
-        } else {
+        } else if (!isLoading) {
+            // Only clear the value when not loading to avoid clearing during ENS resolution
             handleAccept?.(undefined);
         }
     }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
