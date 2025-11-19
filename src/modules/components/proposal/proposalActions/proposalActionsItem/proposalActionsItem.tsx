@@ -79,8 +79,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             control.onClick(action, index);
 
             setTimeout(() => {
-                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 50);
+                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
     };
 
