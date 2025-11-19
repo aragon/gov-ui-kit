@@ -9,7 +9,11 @@ import { useProposalActionsContext } from '../proposalActionsContext';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
-import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
+import type {
+    IProposalActionsArrayControl,
+    IProposalActionsItemProps,
+    ProposalActionsItemViewMode,
+} from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
@@ -27,10 +31,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         index,
         value,
         CustomComponent,
-        dropdownItems,
+        movementControls,
+        actionCount,
         editMode: editModeProp,
         formPrefix,
-        highlight,
         chainId = mainnet.id,
         ...web3Props
     } = props;
@@ -84,11 +88,15 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={value ?? index.toString()} highlight={highlight} ref={itemRef} className="scroll-mt-32">
+        <Accordion.Item value={value ?? index.toString()} ref={itemRef} className="scroll-mt-32">
             <Accordion.ItemHeader
                 className="min-w-0"
-                indexIndicator={editMode ? index + 1 : undefined}
-                highlight={highlight}
+                removeControl={
+                    editMode && movementControls != null
+                        ? (movementControls.remove as IProposalActionsArrayControl)
+                        : undefined
+                }
+                index={index}
             >
                 <SmartContractFunctionDataListItem.Structure
                     contractName={action.inputData?.contract}
@@ -146,25 +154,26 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {dropdownItems != null && dropdownItems.length > 0 && (
-                            <Dropdown.Container
-                                customTrigger={
-                                    <Button variant="tertiary" size="sm" iconRight={IconType.DOTS_VERTICAL}>
-                                        {copy.proposalActionsItem.dropdownLabel}
-                                    </Button>
-                                }
-                            >
-                                {dropdownItems.map((item) => (
-                                    <Dropdown.Item
-                                        key={item.label}
-                                        icon={item.icon}
-                                        iconPosition="left"
-                                        onClick={() => item.onClick(action, index)}
-                                    >
-                                        {item.label}
-                                    </Dropdown.Item>
-                                ))}
-                            </Dropdown.Container>
+                        {editMode && movementControls != null && (
+                            <div className="flex items-center gap-3">
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    iconLeft={IconType.CHEVRON_DOWN}
+                                    onClick={() => movementControls.moveDown.onClick(action, index)}
+                                    disabled={movementControls.moveDown.disabled}
+                                />
+                                <p className="text-sm text-neutral-500">
+                                    {index + 1} of {actionCount}
+                                </p>
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    iconLeft={IconType.CHEVRON_UP}
+                                    onClick={() => movementControls.moveUp.onClick(action, index)}
+                                    disabled={movementControls.moveUp.disabled}
+                                />
+                            </div>
                         )}
                     </div>
                 </div>

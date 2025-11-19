@@ -1,7 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { FormProvider, useForm } from 'react-hook-form';
-import { IconType } from '../../../../../core';
 import { generateProposalActionTokenMint, type IProposalActionsItemProps, ProposalActions } from '../index';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 
@@ -180,10 +179,10 @@ export const Warning: Story = {
 };
 
 /**
- * When the `dropdownItems` property is set, the ProposalActions.Item component renders a dropdown inside the accordion
- * content with the items specified.
+ * When the `movementControls` property is set with editMode enabled, the ProposalActions.Item component renders
+ * movement controls (up/down buttons with counter) in the footer and a remove button in the header.
  */
-export const DropdownItems: Story = {
+export const EditMode: Story = {
     render: defaultRender,
     args: {
         index: 0,
@@ -193,12 +192,13 @@ export const DropdownItems: Story = {
             data: '0x',
             inputData: { function: 'transfer', contract: 'ETH', parameters: [] },
         }),
-        dropdownItems: [
-            { label: 'Move up', icon: IconType.CHEVRON_UP, onClick: () => null },
-            { label: 'Move down', icon: IconType.CHEVRON_DOWN, onClick: () => null },
-            { label: 'Reset', icon: IconType.RELOAD, onClick: () => null },
-            { label: 'Remove', icon: IconType.CLOSE, onClick: () => null },
-        ],
+        editMode: true,
+        actionCount: 6,
+        movementControls: {
+            moveDown: { label: 'Move down', onClick: () => null, disabled: true },
+            moveUp: { label: 'Move up', onClick: () => null, disabled: false },
+            remove: { label: 'Remove', onClick: () => null, disabled: false },
+        },
     },
 };
 

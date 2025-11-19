@@ -3,52 +3,29 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, useEffect, useRef, useState, type ComponentPropsWithRef } from 'react';
+import { forwardRef, type ComponentPropsWithRef } from 'react';
+import type { IProposalAction } from '../../../../modules';
+import type { IProposalActionsArrayControl } from '../../../../modules/components/proposal/proposalActions/proposalActionsItem/proposalActionsItem.api';
 import { AvatarIcon } from '../../avatars';
+import { Button } from '../../button';
 import { IconType } from '../../icon';
-import { Tag } from '../../tag';
 
 export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {
     /**
-     * Index number to display instead of the chevron icon. Typically used in edit mode to show the action's position.
+     * Remove control to be displayed in edit mode.
      */
-    indexIndicator?: number;
+    removeControl?: IProposalActionsArrayControl;
     /**
-     * Trigger value to highlight this item with a pulse animation. Increment this value to retrigger the animation.
-     * Used when an item is moved/reordered. The animation will automatically clear after 2 seconds.
-     * @example
-     * const [highlightTrigger, setHighlightTrigger] = useState(0);
-     * // Trigger animation: setHighlightTrigger(prev => prev + 1);
+     * The index of the accordion item.
      */
-    highlight?: number;
+    index?: number;
 }
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
-    const { children, className, disabled, indexIndicator, highlight, ...otherProps } = props;
-    const headerRef = useRef<HTMLDivElement>(null);
-    const [isHighlighted, setIsHighlighted] = useState(false);
-
-    // Handle highlight trigger changes and auto-clear after animation
-    useEffect(() => {
-        if (highlight != null && highlight > 0) {
-            setIsHighlighted(true);
-            headerRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
-
-            const clearHighlightTimeout = window.setTimeout(() => {
-                setIsHighlighted(false);
-            }, 1500);
-
-            return () => {
-                window.clearTimeout(clearHighlightTimeout);
-            };
-        }
-
-        return undefined;
-    }, [highlight]);
+    const { children, className, disabled, removeControl, index, ...otherProps } = props;
 
     return (
         <RadixAccordionHeader
-            ref={headerRef}
             className={classNames(
                 'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
@@ -61,32 +38,38 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 )}
                 aria-hidden="true"
             />
-
             <RadixAccordionTrigger
+                asChild={removeControl != null && index != null}
                 className={classNames(
                     'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
                     'focus-ring-primary group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
-                    {
-                        'cursor-pointer': indexIndicator == null,
-                        'cursor-default': indexIndicator != null,
-                    },
                     className,
                 )}
                 ref={ref}
                 {...otherProps}
             >
-                {children}
-                {indexIndicator != null ? (
-                    <Tag
-                        label={`#${indexIndicator.toString()}`}
-                        variant={isHighlighted ? 'info' : 'neutral'}
-                        className="flex shrink-0 flex-row transition-colors duration-1500"
-                    />
+                {removeControl != null && index != null ? (
+                    <div className="flex flex-1 items-baseline justify-between gap-x-4">
+                        {children}
+                        <Button
+                            variant="tertiary"
+                            size="sm"
+                            iconLeft={IconType.CLOSE}
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                                e.stopPropagation();
+                                removeControl.onClick({} as IProposalAction, index);
+                            }}
+                            disabled={removeControl.disabled}
+                        />
+                    </div>
                 ) : (
-                    <AvatarIcon
-                        icon={IconType.CHEVRON_DOWN}
-                        className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
-                    />
+                    <>
+                        {children}
+                        <AvatarIcon
+                            icon={IconType.CHEVRON_DOWN}
+                            className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
+                        />
+                    </>
                 )}
             </RadixAccordionTrigger>
         </RadixAccordionHeader>

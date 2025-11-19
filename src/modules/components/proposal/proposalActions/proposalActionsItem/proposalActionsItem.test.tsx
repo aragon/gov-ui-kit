@@ -144,28 +144,27 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
     });
 
-    it('renders a dropdown with the specified items when the dropdownItems property is set', async () => {
-        const dropdownItems = [
-            { label: 'Select', icon: IconType.APP_ASSETS, onClick: jest.fn() },
-            { label: 'Edit', icon: IconType.APP_TRANSACTIONS, onClick: jest.fn() },
-        ];
+    it('renders movement controls in edit mode when movementControls property is set', () => {
+        const moveUpMock = jest.fn();
+        const moveDownMock = jest.fn();
+        const removeMock = jest.fn();
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
+            moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
+            remove: { label: 'Remove', onClick: removeMock, disabled: false },
+        };
         const action = generateProposalAction();
-        render(createTestComponent({ dropdownItems, action }));
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
 
-        await userEvent.click(screen.getByRole('button'));
-        const dropdownTrigger = screen.getByRole('button', { name: modulesCopy.proposalActionsItem.dropdownLabel });
-        expect(dropdownTrigger).toBeInTheDocument();
-        await userEvent.click(dropdownTrigger);
+        // Check remove button in header is visible
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
 
-        const dropdownItem = screen.getByRole('menuitem', { name: dropdownItems[0].label });
-        expect(dropdownItem).toBeInTheDocument();
-        expect(screen.getByTestId(dropdownItems[0].icon)).toBeInTheDocument();
+        // Check that movement controls icons are rendered (there should be at least one of each)
+        expect(screen.getAllByTestId(IconType.CHEVRON_UP).length).toBeGreaterThan(0);
+        expect(screen.getAllByTestId(IconType.CHEVRON_DOWN).length).toBeGreaterThan(0);
 
-        expect(screen.getByRole('menuitem', { name: dropdownItems[1].label })).toBeInTheDocument();
-        expect(screen.getByTestId(dropdownItems[1].icon)).toBeInTheDocument();
-
-        await userEvent.click(dropdownItem);
-        expect(dropdownItems[0].onClick).toHaveBeenCalledWith(action, 0);
+        // Check action counter is rendered
+        expect(screen.getByText('2 of 3')).toBeInTheDocument();
     });
 
     it('forces the action content to be displayed on edit mode to register all form fields', () => {
