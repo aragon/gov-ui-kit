@@ -70,7 +70,18 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    };
+
+    const handleMoveClick = (direction: 'up' | 'down') => {
+        const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
+        if (control) {
+            control.onClick(action, index);
+            // Scroll after a small delay to ensure the DOM has updated
+            setTimeout(() => {
+                itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+            }, 50);
+        }
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
@@ -155,22 +166,22 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             ))}
                         </Dropdown.Container>
                         {editMode && movementControls != null && (
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 text-neutral-500">
                                 <Button
                                     variant="tertiary"
                                     size="sm"
                                     iconLeft={IconType.CHEVRON_DOWN}
-                                    onClick={() => movementControls.moveDown.onClick(action, index)}
+                                    onClick={() => handleMoveClick('down')}
                                     disabled={movementControls.moveDown.disabled}
                                 />
                                 <p className="text-sm text-neutral-500">
-                                    {index + 1} of {actionCount}
+                                    {index + 1} {copy.proposalActionsItem.of} {actionCount}
                                 </p>
                                 <Button
                                     variant="tertiary"
                                     size="sm"
                                     iconLeft={IconType.CHEVRON_UP}
-                                    onClick={() => movementControls.moveUp.onClick(action, index)}
+                                    onClick={() => handleMoveClick('up')}
                                     disabled={movementControls.moveUp.disabled}
                                 />
                             </div>
