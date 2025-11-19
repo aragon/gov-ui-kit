@@ -50,7 +50,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
         <RadixAccordionHeader
             ref={headerRef}
             className={classNames(
-                'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex scroll-mt-24 overflow-hidden',
+                'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
             )}
         >
