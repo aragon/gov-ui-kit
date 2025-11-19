@@ -47,7 +47,7 @@ export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((pr
         'data-[state=open]:border-neutral-200 data-[state=open]:shadow-neutral-sm', // open
         'hover:border-neutral-200 hover:shadow-neutral-sm', // hover
         'active:border-neutral-400 focus-ring-primary', // active / focus
-        { 'shadow-neutral-xl ': isHighlighted },
+        { 'shadow-neutral-xl': isHighlighted },
         className,
     );
 

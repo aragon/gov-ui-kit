@@ -32,7 +32,8 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
     useEffect(() => {
         if (highlight != null && highlight > 0) {
             setIsHighlighted(true);
-            headerRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+            headerRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+
             const clearHighlightTimeout = window.setTimeout(() => {
                 setIsHighlighted(false);
             }, 1500);
@@ -49,7 +50,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
         <RadixAccordionHeader
             ref={headerRef}
             className={classNames(
-                'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex overflow-hidden',
+                'group data-[state=open]:gradient-neutral-50-transparent-to-b relative flex scroll-mt-24 overflow-hidden',
                 'data-[disabled=true]:bg-neutral-100', // disabled
             )}
         >
