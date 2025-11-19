@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useEffect } from 'storybook/internal/preview-api';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -55,6 +56,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
+    const [shouldScroll, setShouldScroll] = useState(false);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -77,14 +79,17 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
         if (control) {
             control.onClick(action, index);
-
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
+            setShouldScroll(true);
         }
     };
+
+    useEffect(() => {
+        if (shouldScroll && itemRef.current) {
+            console.log('Scrolling to item:', index, itemRef.current);
+            itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setShouldScroll(false);
+        }
+    }, [shouldScroll, index]);
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
