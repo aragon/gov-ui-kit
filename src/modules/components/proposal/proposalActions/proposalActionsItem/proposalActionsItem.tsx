@@ -99,7 +99,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={value ?? index.toString()} className="scroll-mt-32">
+        <Accordion.Item value={value ?? index.toString()} className="scroll-mb-32">
             <Accordion.ItemHeader
                 ref={itemRef}
                 className="min-w-0"
