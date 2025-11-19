@@ -54,7 +54,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
-    const itemRef = useRef<HTMLButtonElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -78,9 +78,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         if (control) {
             control.onClick(action, index);
 
-            setTimeout(() => {
-                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
         }
     };
 
@@ -99,9 +101,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={value ?? index.toString()} className="scroll-mb-32">
+        <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader
-                ref={itemRef}
                 className="min-w-0"
                 removeControl={
                     editMode && movementControls != null
