@@ -54,7 +54,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
-    const itemRef = useRef<HTMLDivElement>(null);
+    const itemRef = useRef<HTMLButtonElement>(null);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -70,16 +70,16 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
     };
 
     const handleMoveClick = (direction: 'up' | 'down') => {
         const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
         if (control) {
             control.onClick(action, index);
-            // Scroll after a small delay to ensure the DOM has updated
+
             setTimeout(() => {
-                itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+                itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 50);
         }
     };
@@ -99,8 +99,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
 
     return (
-        <Accordion.Item value={value ?? index.toString()} ref={itemRef} className="scroll-mt-32">
+        <Accordion.Item value={value ?? index.toString()} className="scroll-mt-32">
             <Accordion.ItemHeader
+                ref={itemRef}
                 className="min-w-0"
                 removeControl={
                     editMode && movementControls != null
