@@ -51,7 +51,6 @@ describe('<Accordion.ItemHeader /> component', () => {
         const removeControl = { label: 'Remove', onClick: onClickMock, disabled: false };
         render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
 
-        // Click on the CLOSE icon which is inside the remove button
         const closeIcon = screen.getByTestId('CLOSE');
         await user.click(closeIcon);
 
@@ -65,5 +64,74 @@ describe('<Accordion.ItemHeader /> component', () => {
 
         expect(screen.queryByTestId('CHEVRON_DOWN')).not.toBeInTheDocument();
         expect(screen.getByTestId('CLOSE')).toBeInTheDocument();
+    });
+
+    it('disables the remove button when removeControl.disabled is true', () => {
+        const onClickMock = jest.fn();
+        const removeControl = { label: 'Remove', onClick: onClickMock, disabled: true };
+        render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
+
+        const closeIcon = screen.getByTestId('CLOSE');
+        const removeButton = closeIcon.closest('button');
+        expect(removeButton).toBeDisabled();
+    });
+
+    it('does not expand accordion when remove button is clicked (stopPropagation)', async () => {
+        const user = userEvent.setup();
+        const onClickMock = jest.fn();
+        const removeControl = { label: 'Remove', onClick: onClickMock, disabled: false };
+        render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
+
+        const closeIcon = screen.getByTestId('CLOSE');
+        const accordionTrigger = closeIcon.closest('[data-state]');
+
+        expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
+        await user.click(closeIcon);
+        expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
+        expect(onClickMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('works with different index values', async () => {
+        const user = userEvent.setup();
+        const onClickMock = jest.fn();
+        const removeControl = { label: 'Remove', onClick: onClickMock, disabled: false };
+        render(createTestComponent({ children: 'Test', removeControl, index: 5 }));
+
+        const closeIcon = screen.getByTestId('CLOSE');
+        await user.click(closeIcon);
+
+        expect(onClickMock).toHaveBeenCalledWith(expect.anything(), 5);
+    });
+
+    it('renders tooltip with removeControl label', async () => {
+        const user = userEvent.setup();
+        const removeControl = { label: 'Remove this item', onClick: jest.fn(), disabled: false };
+        render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
+
+        const closeIcon = screen.getByTestId('CLOSE');
+        const removeButton = closeIcon.closest('button');
+
+        if (removeButton) {
+            await user.hover(removeButton);
+        }
+
+        const tooltip = await screen.findByRole('tooltip');
+        expect(tooltip).toBeInTheDocument();
+        expect(tooltip).toHaveTextContent('Remove this item');
+    });
+
+    it('does not render remove button when only index is provided', () => {
+        render(createTestComponent({ children: 'Test', index: 0 }));
+
+        expect(screen.queryByTestId('CLOSE')).not.toBeInTheDocument();
+        expect(screen.getByTestId('CHEVRON_DOWN')).toBeInTheDocument();
+    });
+
+    it('does not render remove button when only removeControl is provided', () => {
+        const removeControl = { label: 'Remove', onClick: jest.fn(), disabled: false };
+        render(createTestComponent({ children: 'Test', removeControl }));
+
+        expect(screen.queryByTestId('CLOSE')).not.toBeInTheDocument();
+        expect(screen.getByTestId('CHEVRON_DOWN')).toBeInTheDocument();
     });
 });

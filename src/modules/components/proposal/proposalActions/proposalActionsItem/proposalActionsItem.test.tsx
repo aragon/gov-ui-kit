@@ -156,15 +156,184 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction();
         render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
 
-        // Check remove button in header is visible
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
-
-        // Check that movement controls icons are rendered (there should be at least one of each)
         expect(screen.getAllByTestId(IconType.CHEVRON_UP).length).toBeGreaterThan(0);
         expect(screen.getAllByTestId(IconType.CHEVRON_DOWN).length).toBeGreaterThan(0);
-
-        // Check action counter is rendered
         expect(screen.getByText('2 of 3')).toBeInTheDocument();
+    });
+
+    it('calls moveUp onClick when move up button is clicked', async () => {
+        const moveUpMock = jest.fn();
+        const moveDownMock = jest.fn();
+        const removeMock = jest.fn();
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
+            moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
+            remove: { label: 'Remove', onClick: removeMock, disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
+
+        const moveUpIcon = screen.getByTestId(IconType.CHEVRON_UP);
+        await userEvent.click(moveUpIcon);
+
+        expect(moveUpMock).toHaveBeenCalledWith(action, 1);
+        expect(moveUpMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('calls moveDown onClick when move down button is clicked', async () => {
+        const moveUpMock = jest.fn();
+        const moveDownMock = jest.fn();
+        const removeMock = jest.fn();
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
+            moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
+            remove: { label: 'Remove', onClick: removeMock, disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
+
+        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
+        await userEvent.click(chevronDownIcons[1]);
+
+        expect(moveDownMock).toHaveBeenCalledWith(action, 1);
+        expect(moveDownMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('disables move up button when movementControls.moveUp.disabled is true', () => {
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: true },
+            moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
+            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 0 }));
+
+        const moveUpIcon = screen.getByTestId(IconType.CHEVRON_UP);
+        const moveUpButton = moveUpIcon.closest('button');
+        expect(moveUpButton).toBeDisabled();
+    });
+
+    it('disables move down button when movementControls.moveDown.disabled is true', () => {
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
+            moveDown: { label: 'Move down', onClick: jest.fn(), disabled: true },
+            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 2 }));
+
+        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
+        const moveDownButton = chevronDownIcons[1].closest('button');
+        expect(moveDownButton).toBeDisabled();
+    });
+
+    it('does not render movement controls when actionCount is 1', () => {
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
+            moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
+            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 1, index: 0 }));
+
+        expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
+        expect(screen.queryByText('1 of 1')).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /move up/i })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /move down/i })).not.toBeInTheDocument();
+    });
+
+    it('does not render movement controls when editMode is false', async () => {
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
+            moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
+            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
+        };
+        const action = generateProposalAction();
+        render(createTestComponent({ movementControls, action, editMode: false, actionCount: 3, index: 1 }));
+
+        await userEvent.click(screen.getByRole('button'));
+
+        expect(screen.queryByText('2 of 3')).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /move up/i })).not.toBeInTheDocument();
+        expect(screen.queryByRole('button', { name: /move down/i })).not.toBeInTheDocument();
+        expect(screen.queryByTestId(IconType.CLOSE)).not.toBeInTheDocument();
+    });
+
+    it('uses editMode from context when prop is not provided', () => {
+        const action = generateProposalAction();
+        const contextValue = generateProposalActionsContext({ editMode: true });
+
+        const component = (
+            <GukModulesProvider>
+                <ProposalActionsContextProvider value={contextValue}>
+                    <Accordion.Container isMulti={true}>
+                        <ProposalActionsItem action={action} index={0} />
+                    </Accordion.Container>
+                </ProposalActionsContextProvider>
+            </GukModulesProvider>
+        );
+
+        render(component);
+
+        expect(screen.getByTestId('decoder-mock')).toBeInTheDocument();
+    });
+
+    it('prioritizes editMode prop over context value', () => {
+        const action = generateProposalAction({ inputData: null });
+        const contextValue = generateProposalActionsContext({ editMode: false });
+
+        const component = (
+            <GukModulesProvider>
+                <ProposalActionsContextProvider value={contextValue}>
+                    <Accordion.Container isMulti={true}>
+                        <ProposalActionsItem action={action} index={0} editMode={true} />
+                    </Accordion.Container>
+                </ProposalActionsContextProvider>
+            </GukModulesProvider>
+        );
+
+        render(component);
+
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('scrolls element into view when moving an item', async () => {
+        const moveDownMock = jest.fn();
+        const movementControls = {
+            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
+            moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
+            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
+        };
+        const action = generateProposalAction();
+        const { rerender } = render(
+            createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }),
+        );
+
+        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
+        await userEvent.click(chevronDownIcons[1]);
+
+        const updatedComponent = (
+            <GukModulesProvider>
+                <ProposalActionsContextProvider value={generateProposalActionsContext()}>
+                    <Accordion.Container isMulti={true}>
+                        <ProposalActionsItem
+                            action={action}
+                            index={2}
+                            movementControls={movementControls}
+                            editMode={true}
+                            actionCount={3}
+                        />
+                    </Accordion.Container>
+                </ProposalActionsContextProvider>
+            </GukModulesProvider>
+        );
+
+        rerender(updatedComponent);
+
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        expect(scrollIntoViewSpy).toHaveBeenCalled();
     });
 
     it('forces the action content to be displayed on edit mode to register all form fields', () => {
