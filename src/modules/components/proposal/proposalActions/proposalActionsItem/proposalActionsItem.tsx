@@ -173,34 +173,31 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {editMode &&
-                            movementControls &&
-                            !movementControls.moveDown.disabled &&
-                            !movementControls.moveUp.disabled && (
-                                <div className="flex items-center gap-3 text-neutral-500">
-                                    <Tooltip content={movementControls.moveDown.label} triggerAsChild={true}>
-                                        <Button
-                                            variant="tertiary"
-                                            size="sm"
-                                            iconLeft={IconType.CHEVRON_DOWN}
-                                            onClick={() => handleMoveClick('down')}
-                                            disabled={movementControls.moveDown.disabled}
-                                        />
-                                    </Tooltip>
-                                    <p className="text-sm text-neutral-500">
-                                        {index + 1} {copy.proposalActionsItem.of} {actionCount}
-                                    </p>
-                                    <Tooltip content={movementControls.moveUp.label} triggerAsChild={true}>
-                                        <Button
-                                            variant="tertiary"
-                                            size="sm"
-                                            iconLeft={IconType.CHEVRON_UP}
-                                            onClick={() => handleMoveClick('up')}
-                                            disabled={movementControls.moveUp.disabled}
-                                        />
-                                    </Tooltip>
-                                </div>
-                            )}
+                        {editMode && movementControls && actionCount && actionCount > 1 && (
+                            <div className="flex items-center gap-3 text-neutral-500">
+                                <Tooltip content={movementControls.moveDown.label} triggerAsChild={true}>
+                                    <Button
+                                        variant="tertiary"
+                                        size="sm"
+                                        iconLeft={IconType.CHEVRON_DOWN}
+                                        onClick={() => handleMoveClick('down')}
+                                        disabled={movementControls.moveDown.disabled}
+                                    />
+                                </Tooltip>
+                                <p className="text-sm text-neutral-500">
+                                    {index + 1} {copy.proposalActionsItem.of} {actionCount}
+                                </p>
+                                <Tooltip content={movementControls.moveUp.label} triggerAsChild={true}>
+                                    <Button
+                                        variant="tertiary"
+                                        size="sm"
+                                        iconLeft={IconType.CHEVRON_UP}
+                                        onClick={() => handleMoveClick('up')}
+                                        disabled={movementControls.moveUp.disabled}
+                                    />
+                                </Tooltip>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Accordion.ItemContent>
