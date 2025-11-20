@@ -55,7 +55,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
-    const [shouldScroll, setShouldScroll] = useState(false);
+    const shouldScrollRef = useRef(false);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -76,23 +76,19 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const handleMoveClick = (direction: 'up' | 'down') => {
         const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
+
         if (control) {
-            console.log('Move clicked, index:', index);
+            shouldScrollRef.current = true;
             control.onClick(action, index);
-            setShouldScroll(true);
-            console.log('shouldScroll set to true');
         }
     };
 
-    console.log('the component is loaded');
-
     useEffect(() => {
-        if (shouldScroll && itemRef.current) {
-            console.log('Scrolling to item:', index, itemRef.current);
+        if (shouldScrollRef.current && itemRef.current) {
             itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setShouldScroll(false);
+            shouldScrollRef.current = false;
         }
-    }, [shouldScroll, index]);
+    }, [index]);
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
