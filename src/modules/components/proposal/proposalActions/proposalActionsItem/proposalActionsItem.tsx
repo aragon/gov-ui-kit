@@ -39,8 +39,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         ...web3Props
     } = props;
 
-    console.log('component index', index);
-
     invariant(
         index != null,
         'ProposalActionsItem: component must be used inside the ProposalActions.Container component to work properly.',
@@ -177,8 +175,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         </Dropdown.Container>
                         {editMode &&
                             movementControls &&
-                            !movementControls?.moveDown.disabled &&
-                            !movementControls?.moveUp.disabled && (
+                            !movementControls.moveDown.disabled &&
+                            !movementControls.moveUp.disabled && (
                                 <div className="flex items-center gap-3 text-neutral-500">
                                     <Tooltip content={movementControls.moveDown.label} triggerAsChild={true}>
                                         <Button
