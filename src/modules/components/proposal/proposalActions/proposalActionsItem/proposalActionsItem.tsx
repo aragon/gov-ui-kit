@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
-import { Accordion, AlertCard, Button, Dropdown, IconType, invariant } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -38,6 +38,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         chainId = mainnet.id,
         ...web3Props
     } = props;
+
+    console.log('component index', index);
 
     invariant(
         index != null,
@@ -173,27 +175,34 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {editMode && movementControls != null && (
-                            <div className="flex items-center gap-3 text-neutral-500">
-                                <Button
-                                    variant="tertiary"
-                                    size="sm"
-                                    iconLeft={IconType.CHEVRON_DOWN}
-                                    onClick={() => handleMoveClick('down')}
-                                    disabled={movementControls.moveDown.disabled}
-                                />
-                                <p className="text-sm text-neutral-500">
-                                    {index + 1} {copy.proposalActionsItem.of} {actionCount}
-                                </p>
-                                <Button
-                                    variant="tertiary"
-                                    size="sm"
-                                    iconLeft={IconType.CHEVRON_UP}
-                                    onClick={() => handleMoveClick('up')}
-                                    disabled={movementControls.moveUp.disabled}
-                                />
-                            </div>
-                        )}
+                        {editMode &&
+                            movementControls &&
+                            !movementControls?.moveDown.disabled &&
+                            !movementControls?.moveUp.disabled && (
+                                <div className="flex items-center gap-3 text-neutral-500">
+                                    <Tooltip content={movementControls.moveDown.label} triggerAsChild={true}>
+                                        <Button
+                                            variant="tertiary"
+                                            size="sm"
+                                            iconLeft={IconType.CHEVRON_DOWN}
+                                            onClick={() => handleMoveClick('down')}
+                                            disabled={movementControls.moveDown.disabled}
+                                        />
+                                    </Tooltip>
+                                    <p className="text-sm text-neutral-500">
+                                        {index + 1} {copy.proposalActionsItem.of} {actionCount}
+                                    </p>
+                                    <Tooltip content={movementControls.moveUp.label} triggerAsChild={true}>
+                                        <Button
+                                            variant="tertiary"
+                                            size="sm"
+                                            iconLeft={IconType.CHEVRON_UP}
+                                            onClick={() => handleMoveClick('up')}
+                                            disabled={movementControls.moveUp.disabled}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            )}
                     </div>
                 </div>
             </Accordion.ItemContent>

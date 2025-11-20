@@ -9,6 +9,7 @@ import type { IProposalActionsArrayControl } from '../../../../modules/component
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
+import { Tooltip } from '../../tooltip';
 
 export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {
     /**
@@ -51,16 +52,18 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 {removeControl != null && index != null ? (
                     <div className="flex flex-1 items-baseline justify-between gap-x-4">
                         {children}
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            iconLeft={IconType.CLOSE}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                                e.stopPropagation();
-                                removeControl.onClick({} as IProposalAction, index);
-                            }}
-                            disabled={removeControl.disabled}
-                        />
+                        <Tooltip content={removeControl.label} triggerAsChild={true}>
+                            <Button
+                                variant="tertiary"
+                                size="sm"
+                                iconLeft={IconType.CLOSE}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                                    e.stopPropagation();
+                                    removeControl.onClick({} as IProposalAction, index);
+                                }}
+                                disabled={removeControl.disabled}
+                            />
+                        </Tooltip>
                     </div>
                 ) : (
                     <>
