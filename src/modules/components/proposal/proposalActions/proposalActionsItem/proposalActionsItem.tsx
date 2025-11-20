@@ -71,8 +71,17 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
+
+    useEffect(() => {
+        if (!shouldScrollRef.current) {
+            return;
+        }
+
+        shouldScrollRef.current = false;
+        requestAnimationFrame(() => itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    }, [index]);
 
     const handleMoveClick = (direction: 'up' | 'down') => {
         const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
@@ -82,13 +91,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             control.onClick(action, index);
         }
     };
-
-    useEffect(() => {
-        if (shouldScrollRef.current && itemRef.current) {
-            itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            shouldScrollRef.current = false;
-        }
-    }, [index]);
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const displayValueWarning = action.value !== '0' && action.data !== '0x';
