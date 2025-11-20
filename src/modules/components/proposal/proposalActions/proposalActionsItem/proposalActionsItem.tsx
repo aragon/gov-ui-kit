@@ -77,10 +77,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const handleMoveClick = (direction: 'up' | 'down') => {
         const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
         if (control) {
+            console.log('Move clicked, index:', index);
             control.onClick(action, index);
             setShouldScroll(true);
+            console.log('shouldScroll set to true');
         }
     };
+
+    console.log('the component is loaded');
 
     useEffect(() => {
         if (shouldScroll && itemRef.current) {
