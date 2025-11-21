@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
@@ -209,8 +209,10 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction();
         render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 0 }));
 
-        const moveUpIcon = screen.getByTestId(IconType.CHEVRON_UP);
-        const moveUpButton = moveUpIcon.closest('button');
+        expect(screen.getByTestId(IconType.CHEVRON_UP)).toBeInTheDocument();
+        const moveUpButton = screen
+            .getAllByRole('button')
+            .find((button) => within(button).queryByTestId(IconType.CHEVRON_UP) != null);
         expect(moveUpButton).toBeDisabled();
     });
 
@@ -224,7 +226,10 @@ describe('<ProposalActionsItem /> component', () => {
         render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 2 }));
 
         const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
-        const moveDownButton = chevronDownIcons[1].closest('button');
+        expect(chevronDownIcons.length).toBeGreaterThanOrEqual(2);
+        const moveDownButton = screen
+            .getAllByRole('button')
+            .find((button) => within(button).queryByTestId(IconType.CHEVRON_DOWN) != null);
         expect(moveDownButton).toBeDisabled();
     });
 

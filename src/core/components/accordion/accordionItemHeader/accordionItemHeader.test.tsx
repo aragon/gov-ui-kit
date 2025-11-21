@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem } from '../accordionItem/accordionItem';
@@ -71,8 +71,10 @@ describe('<Accordion.ItemHeader /> component', () => {
         const removeControl = { label: 'Remove', onClick: onClickMock, disabled: true };
         render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
 
-        const closeIcon = screen.getByTestId('CLOSE');
-        const removeButton = closeIcon.closest('button');
+        expect(screen.getByTestId('CLOSE')).toBeInTheDocument();
+        const removeButton = screen
+            .getAllByRole('button')
+            .find((button) => within(button).queryByTestId('CLOSE') != null);
         expect(removeButton).toBeDisabled();
     });
 
@@ -83,8 +85,7 @@ describe('<Accordion.ItemHeader /> component', () => {
         render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
 
         const closeIcon = screen.getByTestId('CLOSE');
-        const accordionTrigger = closeIcon.closest('[data-state]');
-
+        const accordionTrigger = screen.getByRole('button', { expanded: false });
         expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
         await user.click(closeIcon);
         expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
@@ -108,8 +109,10 @@ describe('<Accordion.ItemHeader /> component', () => {
         const removeControl = { label: 'Remove this item', onClick: jest.fn(), disabled: false };
         render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
 
-        const closeIcon = screen.getByTestId('CLOSE');
-        const removeButton = closeIcon.closest('button');
+        expect(screen.getByTestId('CLOSE')).toBeInTheDocument();
+        const removeButton = screen
+            .getAllByRole('button')
+            .find((button) => within(button).queryByTestId('CLOSE') != null);
 
         if (removeButton) {
             await user.hover(removeButton);
