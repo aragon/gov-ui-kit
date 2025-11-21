@@ -63,7 +63,7 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
     /**
      * Controls for the action to be moved up or down.
      */
-    movementControls?: IProposalActionsArrayControls<TAction>;
+    arrayControls?: IProposalActionsArrayControls<TAction>;
     /**
      * Enables the edit-mode when set to true. The RAW view will be editable only if the action has no DECODED view,
      * similarly the DECODED view will be editable only if the action has no BASIC view.

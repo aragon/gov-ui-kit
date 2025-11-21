@@ -85,10 +85,10 @@ describe('<Accordion.ItemHeader /> component', () => {
         render(createTestComponent({ children: 'Test', removeControl, index: 0 }));
 
         const closeIcon = screen.getByTestId('CLOSE');
-        const accordionTrigger = screen.getByRole('button', { expanded: false });
-        expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
+        const accordionHeader = screen.getByRole('heading', { name: 'Test' });
+        expect(accordionHeader).toHaveAttribute('data-state', 'closed');
         await user.click(closeIcon);
-        expect(accordionTrigger).toHaveAttribute('data-state', 'closed');
+        expect(accordionHeader).toHaveAttribute('data-state', 'closed');
         expect(onClickMock).toHaveBeenCalledTimes(1);
     });
 

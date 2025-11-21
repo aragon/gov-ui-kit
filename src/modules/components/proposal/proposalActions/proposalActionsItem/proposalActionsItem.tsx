@@ -31,7 +31,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         index,
         value,
         CustomComponent,
-        movementControls,
+        arrayControls,
         actionCount,
         editMode: editModeProp,
         formPrefix,
@@ -84,7 +84,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     }, [index]);
 
     const handleMoveClick = (direction: 'up' | 'down') => {
-        const control = direction === 'up' ? movementControls?.moveUp : movementControls?.moveDown;
+        const control = direction === 'up' ? arrayControls?.moveUp : arrayControls?.moveDown;
 
         if (control) {
             shouldScrollRef.current = true;
@@ -111,8 +111,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             <Accordion.ItemHeader
                 className="min-w-0"
                 removeControl={
-                    editMode && movementControls != null
-                        ? (movementControls.remove as IProposalActionsArrayControl)
+                    editMode && arrayControls != null
+                        ? (arrayControls.remove as IProposalActionsArrayControl)
                         : undefined
                 }
                 index={index}
@@ -173,27 +173,29 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {editMode && movementControls && actionCount && actionCount > 1 && (
+                        {editMode && arrayControls && actionCount && actionCount > 1 && (
                             <div className="flex items-center gap-3 text-neutral-500">
-                                <Tooltip content={movementControls.moveDown.label} triggerAsChild={true}>
+                                <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
                                     <Button
                                         variant="tertiary"
                                         size="sm"
+                                        aria-label={arrayControls.moveDown.label}
                                         iconLeft={IconType.CHEVRON_DOWN}
                                         onClick={() => handleMoveClick('down')}
-                                        disabled={movementControls.moveDown.disabled}
+                                        disabled={arrayControls.moveDown.disabled}
                                     />
                                 </Tooltip>
                                 <p className="text-sm text-neutral-500">
                                     {index + 1} {copy.proposalActionsItem.of} {actionCount}
                                 </p>
-                                <Tooltip content={movementControls.moveUp.label} triggerAsChild={true}>
+                                <Tooltip content={arrayControls.moveUp.label} triggerAsChild={true}>
                                     <Button
                                         variant="tertiary"
                                         size="sm"
+                                        aria-label={arrayControls.moveUp.label}
                                         iconLeft={IconType.CHEVRON_UP}
                                         onClick={() => handleMoveClick('up')}
-                                        disabled={movementControls.moveUp.disabled}
+                                        disabled={arrayControls.moveUp.disabled}
                                     />
                                 </Tooltip>
                             </div>

@@ -179,7 +179,7 @@ export const Warning: Story = {
 };
 
 /**
- * When the `movementControls` property is set with editMode enabled, the ProposalActions.Item component renders
+ * When the `arrayControls` property is set with editMode enabled, the ProposalActions.Item component renders
  * movement controls (up/down buttons with counter) in the footer and a remove button in the header.
  */
 export const EditMode: Story = {
@@ -194,7 +194,7 @@ export const EditMode: Story = {
         }),
         editMode: true,
         actionCount: 6,
-        movementControls: {
+        arrayControls: {
             moveDown: { label: 'Move down', onClick: () => null, disabled: true },
             moveUp: { label: 'Move up', onClick: () => null, disabled: false },
             remove: { label: 'Remove', onClick: () => null, disabled: false },

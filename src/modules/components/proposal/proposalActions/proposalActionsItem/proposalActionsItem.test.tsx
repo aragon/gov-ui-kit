@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
@@ -144,17 +144,17 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
     });
 
-    it('renders movement controls in edit mode when movementControls property is set', () => {
+    it('renders movement controls in edit mode when arrayControls property is set', () => {
         const moveUpMock = jest.fn();
         const moveDownMock = jest.fn();
         const removeMock = jest.fn();
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
             moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
             remove: { label: 'Remove', onClick: removeMock, disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }));
 
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
         expect(screen.getAllByTestId(IconType.CHEVRON_UP).length).toBeGreaterThan(0);
@@ -166,13 +166,13 @@ describe('<ProposalActionsItem /> component', () => {
         const moveUpMock = jest.fn();
         const moveDownMock = jest.fn();
         const removeMock = jest.fn();
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
             moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
             remove: { label: 'Remove', onClick: removeMock, disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }));
 
         const moveUpIcon = screen.getByTestId(IconType.CHEVRON_UP);
         await userEvent.click(moveUpIcon);
@@ -185,13 +185,13 @@ describe('<ProposalActionsItem /> component', () => {
         const moveUpMock = jest.fn();
         const moveDownMock = jest.fn();
         const removeMock = jest.fn();
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: moveUpMock, disabled: false },
             moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
             remove: { label: 'Remove', onClick: removeMock, disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }));
 
         const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
         await userEvent.click(chevronDownIcons[1]);
@@ -200,47 +200,42 @@ describe('<ProposalActionsItem /> component', () => {
         expect(moveDownMock).toHaveBeenCalledTimes(1);
     });
 
-    it('disables move up button when movementControls.moveUp.disabled is true', () => {
-        const movementControls = {
+    it('disables move up button when arrayControls.moveUp.disabled is true', () => {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: jest.fn(), disabled: true },
             moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
             remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 0 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 0 }));
 
         expect(screen.getByTestId(IconType.CHEVRON_UP)).toBeInTheDocument();
-        const moveUpButton = screen
-            .getAllByRole('button')
-            .find((button) => within(button).queryByTestId(IconType.CHEVRON_UP) != null);
+        const moveUpButton = screen.getByRole('button', { name: arrayControls.moveUp.label });
         expect(moveUpButton).toBeDisabled();
     });
 
-    it('disables move down button when movementControls.moveDown.disabled is true', () => {
-        const movementControls = {
+    it('disables move down button when arrayControls.moveDown.disabled is true', () => {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
             moveDown: { label: 'Move down', onClick: jest.fn(), disabled: true },
             remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 2 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 2 }));
 
-        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
-        expect(chevronDownIcons.length).toBeGreaterThanOrEqual(2);
-        const moveDownButton = screen
-            .getAllByRole('button')
-            .find((button) => within(button).queryByTestId(IconType.CHEVRON_DOWN) != null);
+        expect(screen.getAllByTestId(IconType.CHEVRON_DOWN).length).toBeGreaterThanOrEqual(2);
+        const moveDownButton = screen.getByRole('button', { name: arrayControls.moveDown.label });
         expect(moveDownButton).toBeDisabled();
     });
 
     it('does not render movement controls when actionCount is 1', () => {
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
             moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
             remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: true, actionCount: 1, index: 0 }));
+        render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 1, index: 0 }));
 
         expect(screen.getByTestId(IconType.CLOSE)).toBeInTheDocument();
         expect(screen.queryByText('1 of 1')).not.toBeInTheDocument();
@@ -249,13 +244,13 @@ describe('<ProposalActionsItem /> component', () => {
     });
 
     it('does not render movement controls when editMode is false', async () => {
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
             moveDown: { label: 'Move down', onClick: jest.fn(), disabled: false },
             remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
         };
         const action = generateProposalAction();
-        render(createTestComponent({ movementControls, action, editMode: false, actionCount: 3, index: 1 }));
+        render(createTestComponent({ arrayControls, action, editMode: false, actionCount: 3, index: 1 }));
 
         await userEvent.click(screen.getByRole('button'));
 
@@ -305,14 +300,14 @@ describe('<ProposalActionsItem /> component', () => {
 
     it('scrolls element into view when moving an item', async () => {
         const moveDownMock = jest.fn();
-        const movementControls = {
+        const arrayControls = {
             moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
             moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
             remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
         };
         const action = generateProposalAction();
         const { rerender } = render(
-            createTestComponent({ movementControls, action, editMode: true, actionCount: 3, index: 1 }),
+            createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }),
         );
 
         const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
@@ -325,7 +320,7 @@ describe('<ProposalActionsItem /> component', () => {
                         <ProposalActionsItem
                             action={action}
                             index={2}
-                            movementControls={movementControls}
+                            arrayControls={arrayControls}
                             editMode={true}
                             actionCount={3}
                         />
