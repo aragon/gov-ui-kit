@@ -3,24 +3,12 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
-import type { IProposalAction } from '../../../../modules';
-import type { IProposalActionsArrayControl } from '../../../../modules/components/proposal/proposalActions/proposalActionsItem/proposalActionsItem.api';
+import { forwardRef } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { Tooltip } from '../../tooltip';
-
-export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {
-    /**
-     * Remove control to be displayed in edit mode.
-     */
-    removeControl?: IProposalActionsArrayControl;
-    /**
-     * The index of the accordion item.
-     */
-    index?: number;
-}
+import { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
     const { children, className, disabled, removeControl, index, ...otherProps } = props;
@@ -42,8 +30,11 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
             <RadixAccordionTrigger
                 asChild={removeControl != null && index != null}
                 className={classNames(
-                    'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
+                    'relative flex flex-1 cursor-pointer items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
                     'focus-ring-primary group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
+                    {
+                        'cursor-default': removeControl != null,
+                    },
                     className,
                 )}
                 ref={ref}
@@ -59,7 +50,7 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                                 iconLeft={IconType.CLOSE}
                                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                                     e.stopPropagation();
-                                    removeControl.onClick({} as IProposalAction, index);
+                                    removeControl.onClick(index);
                                 }}
                                 disabled={removeControl.disabled}
                             />

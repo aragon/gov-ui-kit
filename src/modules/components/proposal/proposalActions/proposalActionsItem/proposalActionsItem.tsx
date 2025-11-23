@@ -9,11 +9,7 @@ import { useProposalActionsContext } from '../proposalActionsContext';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
-import type {
-    IProposalActionsArrayControl,
-    IProposalActionsItemProps,
-    ProposalActionsItemViewMode,
-} from './proposalActionsItem.api';
+import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
@@ -88,7 +84,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
         if (control) {
             shouldScrollRef.current = true;
-            control.onClick(action, index);
+            control.onClick(index, action);
         }
     };
 
@@ -110,11 +106,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
             <Accordion.ItemHeader
                 className="min-w-0"
-                removeControl={
-                    editMode && arrayControls != null
-                        ? (arrayControls.remove as IProposalActionsArrayControl)
-                        : undefined
-                }
+                removeControl={editMode && arrayControls != null ? arrayControls.remove : undefined}
                 index={index}
             >
                 <SmartContractFunctionDataListItem.Structure
@@ -173,7 +165,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {editMode && arrayControls && actionCount && actionCount > 1 && (
+                        {editMode && arrayControls && actionCount != null && actionCount > 1 && (
                             <div className="flex items-center gap-3 text-neutral-500">
                                 <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
                                     <Button

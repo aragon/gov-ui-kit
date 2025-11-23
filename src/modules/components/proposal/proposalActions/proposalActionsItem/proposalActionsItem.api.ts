@@ -12,7 +12,7 @@ export interface IProposalActionsArrayControl<TAction extends IProposalAction = 
     /**
      * Callback called with the current action and its index on item click.
      */
-    onClick: (action: TAction, index: number) => void;
+    onClick: (index: number, action?: TAction) => void;
     /**
      * Whether the item is disabled.
      */

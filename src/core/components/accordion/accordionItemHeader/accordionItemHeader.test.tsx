@@ -2,7 +2,8 @@ import { render, screen, within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem } from '../accordionItem/accordionItem';
-import { AccordionItemHeader, type IAccordionItemHeaderProps } from './accordionItemHeader';
+import { AccordionItemHeader } from './accordionItemHeader';
+import { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 describe('<Accordion.ItemHeader /> component', () => {
     const createTestComponent = (props?: Partial<IAccordionItemHeaderProps>) => {
