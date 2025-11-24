@@ -1,10 +1,12 @@
-import { useRef, useState } from 'react';
+import classNames from 'classnames';
+import { useEffect, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
-import { Accordion, AlertCard, Button, Dropdown, IconType, invariant } from '../../../../../core';
+import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
+import { useProposalActionsContext } from '../proposalActionsContext';
 import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
 import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
 import type { IProposalAction } from '../proposalActionsDefinitions';
@@ -26,8 +28,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         index,
         value,
         CustomComponent,
-        dropdownItems,
-        editMode,
+        arrayControls,
+        actionCount,
+        editMode: editModeProp,
         formPrefix,
         chainId = mainnet.id,
         ...web3Props
@@ -39,13 +42,17 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     );
 
     const { copy } = useGukModulesContext();
+    const { editMode: editModeContext } = useProposalActionsContext();
+
+    // Use prop if provided, otherwise fall back to context
+    const editMode = editModeProp ?? editModeContext;
 
     const chains = useChains();
     const chain = chains.find((chain) => chain.id === chainId);
     const currencySymbol = chain?.nativeCurrency.symbol ?? 'ETH';
 
     const itemRef = useRef<HTMLDivElement>(null);
-
+    const shouldScrollRef = useRef(false);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
@@ -61,7 +68,25 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const onViewModeChange = (value: ProposalActionsItemViewMode) => {
         setActiveViewMode(value);
-        itemRef.current?.scrollIntoView({ behavior: 'instant', block: 'center' });
+        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    useEffect(() => {
+        if (!shouldScrollRef.current) {
+            return;
+        }
+
+        shouldScrollRef.current = false;
+        requestAnimationFrame(() => itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    }, [index]);
+
+    const handleMoveClick = (direction: 'up' | 'down') => {
+        const control = direction === 'up' ? arrayControls?.moveUp : arrayControls?.moveDown;
+
+        if (control) {
+            shouldScrollRef.current = true;
+            control.onClick(index, action);
+        }
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
@@ -80,7 +105,11 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
-            <Accordion.ItemHeader className="min-w-0">
+            <Accordion.ItemHeader
+                className="min-w-0"
+                removeControl={editMode && arrayControls != null ? arrayControls.remove : undefined}
+                index={index}
+            >
                 <SmartContractFunctionDataListItem.Structure
                     contractName={action.inputData?.contract}
                     contractAddress={action.to}
@@ -92,7 +121,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     displayWarning={displayValueWarning}
                 />
             </Accordion.ItemHeader>
-            <Accordion.ItemContent forceMount={editMode ? true : undefined}>
+            <Accordion.ItemContent
+                forceMount={editMode ? true : undefined}
+                className={classNames({ 'cursor-default': editMode })}
+            >
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard variant="warning" message={copy.proposalActionsItem.nativeSendAlert}>
@@ -137,25 +169,32 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                                 </Dropdown.Item>
                             ))}
                         </Dropdown.Container>
-                        {dropdownItems != null && dropdownItems.length > 0 && (
-                            <Dropdown.Container
-                                customTrigger={
-                                    <Button variant="tertiary" size="sm" iconRight={IconType.DOTS_VERTICAL}>
-                                        {copy.proposalActionsItem.dropdownLabel}
-                                    </Button>
-                                }
-                            >
-                                {dropdownItems.map((item) => (
-                                    <Dropdown.Item
-                                        key={item.label}
-                                        icon={item.icon}
-                                        iconPosition="left"
-                                        onClick={() => item.onClick(action, index)}
-                                    >
-                                        {item.label}
-                                    </Dropdown.Item>
-                                ))}
-                            </Dropdown.Container>
+                        {editMode && arrayControls && actionCount != null && actionCount > 1 && (
+                            <div className="flex items-center gap-3 text-neutral-500">
+                                <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
+                                    <Button
+                                        variant="tertiary"
+                                        size="sm"
+                                        aria-label={arrayControls.moveDown.label}
+                                        iconLeft={IconType.CHEVRON_DOWN}
+                                        onClick={() => handleMoveClick('down')}
+                                        disabled={arrayControls.moveDown.disabled}
+                                    />
+                                </Tooltip>
+                                <p className="text-sm text-neutral-500">
+                                    {index + 1} {copy.proposalActionsItem.of} {actionCount}
+                                </p>
+                                <Tooltip content={arrayControls.moveUp.label} triggerAsChild={true}>
+                                    <Button
+                                        variant="tertiary"
+                                        size="sm"
+                                        aria-label={arrayControls.moveUp.label}
+                                        iconLeft={IconType.CHEVRON_UP}
+                                        onClick={() => handleMoveClick('up')}
+                                        disabled={arrayControls.moveUp.disabled}
+                                    />
+                                </Tooltip>
+                            </div>
                         )}
                     </div>
                 </div>

@@ -45,6 +45,7 @@ export const modulesCopy = {
         nativeSendAlert: 'Proceed with caution',
         nativeSendDescription: (amount: string, symbol: string) =>
             `This action attempts to send ${amount} ${symbol}. This could cause the action to fail or result in a loss of funds.`,
+        of: 'of',
         menu: {
             BASIC: 'Basic',
             dropdownLabel: 'View action as',

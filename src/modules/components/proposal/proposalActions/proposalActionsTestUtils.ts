@@ -14,6 +14,7 @@ export const generateProposalAction = (action?: Partial<IProposalAction>): IProp
 export const generateProposalActionsContext = (values?: Partial<IProposalActionsContext>): IProposalActionsContext => ({
     actionsCount: 0,
     isLoading: false,
+    editMode: false,
     setActionsCount: jest.fn(),
     expandedActions: [],
     setExpandedActions: jest.fn(),
