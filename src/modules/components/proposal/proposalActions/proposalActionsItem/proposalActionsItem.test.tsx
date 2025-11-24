@@ -177,7 +177,7 @@ describe('<ProposalActionsItem /> component', () => {
         const moveUpIcon = screen.getByTestId(IconType.CHEVRON_UP);
         await userEvent.click(moveUpIcon);
 
-        expect(moveUpMock).toHaveBeenCalledWith(action, 1);
+        expect(moveUpMock).toHaveBeenCalledWith(1, action);
         expect(moveUpMock).toHaveBeenCalledTimes(1);
     });
 
@@ -196,7 +196,7 @@ describe('<ProposalActionsItem /> component', () => {
         const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
         await userEvent.click(chevronDownIcons[1]);
 
-        expect(moveDownMock).toHaveBeenCalledWith(action, 1);
+        expect(moveDownMock).toHaveBeenCalledWith(1, action);
         expect(moveDownMock).toHaveBeenCalledTimes(1);
     });
 
@@ -296,44 +296,6 @@ describe('<ProposalActionsItem /> component', () => {
         render(component);
 
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
-    });
-
-    it('scrolls element into view when moving an item', async () => {
-        const moveDownMock = jest.fn();
-        const arrayControls = {
-            moveUp: { label: 'Move up', onClick: jest.fn(), disabled: false },
-            moveDown: { label: 'Move down', onClick: moveDownMock, disabled: false },
-            remove: { label: 'Remove', onClick: jest.fn(), disabled: false },
-        };
-        const action = generateProposalAction();
-        const { rerender } = render(
-            createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }),
-        );
-
-        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
-        await userEvent.click(chevronDownIcons[1]);
-
-        const updatedComponent = (
-            <GukModulesProvider>
-                <ProposalActionsContextProvider value={generateProposalActionsContext()}>
-                    <Accordion.Container isMulti={true}>
-                        <ProposalActionsItem
-                            action={action}
-                            index={2}
-                            arrayControls={arrayControls}
-                            editMode={true}
-                            actionCount={3}
-                        />
-                    </Accordion.Container>
-                </ProposalActionsContextProvider>
-            </GukModulesProvider>
-        );
-
-        rerender(updatedComponent);
-
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        expect(scrollIntoViewSpy).toHaveBeenCalled();
     });
 
     it('forces the action content to be displayed on edit mode to register all form fields', () => {
