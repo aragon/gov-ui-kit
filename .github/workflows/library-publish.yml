@@ -20,7 +20,7 @@ jobs:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Checkout actions
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.0
         with:
           fetch-depth: 1
           sparse-checkout: |
