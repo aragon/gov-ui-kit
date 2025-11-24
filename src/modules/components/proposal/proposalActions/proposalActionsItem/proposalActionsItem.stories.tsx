@@ -181,9 +181,28 @@ export const Warning: Story = {
 /**
  * When the `arrayControls` property is set with editMode enabled, the ProposalActions.Item component renders
  * movement controls (up/down buttons with counter) in the footer and a remove button in the header.
+ * In edit mode, the accordion stays expanded and cannot be collapsed by the user.
  */
-export const EditMode: Story = {
-    render: defaultRender,
+export const Moveable: Story = {
+    render: (props) => {
+        const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
+        const noOpActionsChange = () => undefined;
+
+        return (
+            <FormProvider {...methods}>
+                <ProposalActions.Root
+                    editMode={true}
+                    expandedActions={['0']}
+                    onExpandedActionsChange={noOpActionsChange}
+                >
+                    <ProposalActions.Container emptyStateDescription="Proposal has no actions">
+                        <ProposalActions.Item {...props} />
+                    </ProposalActions.Container>
+                </ProposalActions.Root>
+                <DevTool control={methods.control} />
+            </FormProvider>
+        );
+    },
     args: {
         index: 0,
         action: generateProposalAction({

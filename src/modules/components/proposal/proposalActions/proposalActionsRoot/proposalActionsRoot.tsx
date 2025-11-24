@@ -12,6 +12,7 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
     actionsCount?: number;
     /**
      * List of actions ids that are expanded. To be used for controlling the expanded / collapsed states.
+     * When using editMode, you should set this prop to expand all actions (e.g., array of all action indices as strings).
      */
     expandedActions?: string[];
     /**
@@ -24,7 +25,9 @@ export interface IProposalActionsRootProps extends ComponentProps<'div'> {
      */
     isLoading?: boolean;
     /**
-     * Whether or not the component is in edit mode. When true, all accordions are expanded and show index badges.
+     * Whether or not the component is in edit mode. When true, actions show index badges, movement controls,
+     * and remove buttons. Note: This prop controls UI features only - you must also set expandedActions to
+     * expand the accordions.
      * @default false
      */
     editMode?: boolean;
