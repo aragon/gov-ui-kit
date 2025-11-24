@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -120,7 +121,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     displayWarning={displayValueWarning}
                 />
             </Accordion.ItemHeader>
-            <Accordion.ItemContent forceMount={editMode ? true : undefined}>
+            <Accordion.ItemContent
+                forceMount={editMode ? true : undefined}
+                className={classNames({ 'cursor-default': editMode })}
+            >
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
                     {displayValueWarning && (
                         <AlertCard variant="warning" message={copy.proposalActionsItem.nativeSendAlert}>
