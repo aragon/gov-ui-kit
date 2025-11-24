@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.25.0
+
+### Minor Changes
+
+- [#620](https://github.com/aragon/gov-ui-kit/pull/620) [`184a601`](https://github.com/aragon/gov-ui-kit/commit/184a60188ba30d426bbfb08cf3dade0d011ee440) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement redesign of ProposalActionsItem component
+
 ## 1.24.0
 
 ### Minor Changes
