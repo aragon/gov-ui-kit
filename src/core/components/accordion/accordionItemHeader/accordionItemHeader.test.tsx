@@ -55,7 +55,7 @@ describe('<Accordion.ItemHeader /> component', () => {
         const closeIcon = screen.getByTestId('CLOSE');
         await user.click(closeIcon);
 
-        expect(onClickMock).toHaveBeenCalledWith(expect.anything(), 0);
+        expect(onClickMock).toHaveBeenCalledWith(0);
     });
 
     it('does not render chevron icon when removeControl is provided', () => {
@@ -102,7 +102,7 @@ describe('<Accordion.ItemHeader /> component', () => {
         const closeIcon = screen.getByTestId('CLOSE');
         await user.click(closeIcon);
 
-        expect(onClickMock).toHaveBeenCalledWith(expect.anything(), 5);
+        expect(onClickMock).toHaveBeenCalledWith(5);
     });
 
     it('renders tooltip with removeControl label', async () => {
