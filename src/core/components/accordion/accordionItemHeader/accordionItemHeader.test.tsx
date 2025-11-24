@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { AccordionContainer } from '../accordionContainer/accordionContainer';
 import { AccordionItem } from '../accordionItem/accordionItem';
 import { AccordionItemHeader } from './accordionItemHeader';
-import { IAccordionItemHeaderProps } from './accordionItemHeader.api';
+import type { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 describe('<Accordion.ItemHeader /> component', () => {
     const createTestComponent = (props?: Partial<IAccordionItemHeaderProps>) => {

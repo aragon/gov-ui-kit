@@ -8,7 +8,7 @@ import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { Tooltip } from '../../tooltip';
-import { IAccordionItemHeaderProps } from './accordionItemHeader.api';
+import type { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
     const { children, className, disabled, removeControl, index, ...otherProps } = props;
