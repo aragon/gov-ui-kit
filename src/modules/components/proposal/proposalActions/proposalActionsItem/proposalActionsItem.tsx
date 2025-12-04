@@ -4,6 +4,7 @@ import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
+import { useWatch } from 'react-hook-form';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -89,16 +90,27 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         }
     };
 
+    // Watch the live form value when available; fall back to the static action prop
+    const watchNameValue = formPrefix ? `${formPrefix}.value` : undefined;
+    const watchNameData = formPrefix ? `${formPrefix}.data` : undefined;
+    // useWatch expects a concrete string; when no form prefix is provided we pass a harmless empty string
+    // and ignore the watch result below when the name is falsy.
+    const watchedValue = useWatch({ name: watchNameValue ?? '' });
+    const watchedData = useWatch({ name: watchNameData ?? '' });
+    const currentValue = watchNameValue ? watchedValue : action.value;
+    const currentData = watchNameData ? watchedData : action.data;
+
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const parsedValue = (() => {
         try {
-            return BigInt(action.value ?? 0);
+            return BigInt(String(currentValue ?? 0).trim());
         } catch {
             return BigInt(0);
         }
     })();
-    const displayValueWarning = parsedValue !== BigInt(0) && action.data !== '0x';
-    const formattedValue = formatUnits(BigInt(action.value), 18);
+    const displayValueWarning = parsedValue !== BigInt(0) && currentData?.trim() !== '0x';
+
+    const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },
