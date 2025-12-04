@@ -65,7 +65,14 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     };
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
-    const displayValueWarning = action.value !== '0' && action.data !== '0x';
+    const parsedValue = (() => {
+        try {
+            return BigInt(action.value ?? 0);
+        } catch {
+            return BigInt(0);
+        }
+    })();
+    const displayValueWarning = parsedValue !== BigInt(0) && action.data !== '0x';
     const formattedValue = formatUnits(BigInt(action.value), 18);
 
     const viewModes = [
