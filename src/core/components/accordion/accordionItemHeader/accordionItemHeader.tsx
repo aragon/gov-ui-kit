@@ -3,14 +3,15 @@ import {
     AccordionTrigger as RadixAccordionTrigger,
 } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { forwardRef } from 'react';
 import { AvatarIcon } from '../../avatars';
+import { Button } from '../../button';
 import { IconType } from '../../icon';
-
-export interface IAccordionItemHeaderProps extends ComponentPropsWithRef<'button'> {}
+import { Tooltip } from '../../tooltip';
+import type { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemHeaderProps>((props, ref) => {
-    const { children, className, disabled, ...otherProps } = props;
+    const { children, className, disabled, removeControl, index, ...otherProps } = props;
 
     return (
         <RadixAccordionHeader
@@ -26,21 +27,45 @@ export const AccordionItemHeader = forwardRef<HTMLButtonElement, IAccordionItemH
                 )}
                 aria-hidden="true"
             />
-
             <RadixAccordionTrigger
+                asChild={removeControl != null && index != null}
                 className={classNames(
-                    'relative flex flex-1 cursor-pointer items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
+                    'relative flex flex-1 items-baseline justify-between gap-x-4 px-4 py-3 outline-hidden md:gap-x-6 md:px-6 md:py-5',
                     'focus-ring-primary group-data-disabled:cursor-default group-data-disabled:bg-neutral-100',
+                    {
+                        'cursor-default': removeControl != null,
+                        'cursor-pointer': removeControl == null,
+                    },
                     className,
                 )}
                 ref={ref}
                 {...otherProps}
             >
-                {children}
-                <AvatarIcon
-                    icon={IconType.CHEVRON_DOWN}
-                    className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
-                />
+                {removeControl != null && index != null ? (
+                    <div className="flex flex-1 items-baseline justify-between gap-x-4">
+                        {children}
+                        <Tooltip content={removeControl.label} triggerAsChild={true}>
+                            <Button
+                                variant="tertiary"
+                                size="sm"
+                                iconLeft={IconType.CLOSE}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                                    e.stopPropagation();
+                                    removeControl.onClick(index);
+                                }}
+                                disabled={removeControl.disabled}
+                            />
+                        </Tooltip>
+                    </div>
+                ) : (
+                    <>
+                        {children}
+                        <AvatarIcon
+                            icon={IconType.CHEVRON_DOWN}
+                            className="transition-transform group-data-disabled:bg-neutral-100 group-data-disabled:text-neutral-100 group-data-[state=open]:rotate-180"
+                        />
+                    </>
+                )}
             </RadixAccordionTrigger>
         </RadixAccordionHeader>
     );

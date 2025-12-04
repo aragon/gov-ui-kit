@@ -1,6 +1,7 @@
 export { ProposalActionsItem } from './proposalActionsItem';
 export type {
-    IProposalActionsItemDropdownItem,
+    IProposalActionsArrayControl,
+    IProposalActionsArrayControls,
     IProposalActionsItemProps,
     ProposalActionsItemViewMode,
 } from './proposalActionsItem.api';

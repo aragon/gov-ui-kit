@@ -1,7 +1,6 @@
 import { DevTool } from '@hookform/devtools';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { FormProvider, useForm } from 'react-hook-form';
-import { IconType } from '../../../../../core';
 import { generateProposalActionTokenMint, type IProposalActionsItemProps, ProposalActions } from '../index';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 
@@ -180,11 +179,30 @@ export const Warning: Story = {
 };
 
 /**
- * When the `dropdownItems` property is set, the ProposalActions.Item component renders a dropdown inside the accordion
- * content with the items specified.
+ * When the `arrayControls` property is set with editMode enabled, the ProposalActions.Item component renders
+ * movement controls (up/down buttons with counter) in the footer and a remove button in the header.
+ * In edit mode, the accordion stays expanded and cannot be collapsed by the user.
  */
-export const DropdownItems: Story = {
-    render: defaultRender,
+export const Moveable: Story = {
+    render: (props) => {
+        const methods = useForm({ mode: 'onTouched', defaultValues: props.action });
+        const noOpActionsChange = () => undefined;
+
+        return (
+            <FormProvider {...methods}>
+                <ProposalActions.Root
+                    editMode={true}
+                    expandedActions={['0']}
+                    onExpandedActionsChange={noOpActionsChange}
+                >
+                    <ProposalActions.Container emptyStateDescription="Proposal has no actions">
+                        <ProposalActions.Item {...props} />
+                    </ProposalActions.Container>
+                </ProposalActions.Root>
+                <DevTool control={methods.control} />
+            </FormProvider>
+        );
+    },
     args: {
         index: 0,
         action: generateProposalAction({
@@ -193,12 +211,13 @@ export const DropdownItems: Story = {
             data: '0x',
             inputData: { function: 'transfer', contract: 'ETH', parameters: [] },
         }),
-        dropdownItems: [
-            { label: 'Move up', icon: IconType.CHEVRON_UP, onClick: () => null },
-            { label: 'Move down', icon: IconType.CHEVRON_DOWN, onClick: () => null },
-            { label: 'Reset', icon: IconType.RELOAD, onClick: () => null },
-            { label: 'Remove', icon: IconType.CLOSE, onClick: () => null },
-        ],
+        editMode: true,
+        actionCount: 6,
+        arrayControls: {
+            moveDown: { label: 'Move down', onClick: () => null, disabled: true },
+            moveUp: { label: 'Move up', onClick: () => null, disabled: false },
+            remove: { label: 'Remove', onClick: () => null, disabled: false },
+        },
     },
 };
 
