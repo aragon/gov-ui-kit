@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { PropsWithChildren } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
 import { ProposalActionsContextProvider, type IProposalActionsContext } from '../proposalActionsContext';
@@ -8,6 +10,11 @@ import { generateProposalAction, generateProposalActionsContext } from '../propo
 import { ProposalActionsContainer, type IProposalActionsContainerProps } from './proposalActionsContainer';
 
 describe('<ProposalActionsContainer /> component', () => {
+    const FormWrapper = ({ children }: PropsWithChildren) => {
+        const methods = useForm();
+        return <FormProvider {...methods}>{children}</FormProvider>;
+    };
+
     const createTestComponent = (values?: {
         context?: Partial<IProposalActionsContext>;
         props?: Partial<IProposalActionsContainerProps>;
@@ -18,11 +25,13 @@ describe('<ProposalActionsContainer /> component', () => {
         };
 
         return (
-            <GukModulesProvider>
-                <ProposalActionsContextProvider value={generateProposalActionsContext(values?.context)}>
-                    <ProposalActionsContainer {...completeProps} />
-                </ProposalActionsContextProvider>
-            </GukModulesProvider>
+            <FormWrapper>
+                <GukModulesProvider>
+                    <ProposalActionsContextProvider value={generateProposalActionsContext(values?.context)}>
+                        <ProposalActionsContainer {...completeProps} />
+                    </ProposalActionsContextProvider>
+                </GukModulesProvider>
+            </FormWrapper>
         );
     };
 

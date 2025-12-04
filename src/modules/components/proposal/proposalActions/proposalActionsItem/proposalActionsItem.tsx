@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
+import { useFormContext, useWatch, type Control, type FieldValues } from 'react-hook-form';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
-import { useWatch } from 'react-hook-form';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -14,6 +14,17 @@ import type { IProposalAction } from '../proposalActionsDefinitions';
 import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
+
+// Safe wrapper around useWatch to avoid throwing when no FormProvider/control is available.
+// Note: intentionally returns early (no hook call) when control is missing.
+const useWatchSafe = (control: Control<FieldValues> | undefined, name?: string) => {
+    if (!control || !name) return undefined;
+    // react-hook-form expects a control object with an inner "control" property
+    // If it's null/undefined, skip watching.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!(control as any)?.control) return undefined;
+    return useWatch({ control, name });
+};
 
 /**
  * The `<ProposalActions.Item />` component supports multiple view modes depending if the action supports a basic view
@@ -33,6 +44,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         actionCount,
         editMode: editModeProp,
         formPrefix,
+        readOnly = false,
         chainId = mainnet.id,
         ...web3Props
     } = props;
@@ -91,14 +103,26 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     };
 
     // Watch the live form value when available; fall back to the static action prop
-    const watchNameValue = formPrefix ? `${formPrefix}.value` : undefined;
-    const watchNameData = formPrefix ? `${formPrefix}.data` : undefined;
-    // useWatch expects a concrete string; when no form prefix is provided we pass a harmless empty string
-    // and ignore the watch result below when the name is falsy.
-    const watchedValue = useWatch({ name: watchNameValue ?? '' });
-    const watchedData = useWatch({ name: watchNameData ?? '' });
-    const currentValue = watchNameValue ? watchedValue : action.value;
-    const currentData = watchNameData ? watchedData : action.data;
+    const watchNameValue = !readOnly && formPrefix ? `${formPrefix}.value` : undefined;
+    const watchNameData = !readOnly && formPrefix ? `${formPrefix}.data` : undefined;
+
+    // Safely grab form control if we are inside a FormProvider and not read-only; otherwise stay read-only
+    let formControl: Control<FieldValues> | undefined;
+    if (!readOnly) {
+        try {
+            const ctx = useFormContext<FieldValues>();
+            formControl = ctx?.control as Control<FieldValues> | undefined;
+        } catch {
+            formControl = undefined;
+        }
+    }
+
+    // Safe watch (returns undefined when no form control)
+    const watchedValue = watchNameValue ? useWatchSafe(formControl, watchNameValue) : undefined;
+    const watchedData = watchNameData ? useWatchSafe(formControl, watchNameData) : undefined;
+
+    const currentValue = formControl && watchNameValue ? watchedValue : action.value;
+    const currentData = formControl && watchNameData ? watchedData : action.data;
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const parsedValue = (() => {
@@ -109,6 +133,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         }
     })();
     const displayValueWarning = parsedValue !== BigInt(0) && currentData?.trim() !== '0x';
+
+    // Temp log to confirm updated build is loaded in consuming app; bump version when changing this file
+    // eslint-disable-next-line no-console
+    console.log('I AM UPDATED v8');
 
     const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 

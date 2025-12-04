@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { PropsWithChildren } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Accordion, IconType } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { modulesCopy } from '../../../../assets';
@@ -27,6 +29,11 @@ describe('<ProposalActionsItem /> component', () => {
     const scrollIntoViewSpy = jest.spyOn(HTMLElement.prototype, 'scrollIntoView');
     const isActionSupportedSpy = jest.spyOn(proposalActionsItemUtils, 'isActionSupported');
 
+    const FormWrapper = ({ children }: PropsWithChildren) => {
+        const methods = useForm();
+        return <FormProvider {...methods}>{children}</FormProvider>;
+    };
+
     afterEach(() => {
         scrollIntoViewSpy.mockReset();
         isActionSupportedSpy.mockReset();
@@ -40,13 +47,15 @@ describe('<ProposalActionsItem /> component', () => {
         };
 
         return (
-            <GukModulesProvider>
-                <ProposalActionsContextProvider value={generateProposalActionsContext()}>
-                    <Accordion.Container isMulti={true}>
-                        <ProposalActionsItem {...completeProps} />
-                    </Accordion.Container>
-                </ProposalActionsContextProvider>
-            </GukModulesProvider>
+            <FormWrapper>
+                <GukModulesProvider>
+                    <ProposalActionsContextProvider value={generateProposalActionsContext()}>
+                        <Accordion.Container isMulti={true}>
+                            <ProposalActionsItem {...completeProps} />
+                        </Accordion.Container>
+                    </ProposalActionsContextProvider>
+                </GukModulesProvider>
+            </FormWrapper>
         );
     };
 
@@ -265,13 +274,15 @@ describe('<ProposalActionsItem /> component', () => {
         const contextValue = generateProposalActionsContext({ editMode: true });
 
         const component = (
-            <GukModulesProvider>
-                <ProposalActionsContextProvider value={contextValue}>
-                    <Accordion.Container isMulti={true}>
-                        <ProposalActionsItem action={action} index={0} />
-                    </Accordion.Container>
-                </ProposalActionsContextProvider>
-            </GukModulesProvider>
+            <FormWrapper>
+                <GukModulesProvider>
+                    <ProposalActionsContextProvider value={contextValue}>
+                        <Accordion.Container isMulti={true}>
+                            <ProposalActionsItem action={action} index={0} />
+                        </Accordion.Container>
+                    </ProposalActionsContextProvider>
+                </GukModulesProvider>
+            </FormWrapper>
         );
 
         render(component);
@@ -284,13 +295,15 @@ describe('<ProposalActionsItem /> component', () => {
         const contextValue = generateProposalActionsContext({ editMode: false });
 
         const component = (
-            <GukModulesProvider>
-                <ProposalActionsContextProvider value={contextValue}>
-                    <Accordion.Container isMulti={true}>
-                        <ProposalActionsItem action={action} index={0} editMode={true} />
-                    </Accordion.Container>
-                </ProposalActionsContextProvider>
-            </GukModulesProvider>
+            <FormWrapper>
+                <GukModulesProvider>
+                    <ProposalActionsContextProvider value={contextValue}>
+                        <Accordion.Container isMulti={true}>
+                            <ProposalActionsItem action={action} index={0} editMode={true} />
+                        </Accordion.Container>
+                    </ProposalActionsContextProvider>
+                </GukModulesProvider>
+            </FormWrapper>
         );
 
         render(component);
