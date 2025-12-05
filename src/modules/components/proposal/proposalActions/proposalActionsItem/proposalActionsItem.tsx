@@ -143,10 +143,6 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     })();
     const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
 
-    // Temp log to confirm updated build is loaded in consuming app; bump version when changing this file
-    // eslint-disable-next-line no-console
-    console.log('I AM UPDATED v8');
-
     const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 
     const viewModes = [
