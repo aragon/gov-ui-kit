@@ -39,6 +39,7 @@ export const modulesCopy = {
     proposalActionsFooter: {
         collapse: 'Collapse all',
         expand: 'Expand all',
+        more: 'More',
     },
     proposalActionsItem: {
         dropdownLabel: 'More',

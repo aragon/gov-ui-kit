@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
+import { useFormContext, useWatch, type Control } from 'react-hook-form';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -13,6 +14,25 @@ import type { IProposalAction } from '../proposalActionsDefinitions';
 import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
+
+// Safe wrapper around useWatch to avoid throwing when no FormProvider/control is available.
+const useWatchSafe = (control: Control | undefined, name?: string): string | undefined => {
+    try {
+        const value = useWatch({ control, name: name ?? '' }) as unknown;
+        if (value == null) {
+            return undefined;
+        }
+        if (typeof value === 'string') {
+            return value;
+        }
+        if (typeof value === 'number' || typeof value === 'bigint' || typeof value === 'boolean') {
+            return value.toString();
+        }
+        return undefined;
+    } catch {
+        return undefined;
+    }
+};
 
 /**
  * The `<ProposalActions.Item />` component supports multiple view modes depending if the action supports a basic view
@@ -32,6 +52,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         actionCount,
         editMode: editModeProp,
         formPrefix,
+        readOnly = false,
         chainId = mainnet.id,
         ...web3Props
     } = props;
@@ -89,9 +110,40 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         }
     };
 
+    // Watch the live form value when available; fall back to the static action prop
+    const watchNameValue = formPrefix ? `${formPrefix}.value` : undefined;
+    const watchNameData = formPrefix ? `${formPrefix}.data` : undefined;
+
+    let formControl: Control | undefined;
+    try {
+        const ctx = useFormContext();
+        formControl = ctx.control as Control | undefined;
+    } catch {
+        formControl = undefined;
+    }
+
+    const watchedValue = useWatchSafe(formControl, watchNameValue);
+    const watchedData = useWatchSafe(formControl, watchNameData);
+
+    const hasFormControl = Boolean(
+        !readOnly && formControl != null && (formControl as { control?: unknown }).control != null && formPrefix,
+    );
+
+    const currentValue = hasFormControl && watchNameValue ? (watchedValue ?? action.value) : action.value;
+    const currentData = hasFormControl && watchNameData ? (watchedData ?? action.data) : action.data;
+
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
-    const displayValueWarning = action.value !== '0' && action.data !== '0x';
-    const formattedValue = formatUnits(BigInt(action.value), 18);
+    const parsedValue = (() => {
+        try {
+            const normalizedValue = currentValue.trim();
+            return normalizedValue === '' ? BigInt(0) : BigInt(normalizedValue);
+        } catch {
+            return BigInt(0);
+        }
+    })();
+    const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
+
+    const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 
     const viewModes = [
         { mode: 'BASIC' as const, disabled: !supportsBasicView },

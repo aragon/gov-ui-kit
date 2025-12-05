@@ -1,1 +1,5 @@
-export { ProposalActionsFooter, type IProposalActionsFooterProps } from './proposalActionsFooter';
+export {
+    ProposalActionsFooter,
+    type IProposalActionsFooterDropdownItem,
+    type IProposalActionsFooterProps,
+} from './proposalActionsFooter';

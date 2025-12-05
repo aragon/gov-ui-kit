@@ -36,9 +36,14 @@ describe('<ProposalActionsFooter /> component', () => {
         const setExpandedActions = jest.fn();
         const context = { expandedActions: ['0'], actionsCount: 3, setExpandedActions };
         render(createTestComponent({ context }));
-        const expandButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.expand });
-        expect(expandButton).toBeInTheDocument();
-        await userEvent.click(expandButton);
+
+        const moreButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.more });
+        expect(moreButton).toBeInTheDocument();
+        await userEvent.click(moreButton);
+
+        const expandMenuItem = screen.getByRole('menuitem', { name: modulesCopy.proposalActionsFooter.expand });
+        expect(expandMenuItem).toBeInTheDocument();
+        await userEvent.click(expandMenuItem);
         expect(setExpandedActions).toHaveBeenCalledWith(['0', '1', '2']);
     });
 
@@ -46,9 +51,14 @@ describe('<ProposalActionsFooter /> component', () => {
         const setExpandedActions = jest.fn();
         const context = { expandedActions: ['0', '1'], actionsCount: 2, setExpandedActions };
         render(createTestComponent({ context }));
-        const expandButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.collapse });
-        expect(expandButton).toBeInTheDocument();
-        await userEvent.click(expandButton);
+
+        const moreButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.more });
+        expect(moreButton).toBeInTheDocument();
+        await userEvent.click(moreButton);
+
+        const collapseMenuItem = screen.getByRole('menuitem', { name: modulesCopy.proposalActionsFooter.collapse });
+        expect(collapseMenuItem).toBeInTheDocument();
+        await userEvent.click(collapseMenuItem);
         expect(setExpandedActions).toHaveBeenCalledWith([]);
     });
 
@@ -57,11 +67,16 @@ describe('<ProposalActionsFooter /> component', () => {
         const setExpandedActions = jest.fn();
         const context = { expandedActions: [], actionsCount: actionIds.length, setExpandedActions };
         render(createTestComponent({ context, props: { actionIds } }));
-        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.expand }));
+
+        const moreButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.more });
+        await userEvent.click(moreButton);
+
+        const expandMenuItem = screen.getByRole('menuitem', { name: modulesCopy.proposalActionsFooter.expand });
+        await userEvent.click(expandMenuItem);
         expect(setExpandedActions).toHaveBeenCalledWith(actionIds);
     });
 
-    it('renders a disabled `Expand all` button on loading state', async () => {
+    it('renders a disabled `More` button on loading state', async () => {
         const setExpandedActions = jest.fn();
         const context = {
             expandedActions: [],
@@ -71,12 +86,10 @@ describe('<ProposalActionsFooter /> component', () => {
         };
         render(createTestComponent({ context }));
 
-        const toggleButton = screen.getByRole('button', {
-            name: modulesCopy.proposalActionsFooter.expand,
-        });
-        expect(toggleButton).toBeDisabled();
+        const moreButton = screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.more });
+        expect(moreButton).toBeDisabled();
 
-        await userEvent.click(toggleButton);
+        await userEvent.click(moreButton);
         expect(setExpandedActions).not.toHaveBeenCalled();
     });
 });
