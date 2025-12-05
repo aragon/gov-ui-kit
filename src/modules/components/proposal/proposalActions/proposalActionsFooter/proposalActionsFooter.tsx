@@ -86,8 +86,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
         >
             {children}
 
-            {/* Show dropdown if we have items, otherwise show button */}
-            {showDropdown ? (
+            {showDropdown && (
                 <Dropdown.Container
                     constrainContentWidth={false}
                     size="md"
@@ -110,19 +109,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
                         </Dropdown.Item>
                     ))}
                 </Dropdown.Container>
-            ) : showExpandCollapse ? (
-                <Button
-                    onClick={handleToggleAll}
-                    variant="tertiary"
-                    size="md"
-                    className="shrink-0 md:ml-auto"
-                    disabled={isLoading}
-                >
-                    {expandedActions.length === actionsCount
-                        ? copy.proposalActionsFooter.collapse
-                        : copy.proposalActionsFooter.expand}
-                </Button>
-            ) : null}
+            )}
         </div>
     );
 };
