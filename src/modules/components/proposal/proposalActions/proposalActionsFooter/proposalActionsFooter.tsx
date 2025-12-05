@@ -57,7 +57,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
 
     const showExpandCollapse = actionsCount > 1;
     const hasDropdownItems = dropdownItems != null && dropdownItems.length > 0;
-    const showDropdown = showExpandCollapse && hasDropdownItems;
+    const showDropdown = showExpandCollapse || hasDropdownItems;
 
     // Build all dropdown items including expand/collapse
     const allDropdownItems: IProposalActionsFooterDropdownItem[] = [];
