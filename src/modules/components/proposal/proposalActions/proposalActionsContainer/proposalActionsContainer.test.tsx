@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';

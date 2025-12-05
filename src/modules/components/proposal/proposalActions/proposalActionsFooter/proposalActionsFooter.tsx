@@ -101,7 +101,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
                 >
                     {allDropdownItems.map((item, index) => (
                         <Dropdown.Item
-                            key={`${item.label}-${index}`}
+                            key={`${item.label}-${String(index)}`}
                             icon={item.icon}
                             iconPosition={item.iconPosition ?? 'left'}
                             onClick={() => item.onClick()}

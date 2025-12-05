@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import { useFormContext, useWatch, type Control, type FieldValues } from 'react-hook-form';
+import { useFormContext, useWatch, type Control } from 'react-hook-form';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
@@ -16,14 +16,22 @@ import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
 // Safe wrapper around useWatch to avoid throwing when no FormProvider/control is available.
-// Note: intentionally returns early (no hook call) when control is missing.
-const useWatchSafe = (control: Control<FieldValues> | undefined, name?: string) => {
-    if (!control || !name) return undefined;
-    // react-hook-form expects a control object with an inner "control" property
-    // If it's null/undefined, skip watching.
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (!(control as any)?.control) return undefined;
-    return useWatch({ control, name });
+const useWatchSafe = (control: Control | undefined, name?: string): string | undefined => {
+    try {
+        const value = useWatch({ control, name }) as unknown;
+        if (value == null) {
+            return undefined;
+        }
+        if (typeof value === 'string') {
+            return value;
+        }
+        if (typeof value === 'number' || typeof value === 'bigint' || typeof value === 'boolean') {
+            return value.toString();
+        }
+        return undefined;
+    } catch {
+        return undefined;
+    }
 };
 
 /**
@@ -103,36 +111,37 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     };
 
     // Watch the live form value when available; fall back to the static action prop
-    const watchNameValue = !readOnly && formPrefix ? `${formPrefix}.value` : undefined;
-    const watchNameData = !readOnly && formPrefix ? `${formPrefix}.data` : undefined;
+    const watchNameValue = formPrefix ? `${formPrefix}.value` : undefined;
+    const watchNameData = formPrefix ? `${formPrefix}.data` : undefined;
 
-    // Safely grab form control if we are inside a FormProvider and not read-only; otherwise stay read-only
-    let formControl: Control<FieldValues> | undefined;
-    if (!readOnly) {
-        try {
-            const ctx = useFormContext<FieldValues>();
-            formControl = ctx?.control as Control<FieldValues> | undefined;
-        } catch {
-            formControl = undefined;
-        }
+    let formControl: Control | undefined;
+    try {
+        const ctx = useFormContext();
+        formControl = ctx.control as Control | undefined;
+    } catch {
+        formControl = undefined;
     }
 
-    // Safe watch (returns undefined when no form control)
-    const watchedValue = watchNameValue ? useWatchSafe(formControl, watchNameValue) : undefined;
-    const watchedData = watchNameData ? useWatchSafe(formControl, watchNameData) : undefined;
+    const watchedValue = useWatchSafe(formControl, watchNameValue);
+    const watchedData = useWatchSafe(formControl, watchNameData);
 
-    const currentValue = formControl && watchNameValue ? watchedValue : action.value;
-    const currentData = formControl && watchNameData ? watchedData : action.data;
+    const hasFormControl = Boolean(
+        !readOnly && formControl != null && (formControl as { control?: unknown }).control != null && formPrefix,
+    );
+
+    const currentValue = hasFormControl && watchNameValue ? watchedValue ?? action.value : action.value;
+    const currentData = hasFormControl && watchNameData ? watchedData ?? action.data : action.data;
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const parsedValue = (() => {
         try {
-            return BigInt(String(currentValue ?? 0).trim());
+            const normalizedValue = currentValue.trim();
+            return normalizedValue === '' ? BigInt(0) : BigInt(normalizedValue);
         } catch {
             return BigInt(0);
         }
     })();
-    const displayValueWarning = parsedValue !== BigInt(0) && currentData?.trim() !== '0x';
+    const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
 
     // Temp log to confirm updated build is loaded in consuming app; bump version when changing this file
     // eslint-disable-next-line no-console
