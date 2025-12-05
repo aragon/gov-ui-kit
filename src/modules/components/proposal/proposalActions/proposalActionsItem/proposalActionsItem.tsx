@@ -18,7 +18,7 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 // Safe wrapper around useWatch to avoid throwing when no FormProvider/control is available.
 const useWatchSafe = (control: Control | undefined, name?: string): string | undefined => {
     try {
-        const value = useWatch({ control, name }) as unknown;
+        const value = useWatch({ control, name: name ?? '' }) as unknown;
         if (value == null) {
             return undefined;
         }
