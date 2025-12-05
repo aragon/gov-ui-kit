@@ -129,8 +129,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         !readOnly && formControl != null && (formControl as { control?: unknown }).control != null && formPrefix,
     );
 
-    const currentValue = hasFormControl && watchNameValue ? watchedValue ?? action.value : action.value;
-    const currentData = hasFormControl && watchNameData ? watchedData ?? action.data : action.data;
+    const currentValue = hasFormControl && watchNameValue ? (watchedValue ?? action.value) : action.value;
+    const currentData = hasFormControl && watchNameData ? (watchedData ?? action.data) : action.data;
 
     // Display value warning when a transaction is sending value but it's not a native transfer (data !== '0x')
     const parsedValue = (() => {
