@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 1.26.0
+
+### Minor Changes
+
+- [#625](https://github.com/aragon/gov-ui-kit/pull/625) [`4498ba5`](https://github.com/aragon/gov-ui-kit/commit/4498ba51cc0ce9b153109aa024004d17b88004c8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Improve proposal actions for dropdown menu usage, fix evaluation of warning conditions for proposal actions when sending native currency
+
+### Patch Changes
+
+- [#623](https://github.com/aragon/gov-ui-kit/pull/623) [`afb7e5d`](https://github.com/aragon/gov-ui-kit/commit/afb7e5d789f894be114bb33d10bfd9a481ed8542) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Security update versions
+
 ## 1.25.0
 
 ### Minor Changes
