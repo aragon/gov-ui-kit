@@ -22,7 +22,7 @@ jobs:
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Checkout actions
-        uses: actions/checkout@v5.0.1
+        uses: actions/checkout@v6.0.1
         with:
           fetch-depth: 1
           sparse-checkout: |
