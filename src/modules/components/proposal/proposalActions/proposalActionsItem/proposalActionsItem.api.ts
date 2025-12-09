@@ -76,6 +76,11 @@ export interface IProposalActionsItemProps<TAction extends IProposalAction = IPr
      */
     formPrefix?: string;
     /**
+     * If true, skips react-hook-form watching and treats the item as read-only (useful when rendered outside a FormProvider).
+     * @default false
+     */
+    readOnly?: boolean;
+    /**
      * Chain ID for the blockchain network.
      * @default mainnet.id
      */
