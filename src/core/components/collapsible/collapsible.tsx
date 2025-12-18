@@ -47,10 +47,12 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     } = props;
 
     const [isOpenState, setIsOpenState] = useState(defaultOpen);
-    const [isOverflowing, setIsOverflowing] = useState(false);
-    const [maxHeightPx, setMaxHeightPx] = useState(0);
-    const [lineHeightPx, setLineHeightPx] = useState<number>(collapsibleDefaultLineHeight);
-    const [overlayHeightPx, setOverlayHeightPx] = useState<number>(0);
+    const [measurements, setMeasurements] = useState(() => ({
+        isOverflowing: false,
+        maxHeightPx: 0,
+        lineHeightPx: collapsibleDefaultLineHeight,
+        overlayHeightPx: 0,
+    }));
 
     const isOpen = isOpenProp ?? isOpenState;
     const contentRef = useRef<HTMLDivElement>(null);
@@ -68,7 +70,6 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         }
 
         const lh = getLineHeight();
-        setLineHeightPx(lh);
 
         // Compute requested collapsed height for open-state maxHeight and overflow comparisons
         const collapsedHeight = utilsCalculateCollapsedHeight(collapsedLines, lh, collapsedPixels);
@@ -78,8 +79,7 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
 
         // Overflow: compare full height to requested collapsed height
         const overflowing = computeContentOverflow(fullHeight, collapsedHeight);
-        setIsOverflowing(overflowing);
-        setMaxHeightPx(overflowing ? fullHeight : collapsedHeight);
+        const maxHeightPx = overflowing ? fullHeight : collapsedHeight;
 
         // Overlay height by ratio of actual clamped height to requested overlayLines
         const overlayHeightByRatio = computeOverlayHeightByRatio({
@@ -99,7 +99,23 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
         });
 
         const finalOverlayHeight = !showOverlay || isOpen ? 0 : overlayHeightByRatio || legacyOverlayFallback;
-        setOverlayHeightPx(finalOverlayHeight);
+        setMeasurements((prev) => {
+            if (
+                prev.lineHeightPx === lh &&
+                prev.isOverflowing === overflowing &&
+                prev.maxHeightPx === maxHeightPx &&
+                prev.overlayHeightPx === finalOverlayHeight
+            ) {
+                return prev;
+            }
+
+            return {
+                lineHeightPx: lh,
+                isOverflowing: overflowing,
+                maxHeightPx,
+                overlayHeightPx: finalOverlayHeight,
+            };
+        });
     }, [collapsedLines, collapsedPixels, overlayLines, showOverlay, isOpen, getLineHeight]);
 
     const toggle: () => void = useCallback(() => {
@@ -113,22 +129,33 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
             return;
         }
 
-        const observer = new ResizeObserver(() => recalcMeasurements());
-        observer.observe(content);
-        recalcMeasurements();
+        // Initial measurement is scheduled async to satisfy react-hooks/set-state-in-effect rule.
+        // This also keeps ResizeObserver as the single source of truth for subsequent recalculations.
+        const rafId =
+            typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function'
+                ? window.requestAnimationFrame(recalcMeasurements)
+                : null;
+
+        const observer =
+            typeof ResizeObserver === 'function' ? new ResizeObserver(() => recalcMeasurements()) : undefined;
+        observer?.observe(content);
 
         if (typeof window !== 'undefined') {
             window.addEventListener('resize', recalcMeasurements);
         }
 
         return () => {
-            observer.disconnect();
+            if (rafId != null && typeof window !== 'undefined') {
+                window.cancelAnimationFrame(rafId);
+            }
+            observer?.disconnect();
             if (typeof window !== 'undefined') {
                 window.removeEventListener('resize', recalcMeasurements);
             }
         };
     }, [recalcMeasurements]);
 
+    const { isOverflowing, maxHeightPx, lineHeightPx, overlayHeightPx } = measurements;
     const collapsedHeightComputed = utilsCalculateCollapsedHeight(collapsedLines, lineHeightPx, collapsedPixels);
 
     // Uses pixel-based max-height with overlay to handle rich-text content correctly.

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useState, type ComponentProps } from 'react';
+import { useState, type ComponentProps } from 'react';
 import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
@@ -8,8 +8,7 @@ import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVot
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
 export interface IProposalVotingBodyContentProps
-    extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
-        ComponentProps<'div'> {
+    extends Pick<IProposalVotingTabsProps, 'hideTabs'>, ComponentProps<'div'> {
     /**
      * Status of the proposal.
      */
@@ -36,11 +35,15 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
 
     const futureStatuses = [ProposalStatus.PENDING, ProposalStatus.UNREACHED];
 
-    const stateActiveTab = futureStatuses.includes(status) ? ProposalVotingTab.DETAILS : ProposalVotingTab.BREAKDOWN;
-    const [activeTab, setActiveTab] = useState<string | undefined>(stateActiveTab);
+    const isFutureStatus = futureStatuses.includes(status);
+    const [activeTab, setActiveTab] = useState<string>(ProposalVotingTab.BREAKDOWN);
+    const effectiveTab = isFutureStatus ? ProposalVotingTab.DETAILS : activeTab;
 
-    // Update active tab when stage status changes (e.g from PENDING to UNREACHED)
-    useEffect(() => setActiveTab(stateActiveTab), [stateActiveTab]);
+    const handleTabChange = (tab?: string) => {
+        if (!isFutureStatus && tab != null) {
+            setActiveTab(tab);
+        }
+    };
 
     if (bodyId !== activeBody) {
         return null;
@@ -68,7 +71,12 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                     </div>
                 )}
             </div>
-            <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
+            <ProposalVotingTabs
+                value={effectiveTab}
+                onValueChange={handleTabChange}
+                status={status}
+                hideTabs={hideTabs}
+            >
                 {children}
             </ProposalVotingTabs>
         </div>

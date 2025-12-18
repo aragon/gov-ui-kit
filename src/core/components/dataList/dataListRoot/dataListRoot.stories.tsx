@@ -6,6 +6,8 @@ import { DataListItem } from '../dataListItem';
 import { DataList, type IDataListContainerProps, type IDataListRootProps } from '../index';
 import type { DataListState } from './dataListRoot';
 
+const generateUserIds = (itemsCount: number) => Array.from({ length: itemsCount }, (_, i) => i + 1);
+
 const meta: Meta<typeof DataList.Root> = {
     title: 'Core/Components/DataList/DataList.Root',
     component: DataList.Root,
@@ -55,7 +57,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
 
     const shouldFilter = searchValue != null && searchValue.trim().length > 0;
     const userIds = useMemo(
-        () => [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000)),
+        () => generateUserIds(itemsCount),
         [itemsCount],
     );
 
@@ -142,14 +144,15 @@ const getUsers = (dbUsers: number[] = [], search = '', page = 0, sort = 'id_asc'
 const AsyncListComponent = (props: IDataListRootProps) => {
     const { itemsCount = 20, pageSize, ...otherProps } = props;
 
-    const [dataListState, setDataListState] = useState<DataListState>();
+    const initialState: DataListState = itemsCount > 0 ? 'initialLoading' : 'idle';
+    const [dataListState, setDataListState] = useState<DataListState>(initialState);
     const [currentPage, setCurrentPage] = useState(0);
     const [searchValue, setSearchValue] = useState<string>();
     const [activeSort, setActiveSort] = useState('id_asc');
     const [users, setUsers] = useState({ total: 0, items: [] as number[] });
 
-    const requestTimeout = useRef<NodeJS.Timeout>(undefined);
-    const dbUsers = useRef<number[]>(undefined);
+    const requestTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const dbUsers = useMemo(() => generateUserIds(itemsCount), [itemsCount]);
 
     const sortItems = useMemo(
         () => [
@@ -167,39 +170,48 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     const handleSearchValueChange = (value?: string) => {
         setSearchValue(value);
         setCurrentPage(0);
+        setDataListState('loading');
+    };
+
+    const handleSortChange = (value: string) => {
+        setActiveSort(value);
+        setCurrentPage(0);
+        setDataListState('loading');
     };
 
     // Generate and initialise users list on itemsCount change
     useEffect(() => {
-        setDataListState('initialLoading');
+        if (itemsCount <= 0) {
+            // Keep state idle to allow the empty state to render.
+            return;
+        }
 
-        setTimeout(() => {
-            dbUsers.current = [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
-            setUsers(getUsers(dbUsers.current));
+        requestTimeout.current = setTimeout(() => {
+            setUsers(getUsers(dbUsers));
             setDataListState('idle');
         }, 1_000);
-    }, [itemsCount]);
+
+        return () => clearTimeout(requestTimeout.current);
+    }, [itemsCount, dbUsers]);
 
     // Sort and filter user list on filter change
     useEffect(() => {
         // Do not run the filtering & sorting if list is not initialised yet
-        if (!dbUsers.current) {
+        if (itemsCount <= 0 || dataListState === 'initialLoading') {
             return;
         }
 
-        setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : state));
-
-        requestTimeout.current = setTimeout(() => {
-            setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, pageSize));
+        const fetchTimeout = setTimeout(() => {
+            setUsers(getUsers(dbUsers, searchValue, currentPage, activeSort, pageSize));
             const isFiltered = searchValue != null && searchValue.trim().length > 0;
             const newState = isFiltered ? 'filtered' : 'idle';
             setDataListState(newState);
         }, 1_000);
 
         return () => {
-            clearTimeout(requestTimeout.current);
+            clearTimeout(fetchTimeout);
         };
-    }, [searchValue, currentPage, activeSort, pageSize]);
+    }, [searchValue, currentPage, activeSort, pageSize, itemsCount, dbUsers, dataListState]);
 
     const emptyFilteredState = {
         heading: 'No users found',
@@ -248,7 +260,7 @@ const AsyncListComponent = (props: IDataListRootProps) => {
                 onSearchValueChange={handleSearchValueChange}
                 placeholder="Filter by user id"
                 activeSort={activeSort}
-                onSortChange={setActiveSort}
+                onSortChange={handleSortChange}
                 sortItems={sortItems}
                 onResetFiltersClick={() => setSearchValue(undefined)}
             />
@@ -275,7 +287,7 @@ export const AsyncList: Story = {
         pageSize: 6,
         itemsCount: 122,
     },
-    render: ({ onLoadMore, ...props }) => <AsyncListComponent {...props} />,
+    render: ({ onLoadMore, ...props }) => <AsyncListComponent key={props.itemsCount} {...props} />,
 };
 
 export default meta;

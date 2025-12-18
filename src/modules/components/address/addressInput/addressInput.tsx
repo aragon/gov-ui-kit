@@ -35,8 +35,7 @@ export interface IAddressInputResolvedValue {
 }
 
 export interface IAddressInputProps
-    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>,
-        IWeb3ComponentProps {
+    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>, IWeb3ComponentProps {
     /**
      * Current value of the address input.
      */
@@ -76,7 +75,6 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const queryClient = useQueryClient();
     const wagmiConfigProvider = useConfig();
-    const onAcceptRef = useRef(onAccept);
     const appliedInitialEnsModeRef = useRef(false);
 
     const wagmiConfig = wagmiConfigProps ?? wagmiConfigProvider;
@@ -89,8 +87,11 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
     const inputRef = useRef<HTMLTextAreaElement>(null);
 
-    const [debouncedValue, setDebouncedValue] = useDebouncedValue(value, { delay: 300 });
+    const [debouncedValue] = useDebouncedValue(value, { delay: 300 });
     const [isFocused, setIsFocused] = useState(false);
+    const [lastResolvedAddress, setLastResolvedAddress] = useState<string | undefined>(() =>
+        addressUtils.isAddress(value) ? value : undefined,
+    );
 
     const { copy } = useGukModulesContext();
 
@@ -123,13 +124,17 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     });
 
     const isLoading = isEnsAddressLoading || isEnsNameLoading;
-    const [displayMode, setDisplayMode] = useState<'ens' | 'address'>(ensUtils.isEnsName(value) ? 'ens' : 'address');
 
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
 
         if (!enforceChecksum) {
             onChange?.(value);
+            if (addressUtils.isAddress(value)) {
+                setLastResolvedAddress(value);
+            } else if (value.trim().length === 0) {
+                setLastResolvedAddress(undefined);
+            }
             return;
         }
 
@@ -142,21 +147,28 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
         const processedValue = isValidAddress || isValidUppercaseAddress ? addressUtils.getChecksum(value) : value;
         onChange?.(processedValue);
+        if (addressUtils.isAddress(processedValue)) {
+            setLastResolvedAddress(processedValue);
+        } else if (processedValue.trim().length === 0) {
+            setLastResolvedAddress(undefined);
+        }
     };
 
     const toggleDisplayMode = () => {
         appliedInitialEnsModeRef.current = true;
 
-        const newMode = displayMode === 'ens' ? 'address' : 'ens';
+        const currentMode = ensUtils.isEnsName(value) ? 'ens' : 'address';
+        const newMode = currentMode === 'ens' ? 'address' : 'ens';
         const nextValue = newMode === 'ens' ? ensName : ensAddress;
 
         if (!nextValue) {
             return;
         }
 
-        setDisplayMode(newMode);
         onChange?.(nextValue);
-        setDebouncedValue(nextValue);
+        if (newMode === 'address') {
+            setLastResolvedAddress(nextValue);
+        }
     };
 
     const handlePasteClick = async () => {
@@ -165,7 +177,10 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onChange?.(text);
     };
 
-    const handleClearClick = () => onChange?.(undefined);
+    const handleClearClick = () => {
+        setLastResolvedAddress(undefined);
+        onChange?.(undefined);
+    };
 
     const handleInputFocus = (event: FocusEvent<HTMLTextAreaElement>) => {
         setIsFocused(true);
@@ -188,26 +203,18 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             return;
         }
 
-        const handleAccept = onAcceptRef.current;
-
         if (ensAddress) {
             // User input is a valid ENS name
             const normalizedEns = normalize(debouncedValue);
-            handleAccept?.({ address: ensAddress, name: normalizedEns });
+            onAccept?.({ address: ensAddress, name: normalizedEns });
         } else if (isDebouncedValueValidAddress && !hasChecksumError) {
             // User input is a valid address with or without a ENS name linked to it
             const checksumAddress = addressUtils.getChecksum(debouncedValue);
-            handleAccept?.({ address: checksumAddress, name: ensName ?? undefined });
+            onAccept?.({ address: checksumAddress, name: ensName ?? undefined });
         } else {
-            handleAccept?.(undefined);
+            onAccept?.(undefined);
         }
-    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading]);
-
-    // Sync displayMode with the current value to ensure button shows the correct toggle state
-    useEffect(() => {
-        const mode = ensUtils.isEnsName(value) ? 'ens' : 'address';
-        setDisplayMode(mode);
-    }, [value]);
+    }, [ensAddress, ensName, debouncedValue, isDebouncedValueValidAddress, hasChecksumError, isLoading, onAccept]);
 
     // Default to ENS mode on first render if an ENS exists for the provided address
     useEffect(() => {
@@ -217,11 +224,9 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
 
         if (!isFocused && ensName && addressUtils.isAddress(value)) {
             appliedInitialEnsModeRef.current = true;
-            setDisplayMode('ens');
             onChange?.(ensName);
-            setDebouncedValue(ensName);
         }
-    }, [ensName, value, isFocused, onChange, setDebouncedValue]);
+    }, [ensName, value, isFocused, onChange]);
 
     // Update react-query cache to avoid fetching the ENS address when the ENS name has been successfully resolved.
     // E.g. user types 0x..123 which is resolved into test.eth, therefore set test.eth as resolved ENS name of 0x..123
@@ -261,15 +266,21 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     // Display the address truncated when not focused. Do NOT truncate ENS.
     const displayTruncatedAddress = addressUtils.isAddress(value) && !isFocused;
 
-    const addressValue = ensAddress ?? (addressUtils.isAddress(value) ? value : undefined);
+    const addressValue = (addressUtils.isAddress(value) ? value : undefined) ?? ensAddress ?? lastResolvedAddress;
     const addressUrl = addressValue
         ? buildEntityUrl({ type: ChainEntityType.ADDRESS, id: addressValue, chainId })
         : undefined;
 
     const processedValue = displayTruncatedAddress ? addressUtils.truncateAddress(value) : value;
 
-    const canToggleToAddress = displayMode === 'ens' && ensAddress != null && !isFocused && !isLoading;
-    const canToggleToEns = displayMode === 'address' && ensName != null && !isFocused && !isLoading;
+    const isValueEns = ensUtils.isEnsName(value);
+    const isValueAddress = addressUtils.isAddress(value);
+
+    const showToggleToAddress = isValueEns && !isFocused;
+    const showToggleToEns = isValueAddress && supportEnsNames && !isFocused;
+
+    const toggleToAddressDisabled = isLoading || ensAddress == null;
+    const toggleToEnsDisabled = isLoading || ensName == null;
 
     return (
         <InputContainer {...containerProps} alert={alert}>
@@ -294,17 +305,29 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 onChange={handleInputChange}
             />
             <div className="mr-2 flex flex-row gap-2">
-                {canToggleToAddress && (
-                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                {showToggleToAddress && (
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        onClick={toggleDisplayMode}
+                        className="min-w-max"
+                        disabled={toggleToAddressDisabled}
+                    >
                         0x…
                     </Button>
                 )}
-                {canToggleToEns && (
-                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                {showToggleToEns && (
+                    <Button
+                        variant="tertiary"
+                        size="sm"
+                        onClick={toggleDisplayMode}
+                        className="min-w-max"
+                        disabled={toggleToEnsDisabled}
+                    >
                         ENS
                     </Button>
                 )}
-                {addressValue != null && !isFocused && (
+                {addressValue != null && (
                     <>
                         <Button
                             variant="tertiary"
@@ -313,7 +336,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                             target="_blank"
                             iconLeft={IconType.LINK_EXTERNAL}
                         />
-                        <Clipboard copyValue={value} variant="button" />
+                        <Clipboard copyValue={addressValue} variant="button" />
                     </>
                 )}
                 {value.length > 0 && isFocused && (

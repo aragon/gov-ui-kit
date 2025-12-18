@@ -22,12 +22,18 @@ export interface IRerenderProps {
 export const Rerender: React.FC<IRerenderProps> = (props) => {
     const { intervalDuration = 1000, children } = props;
 
-    const [time, setTime] = useState(Date.now());
+    // Avoid Date.now() during render to keep components/hooks pure.
+    const [time, setTime] = useState<number>(() => Date.now());
 
     useEffect(() => {
-        const interval = setInterval(() => setTime(Date.now()), intervalDuration);
-        return () => clearInterval(interval);
-    }, [setTime, intervalDuration]);
+        const tick = () => setTime(Date.now());
+
+        const interval = setInterval(tick, intervalDuration);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [intervalDuration]);
 
     return children(time);
 };

@@ -17,39 +17,41 @@ describe('<CardCollapsible /> component', () => {
         jest.restoreAllMocks();
     });
 
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
         const children = 'Content of the card';
         render(createTestComponent({ children }));
         expect(screen.getByText('Content of the card')).toBeInTheDocument();
+        // Wait for the initial async measurement to settle to avoid act warnings.
+        await screen.findByRole('button');
     });
 
-    it('forwards defaultOpen prop to the Collapsible component', () => {
+    it('forwards defaultOpen prop to the Collapsible component', async () => {
         const defaultOpen = true;
         const buttonLabelOpened = 'Close';
         const buttonLabelClosed = 'Open';
 
         render(createTestComponent({ defaultOpen, buttonLabelOpened, buttonLabelClosed }));
 
-        const button = screen.getByRole('button');
+        const button = await screen.findByRole('button');
         expect(button).toHaveTextContent(buttonLabelOpened);
         expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('forwards buttonLabelOpened prop to the Collapsible component', () => {
+    it('forwards buttonLabelOpened prop to the Collapsible component', async () => {
         const defaultOpen = true;
         const buttonLabelOpened = 'Collapse content';
 
         render(createTestComponent({ defaultOpen, buttonLabelOpened }));
 
-        expect(screen.getByText(buttonLabelOpened)).toBeInTheDocument();
+        expect(await screen.findByText(buttonLabelOpened)).toBeInTheDocument();
     });
 
-    it('forwards buttonLabelClosed prop to the Collapsible component', () => {
+    it('forwards buttonLabelClosed prop to the Collapsible component', async () => {
         const buttonLabelClosed = 'Expand content';
 
         render(createTestComponent({ buttonLabelClosed }));
 
-        expect(screen.getByText(buttonLabelClosed)).toBeInTheDocument();
+        expect(await screen.findByText(buttonLabelClosed)).toBeInTheDocument();
     });
 
     it('forwards onToggle callback to the Collapsible component', async () => {
@@ -58,26 +60,26 @@ describe('<CardCollapsible /> component', () => {
 
         render(createTestComponent({ onToggle }));
 
-        const button = screen.getByRole('button');
+        const button = await screen.findByRole('button');
         await user.click(button);
 
         expect(onToggle).toHaveBeenCalledWith(true);
     });
 
-    it('forwards isOpen prop to the Collapsible component', () => {
+    it('forwards isOpen prop to the Collapsible component', async () => {
         const isOpen = true;
         const buttonLabelOpened = 'Close';
 
         render(createTestComponent({ isOpen, buttonLabelOpened }));
 
-        const button = screen.getByRole('button');
+        const button = await screen.findByRole('button');
         expect(button).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('renders with showOverlay always', () => {
+    it('renders with showOverlay always', async () => {
         render(createTestComponent());
 
-        const overlay = screen.getByTestId('collapsible-overlay');
+        const overlay = await screen.findByTestId('collapsible-overlay');
         expect(overlay).toBeInTheDocument();
     });
 
@@ -88,7 +90,7 @@ describe('<CardCollapsible /> component', () => {
 
         render(createTestComponent({ buttonLabelOpened, buttonLabelClosed }));
 
-        const button = screen.getByRole('button');
+        const button = await screen.findByRole('button');
         expect(button).toHaveTextContent(buttonLabelClosed);
 
         await user.click(button);

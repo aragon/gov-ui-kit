@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Checkbox, type CheckboxState } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
@@ -38,12 +38,11 @@ export const Controlled: Story = {
 };
 
 const IndeterminateComponent = () => {
-    const [parentChecked, setParentChecked] = useState<CheckboxState>(false);
     const [childChecked, setChildChecked] = useState<CheckboxState[]>(Array(5).fill(false));
 
     const handleParentCheckedChange = (state: CheckboxState) => {
-        setParentChecked(state);
-        setChildChecked(Array(5).fill(state));
+        const next = state === 'indeterminate' ? true : state;
+        setChildChecked(Array(5).fill(next));
     };
 
     const handleChildCheckedChange = (index: number) => (state: CheckboxState) => {
@@ -52,10 +51,10 @@ const IndeterminateComponent = () => {
         setChildChecked(newChildChecked);
     };
 
-    useEffect(() => {
+    const parentChecked = useMemo<CheckboxState>(() => {
         const allChecked = childChecked.every((checked) => checked);
         const someChecked = childChecked.some((checked) => checked);
-        setParentChecked(allChecked ? true : someChecked ? 'indeterminate' : false);
+        return allChecked ? true : someChecked ? 'indeterminate' : false;
     }, [childChecked]);
 
     return (
