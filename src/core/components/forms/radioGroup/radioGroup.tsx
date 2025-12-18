@@ -4,8 +4,10 @@ import { forwardRef, type ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
 import { type IInputContainerBaseProps, InputContainer } from '../inputContainer';
 
-export interface IRadioGroupProps
-    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional'> {
+export interface IRadioGroupProps extends Pick<
+    IInputContainerBaseProps,
+    'alert' | 'label' | 'helpText' | 'isOptional'
+> {
     /**
      * The value of the selected radio item.
      */

@@ -56,10 +56,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
     );
 
     const shouldFilter = searchValue != null && searchValue.trim().length > 0;
-    const userIds = useMemo(
-        () => generateUserIds(itemsCount),
-        [itemsCount],
-    );
+    const userIds = useMemo(() => generateUserIds(itemsCount), [itemsCount]);
 
     const filteredUsers = useMemo(() => {
         const newFilteredUsers = shouldFilter ? userIds.filter((id) => id.toString().includes(searchValue)) : userIds;
