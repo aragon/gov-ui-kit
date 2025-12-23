@@ -11,8 +11,10 @@ import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
 export type ValueFormat = 'html' | 'markdown' | 'text';
 
-export interface ITextAreaRichTextProps
-    extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'> {
+export interface ITextAreaRichTextProps extends Omit<
+    IInputContainerProps,
+    'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'
+> {
     /**
      * Current value of the input.
      */

@@ -3,8 +3,10 @@ import { Dropdown } from '../../dropdown';
 import { IconType } from '../../icon';
 import type { IDataListFilterProps } from './dataListFilter';
 
-export interface IDataListFilterSortProps
-    extends Pick<IDataListFilterProps, 'activeSort' | 'sortItems' | 'onSortChange'> {
+export interface IDataListFilterSortProps extends Pick<
+    IDataListFilterProps,
+    'activeSort' | 'sortItems' | 'onSortChange'
+> {
     /**
      * Classes for the dropdown trigger.
      */

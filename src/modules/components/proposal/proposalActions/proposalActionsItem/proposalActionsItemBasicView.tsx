@@ -12,8 +12,9 @@ import {
 } from '../proposalActionsList';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 
-export interface IProposalActionsItemBasicViewProps<TAction extends IProposalAction = IProposalAction>
-    extends IProposalActionComponentProps<TAction> {
+export interface IProposalActionsItemBasicViewProps<
+    TAction extends IProposalAction = IProposalAction,
+> extends IProposalActionComponentProps<TAction> {
     /**
      * Custom component to be rendered.
      */

@@ -6,8 +6,10 @@ export type AccordionMultiValue<TMulti extends boolean> = TMulti extends true
     ? string[] | undefined
     : string | undefined;
 
-export interface IAccordionContainerBaseProps<TMulti extends boolean>
-    extends Omit<ComponentPropsWithRef<'div'>, 'dir'> {
+export interface IAccordionContainerBaseProps<TMulti extends boolean> extends Omit<
+    ComponentPropsWithRef<'div'>,
+    'dir'
+> {
     /**
      * Determines whether one or multiple items can be opened at the same time.
      */

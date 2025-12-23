@@ -25,8 +25,10 @@ export interface IInputFileAvatarValue {
     error?: InputFileAvatarError;
 }
 
-export interface IInputFileAvatarProps
-    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'> {
+export interface IInputFileAvatarProps extends Pick<
+    IInputContainerBaseProps,
+    'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'
+> {
     /**
      * Function that is called when a file is selected.
      * If the file is rejected, the function is not called.

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
+import { useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
 import { useRandomId } from '../../../hooks';
 import type { IInputComponentProps, IInputContainerProps, InputComponentElement } from '../inputContainer';
 
@@ -41,12 +41,20 @@ export const useInputProps = <TElement extends InputComponentElement>(
 
     const randomId = useRandomId(id);
 
-    const [inputLength, setInputLength] = useState(0);
+    const isControlled = value != null;
+    const [uncontrolledInputLength, setUncontrolledInputLength] = useState(() => {
+        const initialValue = inputElementProps.defaultValue ?? '';
+        return initialValue.toString().length;
+    });
 
     const handleOnChange = (event: ChangeEvent<TElement>) => {
-        setInputLength(event.target.value.length);
+        if (!isControlled) {
+            setUncontrolledInputLength(event.target.value.length);
+        }
         onChange?.(event);
     };
+
+    const inputLength = isControlled ? value.toString().length : uncontrolledInputLength;
 
     const containerProps = {
         label,
@@ -77,11 +85,6 @@ export const useInputProps = <TElement extends InputComponentElement>(
         value,
         ...inputElementProps,
     };
-
-    // Update input length on value change for controlled inputs
-    useEffect(() => {
-        setInputLength(value?.toString().length ?? 0);
-    }, [value]);
 
     return { containerProps, inputProps };
 };

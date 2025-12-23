@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState, type ComponentProps } from 'react';
+import { useCallback, useMemo, useState, type ComponentProps } from 'react';
 import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {
@@ -45,21 +45,22 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
         ...otherProps
     } = props;
 
-    const [expandedActions, setExpandedActions] = useState(expandedActionsProp ?? []);
+    const isExpandedActionsControlled = expandedActionsProp != null;
+    const [uncontrolledExpandedActions, setUncontrolledExpandedActions] = useState<string[]>(
+        () => expandedActionsProp ?? [],
+    );
+    const expandedActions = expandedActionsProp ?? uncontrolledExpandedActions;
     const [actionsCount, setActionsCount] = useState(actionsCountProp);
 
     const updateExpandedActions = useCallback(
-        (expandedActions: string[]) => {
-            const callback = onExpandedActionsChange ?? setExpandedActions;
-            callback(expandedActions);
+        (nextExpandedActions: string[]) => {
+            onExpandedActionsChange?.(nextExpandedActions);
+            if (!isExpandedActionsControlled) {
+                setUncontrolledExpandedActions(nextExpandedActions);
+            }
         },
-        [onExpandedActionsChange],
+        [onExpandedActionsChange, isExpandedActionsControlled],
     );
-
-    // Update expandedActions array on property change
-    useEffect(() => {
-        setExpandedActions(expandedActionsProp ?? []);
-    }, [expandedActionsProp]);
 
     const contextValues = useMemo(
         () => ({
@@ -74,7 +75,7 @@ export const ProposalActionsRoot: React.FC<IProposalActionsRootProps> = (props) 
     );
 
     return (
-        <div className={classNames('flex w-full flex-col gap-3 md:gap-4')} {...otherProps}>
+        <div className={classNames('flex w-full flex-col gap-3 md:gap-4', className)} {...otherProps}>
             <ProposalActionsContextProvider value={contextValues}>{children}</ProposalActionsContextProvider>
         </div>
     );

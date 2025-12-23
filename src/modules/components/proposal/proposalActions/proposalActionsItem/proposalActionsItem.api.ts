@@ -34,8 +34,9 @@ export interface IProposalActionsArrayControls<TAction extends IProposalAction =
     remove: IProposalActionsArrayControl<TAction>;
 }
 
-export interface IProposalActionsItemProps<TAction extends IProposalAction = IProposalAction>
-    extends IWeb3ComponentProps {
+export interface IProposalActionsItemProps<
+    TAction extends IProposalAction = IProposalAction,
+> extends IWeb3ComponentProps {
     /**
      * Proposal action to be rendered.
      */

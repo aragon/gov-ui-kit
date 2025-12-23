@@ -5,11 +5,10 @@ import type { IEmptyStateProps } from '../../states';
 import { useDataListContext } from '../dataListContext';
 import { DataListContainerSkeletonLoader } from './dataListContainerSkeletonLoader';
 
-export interface IDataListContainerState
-    extends Pick<
-        IEmptyStateProps,
-        'heading' | 'description' | 'objectIllustration' | 'isStacked' | 'primaryButton' | 'secondaryButton'
-    > {}
+export interface IDataListContainerState extends Pick<
+    IEmptyStateProps,
+    'heading' | 'description' | 'objectIllustration' | 'isStacked' | 'primaryButton' | 'secondaryButton'
+> {}
 
 export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**

@@ -55,5 +55,4 @@ export interface IProposalActionWithdrawToken extends IProposalAction {
     token: IProposalActionWithdrawTokenAsset;
 }
 
-export interface IProposalActionWithdrawTokenProps
-    extends IProposalActionComponentProps<IProposalActionWithdrawToken> {}
+export interface IProposalActionWithdrawTokenProps extends IProposalActionComponentProps<IProposalActionWithdrawToken> {}

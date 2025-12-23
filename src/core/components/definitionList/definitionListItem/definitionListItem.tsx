@@ -4,8 +4,7 @@ import { Clipboard } from '../../clipboard';
 import { DefinitionListItemContent, type IDefinitionListItemContentProps } from './definitionListItemContent';
 
 export interface IDefinitionListItemProps
-    extends ComponentPropsWithRef<'div'>,
-        Pick<IDefinitionListItemContentProps, 'link'> {
+    extends ComponentPropsWithRef<'div'>, Pick<IDefinitionListItemContentProps, 'link'> {
     /**
      * The term to be displayed in the definition list item.
      */
