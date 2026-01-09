@@ -4,8 +4,10 @@ import type { ComponentProps } from 'react';
 
 export type ToggleGroupValue<TMulti extends boolean> = TMulti extends true ? string[] | undefined : string | undefined;
 
-export interface IToggleGroupBaseProps<TMulti extends boolean>
-    extends Omit<ComponentProps<'div'>, 'value' | 'onChange' | 'defaultValue' | 'ref' | 'dir'> {
+export interface IToggleGroupBaseProps<TMulti extends boolean> extends Omit<
+    ComponentProps<'div'>,
+    'value' | 'onChange' | 'defaultValue' | 'ref' | 'dir'
+> {
     /**
      * Variant of the component defining the spacing between the toggle items.
      * @default fixed
