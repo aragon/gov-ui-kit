@@ -53,5 +53,4 @@ export interface IProposalActionUpdateMetadata extends IProposalAction {
     existingMetadata: IProposalActionUpdateMetadataDaoMetadata;
 }
 
-export interface IProposalActionUpdateMetadataProps
-    extends IProposalActionComponentProps<IProposalActionUpdateMetadata> {}
+export interface IProposalActionUpdateMetadataProps extends IProposalActionComponentProps<IProposalActionUpdateMetadata> {}
