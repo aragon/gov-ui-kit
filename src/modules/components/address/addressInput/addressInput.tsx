@@ -35,8 +35,7 @@ export interface IAddressInputResolvedValue {
 }
 
 export interface IAddressInputProps
-    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>,
-        IWeb3ComponentProps {
+    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>, IWeb3ComponentProps {
     /**
      * Current value of the address input.
      */
