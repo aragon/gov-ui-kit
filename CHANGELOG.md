@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.27.0
+
+### Minor Changes
+
+- [#640](https://github.com/aragon/gov-ui-kit/pull/640) [`38061fa`](https://github.com/aragon/gov-ui-kit/commit/38061fab15b88bfa987da760e2a83c34c83b41c8) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add Burn Assets icon to the icon library
+
+- [#635](https://github.com/aragon/gov-ui-kit/pull/635) [`c221f25`](https://github.com/aragon/gov-ui-kit/commit/c221f259ab3ee50ed5416b08e3dfda223e518c9a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Dependency updates
+
 ## 1.26.0
 
 ### Minor Changes
