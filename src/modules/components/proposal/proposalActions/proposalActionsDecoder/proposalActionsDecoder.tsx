@@ -118,6 +118,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 mode={mode}
                 formPrefix={formPrefix}
                 parameter={{ name: 'data', value: data, type: 'bytes' }}
+                // Render the data field as hidden on decoded view to register the field on the form on EDIT mode
                 className={view === ProposalActionsDecoderView.DECODED ? 'hidden' : undefined}
                 component="textarea"
             />
