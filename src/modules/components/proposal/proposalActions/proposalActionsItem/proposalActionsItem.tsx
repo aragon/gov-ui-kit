@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFormContext, useWatch, type Control } from 'react-hook-form';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -77,7 +77,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
     const isAbiAvailable = action.inputData != null;
-    const supportsDecodedView = isAbiAvailable;
+    const isRawCalldataAction = action.type === 'RAW_CALLDATA';
+    const supportsDecodedView = isAbiAvailable && !isRawCalldataAction;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
@@ -152,8 +153,22 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     ];
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
-    const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
-    const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
+
+    const decodedViewMode = useMemo(() => {
+        if (!editMode) {
+            return READ;
+        }
+
+        return supportsBasicView ? WATCH : EDIT;
+    }, [EDIT, READ, WATCH, editMode, supportsBasicView]);
+
+    const rawViewMode = useMemo(() => {
+        if (!editMode) {
+            return READ;
+        }
+
+        return supportsDecodedView ? WATCH : EDIT;
+    }, [EDIT, READ, WATCH, editMode, supportsDecodedView]);
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
