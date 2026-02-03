@@ -78,7 +78,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     const isAbiAvailable = action.inputData != null;
     const isRawCalldataAction = action.type === 'RAW_CALLDATA';
-    const supportsDecodedView = isAbiAvailable && !isRawCalldataAction;
+    const isNativeTransfer = action.data === '0x';
+    const supportsDecodedView = isAbiAvailable && !isRawCalldataAction && !isNativeTransfer;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
