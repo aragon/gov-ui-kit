@@ -76,6 +76,12 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const shouldScrollRef = useRef(false);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
+    // There are a few cases here to take care:
+    // - actions with a basic view should have decoded and raw views enabled, but in "watch" mode (no edit allowed)
+    // - actions without a basic view, in general, should support decoded view if ABI is present, in which case the raw view is enabled but in watch mode only
+    //      - subcase: for write actions without params (like `pause`/`unpause`), decoded view is enabled, but it shows the message about no params. Raw view is disabled and populated with function selector in the data field. This part was confusing before, as data field was empty and action would fail if selector is not added manually.
+    // - RAW_CALLDATA action is an action without params, but it should have decode view disabled and raw view enabled, so that calldata could be pasted.
+    // - Native transfer action is also an action without params. It has a basic view, it should have disabled decoded view, and raw view enabled, but in watch mode, no edit should be allowed.
     const isAbiAvailable = action.inputData != null;
     const isRawCalldataAction = action.type === 'RAW_CALLDATA';
     const isNativeTransfer = action.data === '0x';
@@ -168,8 +174,9 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
             return READ;
         }
 
-        return supportsDecodedView ? WATCH : EDIT;
-    }, [EDIT, READ, WATCH, editMode, supportsDecodedView]);
+        // There is a case when a basic view is supported but not a decoded view, i.e. native transfer
+        return supportsDecodedView || supportsBasicView ? WATCH : EDIT;
+    }, [EDIT, READ, WATCH, editMode, supportsBasicView, supportsDecodedView]);
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>
