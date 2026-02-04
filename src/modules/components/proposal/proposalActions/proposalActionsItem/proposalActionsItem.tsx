@@ -6,11 +6,14 @@ import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
+import { SmartContractFunctionDataListItem } from '../../../smartContract';
 import { useProposalActionsContext } from '../proposalActionsContext';
-import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
-import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
-import type { IProposalAction } from '../proposalActionsDefinitions';
+import {
+    ProposalActionsDecoder,
+    ProposalActionsDecoderMode,
+    ProposalActionsDecoderView,
+} from '../proposalActionsDecoder';
+import { ProposalActionTypeNoBasicView, type IProposalAction } from '../proposalActionsDefinitions';
 import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
@@ -86,7 +89,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     // - RAW_CALLDATA: no params case, but decoded view disabled; raw view enabled in edit mode for calldata input
     // - Native transfer: basic view available; decoded view disabled; raw view in watch mode
     const isAbiAvailable = action.inputData != null;
-    const isRawCalldataAction = action.type === 'RAW_CALLDATA';
+    const isRawCalldataAction = action.type === (ProposalActionTypeNoBasicView.RAW_CALLDATA as string);
     const isNativeTransfer = action.data === '0x';
     const supportsDecodedView = isAbiAvailable && !isRawCalldataAction && !isNativeTransfer;
 

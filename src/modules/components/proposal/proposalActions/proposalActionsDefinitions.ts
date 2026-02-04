@@ -15,6 +15,14 @@ export enum ProposalActionType {
     UPDATE_PLUGIN_METADATA = 'UPDATE_PLUGIN_METADATA',
 }
 
+/**
+ * Proposal action types for which the basic view is NOT available.
+ * This is not a list of all available types, but only the ones that are relevant in ui-kit context.
+ */
+export enum ProposalActionTypeNoBasicView {
+    RAW_CALLDATA = 'RAW_CALLDATA',
+}
+
 export interface IProposalActionInputDataParameter {
     /**
      * The name of the parameter being passed.
