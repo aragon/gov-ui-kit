@@ -78,12 +78,13 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
 
     // View mode support depends on action type and ABI availability. Important cases:
     // - Actions with a basic view: decoded and raw views enabled in "watch" mode (no edits)
-    // - Actions without a basic view: decoded view enabled if ABI is present; raw view in "watch" mode
+    // - Actions without a basic view (ABI is NOT present): decoded view disabled; raw view in edit mode
+    // - Actions without a basic view (ABI is present): decoded view enabled in edit mode; raw view in watch mode
     //   - Exception: write actions without params show the "no params" message in decoded view; raw view in watch mode
     //     with pre-populated data field with fn selector, because leaving the data field empty was confusing and could
     //     cause a failure when the selector is not added manually
     // - RAW_CALLDATA: no params case, but decoded view disabled; raw view enabled in edit mode for calldata input
-    // - Native transfer: basic view available; decoded view disabled; raw view in "watch" mode
+    // - Native transfer: basic view available; decoded view disabled; raw view in watch mode
     const isAbiAvailable = action.inputData != null;
     const isRawCalldataAction = action.type === 'RAW_CALLDATA';
     const isNativeTransfer = action.data === '0x';
