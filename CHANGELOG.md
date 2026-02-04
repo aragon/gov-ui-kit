@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.27.1
+
+### Patch Changes
+
+- [#642](https://github.com/aragon/gov-ui-kit/pull/642) [`acd7421`](https://github.com/aragon/gov-ui-kit/commit/acd7421bc29df95bdd113cbb708fdae287d1e317) Thanks [@milosh86](https://github.com/milosh86)! - Fix native transfer action decoding
+
+- [#642](https://github.com/aragon/gov-ui-kit/pull/642) [`acd7421`](https://github.com/aragon/gov-ui-kit/commit/acd7421bc29df95bdd113cbb708fdae287d1e317) Thanks [@milosh86](https://github.com/milosh86)! - Disable decoded view for raw calldata actions
+
 ## 1.27.0
 
 ### Minor Changes
