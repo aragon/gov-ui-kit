@@ -197,7 +197,7 @@ describe('<ProposalActionsDecoder /> component', () => {
 
     it('displays no params message for write actions without parameters in decoded view', () => {
         const view = ProposalActionsDecoderView.DECODED;
-        const mode = ProposalActionsDecoderMode.READ;
+        const mode = ProposalActionsDecoderMode.WATCH;
         const action = generateProposalAction({
             inputData: { function: 'withdraw', contract: '', parameters: [], stateMutability: 'nonpayable' },
         });
