@@ -367,7 +367,7 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.queryByTestId('basic-view-mock')).not.toBeInTheDocument();
     });
 
-    it('renders the basic-view in edit mode when editMode prop is true and action is native transfer', async () => {
+    it('renders the basic-view and raw view in watch mode when editMode prop is true and action is native transfer', async () => {
         const CustomComponent = () => 'custom';
         const action = generateProposalAction({ value: '1000000000000000000', data: '0x' });
 
