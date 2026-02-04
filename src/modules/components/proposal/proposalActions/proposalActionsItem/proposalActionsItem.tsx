@@ -1,16 +1,19 @@
 import classNames from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFormContext, useWatch, type Control } from 'react-hook-form';
 import { formatUnits } from 'viem';
 import { mainnet } from 'viem/chains';
 import { useChains } from 'wagmi';
 import { Accordion, AlertCard, Button, Dropdown, IconType, Tooltip, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
-import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
+import { SmartContractFunctionDataListItem } from '../../../smartContract';
 import { useProposalActionsContext } from '../proposalActionsContext';
-import { ProposalActionsDecoder, ProposalActionsDecoderView } from '../proposalActionsDecoder';
-import { ProposalActionsDecoderMode } from '../proposalActionsDecoder/proposalActionsDecoder.api';
-import type { IProposalAction } from '../proposalActionsDefinitions';
+import {
+    ProposalActionsDecoder,
+    ProposalActionsDecoderMode,
+    ProposalActionsDecoderView,
+} from '../proposalActionsDecoder';
+import { ProposalActionTypeNoBasicView, type IProposalAction } from '../proposalActionsDefinitions';
 import type { IProposalActionsItemProps, ProposalActionsItemViewMode } from './proposalActionsItem.api';
 import { ProposalActionsItemBasicView } from './proposalActionsItemBasicView';
 import { proposalActionsItemUtils } from './proposalActionsItemUtils';
@@ -76,8 +79,19 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     const shouldScrollRef = useRef(false);
     const supportsBasicView = CustomComponent != null || proposalActionsItemUtils.isActionSupported(action);
 
+    // View mode support depends on action type and ABI availability. Important cases:
+    // - Actions with a basic view: decoded and raw views enabled in "watch" mode (no edits)
+    // - Actions without a basic view (ABI is NOT present): decoded view disabled; raw view in edit mode
+    // - Actions without a basic view (ABI is present): decoded view enabled in edit mode; raw view in watch mode
+    //   - Exception: write actions without params show the "no params" message in decoded view; raw view in watch mode
+    //     with pre-populated data field with fn selector, because leaving the data field empty was confusing and could
+    //     cause a failure when the selector is not added manually
+    // - RAW_CALLDATA: no params case, but decoded view disabled; raw view enabled in edit mode for calldata input
+    // - Native transfer: basic view available; decoded view disabled; raw view in watch mode
     const isAbiAvailable = action.inputData != null;
-    const supportsDecodedView = isAbiAvailable;
+    const isRawCalldataAction = action.type === (ProposalActionTypeNoBasicView.RAW_CALLDATA as string);
+    const isNativeTransfer = action.data === '0x';
+    const supportsDecodedView = isAbiAvailable && !isRawCalldataAction && !isNativeTransfer;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
         supportsBasicView
@@ -152,8 +166,23 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     ];
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
-    const decodedViewMode = editMode && !supportsBasicView ? EDIT : editMode ? WATCH : READ;
-    const rawViewMode = editMode && !supportsDecodedView ? EDIT : editMode ? WATCH : READ;
+
+    const decodedViewMode = useMemo(() => {
+        if (!editMode) {
+            return READ;
+        }
+
+        return supportsBasicView ? WATCH : EDIT;
+    }, [EDIT, READ, WATCH, editMode, supportsBasicView]);
+
+    const rawViewMode = useMemo(() => {
+        if (!editMode) {
+            return READ;
+        }
+
+        // There is a case when basic view is supported but not decoded view, i.e., native transfer
+        return supportsDecodedView || supportsBasicView ? WATCH : EDIT;
+    }, [EDIT, READ, WATCH, editMode, supportsBasicView, supportsDecodedView]);
 
     return (
         <Accordion.Item value={value ?? index.toString()} ref={itemRef}>

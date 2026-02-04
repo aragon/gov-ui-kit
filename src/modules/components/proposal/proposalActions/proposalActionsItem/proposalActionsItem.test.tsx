@@ -352,4 +352,31 @@ describe('<ProposalActionsItem /> component', () => {
         await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
     });
+
+    it('renders the raw-view in edit mode when editMode prop is true and action is RAW_CALLDATA', async () => {
+        const action = generateProposalAction({
+            type: 'RAW_CALLDATA',
+            inputData: { contract: '', function: '', parameters: [] },
+        });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
+        await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+        expect(screen.queryByTestId('basic-view-mock')).not.toBeInTheDocument();
+    });
+
+    it('renders the basic-view and raw view in watch mode when editMode prop is true and action is native transfer', async () => {
+        const CustomComponent = () => 'custom';
+        const action = generateProposalAction({ value: '1000000000000000000', data: '0x' });
+
+        render(createTestComponent({ action, CustomComponent, editMode: true }));
+
+        expect(screen.getByTestId('basic-view-mock')).toBeInTheDocument();
+        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
+        await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
+        expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
+    });
 });

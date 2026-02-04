@@ -1,6 +1,9 @@
 import type { ComponentType } from 'react';
 import type { IWeb3ComponentProps } from '../../../types';
 
+/**
+ * Proposal action types for which the basic view is available.
+ */
 export enum ProposalActionType {
     WITHDRAW_TOKEN = 'WITHDRAW_TOKEN',
     ADD_MEMBERS = 'ADD_MEMBERS',
@@ -10,6 +13,14 @@ export enum ProposalActionType {
     CHANGE_SETTINGS_MULTISIG = 'CHANGE_SETTINGS_MULTISIG',
     CHANGE_SETTINGS_TOKENVOTE = 'CHANGE_SETTINGS_TOKENVOTE',
     UPDATE_PLUGIN_METADATA = 'UPDATE_PLUGIN_METADATA',
+}
+
+/**
+ * Proposal action types for which the basic view is NOT available.
+ * This is not a list of all available types, but only the ones that are relevant in ui-kit context.
+ */
+export enum ProposalActionTypeNoBasicView {
+    RAW_CALLDATA = 'RAW_CALLDATA',
 }
 
 export interface IProposalActionInputDataParameter {
