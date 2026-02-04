@@ -194,4 +194,40 @@ describe('<ProposalActionsDecoder /> component', () => {
         );
         expect(() => render(createTestComponent({ action, view, mode }))).not.toThrow();
     });
+
+    it('displays no params message for write actions without parameters in decoded view', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const mode = ProposalActionsDecoderMode.READ;
+        const action = generateProposalAction({
+            inputData: { function: 'withdraw', contract: '', parameters: [], stateMutability: 'nonpayable' },
+        });
+        render(createTestComponent({ action, view, mode }));
+        expect(screen.getByText(modulesCopy.proposalActionsDecoder.noParametersMessage)).toBeInTheDocument();
+    });
+
+    it('pre-populates data field with function selector for write actions without parameters in decoded edit view', () => {
+        const view = ProposalActionsDecoderView.DECODED;
+        const mode = ProposalActionsDecoderMode.EDIT;
+        const action = generateProposalAction({
+            data: '0x',
+            inputData: { function: 'withdraw', contract: '', parameters: [], stateMutability: 'nonpayable' },
+        });
+        const setValueSpy = jest.fn();
+        const getValuesSpy = jest.fn().mockReturnValue('0x');
+        const watch = () => {
+            return { unsubscribe: jest.fn() };
+        };
+        // Mock encodeFunctionData to return a function selector
+        encodeFunctionDataSpy.mockReturnValue('0x12345678');
+        useFormContextSpy.mockReturnValue(
+            generateFormContext({
+                setValue: setValueSpy,
+                getValues: getValuesSpy,
+                watch: watch as unknown as ModuleHooks.UseFormContextReturn['watch'],
+            }),
+        );
+        render(createTestComponent({ action, view, mode }));
+        // Verify that setValue was called to pre-populate the data field with the encoded function selector
+        expect(setValueSpy).toHaveBeenCalledWith(expect.stringContaining('data'), '0x12345678');
+    });
 });
