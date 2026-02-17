@@ -54,6 +54,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
         ...otherProps
     } = props;
 
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();

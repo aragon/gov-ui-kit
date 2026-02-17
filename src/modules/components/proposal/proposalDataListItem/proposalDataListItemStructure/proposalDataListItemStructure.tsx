@@ -34,6 +34,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         ...otherProps
     } = props;
 
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
     const { address: connectedAddress, isConnected } = useAccount({ config });
     const { copy } = useGukModulesContext();
 

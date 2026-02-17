@@ -9,6 +9,7 @@ describe('<MemberDataListItem /> component', () => {
     const useAccountMock = jest.spyOn(wagmi, 'useAccount');
 
     beforeEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         useAccountMock.mockReturnValue({} as wagmi.UseAccountReturnType);
     });
 
@@ -69,6 +70,7 @@ describe('<MemberDataListItem /> component', () => {
 
     it('renders a you tag when the user is the current connected account', () => {
         const address = '0x50ce432B38eE98dE5Fa375D5125aA6d0d054E662';
+        // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         useAccountMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseAccountReturnType);
         render(createTestComponent({ address }));
         expect(screen.getByText('You')).toBeInTheDocument();

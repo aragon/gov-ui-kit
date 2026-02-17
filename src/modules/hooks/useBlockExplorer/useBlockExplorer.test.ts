@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
+import { type Chain, mainnet, polygon, sepolia } from 'viem/chains';
 import * as wagmi from 'wagmi';
-import { type Chain, mainnet, polygon, sepolia } from 'wagmi/chains';
 import { useBlockExplorer } from './useBlockExplorer';
 import { ChainEntityType } from './useBlockExplorer.api';
 
