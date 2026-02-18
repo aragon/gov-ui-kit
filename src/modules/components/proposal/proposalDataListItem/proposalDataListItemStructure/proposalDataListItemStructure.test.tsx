@@ -18,6 +18,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         useAccountMock.mockReturnValue({
             address: '0x456',
             isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         } as unknown as wagmi.UseAccountReturnType);
     });
 
@@ -50,6 +51,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         useAccountMock.mockReturnValue({
             address: publisher.address,
             isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         } as unknown as wagmi.UseAccountReturnType);
 
         render(createTestComponent({ publisher }));

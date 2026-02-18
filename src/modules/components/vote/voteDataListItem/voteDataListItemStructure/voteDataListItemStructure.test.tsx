@@ -33,6 +33,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         useAccountSpy.mockReturnValue({
             address: '0x1234567890123456789012345678901234567890' as viem.Address,
             isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         } as wagmi.UseAccountReturnType);
     });
 
@@ -74,7 +75,11 @@ describe('<VoteDataListItemStructure /> component', () => {
 
     it('renders the "You" tag if the voter is the current user', async () => {
         const voter = { address: '0x1234567890123456789012345678901234567890' };
-        useAccountSpy.mockReturnValue({ address: voter.address, isConnected: true } as wagmi.UseAccountReturnType);
+        useAccountSpy.mockReturnValue({
+            address: voter.address,
+            isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
+        } as unknown as wagmi.UseAccountReturnType);
 
         render(createTestComponent({ voter }));
 
