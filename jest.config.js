@@ -4,6 +4,7 @@
 const config = {
     testEnvironment: 'jsdom',
     collectCoverageFrom: ['./src/**/*.{ts,tsx}'],
+    testPathIgnorePatterns: ['/node_modules/', '/dist/'],
     coveragePathIgnorePatterns: ['.d.ts', '.api.ts', 'index.ts', '.stories.tsx', './src/core/test/*'],
     setupFilesAfterEnv: ['<rootDir>/src/core/test/setup.ts'],
     globalSetup: '<rootDir>/src/core/test/globalSetup.ts',

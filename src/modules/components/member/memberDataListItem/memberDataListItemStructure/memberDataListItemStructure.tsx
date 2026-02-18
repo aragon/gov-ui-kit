@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
@@ -58,7 +59,13 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const { copy } = useGukModulesContext();
 
-    const isCurrentUser = isConnected && address && addressUtils.isAddressEqual(currentUserAddress, address);
+    // Avoid SSR/CSR hydration mismatches: the connected address is only known on
+    // the client, so only show the "You" tag after mount.
+    const [hasMounted, setHasMounted] = useState(false);
+    useEffect(() => setHasMounted(true), []);
+
+    const isCurrentUser =
+        hasMounted && isConnected && address && addressUtils.isAddressEqual(currentUserAddress, address);
 
     const resolvedUserHandle = ensName != null && ensName.length > 0 ? ensName : addressUtils.truncateAddress(address);
 

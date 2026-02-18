@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useEffect, useMemo, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { DataList, Heading, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
@@ -8,13 +9,19 @@ import { type IProposalDataListItemStructureProps, type IPublisher } from './pro
 
 export const maxPublishersDisplayed = 3;
 
-const parsePublisher = (publisher: IPublisher, isConnected: boolean, connectedAddress: string | undefined) => {
-    const publisherIsConnected = isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
+const parsePublisher = (
+    publisher: IPublisher,
+    canShowConnectedLabel: boolean,
+    isConnected: boolean,
+    connectedAddress: string | undefined,
+) => {
+    const publisherIsConnected =
+        canShowConnectedLabel && isConnected && addressUtils.isAddressEqual(publisher.address, connectedAddress);
     const publisherLabel = publisherIsConnected
         ? 'You'
         : (publisher.name ?? addressUtils.truncateAddress(publisher.address));
 
-    return { label: publisherLabel, link: publisher.link };
+    return { label: publisherLabel, link: publisher.link, address: publisher.address };
 };
 
 export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStructureProps> = (props) => {
@@ -37,9 +44,16 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const { address: connectedAddress, isConnected } = useAccount({ config });
     const { copy } = useGukModulesContext();
 
-    const parsedPublisher = Array.isArray(publisher)
-        ? publisher.map((p) => parsePublisher(p, isConnected, connectedAddress))
-        : [parsePublisher(publisher, isConnected, connectedAddress)];
+    // Avoid SSR/CSR hydration mismatches: the connected address is only known on
+    // the client, so we only render the "You" label after mount.
+    const [hasMounted, setHasMounted] = useState(false);
+    useEffect(() => setHasMounted(true), []);
+
+    const parsedPublisher = useMemo(() => {
+        return Array.isArray(publisher)
+            ? publisher.map((p) => parsePublisher(p, hasMounted, isConnected, connectedAddress))
+            : [parsePublisher(publisher, hasMounted, isConnected, connectedAddress)];
+    }, [publisher, hasMounted, isConnected, connectedAddress]);
 
     const showParsedPublisher = parsedPublisher.length <= maxPublishersDisplayed;
 
@@ -71,8 +85,8 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         </span>
                     )}
                     {showParsedPublisher &&
-                        parsedPublisher.map(({ label, link }, index) => (
-                            <span key={label} className="truncate">
+                        parsedPublisher.map(({ address, label, link }, index) => (
+                            <span key={`${address}-${index.toString()}`} className="truncate">
                                 <object type="unknown" className="flex shrink">
                                     {link != null && (
                                         // Using solution from https://kizu.dev/nested-links/ to nest anchor tags
