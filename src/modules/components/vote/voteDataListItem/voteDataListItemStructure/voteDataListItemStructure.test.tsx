@@ -73,7 +73,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         expect(screen.getByText(voter.name)).toBeInTheDocument();
     });
 
-    it('renders the "You" tag if the voter is the current user', () => {
+    it('renders the "You" tag if the voter is the current user', async () => {
         const voter = { address: '0x1234567890123456789012345678901234567890' };
         useAccountSpy.mockReturnValue({
             address: voter.address,
@@ -83,7 +83,7 @@ describe('<VoteDataListItemStructure /> component', () => {
 
         render(createTestComponent({ voter }));
 
-        expect(screen.getByText('You')).toBeInTheDocument();
+        expect(await screen.findByText('You')).toBeInTheDocument();
     });
 
     it('renders "Your delegate" tag if the voter is a delegate of the current user', () => {

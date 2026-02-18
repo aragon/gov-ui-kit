@@ -68,12 +68,12 @@ describe('<MemberDataListItem /> component', () => {
         expect(screen.getByRole('heading', { level: 3, name: '420.69K ETH Voting Power' })).toBeInTheDocument();
     });
 
-    it('renders a you tag when the user is the current connected account', () => {
+    it('renders a you tag when the user is the current connected account', async () => {
         const address = '0x50ce432B38eE98dE5Fa375D5125aA6d0d054E662';
         // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         useAccountMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseAccountReturnType);
         render(createTestComponent({ address }));
-        expect(screen.getByText('You')).toBeInTheDocument();
+        expect(await screen.findByText('You')).toBeInTheDocument();
     });
 
     it('hides the voting power label when hideLabelTokenVoting is true', () => {

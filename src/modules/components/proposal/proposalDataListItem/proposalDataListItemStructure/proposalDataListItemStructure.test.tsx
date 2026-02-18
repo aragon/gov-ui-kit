@@ -45,7 +45,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
-    it("renders 'You' as the publisher if the connected address is the publisher address", () => {
+    it("renders 'You' as the publisher if the connected address is the publisher address", async () => {
         const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
         useAccountMock.mockReturnValue({
@@ -56,7 +56,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         render(createTestComponent({ publisher }));
 
-        expect(screen.getByRole('link', { name: 'You' })).toBeInTheDocument();
+        expect(await screen.findByRole('link', { name: 'You' })).toBeInTheDocument();
     });
 
     it('renders multiple publishers', () => {
