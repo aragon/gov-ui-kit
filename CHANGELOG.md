@@ -1,5 +1,18 @@
 # @aragon/gov-ui-kit
 
+## 1.28.0
+
+### Minor Changes
+
+- [#648](https://github.com/aragon/gov-ui-kit/pull/648) [`2a9b18f`](https://github.com/aragon/gov-ui-kit/commit/2a9b18f16e4925cbaa9fcd02069a250ba75331ad) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update package dependencies and optimize imports; add wagmi v3 support
+
+- [#645](https://github.com/aragon/gov-ui-kit/pull/645) [`fd494a7`](https://github.com/aragon/gov-ui-kit/commit/fd494a7bee9e1e974cd013ba0d9154d25a77d7ae) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Fix ssr hydration errors
+
+- [#644](https://github.com/aragon/gov-ui-kit/pull/644) [`9b384ce`](https://github.com/aragon/gov-ui-kit/commit/9b384ce25db98a7d5dac9f73618936fa547ee12c) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add wagmi v3 support and optimize imports
+    - **wagmi v3 compatibility**: Updated peer dependency from `^2.19.0` to `^2.19.0 || ^3.0.0` (non-breaking, supports both v2 and v3)
+    - **Import path optimization**: Moved chain definitions from `wagmi/chains` to `viem/chains` (the canonical source, works with both v2 and v3)
+    - **Removed overrides**: Eliminated `@reown/appkit` version override that is no longer needed
+
 ## 1.27.1
 
 ### Patch Changes
