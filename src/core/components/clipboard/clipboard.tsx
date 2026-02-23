@@ -60,7 +60,7 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
             )}
             {variant === 'button' && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
+                    <Button type="button" variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
                 </Tooltip>
             )}
         </div>
