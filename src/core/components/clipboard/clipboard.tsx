@@ -48,7 +48,7 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
             {children}
             {(variant === 'avatar' || variant === 'avatar-white-bg') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <button className="cursor-pointer" onClick={handleCopyClick}>
+                    <button type="button" className="cursor-pointer" onClick={handleCopyClick}>
                         <AvatarIcon
                             variant="primary"
                             backgroundWhite={variant === 'avatar-white-bg'}
