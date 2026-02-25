@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
@@ -51,11 +52,17 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         isVeto = false,
         ...otherProps
     } = props;
+    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
     const { address: currentUserAddress, isConnected } = useAccount();
 
     const { copy } = useGukModulesContext();
 
-    const isCurrentUser = isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
+    // Avoid SSR/CSR hydration mismatches: the connected address is only known on
+    // the client, so only show the "You" tag after mount.
+    const [hasMounted, setHasMounted] = useState(false);
+    useEffect(() => setHasMounted(true), []);
+
+    const isCurrentUser = hasMounted && isConnected && addressUtils.isAddressEqual(currentUserAddress, voter.address);
 
     const resolvedUserHandle =
         voter.name != null && voter.name.length > 0 ? voter.name : addressUtils.truncateAddress(voter.address);

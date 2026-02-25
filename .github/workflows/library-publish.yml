@@ -13,14 +13,14 @@ jobs:
     steps:
       - name: Load secrets from OP
         id: load-secrets
-        uses: 1password/load-secrets-action@v3.0.0
+        uses: 1password/load-secrets-action@v3.1.0
         with:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Checkout actions
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 1
           sparse-checkout: |

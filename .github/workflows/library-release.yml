@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Load secrets
         id: load-secrets
-        uses: 1password/load-secrets-action@v3.0.0
+        uses: 1password/load-secrets-action@v3.1.0
         with:
           export-env: false
         env:
@@ -22,7 +22,7 @@ jobs:
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Checkout actions
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 1
           sparse-checkout: |
@@ -68,7 +68,7 @@ jobs:
             const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
             readChangelog({ github, context, core });
       - name: Create release
-        uses: softprops/action-gh-release@v2.4.2
+        uses: softprops/action-gh-release@v2.5.0
         with:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"

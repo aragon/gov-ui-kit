@@ -18,6 +18,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
         useAccountMock.mockReturnValue({
             address: '0x456',
             isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         } as unknown as wagmi.UseAccountReturnType);
     });
 
@@ -44,17 +45,18 @@ describe('<ProposalDataListItemStructure/> component', () => {
         expect(screen.getByText(children)).toBeInTheDocument();
     });
 
-    it("renders 'You' as the publisher if the connected address is the publisher address", () => {
+    it("renders 'You' as the publisher if the connected address is the publisher address", async () => {
         const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
         useAccountMock.mockReturnValue({
             address: publisher.address,
             isConnected: true,
+            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
         } as unknown as wagmi.UseAccountReturnType);
 
         render(createTestComponent({ publisher }));
 
-        expect(screen.getByRole('link', { name: 'You' })).toBeInTheDocument();
+        expect(await screen.findByRole('link', { name: 'You' })).toBeInTheDocument();
     });
 
     it('renders multiple publishers', () => {

@@ -1,4 +1,2 @@
-minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-    - '@rollup/rollup-linux-x64-gnu'
-    - '@tailwindcss/oxide-linux-x64-gnu'
+minimumReleaseAge: 10080 # cooldown period for new packages in minutes (7 days)
+# minimumReleaseAgeExclude: # https://pnpm.io/settings#minimumreleaseageexclude

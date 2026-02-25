@@ -13,7 +13,7 @@ export interface IProposalActionsContainerProps extends Omit<ComponentProps<'div
 }
 
 export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> = (props) => {
-    const { emptyStateDescription, children, className, ...otherProps } = props;
+    const { emptyStateDescription, children, ...otherProps } = props;
 
     const { copy } = useGukModulesContext();
     const { actionsCount, setActionsCount, expandedActions, setExpandedActions, isLoading } =

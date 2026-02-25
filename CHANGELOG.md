@@ -1,5 +1,50 @@
 # @aragon/gov-ui-kit
 
+## 1.28.0
+
+### Minor Changes
+
+- [#648](https://github.com/aragon/gov-ui-kit/pull/648) [`2a9b18f`](https://github.com/aragon/gov-ui-kit/commit/2a9b18f16e4925cbaa9fcd02069a250ba75331ad) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update package dependencies and optimize imports; add wagmi v3 support
+
+- [#645](https://github.com/aragon/gov-ui-kit/pull/645) [`fd494a7`](https://github.com/aragon/gov-ui-kit/commit/fd494a7bee9e1e974cd013ba0d9154d25a77d7ae) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Fix ssr hydration errors
+
+- [#644](https://github.com/aragon/gov-ui-kit/pull/644) [`9b384ce`](https://github.com/aragon/gov-ui-kit/commit/9b384ce25db98a7d5dac9f73618936fa547ee12c) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add wagmi v3 support and optimize imports
+    - **wagmi v3 compatibility**: Updated peer dependency from `^2.19.0` to `^2.19.0 || ^3.0.0` (non-breaking, supports both v2 and v3)
+    - **Import path optimization**: Moved chain definitions from `wagmi/chains` to `viem/chains` (the canonical source, works with both v2 and v3)
+    - **Removed overrides**: Eliminated `@reown/appkit` version override that is no longer needed
+
+## 1.27.1
+
+### Patch Changes
+
+- [#642](https://github.com/aragon/gov-ui-kit/pull/642) [`acd7421`](https://github.com/aragon/gov-ui-kit/commit/acd7421bc29df95bdd113cbb708fdae287d1e317) Thanks [@milosh86](https://github.com/milosh86)! - Fix native transfer action decoding
+
+- [#642](https://github.com/aragon/gov-ui-kit/pull/642) [`acd7421`](https://github.com/aragon/gov-ui-kit/commit/acd7421bc29df95bdd113cbb708fdae287d1e317) Thanks [@milosh86](https://github.com/milosh86)! - Disable decoded view for raw calldata actions
+
+## 1.27.0
+
+### Minor Changes
+
+- [#640](https://github.com/aragon/gov-ui-kit/pull/640) [`38061fa`](https://github.com/aragon/gov-ui-kit/commit/38061fab15b88bfa987da760e2a83c34c83b41c8) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add Burn Assets icon to the icon library
+
+- [#635](https://github.com/aragon/gov-ui-kit/pull/635) [`c221f25`](https://github.com/aragon/gov-ui-kit/commit/c221f259ab3ee50ed5416b08e3dfda223e518c9a) Thanks [@dependabot](https://github.com/apps/dependabot)! - Dependency updates
+
+## 1.26.0
+
+### Minor Changes
+
+- [#625](https://github.com/aragon/gov-ui-kit/pull/625) [`4498ba5`](https://github.com/aragon/gov-ui-kit/commit/4498ba51cc0ce9b153109aa024004d17b88004c8) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Improve proposal actions for dropdown menu usage, fix evaluation of warning conditions for proposal actions when sending native currency
+
+### Patch Changes
+
+- [#623](https://github.com/aragon/gov-ui-kit/pull/623) [`afb7e5d`](https://github.com/aragon/gov-ui-kit/commit/afb7e5d789f894be114bb33d10bfd9a481ed8542) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Security update versions
+
+## 1.25.0
+
+### Minor Changes
+
+- [#620](https://github.com/aragon/gov-ui-kit/pull/620) [`184a601`](https://github.com/aragon/gov-ui-kit/commit/184a60188ba30d426bbfb08cf3dade0d011ee440) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement redesign of ProposalActionsItem component
+
 ## 1.24.0
 
 ### Minor Changes
