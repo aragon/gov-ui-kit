@@ -59,15 +59,11 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
+        const variants: Array<IClipboardProps['variant']> = ['avatar', 'avatar-white-bg', 'button'];
 
         for (const variant of variants) {
             handleSubmit.mockReset();
-            const { unmount } = render(
-                <form onSubmit={handleSubmit}>
-                    {createTestComponent({ variant })}
-                </form>,
-            );
+            const { unmount } = render(<form onSubmit={handleSubmit}>{createTestComponent({ variant })}</form>);
 
             await userEvent.click(screen.getByRole('button'));
 
