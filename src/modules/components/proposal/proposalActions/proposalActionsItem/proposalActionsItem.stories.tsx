@@ -179,6 +179,25 @@ export const Warning: Story = {
 };
 
 /**
+ * For raw-calldata fallback actions, the RAW view is shown and a decode warning alert is displayed
+ * above the raw fields to indicate that decoded details may be incomplete.
+ */
+export const DecodeWarningRawOnly: Story = {
+    render: defaultRender,
+    args: {
+        index: 0,
+        action: generateProposalAction({
+            type: 'RAW_CALLDATA',
+            value: '0',
+            to: '0x8CfE248EC9779A53D7CC684010E3f87A6f735B6E',
+            data: '0x3d4ebc5b0000000000000000000000000000000000000000000000000000000000000000',
+            inputData: null,
+        }),
+        actionFunctionSelector: '0x3d4ebc5b',
+    },
+};
+
+/**
  * When the `arrayControls` property is set with editMode enabled, the ProposalActions.Item component renders
  * movement controls (up/down buttons with counter) in the footer and a remove button in the header.
  * In edit mode, the accordion stays expanded and cannot be collapsed by the user.

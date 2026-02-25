@@ -141,6 +141,27 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendDescription('1', 'POL')));
     });
 
+    it('renders decode warning when action is raw calldata and raw view is active', async () => {
+        const action = generateProposalAction({ type: 'RAW_CALLDATA', inputData: null });
+        render(createTestComponent({ action }));
+        await userEvent.click(screen.getByRole('button'));
+        expect(
+            screen.getByText(modulesCopy.proposalActionsItem.decodeWarningAlert),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(modulesCopy.proposalActionsItem.decodeWarningDescription),
+        ).toBeInTheDocument();
+    });
+
+    it('does not render decode warning for regular unverified actions', async () => {
+        const action = generateProposalAction({ inputData: null });
+        render(createTestComponent({ action }));
+        await userEvent.click(screen.getByRole('button'));
+        expect(
+            screen.queryByText(modulesCopy.proposalActionsItem.decodeWarningAlert),
+        ).not.toBeInTheDocument();
+    });
+
     it('updates active view on view-mode change', async () => {
         const params = [{ name: 'amount', type: 'uint', value: null }];
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
