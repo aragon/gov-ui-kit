@@ -75,11 +75,24 @@ describe('<ProposalActionsItem /> component', () => {
     });
 
     it('renders a dropdown to switch the action view mode inside the action', async () => {
-        render(createTestComponent());
+        const params = [{ name: 'amount', type: 'uint', value: null }];
+        const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
+        render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
         expect(
             screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }),
         ).toBeInTheDocument();
+    });
+
+    it('does not render a dropdown when only one view mode is available', async () => {
+        const action = generateProposalAction({ inputData: null });
+        render(createTestComponent({ action }));
+        await userEvent.click(screen.getByRole('button'));
+        expect(
+            screen.queryByRole('button', {
+                name: modulesCopy.proposalActionsItem.menu.dropdownLabel,
+            }),
+        ).not.toBeInTheDocument();
     });
 
     it('defaults the view-mode to raw and read mode when action has no custom component and is not verified', async () => {
@@ -223,8 +236,8 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction();
         render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 1 }));
 
-        const chevronDownIcons = screen.getAllByTestId(IconType.CHEVRON_DOWN);
-        await userEvent.click(chevronDownIcons[1]);
+        const moveDownButton = screen.getByRole('button', { name: arrayControls.moveDown.label });
+        await userEvent.click(moveDownButton);
 
         expect(moveDownMock).toHaveBeenCalledWith(1, action);
         expect(moveDownMock).toHaveBeenCalledTimes(1);
@@ -253,7 +266,7 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction();
         render(createTestComponent({ arrayControls, action, editMode: true, actionCount: 3, index: 2 }));
 
-        expect(screen.getAllByTestId(IconType.CHEVRON_DOWN).length).toBeGreaterThanOrEqual(2);
+        expect(screen.getAllByTestId(IconType.CHEVRON_DOWN).length).toBeGreaterThanOrEqual(1);
         const moveDownButton = screen.getByRole('button', { name: arrayControls.moveDown.label });
         expect(moveDownButton).toBeDisabled();
     });
@@ -374,18 +387,21 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
     });
 
-    it('renders the raw-view in edit mode when editMode prop is true and action is RAW_CALLDATA', async () => {
+    it('renders the raw-view in edit mode when editMode prop is true and action is RAW_CALLDATA', () => {
         const action = generateProposalAction({
             type: 'RAW_CALLDATA',
             inputData: { contract: '', function: '', parameters: [] },
         });
         isActionSupportedSpy.mockReturnValue(false);
         render(createTestComponent({ action, editMode: true }));
-        await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
-        await userEvent.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsItem.menu.RAW }));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
         expect(screen.queryByTestId('basic-view-mock')).not.toBeInTheDocument();
+        expect(
+            screen.queryByRole('button', {
+                name: modulesCopy.proposalActionsItem.menu.dropdownLabel,
+            }),
+        ).not.toBeInTheDocument();
     });
 
     it('renders the basic-view and raw view in watch mode when editMode prop is true and action is native transfer', async () => {

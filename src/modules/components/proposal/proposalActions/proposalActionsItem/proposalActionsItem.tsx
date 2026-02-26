@@ -166,6 +166,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         { mode: ProposalActionsDecoderView.DECODED, disabled: !supportsDecodedView },
         { mode: ProposalActionsDecoderView.RAW },
     ];
+    const enabledViewModesCount = viewModes.filter(({ disabled }) => !disabled).length;
+    const showViewModeDropdown = enabledViewModesCount > 1;
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
 
@@ -249,18 +251,20 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                         />
                     )}
                     <div className="flex w-full flex-row justify-between">
-                        <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
-                            {viewModes.map(({ mode, disabled }) => (
-                                <Dropdown.Item
-                                    key={mode}
-                                    onSelect={() => onViewModeChange(mode)}
-                                    disabled={disabled}
-                                    selected={activeViewMode === mode}
-                                >
-                                    {copy.proposalActionsItem.menu[mode]}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Container>
+                        {showViewModeDropdown && (
+                            <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
+                                {viewModes.map(({ mode, disabled }) => (
+                                    <Dropdown.Item
+                                        key={mode}
+                                        onSelect={() => onViewModeChange(mode)}
+                                        disabled={disabled}
+                                        selected={activeViewMode === mode}
+                                    >
+                                        {copy.proposalActionsItem.menu[mode]}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Container>
+                        )}
                         {editMode && arrayControls && actionCount != null && actionCount > 1 && (
                             <div className="flex items-center gap-3 text-neutral-500">
                                 <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
