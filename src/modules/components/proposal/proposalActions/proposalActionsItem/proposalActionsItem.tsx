@@ -156,8 +156,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         }
     })();
     const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
-    const displayDecodeWarning =
-        isRawCalldataAction && activeViewMode === ProposalActionsDecoderView.RAW;
+    const displayDecodeWarning = isRawCalldataAction && activeViewMode === ProposalActionsDecoderView.RAW;
 
     const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 

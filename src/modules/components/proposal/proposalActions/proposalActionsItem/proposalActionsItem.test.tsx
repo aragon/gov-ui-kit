@@ -158,21 +158,15 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ type: 'RAW_CALLDATA', inputData: null });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
-        expect(
-            screen.getByText(modulesCopy.proposalActionsItem.decodeWarningAlert),
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(modulesCopy.proposalActionsItem.decodeWarningDescription),
-        ).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItem.decodeWarningAlert)).toBeInTheDocument();
+        expect(screen.getByText(modulesCopy.proposalActionsItem.decodeWarningDescription)).toBeInTheDocument();
     });
 
     it('does not render decode warning for regular unverified actions', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
         await userEvent.click(screen.getByRole('button'));
-        expect(
-            screen.queryByText(modulesCopy.proposalActionsItem.decodeWarningAlert),
-        ).not.toBeInTheDocument();
+        expect(screen.queryByText(modulesCopy.proposalActionsItem.decodeWarningAlert)).not.toBeInTheDocument();
     });
 
     it('updates active view on view-mode change', async () => {

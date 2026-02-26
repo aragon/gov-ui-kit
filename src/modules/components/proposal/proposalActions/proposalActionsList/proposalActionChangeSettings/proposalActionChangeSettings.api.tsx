@@ -12,4 +12,5 @@ export interface IProposalActionChangeSettings extends IProposalAction {
     existingSettings: IDefinitionSetting[];
 }
 
-export interface IProposalActionChangeSettingsProps extends IProposalActionComponentProps<IProposalActionChangeSettings> {}
+export interface IProposalActionChangeSettingsProps
+    extends IProposalActionComponentProps<IProposalActionChangeSettings> {}

@@ -8,7 +8,8 @@ import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVot
 import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
 
 export interface IProposalVotingBodyContentProps
-    extends Pick<IProposalVotingTabsProps, 'hideTabs'>, ComponentProps<'div'> {
+    extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
+        ComponentProps<'div'> {
     /**
      * Status of the proposal.
      */

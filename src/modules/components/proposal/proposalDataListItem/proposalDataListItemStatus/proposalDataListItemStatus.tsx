@@ -13,10 +13,8 @@ import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
 import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
 
-export interface IProposalDataListItemStatusProps extends Pick<
-    IProposalDataListItemStructureProps,
-    'date' | 'status' | 'voted' | 'statusContext'
-> {}
+export interface IProposalDataListItemStatusProps
+    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
     const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;

@@ -6,7 +6,8 @@ import { type IProposalVotingContextProviderProps, ProposalVotingContextProvider
 import { ProposalVotingStatus } from '../proposalVotingStatus';
 
 export interface IProposalVotingStageProps
-    extends Pick<IProposalVotingContextProviderProps, 'bodyList'>, ComponentProps<'div'> {
+    extends Pick<IProposalVotingContextProviderProps, 'bodyList'>,
+        ComponentProps<'div'> {
     /**
      * Status of the stage.
      */
