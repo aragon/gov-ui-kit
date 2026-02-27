@@ -180,7 +180,7 @@ export const Warning: Story = {
 
 /**
  * For raw-calldata fallback actions, the RAW view is shown and a decode warning alert is displayed
- * above the raw fields to indicate that decoded details may be incomplete.
+ * above the raw fields to indicate that decoded details may be incomplete, even when metadata/ABI is present.
  */
 export const DecodeWarningRawOnly: Story = {
     render: defaultRender,
@@ -191,7 +191,11 @@ export const DecodeWarningRawOnly: Story = {
             value: '0',
             to: '0x8CfE248EC9779A53D7CC684010E3f87A6f735B6E',
             data: '0x3d4ebc5b0000000000000000000000000000000000000000000000000000000000000000',
-            inputData: null,
+            inputData: {
+                function: 'setParameter',
+                contract: 'GovernancePlugin',
+                parameters: [],
+            },
         }),
         actionFunctionSelector: '0x3d4ebc5b',
     },

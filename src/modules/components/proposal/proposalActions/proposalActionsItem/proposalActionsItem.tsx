@@ -157,6 +157,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     })();
     const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
     const displayDecodeWarning = isRawCalldataAction && activeViewMode === ProposalActionsDecoderView.RAW;
+    const displayHeaderWarning = displayValueWarning || displayDecodeWarning;
 
     const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 
@@ -204,7 +205,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     chainId={chainId}
                     className="w-full bg-transparent"
                     asChild={true}
-                    displayWarning={displayValueWarning}
+                    displayWarning={displayHeaderWarning}
                 />
             </Accordion.ItemHeader>
             <Accordion.ItemContent

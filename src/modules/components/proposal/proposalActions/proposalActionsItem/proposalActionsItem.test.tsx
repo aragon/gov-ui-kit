@@ -162,6 +162,15 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByText(modulesCopy.proposalActionsItem.decodeWarningDescription)).toBeInTheDocument();
     });
 
+    it('renders a warning icon for decode warning even when contract and function are verified', () => {
+        const action = generateProposalAction({
+            type: 'RAW_CALLDATA',
+            inputData: { contract: 'Token', function: 'transfer', parameters: [] },
+        });
+        render(createTestComponent({ action }));
+        expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
+    });
+
     it('does not render decode warning for regular unverified actions', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
