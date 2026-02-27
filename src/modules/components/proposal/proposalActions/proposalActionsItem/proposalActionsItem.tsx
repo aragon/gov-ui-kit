@@ -156,6 +156,8 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         }
     })();
     const displayValueWarning = parsedValue !== BigInt(0) && currentData.trim() !== '0x';
+    const displayDecodeWarning = isRawCalldataAction && activeViewMode === ProposalActionsDecoderView.RAW;
+    const displayHeaderWarning = displayValueWarning || displayDecodeWarning;
 
     const formattedValue = formatUnits(parsedValue, 18); // use parsedValue to avoid crashes
 
@@ -164,6 +166,10 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
         { mode: ProposalActionsDecoderView.DECODED, disabled: !supportsDecodedView },
         { mode: ProposalActionsDecoderView.RAW },
     ];
+    const enabledViewModesCount = viewModes.filter(({ disabled }) => !disabled).length;
+    const showViewModeDropdown = enabledViewModesCount > 1;
+    const showMovementControls = editMode && arrayControls && actionCount != null && actionCount > 1;
+    const showFooterControls = showViewModeDropdown || showMovementControls;
 
     const { EDIT, WATCH, READ } = ProposalActionsDecoderMode;
 
@@ -199,7 +205,7 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                     chainId={chainId}
                     className="w-full bg-transparent"
                     asChild={true}
-                    displayWarning={displayValueWarning}
+                    displayWarning={displayHeaderWarning}
                 />
             </Accordion.ItemHeader>
             <Accordion.ItemContent
@@ -207,6 +213,15 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                 className={classNames({ 'cursor-default': editMode })}
             >
                 <div className="flex flex-col items-start gap-y-6 self-start md:gap-y-8">
+                    {displayDecodeWarning && (
+                        <AlertCard
+                            className="w-full"
+                            variant="warning"
+                            message={copy.proposalActionsItem.decodeWarningAlert}
+                        >
+                            {copy.proposalActionsItem.decodeWarningDescription}
+                        </AlertCard>
+                    )}
                     {displayValueWarning && (
                         <AlertCard variant="warning" message={copy.proposalActionsItem.nativeSendAlert}>
                             {copy.proposalActionsItem.nativeSendDescription(formattedValue, currencySymbol)}
@@ -237,47 +252,51 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
                             view={ProposalActionsDecoderView.RAW}
                         />
                     )}
-                    <div className="flex w-full flex-row justify-between">
-                        <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
-                            {viewModes.map(({ mode, disabled }) => (
-                                <Dropdown.Item
-                                    key={mode}
-                                    onSelect={() => onViewModeChange(mode)}
-                                    disabled={disabled}
-                                    selected={activeViewMode === mode}
-                                >
-                                    {copy.proposalActionsItem.menu[mode]}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Container>
-                        {editMode && arrayControls && actionCount != null && actionCount > 1 && (
-                            <div className="flex items-center gap-3 text-neutral-500">
-                                <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
-                                    <Button
-                                        variant="tertiary"
-                                        size="sm"
-                                        aria-label={arrayControls.moveDown.label}
-                                        iconLeft={IconType.CHEVRON_DOWN}
-                                        onClick={() => handleMoveClick('down')}
-                                        disabled={arrayControls.moveDown.disabled}
-                                    />
-                                </Tooltip>
-                                <p className="text-sm text-neutral-500">
-                                    {index + 1} {copy.proposalActionsItem.of} {actionCount}
-                                </p>
-                                <Tooltip content={arrayControls.moveUp.label} triggerAsChild={true}>
-                                    <Button
-                                        variant="tertiary"
-                                        size="sm"
-                                        aria-label={arrayControls.moveUp.label}
-                                        iconLeft={IconType.CHEVRON_UP}
-                                        onClick={() => handleMoveClick('up')}
-                                        disabled={arrayControls.moveUp.disabled}
-                                    />
-                                </Tooltip>
-                            </div>
-                        )}
-                    </div>
+                    {showFooterControls && (
+                        <div className="flex w-full flex-row justify-between">
+                            {showViewModeDropdown && (
+                                <Dropdown.Container label={copy.proposalActionsItem.menu.dropdownLabel} size="sm">
+                                    {viewModes.map(({ mode, disabled }) => (
+                                        <Dropdown.Item
+                                            key={mode}
+                                            onSelect={() => onViewModeChange(mode)}
+                                            disabled={disabled}
+                                            selected={activeViewMode === mode}
+                                        >
+                                            {copy.proposalActionsItem.menu[mode]}
+                                        </Dropdown.Item>
+                                    ))}
+                                </Dropdown.Container>
+                            )}
+                            {showMovementControls && (
+                                <div className="flex items-center gap-3 text-neutral-500">
+                                    <Tooltip content={arrayControls.moveDown.label} triggerAsChild={true}>
+                                        <Button
+                                            variant="tertiary"
+                                            size="sm"
+                                            aria-label={arrayControls.moveDown.label}
+                                            iconLeft={IconType.CHEVRON_DOWN}
+                                            onClick={() => handleMoveClick('down')}
+                                            disabled={arrayControls.moveDown.disabled}
+                                        />
+                                    </Tooltip>
+                                    <p className="text-sm text-neutral-500">
+                                        {index + 1} {copy.proposalActionsItem.of} {actionCount}
+                                    </p>
+                                    <Tooltip content={arrayControls.moveUp.label} triggerAsChild={true}>
+                                        <Button
+                                            variant="tertiary"
+                                            size="sm"
+                                            aria-label={arrayControls.moveUp.label}
+                                            iconLeft={IconType.CHEVRON_UP}
+                                            onClick={() => handleMoveClick('up')}
+                                            disabled={arrayControls.moveUp.disabled}
+                                        />
+                                    </Tooltip>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </Accordion.ItemContent>
         </Accordion.Item>
