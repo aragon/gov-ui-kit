@@ -148,7 +148,7 @@
     "vite-plugin-static-copy": "^3.2.0",
     "vite-plugin-svgr": "^4.5.0",
     "wagmi": "^3.4.3",
-    "zod": "^3.25.76"
+    "zod": "^4.3.6"
   },
   "bugs": {
     "url": "https://github.com/aragon/gov-ui-kit/issues"
