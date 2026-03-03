@@ -46,7 +46,14 @@ module.exports = [
                     declarationDir: `${outDir}/types`,
                     outDir,
                 },
-                exclude: ['**/*.spec.tsx', '**/*.spec.ts', '**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx'],
+                exclude: [
+                    '**/*.spec.tsx',
+                    '**/*.spec.ts',
+                    '**/*.test.tsx',
+                    '**/*.test.ts',
+                    '**/*.stories.tsx',
+                    '*.config.js',
+                ],
             }),
 
             // Bundle png and jpg images

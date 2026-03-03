@@ -1,2 +1,5 @@
 minimumReleaseAge: 10080 # cooldown period for new packages in minutes (7 days)
-# minimumReleaseAgeExclude: # https://pnpm.io/settings#minimumreleaseageexclude
+minimumReleaseAgeExclude: # https://pnpm.io/settings#minimumreleaseageexclude
+    - 'vercel'
+    - 'minimatch@3.1.5||9.0.9||10.2.4'
+    - 'basic-ftp@5.2.0'
