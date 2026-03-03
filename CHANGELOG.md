@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 1.29.0
+
+### Minor Changes
+
+- [#650](https://github.com/aragon/gov-ui-kit/pull/650) [`e1aaf90`](https://github.com/aragon/gov-ui-kit/commit/e1aaf909d84d3cd864024d897888008f40bfa348) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Handle proposal actions mismatch when action can't decode correctly
+
+### Patch Changes
+
+- [#652](https://github.com/aragon/gov-ui-kit/pull/652) [`30b5cb9`](https://github.com/aragon/gov-ui-kit/commit/30b5cb974336b8d02a976ca91432bb6108cfd7dd) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update package dependencies; fix build warnings
+
+- [#649](https://github.com/aragon/gov-ui-kit/pull/649) [`acb5db4`](https://github.com/aragon/gov-ui-kit/commit/acb5db4b65edf874b98e1cdc21d6217be75facd6) Thanks [@milosh86](https://github.com/milosh86)! - Fix clipboard button type to prevent unintended form submission
+
 ## 1.28.0
 
 ### Minor Changes
