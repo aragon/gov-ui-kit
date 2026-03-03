@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from '../button';
 import { Link } from '../link';
 import { Clipboard } from './clipboard';
 
@@ -51,6 +52,28 @@ export const WithText: Story = {
         <Clipboard {...props}>
             <p>{`${props.copyValue.slice(0, 5)}...`}</p>
         </Clipboard>
+    ),
+};
+
+/**
+ * Example of the Clipboard component inside a form, demonstrating that clicking the copy
+ * button does not trigger form submission.
+ */
+export const InsideForm: Story = {
+    args: {
+        copyValue: '0x123456789',
+    },
+    render: (props) => (
+        <form
+            className="flex flex-col gap-6"
+            onSubmit={(e) => {
+                e.preventDefault();
+                alert('Form submitted!');
+            }}
+        >
+            <Clipboard {...props} />
+            <Button type="submit">Submit form</Button>
+        </form>
     ),
 };
 
