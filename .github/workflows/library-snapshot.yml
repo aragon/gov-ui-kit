@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Load secrets from OP
         id: load-secrets
-        uses: 1password/load-secrets-action@v3.1.0
+        uses: 1password/load-secrets-action@v3.2.1
         with:
           export-env: false
         env:
