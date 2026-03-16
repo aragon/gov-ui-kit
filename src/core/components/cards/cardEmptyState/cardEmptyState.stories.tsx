@@ -22,19 +22,25 @@ type Story = StoryObj<typeof CardEmptyState>;
 export const Default: Story = {
     args: {
         heading: 'Heading',
-        objectIllustration: { object: 'LIGHTBULB' },
+        objectIllustration: { object: 'USERS' },
     },
 };
 
 export const HumanIllustration: Story = {
     args: {
         heading: 'Heading',
+        description: 'Description',
+        isStacked: false,
+        primaryButton: {
+            label: 'Click here',
+            onClick: () => alert('Primary Button Clicked'),
+        },
         humanIllustration: {
-            body: 'VOTING',
-            hairs: 'MIDDLE',
-            accessory: 'EARRINGS_RHOMBUS',
-            sunglasses: 'BIG_ROUNDED',
-            expression: 'SMILE',
+            body: 'ELEVATING',
+            hairs: 'SHORT',
+            accessory: 'PIERCINGS_TATTOO',
+            sunglasses: 'LARGE_STYLIZED',
+            expression: 'SMILE_WINK',
         },
     },
 };
