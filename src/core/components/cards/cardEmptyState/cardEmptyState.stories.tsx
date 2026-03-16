@@ -22,7 +22,7 @@ type Story = StoryObj<typeof CardEmptyState>;
 export const Default: Story = {
     args: {
         heading: 'Heading',
-        objectIllustration: { object: 'USERS' },
+        objectIllustration: { object: 'LIGHTBULB' },
     },
 };
 
