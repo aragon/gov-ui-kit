@@ -67,6 +67,6 @@ describe('<EmptyState /> component', () => {
         expect(buttons).toHaveLength(2);
         const humanImage = screen.getByTestId('VOTING');
         // eslint-disable-next-line testing-library/no-node-access  -- testid for SVG is nearest accessible attribute and reliable to the illustration
-        expect(humanImage.parentElement).toHaveClass('order-last');
+        expect(humanImage.closest('.order-last')).toBeInTheDocument();
     });
 });
