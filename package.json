@@ -66,7 +66,7 @@
     "framer-motion": "^12.35.0",
     "imask": "^7.6.1",
     "luxon": "^3.7.2",
-    "react-dropzone": "^14.4.1",
+    "react-dropzone": "^15.0.0",
     "react-imask": "^7.6.1",
     "sanitize-html": "^2.17.1",
     "tiptap-markdown": "^0.9.0"
