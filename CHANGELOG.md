@@ -1,5 +1,13 @@
 # @aragon/gov-ui-kit
 
+## 1.29.2
+
+### Patch Changes
+
+- [#660](https://github.com/aragon/gov-ui-kit/pull/660) [`4b02718`](https://github.com/aragon/gov-ui-kit/commit/4b0271871d57a48938f679dedf58e52296506ebe) Thanks [@milosh86](https://github.com/milosh86)! - Fix EmptyState humanIllustration rendering in non-stacked mode
+
+- [#659](https://github.com/aragon/gov-ui-kit/pull/659) [`b3b221c`](https://github.com/aragon/gov-ui-kit/commit/b3b221c2b6b6246fe7187ccf2dc2e934fadf497f) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update dependencies
+
 ## 1.29.1
 
 ### Patch Changes
