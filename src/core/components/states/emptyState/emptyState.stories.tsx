@@ -49,9 +49,7 @@ export const StackedFullWithObject: Story = {
     },
 };
 /**
- * Non-Stacked EmptyState component with full props examples for Object Illustration. <br />
- * **Warning:** Non-Stacked EmptyState with Human Illustration is not supported visually.
- * As displayed, use an object illustration instead for best layout.
+ * Non-Stacked EmptyState component with full props examples for Object Illustration.
  */
 export const NonStackedFullWithObject: Story = {
     args: {
@@ -74,7 +72,37 @@ export const NonStackedFullWithObject: Story = {
     },
 };
 /**
- * Stacked EmptyState component with full props examples for Human Illustation.
+ * Non-Stacked EmptyState component with full props examples for Human Illustration.
+ */
+export const NonStackedFullWithHuman: Story = {
+    args: {
+        heading: 'Heading',
+        description: 'Description',
+        isStacked: false,
+        humanIllustration: {
+            body: 'VOTING',
+            hairs: 'MIDDLE',
+            accessory: 'EARRINGS_RHOMBUS',
+            sunglasses: 'BIG_ROUNDED',
+            expression: 'SMILE',
+        },
+        primaryButton: {
+            label: 'Label',
+            iconLeft: IconType.PLUS,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Primary Button Clicked'),
+        },
+        secondaryButton: {
+            label: 'Label',
+            iconLeft: IconType.PLUS,
+            iconRight: IconType.CHEVRON_RIGHT,
+            onClick: () => alert('Secondary Button Clicked'),
+        },
+    },
+};
+
+/**
+ * Stacked EmptyState component with full props examples for Human Illustration.
  */
 export const StackedFullWithHuman: Story = {
     args: {

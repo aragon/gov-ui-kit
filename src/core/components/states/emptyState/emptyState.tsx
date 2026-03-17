@@ -24,15 +24,14 @@ export const EmptyState: React.FC<IEmptyStateProps> = ({
 
     return (
         <div className={containerClassNames}>
-            {humanIllustration && (
-                <IllustrationHuman
-                    className={classNames({
-                        'mb-4 h-auto w-full max-w-[400px] md:mb-6': isStacked,
-                        'order-last h-auto w-full max-w-20 justify-self-end': !isStacked,
-                    })}
-                    {...humanIllustration}
-                />
-            )}
+            {humanIllustration &&
+                (isStacked ? (
+                    <IllustrationHuman className="mb-4 h-auto w-full max-w-[400px] md:mb-6" {...humanIllustration} />
+                ) : (
+                    <div className="order-last flex aspect-square w-full max-w-20 items-center justify-center justify-self-end overflow-hidden rounded-full bg-neutral-50">
+                        <IllustrationHuman className="w-full scale-[1.25]" {...humanIllustration} />
+                    </div>
+                ))}
             {objectIllustration && (
                 <IllustrationObject
                     className={classNames({

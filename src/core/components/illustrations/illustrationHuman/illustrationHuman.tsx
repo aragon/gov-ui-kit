@@ -71,7 +71,7 @@ export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
     const Accessory = accessory ? illustrationHumanAccessoryList[accessory] : undefined;
     const Object = object ? illustrationObjectList[object] : undefined;
 
-    const computedStyle = { width: '100%', height: '100%', ...style };
+    const computedStyle = { width: '100%', ...style };
     const commonProps = { className: 'absolute top-0 right-0' };
 
     return (
