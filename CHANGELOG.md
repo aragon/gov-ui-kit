@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 1.29.1
+
+### Patch Changes
+
+- [#658](https://github.com/aragon/gov-ui-kit/pull/658) [`2965506`](https://github.com/aragon/gov-ui-kit/commit/296550692e33952b8690884b19c2926b6cc38a31) Thanks [@evanaronson](https://github.com/evanaronson)! - Fallback avatar calculation to ENS public endpoint
+
 ## 1.29.0
 
 ### Minor Changes
