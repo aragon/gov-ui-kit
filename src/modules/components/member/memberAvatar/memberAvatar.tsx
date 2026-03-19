@@ -51,7 +51,9 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
         chainId,
         config: wagmiConfig,
     });
-    const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? undefined;
+    const ensMetadataAvatarSrc =
+        resolvedName != null ? `https://metadata.ens.domains/mainnet/avatar/${normalize(resolvedName)}` : undefined;
+    const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? ensMetadataAvatarSrc;
 
     const blockiesSrc =
         resolvedAddress && !ssrUtils.isServer()

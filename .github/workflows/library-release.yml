@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Load secrets
         id: load-secrets
-        uses: 1password/load-secrets-action@v3.1.0
+        uses: 1password/load-secrets-action@v3.2.1
         with:
           export-env: false
         env:
@@ -68,7 +68,7 @@ jobs:
             const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
             readChangelog({ github, context, core });
       - name: Create release
-        uses: softprops/action-gh-release@v2.5.0
+        uses: softprops/action-gh-release@v2.6.1
         with:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"

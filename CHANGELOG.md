@@ -1,5 +1,31 @@
 # @aragon/gov-ui-kit
 
+## 1.29.2
+
+### Patch Changes
+
+- [#660](https://github.com/aragon/gov-ui-kit/pull/660) [`4b02718`](https://github.com/aragon/gov-ui-kit/commit/4b0271871d57a48938f679dedf58e52296506ebe) Thanks [@milosh86](https://github.com/milosh86)! - Fix EmptyState humanIllustration rendering in non-stacked mode
+
+- [#659](https://github.com/aragon/gov-ui-kit/pull/659) [`b3b221c`](https://github.com/aragon/gov-ui-kit/commit/b3b221c2b6b6246fe7187ccf2dc2e934fadf497f) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update dependencies
+
+## 1.29.1
+
+### Patch Changes
+
+- [#658](https://github.com/aragon/gov-ui-kit/pull/658) [`2965506`](https://github.com/aragon/gov-ui-kit/commit/296550692e33952b8690884b19c2926b6cc38a31) Thanks [@evanaronson](https://github.com/evanaronson)! - Fallback avatar calculation to ENS public endpoint
+
+## 1.29.0
+
+### Minor Changes
+
+- [#650](https://github.com/aragon/gov-ui-kit/pull/650) [`e1aaf90`](https://github.com/aragon/gov-ui-kit/commit/e1aaf909d84d3cd864024d897888008f40bfa348) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Handle proposal actions mismatch when action can't decode correctly
+
+### Patch Changes
+
+- [#652](https://github.com/aragon/gov-ui-kit/pull/652) [`30b5cb9`](https://github.com/aragon/gov-ui-kit/commit/30b5cb974336b8d02a976ca91432bb6108cfd7dd) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update package dependencies; fix build warnings
+
+- [#649](https://github.com/aragon/gov-ui-kit/pull/649) [`acb5db4`](https://github.com/aragon/gov-ui-kit/commit/acb5db4b65edf874b98e1cdc21d6217be75facd6) Thanks [@milosh86](https://github.com/milosh86)! - Fix clipboard button type to prevent unintended form submission
+
 ## 1.28.0
 
 ### Minor Changes
