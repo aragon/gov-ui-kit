@@ -33,7 +33,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         useConnectionSpy.mockReturnValue({
             address: '0x1234567890123456789012345678901234567890' as viem.Address,
             isConnected: true,
-            } as wagmi.UseConnectionReturnType);
+        } as wagmi.UseConnectionReturnType);
     });
 
     afterEach(() => {
@@ -77,7 +77,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         useConnectionSpy.mockReturnValue({
             address: voter.address,
             isConnected: true,
-            } as unknown as wagmi.UseConnectionReturnType);
+        } as unknown as wagmi.UseConnectionReturnType);
 
         render(createTestComponent({ voter }));
 
