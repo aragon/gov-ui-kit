@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -55,8 +55,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
         ...otherProps
     } = props;
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-    const { address: currentUserAddress, isConnected } = useAccount();
+    const { address: currentUserAddress, isConnected } = useConnection();
 
     const { copy } = useGukModulesContext();
 

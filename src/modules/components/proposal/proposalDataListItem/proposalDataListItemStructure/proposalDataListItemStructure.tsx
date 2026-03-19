@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { DataList, Heading, Link, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -41,8 +41,7 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
         ...otherProps
     } = props;
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-    const { address: connectedAddress, isConnected } = useAccount({ config });
+    const { address: connectedAddress, isConnected } = useConnection({ config });
     const { copy } = useGukModulesContext();
 
     // Avoid SSR/CSR hydration mismatches: the connected address is only known on

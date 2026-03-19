@@ -15,7 +15,7 @@ jest.mock('../../../member', () => ({ MemberAvatar: () => <div data-testid="memb
 describe('<VoteDataListItemStructure /> component', () => {
     const isAddressSpy = jest.spyOn(viem, 'isAddress');
     const getAddressSpy = jest.spyOn(viem, 'getAddress');
-    const useAccountSpy = jest.spyOn(wagmi, 'useAccount');
+    const useConnectionSpy = jest.spyOn(wagmi, 'useConnection');
 
     const createTestComponent = (props?: Partial<IVoteDataListItemStructureProps>) => {
         const completeProps: IVoteDataListItemStructureProps = {
@@ -30,17 +30,16 @@ describe('<VoteDataListItemStructure /> component', () => {
     beforeEach(() => {
         isAddressSpy.mockImplementation(() => true);
         getAddressSpy.mockImplementation((address: string) => `0x${address}`);
-        useAccountSpy.mockReturnValue({
+        useConnectionSpy.mockReturnValue({
             address: '0x1234567890123456789012345678901234567890' as viem.Address,
             isConnected: true,
-            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        } as wagmi.UseAccountReturnType);
+            } as wagmi.UseConnectionReturnType);
     });
 
     afterEach(() => {
         isAddressSpy.mockReset();
         getAddressSpy.mockReset();
-        useAccountSpy.mockReset();
+        useConnectionSpy.mockReset();
     });
 
     it('renders the vote and the voter information', () => {
@@ -75,11 +74,10 @@ describe('<VoteDataListItemStructure /> component', () => {
 
     it('renders the "You" tag if the voter is the current user', async () => {
         const voter = { address: '0x1234567890123456789012345678901234567890' };
-        useAccountSpy.mockReturnValue({
+        useConnectionSpy.mockReturnValue({
             address: voter.address,
             isConnected: true,
-            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        } as unknown as wagmi.UseAccountReturnType);
+            } as unknown as wagmi.UseConnectionReturnType);
 
         render(createTestComponent({ voter }));
 
