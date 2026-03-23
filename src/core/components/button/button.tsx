@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type Ref } from 'react';
+import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type MouseEvent, type Ref } from 'react';
 import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
@@ -292,7 +292,18 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         );
     }
 
-    const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
+    const {
+        type = 'button',
+        href: _href,
+        target: _target,
+        rel: _rel,
+        download: _download,
+        hrefLang: _hrefLang,
+        media: _media,
+        ping: _ping,
+        referrerPolicy: _referrerPolicy,
+        ...buttonProps
+    } = otherProps as ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>;
 
     return (
         <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} type={type} {...commonProps} {...buttonProps}>

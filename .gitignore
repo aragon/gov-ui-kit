@@ -52,3 +52,4 @@ stats.*.html
 
 # IDE/AI
 .claude
+.tempor/
