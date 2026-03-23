@@ -303,7 +303,9 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         ping: _ping,
         referrerPolicy: _referrerPolicy,
         ...buttonProps
-    } = otherProps as ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>;
+    } = otherProps as Omit<ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>, 'download'> & {
+        download?: string;
+    };
 
     return (
         <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} type={type} {...commonProps} {...buttonProps}>
