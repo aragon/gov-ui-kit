@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type Ref } from 'react';
+import { forwardRef, type MouseEvent, type Ref } from 'react';
 import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
@@ -187,7 +187,6 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         children,
         isLoading,
         disabled,
-        ...otherProps
     } = props;
 
     const isOnlyIcon = children == null || children === '';
@@ -277,8 +276,22 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
             }
         };
 
-    if ('href' in otherProps && otherProps.href != null && otherProps.href !== '') {
-        const { onClick, href, ...linkProps } = otherProps;
+    if ('href' in props && props.href !== undefined) {
+        const {
+            variant: _variant,
+            size: _size,
+            responsiveSize: _responsiveSize,
+            iconRight: _iconRight,
+            iconLeft: _iconLeft,
+            className: _className,
+            children: _children,
+            isLoading: _isLoading,
+            disabled: _disabled,
+            href,
+            onClick,
+            ...linkProps
+        } = props;
+
         return (
             <LinkBase
                 href={href}
@@ -292,7 +305,19 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         );
     }
 
-    const { type = 'button', ...buttonProps } = otherProps as ButtonHTMLAttributes<HTMLButtonElement>;
+    const {
+        variant: _variant,
+        size: _size,
+        responsiveSize: _responsiveSize,
+        iconRight: _iconRight,
+        iconLeft: _iconLeft,
+        className: _className,
+        children: _children,
+        isLoading: _isLoading,
+        disabled: _disabled,
+        type = 'button',
+        ...buttonProps
+    } = props;
 
     return (
         <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} type={type} {...commonProps} {...buttonProps}>

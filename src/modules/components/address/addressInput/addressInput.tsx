@@ -312,13 +312,22 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                     )}
                     {addressValue != null && !isFocused && (
                         <>
-                            <Button
-                                variant="tertiary"
-                                size="sm"
-                                href={addressUrl}
-                                target="_blank"
-                                iconLeft={IconType.LINK_EXTERNAL}
-                            />
+                            {addressUrl != null ? (
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    href={addressUrl}
+                                    target="_blank"
+                                    iconLeft={IconType.LINK_EXTERNAL}
+                                />
+                            ) : (
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    iconLeft={IconType.LINK_EXTERNAL}
+                                    disabled={true}
+                                />
+                            )}
                             <Clipboard copyValue={value} variant="button" />
                         </>
                     )}

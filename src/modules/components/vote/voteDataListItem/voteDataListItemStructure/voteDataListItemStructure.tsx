@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { type ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
@@ -52,8 +52,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         isVeto = false,
         ...otherProps
     } = props;
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-    const { address: currentUserAddress, isConnected } = useAccount();
+    const { address: currentUserAddress, isConnected } = useConnection();
 
     const { copy } = useGukModulesContext();
 

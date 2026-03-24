@@ -7,23 +7,22 @@ import { ProposalStatus } from '../../proposalUtils';
 import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
-jest.mock('wagmi', () => ({ ...jest.requireActual<typeof wagmi>('wagmi'), useAccount: jest.fn() }));
+jest.mock('wagmi', () => ({ ...jest.requireActual<typeof wagmi>('wagmi'), useConnection: jest.fn() }));
 
 jest.mock('viem/utils', () => ({ isAddress: jest.fn().mockReturnValue(true) }));
 
 describe('<ProposalDataListItemStructure/> component', () => {
-    const useAccountMock = jest.spyOn(wagmi, 'useAccount');
+    const useConnectionMock = jest.spyOn(wagmi, 'useConnection');
 
     beforeEach(() => {
-        useAccountMock.mockReturnValue({
+        useConnectionMock.mockReturnValue({
             address: '0x456',
             isConnected: true,
-            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        } as unknown as wagmi.UseAccountReturnType);
+        } as unknown as wagmi.UseConnectionReturnType);
     });
 
     afterEach(() => {
-        useAccountMock.mockReset();
+        useConnectionMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IProposalDataListItemStructureProps>) => {
@@ -48,11 +47,10 @@ describe('<ProposalDataListItemStructure/> component', () => {
     it("renders 'You' as the publisher if the connected address is the publisher address", async () => {
         const publisher = { address: '0x0000000000000000000000000000000000000000', link: '#' };
 
-        useAccountMock.mockReturnValue({
+        useConnectionMock.mockReturnValue({
             address: publisher.address,
             isConnected: true,
-            // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        } as unknown as wagmi.UseAccountReturnType);
+        } as unknown as wagmi.UseConnectionReturnType);
 
         render(createTestComponent({ publisher }));
 
