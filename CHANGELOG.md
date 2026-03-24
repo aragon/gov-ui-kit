@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 2.0.0
+
+### Major Changes
+
+- [#663](https://github.com/aragon/gov-ui-kit/pull/663) [`1f646f0`](https://github.com/aragon/gov-ui-kit/commit/1f646f070f8d8aca6fe0859e42038a3b321d30e6) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - BREAKING: Require React 19 and wagmi v3.
+
+    This release updates the kit to React 19 and aligns the internal modules layer with wagmi v3.
+    - Require `react` and `react-dom` `^19.0.0`
+    - Keep `wagmi` as a peer dependency and require `^3.0.0`
+    - Keep `tailwindcss` and `@tailwindcss/typography` as optional peers for the Tailwind CSS integration path
+    - Migrate internal wagmi usage from `useAccount` to `useConnection`
+
+### Minor Changes
+
+- [#662](https://github.com/aragon/gov-ui-kit/pull/662) [`6e5421d`](https://github.com/aragon/gov-ui-kit/commit/6e5421d858fb026a1d18b135403cd43d7788516b) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Add hideControls prop to AddressInput to hide control buttons while preserving ENS resolution.
+
 ## 1.29.2
 
 ### Patch Changes
