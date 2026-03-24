@@ -321,7 +321,12 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                                     iconLeft={IconType.LINK_EXTERNAL}
                                 />
                             ) : (
-                                <Button variant="tertiary" size="sm" iconLeft={IconType.LINK_EXTERNAL} disabled={true} />
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    iconLeft={IconType.LINK_EXTERNAL}
+                                    disabled={true}
+                                />
                             )}
                             <Clipboard copyValue={value} variant="button" />
                         </>

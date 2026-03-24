@@ -1,10 +1,10 @@
 export { Button } from './button';
 export type {
-    IButtonAsButtonProps,
-    IButtonAsLinkProps,
     ButtonContext,
     ButtonSize,
     ButtonVariant,
+    IButtonAsButtonProps,
+    IButtonAsLinkProps,
     IButtonBaseProps,
     IButtonElementProps,
     IButtonProps,

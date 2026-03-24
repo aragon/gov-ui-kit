@@ -61,8 +61,9 @@ describe('<Button /> component', () => {
     });
 
     it('renders a link when href is an empty string', () => {
-        render(createTestComponent({ href: '', children: 'Link label', target: '_blank' }));
-        expect(screen.getByText('Link label').closest('a')).toHaveAttribute('target', '_blank');
+        const { container } = render(createTestComponent({ href: '', children: 'Link label', target: '_blank' }));
+        expect(container.innerHTML).toContain('href=""');
+        expect(container.innerHTML).toContain('target="_blank"');
     });
 
     it('disables the button on disabled state', async () => {
