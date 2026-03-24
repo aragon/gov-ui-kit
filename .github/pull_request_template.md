@@ -3,10 +3,6 @@
 Please include a summary of the change and be sure you follow the contributions rules we do provide
 [here](./CONTRIBUTIONS.md)
 
-<!--- Set the correct ticket number -->
-
-Task: [APP-0000](https://aragonassociation.atlassian.net/browse/APP-0000)
-
 ## Type of change
 
 <!--- Please delete options that are not relevant. -->
