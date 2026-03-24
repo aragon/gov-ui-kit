@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef, type AnchorHTMLAttributes, type ButtonHTMLAttributes, type MouseEvent, type Ref } from 'react';
+import { forwardRef, type MouseEvent, type Ref } from 'react';
 import type { Breakpoint, ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { Icon, type IconSize } from '../icon';
@@ -187,7 +187,6 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         children,
         isLoading,
         disabled,
-        ...otherProps
     } = props;
 
     const isOnlyIcon = children == null || children === '';
@@ -277,8 +276,22 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
             }
         };
 
-    if ('href' in otherProps && otherProps.href != null && otherProps.href !== '') {
-        const { onClick, href, ...linkProps } = otherProps;
+    if ('href' in props && props.href !== undefined) {
+        const {
+            variant: _variant,
+            size: _size,
+            responsiveSize: _responsiveSize,
+            iconRight: _iconRight,
+            iconLeft: _iconLeft,
+            className: _className,
+            children: _children,
+            isLoading: _isLoading,
+            disabled: _disabled,
+            href,
+            onClick,
+            ...linkProps
+        } = props;
+
         return (
             <LinkBase
                 href={href}
@@ -293,22 +306,18 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
     }
 
     const {
+        variant: _variant,
+        size: _size,
+        responsiveSize: _responsiveSize,
+        iconRight: _iconRight,
+        iconLeft: _iconLeft,
+        className: _className,
+        children: _children,
+        isLoading: _isLoading,
+        disabled: _disabled,
         type = 'button',
-        href: _href,
-        target: _target,
-        rel: _rel,
-        download: _download,
-        hrefLang: _hrefLang,
-        media: _media,
-        ping: _ping,
-        referrerPolicy: _referrerPolicy,
         ...buttonProps
-    } = otherProps as Omit<
-        ButtonHTMLAttributes<HTMLButtonElement> & AnchorHTMLAttributes<HTMLAnchorElement>,
-        'download'
-    > & {
-        download?: string;
-    };
+    } = props;
 
     return (
         <button disabled={isDisabled} ref={ref as Ref<HTMLButtonElement>} type={type} {...commonProps} {...buttonProps}>

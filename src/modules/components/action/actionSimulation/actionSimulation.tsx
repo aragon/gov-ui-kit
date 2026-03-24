@@ -102,16 +102,26 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                     </Button>
                 )}
 
-                <Button
-                    variant={lastSimulation?.status === 'failed' ? 'warning' : 'tertiary'}
-                    size="md"
-                    disabled={!lastSimulation?.url}
-                    href={lastSimulation?.url}
-                    target="_blank"
-                    iconRight={IconType.LINK_EXTERNAL}
-                >
-                    {copy.actionSimulation.viewOnTenderly}
-                </Button>
+                {lastSimulation?.url != null ? (
+                    <Button
+                        variant={lastSimulation.status === 'failed' ? 'warning' : 'tertiary'}
+                        size="md"
+                        href={lastSimulation.url}
+                        target="_blank"
+                        iconRight={IconType.LINK_EXTERNAL}
+                    >
+                        {copy.actionSimulation.viewOnTenderly}
+                    </Button>
+                ) : (
+                    <Button
+                        variant={lastSimulation?.status === 'failed' ? 'warning' : 'tertiary'}
+                        size="md"
+                        disabled={true}
+                        iconRight={IconType.LINK_EXTERNAL}
+                    >
+                        {copy.actionSimulation.viewOnTenderly}
+                    </Button>
+                )}
             </div>
             {error && (
                 <div className="text-critical-800 flex items-center gap-2 text-sm">

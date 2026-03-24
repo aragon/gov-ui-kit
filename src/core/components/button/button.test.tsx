@@ -6,11 +6,7 @@ import { Button } from './button';
 import type { IButtonProps } from './button.api';
 
 describe('<Button /> component', () => {
-    const createTestComponent = (props?: Partial<IButtonProps>) => {
-        const completeProps: IButtonProps = { ...props };
-
-        return <Button {...completeProps} />;
-    };
+    const createTestComponent = (props?: Partial<IButtonProps>) => <Button {...(props as IButtonProps)} />;
 
     it('renders a button', () => {
         render(createTestComponent());
@@ -62,6 +58,11 @@ describe('<Button /> component', () => {
         const link = screen.getByRole<HTMLAnchorElement>('link', { name: children });
         expect(link).toBeInTheDocument();
         expect(link.href).toEqual(href);
+    });
+
+    it('renders a link when href is an empty string', () => {
+        render(createTestComponent({ href: '', children: 'Link label', target: '_blank' }));
+        expect(screen.getByText('Link label').closest('a')).toHaveAttribute('target', '_blank');
     });
 
     it('disables the button on disabled state', async () => {
