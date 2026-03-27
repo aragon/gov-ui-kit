@@ -1,5 +1,5 @@
 ---
-'@aragon/app': patch
+'@aragon/gov-ui-kit': patch
 ---
 
-Use singular "Delegation" label when delegation count is 1
+Use a singular "Delegation" label when the delegation count is 1
