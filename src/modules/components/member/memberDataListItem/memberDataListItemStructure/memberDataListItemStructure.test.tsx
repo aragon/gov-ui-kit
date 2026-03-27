@@ -51,6 +51,9 @@ describe('<MemberDataListItem /> component', () => {
 
         rerender(createTestComponent({ delegationCount: 2959 }));
         expect(screen.getByRole('heading', { level: 3, name: '2.96K Delegations' })).toBeInTheDocument();
+
+        rerender(createTestComponent({ delegationCount: 1 }));
+        expect(screen.getByRole('heading', { level: 3, name: '1 Delegation' })).toBeInTheDocument();
     });
 
     it('renders the token amount of the member when not null', () => {

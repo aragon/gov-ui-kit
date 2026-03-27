@@ -15,6 +15,7 @@ export const modulesCopy = {
     memberDataListItemStructure: {
         yourDelegate: 'Your Delegate',
         you: 'You',
+        delegation: 'Delegation',
         delegations: 'Delegations',
         votingPower: 'Voting Power',
     },
