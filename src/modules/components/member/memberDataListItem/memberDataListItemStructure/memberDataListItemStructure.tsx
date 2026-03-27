@@ -109,7 +109,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                             invisible: delegationCount == null || delegationCount === 0,
                         })}
                     >
-                        <span className="text-neutral-800">{formattedDelegationCount}</span>
+                        <span className="text-neutral-800">{formattedDelegationCount}</span>{' '}
                         <span className="text-neutral-500">
                             {copy.memberDataListItemStructure[delegationCount === 1 ? 'delegation' : 'delegations']}
                         </span>
