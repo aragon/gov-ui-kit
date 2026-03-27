@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.0.1
+
+### Patch Changes
+
+- [#664](https://github.com/aragon/gov-ui-kit/pull/664) [`1fec785`](https://github.com/aragon/gov-ui-kit/commit/1fec785021ef632c92e3a98cbbdd1108d3b0a806) Thanks [@milosh86](https://github.com/milosh86)! - Use a singular "Delegation" label when the delegation count is 1
+
 ## 2.0.0
 
 ### Major Changes
