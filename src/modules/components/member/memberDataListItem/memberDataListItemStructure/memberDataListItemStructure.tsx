@@ -110,7 +110,9 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                         })}
                     >
                         <span className="text-neutral-800">{formattedDelegationCount}</span>
-                        <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
+                        <span className="text-neutral-500">
+                            {copy.memberDataListItemStructure[delegationCount === 1 ? 'delegation' : 'delegations']}
+                        </span>
                     </Heading>
                     <Heading size="h5" as="h3">
                         <span className="text-neutral-800">
