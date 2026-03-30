@@ -6,15 +6,14 @@ import { MemberDataListItemStructure, type IMemberDataListItemProps } from './me
 jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
 
 describe('<MemberDataListItem /> component', () => {
-    const useAccountMock = jest.spyOn(wagmi, 'useAccount');
+    const useConnectionMock = jest.spyOn(wagmi, 'useConnection');
 
     beforeEach(() => {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        useAccountMock.mockReturnValue({} as wagmi.UseAccountReturnType);
+        useConnectionMock.mockReturnValue({} as wagmi.UseConnectionReturnType);
     });
 
     afterEach(() => {
-        useAccountMock.mockReset();
+        useConnectionMock.mockReset();
     });
 
     const createTestComponent = (props?: Partial<IMemberDataListItemProps>) => {
@@ -52,6 +51,9 @@ describe('<MemberDataListItem /> component', () => {
 
         rerender(createTestComponent({ delegationCount: 2959 }));
         expect(screen.getByRole('heading', { level: 3, name: '2.96K Delegations' })).toBeInTheDocument();
+
+        rerender(createTestComponent({ delegationCount: 1 }));
+        expect(screen.getByRole('heading', { level: 3, name: '1 Delegation' })).toBeInTheDocument();
     });
 
     it('renders the token amount of the member when not null', () => {
@@ -70,8 +72,7 @@ describe('<MemberDataListItem /> component', () => {
 
     it('renders a you tag when the user is the current connected account', async () => {
         const address = '0x50ce432B38eE98dE5Fa375D5125aA6d0d054E662';
-        // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-        useAccountMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseAccountReturnType);
+        useConnectionMock.mockReturnValue({ isConnected: true, address } as unknown as wagmi.UseConnectionReturnType);
         render(createTestComponent({ address }));
         expect(await screen.findByText('You')).toBeInTheDocument();
     });

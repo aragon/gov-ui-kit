@@ -41,6 +41,23 @@ export interface IButtonBaseProps {
     disabled?: boolean;
 }
 
-export type IButtonElementProps = ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>;
+export type IButtonAsButtonProps = IButtonBaseProps &
+    ButtonHTMLAttributes<HTMLButtonElement> & {
+        href?: undefined;
+        target?: never;
+        rel?: never;
+        download?: never;
+        hrefLang?: never;
+        media?: never;
+        ping?: never;
+        referrerPolicy?: never;
+    };
 
-export type IButtonProps = IButtonBaseProps & IButtonElementProps;
+export type IButtonAsLinkProps = IButtonBaseProps &
+    AnchorHTMLAttributes<HTMLAnchorElement> & {
+        href: string;
+    };
+
+export type IButtonElementProps = IButtonAsButtonProps | IButtonAsLinkProps;
+
+export type IButtonProps = IButtonElementProps;

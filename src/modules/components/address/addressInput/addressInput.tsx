@@ -55,6 +55,11 @@ export interface IAddressInputProps
      * @default true
      */
     enforceChecksum?: boolean;
+    /**
+     * Hides the control buttons (ENS/address toggle, block explorer link, copy, clear, and paste).
+     * @default false
+     */
+    hideControls?: boolean;
 }
 
 export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>((props, ref) => {
@@ -63,6 +68,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
         onChange,
         onAccept,
         enforceChecksum = true,
+        hideControls = false,
         wagmiConfig: wagmiConfigProps,
         chainId = mainnet.id,
         ...otherProps
@@ -292,40 +298,51 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
                 value={processedValue}
                 onChange={handleInputChange}
             />
-            <div className="mr-2 flex flex-row gap-2">
-                {canToggleToAddress && (
-                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
-                        0x…
-                    </Button>
-                )}
-                {canToggleToEns && (
-                    <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
-                        ENS
-                    </Button>
-                )}
-                {addressValue != null && !isFocused && (
-                    <>
-                        <Button
-                            variant="tertiary"
-                            size="sm"
-                            href={addressUrl}
-                            target="_blank"
-                            iconLeft={IconType.LINK_EXTERNAL}
-                        />
-                        <Clipboard copyValue={value} variant="button" />
-                    </>
-                )}
-                {value.length > 0 && isFocused && (
-                    <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
-                        {copy.addressInput.clear}
-                    </Button>
-                )}
-                {value.length === 0 && (
-                    <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
-                        {copy.addressInput.paste}
-                    </Button>
-                )}
-            </div>
+            {!hideControls && (
+                <div className="mr-2 flex flex-row gap-2">
+                    {canToggleToAddress && (
+                        <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                            0x…
+                        </Button>
+                    )}
+                    {canToggleToEns && (
+                        <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                            ENS
+                        </Button>
+                    )}
+                    {addressValue != null && !isFocused && (
+                        <>
+                            {addressUrl != null ? (
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    href={addressUrl}
+                                    target="_blank"
+                                    iconLeft={IconType.LINK_EXTERNAL}
+                                />
+                            ) : (
+                                <Button
+                                    variant="tertiary"
+                                    size="sm"
+                                    iconLeft={IconType.LINK_EXTERNAL}
+                                    disabled={true}
+                                />
+                            )}
+                            <Clipboard copyValue={value} variant="button" />
+                        </>
+                    )}
+                    {value.length > 0 && isFocused && (
+                        <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
+                            {copy.addressInput.clear}
+                        </Button>
+                    )}
+                    {value.length === 0 && (
+                        <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
+                            {copy.addressInput.paste}
+                        </Button>
+                    )}
+                </div>
+            )}
         </InputContainer>
     );
 });

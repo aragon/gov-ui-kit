@@ -3,6 +3,8 @@ export type {
     ButtonContext,
     ButtonSize,
     ButtonVariant,
+    IButtonAsButtonProps,
+    IButtonAsLinkProps,
     IButtonBaseProps,
     IButtonElementProps,
     IButtonProps,

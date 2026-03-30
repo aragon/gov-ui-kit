@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
+import { useConnection } from 'wagmi';
 import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -55,8 +55,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
         ...otherProps
     } = props;
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated -- wagmi v2/v3 compatibility
-    const { address: currentUserAddress, isConnected } = useAccount();
+    const { address: currentUserAddress, isConnected } = useConnection();
 
     const { copy } = useGukModulesContext();
 
@@ -110,8 +109,10 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                             invisible: delegationCount == null || delegationCount === 0,
                         })}
                     >
-                        <span className="text-neutral-800">{formattedDelegationCount}</span>
-                        <span className="text-neutral-500"> {copy.memberDataListItemStructure.delegations}</span>
+                        <span className="text-neutral-800">{formattedDelegationCount}</span>{' '}
+                        <span className="text-neutral-500">
+                            {copy.memberDataListItemStructure[delegationCount === 1 ? 'delegation' : 'delegations']}
+                        </span>
                     </Heading>
                     <Heading size="h5" as="h3">
                         <span className="text-neutral-800">
