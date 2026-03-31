@@ -104,7 +104,8 @@
                     }
                 },
                 "noParameterProperties": "off",
-                "useReadonlyClassProperties": "off"
+                "useReadonlyClassProperties": "off",
+                "useAtIndex": "off"
             },
             "suspicious": {
                 "noConsole": "warn",

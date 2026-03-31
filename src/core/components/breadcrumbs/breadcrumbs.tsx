@@ -30,7 +30,7 @@ export interface IBreadcrumbsProps {
 export const Breadcrumbs: React.FC<IBreadcrumbsProps> = (props) => {
     const { links, tag, ...otherProps } = props;
 
-    const currentPage = links.at(-1);
+    const currentPage = links[links.length - 1];
     const pathLinks = links.slice(0, -1);
 
     return (
