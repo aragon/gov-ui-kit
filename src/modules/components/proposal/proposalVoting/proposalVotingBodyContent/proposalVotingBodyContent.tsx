@@ -1,14 +1,15 @@
 import classNames from 'classnames';
-import { useEffect, useState, type ComponentProps } from 'react';
+import { type ComponentProps, useEffect, useState } from 'react';
 import { Avatar, Button, IconType } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus } from '../../proposalUtils';
 import { useProposalVotingContext } from '../proposalVotingContext';
-import { ProposalVotingTab, type IProposalVotingBodyBrand } from '../proposalVotingDefinitions';
-import { ProposalVotingTabs, type IProposalVotingTabsProps } from '../proposalVotingTabs';
+import { type IProposalVotingBodyBrand, ProposalVotingTab } from '../proposalVotingDefinitions';
+import { type IProposalVotingTabsProps, ProposalVotingTabs } from '../proposalVotingTabs';
 
 export interface IProposalVotingBodyContentProps
-    extends Pick<IProposalVotingTabsProps, 'hideTabs'>, ComponentProps<'div'> {
+    extends Pick<IProposalVotingTabsProps, 'hideTabs'>,
+        ComponentProps<'div'> {
     /**
      * Status of the proposal.
      */
@@ -51,9 +52,9 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
                 <Button
                     className="mb-4 w-fit"
                     iconLeft={IconType.CHEVRON_LEFT}
-                    variant="tertiary"
-                    size="sm"
                     onClick={() => setActiveBody?.(undefined)}
+                    size="sm"
+                    variant="tertiary"
                 >
                     {copy.proposalVotingBodyContent.back}
                 </Button>
@@ -61,13 +62,13 @@ export const ProposalVotingBodyContent: React.FC<IProposalVotingBodyContentProps
             <div className="flex flex-col gap-4 gap-x-6 gap-y-1 md:flex-row md:items-center md:justify-between">
                 <p className="truncate text-base text-neutral-800 md:text-lg">{name}</p>
                 {bodyBrand != null && (
-                    <div className="flex items-center gap-2 text-sm text-neutral-500 md:text-base">
+                    <div className="flex items-center gap-2 text-neutral-500 text-sm md:text-base">
                         <span>{bodyBrand.label}</span>
-                        <Avatar src={bodyBrand.logo} size="sm" />
+                        <Avatar size="sm" src={bodyBrand.logo} />
                     </div>
                 )}
             </div>
-            <ProposalVotingTabs value={activeTab} onValueChange={setActiveTab} status={status} hideTabs={hideTabs}>
+            <ProposalVotingTabs hideTabs={hideTabs} onValueChange={setActiveTab} status={status} value={activeTab}>
                 {children}
             </ProposalVotingTabs>
         </div>

@@ -36,7 +36,7 @@ export const computeElementLineHeight = (
     const targetElement = firstParagraph ?? element;
 
     const computed = window.getComputedStyle(targetElement).lineHeight;
-    const parsed = parseFloat(computed);
+    const parsed = Number.parseFloat(computed);
     return Number.isNaN(parsed) ? fallback : parsed;
 };
 

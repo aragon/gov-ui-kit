@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRandomId } from '../../hooks';
 import { Button } from '../button';
 import { Icon, IconType } from '../icon';
-import { type ICollapsibleProps } from './collapsible.api';
+import type { ICollapsibleProps } from './collapsible.api';
 import {
     collapsibleDefaultLineHeight,
     computeContentOverflow,
@@ -156,9 +156,10 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
     return (
         <div className={classNames('relative', { 'bg-neutral-0': showOverlay }, className)} {...otherProps}>
             <div
+                className="relative overflow-hidden transition-all"
+                data-testid="collapsible-content"
                 id={contentId}
                 ref={contentRef}
-                data-testid="collapsible-content"
                 style={{
                     ...(isOpen
                         ? { maxHeight: maxHeightPx }
@@ -167,17 +168,16 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                           : { maxHeight: collapsedHeightComputed }),
                     ...collapsedClampStyle,
                 }}
-                className="relative overflow-hidden transition-all"
             >
                 {children}
                 {isOverflowing && !isOpen && showOverlay && (
                     <div
                         className={classNames(
                             overlayClassName,
-                            'from-neutral-0 via-neutral-0/70 to-neutral-0/0 bg-linear-to-t',
+                            'bg-linear-to-t from-neutral-0 via-neutral-0/70 to-neutral-0/0',
                         )}
-                        style={{ height: overlayHeightPx }}
                         data-testid="collapsible-overlay"
+                        style={{ height: overlayHeightPx }}
                     />
                 )}
             </div>
@@ -185,28 +185,29 @@ export const Collapsible: React.FC<ICollapsibleProps> = (props) => {
                 <div className={triggerClassName}>
                     {showOverlay ? (
                         <Button
-                            onClick={toggle}
-                            variant="tertiary"
-                            size="md"
-                            iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
-                            aria-expanded={isOpen}
                             aria-controls={contentId}
+                            aria-expanded={isOpen}
                             className="relative z-1"
+                            iconRight={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
+                            onClick={toggle}
+                            size="md"
+                            variant="tertiary"
                         >
                             {isOpen ? buttonLabelOpened : buttonLabelClosed}
                         </Button>
                     ) : (
                         <button
-                            onClick={toggle}
-                            className="group text-primary-400 hover:text-primary-600 active:text-primary-800 flex cursor-pointer items-center"
-                            aria-expanded={isOpen}
                             aria-controls={contentId}
+                            aria-expanded={isOpen}
+                            className="group flex cursor-pointer items-center text-primary-400 hover:text-primary-600 active:text-primary-800"
+                            onClick={toggle}
+                            type="button"
                         >
                             {isOpen ? buttonLabelOpened : buttonLabelClosed}
                             <Icon
+                                className="ml-2 text-primary-300 group-hover:text-primary-500 group-active:text-primary-700"
                                 icon={isOpen ? IconType.CHEVRON_UP : IconType.CHEVRON_DOWN}
                                 size="sm"
-                                className="text-primary-300 group-hover:text-primary-500 group-active:text-primary-700 ml-2"
                             />
                         </button>
                     )}

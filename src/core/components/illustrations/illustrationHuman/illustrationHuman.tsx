@@ -69,7 +69,7 @@ export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
     const Hairs = hairs ? illustrationHumanHairsList[hairs] : undefined;
     const Sunglasses = sunglasses ? illustrationHumanSunglassesList[sunglasses] : undefined;
     const Accessory = accessory ? illustrationHumanAccessoryList[accessory] : undefined;
-    const Object = object ? illustrationObjectList[object] : undefined;
+    const ObjectIllustration = object ? illustrationObjectList[object] : undefined;
 
     const computedStyle = { width: '100%', ...style };
     const commonProps = { className: 'absolute top-0 right-0' };
@@ -81,14 +81,14 @@ export const IllustrationHuman: React.FC<IIllustrationHumanProps> = (props) => {
             {Hairs && <Hairs data-testid={hairs} {...commonProps} />}
             {Sunglasses && <Sunglasses data-testid={sunglasses} {...commonProps} />}
             {Accessory && <Accessory data-testid={accessory} {...commonProps} />}
-            {Object && (
-                <Object
-                    data-testid={object}
+            {ObjectIllustration && (
+                <ObjectIllustration
                     className={classNames(
                         'absolute top-0 h-[70%]',
                         { 'left-0': objectPosition === 'left' },
                         { 'right-0': objectPosition === 'right' },
                     )}
+                    data-testid={object}
                 />
             )}
         </div>

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { StateSkeletonBar, type IStateSkeletonBarProps } from './stateSkeletonBar';
+import { type IStateSkeletonBarProps, StateSkeletonBar } from './stateSkeletonBar';
 
 describe('<StateSkeletonBar /> component', () => {
     const createTestComponent = (props?: Partial<IStateSkeletonBarProps>) => {

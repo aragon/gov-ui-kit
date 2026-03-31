@@ -1,15 +1,13 @@
 import { Accordion as RadixAccordionRoot } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { type ComponentPropsWithRef, forwardRef } from 'react';
 
 export type AccordionMultiValue<TMulti extends boolean> = TMulti extends true
     ? string[] | undefined
     : string | undefined;
 
-export interface IAccordionContainerBaseProps<TMulti extends boolean> extends Omit<
-    ComponentPropsWithRef<'div'>,
-    'dir'
-> {
+export interface IAccordionContainerBaseProps<TMulti extends boolean>
+    extends Omit<ComponentPropsWithRef<'div'>, 'dir'> {
     /**
      * Determines whether one or multiple items can be opened at the same time.
      */
@@ -40,10 +38,10 @@ export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainer
             <RadixAccordionRoot
                 className={accordionContainerClasses}
                 defaultValue={defaultValue}
-                value={value}
                 onValueChange={onValueChange}
-                type="multiple"
                 ref={ref}
+                type="multiple"
+                value={value}
                 {...otherProps}
             >
                 {children}
@@ -53,12 +51,12 @@ export const AccordionContainer = forwardRef<HTMLDivElement, IAccordionContainer
     return (
         <RadixAccordionRoot
             className={accordionContainerClasses}
-            defaultValue={defaultValue}
-            value={value}
-            onValueChange={onValueChange}
-            type="single"
             collapsible={true}
+            defaultValue={defaultValue}
+            onValueChange={onValueChange}
             ref={ref}
+            type="single"
+            value={value}
             {...otherProps}
         >
             {children}

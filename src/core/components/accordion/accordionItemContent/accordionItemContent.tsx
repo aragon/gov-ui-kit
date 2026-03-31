@@ -1,6 +1,6 @@
 import { AccordionContent as RadixAccordionContent } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { type ComponentPropsWithRef, forwardRef } from 'react';
 
 export interface IAccordionItemContentProps extends ComponentPropsWithRef<'div'> {
     /**
@@ -13,13 +13,13 @@ export const AccordionItemContent = forwardRef<HTMLDivElement, IAccordionItemCon
     const { children, className, forceMount, ...otherProps } = props;
 
     const contentClassNames = classNames(
-        'overflow-hidden px-4 pb-4 pt-1 md:px-6 md:pb-6', // Default
+        'overflow-hidden px-4 pt-1 pb-4 md:px-6 md:pb-6', // Default
         { 'data-[state=closed]:hidden': forceMount }, // Force mount variant
         className,
     );
 
     return (
-        <RadixAccordionContent forceMount={forceMount} className={contentClassNames} ref={ref} {...otherProps}>
+        <RadixAccordionContent className={contentClassNames} forceMount={forceMount} ref={ref} {...otherProps}>
             {children}
         </RadixAccordionContent>
     );

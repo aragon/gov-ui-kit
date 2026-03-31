@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { testLogger } from '../../../../test';
-import { DialogAlertContextProvider, useDialogAlertContext, type IDialogAlertContext } from './dialogAlertContext';
+import { DialogAlertContextProvider, type IDialogAlertContext, useDialogAlertContext } from './dialogAlertContext';
 
 describe('useDialogAlertContext hook', () => {
     const createTestWrapper = (context?: Partial<IDialogAlertContext>) =>

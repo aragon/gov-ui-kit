@@ -29,7 +29,7 @@ export const Deposit: Story = {
         type: TransactionType.DEPOSIT,
         tokenAmount: 10,
         tokenSymbol: 'ETH',
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 
@@ -42,7 +42,7 @@ export const Withdraw: Story = {
         type: TransactionType.WITHDRAW,
         tokenAmount: 10,
         tokenSymbol: 'ETH',
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 
@@ -56,7 +56,7 @@ export const Failed: Story = {
         tokenSymbol: 'ETH',
         tokenAmount: 10,
         amountUsd: 100,
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 
@@ -71,7 +71,7 @@ export const HideValue: Story = {
         tokenAmount: 10,
         amountUsd: 100,
         hideValue: true,
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 

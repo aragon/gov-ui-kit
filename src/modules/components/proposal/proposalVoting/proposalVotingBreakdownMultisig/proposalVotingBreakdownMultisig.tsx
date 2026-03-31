@@ -1,4 +1,4 @@
-import { NumberFormat, Tabs, formatterUtils, invariant, type ITabsContentProps } from '../../../../../core';
+import { formatterUtils, type ITabsContentProps, invariant, NumberFormat, Tabs } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
@@ -41,11 +41,11 @@ export const ProposalVotingBreakdownMultisig: React.FC<IProposalVotingBreakdownM
         <Tabs.Content value={ProposalVotingTab.BREAKDOWN} {...otherProps}>
             <ProposalVotingProgress.Container>
                 <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownMultisig[isVeto ? 'nameVeto' : 'name']}
-                    value={currentApprovalsPercentage}
                     description={{ value: formattedApprovals, text: formattedApprovalsText }}
+                    name={copy.proposalVotingBreakdownMultisig[isVeto ? 'nameVeto' : 'name']}
                     showStatus={true}
                     thresholdIndicator={minApprovalsPercentage}
+                    value={currentApprovalsPercentage}
                 />
             </ProposalVotingProgress.Container>
             {children}

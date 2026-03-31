@@ -9,21 +9,21 @@ export const DaoDataListItemSkeleton: React.FC<IDaoDataListItemSkeletonProps> = 
 
     return (
         <DataList.Item
-            tabIndex={0}
             aria-busy="true"
             aria-label="loading"
             className={classNames(
                 'flex min-h-[173.5px] w-full flex-col justify-center gap-y-3 py-4 md:min-h-[207px] md:gap-y-4 md:py-6',
                 className,
             )}
+            tabIndex={0}
             {...otherProps}
         >
             <div className="flex w-full justify-between">
                 <div className="flex w-2/3 flex-col gap-y-2.5 text-neutral-800">
-                    <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="100%" />
+                    <StateSkeletonBar responsiveSize={{ md: 'xl' }} size="lg" width="100%" />
                     <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
                 </div>
-                <StateSkeletonCircular size="md" responsiveSize={{ md: 'lg' }} />
+                <StateSkeletonCircular responsiveSize={{ md: 'lg' }} size="md" />
             </div>
             <div className="flex w-full flex-col gap-y-2">
                 <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="100%" />

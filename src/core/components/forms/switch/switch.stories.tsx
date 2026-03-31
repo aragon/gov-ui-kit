@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Switch, type ISwitchProps } from './switch';
+import { type ISwitchProps, Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
     title: 'Core/Components/Forms/Switch',

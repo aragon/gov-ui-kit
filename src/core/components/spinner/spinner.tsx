@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 
@@ -97,5 +97,5 @@ export const Spinner: React.FC<ISpinnerProps> = (props) => {
         className,
     );
 
-    return <div role="progressbar" className={spinnerClassNames} {...otherProps} />;
+    return <div className={spinnerClassNames} role="progressbar" {...otherProps} />;
 };

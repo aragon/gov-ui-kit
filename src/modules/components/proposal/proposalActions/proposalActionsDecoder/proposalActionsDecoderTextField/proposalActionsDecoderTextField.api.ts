@@ -23,7 +23,8 @@ export interface IProposalActionsDecoderTextFieldBaseProps {
 }
 
 export interface IProposalActionsDecoderTextFieldProps
-    extends IProposalActionsDecoderTextFieldBaseProps, Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
+    extends IProposalActionsDecoderTextFieldBaseProps,
+        Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
     /**
      * Hides the default labels when set to true.
      */
@@ -31,4 +32,5 @@ export interface IProposalActionsDecoderTextFieldProps
 }
 
 export interface IProposalActionsDecoderTextFieldComponentProps
-    extends IProposalActionsDecoderTextFieldBaseProps, Pick<IInputContainerProps, 'label' | 'helpText'> {}
+    extends IProposalActionsDecoderTextFieldBaseProps,
+        Pick<IInputContainerProps, 'label' | 'helpText'> {}

@@ -24,7 +24,7 @@ export const Default: Story = {
     render: (props) => {
         const [value, setValue] = useState<IInputFileAvatarValue>();
 
-        return <InputFileAvatar {...props} value={value} onChange={setValue} />;
+        return <InputFileAvatar {...props} onChange={setValue} value={value} />;
     },
 };
 
@@ -40,7 +40,7 @@ export const InitialValue: Story = {
     render: (props) => {
         const [value, setValue] = useState<IInputFileAvatarValue | undefined>(props.value);
 
-        return <InputFileAvatar {...props} value={value} onChange={setValue} />;
+        return <InputFileAvatar {...props} onChange={setValue} value={value} />;
     },
 };
 

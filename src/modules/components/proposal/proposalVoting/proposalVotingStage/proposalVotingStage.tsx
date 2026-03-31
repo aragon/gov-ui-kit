@@ -1,4 +1,4 @@
-import { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 import { Accordion, invariant } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import type { ProposalStatus } from '../../proposalUtils';
@@ -6,7 +6,8 @@ import { type IProposalVotingContextProviderProps, ProposalVotingContextProvider
 import { ProposalVotingStatus } from '../proposalVotingStatus';
 
 export interface IProposalVotingStageProps
-    extends Pick<IProposalVotingContextProviderProps, 'bodyList'>, ComponentProps<'div'> {
+    extends Pick<IProposalVotingContextProviderProps, 'bodyList'>,
+        ComponentProps<'div'> {
     /**
      * Status of the stage.
      */
@@ -65,16 +66,16 @@ export const ProposalVotingStage: React.FC<IProposalVotingStageProps> = (props) 
                 <Accordion.ItemHeader>
                     <div className="flex grow flex-row justify-between gap-4 md:gap-6">
                         <div className="flex flex-col items-start gap-1">
-                            <p className="text-lg leading-tight font-normal text-neutral-800">{name}</p>
+                            <p className="font-normal text-lg text-neutral-800 leading-tight">{name}</p>
                             <ProposalVotingStatus
-                                status={status}
                                 endDate={endDate}
                                 isMultiStage={true}
-                                minAdvance={minAdvance}
                                 maxAdvance={maxAdvance}
+                                minAdvance={minAdvance}
+                                status={status}
                             />
                         </div>
-                        <p className="mt-1 text-sm leading-tight font-normal text-neutral-500">
+                        <p className="mt-1 font-normal text-neutral-500 text-sm leading-tight">
                             {copy.proposalVotingStage.stage(index + 1)}
                         </p>
                     </div>

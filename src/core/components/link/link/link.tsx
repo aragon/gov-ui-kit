@@ -39,7 +39,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
 
     const processedVariant = disabled ? 'disabled' : variant;
     const linkClassName = classNames(
-        'inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded-md text-sm leading-tight focus-ring-primary',
+        'focus-ring-primary inline-flex max-w-fit flex-col gap-y-0.5 truncate rounded-md text-sm leading-tight',
         'md:gap-y-1 md:text-base',
         variantToLabelClassNames[processedVariant],
         className,
@@ -51,14 +51,14 @@ export const Link = React.forwardRef<HTMLAnchorElement, ILinkProps>((props, ref)
 
     return (
         <LinkBase
-            ref={ref}
-            onClick={!disabled ? onClick : undefined}
-            href={!disabled ? processedHref : undefined}
+            aria-disabled={disabled}
             className={linkClassName}
-            target={target}
+            href={disabled ? undefined : processedHref}
+            onClick={disabled ? undefined : onClick}
+            ref={ref}
             rel={linkRel}
             tabIndex={disabled ? -1 : undefined}
-            aria-disabled={disabled}
+            target={target}
             {...otherProps}
         >
             <div className="flex items-center gap-x-1 md:gap-x-1.5">

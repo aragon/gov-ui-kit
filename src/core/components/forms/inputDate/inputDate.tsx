@@ -4,7 +4,7 @@ import { mergeRefs } from '../../../utils';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
 import { useInputProps } from '../hooks';
-import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
 export interface IInputDateProps extends Omit<IInputComponentProps, 'maxLength'> {}
 
@@ -25,19 +25,19 @@ export const InputDate: React.FC<IInputDateProps> = forwardRef((props, ref) => {
         // (see Firefox bug: https://bugzilla.mozilla.org/show_bug.cgi?id=1812397)
         <InputContainer className={classNames('relative', containerClassName)} {...otherContainerProps}>
             <input
-                type="date"
                 className={classNames('calendar-icon-hidden absolute', inputClassName)}
-                ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
+                ref={mergeRefs([inputRef, ref])}
+                type="date"
                 {...otherInputProps}
             />
             {!disabled && (
                 <Button
-                    variant="tertiary"
-                    size="sm"
-                    iconLeft={IconType.CALENDAR}
                     className="absolute right-2"
+                    iconLeft={IconType.CALENDAR}
                     onClick={handleCalendarClick}
+                    size="sm"
+                    variant="tertiary"
                 />
             )}
         </InputContainer>

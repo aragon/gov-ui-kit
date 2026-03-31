@@ -23,7 +23,7 @@ export const Default: Story = {
         proposalTitle: 'Introduction of Layer 2 Scaling Solutions',
         voteIndicator: 'yes',
         voteIndicatorDescription: 'to approve',
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 
@@ -37,7 +37,7 @@ export const Veto: Story = {
         voteIndicator: 'yes',
         voteIndicatorDescription: 'to veto',
         isVeto: true,
-        date: 1613984914000,
+        date: 1_613_984_914_000,
     },
 };
 
@@ -50,7 +50,7 @@ export const LongProposalId: Story = {
             '0x7617b0ed30e178ca91d1de3ae8ec7552b0626c693b7f3b6e29a3c7a8383e88fe-0xad3c46774dC00a16248766E1a83F2B1E04d15C4A-73144785007199445908234261408001196016186536834058203434500863241524295589949',
         proposalTitle: 'Funds Withdrawal',
         voteIndicator: 'approve',
-        date: 1730807735000,
+        date: 1_730_807_735_000,
     },
 };
 

@@ -20,9 +20,9 @@ type Story = StoryObj<typeof DataList.Pagination>;
 export const Default: Story = {
     args: {},
     render: (props) => (
-        <DataList.Root pageSize={2} itemsCount={10} entityLabel="Users">
+        <DataList.Root entityLabel="Users" itemsCount={10} pageSize={2}>
             <DataList.Container>
-                {[...Array<number>(10)].map((_value, index) => (
+                {[...new Array(10)].map((_value, index) => (
                     <DataList.Item key={index}>User {index}</DataList.Item>
                 ))}
             </DataList.Container>
@@ -37,9 +37,9 @@ export const Default: Story = {
 export const ShortList: Story = {
     args: {},
     render: (props) => (
-        <DataList.Root pageSize={10} itemsCount={3} entityLabel="Users">
+        <DataList.Root entityLabel="Users" itemsCount={3} pageSize={10}>
             <DataList.Container>
-                {[...Array<number>(3)].map((_value, index) => (
+                {[...new Array(3)].map((_value, index) => (
                     <DataList.Item key={index}>User {index}</DataList.Item>
                 ))}
             </DataList.Container>

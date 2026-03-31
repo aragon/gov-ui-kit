@@ -1,10 +1,10 @@
 import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, type ComponentProps, type ReactNode } from 'react';
+import { type ComponentProps, forwardRef, type ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
-import { Tag, type ITagProps } from '../../tag';
+import { type ITagProps, Tag } from '../../tag';
 
 export interface IRadioCardProps extends ComponentProps<'button'> {
     /**
@@ -44,8 +44,8 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     const labelId = `${randomId}-label`;
 
     const containerClasses = classNames(
-        'group flex w-full flex-col gap-3 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 focus-ring-primary', // default
-        'shadow-neutral-sm outline-hidden transition-all cursor-pointer md:rounded-2xl md:px-6 md:py-4', // default
+        'group focus-ring-primary flex w-full flex-col gap-3 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3', // default
+        'cursor-pointer shadow-neutral-sm outline-hidden transition-all md:rounded-2xl md:px-6 md:py-4', // default
         'data-[state=checked]:border-primary-400 data-[state=checked]:shadow-primary', // checked
         'hover:border-neutral-200 hover:shadow-neutral hover:data-[state=checked]:shadow-primary-md', // hover
         'disabled:cursor-default disabled:border-neutral-200 disabled:bg-neutral-100 disabled:shadow-none', // disabled
@@ -54,26 +54,26 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
     );
 
     const labelClasses = classNames(
-        'text-left text-neutral-500 w-full group-disabled:text-neutral-300 truncate md:text-base',
+        'w-full truncate text-left text-neutral-500 group-disabled:text-neutral-300 md:text-base',
         'group-data-[state=checked]:text-neutral-800 group-data-[state=checked]:group-disabled:text-neutral-800',
     );
 
     return (
         <RadioGroupItem
+            aria-labelledby={labelId}
+            className={containerClasses}
+            disabled={disabled}
             id={randomId}
             ref={ref}
             value={value}
-            disabled={disabled}
-            className={containerClasses}
-            aria-labelledby={labelId}
             {...rest}
         >
             <div className="flex size-full items-center gap-x-3 md:gap-x-4">
-                {avatar && <Avatar size="sm" responsiveSize={{ md: 'md' }} src={avatar} />}
+                {avatar && <Avatar responsiveSize={{ md: 'md' }} size="sm" src={avatar} />}
                 <div
                     className={classNames('flex min-w-0 flex-1 gap-x-0.5 md:gap-x-4', { 'items-center': !description })}
                 >
-                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 text-sm leading-tight font-normal md:gap-y-1">
+                    <div className="flex min-w-0 flex-1 flex-col gap-y-0.5 font-normal text-sm leading-tight md:gap-y-1">
                         <p className={labelClasses} id={labelId}>
                             {label}
                         </p>
@@ -86,11 +86,11 @@ export const RadioCard = forwardRef<HTMLButtonElement, IRadioCardProps>((props, 
                     {tag && <Tag {...tag} />}
                 </div>
                 <span className={classNames({ 'h-full': description })}>
-                    <Icon icon={IconType.RADIO} className="text-neutral-300 group-data-[state=checked]:hidden" />
+                    <Icon className="text-neutral-300 group-data-[state=checked]:hidden" icon={IconType.RADIO} />
                     <RadioGroupIndicator>
                         <Icon
-                            icon={IconType.RADIO_SELECTED}
                             className="text-primary-400 group-disabled:text-neutral-500"
+                            icon={IconType.RADIO_SELECTED}
                         />
                     </RadioGroupIndicator>
                 </span>

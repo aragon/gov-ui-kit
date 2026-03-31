@@ -1,6 +1,6 @@
 import type { IDataListItemProps } from '../../../../../core';
-import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../../types';
-import { type ProposalStatus } from '../../proposalUtils';
+import type { ICompositeAddress, IWeb3ComponentProps } from '../../../../types';
+import type { ProposalStatus } from '../../proposalUtils';
 
 export type IProposalDataListItemStructureProps = IDataListItemProps &
     Omit<IWeb3ComponentProps, 'chainId'> & {

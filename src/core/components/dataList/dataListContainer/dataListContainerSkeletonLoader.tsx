@@ -5,10 +5,10 @@ export interface IDataListContainerSkeletonLoaderProps {}
 export const DataListContainerSkeletonLoader: React.FC<IDataListContainerSkeletonLoaderProps> = () => {
     return (
         <DataListItem
-            className="flex animate-pulse flex-col gap-3 py-4 md:py-6"
-            tabIndex={0}
             aria-busy="true"
             aria-label="loading"
+            className="flex animate-pulse flex-col gap-3 py-4 md:py-6"
+            tabIndex={0}
         >
             <div className="h-5 w-1/3 rounded-full bg-neutral-50" />
             <div className="flex flex-col gap-1.5">

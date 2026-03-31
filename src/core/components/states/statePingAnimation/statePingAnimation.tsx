@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { type ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
 export type StatePingAnimationVariant = 'primary' | 'info' | 'success' | 'warning' | 'critical';
 
@@ -25,8 +25,8 @@ export const StatePingAnimation: React.FC<IStatePingAnimationProps> = (props) =>
 
     return (
         <span
-            data-testid="statePingAnimation"
             className={classNames('relative flex size-3', className)}
+            data-testid="statePingAnimation"
             {...otherProps}
         >
             <span

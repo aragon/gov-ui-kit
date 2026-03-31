@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEffect, useState, type ChangeEvent, type InputHTMLAttributes } from 'react';
+import { type ChangeEvent, type InputHTMLAttributes, useEffect, useState } from 'react';
 import { useRandomId } from '../../../hooks';
 import type { IInputComponentProps, IInputContainerProps, InputComponentElement } from '../inputContainer';
 
@@ -64,13 +64,13 @@ export const useInputProps = <TElement extends InputComponentElement>(
 
     const inputClasses = classNames(
         'size-full rounded-xl bg-transparent px-4 py-3 caret-neutral-500 outline-hidden', // Default
-        'placeholder:text-base placeholder:font-normal placeholder:leading-tight placeholder:text-neutral-300', // Placeholder
+        'placeholder:font-normal placeholder:text-base placeholder:text-neutral-300 placeholder:leading-tight', // Placeholder
         inputClassName, // Prop
     );
 
     const inputProps = {
         id: randomId,
-        disabled: disabled,
+        disabled,
         className: inputClasses,
         onChange: handleOnChange,
         maxLength,

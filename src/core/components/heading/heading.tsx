@@ -29,7 +29,7 @@ export const Heading = forwardRef<HTMLHeadingElement, IHeadingProps>((props, ref
     const { size = 'h1', as, className, ...otherProps } = props;
     const Tag = as ?? size;
     const headingClassName = classNames(
-        'font-normal leading-tight text-neutral-800',
+        'font-normal text-neutral-800 leading-tight',
         headingToSizeClassNames[size],
         className,
     );

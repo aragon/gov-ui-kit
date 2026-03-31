@@ -5,13 +5,13 @@ import { AlertCard, Button, clipboardUtils } from '../../../../../core';
 import { useFormContext } from '../../../../hooks';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
+    type IProposalActionsDecoderProps,
     ProposalActionsDecoderMode,
     ProposalActionsDecoderView,
-    type IProposalActionsDecoderProps,
 } from './proposalActionsDecoder.api';
 import { ProposalActionsDecoderField } from './proposalActionsDecoderField';
 import { ProposalActionsDecoderTextField } from './proposalActionsDecoderTextField';
-import { proposalActionsDecoderUtils, type NestedProposalActionFormValues } from './proposalActionsDecoderUtils';
+import { type NestedProposalActionFormValues, proposalActionsDecoderUtils } from './proposalActionsDecoderUtils';
 
 export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (props: IProposalActionsDecoderProps) => {
     const {
@@ -108,22 +108,22 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
             {(view === ProposalActionsDecoderView.RAW || isPayableAction) && (
                 <ProposalActionsDecoderTextField
                     fieldName="value"
-                    mode={mode}
                     formPrefix={formPrefix}
-                    parameter={{ name: 'value', value: value, type: 'uint' }}
+                    mode={mode}
+                    parameter={{ name: 'value', value, type: 'uint' }}
                 />
             )}
             <ProposalActionsDecoderTextField
-                fieldName="data"
-                mode={mode}
-                formPrefix={formPrefix}
-                parameter={{ name: 'data', value: data, type: 'bytes' }}
                 // Render the data field as hidden on decoded view to register the field on the form on EDIT mode
                 className={view === ProposalActionsDecoderView.DECODED ? 'hidden' : undefined}
                 component="textarea"
+                fieldName="data"
+                formPrefix={formPrefix}
+                mode={mode}
+                parameter={{ name: 'data', value: data, type: 'bytes' }}
             />
             {view === ProposalActionsDecoderView.RAW && mode !== ProposalActionsDecoderMode.EDIT && (
-                <Button variant="tertiary" size="md" onClick={handleCopyDataClick} className="self-end">
+                <Button className="self-end" onClick={handleCopyDataClick} size="md" variant="tertiary">
                     {copy.proposalActionsDecoder.copyData}
                 </Button>
             )}
@@ -131,14 +131,14 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
                 <>
                     {parameters.map((parameter, index) => (
                         <ProposalActionsDecoderField
-                            key={parameter.name}
-                            parameter={parameter}
-                            mode={mode}
                             fieldName="value"
                             formPrefix={proposalActionsDecoderUtils.getFieldName(
                                 `inputData.parameters.${index.toString()}`,
                                 formPrefix,
                             )}
+                            key={parameter.name}
+                            mode={mode}
+                            parameter={parameter}
                         />
                     ))}
                     {!hasParameters && (

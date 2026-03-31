@@ -39,11 +39,11 @@ export const Controlled: Story = {
 
 const IndeterminateComponent = () => {
     const [parentChecked, setParentChecked] = useState<CheckboxState>(false);
-    const [childChecked, setChildChecked] = useState<CheckboxState[]>(Array(5).fill(false));
+    const [childChecked, setChildChecked] = useState<CheckboxState[]>(new Array(5).fill(false));
 
     const handleParentCheckedChange = (state: CheckboxState) => {
         setParentChecked(state);
-        setChildChecked(Array(5).fill(state));
+        setChildChecked(new Array(5).fill(state));
     };
 
     const handleChildCheckedChange = (index: number) => (state: CheckboxState) => {
@@ -60,14 +60,14 @@ const IndeterminateComponent = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            <Checkbox label="Parent checkbox" checked={parentChecked} onCheckedChange={handleParentCheckedChange} />
+            <Checkbox checked={parentChecked} label="Parent checkbox" onCheckedChange={handleParentCheckedChange} />
             {childChecked.map((isChecked, index) => (
                 <Checkbox
+                    checked={isChecked}
+                    className="ml-4"
                     key={index}
                     label={`Child checkbox ${(index + 1).toString()}`}
-                    checked={isChecked}
                     onCheckedChange={handleChildCheckedChange(index)}
-                    className="ml-4"
                 />
             ))}
         </div>

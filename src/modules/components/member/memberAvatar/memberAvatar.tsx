@@ -1,10 +1,10 @@
 import * as blockies from 'blockies-ts';
 import type React from 'react';
-import { type Address } from 'viem';
+import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { Avatar, ssrUtils, type IAvatarProps } from '../../../../core';
+import { Avatar, type IAvatarProps, ssrUtils } from '../../../../core';
 import type { IWeb3ComponentProps } from '../../../types';
 import { addressUtils, ensUtils } from '../../../utils';
 
@@ -52,7 +52,7 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
         config: wagmiConfig,
     });
     const ensMetadataAvatarSrc =
-        resolvedName != null ? `https://metadata.ens.domains/mainnet/avatar/${normalize(resolvedName)}` : undefined;
+        resolvedName == null ? undefined : `https://metadata.ens.domains/mainnet/avatar/${normalize(resolvedName)}`;
     const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? ensMetadataAvatarSrc;
 
     const blockiesSrc =
@@ -64,12 +64,12 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
 
     return (
         <Avatar
-            src={resolvedAvatarSrc}
             fallback={
                 blockiesSrc && !isLoading ? (
-                    <img className="size-full" src={blockiesSrc} alt="Blockies avatar" />
+                    <img alt="Blockies avatar" className="size-full" height={32} src={blockiesSrc} width={32} />
                 ) : undefined
             }
+            src={resolvedAvatarSrc}
             {...otherProps}
         />
     );

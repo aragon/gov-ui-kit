@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Collapsible } from './collapsible';
-import { type ICollapsibleProps } from './collapsible.api';
+import type { ICollapsibleProps } from './collapsible.api';
 
 describe('<Collapsible /> component', () => {
     const createTestComponent = (props?: Partial<ICollapsibleProps>) => {

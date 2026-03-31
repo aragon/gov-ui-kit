@@ -1,1 +1,1 @@
-export { RadioGroup, type IRadioGroupProps } from './radioGroup';
+export { type IRadioGroupProps, RadioGroup } from './radioGroup';

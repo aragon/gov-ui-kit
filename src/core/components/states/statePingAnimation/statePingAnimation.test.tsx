@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { StatePingAnimation, type IStatePingAnimationProps } from './statePingAnimation';
+import { type IStatePingAnimationProps, StatePingAnimation } from './statePingAnimation';
 
 describe('<StatePingAnimation/> component', () => {
     const createTestComponent = (props?: Partial<IStatePingAnimationProps>) => {

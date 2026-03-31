@@ -1,5 +1,3 @@
-'use strict';
-
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
     testEnvironment: 'jsdom',

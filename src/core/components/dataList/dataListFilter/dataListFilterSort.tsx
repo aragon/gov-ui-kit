@@ -3,10 +3,8 @@ import { Dropdown } from '../../dropdown';
 import { IconType } from '../../icon';
 import type { IDataListFilterProps } from './dataListFilter';
 
-export interface IDataListFilterSortProps extends Pick<
-    IDataListFilterProps,
-    'activeSort' | 'sortItems' | 'onSortChange'
-> {
+export interface IDataListFilterSortProps
+    extends Pick<IDataListFilterProps, 'activeSort' | 'sortItems' | 'onSortChange'> {
     /**
      * Classes for the dropdown trigger.
      */
@@ -31,13 +29,13 @@ export const DataListFilterSort: React.FC<IDataListFilterSortProps> = (props) =>
         <Dropdown.Container
             align="end"
             customTrigger={
-                <Button iconLeft={sortIcon} variant="tertiary" size="md" className={triggerClassNames}>
+                <Button className={triggerClassNames} iconLeft={sortIcon} size="md" variant="tertiary">
                     {triggerLabel && <span className="hidden md:inline-block">{triggerLabel}</span>}
                 </Button>
             }
         >
             {sortItems.map(({ value, label }) => (
-                <Dropdown.Item key={value} selected={value === activeSort} onSelect={() => onSortChange?.(value)}>
+                <Dropdown.Item key={value} onSelect={() => onSortChange?.(value)} selected={value === activeSort}>
                     {label}
                 </Dropdown.Item>
             ))}

@@ -76,8 +76,7 @@ export interface IInputContainerProps extends IInputContainerBaseProps, Omit<Com
 export type InputComponentElement = HTMLInputElement | HTMLTextAreaElement;
 
 export interface IInputComponentProps<TElement extends InputComponentElement = HTMLInputElement>
-    extends
-        Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength' | 'useCustomWrapper'>,
+    extends Omit<IInputContainerBaseProps, 'children' | 'id' | 'inputLength' | 'useCustomWrapper'>,
         Omit<InputHTMLAttributes<TElement>, 'type'> {
     /**
      * Classes for the input element.

@@ -2,7 +2,7 @@
 export class RadixImageMock {
     removeEventListener = jest.fn();
     addEventListener = (event: string, callback: () => void) => {
-        if (event == 'load') {
+        if (event === 'load') {
             setTimeout(() => callback(), 100);
         }
     };

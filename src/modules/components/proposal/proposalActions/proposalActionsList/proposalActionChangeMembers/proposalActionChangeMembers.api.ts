@@ -20,4 +20,5 @@ export interface IProposalActionChangeMembers extends IProposalAction {
     currentMembers: number;
 }
 
-export interface IProposalActionChangeMembersProps extends IProposalActionComponentProps<IProposalActionChangeMembers> {}
+export interface IProposalActionChangeMembersProps
+    extends IProposalActionComponentProps<IProposalActionChangeMembers> {}

@@ -1,2 +1,2 @@
-export { useInputProps, type IUseInputPropsResult } from './useInputProps';
-export { useNumberMask, type IUseNumberMaskProps, type IUseNumberMaskResult } from './useNumberMask';
+export { type IUseInputPropsResult, useInputProps } from './useInputProps';
+export { type IUseNumberMaskProps, type IUseNumberMaskResult, useNumberMask } from './useNumberMask';

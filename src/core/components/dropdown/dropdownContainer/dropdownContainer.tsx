@@ -1,6 +1,6 @@
 import * as RadixDropdown from '@radix-ui/react-dropdown-menu';
 import classNames from 'classnames';
-import { useEffect, useState, type ComponentProps, type ReactNode } from 'react';
+import { type ComponentProps, type ReactNode, useEffect, useState } from 'react';
 import { Button, type ButtonVariant, type IButtonProps } from '../../button';
 import { IconType } from '../../icon';
 
@@ -105,17 +105,17 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
     }, [open]);
 
     return (
-        <RadixDropdown.Root open={open} defaultOpen={defaultOpen} onOpenChange={handleOpenChange} {...otherProps}>
-            <RadixDropdown.Trigger className="group" asChild={true} disabled={disabled}>
+        <RadixDropdown.Root defaultOpen={defaultOpen} onOpenChange={handleOpenChange} open={open} {...otherProps}>
+            <RadixDropdown.Trigger asChild={true} className="group" disabled={disabled}>
                 {customTrigger ?? (
                     <Button
-                        variant={variant}
-                        size={size}
-                        responsiveSize={responsiveSize}
-                        iconLeft={!hasLabel ? triggerIcon : undefined}
-                        iconRight={hideIcon ? undefined : triggerIcon}
-                        disabled={disabled}
                         className={isOpen ? 'border-neutral-300' : undefined}
+                        disabled={disabled}
+                        iconLeft={hasLabel ? undefined : triggerIcon}
+                        iconRight={hideIcon ? undefined : triggerIcon}
+                        responsiveSize={responsiveSize}
+                        size={size}
+                        variant={variant}
                     >
                         {label}
                     </Button>
@@ -123,15 +123,15 @@ export const DropdownContainer: React.FC<IDropdownContainerProps> = (props) => {
             </RadixDropdown.Trigger>
             <RadixDropdown.Portal>
                 <RadixDropdown.Content
+                    align={align}
                     className={classNames(
-                        'bg-neutral-0 shadow-neutral-sm flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 p-2',
+                        'flex min-w-48 flex-col gap-1.5 overflow-auto rounded-xl border border-neutral-100 bg-neutral-0 p-2 shadow-neutral-sm',
                         'z-[var(--guk-dropdown-container-content-z-index)]',
                         { 'max-h-[var(--radix-dropdown-menu-content-available-height)]': constrainContentHeight },
                         { 'max-w-[var(--radix-dropdown-menu-content-available-width)]': constrainContentWidth },
                         contentClassNames,
                     )}
                     onCloseAutoFocus={(event) => event.preventDefault()}
-                    align={align}
                     sideOffset={4}
                 >
                     {children}

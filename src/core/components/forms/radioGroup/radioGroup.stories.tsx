@@ -43,25 +43,25 @@ export const RadioCardVariant: Story = {
     render: (props) => (
         <RadioGroup {...props}>
             <RadioCard
-                label="Option one"
-                description="The best option"
-                value="1"
                 avatar="gold"
+                description="The best option"
+                label="Option one"
                 tag={{ label: 'Gold', variant: 'success' }}
+                value="1"
             />
             <RadioCard
-                label="Option two"
-                description="The 2nd best option"
-                value="2"
                 avatar="silver"
+                description="The 2nd best option"
+                label="Option two"
                 tag={{ label: 'Silver' }}
+                value="2"
             />
             <RadioCard
-                label="Option three"
-                description="The 3rd best option"
-                value="3"
                 avatar="bronze"
+                description="The 3rd best option"
+                label="Option three"
                 tag={{ label: 'Bronze', variant: 'warning' }}
+                value="3"
             />
         </RadioGroup>
     ),
@@ -80,7 +80,7 @@ export const Controlled: Story = {
     render: (props) => {
         const [value, setValue] = useState('1');
         return (
-            <RadioGroup {...props} value={value} onValueChange={setValue}>
+            <RadioGroup {...props} onValueChange={setValue} value={value}>
                 <Radio label="Option one" value="1" />
                 <Radio label="Option two" value="2" />
                 <Radio label="Option three" value="3" />

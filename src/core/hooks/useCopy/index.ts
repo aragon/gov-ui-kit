@@ -1,1 +1,1 @@
-export { useCopy, type IUseCopyReturn } from './useCopy';
+export { type IUseCopyReturn, useCopy } from './useCopy';

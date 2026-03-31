@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type AnchorHTMLAttributes, type HTMLAttributes } from 'react';
+import type { AnchorHTMLAttributes, HTMLAttributes } from 'react';
 import { LinkBase } from '../../link';
 
 type DivPropsWithCustomClick = Omit<HTMLAttributes<HTMLDivElement>, 'onClick'> & {
@@ -16,7 +16,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
 
     const actionItemClasses = classNames(
         'w-full rounded-xl border border-neutral-100 bg-neutral-0 px-4 text-left shadow-neutral-sm transition-all', // Default
-        { 'cursor-pointer focus-ring-primary': isInteractiveElement }, // Interactive default state
+        { 'focus-ring-primary cursor-pointer': isInteractiveElement }, // Interactive default state
         { 'hover:border-neutral-200 hover:shadow-neutral active:border-neutral-300': isInteractiveElement }, // Interactive hover state
         { 'cursor-default focus:outline-hidden': !isInteractiveElement }, // Non-interactive default state
         'md:px-6', // Responsive
@@ -44,12 +44,13 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         };
 
         return (
+            // biome-ignore lint/a11y/useSemanticElements: interactive div with keyboard support matching existing API
             <div
-                role="button"
-                tabIndex={0}
                 className={actionItemClasses}
                 onClick={handleClick}
                 onKeyDown={handleKeyDown}
+                role="button"
+                tabIndex={0}
                 {...divProps}
             />
         );

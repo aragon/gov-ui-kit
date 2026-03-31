@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { testLogger } from '../../../core/test';
 import { generateFormContext } from '../../testUtils';
-import { useFormContext, type UseFormContextReturn } from './useFormContext';
+import { type UseFormContextReturn, useFormContext } from './useFormContext';
 
 describe('useFormContext hook', () => {
     const createHookWrapper = (context?: Partial<UseFormContextReturn>) =>

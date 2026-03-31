@@ -4,10 +4,8 @@ import { forwardRef, type ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
 import { type IInputContainerBaseProps, InputContainer } from '../inputContainer';
 
-export interface IRadioGroupProps extends Pick<
-    IInputContainerBaseProps,
-    'alert' | 'label' | 'helpText' | 'isOptional'
-> {
+export interface IRadioGroupProps
+    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional'> {
     /**
      * The value of the selected radio item.
      */
@@ -46,14 +44,14 @@ export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, r
     return (
         <InputContainer id={randomId} useCustomWrapper={true} {...otherProps}>
             <PrimitiveRadioGroup
-                ref={ref}
-                id={randomId}
-                value={value}
-                defaultValue={defaultValue}
-                onValueChange={onValueChange}
-                name={name}
-                disabled={disabled}
                 className={classNames('flex min-w-0 flex-col gap-y-2 md:gap-y-3', className)}
+                defaultValue={defaultValue}
+                disabled={disabled}
+                id={randomId}
+                name={name}
+                onValueChange={onValueChange}
+                ref={ref}
+                value={value}
             >
                 {children}
             </PrimitiveRadioGroup>

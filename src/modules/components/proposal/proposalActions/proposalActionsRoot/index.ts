@@ -1,1 +1,1 @@
-export { ProposalActionsRoot, type IProposalActionsRootProps } from './proposalActionsRoot';
+export { type IProposalActionsRootProps, ProposalActionsRoot } from './proposalActionsRoot';

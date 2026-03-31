@@ -6,7 +6,7 @@ import Book from '../../../assets/illustrations/objects/book.svg';
 import Build from '../../../assets/illustrations/objects/build.svg';
 import Chain from '../../../assets/illustrations/objects/chain.svg';
 import Database from '../../../assets/illustrations/objects/database.svg';
-import Error from '../../../assets/illustrations/objects/error.svg';
+import ErrorIllustration from '../../../assets/illustrations/objects/error.svg';
 import Explore from '../../../assets/illustrations/objects/explore.svg';
 import Gas from '../../../assets/illustrations/objects/gas.svg';
 import Goal from '../../../assets/illustrations/objects/goal.svg';
@@ -35,7 +35,7 @@ export const illustrationObjectList: Record<IllustrationObjectType, Illustration
     BUILD: Build,
     CHAIN: Chain,
     DATABASE: Database,
-    ERROR: Error,
+    ERROR: ErrorIllustration,
     EXPLORE: Explore,
     GAS: Gas,
     GOAL: Goal,

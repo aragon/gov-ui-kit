@@ -1,4 +1,4 @@
 export {
-    VoteProposalDataListItemStructure,
     type IVoteProposalDataListItemStructureProps,
+    VoteProposalDataListItemStructure,
 } from './voteProposalDataListItemStructure';

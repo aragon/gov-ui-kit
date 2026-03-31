@@ -26,11 +26,11 @@ export const Default: Story = {
         const [value, setValue] = useState<string>();
         const [addressValue, setAddressValue] = useState<IAddressInputResolvedValue>();
 
-        const stringAddressValue = addressValue != null ? JSON.stringify(addressValue, null, 2) : 'undefined';
+        const stringAddressValue = addressValue == null ? 'undefined' : JSON.stringify(addressValue, null, 2);
 
         return (
             <div className="flex grow flex-col gap-2">
-                <AddressInput value={value} onChange={setValue} onAccept={setAddressValue} {...props} />
+                <AddressInput onAccept={setAddressValue} onChange={setValue} value={value} {...props} />
                 <code className="[word-break:break-word]">Address value: {stringAddressValue}</code>
             </div>
         );

@@ -61,7 +61,7 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     } = props;
 
     const processedValue = Math.min(Math.max(1, value), 100);
-    const processedIndicator = thresholdIndicator != null ? Math.min(Math.max(1, thresholdIndicator), 100) : null;
+    const processedIndicator = thresholdIndicator == null ? null : Math.min(Math.max(1, thresholdIndicator), 100);
 
     const indicatorSizeClassNames = responsiveUtils.generateClassNames(
         size,
@@ -74,13 +74,13 @@ export const Progress: React.FC<IProgressProps> = (props) => {
     return (
         <div className="relative w-full">
             <RadixProgress.Root
-                value={processedValue}
                 className={classNames('overflow-hidden rounded-xl bg-neutral-100', sizeClassNames, className)}
+                value={processedValue}
                 {...otherProps}
             >
                 <RadixProgress.Indicator
                     className={classNames(
-                        `h-full transition-[transform] duration-500 ease-in-out`,
+                        'h-full transition-[transform] duration-500 ease-in-out',
                         variantToClassNames[variant],
                     )}
                     style={{ transform: `translateX(-${(100 - processedValue).toString()}%)` }}
@@ -88,12 +88,12 @@ export const Progress: React.FC<IProgressProps> = (props) => {
             </RadixProgress.Root>
             {processedIndicator != null && (
                 <div
-                    data-testid="progress-indicator"
-                    data-value={processedIndicator}
                     className={classNames(
-                        'border-neutral-0 absolute flex self-center border-2',
+                        'absolute flex self-center border-2 border-neutral-0',
                         indicatorSizeClassNames,
                     )}
+                    data-testid="progress-indicator"
+                    data-value={processedIndicator}
                     style={{ left: `${processedIndicator.toString()}%`, transform: 'translateX(-50%)' }}
                 >
                     <div className="h-full w-0.5 rounded-full bg-neutral-400" />

@@ -1,5 +1,5 @@
 export {
-    StatePingAnimation,
     type IStatePingAnimationProps,
+    StatePingAnimation,
     type StatePingAnimationVariant,
 } from './statePingAnimation';

@@ -9,7 +9,7 @@ import { generateProposalActionChangeMembers } from './proposalActionChangeMembe
 
 jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', () => ({
     MemberDataListItemStructure: ({ href }: { href: string }) => (
-        <div data-testid="member-data-list-item" data-href={href} />
+        <div data-href={href} data-testid="member-data-list-item" />
     ),
 }));
 describe('<ProposalActionChangeMembers /> component', () => {

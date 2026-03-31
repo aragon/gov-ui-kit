@@ -1,12 +1,10 @@
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
-import { InputContainer, type IInputContainerBaseProps } from '../inputContainer';
+import { type IInputContainerBaseProps, InputContainer } from '../inputContainer';
 
-export interface ICheckboxGroupProps extends Pick<
-    IInputContainerBaseProps,
-    'alert' | 'label' | 'helpText' | 'isOptional'
-> {
+export interface ICheckboxGroupProps
+    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional'> {
     /**
      * Additional classes for the component.
      */

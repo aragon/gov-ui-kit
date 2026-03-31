@@ -32,7 +32,7 @@ export const Default: Story = {
     render: (args) => {
         return (
             <ProposalVotingContextProvider>
-                <Tabs.Root defaultValue={ProposalVotingTab.DETAILS} className="w-full">
+                <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.DETAILS}>
                     <ProposalVoting.Details {...args} />
                 </Tabs.Root>
             </ProposalVotingContextProvider>

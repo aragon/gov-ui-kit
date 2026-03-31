@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Radio } from '../radio';
-import { RadioGroup, type IRadioGroupProps } from './radioGroup';
+import { type IRadioGroupProps, RadioGroup } from './radioGroup';
 
 describe('<RadioGroup /> component', () => {
     const createTestComponent = (props?: Partial<IRadioGroupProps>) => {
@@ -9,7 +9,7 @@ describe('<RadioGroup /> component', () => {
     };
 
     it('renders the radio group correctly', () => {
-        const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
+        const children = [<Radio key={1} label="1" value="1" />, <Radio key={2} label="2" value="2" />];
 
         render(createTestComponent({ children }));
 
@@ -23,7 +23,7 @@ describe('<RadioGroup /> component', () => {
     });
 
     it('disables all radio buttons when disabled prop is true', () => {
-        const children = [<Radio value="1" label="1" key={1} />, <Radio value="2" label="2" key={2} />];
+        const children = [<Radio key={1} label="1" value="1" />, <Radio key={2} label="2" value="2" />];
 
         render(createTestComponent({ children, disabled: true }));
 
@@ -34,7 +34,7 @@ describe('<RadioGroup /> component', () => {
 
     it('sets the radio group value correctly', () => {
         const value = '1';
-        const children = [<Radio value={value} label="1" key={1} />, <Radio value="2" label="2" key={2} />];
+        const children = [<Radio key={1} label="1" value={value} />, <Radio key={2} label="2" value="2" />];
 
         render(createTestComponent({ children, value }));
         const inputRadioElement = screen.getByRole('radio', { checked: true });
@@ -46,7 +46,7 @@ describe('<RadioGroup /> component', () => {
         const user = userEvent.setup();
         const handleValueChange = jest.fn();
         const value = '1';
-        const children = [<Radio value={value} label="1" key={1} />];
+        const children = [<Radio key={1} label="1" value={value} />];
 
         render(createTestComponent({ children, onValueChange: handleValueChange }));
 

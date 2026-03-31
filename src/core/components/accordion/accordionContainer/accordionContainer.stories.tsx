@@ -15,11 +15,11 @@ const meta: Meta<typeof Accordion.Container> = {
 type Story = StoryObj<typeof Accordion.Container>;
 
 const DefaultChildComponent = (childCount: number) =>
-    [...Array<number>(childCount)].map((_, index) => (
+    [...new Array(childCount)].map((_, index) => (
         <Accordion.Item key={`item-${index.toString()}`} value={`item-${index.toString()}`}>
             <Accordion.ItemHeader>Item {index + 1} Header</Accordion.ItemHeader>
             <Accordion.ItemContent>
-                <div className="border-info-300 bg-info-100 flex h-24 w-full items-center justify-center border border-dashed">
+                <div className="flex h-24 w-full items-center justify-center border border-info-300 border-dashed bg-info-100">
                     Item {index + 1} Content
                 </div>
             </Accordion.ItemContent>
@@ -61,7 +61,7 @@ export const Disabled: Story = {
     args: {
         isMulti: true,
         children: (
-            <Accordion.Item value="1" disabled={true}>
+            <Accordion.Item disabled={true} value="1">
                 <Accordion.ItemHeader>Item 1 Header</Accordion.ItemHeader>
             </Accordion.Item>
         ),

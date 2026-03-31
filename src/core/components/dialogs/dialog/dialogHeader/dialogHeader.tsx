@@ -1,6 +1,6 @@
 import { Close, Description, Title } from '@radix-ui/react-dialog';
 import classNames from 'classnames';
-import { type ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 import { AvatarIcon } from '../../../avatars';
 import { IconType } from '../../../icon';
 
@@ -24,38 +24,38 @@ export const DialogHeader: React.FC<IDialogHeaderProps> = (props) => {
     const { title, onClose, className, description, ...otherProps } = props;
 
     const headerClassNames = classNames(
-        'relative flex w-full items-start rounded-t-xl gradient-neutral-50-transparent-to-b backdrop-blur-md', // Layout
-        'pb-1.5 pl-4 pr-14 pt-4 md:pb-2 md:pl-6 md:pr-16 md:pt-6', // Spacings
+        'gradient-neutral-50-transparent-to-b relative flex w-full items-start rounded-t-xl backdrop-blur-md', // Layout
+        'pt-4 pr-14 pb-1.5 pl-4 md:pt-6 md:pr-16 md:pb-2 md:pl-6', // Spacings
         className,
     );
 
     const closeButtonClassNames = classNames(
-        'group rounded-full border border-neutral-100 bg-neutral-0 p-1 outline-hidden cursor-pointer', // Default
-        'absolute right-3 top-3 md:right-4 md:top-4', // Positioning
-        'hover:border-neutral-200 active:border-neutral-200 active:bg-neutral-50 focus-ring-primary', // Hover/Active/Focus states
+        'group cursor-pointer rounded-full border border-neutral-100 bg-neutral-0 p-1 outline-hidden', // Default
+        'absolute top-3 right-3 md:top-4 md:right-4', // Positioning
+        'focus-ring-primary hover:border-neutral-200 active:border-neutral-200 active:bg-neutral-50', // Hover/Active/Focus states
     );
 
     return (
         <div className="flex flex-col items-start gap-y-2">
             <div className={headerClassNames} {...otherProps}>
-                <Title className="flex-1 truncate text-lg leading-tight font-normal text-neutral-800 md:text-xl">
+                <Title className="flex-1 truncate font-normal text-lg text-neutral-800 leading-tight md:text-xl">
                     {title}
                 </Title>
                 <Close asChild={true}>
                     {onClose != null && (
-                        <button onClick={onClose} className={closeButtonClassNames} type="button">
+                        <button className={closeButtonClassNames} onClick={onClose} type="button">
                             <AvatarIcon
-                                icon={IconType.CLOSE}
-                                size="sm"
                                 backgroundWhite={true}
                                 className="group-hover:bg-neutral-50"
+                                icon={IconType.CLOSE}
+                                size="sm"
                             />
                         </button>
                     )}
                 </Close>
             </div>
             {description && (
-                <Description className="px-4 pb-3 text-sm leading-normal text-neutral-500 md:px-6 md:pb-4">
+                <Description className="px-4 pb-3 text-neutral-500 text-sm leading-normal md:px-6 md:pb-4">
                     {description}
                 </Description>
             )}

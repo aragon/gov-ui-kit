@@ -1,1 +1,1 @@
-export { VoteDataListItemStructure, type IVoteDataListItemStructureProps } from './voteDataListItemStructure';
+export { type IVoteDataListItemStructureProps, VoteDataListItemStructure } from './voteDataListItemStructure';

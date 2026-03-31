@@ -1,10 +1,10 @@
 @theme {
-  --radius-*: initial;
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-3xl: 24px;
-  --radius-full: 9999px;
-  --radius-none: none;
+    --radius-*: initial;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
+    --radius-full: 9999px;
+    --radius-none: none;
 }

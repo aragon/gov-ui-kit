@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { ToggleGroup } from '../toggleGroup';
-import { Toggle, type IToggleProps } from './toggle';
+import { type IToggleProps, Toggle } from './toggle';
 
 const meta: Meta<typeof Toggle> = {
     title: 'Core/Components/Toggles/Toggle',
@@ -38,7 +38,7 @@ const ControllerComponent = (props: IToggleProps) => {
     const [value, setValue] = useState<string>();
 
     return (
-        <ToggleGroup isMultiSelect={false} value={value} onChange={setValue}>
+        <ToggleGroup isMultiSelect={false} onChange={setValue} value={value}>
             <Toggle {...props} />
         </ToggleGroup>
     );

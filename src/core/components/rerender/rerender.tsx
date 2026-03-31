@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 
 export interface IRerenderProps {
     /**
@@ -27,7 +27,7 @@ export const Rerender: React.FC<IRerenderProps> = (props) => {
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), intervalDuration);
         return () => clearInterval(interval);
-    }, [setTime, intervalDuration]);
+    }, [intervalDuration]);
 
     return children(time);
 };

@@ -1,4 +1,4 @@
 :root {
-  /* Z-index property of the collapsible overlay */
-  --guk-collapsible-overlay-z-index: auto;
+    /* Z-index property of the collapsible overlay */
+    --guk-collapsible-overlay-z-index: auto;
 }

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { GukCoreProvider, type IGukCoreContext } from '../../gukCoreProvider';
-import { LinkBase, type ILinkBaseProps } from './linkBase';
+import { type ILinkBaseProps, LinkBase } from './linkBase';
 
 describe('<LinkBase /> component', () => {
     const createTestComponent = (props?: Partial<ILinkBaseProps>, context?: Partial<IGukCoreContext>) => {

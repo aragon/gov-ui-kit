@@ -1,12 +1,12 @@
-import { type QueryClient } from '@tanstack/react-query';
+import type { QueryClient } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import { mainnet, sepolia } from 'viem/chains';
 import * as wagmi from 'wagmi';
 import { GukModulesProvider } from '../gukModulesProvider';
-import { Wallet, type IWalletProps } from './wallet';
+import { type IWalletProps, Wallet } from './wallet';
 
 jest.mock('../member', () => ({
-    MemberAvatar: (props: { chainId: number }) => <div data-testid="member-avatar-mock" data-chainid={props.chainId} />,
+    MemberAvatar: (props: { chainId: number }) => <div data-chainid={props.chainId} data-testid="member-avatar-mock" />,
 }));
 
 jest.mock('../../utils/addressUtils', () => ({

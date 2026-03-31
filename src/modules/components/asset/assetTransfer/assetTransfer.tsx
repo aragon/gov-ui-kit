@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { zeroAddress } from 'viem';
 import { mainnet } from 'viem/chains';
-import { Avatar, AvatarIcon, DataList, IconType, NumberFormat, formatterUtils } from '../../../../core';
+import { Avatar, AvatarIcon, DataList, formatterUtils, IconType, NumberFormat } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
-import { type ICompositeAddress, type IWeb3ComponentProps } from '../../../types';
+import type { ICompositeAddress, IWeb3ComponentProps } from '../../../types';
 import { AssetTransferAddress } from './assetTransferAddress';
 
 export interface IAssetTransferProps extends IWeb3ComponentProps {
@@ -74,37 +74,37 @@ export const AssetTransfer: React.FC<IAssetTransferProps> = (props) => {
     const fiatValue = Number(assetAmount) * Number(assetFiatPrice);
     const formattedFiatValue = formatterUtils.formatNumber(fiatValue, {
         format: NumberFormat.FIAT_TOTAL_SHORT,
-        fallback: ` `,
+        fallback: ' ',
     });
 
     return (
         <div className="flex size-full flex-col gap-y-2 md:gap-y-3">
-            <div className="bg-neutral-0 relative flex h-full flex-col rounded-xl md:flex-row">
-                <AssetTransferAddress txRole="sender" participant={sender} addressUrl={senderUrl} />
-                <div className="border-t border-neutral-100 md:border-l" />
+            <div className="relative flex h-full flex-col rounded-xl bg-neutral-0 md:flex-row">
+                <AssetTransferAddress addressUrl={senderUrl} participant={sender} txRole="sender" />
+                <div className="border-neutral-100 border-t md:border-l" />
                 <AvatarIcon
-                    icon={IconType.CHEVRON_DOWN}
-                    size="sm"
                     className={classNames(
                         'absolute top-1/2 left-4 -translate-y-1/2 bg-neutral-50 text-neutral-300', //base
                         'md:left-1/2 md:-translate-x-1/2 md:-rotate-90', //responsive
                     )}
+                    icon={IconType.CHEVRON_DOWN}
+                    size="sm"
                 />
-                <AssetTransferAddress txRole="recipient" participant={recipient} addressUrl={recipientUrl} />
+                <AssetTransferAddress addressUrl={recipientUrl} participant={recipient} txRole="recipient" />
             </div>
             <DataList.Item
-                href={assetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="flex h-16 items-center justify-between px-4 md:h-20 md:px-6"
+                href={assetUrl}
+                rel="noopener noreferrer"
+                target="_blank"
             >
                 <div className="flex items-center space-x-3 md:space-x-4">
                     <Avatar responsiveSize={{ md: 'md' }} src={assetIconSrc} />
-                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{assetName}</span>
+                    <span className="text-neutral-800 text-sm leading-tight md:text-base">{assetName}</span>
                 </div>
                 <div className="flex flex-col items-end justify-end">
-                    <span className="text-sm leading-tight text-neutral-800 md:text-base">{formattedTokenAmount}</span>
-                    <span className="text-sm leading-tight text-neutral-500 md:text-base">{formattedFiatValue}</span>
+                    <span className="text-neutral-800 text-sm leading-tight md:text-base">{formattedTokenAmount}</span>
+                    <span className="text-neutral-500 text-sm leading-tight md:text-base">{formattedFiatValue}</span>
                 </div>
             </DataList.Item>
         </div>

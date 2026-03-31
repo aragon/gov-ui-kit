@@ -6,7 +6,7 @@ import { normalize } from 'viem/ens';
 import * as wagmi from 'wagmi';
 import { ssrUtils } from '../../../../core';
 import { RadixImageMock } from '../../../../core/test';
-import { MemberAvatar, type IMemberAvatarProps } from './memberAvatar';
+import { type IMemberAvatarProps, MemberAvatar } from './memberAvatar';
 
 describe('<MemberAvatar /> component', () => {
     const originalGlobalImage = global.Image;

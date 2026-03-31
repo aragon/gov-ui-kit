@@ -55,12 +55,12 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
     const containerClasses = classNames(
         'flex min-h-12 w-full flex-row items-center', // Layout
         'rounded-xl border text-neutral-500 transition-all', // Styling
-        'text-base font-normal leading-tight', // Typography
+        'font-normal text-base leading-tight', // Typography
         variantToClassNames[processedVariant],
         wrapperClassName,
     );
 
-    const counterClasses = classNames('text-xs font-normal leading-tight text-neutral-500 md:text-sm', {
+    const counterClasses = classNames('font-normal text-neutral-500 text-xs leading-tight md:text-sm', {
         'animate-shake': inputLength === maxLength,
     });
 
@@ -73,12 +73,12 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                 <label className="flex flex-col gap-0.5 md:gap-1" htmlFor={id}>
                     {label && (
                         <div className="flex flex-row items-center gap-3">
-                            <p className="text-base leading-tight font-normal text-neutral-800 md:text-lg">{label}</p>
-                            {isOptional && <Tag variant="neutral" label={copy.inputContainer.optionalLabel} />}
+                            <p className="font-normal text-base text-neutral-800 leading-tight md:text-lg">{label}</p>
+                            {isOptional && <Tag label={copy.inputContainer.optionalLabel} variant="neutral" />}
                         </div>
                     )}
                     {helpText && (
-                        <p className="text-sm leading-normal font-normal text-neutral-500 md:text-base">{helpText}</p>
+                        <p className="font-normal text-neutral-500 text-sm leading-normal md:text-base">{helpText}</p>
                     )}
                 </label>
             )}
@@ -88,7 +88,7 @@ export const InputContainer = forwardRef<HTMLDivElement, IInputContainerProps>((
                     {inputLength}/{maxLength}
                 </p>
             )}
-            {alert && <AlertInline variant={alert.variant} message={alert.message} />}
+            {alert && <AlertInline message={alert.message} variant={alert.variant} />}
         </div>
     );
 });

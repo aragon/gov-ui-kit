@@ -1,4 +1,4 @@
-import React, { Children, useEffect, type ComponentProps } from 'react';
+import React, { Children, type ComponentProps, useEffect } from 'react';
 import { Accordion, CardEmptyState } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { useProposalActionsContext } from '../proposalActionsContext';
@@ -33,21 +33,22 @@ export const ProposalActionsContainer: React.FC<IProposalActionsContainerProps> 
     return (
         <Accordion.Container
             isMulti={true}
-            value={expandedActions}
             onValueChange={handleAccordionValueChange}
+            value={expandedActions}
             {...otherProps}
         >
             {actionsCount === 0 && (
                 <CardEmptyState
-                    heading={copy.proposalActionsContainer.emptyHeader}
+                    className="border border-neutral-100"
                     description={emptyStateDescription}
+                    heading={copy.proposalActionsContainer.emptyHeader}
                     isStacked={false}
                     objectIllustration={{ object: 'SMART_CONTRACT' }}
-                    className="border border-neutral-100"
                 />
             )}
             {isLoading
-                ? Array.from({ length: actionsCount }).map((_, index) => <ProposalActionsItemSkeleton key={index} />)
+                ? // biome-ignore lint/suspicious/noArrayIndexKey: skeleton loaders have no stable identity
+                  Array.from({ length: actionsCount }).map((_, index) => <ProposalActionsItemSkeleton key={index} />)
                 : processedChildren.map((child, index) =>
                       React.isValidElement<IProposalActionsItemProps>(child)
                           ? React.cloneElement(child, { ...child.props, index })

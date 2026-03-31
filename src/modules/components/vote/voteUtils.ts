@@ -1,4 +1,4 @@
-import { type TagVariant } from '../../../core';
+import type { TagVariant } from '../../../core';
 
 export type VoteIndicator = 'yes' | 'no' | 'abstain' | 'approve' | 'veto';
 
@@ -13,6 +13,8 @@ export const getTagVariant = (voteIndicator: VoteIndicator, isVeto?: boolean): T
         case 'approve':
             return 'success';
         case 'abstain':
+            return 'neutral';
+        default:
             return 'neutral';
     }
 };

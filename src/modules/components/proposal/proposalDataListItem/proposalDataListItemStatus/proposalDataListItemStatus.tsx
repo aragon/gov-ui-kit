@@ -11,12 +11,10 @@ import {
 import type { ModulesCopy } from '../../../../assets';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalStatus, proposalStatusToTagVariant } from '../../proposalUtils';
-import { type IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
+import type { IProposalDataListItemStructureProps } from '../proposalDataListItemStructure';
 
-export interface IProposalDataListItemStatusProps extends Pick<
-    IProposalDataListItemStructureProps,
-    'date' | 'status' | 'voted' | 'statusContext'
-> {}
+export interface IProposalDataListItemStatusProps
+    extends Pick<IProposalDataListItemStructureProps, 'date' | 'status' | 'voted' | 'statusContext'> {}
 
 const getFormattedProposalDate = (date: string | number, now: number, copy: ModulesCopy) => {
     const formattedDuration = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;
@@ -41,9 +39,9 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
         <div className="flex min-h-6 w-full items-center justify-between gap-x-4 md:gap-x-6">
             <div className="flex min-w-0 items-center gap-x-1">
                 <Tag
+                    className="shrink-0"
                     label={copy.proposalDataListItemStatus.statusLabel[status]}
                     variant={proposalStatusToTagVariant[status]}
-                    className="shrink-0"
                 />
                 {showStatusContext && (
                     <div className="truncate text-sm leading-tight md:text-base">

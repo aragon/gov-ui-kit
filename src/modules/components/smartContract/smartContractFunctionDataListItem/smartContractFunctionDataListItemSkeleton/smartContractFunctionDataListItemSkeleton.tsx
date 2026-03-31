@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { DataList, StateSkeletonBar, type IDataListItemProps } from '../../../../../core';
+import { DataList, type IDataListItemProps, StateSkeletonBar } from '../../../../../core';
 
 export type ISmartContractFunctionDataListItemSkeletonProps = IDataListItemProps & {
     /**
@@ -15,15 +15,15 @@ export const SmartContractFunctionDataListItemSkeleton: React.FC<ISmartContractF
 
     return (
         <DataList.Item
-            tabIndex={!asChild ? 0 : undefined}
-            aria-busy={!asChild ? true : undefined}
-            aria-label={!asChild ? 'loading' : undefined}
+            aria-busy={asChild ? undefined : true}
+            aria-label={asChild ? undefined : 'loading'}
             className={classNames(
                 'flex w-full flex-col gap-3 py-4',
                 { 'min-h-[67.5px] md:min-h-[88.5px]': !asChild },
-                { 'min-h-[35.5px] border-none !p-0 shadow-none md:min-h-[56.5px]': asChild },
+                { '!p-0 min-h-[35.5px] border-none shadow-none md:min-h-[56.5px]': asChild },
                 className,
             )}
+            tabIndex={asChild ? undefined : 0}
             {...otherProps}
         >
             <div className="flex w-1/2 md:w-1/3">

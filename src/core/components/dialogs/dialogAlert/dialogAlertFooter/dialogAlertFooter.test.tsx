@@ -11,8 +11,8 @@ describe('<DialogAlert.Footer/> component', () => {
         };
 
         return (
-            <DialogAlertRoot hiddenTitle="title" hiddenDescription="description" open={true}>
-                <DialogAlertFooter {...completeProps} />;
+            <DialogAlertRoot hiddenDescription="description" hiddenTitle="title" open={true}>
+                <DialogAlertFooter {...completeProps} />
             </DialogAlertRoot>
         );
     };

@@ -2,9 +2,9 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import * as viem from 'viem';
 import * as wagmi from 'wagmi';
-import { NumberFormat, formatterUtils } from '../../../../../core';
+import { formatterUtils, NumberFormat } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
-import { VoteDataListItemStructure, type IVoteDataListItemStructureProps } from '../../voteDataListItem';
+import { type IVoteDataListItemStructureProps, VoteDataListItemStructure } from '../../voteDataListItem';
 
 jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label }: { label: string }) => <div data-testid="tag">{label}</div>,
@@ -54,7 +54,7 @@ describe('<VoteDataListItemStructure /> component', () => {
     });
 
     it('renders the formatted token vote amount and symbol', () => {
-        const votingPower = 50000;
+        const votingPower = 50_000;
         const tokenSymbol = 'WIP';
         const formattedTokenNumber = formatterUtils.formatNumber(votingPower, {
             format: NumberFormat.TOKEN_AMOUNT_SHORT,

@@ -9,7 +9,7 @@ describe('<Dialog.Content/> component', () => {
         const hiddenDescription = props?.description ? undefined : 'description';
 
         return (
-            <DialogRoot hiddenTitle="title" hiddenDescription={hiddenDescription} open={true}>
+            <DialogRoot hiddenDescription={hiddenDescription} hiddenTitle="title" open={true}>
                 <DialogContent {...completeProps} />
             </DialogRoot>
         );

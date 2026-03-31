@@ -1,4 +1,4 @@
 /* Needed to hide the "Show code" button displayed on Storybook stories when opening Dialogs and Dropdowns  */
 .docs-story > div {
-  z-index: auto;
+    z-index: auto;
 }

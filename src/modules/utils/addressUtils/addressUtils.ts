@@ -1,4 +1,4 @@
-import { getAddress, isAddress, type Address } from 'viem';
+import { type Address, getAddress, isAddress } from 'viem';
 
 export interface IIsAddressParams {
     /**

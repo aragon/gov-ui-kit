@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import { modulesCopy } from '../../../../assets';
 import { ProposalStatus } from '../../proposalUtils';
 import * as useProposalVotingContext from '../proposalVotingContext';
-import { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
+import { type IProposalVotingBodyContentProps, ProposalVotingBodyContent } from './proposalVotingBodyContent';
 
 jest.mock('../../../../../core/components/avatars/avatar', () => ({
     Avatar: ({ src }: { src?: string }) => <div data-testid={src} />,

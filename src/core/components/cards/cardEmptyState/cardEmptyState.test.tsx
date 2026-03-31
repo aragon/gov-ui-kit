@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { type IEmptyStateProps } from '../../states';
+import type { IEmptyStateProps } from '../../states';
 import { CardEmptyState } from './cardEmptyState';
 
 describe('<CardEmptyState /> component', () => {
@@ -10,11 +10,10 @@ describe('<CardEmptyState /> component', () => {
 
         if (props?.humanIllustration) {
             return <CardEmptyState humanIllustration={props.humanIllustration} {...commonProps} {...props} />;
-        } else {
-            const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
-
-            return <CardEmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
         }
+        const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
+
+        return <CardEmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
     };
 
     it('renders EmptyState minimum props without crashing', () => {

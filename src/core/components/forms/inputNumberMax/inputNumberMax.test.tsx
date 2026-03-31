@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { createRef } from 'react';
 import * as InputHooks from '../hooks';
-import { InputNumberMax, type IInputNumberMaxProps } from './inputNumberMax';
+import { type IInputNumberMaxProps, InputNumberMax } from './inputNumberMax';
 
 describe('<InputNumberMax /> component', () => {
     const useNumberMaskMock = jest.spyOn(InputHooks, 'useNumberMask');

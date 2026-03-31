@@ -1,6 +1,6 @@
 export {
+    type IProposalActionsContext,
     ProposalActionsContextProvider,
     proposalActionsContext,
     useProposalActionsContext,
-    type IProposalActionsContext,
 } from './proposalActionsContext';

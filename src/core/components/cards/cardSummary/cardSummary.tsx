@@ -21,19 +21,19 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
         >
             <div className={containerClassNames}>
                 <AvatarIcon
-                    variant="neutral"
-                    icon={icon}
-                    size="md"
-                    responsiveSize={{ md: 'lg' }}
                     className="self-center"
+                    icon={icon}
+                    responsiveSize={{ md: 'lg' }}
+                    size="md"
+                    variant="neutral"
                 />
                 <Button
-                    variant="tertiary"
-                    size="md"
-                    responsiveSize={{ md: 'lg' }}
+                    href={action.href}
                     iconLeft={IconType.PLUS}
                     onClick={action.onClick}
-                    href={action.href}
+                    responsiveSize={{ md: 'lg' }}
+                    size="md"
+                    variant="tertiary"
                 >
                     {action.label}
                 </Button>
@@ -44,8 +44,8 @@ export const CardSummary: React.FC<ICardSummaryProps> = (props) => {
                         { 'flex-col md:col-start-2 md:flex-row md:items-baseline': !isStacked },
                     )}
                 >
-                    <p className="text-2xl leading-tight font-normal text-neutral-800 md:text-3xl">{value}</p>
-                    <p className="text-base leading-tight font-normal text-neutral-500">{description}</p>
+                    <p className="font-normal text-2xl text-neutral-800 leading-tight md:text-3xl">{value}</p>
+                    <p className="font-normal text-base text-neutral-500 leading-tight">{description}</p>
                 </div>
             </div>
         </Card>

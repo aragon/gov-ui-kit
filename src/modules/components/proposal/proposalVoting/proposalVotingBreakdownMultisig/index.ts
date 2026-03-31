@@ -1,4 +1,4 @@
 export {
-    ProposalVotingBreakdownMultisig,
     type IProposalVotingBreakdownMultisigProps,
+    ProposalVotingBreakdownMultisig,
 } from './proposalVotingBreakdownMultisig';

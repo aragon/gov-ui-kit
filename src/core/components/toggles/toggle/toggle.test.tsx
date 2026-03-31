@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { ToggleGroup } from '../toggleGroup';
-import { Toggle, type IToggleProps } from './toggle';
+import { type IToggleProps, Toggle } from './toggle';
 
 describe('<Toggle /> component', () => {
     const createTestComponent = (props?: Partial<IToggleProps>) => {

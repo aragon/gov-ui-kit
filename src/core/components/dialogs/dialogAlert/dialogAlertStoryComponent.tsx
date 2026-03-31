@@ -15,13 +15,13 @@ export const DialogAlertStoryComponent = (
 
         return (
             <>
-                <Button variant="primary" onClick={() => setOpen(true)}>
+                <Button onClick={() => setOpen(true)} variant="primary">
                     Open
                 </Button>
                 <DialogAlert.Root
-                    open={open}
-                    onOpenChange={setOpen}
                     hiddenDescription="Description of the dialog"
+                    onOpenChange={setOpen}
+                    open={open}
                     variant={variant}
                     {...(component === 'root' && props)}
                 >
@@ -30,7 +30,7 @@ export const DialogAlertStoryComponent = (
                         {'children' in props && props.children != null ? (
                             (props.children as ReactNode)
                         ) : (
-                            <div className="border-info-300 bg-info-100 flex h-60 w-full items-center justify-center border border-dashed">
+                            <div className="flex h-60 w-full items-center justify-center border border-info-300 border-dashed bg-info-100">
                                 Dialog alert content
                             </div>
                         )}

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import {
-    SmartContractFunctionDataListItem,
     type ISmartContractFunctionDataListItemSkeletonProps,
+    SmartContractFunctionDataListItem,
 } from '../../smartContractFunctionDataListItem';
 
 describe('<SmartContractFunctionDataListItem.Skeleton /> component', () => {

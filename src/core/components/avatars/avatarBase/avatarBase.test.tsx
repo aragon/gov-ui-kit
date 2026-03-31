@@ -14,7 +14,9 @@ describe('<AvatarBase /> component', () => {
     };
 
     it('renders the image component set on the GukCoreProvider', () => {
-        const Img = (props: object) => <img data-testid="my-image-component" alt="test" {...props} />;
+        const Img = (props: object) => (
+            <img alt="test" data-testid="my-image-component" height={32} width={32} {...props} />
+        );
         const context = { Img };
         const props = { src: 'https://test.com/' };
         render(createTestComponent(props, context));

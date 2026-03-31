@@ -10,35 +10,20 @@ import AccessoryEarringsThunder from '../../../assets/illustrations/human/access
 import AccessoryExpression from '../../../assets/illustrations/human/accessories/expression.svg';
 import AccessoryFlushed from '../../../assets/illustrations/human/accessories/flushed.svg';
 import AccessoryHeadFlower from '../../../assets/illustrations/human/accessories/head-flower.svg';
-import AccessoryPiercingsTattoo from '../../../assets/illustrations/human/accessories/piercings-tattoo.svg';
 import AccessoryPiercings from '../../../assets/illustrations/human/accessories/piercings.svg';
-
-/** Sunglasses */
-import SunglassesBigRounded from '../../../assets/illustrations/human/sunglasses/big-rounded.svg';
-import SunglassesBigSemirounded from '../../../assets/illustrations/human/sunglasses/big-semirounded.svg';
-import SunglassesLargeStylizedXl from '../../../assets/illustrations/human/sunglasses/large-stylized-xl.svg';
-import SunglassesLargeStylized from '../../../assets/illustrations/human/sunglasses/large-stylized.svg';
-import SunglassesPirate from '../../../assets/illustrations/human/sunglasses/pirate.svg';
-import SunglassesSmallIntellectual from '../../../assets/illustrations/human/sunglasses/small-intellectual.svg';
-import SunglassesSmallSympathetic from '../../../assets/illustrations/human/sunglasses/small-sympathetic.svg';
-import SunglassesSmallWeirdOne from '../../../assets/illustrations/human/sunglasses/small-weird-one.svg';
-import SunglassesSmallWeirdTwo from '../../../assets/illustrations/human/sunglasses/small-weird-two.svg';
-import SunglassesThuglifeRounded from '../../../assets/illustrations/human/sunglasses/thuglife-rounded.svg';
-import SunglassesThuglife from '../../../assets/illustrations/human/sunglasses/thuglife.svg';
-
+import AccessoryPiercingsTattoo from '../../../assets/illustrations/human/accessories/piercings-tattoo.svg';
 /** Bodies */
 import BodyAragon from '../../../assets/illustrations/human/bodies/aragon.svg';
 import BodyBlocks from '../../../assets/illustrations/human/bodies/blocks.svg';
 import BodyChart from '../../../assets/illustrations/human/bodies/chart.svg';
-import BodyComputerCorrect from '../../../assets/illustrations/human/bodies/computer-correct.svg';
 import BodyComputer from '../../../assets/illustrations/human/bodies/computer.svg';
+import BodyComputerCorrect from '../../../assets/illustrations/human/bodies/computer-correct.svg';
 import BodyCorrect from '../../../assets/illustrations/human/bodies/correct.svg';
 import BodyDoubleCorrect from '../../../assets/illustrations/human/bodies/double-correct.svg';
 import BodyElevating from '../../../assets/illustrations/human/bodies/elevating.svg';
 import BodyRelaxed from '../../../assets/illustrations/human/bodies/relaxed.svg';
 import BodySendingLove from '../../../assets/illustrations/human/bodies/sending-love.svg';
 import BodyVoting from '../../../assets/illustrations/human/bodies/voting.svg';
-
 /** Expressions */
 import ExpressionAngry from '../../../assets/illustrations/human/expressions/angry.svg';
 import ExpressionCasual from '../../../assets/illustrations/human/expressions/casual.svg';
@@ -47,24 +32,35 @@ import ExpressionDecided from '../../../assets/illustrations/human/expressions/d
 import ExpressionExcited from '../../../assets/illustrations/human/expressions/excited.svg';
 import ExpressionSadLeft from '../../../assets/illustrations/human/expressions/sad-left.svg';
 import ExpressionSadRight from '../../../assets/illustrations/human/expressions/sad-right.svg';
-import ExpressionSmileWink from '../../../assets/illustrations/human/expressions/smile-wink.svg';
 import ExpressionSmile from '../../../assets/illustrations/human/expressions/smile.svg';
+import ExpressionSmileWink from '../../../assets/illustrations/human/expressions/smile-wink.svg';
 import ExpressionSurprised from '../../../assets/illustrations/human/expressions/surprised.svg';
 import ExpressionSuspecting from '../../../assets/illustrations/human/expressions/suspecting.svg';
-
 /** Hairs */
 import HairsAfro from '../../../assets/illustrations/human/hairs/afro.svg';
 import HairsBald from '../../../assets/illustrations/human/hairs/bald.svg';
 import HairsBun from '../../../assets/illustrations/human/hairs/bun.svg';
 import HairsCool from '../../../assets/illustrations/human/hairs/cool.svg';
-import HairsCurlyBangs from '../../../assets/illustrations/human/hairs/curly-bangs.svg';
 import HairsCurly from '../../../assets/illustrations/human/hairs/curly.svg';
+import HairsCurlyBangs from '../../../assets/illustrations/human/hairs/curly-bangs.svg';
 import HairsInformal from '../../../assets/illustrations/human/hairs/informal.svg';
 import HairsLong from '../../../assets/illustrations/human/hairs/long.svg';
 import HairsMiddle from '../../../assets/illustrations/human/hairs/middle.svg';
 import HairsOldschool from '../../../assets/illustrations/human/hairs/oldschool.svg';
 import HairsPunk from '../../../assets/illustrations/human/hairs/punk.svg';
 import HairsShort from '../../../assets/illustrations/human/hairs/short.svg';
+/** Sunglasses */
+import SunglassesBigRounded from '../../../assets/illustrations/human/sunglasses/big-rounded.svg';
+import SunglassesBigSemirounded from '../../../assets/illustrations/human/sunglasses/big-semirounded.svg';
+import SunglassesLargeStylized from '../../../assets/illustrations/human/sunglasses/large-stylized.svg';
+import SunglassesLargeStylizedXl from '../../../assets/illustrations/human/sunglasses/large-stylized-xl.svg';
+import SunglassesPirate from '../../../assets/illustrations/human/sunglasses/pirate.svg';
+import SunglassesSmallIntellectual from '../../../assets/illustrations/human/sunglasses/small-intellectual.svg';
+import SunglassesSmallSympathetic from '../../../assets/illustrations/human/sunglasses/small-sympathetic.svg';
+import SunglassesSmallWeirdOne from '../../../assets/illustrations/human/sunglasses/small-weird-one.svg';
+import SunglassesSmallWeirdTwo from '../../../assets/illustrations/human/sunglasses/small-weird-two.svg';
+import SunglassesThuglife from '../../../assets/illustrations/human/sunglasses/thuglife.svg';
+import SunglassesThuglifeRounded from '../../../assets/illustrations/human/sunglasses/thuglife-rounded.svg';
 
 import type {
     IllustrationHumanAccessory,

@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { RadioGroup } from '..';
 import { IconType } from '../../icon';
-import { RadioCard, type IRadioCardProps } from './radioCard';
+import { RadioGroup } from '..';
+import { type IRadioCardProps, RadioCard } from './radioCard';
 
 jest.mock('../../avatars', () => ({
     Avatar: () => <div data-testid="avatar" />,
@@ -14,7 +14,7 @@ describe('<RadioCard/> component', () => {
 
         return (
             <RadioGroup name="Test Group">
-                <RadioCard {...completeProps} />;
+                <RadioCard {...completeProps} />
             </RadioGroup>
         );
     };

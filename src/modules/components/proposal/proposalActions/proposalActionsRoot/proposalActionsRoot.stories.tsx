@@ -43,7 +43,7 @@ export const Default: Story = {
                 />
             </ProposalActions.Container>
             <ProposalActions.Footer>
-                <Button size="md" className="text-nowrap">
+                <Button className="text-nowrap" size="md">
                     Execute actions
                 </Button>
             </ProposalActions.Footer>
@@ -85,8 +85,8 @@ export const Controlled: Story = {
                 {...props}
             >
                 <ProposalActions.Container emptyStateDescription="Proposal has no actions">
-                    {actions.map((action, index) => (
-                        <ProposalActions.Item key={index} action={action} value={action.id} />
+                    {actions.map((action) => (
+                        <ProposalActions.Item action={action} key={action.id} value={action.id} />
                     ))}
                 </ProposalActions.Container>
                 <ProposalActions.Footer actionIds={actionIds} />
