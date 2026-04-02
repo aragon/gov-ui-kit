@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Link, type ILinkProps } from '../../link';
+import { type ILinkProps, Link } from '../../link';
 
 export interface IDefinitionListItemContentProps {
     /**

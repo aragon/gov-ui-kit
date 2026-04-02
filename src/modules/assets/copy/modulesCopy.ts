@@ -174,7 +174,7 @@ export const modulesCopy = {
             unreached: 'not reached',
             vetoed: 'has been',
             advanceable: (canAdvance?: boolean, isShortWindow?: boolean) =>
-                !canAdvance ? 'until advanceable' : isShortWindow ? 'left to advance' : 'is',
+                canAdvance ? (isShortWindow ? 'left to advance' : 'is') : 'until advanceable',
         },
         status: {
             accepted: 'accepted',

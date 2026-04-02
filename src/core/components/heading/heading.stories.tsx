@@ -45,19 +45,19 @@ export const CustomAs: Story = {
     render: () => {
         return (
             <div className="flex-col space-y-4">
-                <Heading size="h1" as="h5">
+                <Heading as="h5" size="h1">
                     Semantic h5 tag as h1 size
                 </Heading>
-                <Heading size="h2" as="h4">
+                <Heading as="h4" size="h2">
                     Semantic h4 tag as h2 size
                 </Heading>
-                <Heading size="h3" as="h3">
+                <Heading as="h3" size="h3">
                     Semantic h3 tag as h3 size
                 </Heading>
-                <Heading size="h4" as="h2">
+                <Heading as="h2" size="h4">
                     Semantic h2 tag as h4 size
                 </Heading>
-                <Heading size="h5" as="h1">
+                <Heading as="h1" size="h5">
                     Semantic h1 tag as h5 size
                 </Heading>
             </div>

@@ -1,1 +1,1 @@
-export { Wallet, type IWalletProps } from './wallet';
+export { type IWalletProps, Wallet } from './wallet';

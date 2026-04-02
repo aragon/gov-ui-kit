@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { RadioGroup } from '..';
 import { IconType } from '../../icon';
-import { Radio, type IRadioProps } from './radio';
+import { RadioGroup } from '..';
+import { type IRadioProps, Radio } from './radio';
 
 describe('<Radio/> component', () => {
     const createTestComponent = (props?: Partial<IRadioProps>) => {

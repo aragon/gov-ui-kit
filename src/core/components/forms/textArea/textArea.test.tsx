@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { TextArea, type ITextAreaProps } from './textArea';
+import { type ITextAreaProps, TextArea } from './textArea';
 
 describe('<TextArea /> component', () => {
     const createTestComponent = (props?: Partial<ITextAreaProps>) => {

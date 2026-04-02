@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { DataList, StateSkeletonBar, type IDataListItemProps } from '../../../../../core';
+import { DataList, type IDataListItemProps, StateSkeletonBar } from '../../../../../core';
 
 export type IProposalDataListItemSkeletonProps = IDataListItemProps;
 
@@ -9,18 +9,18 @@ export const ProposalDataListItemSkeleton: React.FC<IProposalDataListItemSkeleto
 
     return (
         <DataList.Item
-            tabIndex={0}
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'bg-neutral-0 flex min-h-[184.5px] flex-col justify-center gap-y-3 py-4 md:min-h-[221px] md:gap-y-4 md:py-6',
+                'flex min-h-[184.5px] flex-col justify-center gap-y-3 bg-neutral-0 py-4 md:min-h-[221px] md:gap-y-4 md:py-6',
                 className,
             )}
+            tabIndex={0}
             {...otherProps}
         >
             <div className="flex w-full justify-between">
-                <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="12%" />
-                <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="24%" />
+                <StateSkeletonBar responsiveSize={{ md: 'xl' }} size="lg" width="12%" />
+                <StateSkeletonBar responsiveSize={{ md: 'xl' }} size="lg" width="24%" />
             </div>
             <div className="flex w-full flex-col gap-y-3">
                 <StateSkeletonBar size="xl" width="72%" />
@@ -30,8 +30,8 @@ export const ProposalDataListItemSkeleton: React.FC<IProposalDataListItemSkeleto
                 </div>
             </div>
             <div className="flex w-full justify-between">
-                <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="20%" />
-                <StateSkeletonBar size="lg" responsiveSize={{ md: 'xl' }} width="16%" />
+                <StateSkeletonBar responsiveSize={{ md: 'xl' }} size="lg" width="20%" />
+                <StateSkeletonBar responsiveSize={{ md: 'xl' }} size="lg" width="16%" />
             </div>
         </DataList.Item>
     );

@@ -91,7 +91,7 @@ export const numberFormats: Record<NumberFormat, INumberFormat> = {
         maxSignificantDigits: (value) => (Math.abs(value) < 1 ? 4 : undefined),
         isCurrency: true,
         fallback: 'Unknown',
-        displayFallback: (value) => isNaN(value) || value === 0,
+        displayFallback: (value) => Number.isNaN(value) || value === 0,
     },
     [NumberFormat.PERCENTAGE_SHORT]: {
         maxFractionDigits: 1,

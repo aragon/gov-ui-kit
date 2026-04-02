@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { StateSkeletonCircular, type IStateSkeletonCircularProps } from './stateSkeletonCircular';
+import { type IStateSkeletonCircularProps, StateSkeletonCircular } from './stateSkeletonCircular';
 
 describe('<StateSkeletonCircular /> component', () => {
     const createTestComponent = (props?: Partial<IStateSkeletonCircularProps>) => {

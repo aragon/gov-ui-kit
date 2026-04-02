@@ -1,6 +1,6 @@
-import { Children, cloneElement, isValidElement, type ComponentProps } from 'react';
+import { Children, type ComponentProps, cloneElement, isValidElement } from 'react';
 import { Accordion } from '../../../../../core';
-import { type IProposalVotingStageProps } from '../proposalVotingStage';
+import type { IProposalVotingStageProps } from '../proposalVotingStage';
 
 export interface IProposalVotingStageContainerProps extends Omit<ComponentProps<'div'>, 'defaultValue'> {
     /**
@@ -19,7 +19,7 @@ export const ProposalVotingStageContainer: React.FC<IProposalVotingStageContaine
     const processedChildren = Children.toArray(children);
 
     return (
-        <Accordion.Container isMulti={false} value={activeStage} onValueChange={onStageClick} {...otherProps}>
+        <Accordion.Container isMulti={false} onValueChange={onStageClick} value={activeStage} {...otherProps}>
             {processedChildren.map((child, index) =>
                 isValidElement<IProposalVotingStageProps>(child)
                     ? cloneElement(child, { ...child.props, index })

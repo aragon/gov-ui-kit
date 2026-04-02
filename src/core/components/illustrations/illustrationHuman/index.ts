@@ -1,4 +1,4 @@
-export { IllustrationHuman, type IIllustrationHumanProps } from './illustrationHuman';
+export { type IIllustrationHumanProps, IllustrationHuman } from './illustrationHuman';
 export type {
     IllustrationHumanAccessory,
     IllustrationHumanBody,

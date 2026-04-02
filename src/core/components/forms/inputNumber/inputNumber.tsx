@@ -4,13 +4,11 @@ import { forwardRef } from 'react';
 import { mergeRefs } from '../../../utils';
 import { Button } from '../../button';
 import { IconType } from '../../icon';
-import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
-import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { type IUseNumberMaskProps, useInputProps, useNumberMask } from '../hooks';
+import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
-export interface IInputNumberProps extends Omit<
-    IInputComponentProps,
-    'onChange' | 'step' | 'min' | 'max' | 'maxLength'
-> {
+export interface IInputNumberProps
+    extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max' | 'maxLength'> {
     /**
      * The minimum value that the number input accepts.
      * @default Number.MIN_SAFE_INTEGER
@@ -98,30 +96,30 @@ export const InputNumber = forwardRef<HTMLInputElement, IInputNumberProps>((prop
         <InputContainer className={containerClassName} disabled={disabled} {...otherContainerProps}>
             {!disabled && (
                 <Button
+                    className="ml-2 shrink-0"
+                    iconLeft={IconType.MINUS}
+                    onClick={() => handleStepChange(-1)}
                     size="sm"
                     variant="tertiary"
-                    onClick={() => handleStepChange(-1)}
-                    iconLeft={IconType.MINUS}
-                    className="ml-2 shrink-0"
                 />
             )}
             <input
-                ref={mergeRefs([maskRef, ref])}
-                step={processedStep}
+                className={classNames('spin-buttons-hidden text-center', inputClassName)}
+                inputMode="numeric"
                 max={max}
                 min={min}
-                inputMode="numeric"
                 onKeyDown={handleKeyDown}
-                className={classNames('spin-buttons-hidden text-center', inputClassName)}
+                ref={mergeRefs([maskRef, ref])}
+                step={processedStep}
                 {...otherInputProps}
             />
             {!disabled && (
                 <Button
-                    size="sm"
-                    variant="tertiary"
+                    className="mr-2 shrink-0"
                     iconLeft={IconType.PLUS}
                     onClick={() => handleStepChange(1)}
-                    className="mr-2 shrink-0"
+                    size="sm"
+                    variant="tertiary"
                 />
             )}
         </InputContainer>

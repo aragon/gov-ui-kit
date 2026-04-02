@@ -4,9 +4,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { generateProposalAction } from '../proposalActionsTestUtils';
 import { ProposalActionsDecoder } from './proposalActionsDecoder';
 import {
+    type IProposalActionsDecoderProps,
     ProposalActionsDecoderMode,
     ProposalActionsDecoderView,
-    type IProposalActionsDecoderProps,
 } from './proposalActionsDecoder.api';
 
 const defaultRender = (props: IProposalActionsDecoderProps) => {
@@ -189,7 +189,7 @@ export const Tuple: Story = {
 /**
  * Usage example of the Decoded view from the ProposalActionsItem component with array type.
  */
-export const Array: Story = {
+export const ArrayType: Story = {
     render: defaultRender,
     args: {
         view: ProposalActionsDecoderView.DECODED,

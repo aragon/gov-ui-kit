@@ -1,6 +1,6 @@
 import { RadioGroupIndicator, RadioGroupItem } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, type ComponentProps } from 'react';
+import { type ComponentProps, forwardRef } from 'react';
 import { useRandomId } from '../../../hooks';
 import { Icon, IconType } from '../../icon';
 
@@ -30,12 +30,12 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>((props, ref) => 
     const randomId = useRandomId(id);
 
     const itemClasses = classNames(
-        'group peer rounded-full outline-hidden cursor-pointer disabled:cursor-default focus-ring-primary',
+        'group peer focus-ring-primary cursor-pointer rounded-full outline-hidden disabled:cursor-default',
         { 'order-2': labelPosition === 'left' },
     );
 
     const labelClasses = classNames(
-        'cursor-pointer text-base leading-tight text-neutral-500', // default
+        'cursor-pointer text-base text-neutral-500 leading-tight', // default
         'hover:text-neutral-800', // hover
         'peer-disabled:cursor-default peer-data-[state=unchecked]:peer-disabled:text-neutral-300', // unchecked and disabled
         { 'pr-2 md:pr-3': labelPosition === 'left' },
@@ -45,16 +45,16 @@ export const Radio = forwardRef<HTMLButtonElement, IRadioProps>((props, ref) => 
     return (
         <div className={classNames('flex items-center px-0.5', className)}>
             <RadioGroupItem
-                id={randomId}
-                value={value}
-                disabled={disabled}
                 className={itemClasses}
+                disabled={disabled}
+                id={randomId}
                 ref={ref}
+                value={value}
                 {...otherProps}
             >
                 <Icon
+                    className="text-neutral-300 group-hover:text-primary-400 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
                     icon={IconType.RADIO}
-                    className="group-hover:text-primary-400 text-neutral-300 group-disabled:text-neutral-300 group-data-[state=checked]:hidden"
                 />
                 <RadioGroupIndicator className="text-primary-400 group-disabled:text-neutral-300">
                     <Icon icon={IconType.RADIO_SELECTED} />

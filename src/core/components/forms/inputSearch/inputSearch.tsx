@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import { forwardRef, useRef, useState, type FocusEvent } from 'react';
+import { type FocusEvent, forwardRef, useRef, useState } from 'react';
 import { mergeRefs } from '../../../utils';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { useInputProps } from '../hooks';
-import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
 export interface IInputSearchProps extends IInputComponentProps {
     /**
@@ -57,26 +57,26 @@ export const InputSearch = forwardRef<HTMLInputElement, IInputSearchProps>((prop
 
     return (
         <InputContainer inputLength={inputLength} {...otherContainerProps}>
-            {isLoading && <Spinner size="sm" variant="neutral" className="ml-4" />}
+            {isLoading && <Spinner className="ml-4" size="sm" variant="neutral" />}
             {!isLoading && (
                 <Icon
+                    className={classNames('ml-4 text-neutral-400 transition-all', { 'text-neutral-600': isFocused })}
                     icon={IconType.SEARCH}
                     size="md"
-                    className={classNames('ml-4 text-neutral-400 transition-all', { 'text-neutral-600': isFocused })}
                 />
             )}
             <input
-                type="search"
                 className={classNames('search-cancel-hidden', inputClassName)}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                ref={mergeRefs([inputRef, ref])}
                 disabled={disabled}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                ref={mergeRefs([inputRef, ref])}
+                type="search"
                 {...otherInputProps}
             />
             {displayClearIcon && (
-                <button className="mr-4 cursor-pointer" onClick={handleClear}>
-                    <Icon icon={IconType.CLOSE} className="text-neutral-600" />
+                <button className="mr-4 cursor-pointer" onClick={handleClear} type="button">
+                    <Icon className="text-neutral-600" icon={IconType.CLOSE} />
                 </button>
             )}
         </InputContainer>

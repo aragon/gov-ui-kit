@@ -18,7 +18,7 @@ describe('formatter utils', () => {
     });
 
     const setTime = (now?: string) => {
-        Settings.now = () => (now != null ? new Date(now) : new Date()).valueOf();
+        Settings.now = () => (now == null ? new Date() : new Date(now)).valueOf();
     };
 
     const setLocale = (locales: { number?: string; date?: string }) => {
@@ -37,10 +37,10 @@ describe('formatter utils', () => {
                 { value: 123, result: '+123', withSign: true },
                 { value: 1234, result: '1,234' },
                 { value: 1234, result: '+1,234', withSign: true },
-                { value: 1234567, result: '1,234,567' },
-                { value: 1234567890, result: '1,234,567,890' },
-                { value: 1234567890123, result: '1,234,567,890,123' },
-                { value: 1234567890123456, result: '1,234,567,890,123,456' },
+                { value: 1_234_567, result: '1,234,567' },
+                { value: 1_234_567_890, result: '1,234,567,890' },
+                { value: 1_234_567_890_123, result: '1,234,567,890,123' },
+                { value: 1_234_567_890_123_456, result: '1,234,567,890,123,456' },
             ])('formats $value as $result using long format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_LONG, ...options })).toEqual(
@@ -57,10 +57,10 @@ describe('formatter utils', () => {
                 { value: 123, result: '+123', withSign: true },
                 { value: 1234, result: '1.23K' },
                 { value: 1234, result: '+1.23K', withSign: true },
-                { value: 1234567, result: '1.23M' },
-                { value: 1234567890, result: '1.23B' },
-                { value: 1234567890123, result: '1.23T' },
-                { value: 1234567890123456, result: '1.23 x 10^15' },
+                { value: 1_234_567, result: '1.23M' },
+                { value: 1_234_567_890, result: '1.23B' },
+                { value: 1_234_567_890_123, result: '1.23T' },
+                { value: 1_234_567_890_123_456, result: '1.23 x 10^15' },
             ])('formats $value as $result using short format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT, ...options })).toEqual(
@@ -71,23 +71,23 @@ describe('formatter utils', () => {
 
         describe('fiat total amounts', () => {
             test.each([
-                { value: -1234.56789, result: '-$1,234.57' },
-                { value: -1234.56789, result: '-1.234,57 $', locale: 'de' },
-                { value: -0.012345678, result: '-$0.01' },
-                { value: -0.0012345678, result: '-$0.00' },
+                { value: -1234.567_89, result: '-$1,234.57' },
+                { value: -1234.567_89, result: '-1.234,57 $', locale: 'de' },
+                { value: -0.012_345_678, result: '-$0.01' },
+                { value: -0.001_234_567_8, result: '-$0.00' },
                 { value: 0, result: '$0.00' },
-                { value: 0.0012345678, result: '$0.00' },
-                { value: 0.0012345678, result: '+$0.00', withSign: true },
-                { value: 0.012345678, result: '$0.01' },
-                { value: 0.012345678, result: '+$0.01', withSign: true },
-                { value: 0.12345678, result: '$0.12' },
-                { value: 123.45678, result: '$123.46' },
-                { value: 1234.56789, result: '$1,234.57' },
-                { value: 1234.56789, result: '+$1,234.57', withSign: true },
-                { value: 1234567.89012, result: '$1,234,567.89' },
-                { value: 1234567890.12345, result: '$1,234,567,890.12' },
-                { value: 1234567890123.45678, result: '$1,234,567,890,123.46' },
-                { value: 1234567890123456.78901, result: '$1,234,567,890,123,456.80' },
+                { value: 0.001_234_567_8, result: '$0.00' },
+                { value: 0.001_234_567_8, result: '+$0.00', withSign: true },
+                { value: 0.012_345_678, result: '$0.01' },
+                { value: 0.012_345_678, result: '+$0.01', withSign: true },
+                { value: 0.123_456_78, result: '$0.12' },
+                { value: 123.456_78, result: '$123.46' },
+                { value: 1234.567_89, result: '$1,234.57' },
+                { value: 1234.567_89, result: '+$1,234.57', withSign: true },
+                { value: 1_234_567.890_12, result: '$1,234,567.89' },
+                { value: 1_234_567_890.123_45, result: '$1,234,567,890.12' },
+                { value: 1_234_567_890_123.456_78, result: '$1,234,567,890,123.46' },
+                { value: 1_234_567_890_123_456.789_01, result: '$1,234,567,890,123,456.80' },
             ])('formats $value as $result using long format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(
@@ -96,20 +96,20 @@ describe('formatter utils', () => {
             });
 
             test.each([
-                { value: -1234.56789, result: '-$1.23K' },
-                { value: -0.0012345678, result: '-$0.00' },
+                { value: -1234.567_89, result: '-$1.23K' },
+                { value: -0.001_234_567_8, result: '-$0.00' },
                 { value: 0, result: '$0.00' },
-                { value: 0.0012345678, result: '$0.00' },
-                { value: 0.0012345678, result: '+$0.00', withSign: true },
-                { value: 0.012345678, result: '$0.01' },
-                { value: 0.12345678, result: '$0.12' },
-                { value: 123.45678, result: '$123.46' },
-                { value: 1234.56789, result: '$1.23K' },
-                { value: 1234.56789, result: '+$1.23K', withSign: true },
-                { value: 1234567.89012, result: '$1.23M' },
-                { value: 1234567890.12345, result: '$1.23B' },
-                { value: 1234567890123.45678, result: '$1.23T' },
-                { value: 1234567890123456.78901, result: '$1.23 x 10^15' },
+                { value: 0.001_234_567_8, result: '$0.00' },
+                { value: 0.001_234_567_8, result: '+$0.00', withSign: true },
+                { value: 0.012_345_678, result: '$0.01' },
+                { value: 0.123_456_78, result: '$0.12' },
+                { value: 123.456_78, result: '$123.46' },
+                { value: 1234.567_89, result: '$1.23K' },
+                { value: 1234.567_89, result: '+$1.23K', withSign: true },
+                { value: 1_234_567.890_12, result: '$1.23M' },
+                { value: 1_234_567_890.123_45, result: '$1.23B' },
+                { value: 1_234_567_890_123.456_78, result: '$1.23T' },
+                { value: 1_234_567_890_123_456.789_01, result: '$1.23 x 10^15' },
             ])('formats $value as $result using short format', ({ value, result, ...options }) => {
                 expect(
                     formatterUtils.formatNumber(value, { format: NumberFormat.FIAT_TOTAL_SHORT, ...options }),
@@ -121,20 +121,20 @@ describe('formatter utils', () => {
             test.each([
                 { value: -1234.5678, result: '-1,234.5678' },
                 { value: -1234.5678, result: '-1.234,5678', locale: 'de' },
-                { value: -0.0123456789012345678, result: '-0.012345678901234568' },
+                { value: -0.012_345_678_901_234_567_8, result: '-0.012345678901234568' },
                 { value: 0, result: '0' },
                 { value: 0.0012, result: '0.0012' },
                 { value: 0.0012, result: '+0.0012', withSign: true },
-                { value: 0.0123456789012345678, result: '0.012345678901234568' },
-                { value: 0.12345678901234567, result: '0.12345678901234566' },
+                { value: 0.012_345_678_901_234_567_8, result: '0.012345678901234568' },
+                { value: 0.123_456_789_012_345_67, result: '0.12345678901234566' },
                 { value: 123.4567, result: '123.4567' },
                 { value: 1234, result: '1,234' },
                 { value: 1234, result: '+1,234', withSign: true },
                 { value: 1234.5678, result: '1,234.5678' },
-                { value: 1234567.8901, result: '1,234,567.8901' },
-                { value: 1234567890.1234, result: '1,234,567,890.1234' },
-                { value: 1234567890123.4567, result: '1,234,567,890,123.4568' },
-                { value: 1234567890123456.789, result: '1,234,567,890,123,456.8' },
+                { value: 1_234_567.8901, result: '1,234,567.8901' },
+                { value: 1_234_567_890.1234, result: '1,234,567,890.1234' },
+                { value: 1_234_567_890_123.4567, result: '1,234,567,890,123.4568' },
+                { value: 1_234_567_890_123_456.789, result: '1,234,567,890,123,456.8' },
             ])('formats $value as $result using long format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(
@@ -150,15 +150,15 @@ describe('formatter utils', () => {
                 { value: 0, result: '0' },
                 { value: 0.0012, result: '0.00' },
                 { value: 0.005, result: '0.01' },
-                { value: 0.0123456789012345678, result: '0.01' },
-                { value: 0.12345678901234567, result: '0.12' },
+                { value: 0.012_345_678_901_234_567_8, result: '0.01' },
+                { value: 0.123_456_789_012_345_67, result: '0.12' },
                 { value: 123.4567, result: '123.46' },
                 { value: 1234, result: '1.23K' },
                 { value: 1234.5678, result: '1.23K' },
-                { value: 1234567.8901, result: '1.23M' },
-                { value: 1234567890.1234, result: '1.23B' },
-                { value: 1234567890123.4567, result: '1.23T' },
-                { value: 1234567890123456.789, result: '1.23 x 10^15' },
+                { value: 1_234_567.8901, result: '1.23M' },
+                { value: 1_234_567_890.1234, result: '1.23B' },
+                { value: 1_234_567_890_123.4567, result: '1.23T' },
+                { value: 1_234_567_890_123_456.789, result: '1.23 x 10^15' },
             ])('formats $value as $result using short format', ({ value, result, locale }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_AMOUNT_SHORT })).toEqual(result);
@@ -167,21 +167,21 @@ describe('formatter utils', () => {
 
         describe('token prices', () => {
             test.each([
-                { value: -1234.56789, result: '-$1,234.57' },
-                { value: -1234.56789, result: '-1.234,57 $', locale: 'de' },
-                { value: -0.0012345678, result: '-$0.001235' },
+                { value: -1234.567_89, result: '-$1,234.57' },
+                { value: -1234.567_89, result: '-1.234,57 $', locale: 'de' },
+                { value: -0.001_234_567_8, result: '-$0.001235' },
                 { value: 0, result: 'Unknown' },
-                { value: 0.0012345678, result: '$0.001235' },
-                { value: 0.0012345678, result: '+$0.001235', withSign: true },
-                { value: 0.012345678, result: '$0.01235' },
-                { value: 0.12345678, result: '$0.1235' },
-                { value: 123.45678, result: '$123.46' },
-                { value: 1234.56789, result: '$1,234.57' },
-                { value: 1234.56789, result: '+$1,234.57', withSign: true },
-                { value: 1234567.89012, result: '$1,234,567.89' },
-                { value: 1234567890.12345, result: '$1,234,567,890.12' },
-                { value: 1234567890123.45678, result: '$1,234,567,890,123.46' },
-                { value: 1234567890123456.78901, result: '$1,234,567,890,123,456.80' },
+                { value: 0.001_234_567_8, result: '$0.001235' },
+                { value: 0.001_234_567_8, result: '+$0.001235', withSign: true },
+                { value: 0.012_345_678, result: '$0.01235' },
+                { value: 0.123_456_78, result: '$0.1235' },
+                { value: 123.456_78, result: '$123.46' },
+                { value: 1234.567_89, result: '$1,234.57' },
+                { value: 1234.567_89, result: '+$1,234.57', withSign: true },
+                { value: 1_234_567.890_12, result: '$1,234,567.89' },
+                { value: 1_234_567_890.123_45, result: '$1,234,567,890.12' },
+                { value: 1_234_567_890_123.456_78, result: '$1,234,567,890,123.46' },
+                { value: 1_234_567_890_123_456.789_01, result: '$1,234,567,890,123,456.80' },
             ])('formats $value as $result using token format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_PRICE, ...options })).toEqual(
@@ -194,18 +194,18 @@ describe('formatter utils', () => {
             test.each([
                 { value: -1, result: '-100.00%' },
                 { value: -1, result: '-100,00%', locale: 'it' },
-                { value: -0.999001, result: '-99.90%' },
-                { value: -0.00012345, result: '-0.01%' },
+                { value: -0.999_001, result: '-99.90%' },
+                { value: -0.000_123_45, result: '-0.01%' },
                 { value: 0, result: '0.00%' },
                 { value: 0, result: '0.00%', withSign: true },
-                { value: 0.00012345, result: '0.01%' },
-                { value: 0.0012345, result: '0.12%' },
-                { value: 0.012345, result: '1.23%' },
-                { value: 0.12345, result: '12.35%' },
-                { value: 0.12345, result: '+12.35%', withSign: true },
-                { value: 0.510001, result: '51.00%' },
+                { value: 0.000_123_45, result: '0.01%' },
+                { value: 0.001_234_5, result: '0.12%' },
+                { value: 0.012_345, result: '1.23%' },
+                { value: 0.123_45, result: '12.35%' },
+                { value: 0.123_45, result: '+12.35%', withSign: true },
+                { value: 0.510_001, result: '51.00%' },
                 { value: 0.9985, result: '99.85%' },
-                { value: 0.999001, result: '99.90%' },
+                { value: 0.999_001, result: '99.90%' },
                 { value: 1, result: '100.00%' },
             ])('formats $value as $result using long format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
@@ -215,21 +215,21 @@ describe('formatter utils', () => {
             });
 
             test.each([
-                { value: -0.999001, result: '-99.9%' },
-                { value: -0.999001, result: '-99,9%', locale: 'it' },
-                { value: -0.12345, result: '-12.3%' },
-                { value: -0.00012345, result: '-0%' },
+                { value: -0.999_001, result: '-99.9%' },
+                { value: -0.999_001, result: '-99,9%', locale: 'it' },
+                { value: -0.123_45, result: '-12.3%' },
+                { value: -0.000_123_45, result: '-0%' },
                 { value: 0, result: '0%' },
-                { value: 0.00012345, result: '0%' },
-                { value: 0.00012345, result: '+0%', withSign: true },
-                { value: 0.0012345, result: '0.1%' },
-                { value: 0.012345, result: '1.2%' },
-                { value: 0.12345, result: '12.3%' },
-                { value: 0.12345, result: '+12.3%', withSign: true },
-                { value: 0.510001, result: '51%' },
+                { value: 0.000_123_45, result: '0%' },
+                { value: 0.000_123_45, result: '+0%', withSign: true },
+                { value: 0.001_234_5, result: '0.1%' },
+                { value: 0.012_345, result: '1.2%' },
+                { value: 0.123_45, result: '12.3%' },
+                { value: 0.123_45, result: '+12.3%', withSign: true },
+                { value: 0.510_001, result: '51%' },
                 { value: 0.9985, result: '99.9%' },
-                { value: 0.999001, result: '99.9%' },
-                { value: 0.999001, result: '+99.9%', withSign: true },
+                { value: 0.999_001, result: '99.9%' },
+                { value: 0.999_001, result: '+99.9%', withSign: true },
                 { value: 1, result: '100%' },
             ])('formats $value as $result using short format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
@@ -257,7 +257,7 @@ describe('formatter utils', () => {
             });
 
             it('supports dates in milliseconds format', () => {
-                const date = 1613984914000;
+                const date = 1_613_984_914_000;
                 expect(formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
                     'February 22, 2021 at 09:08',
                 );
@@ -277,16 +277,16 @@ describe('formatter utils', () => {
                 { value: '2024-10-22T00:10:12', result: 'yesterday at 00:10', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-24T23:59:59', result: 'tomorrow at 23:59', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-25T00:00:00', result: 'October 25, 2024 at 00:00', now: '2024-10-23T15:33:12' },
-            ])(
-                'formats $value as $result using YEAR_MONTH_DAY_TIME format (now: $now)',
-                ({ now, value, result, locale }) => {
-                    setLocale({ date: locale });
-                    setTime(now);
-                    expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
-                        result,
-                    );
-                },
-            );
+            ])('formats $value as $result using YEAR_MONTH_DAY_TIME format (now: $now)', ({
+                now,
+                value,
+                result,
+                locale,
+            }) => {
+                setLocale({ date: locale });
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(result);
+            });
         });
 
         describe('YEAR_MONTH_DAY format', () => {
@@ -300,14 +300,16 @@ describe('formatter utils', () => {
                 { value: '2001-05-19T22:05:01', result: 'yesterday', now: '2001-05-20T05:05:00' },
                 { value: '2001-05-18T23:05:01', result: 'May 18, 2001', now: '2001-05-20T05:05:00' },
                 { value: '2001-05-22T00:00:01', result: 'May 22, 2001', now: '2001-05-20T05:05:00' },
-            ])(
-                'formats $value as $result using YEAR_MONTH_DAY format (now: $now)',
-                ({ now, value, result, locale }) => {
-                    setLocale({ date: locale });
-                    setTime(now);
-                    expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
-                },
-            );
+            ])('formats $value as $result using YEAR_MONTH_DAY format (now: $now)', ({
+                now,
+                value,
+                result,
+                locale,
+            }) => {
+                setLocale({ date: locale });
+                setTime(now);
+                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
+            });
         });
 
         describe('YEAR_MONTH format', () => {

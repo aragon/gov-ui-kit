@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import type React from 'react';
 import {
     Avatar,
-    responsiveUtils,
     type AvatarSize,
     type IAvatarProps,
     type ResponsiveAttributeClassMap,
+    responsiveUtils,
 } from '../../../../core';
 
 export interface IDaoAvatarProps extends Omit<IAvatarProps, 'fallback'> {
@@ -77,12 +77,10 @@ export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
 
     return (
         <Avatar
-            size={size}
-            responsiveSize={responsiveSize}
             fallback={
                 <span
                     className={classNames(
-                        'bg-primary-400 text-neutral-0 flex size-full items-center justify-center rounded-full leading-tight',
+                        'flex size-full items-center justify-center rounded-full bg-primary-400 text-neutral-0 leading-tight',
                         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
                         className,
                     )}
@@ -90,6 +88,8 @@ export const DaoAvatar: React.FC<IDaoAvatarProps> = (props) => {
                     {daoInitials}
                 </span>
             }
+            responsiveSize={responsiveSize}
+            size={size}
             {...otherProps}
         />
     );
@@ -114,7 +114,6 @@ function getDaoInitials(name: IDaoAvatarProps['name']): string {
     const words = trimmedName.split(' ');
     if (words.length < 2) {
         return words[0][0] + words[0][1];
-    } else {
-        return words[0][0] + words[1][0];
     }
+    return words[0][0] + words[1][0];
 }

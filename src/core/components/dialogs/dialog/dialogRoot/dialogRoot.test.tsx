@@ -8,7 +8,7 @@ describe('<Dialog.Root/> component', () => {
             ...props,
         };
 
-        return <DialogRoot hiddenTitle="title" hiddenDescription="description" {...completeProps} />;
+        return <DialogRoot hiddenDescription="description" hiddenTitle="title" {...completeProps} />;
     };
 
     it('does not render the dialog by default', () => {

@@ -5,7 +5,7 @@ import { modulesCopy } from '../../../../assets';
 import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
-import { type IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
+import type { IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';
 
 jest.mock('wagmi', () => ({ ...jest.requireActual<typeof wagmi>('wagmi'), useConnection: jest.fn() }));
 
@@ -78,7 +78,7 @@ describe('<ProposalDataListItemStructure/> component', () => {
 
         render(createTestComponent({ publisher: publishers }));
 
-        expect(screen.getByText(`3+ creators`)).toBeInTheDocument();
+        expect(screen.getByText('3+ creators')).toBeInTheDocument();
     });
 
     it('renders with the given properties', () => {

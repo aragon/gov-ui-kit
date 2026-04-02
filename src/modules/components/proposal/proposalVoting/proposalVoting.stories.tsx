@@ -30,19 +30,19 @@ const tokenVotes: IVoteDataListItemStructureProps[] = [
         voter: { address: '0x17366cae2b9c6C3055e9e3C78936a69006BE5409', name: 'cgero.eth' },
         isDelegate: true,
         voteIndicator: 'yes',
-        votingPower: 47289374,
+        votingPower: 47_289_374,
         tokenSymbol: 'ARA',
     },
     {
         voter: { address: '0xd5fb864ACfD6BB2f72939f122e89fF7F475924f5', name: 'sio.eth' },
         voteIndicator: 'yes',
-        votingPower: 1238948,
+        votingPower: 1_238_948,
         tokenSymbol: 'ARA',
     },
     {
         voter: { address: '0xF6ad40D5D477ade0C640eaD49944bdD0AA1fBF05' },
         voteIndicator: 'no',
-        votingPower: 849500,
+        votingPower: 849_500,
         tokenSymbol: 'ARA',
     },
 ];
@@ -67,20 +67,20 @@ const safeBrand = { logo: 'https://app.safe.global/images/safe-logo-green.png', 
 const TokenVotingContent: React.FC = () => (
     <>
         <ProposalVoting.BreakdownToken
-            tokenSymbol="ARA"
-            totalYes={getTotalVotes(tokenVotes, 'yes')}
-            totalNo={getTotalVotes(tokenVotes, 'no')}
-            totalAbstain={getTotalVotes(tokenVotes, 'abstain')}
-            supportThreshold={50}
             minParticipation={15}
-            tokenTotalSupply={9451231259}
+            supportThreshold={50}
+            tokenSymbol="ARA"
+            tokenTotalSupply={9_451_231_259}
+            totalAbstain={getTotalVotes(tokenVotes, 'abstain')}
+            totalNo={getTotalVotes(tokenVotes, 'no')}
+            totalYes={getTotalVotes(tokenVotes, 'yes')}
         >
-            <Button variant="primary" size="md" className="md:self-start">
+            <Button className="md:self-start" size="md" variant="primary">
                 Vote on proposal
             </Button>
         </ProposalVoting.BreakdownToken>
         <ProposalVoting.Votes>
-            <DataList.Root itemsCount={tokenVotes.length} entityLabel="Votes">
+            <DataList.Root entityLabel="Votes" itemsCount={tokenVotes.length}>
                 <DataList.Container>
                     {tokenVotes.map((vote) => (
                         <VoteDataListItem.Structure key={vote.voter.address} {...vote} />
@@ -105,9 +105,9 @@ const TokenVotingContent: React.FC = () => (
 
 const MultisigContent: React.FC = () => (
     <>
-        <ProposalVoting.BreakdownMultisig approvalsAmount={multisigVotes.length} minApprovals={4} membersCount={10} />
+        <ProposalVoting.BreakdownMultisig approvalsAmount={multisigVotes.length} membersCount={10} minApprovals={4} />
         <ProposalVoting.Votes>
-            <DataList.Root itemsCount={multisigVotes.length} entityLabel="Votes">
+            <DataList.Root entityLabel="Votes" itemsCount={multisigVotes.length}>
                 <DataList.Container>
                     {multisigVotes.map((vote) => (
                         <VoteDataListItem.Structure key={vote.voter.address} {...vote} />
@@ -120,7 +120,7 @@ const MultisigContent: React.FC = () => (
             settings={[
                 { term: 'Strategy', definition: '1 Address → 1 Vote' },
                 { term: 'Voting options', definition: 'Approve' },
-                { term: 'Minimum approval', definition: `4 of 5` },
+                { term: 'Minimum approval', definition: '4 of 5' },
             ]}
         />
     </>
@@ -140,11 +140,11 @@ export const SimpleGovernance: Story = {
     args: { className: 'max-w-140' },
     render: (args) => (
         <ProposalVoting.Container
-            status={ProposalStatus.ACTIVE}
             endDate={DateTime.now().plus({ days: 2 }).toMillis()}
+            status={ProposalStatus.ACTIVE}
             {...args}
         >
-            <ProposalVoting.BodyContent status={ProposalStatus.ACTIVE} name="0xc273…74C7">
+            <ProposalVoting.BodyContent name="0xc273…74C7" status={ProposalStatus.ACTIVE}>
                 <TokenVotingContent />
             </ProposalVoting.BodyContent>
         </ProposalVoting.Container>
@@ -159,7 +159,7 @@ export const SingleStage: Story = {
     render: (args) => (
         <ProposalVoting.StageContainer {...args}>
             <ProposalVoting.Stage name="Security Council Stage" status={ProposalStatus.EXPIRED}>
-                <ProposalVoting.BodyContent status={ProposalStatus.EXPIRED} name="Security Council">
+                <ProposalVoting.BodyContent name="Security Council" status={ProposalStatus.EXPIRED}>
                     <MultisigContent />
                 </ProposalVoting.BodyContent>
             </ProposalVoting.Stage>
@@ -178,25 +178,25 @@ export const MultiStage: Story = {
         return (
             <ProposalVoting.StageContainer {...args} activeStage={activeStage} onStageClick={setActiveStage}>
                 <ProposalVoting.Stage
-                    name="Token Holders Stage"
-                    status={ProposalStatus.ACTIVE}
-                    startDate={DateTime.now().toMillis()}
                     endDate={DateTime.now().plus({ days: 5 }).toMillis()}
+                    name="Token Holders Stage"
+                    startDate={DateTime.now().toMillis()}
+                    status={ProposalStatus.ACTIVE}
                 >
-                    <ProposalVoting.BodyContent status={ProposalStatus.ACTIVE} name="Token Community">
+                    <ProposalVoting.BodyContent name="Token Community" status={ProposalStatus.ACTIVE}>
                         <TokenVotingContent />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
                 <ProposalVoting.Stage name="Founders Stage" status={ProposalStatus.PENDING}>
-                    <ProposalVoting.BodyContent status={ProposalStatus.PENDING} name="Security Council">
+                    <ProposalVoting.BodyContent name="Security Council" status={ProposalStatus.PENDING}>
                         <MultisigContent />
                     </ProposalVoting.BodyContent>
                 </ProposalVoting.Stage>
                 <ProposalVoting.Stage name="Safe Stage" status={ProposalStatus.PENDING}>
                     <ProposalVoting.BodyContent
-                        status={ProposalStatus.PENDING}
-                        name="0xd100…11E9"
                         bodyBrand={safeBrand}
+                        name="0xd100…11E9"
+                        status={ProposalStatus.PENDING}
                     >
                         <ExternalBodyContent />
                     </ProposalVoting.BodyContent>
@@ -214,22 +214,22 @@ export const MultiBody: Story = {
     render: (args) => (
         <ProposalVoting.StageContainer {...args}>
             <ProposalVoting.Stage
-                name="Community Stage"
-                status={ProposalStatus.ACTIVE}
-                startDate={DateTime.now().minus({ days: 7 }).toMillis()}
-                endDate={DateTime.now().plus({ days: 10 }).toMillis()}
                 bodyList={['token', 'safe']}
+                endDate={DateTime.now().plus({ days: 10 }).toMillis()}
+                name="Community Stage"
+                startDate={DateTime.now().minus({ days: 7 }).toMillis()}
+                status={ProposalStatus.ACTIVE}
             >
                 <ProposalVoting.BodySummary>
                     <ProposalVoting.BodySummaryList>
                         <ProposalVoting.BodySummaryListItem id="token">
                             <div className="flex grow flex-col gap-3">
                                 <p className="text-neutral-800">Token Holders</p>
-                                <Progress variant="neutral" value={30} thresholdIndicator={60} />
+                                <Progress thresholdIndicator={60} value={30} variant="neutral" />
                                 <p className="text-neutral-800">30 of 60 ARA</p>
                             </div>
                         </ProposalVoting.BodySummaryListItem>
-                        <ProposalVoting.BodySummaryListItem id="safe" bodyBrand={safeBrand}>
+                        <ProposalVoting.BodySummaryListItem bodyBrand={safeBrand} id="safe">
                             Founders Approval
                         </ProposalVoting.BodySummaryListItem>
                     </ProposalVoting.BodySummaryList>
@@ -237,15 +237,15 @@ export const MultiBody: Story = {
                         <span className="text-neutral-800">1 body</span> required to approve
                     </p>
                 </ProposalVoting.BodySummary>
-                <ProposalVoting.BodyContent name="Token Holders" status={ProposalStatus.ACTIVE} bodyId="token">
+                <ProposalVoting.BodyContent bodyId="token" name="Token Holders" status={ProposalStatus.ACTIVE}>
                     <TokenVotingContent />
                 </ProposalVoting.BodyContent>
                 <ProposalVoting.BodyContent
+                    bodyBrand={safeBrand}
+                    bodyId="safe"
+                    hideTabs={[ProposalVotingTab.VOTES]}
                     name="founders.safe.eth"
                     status={ProposalStatus.ACTIVE}
-                    bodyId="safe"
-                    bodyBrand={safeBrand}
-                    hideTabs={[ProposalVotingTab.VOTES]}
                 >
                     <ExternalBodyContent />
                 </ProposalVoting.BodyContent>

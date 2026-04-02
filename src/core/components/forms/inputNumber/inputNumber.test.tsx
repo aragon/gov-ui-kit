@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import * as InputHooks from '../hooks';
-import { InputNumber, type IInputNumberProps } from './inputNumber';
+import { type IInputNumberProps, InputNumber } from './inputNumber';
 
 describe('<InputNumber /> component', () => {
     const useNumberMaskMock = jest.spyOn(InputHooks, 'useNumberMask');

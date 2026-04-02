@@ -4,6 +4,7 @@ import type { ResponsiveAttribute, ResponsiveAttributeClassMap, ResponsiveSizeKe
 class ResponsiveUtils {
     generateClassNames<TSize extends ResponsiveSizeKey>(
         size: TSize,
+        // biome-ignore lint/style/useDefaultParameterLast: parameter order is part of the public API
         responsiveSize: ResponsiveAttribute<TSize> = {},
         classes: ResponsiveAttributeClassMap<TSize>,
     ): string {

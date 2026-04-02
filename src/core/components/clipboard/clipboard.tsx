@@ -48,19 +48,19 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
             {children}
             {(variant === 'avatar' || variant === 'avatar-white-bg') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <button type="button" className="cursor-pointer" onClick={handleCopyClick}>
+                    <button className="cursor-pointer" onClick={handleCopyClick} type="button">
                         <AvatarIcon
-                            variant="primary"
                             backgroundWhite={variant === 'avatar-white-bg'}
                             icon={icon}
                             size={size}
+                            variant="primary"
                         />
                     </button>
                 </Tooltip>
             )}
             {variant === 'button' && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <Button variant="tertiary" iconLeft={icon} size={size} onClick={handleCopyClick} />
+                    <Button iconLeft={icon} onClick={handleCopyClick} size={size} variant="tertiary" />
                 </Tooltip>
             )}
         </div>

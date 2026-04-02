@@ -1,21 +1,21 @@
 import { useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames';
-import { forwardRef, useEffect, useRef, useState, type ChangeEvent, type FocusEvent } from 'react';
-import { type Address } from 'viem';
+import { type ChangeEvent, type FocusEvent, forwardRef, useEffect, useRef, useState } from 'react';
+import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
-import { useConfig, useEnsAddress, useEnsName, type UseEnsAddressParameters, type UseEnsNameParameters } from 'wagmi';
+import { type UseEnsAddressParameters, type UseEnsNameParameters, useConfig, useEnsAddress, useEnsName } from 'wagmi';
 import {
     Button,
     Clipboard,
     clipboardUtils,
     IconType,
+    type IInputComponentProps,
     InputContainer,
     mergeRefs,
     Spinner,
     useDebouncedValue,
     useInputProps,
-    type IInputComponentProps,
 } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
@@ -35,7 +35,8 @@ export interface IAddressInputResolvedValue {
 }
 
 export interface IAddressInputProps
-    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>, IWeb3ComponentProps {
+    extends Omit<IInputComponentProps<HTMLTextAreaElement>, 'maxLength' | 'value' | 'onChange'>,
+        IWeb3ComponentProps {
     /**
      * Current value of the address input.
      */
@@ -257,7 +258,7 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
             const newHeight = `${inputRef.current.scrollHeight.toString()}px`;
             inputRef.current.style.height = newHeight;
         }
-    }, [value, isFocused]);
+    }, []);
 
     const alert = hasChecksumError
         ? { message: copy.addressInput.checksum, variant: 'critical' as const }
@@ -279,65 +280,65 @@ export const AddressInput = forwardRef<HTMLTextAreaElement, IAddressInputProps>(
     return (
         <InputContainer {...containerProps} alert={alert}>
             <div className="ml-3 shrink-0">
-                {isLoading && <Spinner variant="neutral" size="lg" />}
+                {isLoading && <Spinner size="lg" variant="neutral" />}
                 {!isLoading && <MemberAvatar address={addressValue} chainId={ensChainId} wagmiConfig={wagmiConfig} />}
             </div>
             <textarea
-                type="text"
-                ref={mergeRefs([ref, inputRef])}
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                rows={1}
                 className={classNames(
                     // min-h-11 is required to prevent placeholder displacement
-                    '!md:px-4 min-h-11 resize-none px-3!',
+                    'min-h-11 resize-none !md:px-4 px-3!',
                     { 'whitespace-normal': isFocused },
                     inputClassName,
                 )}
+                onBlur={handleInputBlur}
+                onFocus={handleInputFocus}
+                ref={mergeRefs([ref, inputRef])}
+                rows={1}
+                type="text"
                 {...otherInputProps}
-                value={processedValue}
                 onChange={handleInputChange}
+                value={processedValue}
             />
             {!hideControls && (
                 <div className="mr-2 flex flex-row gap-2">
                     {canToggleToAddress && (
-                        <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                        <Button className="min-w-max" onClick={toggleDisplayMode} size="sm" variant="tertiary">
                             0x…
                         </Button>
                     )}
                     {canToggleToEns && (
-                        <Button variant="tertiary" size="sm" onClick={toggleDisplayMode} className="min-w-max">
+                        <Button className="min-w-max" onClick={toggleDisplayMode} size="sm" variant="tertiary">
                             ENS
                         </Button>
                     )}
                     {addressValue != null && !isFocused && (
                         <>
-                            {addressUrl != null ? (
+                            {addressUrl == null ? (
                                 <Button
-                                    variant="tertiary"
-                                    size="sm"
-                                    href={addressUrl}
-                                    target="_blank"
+                                    disabled={true}
                                     iconLeft={IconType.LINK_EXTERNAL}
+                                    size="sm"
+                                    variant="tertiary"
                                 />
                             ) : (
                                 <Button
-                                    variant="tertiary"
-                                    size="sm"
+                                    href={addressUrl}
                                     iconLeft={IconType.LINK_EXTERNAL}
-                                    disabled={true}
+                                    size="sm"
+                                    target="_blank"
+                                    variant="tertiary"
                                 />
                             )}
                             <Clipboard copyValue={value} variant="button" />
                         </>
                     )}
                     {value.length > 0 && isFocused && (
-                        <Button variant="tertiary" size="sm" onMouseDown={handleClearClick}>
+                        <Button onMouseDown={handleClearClick} size="sm" variant="tertiary">
                             {copy.addressInput.clear}
                         </Button>
                     )}
                     {value.length === 0 && (
-                        <Button variant="tertiary" size="sm" onClick={handlePasteClick}>
+                        <Button onClick={handlePasteClick} size="sm" variant="tertiary">
                             {copy.addressInput.paste}
                         </Button>
                     )}

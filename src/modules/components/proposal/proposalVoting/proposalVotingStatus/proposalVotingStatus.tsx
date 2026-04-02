@@ -96,9 +96,9 @@ export const ProposalVotingStatus: React.FC<IProposalVotingStatusProps> = (props
     if (status === ProposalStatus.ADVANCEABLE) {
         return (
             <ProposalVotingStatusAdvanceable
-                minAdvance={minAdvance}
-                maxAdvance={maxAdvance}
                 className={className}
+                maxAdvance={maxAdvance}
+                minAdvance={minAdvance}
                 {...otherProps}
             />
         );

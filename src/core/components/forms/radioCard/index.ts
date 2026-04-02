@@ -1,1 +1,1 @@
-export { RadioCard, type IRadioCardProps } from './radioCard';
+export { type IRadioCardProps, RadioCard } from './radioCard';

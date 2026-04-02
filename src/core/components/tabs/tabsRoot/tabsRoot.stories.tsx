@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Tabs, type ITabsRootProps } from '..';
 import { Card } from '../../cards';
 import { IconType } from '../../icon';
+import { type ITabsRootProps, Tabs } from '..';
 
 /**
  * Tabs.Root can contain multiple Tabs.Triggers inside it's requisite Tabs.List. These tabs will coordinate with what Tabs.Content to show by matching their value prop.
@@ -24,21 +24,21 @@ const reusableStoryComponent = (props: ITabsRootProps) => {
         <Tabs.Root {...props}>
             <Tabs.List>
                 <Tabs.Trigger label="Default Tab" value="1" />
-                <Tabs.Trigger label="Disabled Tab" value="2" disabled={true} />
-                <Tabs.Trigger label="Icon Tab" value="3" iconRight={IconType.BLOCKCHAIN_BLOCK} />
+                <Tabs.Trigger disabled={true} label="Disabled Tab" value="2" />
+                <Tabs.Trigger iconRight={IconType.BLOCKCHAIN_BLOCK} label="Icon Tab" value="3" />
             </Tabs.List>
             <Tabs.Content value="1">
-                <div className="border-info-300 bg-info-100 flex h-24 w-96 items-center justify-center border border-dashed">
+                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
                     Item 1 Content
                 </div>
             </Tabs.Content>
             <Tabs.Content value="2">
-                <div className="border-info-300 bg-info-100 flex h-24 w-96 items-center justify-center border border-dashed">
+                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
                     Item 2 Content
                 </div>
             </Tabs.Content>
             <Tabs.Content value="3">
-                <div className="border-info-300 bg-info-100 flex h-24 w-96 items-center justify-center border border-dashed">
+                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
                     Item 3 Content
                 </div>
             </Tabs.Content>
@@ -82,7 +82,7 @@ export const SingleTab: Story = {
                 <Tabs.Trigger label="Default Tab" value="1" />
             </Tabs.List>
             <Tabs.Content value="1">
-                <div className="border-info-300 bg-info-100 flex h-24 w-96 items-center justify-center border border-dashed">
+                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
                     Item 1 Content
                 </div>
             </Tabs.Content>

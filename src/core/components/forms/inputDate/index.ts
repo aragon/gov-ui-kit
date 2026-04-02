@@ -1,1 +1,1 @@
-export { InputDate, type IInputDateProps } from './inputDate';
+export { type IInputDateProps, InputDate } from './inputDate';

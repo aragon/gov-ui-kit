@@ -72,7 +72,7 @@ export const Controlled: Story = {
         const [isOpen, setIsOpen] = useState(false);
 
         return (
-            <Dropdown.Container open={isOpen} onOpenChange={setIsOpen} {...props}>
+            <Dropdown.Container onOpenChange={setIsOpen} open={isOpen} {...props}>
                 <Dropdown.Item>Controlled item</Dropdown.Item>
             </Dropdown.Container>
         );
@@ -87,7 +87,7 @@ export const Controlled: Story = {
  */
 export const WithMaxWidth: Story = {
     render: (props: IDropdownContainerProps) => (
-        <Dropdown.Container {...props} label="Max width" constrainContentWidth={false} contentClassNames="max-w-52">
+        <Dropdown.Container {...props} constrainContentWidth={false} contentClassNames="max-w-52" label="Max width">
             <Dropdown.Item>
                 A vert long description for the dropdown item that will eventualy be truncated
             </Dropdown.Item>
@@ -107,7 +107,7 @@ const SelectionComponent = (props: IDropdownContainerProps) => {
     return (
         <Dropdown.Container {...props}>
             {items.map(({ id, label }) => (
-                <Dropdown.Item key={id} selected={selectedItem === id} onSelect={() => setSelectedItem(id)}>
+                <Dropdown.Item key={id} onSelect={() => setSelectedItem(id)} selected={selectedItem === id}>
                     {label}
                 </Dropdown.Item>
             ))}

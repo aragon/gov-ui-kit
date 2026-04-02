@@ -1,5 +1,5 @@
 export {
-    ProposalActionsFooter,
     type IProposalActionsFooterDropdownItem,
     type IProposalActionsFooterProps,
+    ProposalActionsFooter,
 } from './proposalActionsFooter';

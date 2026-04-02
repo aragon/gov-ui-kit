@@ -54,12 +54,12 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
         <DataList.Item className={classNames('flex flex-col gap-4 p-4 pt-1 pb-4', className)}>
             <DefinitionList.Container>
                 <DefinitionList.Item term={copy.actionSimulation.totalActionsTerm}>
-                    {`${totalActions.toString()} ${totalActions !== 1 ? simulationCopy.actions : simulationCopy.action}`}
+                    {`${totalActions.toString()} ${totalActions === 1 ? simulationCopy.action : simulationCopy.actions}`}
                 </DefinitionList.Item>
 
                 <DefinitionList.Item term={copy.actionSimulation.lastSimulationTerm}>
                     {isLoading ? (
-                        <span className="text-primary-400 flex items-center gap-2 md:gap-3">
+                        <span className="flex items-center gap-2 text-primary-400 md:gap-3">
                             <Spinner size="md" variant="primary" />
                             {simulationCopy.simulating}
                         </span>
@@ -72,7 +72,7 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                     <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-2">
                             {isLoading ? (
-                                <span className="text-primary-400 flex items-center gap-2 md:gap-3">
+                                <span className="flex items-center gap-2 text-primary-400 md:gap-3">
                                     <Spinner size="md" variant="primary" />
                                     {simulationCopy.simulating}
                                 </span>
@@ -93,7 +93,7 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
 
             <div className={classNames('flex flex-col gap-2 md:flex-row md:justify-between')}>
                 {isEnabled && (
-                    <Button variant="secondary" size="md" onClick={onSimulate} isLoading={isLoading}>
+                    <Button isLoading={isLoading} onClick={onSimulate} size="md" variant="secondary">
                         {isLoading
                             ? copy.actionSimulation.simulating
                             : lastSimulation
@@ -102,29 +102,29 @@ export const ActionSimulation: React.FC<IActionSimulationProps> = (props) => {
                     </Button>
                 )}
 
-                {lastSimulation?.url != null ? (
+                {lastSimulation?.url == null ? (
                     <Button
-                        variant={lastSimulation.status === 'failed' ? 'warning' : 'tertiary'}
-                        size="md"
-                        href={lastSimulation.url}
-                        target="_blank"
+                        disabled={true}
                         iconRight={IconType.LINK_EXTERNAL}
+                        size="md"
+                        variant={lastSimulation?.status === 'failed' ? 'warning' : 'tertiary'}
                     >
                         {copy.actionSimulation.viewOnTenderly}
                     </Button>
                 ) : (
                     <Button
-                        variant={lastSimulation?.status === 'failed' ? 'warning' : 'tertiary'}
-                        size="md"
-                        disabled={true}
+                        href={lastSimulation.url}
                         iconRight={IconType.LINK_EXTERNAL}
+                        size="md"
+                        target="_blank"
+                        variant={lastSimulation.status === 'failed' ? 'warning' : 'tertiary'}
                     >
                         {copy.actionSimulation.viewOnTenderly}
                     </Button>
                 )}
             </div>
             {error && (
-                <div className="text-critical-800 flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2 text-critical-800 text-sm">
                     <AvatarIcon icon={IconType.INFO} size="sm" variant="critical" />
                     {error}
                 </div>

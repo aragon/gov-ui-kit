@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { testLogger } from '../../../test';
 import { dataListTestUtils } from '../dataListTestUtils';
-import { DataListContextProvider, useDataListContext, type IDataListContext } from './dataListContext';
+import { DataListContextProvider, type IDataListContext, useDataListContext } from './dataListContext';
 
 describe('useDataListContext hook', () => {
     const createTestWrapper = (context?: Partial<IDataListContext>) =>

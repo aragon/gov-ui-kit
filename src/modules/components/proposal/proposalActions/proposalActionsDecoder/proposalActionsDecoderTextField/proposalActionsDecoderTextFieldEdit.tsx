@@ -1,9 +1,9 @@
-import { useEffect, type ChangeEvent } from 'react';
+import { type ChangeEvent, useEffect } from 'react';
 import { useController } from 'react-hook-form';
 import { InputText, TextArea } from '../../../../../../core';
 import { useFormContext } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
-import { proposalActionsDecoderUtils, type ProposalActionsFieldValue } from '../proposalActionsDecoderUtils';
+import { type ProposalActionsFieldValue, proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
 import type { IProposalActionsDecoderTextFieldComponentProps } from './proposalActionsDecoderTextField.api';
 
 export interface IProposalActionsDecoderTextFieldEditProps extends IProposalActionsDecoderTextFieldComponentProps {}
@@ -27,7 +27,7 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
 
     const { fieldState, field } = useController<Record<string, ProposalActionsFieldValue>>({
         name: fieldName,
-        rules: { validate: !isArrayType ? validateFunction : undefined },
+        rules: { validate: isArrayType ? undefined : validateFunction },
     });
 
     const { error } = fieldState;
@@ -56,11 +56,11 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
         }
     };
 
-    const alert = error?.message != null ? { message: error.message, variant: 'critical' as const } : undefined;
+    const alert = error?.message == null ? undefined : { message: error.message, variant: 'critical' as const };
     const Component = component === 'textarea' ? TextArea : InputText;
     const processedValue = fieldValue?.toString() ?? '';
 
     return (
-        <Component value={processedValue} onChange={handleFieldChange} alert={alert} {...fieldProps} {...otherProps} />
+        <Component alert={alert} onChange={handleFieldChange} value={processedValue} {...fieldProps} {...otherProps} />
     );
 };

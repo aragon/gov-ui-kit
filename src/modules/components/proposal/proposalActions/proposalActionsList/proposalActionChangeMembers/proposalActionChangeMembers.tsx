@@ -19,12 +19,12 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
             <div className="flex flex-wrap gap-2">
                 {action.members.map((member) => (
                     <MemberDataListItem.Structure
-                        key={member.address}
                         address={member.address}
-                        ensName={member.name}
                         avatarSrc={member.avatarSrc}
                         className="grow basis-60"
+                        ensName={member.name}
                         href={getMemberBlockExplorerLink(member.address)}
+                        key={member.address}
                         target="_blank"
                     />
                 ))}
@@ -40,7 +40,7 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                         }
                     >
                         <p className="text-neutral-500">
-                            {action.type === ProposalActionType.ADD_MEMBERS ? `+` : `-`}
+                            {action.type === ProposalActionType.ADD_MEMBERS ? '+' : '-'}
                             {action.members.length} {copy.proposalActionChangeMembers.members}
                         </p>
                     </DefinitionList.Item>
@@ -50,7 +50,7 @@ export const ProposalActionChangeMembers: React.FC<IProposalActionChangeMembersP
                         </p>
                     </DefinitionList.Item>
                 </DefinitionList.Container>
-                <p className="text-sm text-neutral-500">{copy.proposalActionChangeMembers.blockNote}</p>
+                <p className="text-neutral-500 text-sm">{copy.proposalActionChangeMembers.blockNote}</p>
             </div>
         </div>
     );

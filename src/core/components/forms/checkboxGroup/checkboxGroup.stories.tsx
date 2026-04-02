@@ -36,21 +36,21 @@ export const CheckboxCardVariant: Story = {
     render: (props) => (
         <CheckboxGroup {...props}>
             <CheckboxCard
-                label="First label"
-                description="First description"
                 avatar="first"
+                description="First description"
+                label="First label"
                 tag={{ label: 'First', variant: 'info' }}
             />
             <CheckboxCard
-                label="Second label"
-                description="Longer description for second checkbox"
                 avatar="second"
+                description="Longer description for second checkbox"
+                label="Second label"
                 tag={{ label: 'Second', variant: 'warning' }}
             />
             <CheckboxCard
-                label="Third label"
-                description="First description"
                 avatar="third"
+                description="First description"
+                label="Third label"
                 tag={{ label: 'First', variant: 'primary' }}
             />
         </CheckboxGroup>

@@ -1,7 +1,7 @@
 :root {
-  /* Accent color for the illustrations */
-  --guk-illustration-accent-color: var(--color-primary-400);
+    /* Accent color for the illustrations */
+    --guk-illustration-accent-color: var(--color-primary-400);
 
-  /* Primary color for the illustrations */
-  --guk-illustration-primary-color: var(--color-primary-900);
+    /* Primary color for the illustrations */
+    --guk-illustration-primary-color: var(--color-primary-900);
 }

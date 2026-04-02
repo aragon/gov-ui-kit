@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { useContext } from 'react';
-import { Tabs, TabsContext, type ITabsRootProps } from '../../tabs';
+import { type ITabsRootProps, Tabs, TabsContext } from '../../tabs';
 
 const TestChild: React.FC = () => {
     const context = useContext(TabsContext);

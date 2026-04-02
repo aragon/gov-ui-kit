@@ -1,8 +1,8 @@
 import { Image } from '@tiptap/extension-image';
-import { EditorContent, useEditor, type Editor } from '@tiptap/react';
+import { type Editor, EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useEffect, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, useEffect } from 'react';
 import sanitizeHtml from 'sanitize-html';
 import { Markdown } from 'tiptap-markdown';
 
@@ -17,20 +17,20 @@ export interface IDocumentParserProps extends ComponentPropsWithoutRef<'div'> {
     immediatelyRender?: boolean;
 }
 
+const sanitizeDocument = (document: string): string => {
+    const allowedTags = sanitizeHtml.defaults.allowedTags.concat(['img', 'del']);
+    const disallowedTagsMode = 'recursiveEscape';
+    const allowedAttributes = {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt'],
+        a: ['href', 'title'],
+    };
+
+    return sanitizeHtml(document, { allowedTags, allowedAttributes, disallowedTagsMode });
+};
+
 export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
     const { children, className, document, immediatelyRender, ...otherProps } = props;
-
-    const sanitizeDocument = (document: string): string => {
-        const allowedTags = sanitizeHtml.defaults.allowedTags.concat(['img', 'del']);
-        const disallowedTagsMode = 'recursiveEscape';
-        const allowedAttributes = {
-            ...sanitizeHtml.defaults.allowedAttributes,
-            img: ['src', 'alt'],
-            a: ['href', 'title'],
-        };
-
-        return sanitizeHtml(document, { allowedTags, allowedAttributes, disallowedTagsMode });
-    };
 
     const extensions = [StarterKit.configure({ link: { openOnClick: false } }), Image, Markdown];
     const parser = useEditor({
@@ -46,9 +46,9 @@ export const DocumentParser: React.FC<IDocumentParserProps> = (props) => {
 
     return (
         <EditorContent
-            editor={parser}
             className={classNames('prose prose-neutral', className)}
             data-testid="doc-parser"
+            editor={parser}
             {...otherProps}
         />
     );

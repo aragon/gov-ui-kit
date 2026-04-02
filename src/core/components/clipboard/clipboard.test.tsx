@@ -59,7 +59,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: Array<IClipboardProps['variant']> = ['avatar', 'avatar-white-bg', 'button'];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
 
         for (const variant of variants) {
             handleSubmit.mockReset();

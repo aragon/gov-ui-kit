@@ -1,14 +1,15 @@
 import classNames from 'classnames';
-import { Children, useEffect, useMemo, type ComponentProps, type ReactElement } from 'react';
+import { Children, type ComponentProps, type ReactElement, useEffect, useMemo } from 'react';
 import { CardEmptyState } from '../../cards';
 import type { IEmptyStateProps } from '../../states';
 import { useDataListContext } from '../dataListContext';
 import { DataListContainerSkeletonLoader } from './dataListContainerSkeletonLoader';
 
-export interface IDataListContainerState extends Pick<
-    IEmptyStateProps,
-    'heading' | 'description' | 'objectIllustration' | 'isStacked' | 'primaryButton' | 'secondaryButton'
-> {}
+export interface IDataListContainerState
+    extends Pick<
+        IEmptyStateProps,
+        'heading' | 'description' | 'objectIllustration' | 'isStacked' | 'primaryButton' | 'secondaryButton'
+    > {}
 
 export interface IDataListContainerProps extends ComponentProps<'div'> {
     /**
@@ -52,7 +53,7 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
     const childrenItemCount = processedChildren.length;
 
     const SkeletonLoader = SkeletonElement ?? DataListContainerSkeletonLoader;
-    const loadingItems = [...Array<number>(pageSize)];
+    const loadingItems = [...new Array(pageSize)];
 
     const paginatedChildren = useMemo(
         () => processedChildren.slice(0, pageSize * (currentPage + 1)),
@@ -77,10 +78,11 @@ export const DataListContainer: React.FC<IDataListContainerProps> = (props) => {
 
     return (
         <div
-            className={classNames('flex flex-col gap-2', applyLayoutClassName && layoutClassName, className)}
             aria-busy={displayLoadingElements}
+            className={classNames('flex flex-col gap-2', applyLayoutClassName && layoutClassName, className)}
             {...otherProps}
         >
+            {/* biome-ignore lint/suspicious/noArrayIndexKey: skeleton loaders have no stable identity */}
             {displayLoadingElements && loadingItems.map((_value, index) => <SkeletonLoader key={index} />)}
             {isError && errorState != null && (
                 <CardEmptyState

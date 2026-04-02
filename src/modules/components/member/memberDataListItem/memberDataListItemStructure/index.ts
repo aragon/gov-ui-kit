@@ -1,1 +1,1 @@
-export { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
+export { type IMemberDataListItemProps, MemberDataListItemStructure } from './memberDataListItemStructure';

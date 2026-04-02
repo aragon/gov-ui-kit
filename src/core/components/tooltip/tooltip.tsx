@@ -1,7 +1,7 @@
 import { Arrow, Content, Portal, Provider, Root, Trigger } from '@radix-ui/react-tooltip';
 import classNames from 'classnames';
 import type React from 'react';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type TooltipVariant = 'neutral' | 'info' | 'warning' | 'critical' | 'success';
 
@@ -84,18 +84,18 @@ export const Tooltip: React.FC<ITooltipProps> = (props) => {
     return (
         <Provider>
             <Root
-                open={open}
                 defaultOpen={defaultOpen}
-                onOpenChange={onOpenChange}
                 delayDuration={delayDuration}
                 disableHoverableContent={disableHoverableContent}
+                onOpenChange={onOpenChange}
+                open={open}
             >
                 <Trigger asChild={triggerAsChild}>{children}</Trigger>
                 <Portal>
                     <Content
                         className={classNames(
                             variantToContentClassName[variant],
-                            'flex min-h-6 items-center rounded-md px-1.5 text-sm leading-tight font-semibold',
+                            'flex min-h-6 items-center rounded-md px-1.5 font-semibold text-sm leading-tight',
                             className,
                         )}
                         sideOffset={1}

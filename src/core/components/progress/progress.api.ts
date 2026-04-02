@@ -1,5 +1,5 @@
-import { type HTMLAttributes } from 'react';
-import { type ResponsiveAttribute } from '../../types';
+import type { HTMLAttributes } from 'react';
+import type { ResponsiveAttribute } from '../../types';
 
 export type ProgressSize = 'sm' | 'md';
 

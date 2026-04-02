@@ -3,7 +3,7 @@ import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 import * as Utils from '../../../utils';
 import { IconType } from '../../icon';
-import { InputTime, type IInputTimeProps } from './inputTime';
+import { type IInputTimeProps, InputTime } from './inputTime';
 
 describe('<InputTime /> component', () => {
     const useRefMock = jest.spyOn(React, 'useRef');

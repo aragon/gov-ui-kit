@@ -1,0 +1,1 @@
+pnpm turbo lint:check type-check test

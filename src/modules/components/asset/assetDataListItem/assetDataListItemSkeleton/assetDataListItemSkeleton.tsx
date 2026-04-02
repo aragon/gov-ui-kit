@@ -11,13 +11,13 @@ export const AssetDataListItemSkeleton: React.FC<IAssetDataListItemSkeletonProps
 
     return (
         <DataList.Item
-            tabIndex={0}
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'bg-neutral-0 flex min-h-[70px] w-full items-center gap-x-3 gap-y-4 py-3 md:min-h-[88.5px] md:py-5',
+                'flex min-h-[70px] w-full items-center gap-x-3 gap-y-4 bg-neutral-0 py-3 md:min-h-[88.5px] md:py-5',
                 className,
             )}
+            tabIndex={0}
             {...otherProps}
         >
             <StateSkeletonCircular responsiveSize={{ md: 'lg' }} />

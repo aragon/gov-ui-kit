@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react';
 import type { InputMask } from 'imask/esm/index';
 import * as ReactIMask from 'react-imask';
 import { formatterUtils } from '../../../utils';
-import { useNumberMask, type IUseNumberMaskResult } from './useNumberMask';
+import { type IUseNumberMaskResult, useNumberMask } from './useNumberMask';
 
 // Mock react-imask library to be able to spy on the useIMask hook
 jest.mock('react-imask', () => ({ __esModule: true, ...jest.requireActual<typeof ReactIMask>('react-imask') }));

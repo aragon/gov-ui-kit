@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event';
 import * as ReactHookForm from 'react-hook-form';
 import * as useFormContext from '../../../../../hooks';
 import {
-    ProposalActionsDecoderTextFieldEdit,
     type IProposalActionsDecoderTextFieldEditProps,
+    ProposalActionsDecoderTextFieldEdit,
 } from './proposalActionsDecoderTextFieldEdit';
 
 jest.mock('react-hook-form', () => ({

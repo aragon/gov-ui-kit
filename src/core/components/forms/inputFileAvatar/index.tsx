@@ -1,2 +1,2 @@
 export { InputFileAvatar } from './inputFileAvatar';
-export { InputFileAvatarError, type IInputFileAvatarProps, type IInputFileAvatarValue } from './inputFileAvatar.api';
+export { type IInputFileAvatarProps, type IInputFileAvatarValue, InputFileAvatarError } from './inputFileAvatar.api';

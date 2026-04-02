@@ -1,1 +1,1 @@
-export { ProposalDataListItemSkeleton, type IProposalDataListItemSkeletonProps } from './proposalDataListItemSkeleton';
+export { type IProposalDataListItemSkeletonProps, ProposalDataListItemSkeleton } from './proposalDataListItemSkeleton';

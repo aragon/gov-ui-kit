@@ -16,6 +16,9 @@ dist-ssr
 storybook-static
 typechain
 
+# turbo
+.turbo
+
 # misc
 .vscode
 .idea

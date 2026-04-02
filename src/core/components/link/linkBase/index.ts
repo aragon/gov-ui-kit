@@ -1,1 +1,1 @@
-export { LinkBase, type ILinkBaseProps } from './linkBase';
+export { type ILinkBaseProps, LinkBase } from './linkBase';

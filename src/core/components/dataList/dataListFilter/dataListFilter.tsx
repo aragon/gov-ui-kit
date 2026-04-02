@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useState, type ChangeEvent, type ComponentProps } from 'react';
+import { type ChangeEvent, type ComponentProps, useState } from 'react';
 import { AvatarIcon } from '../../avatars';
 import { Button } from '../../button';
 import { useGukCoreContext } from '../../gukCoreProvider';
@@ -93,9 +93,9 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
             <div
                 className={classNames(
                     'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pr-3 md:pl-4',
-                    'bg-neutral-0 shadow-neutral-sm border-neutral-100 text-neutral-500',
-                    'text-base leading-tight font-normal',
-                    'hover:shadow-neutral hover:border-neutral-200',
+                    'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
+                    'font-normal text-base leading-tight',
+                    'hover:border-neutral-200 hover:shadow-neutral',
                     'focus-within:border-primary-400 focus-within:shadow-primary',
                     'focus-within:hover:border-primary-400 focus-within:hover:shadow-primary',
                 )}
@@ -103,56 +103,56 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                 {state !== 'loading' && (
                     <AvatarIcon icon={IconType.SEARCH} size="md" variant={isFocused ? 'primary' : 'neutral'} />
                 )}
-                {state === 'loading' && <Spinner size="lg" variant="primary" className="m-1" />}
+                {state === 'loading' && <Spinner className="m-1" size="lg" variant="primary" />}
                 <input
-                    type="search"
                     className={classNames(
                         'search-cancel-hidden size-full truncate bg-transparent pl-3 caret-neutral-500 outline-hidden',
-                        'placeholder:text-base placeholder:leading-tight placeholder:font-normal placeholder:text-neutral-300',
+                        'placeholder:font-normal placeholder:text-base placeholder:text-neutral-300 placeholder:leading-tight',
                     )}
-                    onFocus={handleInputFocus}
                     onBlur={handleInputBlur}
                     onChange={handleSearchValueChange}
+                    onFocus={handleInputFocus}
                     placeholder={placeholder}
+                    type="search"
                     value={searchValue}
                 />
                 {displayClearIcon && (
-                    <button className="mr-2 cursor-pointer p-2.5 md:mr-4" onClick={handleClear}>
-                        <Icon icon={IconType.CLOSE} size="sm" className="text-neutral-300" />
+                    <button className="mr-2 cursor-pointer p-2.5 md:mr-4" onClick={handleClear} type="button">
+                        <Icon className="text-neutral-300" icon={IconType.CLOSE} size="sm" />
                     </button>
                 )}
                 <div className="flex flex-row gap-2 md:gap-3">
                     {onFilterClick && (
                         <>
                             <Button
-                                iconLeft={IconType.FILTER}
-                                variant="tertiary"
-                                size="md"
-                                onClick={onFilterClick}
                                 className="hidden md:flex"
+                                iconLeft={IconType.FILTER}
+                                onClick={onFilterClick}
+                                size="md"
+                                variant="tertiary"
                             >
                                 {copy.dataListFilter.filter}
                             </Button>
                             <Button
-                                iconLeft={IconType.FILTER}
-                                variant="tertiary"
-                                size="md"
-                                onClick={onFilterClick}
                                 className="md:hidden"
+                                iconLeft={IconType.FILTER}
+                                onClick={onFilterClick}
+                                size="md"
+                                variant="tertiary"
                             />
                         </>
                     )}
                     <DataListFilterSort
                         activeSort={activeSort}
-                        sortItems={sortItems}
                         onSortChange={onSortChange}
+                        sortItems={sortItems}
                         triggerClassNames="hidden md:flex"
                         triggerLabel={copy.dataListFilter.sort}
                     />
                     <DataListFilterSort
                         activeSort={activeSort}
-                        sortItems={sortItems}
                         onSortChange={onSortChange}
+                        sortItems={sortItems}
                         triggerClassNames="md:hidden"
                     />
                 </div>

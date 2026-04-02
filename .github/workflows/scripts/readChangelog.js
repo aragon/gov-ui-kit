@@ -1,4 +1,4 @@
-var fs = require('fs');
+const fs = require('node:fs');
 
 module.exports = async ({ core }) => {
     const { version, path } = process.env;

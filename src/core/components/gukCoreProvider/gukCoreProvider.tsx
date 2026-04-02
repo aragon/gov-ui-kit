@@ -1,5 +1,5 @@
-import { createContext, useContext, useMemo, type ReactNode } from 'react';
-import { coreCopy, type CoreCopy } from '../../assets';
+import { createContext, type ReactNode, useContext, useMemo } from 'react';
+import { type CoreCopy, coreCopy } from '../../assets';
 
 export interface IGukCoreContext {
     /**

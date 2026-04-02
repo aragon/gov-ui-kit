@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
-import { InputSearch, type IInputSearchProps } from './inputSearch';
+import { type IInputSearchProps, InputSearch } from './inputSearch';
 
 describe('<InputSearch /> component', () => {
     const createTestComponent = (props?: Partial<IInputSearchProps>) => {

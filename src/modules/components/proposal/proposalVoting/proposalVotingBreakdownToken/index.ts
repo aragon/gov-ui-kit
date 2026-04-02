@@ -1,1 +1,1 @@
-export { ProposalVotingBreakdownToken, type IProposalVotingBreakdownTokenProps } from './proposalVotingBreakdownToken';
+export { type IProposalVotingBreakdownTokenProps, ProposalVotingBreakdownToken } from './proposalVotingBreakdownToken';

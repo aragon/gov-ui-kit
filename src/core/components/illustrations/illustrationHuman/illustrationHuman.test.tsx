@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { IllustrationHuman, type IIllustrationHumanProps } from './illustrationHuman';
+import { type IIllustrationHumanProps, IllustrationHuman } from './illustrationHuman';
 
 describe('<IllustrationHuman /> component', () => {
     const createTestComponent = (props?: Partial<IIllustrationHumanProps>) => {

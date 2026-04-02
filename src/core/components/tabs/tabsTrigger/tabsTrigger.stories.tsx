@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
-import { Tabs } from '..';
 import { IconType } from '../../icon';
+import { Tabs } from '..';
 
 // Always add a "placeholder" tab as the Tabs.List component does not render when having only one tab
 const ComponentWrapper = (Story: ComponentType) => (

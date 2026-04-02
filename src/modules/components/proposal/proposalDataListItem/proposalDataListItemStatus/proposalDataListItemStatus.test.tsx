@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { DateFormat, IconType, formatterUtils } from '../../../../../core';
+import { DateFormat, formatterUtils, IconType } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
 import { ProposalStatus } from '../../proposalUtils';
-import { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
+import { type IProposalDataListItemStatusProps, ProposalDataListItemStatus } from './proposalDataListItemStatus';
 
 describe('<ProposalDataListItemStatus /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemStatusProps>) => {
@@ -15,7 +15,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     };
 
     it('displays the date, calendar icon and status', () => {
-        const date = 1719563030308;
+        const date = 1_719_563_030_308;
         const status = ProposalStatus.ACCEPTED;
 
         render(createTestComponent({ date, status }));
@@ -38,7 +38,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
     });
 
     it("only displays the date for proposals with a status that is not 'draft'", () => {
-        const date = 1719563030308;
+        const date = 1_719_563_030_308;
         const status = ProposalStatus.DRAFT;
 
         render(createTestComponent({ date, status }));
@@ -51,7 +51,7 @@ describe('<ProposalDataListItemStatus /> component', () => {
 
     it('displays the date and a pinging indicator when the status is active and voted is false', () => {
         const status = ProposalStatus.ACTIVE;
-        const date = 1719563030308;
+        const date = 1_719_563_030_308;
         render(createTestComponent({ date, status, voted: false }));
 
         const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.DURATION })!;

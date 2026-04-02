@@ -1,5 +1,5 @@
-import { type Hash } from 'viem';
-import { type IDataListItemProps } from '../../../../../core';
+import type { Hash } from 'viem';
+import type { IDataListItemProps } from '../../../../../core';
 
 export enum TransactionStatus {
     PENDING = 'PENDING',

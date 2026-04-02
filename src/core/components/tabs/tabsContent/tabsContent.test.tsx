@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Tabs, type ITabsContentProps } from '../../tabs';
+import { type ITabsContentProps, Tabs } from '../../tabs';
 
 describe('<Tabs.Content /> component', () => {
     const createTestComponent = (props?: Partial<ITabsContentProps>) => {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Tag, type ITagProps } from './tag';
+import { type ITagProps, Tag } from './tag';
 
 describe('<Tag /> component', () => {
     const createTestComponent = (props?: Partial<ITagProps>) => {

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import {
-    ProposalVotingBodySummaryList,
     type IProposalVotingBodySummaryListProps,
+    ProposalVotingBodySummaryList,
 } from './proposalVotingBodySummaryList';
 
 describe('<ProposalVotingBodySummaryList /> component', () => {

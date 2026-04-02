@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import * as wagmi from 'wagmi';
-import { MemberDataListItemStructure, type IMemberDataListItemProps } from './memberDataListItemStructure';
+import { type IMemberDataListItemProps, MemberDataListItemStructure } from './memberDataListItemStructure';
 
 jest.mock('../../memberAvatar', () => ({ MemberAvatar: () => <div data-testid="member-avatar-mock" /> }));
 
@@ -64,7 +64,7 @@ describe('<MemberDataListItem /> component', () => {
     });
 
     it('renders and formats the voting power of the member', () => {
-        const tokenAmount = 420689;
+        const tokenAmount = 420_689;
         const tokenSymbol = 'ETH';
         render(createTestComponent({ tokenAmount, tokenSymbol }));
         expect(screen.getByRole('heading', { level: 3, name: '420.69K ETH Voting Power' })).toBeInTheDocument();

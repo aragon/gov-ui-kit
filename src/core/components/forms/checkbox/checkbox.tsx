@@ -1,6 +1,6 @@
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import classNames from 'classnames';
-import { forwardRef, type ComponentProps } from 'react';
+import { type ComponentProps, forwardRef } from 'react';
 import { useRandomId } from '../../../hooks';
 import { Icon, IconType } from '../../icon';
 
@@ -49,46 +49,46 @@ export const Checkbox = forwardRef<HTMLButtonElement, ICheckboxProps>((props, re
             )}
         >
             <RadixCheckbox.Root
-                id={randomId}
                 checked={checked}
-                onCheckedChange={onCheckedChange}
-                disabled={disabled}
                 className={classNames(
                     'group/checkbox peer focus-ring-primary cursor-pointer rounded-md disabled:cursor-default',
                 )}
+                disabled={disabled}
+                id={randomId}
+                onCheckedChange={onCheckedChange}
                 ref={ref}
                 {...otherProps}
             >
                 <Icon
-                    icon={IconType.CHECKBOX}
-                    size="md"
                     className={classNames(
                         'hidden text-neutral-400 group-data-[state=unchecked]/checkbox:block',
                         'group-hover/root:text-primary-400 group-data-disabled/checkbox:text-neutral-300',
                     )}
+                    icon={IconType.CHECKBOX}
+                    size="md"
                 />
                 <RadixCheckbox.Indicator className="text-primary-400 group-data-disabled/checkbox:text-neutral-300">
                     <Icon
+                        className="hidden group-data-[state=checked]/checkbox:block"
                         icon={IconType.CHECKBOX_SELECTED}
                         size="md"
-                        className="hidden group-data-[state=checked]/checkbox:block"
                     />
                     <Icon
+                        className="hidden group-data-[state=indeterminate]/checkbox:block"
                         icon={IconType.CHECKBOX_INDETERMINATE}
                         size="md"
-                        className="hidden group-data-[state=indeterminate]/checkbox:block"
                     />
                 </RadixCheckbox.Indicator>
             </RadixCheckbox.Root>
             <label
-                htmlFor={randomId}
                 className={classNames(
-                    'cursor-pointer text-sm leading-tight font-normal text-neutral-500 md:text-base',
+                    'cursor-pointer font-normal text-neutral-500 text-sm leading-tight md:text-base',
                     'group-hover/root:text-neutral-800',
-                    'peer-data-disabled:cursor-default peer-data-disabled:text-neutral-500 peer-data-[state=unchecked]:peer-data-disabled:text-neutral-300',
+                    'peer-data-[state=unchecked]:peer-data-disabled:text-neutral-300 peer-data-disabled:cursor-default peer-data-disabled:text-neutral-500',
                     { 'pl-2 md:pl-3': labelPosition === 'right' },
                     { 'pr-2 md:pr-3': labelPosition === 'left' },
                 )}
+                htmlFor={randomId}
             >
                 {label}
             </label>

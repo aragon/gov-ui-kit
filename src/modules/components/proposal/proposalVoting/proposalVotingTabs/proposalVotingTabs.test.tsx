@@ -38,17 +38,17 @@ describe('<ProposalVotingTabs /> component', () => {
         expect(screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.DETAILS })).toBeInTheDocument();
     });
 
-    it.each([{ status: ProposalStatus.PENDING }, { status: ProposalStatus.UNREACHED }])(
-        'disables the breakdown and votes tabs when voting status is $status',
-        ({ status }) => {
-            render(createTestComponent({ status }));
-            const breakdownTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.BREAKDOWN });
-            const votesTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.VOTES });
-            expect(breakdownTab.getAttribute('disabled')).toEqual('');
-            expect(votesTab.getAttribute('disabled')).toEqual('');
+    it.each([
+        { status: ProposalStatus.PENDING },
+        { status: ProposalStatus.UNREACHED },
+    ])('disables the breakdown and votes tabs when voting status is $status', ({ status }) => {
+        render(createTestComponent({ status }));
+        const breakdownTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.BREAKDOWN });
+        const votesTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.VOTES });
+        expect(breakdownTab.getAttribute('disabled')).toEqual('');
+        expect(votesTab.getAttribute('disabled')).toEqual('');
 
-            const detailsTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.DETAILS });
-            expect(detailsTab.getAttribute('disabled')).toBeNull();
-        },
-    );
+        const detailsTab = screen.getByRole('tab', { name: modulesCopy.proposalVotingTabs.DETAILS });
+        expect(detailsTab.getAttribute('disabled')).toBeNull();
+    });
 });

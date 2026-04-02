@@ -2,12 +2,12 @@ import type * as ReactQuery from '@tanstack/react-query';
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import type * as Wagmi from 'wagmi';
-import { modulesCopy, type ModulesCopy } from '../../assets';
+import { type ModulesCopy, modulesCopy } from '../../assets';
 import {
     GukModulesProvider,
-    useGukModulesContext,
     type IGukModulesContext,
     type IGukModulesProviderProps,
+    useGukModulesContext,
 } from './gukModulesProvider';
 
 jest.mock('@tanstack/react-query', () => ({

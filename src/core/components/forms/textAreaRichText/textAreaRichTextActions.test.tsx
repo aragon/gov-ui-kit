@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { ChainedCommands, Editor } from '@tiptap/react';
 import { IconType } from '../../icon';
-import { TextAreaRichTextActions, type ITextAreaRichTextActionsProps } from './textAreaRichTextActions';
+import { type ITextAreaRichTextActionsProps, TextAreaRichTextActions } from './textAreaRichTextActions';
 
 describe('<TextAreaRichTextActions /> component', () => {
     const windowPromptMock = jest.spyOn(window, 'prompt');

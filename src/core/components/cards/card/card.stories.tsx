@@ -22,8 +22,8 @@ export const Default: Story = {
         className: 'min-w-80',
         children: (
             <div className="flex flex-col items-center p-2">
-                <p className="text-xs leading-normal font-semibold">Example</p>
-                <p className="text-xs leading-normal font-normal">Description</p>
+                <p className="font-semibold text-xs leading-normal">Example</p>
+                <p className="font-normal text-xs leading-normal">Description</p>
             </div>
         ),
     },

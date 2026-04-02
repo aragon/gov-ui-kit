@@ -1,1 +1,1 @@
-export { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
+export { type ITextAreaRichTextProps, TextAreaRichText } from './textAreaRichText';

@@ -1,1 +1,1 @@
-export { DialogAlertContextProvider, useDialogAlertContext, type IDialogAlertContext } from './dialogAlertContext';
+export { DialogAlertContextProvider, type IDialogAlertContext, useDialogAlertContext } from './dialogAlertContext';

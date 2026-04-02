@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Switch, type ISwitchProps } from './switch';
+import { type ISwitchProps, Switch } from './switch';
 
 describe('<Switch /> component', () => {
     const createTestComponent = (props?: Partial<ISwitchProps>) => {

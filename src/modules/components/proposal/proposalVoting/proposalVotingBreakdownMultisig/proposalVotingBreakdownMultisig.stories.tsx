@@ -27,7 +27,7 @@ export const Default: Story = {
     },
     render: (args) => {
         return (
-            <Tabs.Root defaultValue={ProposalVotingTab.BREAKDOWN} className="w-full">
+            <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.BREAKDOWN}>
                 <ProposalVoting.BreakdownMultisig {...args} />
             </Tabs.Root>
         );

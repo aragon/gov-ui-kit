@@ -37,10 +37,8 @@ jobs:
           pnpm test:coverage
       - name: Check types
         run: pnpm type-check
-      - name: Check linter
-        run: pnpm lint
-      - name: Check prettier
-        run: pnpm prettify
+      - name: Check linter and formatting
+        run: pnpm lint:check
       - name: Check changeset
         if: github.event_name == 'pull_request'
         run: pnpm changeset status --since origin/main

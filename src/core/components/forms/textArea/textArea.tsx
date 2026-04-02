@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { forwardRef } from 'react';
 import { useInputProps } from '../hooks';
-import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
 export interface ITextAreaProps extends IInputComponentProps<HTMLTextAreaElement> {}
 
@@ -17,9 +17,9 @@ export const TextArea = forwardRef<HTMLTextAreaElement, ITextAreaProps>((props, 
             {...otherContainerProps}
         >
             <textarea
-                type="text"
                 className={classNames('min-h-40 leading-normal', inputClassName)}
                 ref={ref}
+                type="text"
                 {...otherInputProps}
             />
         </InputContainer>

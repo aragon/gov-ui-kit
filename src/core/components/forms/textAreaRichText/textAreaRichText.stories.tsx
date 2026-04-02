@@ -43,7 +43,7 @@ export const Controlled: Story = {
 
         return (
             <div className="flex grow flex-col gap-2">
-                <TextAreaRichText value={value} onChange={setValue} {...props} />
+                <TextAreaRichText onChange={setValue} value={value} {...props} />
                 <div className="flex flex-col gap-1">
                     <p className="text-md text-neutral-800">Output</p>
                     <p className="text-neutral-500">{value}</p>
@@ -64,7 +64,7 @@ export const InsideDialog: Story = {
         return (
             <>
                 <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
-                <Dialog.Root open={isOpen} onOpenChange={setIsOpen} useFocusTrap={false}>
+                <Dialog.Root onOpenChange={setIsOpen} open={isOpen} useFocusTrap={false}>
                     <Dialog.Content className="p-4">
                         <TextAreaRichText {...props} />
                     </Dialog.Content>

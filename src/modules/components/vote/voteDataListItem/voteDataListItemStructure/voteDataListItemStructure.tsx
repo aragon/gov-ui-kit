@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
-import { type ICompositeAddress } from '../../../../types';
+import { DataList, formatterUtils, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
+import type { ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
@@ -82,30 +82,30 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
         >
             <MemberAvatar
                 address={voter.address}
-                ensName={voter.name}
                 avatarSrc={voter.avatarSrc}
-                size="sm"
+                ensName={voter.name}
                 responsiveSize={{ md: 'md' }}
+                size="sm"
             />
             <div className={centerInfoClassNames}>
                 <span className="flex items-center gap-x-1 text-base text-neutral-800 md:gap-x-1.5 md:text-lg">
                     <span className="truncate">{resolvedUserHandle}</span>
                     {isDelegate && !isCurrentUser && (
-                        <Tag variant="primary" label={copy.voteDataListItemStructure.yourDelegate} />
+                        <Tag label={copy.voteDataListItemStructure.yourDelegate} variant="primary" />
                     )}
-                    {isCurrentUser && <Tag variant="neutral" label={copy.voteDataListItemStructure.you} />}
+                    {isCurrentUser && <Tag label={copy.voteDataListItemStructure.you} variant="neutral" />}
                 </span>
                 {isTokenVoting && (
-                    <span className="truncate text-sm text-neutral-500 md:text-base">{formattedTokenVote}</span>
+                    <span className="truncate text-neutral-500 text-sm md:text-base">{formattedTokenVote}</span>
                 )}
             </div>
 
-            <div className="flex items-center gap-x-1 text-sm leading-tight font-normal text-neutral-500 md:gap-x-2 md:text-base">
+            <div className="flex items-center gap-x-1 font-normal text-neutral-500 text-sm leading-tight md:gap-x-2 md:text-base">
                 <Tag
-                    variant={getTagVariant(voteIndicator, isVeto)}
                     className="capitalize"
-                    label={voteIndicator}
                     data-testid="tag"
+                    label={voteIndicator}
+                    variant={getTagVariant(voteIndicator, isVeto)}
                 />
                 {voteIndicatorDescription && <span className="whitespace-nowrap">{voteIndicatorDescription}</span>}
             </div>

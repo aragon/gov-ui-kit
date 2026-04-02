@@ -205,7 +205,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
         // might be done through the tailwind enabled: modifier, it won't work when the button is a link.
         if (disabled) {
             return !classes.includes('hover');
-        } else if (isLoading) {
+        }
+        if (isLoading) {
             return !classes.includes('disabled') && !classes.includes('hover') && !classes.includes('active');
         }
 
@@ -257,8 +258,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, IButtonP
             {displayIconLeft && <Icon icon={iconLeft} {...commonIconProps} />}
             {isLoading && (
                 <Spinner
-                    size={spinnerSize}
                     responsiveSize={spinnerResponsiveSize}
+                    size={spinnerSize}
                     variant={variantToSpinnerVariant[variant]}
                 />
             )}

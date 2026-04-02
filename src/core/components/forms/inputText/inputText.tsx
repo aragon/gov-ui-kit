@@ -25,7 +25,7 @@ export const InputText = forwardRef<HTMLInputElement, IInputTextProps>((props, r
     const showAddon = addon && addon.trim() !== '';
 
     const addonClasses = classNames(
-        'flex h-full shrink-0 items-center justify-center px-3 text-base font-normal leading-tight',
+        'flex h-full shrink-0 items-center justify-center px-3 font-normal text-base leading-tight',
         variantToAddonClassNames[disabled ? 'disabled' : variant],
         { 'border-r-[1px]': addonPosition === 'left' },
         { 'order-last border-l-[1px]': addonPosition === 'right' },
@@ -33,9 +33,9 @@ export const InputText = forwardRef<HTMLInputElement, IInputTextProps>((props, r
 
     return (
         <InputContainer
-            wrapperClassName={classNames('overflow-hidden', containerWrapperClassName)}
-            variant={variant}
             disabled={disabled}
+            variant={variant}
+            wrapperClassName={classNames('overflow-hidden', containerWrapperClassName)}
             {...otherContainerProps}
         >
             {showAddon && (
@@ -43,7 +43,7 @@ export const InputText = forwardRef<HTMLInputElement, IInputTextProps>((props, r
                     {addon}
                 </div>
             )}
-            <input type="text" ref={ref} {...inputProps} />
+            <input ref={ref} type="text" {...inputProps} />
         </InputContainer>
     );
 });

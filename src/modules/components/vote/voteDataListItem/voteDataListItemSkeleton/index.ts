@@ -1,1 +1,1 @@
-export { VoteDataListItemSkeleton, type IVoteDataListItemSkeletonProps } from './voteDataListItemSkeleton';
+export { type IVoteDataListItemSkeletonProps, VoteDataListItemSkeleton } from './voteDataListItemSkeleton';

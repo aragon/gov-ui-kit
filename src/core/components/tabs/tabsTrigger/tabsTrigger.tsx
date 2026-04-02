@@ -1,6 +1,6 @@
 import { TabsTrigger as RadixTabsTrigger } from '@radix-ui/react-tabs';
 import classNames from 'classnames';
-import { useContext, type ComponentProps } from 'react';
+import { type ComponentProps, useContext } from 'react';
 import { Icon, type IconType } from '../../icon';
 import { TabsContext } from '../tabsRoot/tabsRoot';
 
@@ -24,7 +24,7 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     const { isUnderlined } = useContext(TabsContext);
 
     const triggerClassNames = classNames(
-        'group line-clamp-1 flex items-center gap-x-4 rounded-t border-primary-400 py-3 text-base font-normal leading-tight', // Base
+        'group line-clamp-1 flex items-center gap-x-4 rounded-t border-primary-400 py-3 font-normal text-base leading-tight', // Base
         'active:data-[state=active]:text-neutral-800 active:data-[state=active]:shadow-[inset_0_0_0_0,0_1px_0_0] active:data-[state=active]:shadow-primary-400', // Active state
         'focus:outline-hidden', // Focus state
         { 'hover:shadow-[inset_0_0_0_0,0_1px_0_0] hover:shadow-neutral-800': isUnderlined && !disabled }, //  Underlined & enabled variant
@@ -42,9 +42,9 @@ export const TabsTrigger: React.FC<ITabsTriggerProps> = (props) => {
     );
 
     return (
-        <RadixTabsTrigger className={triggerClassNames} value={value} disabled={disabled} {...otherProps}>
+        <RadixTabsTrigger className={triggerClassNames} disabled={disabled} value={value} {...otherProps}>
             {label}
-            {iconRight && <Icon icon={iconRight} size="sm" className={iconClassNames} />}
+            {iconRight && <Icon className={iconClassNames} icon={iconRight} size="sm" />}
         </RadixTabsTrigger>
     );
 };

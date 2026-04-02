@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type { SVGProps } from 'react';
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../types';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../types';
 import { responsiveUtils } from '../../utils';
 import { iconList } from './iconList';
 import type { IconType } from './iconType';

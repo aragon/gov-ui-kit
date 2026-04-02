@@ -1,0 +1,24 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "tasks": {
+        "lint:check": {
+            "cache": true,
+            "inputs": [
+                "src/**/*.{ts,tsx,js,jsx,css}",
+                "*.config.{js,ts,mjs}",
+                "biome.json"
+            ],
+            "outputs": []
+        },
+        "type-check": {
+            "cache": true,
+            "inputs": ["src/**/*.{ts,tsx}", "tsconfig.json"],
+            "outputs": []
+        },
+        "test": {
+            "cache": true,
+            "inputs": ["src/**/*.{ts,tsx}", "jest.config.js", "tsconfig.json"],
+            "outputs": ["coverage/**"]
+        }
+    }
+}

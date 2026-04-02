@@ -1,8 +1,8 @@
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import classNames from 'classnames';
 import type React from 'react';
-import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react';
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
+import { type ComponentPropsWithoutRef, type ReactNode, useState } from 'react';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 import { AvatarBase } from '../avatarBase';
 
@@ -94,21 +94,21 @@ export const Avatar: React.FC<IAvatarProps> = (props) => {
         <RadixAvatar.Root className={containerClassNames}>
             <RadixAvatar.Image
                 alt={alt}
+                asChild={true}
                 className="size-full rounded-[inherit] object-cover"
                 onLoadingStatusChange={handleOnLoadingStatusChange}
-                asChild={true}
                 {...imageProps}
             >
                 <AvatarBase />
             </RadixAvatar.Image>
             <RadixAvatar.Fallback
-                data-testid="fallback"
                 className={classNames(
                     'size-full rounded-[inherit]',
                     { 'animate-pulse bg-neutral-200': imgLoading },
                     { 'bg-neutral-200': !fallback },
                     { 'flex items-center justify-center': showFallback },
                 )}
+                data-testid="fallback"
             >
                 {showFallback && fallback}
             </RadixAvatar.Fallback>

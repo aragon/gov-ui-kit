@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { type ITabsContentProps, NumberFormat, Tabs, formatterUtils, invariant } from '../../../../../core';
+import { formatterUtils, type ITabsContentProps, invariant, NumberFormat, Tabs } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { ProposalVotingProgress } from '../proposalVotingProgress';
@@ -104,51 +104,51 @@ export const ProposalVotingBreakdownToken: React.FC<IProposalVotingBreakdownToke
 
     return (
         <Tabs.Content
-            value={ProposalVotingTab.BREAKDOWN}
             className={classNames('flex flex-col gap-4', className)}
+            value={ProposalVotingTab.BREAKDOWN}
             {...otherProps}
         >
             <ProposalVotingProgress.Container direction="row">
                 {optionValues.map(({ name, nameDescription, variant, value }) => (
                     <ProposalVotingProgress.Item
-                        key={name}
-                        name={name}
-                        nameDescription={nameDescription}
-                        value={totalVotes > 0 ? (value / totalVotes) * 100 : 0}
                         description={{
                             value: formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT }),
                             text: tokenSymbol,
                         }}
+                        key={name}
+                        name={name}
+                        nameDescription={nameDescription}
+                        value={totalVotes > 0 ? (value / totalVotes) * 100 : 0}
                         variant={variant}
                     />
                 ))}
             </ProposalVotingProgress.Container>
             <ProposalVotingProgress.Container direction="col">
                 <ProposalVotingProgress.Item
-                    name={copy.proposalVotingBreakdownToken.support[isVeto ? 'nameVeto' : 'name']}
-                    value={supportPercentage}
                     description={{
                         value: formattedTotalYes,
                         text: copy.proposalVotingBreakdownToken.support.description(
                             `${formattedCountableVotes!} ${tokenSymbol}`,
                         ),
                     }}
+                    name={copy.proposalVotingBreakdownToken.support[isVeto ? 'nameVeto' : 'name']}
                     showPercentage={true}
                     showStatus={true}
                     thresholdIndicator={supportThreshold}
+                    value={supportPercentage}
                 />
                 {minParticipation > 0 && (
                     <ProposalVotingProgress.Item
-                        name={copy.proposalVotingBreakdownToken.minParticipation.name}
-                        value={minParticipationTokenPercentage}
                         description={{
                             value: formattedTotalVotes,
                             text: copy.proposalVotingBreakdownToken.minParticipation.description(
                                 `${formattedMinParticipationToken} ${tokenSymbol}`,
                             ),
                         }}
+                        name={copy.proposalVotingBreakdownToken.minParticipation.name}
                         showPercentage={true}
                         showStatus={true}
+                        value={minParticipationTokenPercentage}
                     />
                 )}
             </ProposalVotingProgress.Container>
