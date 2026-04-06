@@ -1,3 +1,5 @@
 minimumReleaseAge: 10080 # cooldown period for new packages in minutes (7 days)
 minimumReleaseAgeExclude: # https://pnpm.io/settings#minimumreleaseageexclude
     - 'tar@7.5.11'
+strictDepBuilds: true
+trustPolicy: no-downgrade
