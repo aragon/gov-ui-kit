@@ -50,7 +50,7 @@ export const Children: Story = {
                 <ProposalActions.Item action={generateProposalAction()} />
             </ProposalActions.Container>
             <ProposalActions.Footer {...props}>
-                <Button variant="primary" size="md">
+                <Button size="md" variant="primary">
                     Execute proposal
                 </Button>
             </ProposalActions.Footer>
@@ -68,7 +68,7 @@ export const ChildrenWithoutExpand: Story = {
                 <ProposalActions.Item action={generateProposalAction()} />
             </ProposalActions.Container>
             <ProposalActions.Footer {...props}>
-                <Button variant="primary" size="md">
+                <Button size="md" variant="primary">
                     Execute proposal
                 </Button>
             </ProposalActions.Footer>

@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
-
 class TestLogger {
     private shouldSuppressErrors = false;
 
+    // biome-ignore lint/suspicious/noConsole: intentional console access for test logger
     private originalConsoleError = console.error;
+    // biome-ignore lint/suspicious/noConsole: intentional console access for test logger
     private originalConsoleWarn = console.warn;
 
     private testErrorLogger = jest.fn((...params) => {

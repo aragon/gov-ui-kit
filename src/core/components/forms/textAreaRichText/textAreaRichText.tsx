@@ -11,10 +11,8 @@ import { TextAreaRichTextActions } from './textAreaRichTextActions';
 
 export type ValueFormat = 'html' | 'markdown' | 'text';
 
-export interface ITextAreaRichTextProps extends Omit<
-    IInputContainerProps,
-    'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'
-> {
+export interface ITextAreaRichTextProps
+    extends Omit<IInputContainerProps, 'maxLength' | 'inputLength' | 'value' | 'onChange' | 'id'> {
     /**
      * Current value of the input.
      */
@@ -48,7 +46,7 @@ export interface ITextAreaRichTextProps extends Omit<
 // (see https://tiptap.dev/docs/editor/api/extensions/placeholder#additional-setup)
 const placeholderClasses = classNames(
     'first:before:pointer-events-none first:before:absolute first:before:top-5', // General
-    'first:before:text-base/tight first:before:font-normal first:before:text-neutral-300', // Typography
+    'first:before:font-normal first:before:text-base/tight first:before:text-neutral-300', // Typography
     'first:before:content-[attr(data-placeholder)]', // Content
 );
 
@@ -141,20 +139,20 @@ export const TextAreaRichText: React.FC<ITextAreaRichTextProps> = (props) => {
 
     const textAreaRichText = (
         <InputContainer
-            disabled={disabled}
             className={classNames(className, {
                 'fixed top-0 left-0 z-[var(--guk-text-area-rich-text-expanded-z-index)] h-screen w-full [&>label]:hidden':
                     isExpanded,
             })}
+            disabled={disabled}
+            id={randomId}
             wrapperClassName={classNames('grow overflow-hidden', {
                 'rounded-none!': isExpanded,
             })}
-            id={randomId}
             {...containerProps}
         >
             <div className="flex h-full grow flex-col self-start overflow-auto">
-                <TextAreaRichTextActions editor={editor} disabled={disabled} onExpandClick={toggleExpanded} />
-                <EditorContent editor={editor} className="h-full" />
+                <TextAreaRichTextActions disabled={disabled} editor={editor} onExpandClick={toggleExpanded} />
+                <EditorContent className="h-full" editor={editor} />
             </div>
         </InputContainer>
     );

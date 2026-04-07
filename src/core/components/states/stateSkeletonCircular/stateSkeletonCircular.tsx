@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithoutRef } from 'react';
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
+import { type ComponentPropsWithoutRef, forwardRef } from 'react';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
 export type StateSkeletonCircularSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -71,11 +71,11 @@ export const StateSkeletonCircular = forwardRef<HTMLDivElement, IStateSkeletonCi
 
     return (
         <span
+            aria-hidden={true}
+            className={classes}
             data-testid="stateSkeletonCircular"
             ref={ref}
-            className={classes}
             tabIndex={-1}
-            aria-hidden={true}
             {...otherProps}
         />
     );

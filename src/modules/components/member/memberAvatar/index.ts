@@ -1,1 +1,1 @@
-export { MemberAvatar, type IMemberAvatarProps } from './memberAvatar';
+export { type IMemberAvatarProps, MemberAvatar } from './memberAvatar';

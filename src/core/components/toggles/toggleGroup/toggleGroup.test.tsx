@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Toggle } from '../toggle';
-import { ToggleGroup, type IToggleGroupBaseProps, type IToggleGroupProps } from './toggleGroup';
+import { type IToggleGroupBaseProps, type IToggleGroupProps, ToggleGroup } from './toggleGroup';
 
 describe('<ToggleGroup /> component', () => {
     const createTestComponent = (props: Partial<IToggleGroupProps> = {}) => {
@@ -16,8 +16,8 @@ describe('<ToggleGroup /> component', () => {
 
     it('renders the children components', () => {
         const children = [
-            <Toggle key="first" value="first" label="First" />,
-            <Toggle key="second" value="second" label="Second" />,
+            <Toggle key="first" label="First" value="first" />,
+            <Toggle key="second" label="Second" value="second" />,
         ];
         render(createTestComponent({ children }));
         expect(screen.getAllByRole('radio')).toHaveLength(children.length);
@@ -27,7 +27,7 @@ describe('<ToggleGroup /> component', () => {
         const user = userEvent.setup();
         const onChange = jest.fn();
         const value = 'test';
-        const children = [<Toggle key={value} value={value} label={value} />];
+        const children = [<Toggle key={value} label={value} value={value} />];
         const { rerender } = render(createTestComponent({ onChange, children, value: '' }));
 
         await user.click(screen.getByRole('radio'));
@@ -46,8 +46,8 @@ describe('<ToggleGroup /> component', () => {
         const firstValue = 'first';
         const secondValue = 'second';
         const children = [
-            <Toggle key={firstValue} value={firstValue} label={firstValue} />,
-            <Toggle key={secondValue} value={secondValue} label={secondValue} />,
+            <Toggle key={firstValue} label={firstValue} value={firstValue} />,
+            <Toggle key={secondValue} label={secondValue} value={secondValue} />,
         ];
         const { rerender } = render(createTestComponent({ onChange, children, isMultiSelect, value: [] }));
 

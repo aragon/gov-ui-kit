@@ -1,11 +1,11 @@
 import { render, renderHook, screen } from '@testing-library/react';
 import type { ReactNode } from 'react';
-import { coreCopy, type CoreCopy } from '../../assets';
+import { type CoreCopy, coreCopy } from '../../assets';
 import {
     GukCoreProvider,
-    useGukCoreContext,
     type IGukCoreContext,
     type IGukCoreProviderProps,
+    useGukCoreContext,
 } from './gukCoreProvider';
 
 describe('<GukCoreProvider /> component', () => {

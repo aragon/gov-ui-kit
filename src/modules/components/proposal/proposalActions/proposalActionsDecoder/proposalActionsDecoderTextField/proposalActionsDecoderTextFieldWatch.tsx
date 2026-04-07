@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form';
 import { InputText, TextArea } from '../../../../../../core';
-import { type ProposalActionsFieldValue } from '../proposalActionsDecoderUtils';
+import type { ProposalActionsFieldValue } from '../proposalActionsDecoderUtils';
 import type { IProposalActionsDecoderTextFieldComponentProps } from './proposalActionsDecoderTextField.api';
 
 export interface IProposalActionsDecoderTextFieldWatchProps extends IProposalActionsDecoderTextFieldComponentProps {}
@@ -11,5 +11,5 @@ export const ProposalActionsDecoderTextFieldWatch: React.FC<IProposalActionsDeco
     const value = useWatch<Record<string, ProposalActionsFieldValue>>({ name: fieldName });
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component value={value?.toString()} disabled={true} {...otherProps} />;
+    return <Component disabled={true} value={value?.toString()} {...otherProps} />;
 };

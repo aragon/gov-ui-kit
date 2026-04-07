@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ChangeEvent } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { InputTime } from './inputTime';
 
 const meta: Meta<typeof InputTime> = {
@@ -39,7 +39,7 @@ export const Controlled: Story = {
 
         const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
 
-        return <InputTime value={value} onChange={handleChange} {...props} />;
+        return <InputTime onChange={handleChange} value={value} {...props} />;
     },
 };
 

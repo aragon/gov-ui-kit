@@ -17,7 +17,7 @@ import { proposalActionsItemUtils } from './proposalActionsItemUtils';
 jest.mock('../proposalActionsDecoder', () => ({
     ...jest.requireActual<typeof ProposalActionsDecoder>('../proposalActionsDecoder'),
     ProposalActionsDecoder: (props: { mode: string; view: string }) => (
-        <div data-testid="decoder-mock" data-mode={props.mode} data-view={props.view} />
+        <div data-mode={props.mode} data-testid="decoder-mock" data-view={props.view} />
     ),
 }));
 
@@ -336,7 +336,7 @@ describe('<ProposalActionsItem /> component', () => {
                 <GukModulesProvider>
                     <ProposalActionsContextProvider value={contextValue}>
                         <Accordion.Container isMulti={true}>
-                            <ProposalActionsItem action={action} index={0} editMode={true} />
+                            <ProposalActionsItem action={action} editMode={true} index={0} />
                         </Accordion.Container>
                     </ProposalActionsContextProvider>
                 </GukModulesProvider>

@@ -2,10 +2,8 @@ import classNames from 'classnames';
 import { Collapsible, type ICollapsibleProps } from '../../collapsible';
 import { Card } from '../card';
 
-export interface ICardCollapsibleProps extends Omit<
-    ICollapsibleProps,
-    'buttonVariant' | 'className' | 'showOverlay' | 'collapsedLines'
-> {
+export interface ICardCollapsibleProps
+    extends Omit<ICollapsibleProps, 'buttonVariant' | 'className' | 'showOverlay' | 'collapsedLines'> {
     /**
      * Additional class names to apply to the card.
      */
@@ -23,7 +21,7 @@ export const CardCollapsible: React.FC<ICardCollapsibleProps> = (props) => {
 
     return (
         <Card className={classNames('p-4 md:p-6', className)}>
-            <Collapsible showOverlay={true} collapsedPixels={collapsedPixels} {...otherProps}>
+            <Collapsible collapsedPixels={collapsedPixels} showOverlay={true} {...otherProps}>
                 {children}
             </Collapsible>
         </Card>

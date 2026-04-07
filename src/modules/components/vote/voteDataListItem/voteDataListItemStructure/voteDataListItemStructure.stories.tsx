@@ -22,7 +22,7 @@ export const TokenVoting: Story = {
         voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
         voteIndicator: 'yes',
         voteIndicatorDescription: 'to approve',
-        votingPower: 1230000,
+        votingPower: 1_230_000,
         tokenSymbol: 'PDC',
     },
 };
@@ -36,7 +36,7 @@ export const TokenVotingVeto: Story = {
         isVeto: true,
         voteIndicator: 'yes',
         voteIndicatorDescription: 'to veto',
-        votingPower: 1230000,
+        votingPower: 1_230_000,
         tokenSymbol: 'PDC',
     },
 };
@@ -62,7 +62,7 @@ export const TokenVotingLongNames: Story = {
         },
         voteIndicator: 'yes',
         voteIndicatorDescription: 'to approve',
-        votingPower: 123456789,
+        votingPower: 123_456_789,
         tokenSymbol: 'PDC',
     },
 };

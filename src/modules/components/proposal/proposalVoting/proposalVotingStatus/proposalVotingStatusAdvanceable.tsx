@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { DateTime, Interval } from 'luxon';
-import { useEffect, useState, type ComponentProps } from 'react';
+import { type ComponentProps, useEffect, useState } from 'react';
 import { DateFormat, formatterUtils, invariant, StatePingAnimation } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 

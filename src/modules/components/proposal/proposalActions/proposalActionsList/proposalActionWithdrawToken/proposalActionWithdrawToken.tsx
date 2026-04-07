@@ -6,14 +6,14 @@ export const ProposalActionWithdrawToken: React.FC<IProposalActionWithdrawTokenP
 
     return (
         <AssetTransfer
-            sender={action.sender}
-            recipient={action.receiver}
-            assetName={action.token.name}
             assetAddress={action.token.address}
             assetAmount={action.amount}
             assetFiatPrice={action.token.priceUsd}
-            assetSymbol={action.token.symbol}
             assetIconSrc={action.token.logo}
+            assetName={action.token.name}
+            assetSymbol={action.token.symbol}
+            recipient={action.receiver}
+            sender={action.sender}
             {...web3Props}
         />
     );

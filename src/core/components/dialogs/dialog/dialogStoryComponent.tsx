@@ -12,21 +12,21 @@ export const DialogStoryComponent = (component: 'header' | 'content' | 'footer' 
 
         return (
             <>
-                <Button variant="primary" onClick={() => setOpen(true)}>
+                <Button onClick={() => setOpen(true)} variant="primary">
                     Open
                 </Button>
-                <Dialog.Root open={open} onOpenChange={setOpen} {...(component === 'root' && props)}>
+                <Dialog.Root onOpenChange={setOpen} open={open} {...(component === 'root' && props)}>
                     <Dialog.Header
-                        title="Title of the dialog"
                         description="A description for the dialog A description for the dialogA description for the dialogA description for the dialogA description for the dialogA description for the dialogA description for the dialog"
                         onClose={closeDialog}
+                        title="Title of the dialog"
                         {...(component === 'header' && props)}
                     />
                     <Dialog.Content {...(component === 'content' && props)}>
                         {'children' in props && props.children != null && component === 'content' ? (
                             (props.children as ReactNode)
                         ) : (
-                            <div className="border-info-300 bg-info-100 flex h-60 w-full items-center justify-center border border-dashed">
+                            <div className="flex h-60 w-full items-center justify-center border border-info-300 border-dashed bg-info-100">
                                 Dialog content
                             </div>
                         )}

@@ -15,15 +15,15 @@ export const ProposalActionTokenMint: React.FC<IProposalActionTokenMintProps> = 
     return (
         <div className="flex w-full flex-col gap-8">
             <MemberDataListItemStructure
-                className="w-full"
                 address={address}
-                ensName={name}
                 avatarSrc={avatarSrc}
-                tokenAmount={mintedTokenAmount}
-                tokenSymbol={tokenSymbol}
+                className="w-full"
+                ensName={name}
                 hideLabelTokenVoting={true}
                 href={receiverBlockExplorerLink}
                 target="_blank"
+                tokenAmount={mintedTokenAmount}
+                tokenSymbol={tokenSymbol}
             />
         </div>
     );

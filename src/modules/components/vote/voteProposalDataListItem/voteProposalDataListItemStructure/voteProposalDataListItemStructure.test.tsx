@@ -2,13 +2,13 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import {
-    VoteProposalDataListItemStructure,
     type IVoteProposalDataListItemStructureProps,
+    VoteProposalDataListItemStructure,
 } from './voteProposalDataListItemStructure';
 
 jest.mock('../../../../../core/components/tag', () => ({
     Tag: ({ label, variant }: { label: string; variant: string }) => (
-        <div data-testid="tag" className={variant}>
+        <div className={variant} data-testid="tag">
             {label}
         </div>
     ),

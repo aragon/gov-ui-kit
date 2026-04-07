@@ -46,14 +46,14 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
         return (
             <div className="flex flex-row items-start gap-2">
                 <ProposalActionsDecoderTextField
-                    parameter={parameter}
                     fieldName={fieldName}
+                    formPrefix={formPrefix}
                     hideLabels={hideLabels}
                     mode={mode}
-                    formPrefix={formPrefix}
+                    parameter={parameter}
                 />
                 {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
-                    <Button iconLeft={IconType.CLOSE} size="lg" variant="tertiary" onClick={onDeleteClick} />
+                    <Button iconLeft={IconType.CLOSE} onClick={onDeleteClick} size="lg" variant="tertiary" />
                 )}
             </div>
         );
@@ -78,10 +78,10 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
 
     return (
         <InputContainer
-            id={inputId}
-            useCustomWrapper={true}
-            label={hideLabels ? undefined : name}
             helpText={hideLabels ? undefined : notice}
+            id={inputId}
+            label={hideLabels ? undefined : name}
+            useCustomWrapper={true}
         >
             <div
                 className={classNames('flex flex-col gap-2', {
@@ -90,42 +90,43 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
             >
                 {/* Render text-field as hidden to register array field */}
                 <ProposalActionsDecoderTextField
-                    parameter={parameter}
-                    mode={mode}
-                    fieldName={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
                     className="hidden"
+                    fieldName={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
+                    mode={mode}
+                    parameter={parameter}
                 />
                 <div className="flex grow flex-row gap-2">
                     <div className="flex grow flex-col gap-2">
                         {nestedParameters.map((parameter, index) => (
                             <ProposalActionsDecoderField
-                                key={index}
-                                parameter={parameter}
-                                hideLabels={isArray}
-                                mode={mode}
-                                formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
                                 fieldName={index.toString()}
+                                formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
+                                hideLabels={isArray}
+                                // biome-ignore lint/suspicious/noArrayIndexKey: dynamic parameter list with no stable identity
+                                key={index}
+                                mode={mode}
                                 onDeleteClick={isArray ? handleRemoveArrayItem(index) : undefined}
+                                parameter={parameter}
                             />
                         ))}
                     </div>
                     {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
                         <Button
+                            className="self-start"
                             iconLeft={IconType.CLOSE}
+                            onClick={onDeleteClick}
                             size="lg"
                             variant="tertiary"
-                            onClick={onDeleteClick}
-                            className="self-start"
                         />
                     )}
                 </div>
                 {isArray && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button
+                        className="self-start"
                         iconLeft={IconType.PLUS}
+                        onClick={handleAddArrayItem}
                         size="md"
                         variant="tertiary"
-                        onClick={handleAddArrayItem}
-                        className="self-start"
                     >
                         {copy.proposalActionsDecoder.add}
                     </Button>

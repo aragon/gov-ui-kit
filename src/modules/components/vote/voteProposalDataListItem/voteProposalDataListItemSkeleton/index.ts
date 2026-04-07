@@ -1,4 +1,4 @@
 export {
-    VoteProposalDataListItemSkeleton,
     type IVoteProposalDataListItemSkeletonProps,
+    VoteProposalDataListItemSkeleton,
 } from './voteProposalDataListItemSkeleton';

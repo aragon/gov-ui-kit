@@ -1,5 +1,5 @@
 export {
-    StateSkeletonCircular,
     type IStateSkeletonCircularProps,
+    StateSkeletonCircular,
     type StateSkeletonCircularSize,
 } from './stateSkeletonCircular';

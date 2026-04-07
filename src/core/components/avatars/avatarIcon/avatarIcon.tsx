@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type React from 'react';
 
-import { type HTMLAttributes } from 'react';
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
+import type { HTMLAttributes } from 'react';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 import { Icon, type IconType } from '../../icon';
 
@@ -94,7 +94,7 @@ export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
 
     return (
         <div className={containerClasses} {...rest}>
-            <Icon className={iconClasses} size={size} icon={icon} responsiveSize={responsiveSize} />
+            <Icon className={iconClasses} icon={icon} responsiveSize={responsiveSize} size={size} />
         </div>
     );
 };

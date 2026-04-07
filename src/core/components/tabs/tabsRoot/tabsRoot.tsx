@@ -1,5 +1,5 @@
 import { Tabs as RadixTabsRoot } from '@radix-ui/react-tabs';
-import { createContext, forwardRef, useMemo, type ComponentPropsWithoutRef } from 'react';
+import { type ComponentPropsWithoutRef, createContext, forwardRef, useMemo } from 'react';
 
 export interface ITabsRootProps extends ComponentPropsWithoutRef<typeof RadixTabsRoot> {
     /**
@@ -35,11 +35,11 @@ export const TabsRoot = forwardRef<HTMLDivElement, ITabsRootProps>((props, ref) 
 
     return (
         <RadixTabsRoot
-            ref={ref}
             defaultValue={defaultValue}
-            value={value}
             onValueChange={onValueChange}
             orientation="horizontal"
+            ref={ref}
+            value={value}
             {...otherProps}
         >
             <TabsContext.Provider value={tabsContextValue}>{children}</TabsContext.Provider>

@@ -14,7 +14,7 @@ jest.mock('../../../../member/memberDataListItem/memberDataListItemStructure', (
         tokenAmount: number;
         tokenSymbol: string;
         href: string;
-    }) => <div data-testid="member-data-list-item" data-href={href}>{`${tokenAmount.toString()} ${tokenSymbol}`}</div>,
+    }) => <div data-href={href} data-testid="member-data-list-item">{`${tokenAmount.toString()} ${tokenSymbol}`}</div>,
 }));
 
 describe('<ProposalActionTokenMint /> component', () => {

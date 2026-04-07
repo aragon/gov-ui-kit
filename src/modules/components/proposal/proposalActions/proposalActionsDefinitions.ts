@@ -43,7 +43,7 @@ export interface IProposalActionInputDataParameter {
     /**
      * Array of parameters for "tuple" type.
      */
-    components?: Array<Omit<IProposalActionInputDataParameter, 'value'>>;
+    components?: Omit<IProposalActionInputDataParameter, 'value'>[];
 }
 
 export interface IProposalActionInputData {
@@ -92,9 +92,8 @@ export interface IProposalAction {
     inputData: IProposalActionInputData | null;
 }
 
-export interface IProposalActionComponentProps<
-    TAction extends IProposalAction = IProposalAction,
-> extends IWeb3ComponentProps {
+export interface IProposalActionComponentProps<TAction extends IProposalAction = IProposalAction>
+    extends IWeb3ComponentProps {
     /**
      * Action to be rendered.
      */

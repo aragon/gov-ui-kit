@@ -47,7 +47,7 @@ export const WithError: Story = {
 };
 
 export const WithChildren: Story = {
-    args: { children: <div className="bg-warning-400 flex h-12 w-full items-center justify-center">hello</div> },
+    args: { children: <div className="flex h-12 w-full items-center justify-center bg-warning-400">hello</div> },
     render: DialogStoryComponent('footer'),
 };
 

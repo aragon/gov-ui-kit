@@ -7,7 +7,7 @@ describe('<Accordion.ItemContent /> component', () => {
     const createTestComponent = (props?: Partial<IAccordionItemContentProps>) => {
         const completeProps = { ...props };
         return (
-            <AccordionContainer isMulti={false} defaultValue="value-key">
+            <AccordionContainer defaultValue="value-key" isMulti={false}>
                 <AccordionItem value="value-key">
                     <AccordionItemContent {...completeProps} />
                 </AccordionItem>

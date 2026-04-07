@@ -1,1 +1,1 @@
-export { Rerender, type IRerenderProps } from './rerender';
+export { type IRerenderProps, Rerender } from './rerender';

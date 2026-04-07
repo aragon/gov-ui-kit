@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { ProposalDataListItemSkeleton, type IProposalDataListItemSkeletonProps } from './proposalDataListItemSkeleton';
+import { type IProposalDataListItemSkeletonProps, ProposalDataListItemSkeleton } from './proposalDataListItemSkeleton';
 
 describe('<ProposalDataListItem.Skeleton /> component', () => {
     const createTestComponent = (props?: Partial<IProposalDataListItemSkeletonProps>) => {

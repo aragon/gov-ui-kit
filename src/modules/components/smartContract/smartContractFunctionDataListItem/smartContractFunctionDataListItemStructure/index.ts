@@ -1,4 +1,4 @@
 export {
-    SmartContractFunctionDataListItemStructure,
     type ISmartContractFunctionDataListItemProps,
+    SmartContractFunctionDataListItemStructure,
 } from './smartContractFunctionDataListItemStructure';

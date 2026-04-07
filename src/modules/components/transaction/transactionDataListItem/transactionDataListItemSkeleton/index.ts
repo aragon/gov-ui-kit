@@ -1,4 +1,4 @@
 export {
-    TransactionDataListItemSkeleton,
     type ITransactionDataListItemSkeletonProps,
+    TransactionDataListItemSkeleton,
 } from './transactionDataListItemSkeleton';

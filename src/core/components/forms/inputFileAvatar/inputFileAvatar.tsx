@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import { useCallback, useState } from 'react';
-import { ErrorCode, useDropzone, type FileRejection } from 'react-dropzone';
+import { ErrorCode, type FileRejection, useDropzone } from 'react-dropzone';
 import { useRandomId } from '../../../hooks';
 import { Avatar } from '../../avatars';
 import { Icon, IconType } from '../../icon';
 import { Spinner } from '../../spinner';
 import { InputContainer, type InputVariant } from '../inputContainer';
-import { InputFileAvatarError, type IInputFileAvatarProps } from './inputFileAvatar.api';
+import { type IInputFileAvatarProps, InputFileAvatarError } from './inputFileAvatar.api';
 
 const stateToClassNames: Record<InputVariant | 'disabled', { containerClasses: string[]; addIconClasses: string[] }> = {
     default: {
@@ -101,7 +101,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
     const { getRootProps, getInputProps } = useDropzone({
         accept: acceptedFileTypes,
         maxSize: maxFileSize,
-        disabled: disabled,
+        disabled,
         onDrop,
         multiple: false,
     });
@@ -129,14 +129,14 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
 
                 {value?.url || value?.error ? (
                     <div className="relative">
-                        <Avatar src={value.url} size="lg" className="cursor-pointer" data-testid="avatar" />
+                        <Avatar className="cursor-pointer" data-testid="avatar" size="lg" src={value.url} />
                         <button
-                            onClick={handleCancel}
-                            className={classNames(
-                                'bg-neutral-0 shadow-neutral focus-ring-primary absolute -top-1 -right-1 cursor-pointer rounded-full p-1',
-                            )}
-                            type="button"
                             aria-label="Cancel Selection"
+                            className={classNames(
+                                'focus-ring-primary absolute -top-1 -right-1 cursor-pointer rounded-full bg-neutral-0 p-1 shadow-neutral',
+                            )}
+                            onClick={handleCancel}
+                            type="button"
                         >
                             <Icon icon={IconType.CLOSE} size="sm" />
                         </button>
@@ -145,7 +145,7 @@ export const InputFileAvatar: React.FC<IInputFileAvatarProps> = (props) => {
                     <>
                         {isLoading && <Spinner size="lg" variant="neutral" />}
                         {!value?.url && !isLoading && (
-                            <Icon icon={IconType.PLUS} size="lg" className={classNames(addIconClasses)} />
+                            <Icon className={classNames(addIconClasses)} icon={IconType.PLUS} size="lg" />
                         )}
                     </>
                 )}

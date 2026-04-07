@@ -1,12 +1,15 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.0.5/schema.json",
-  "access": "restricted",
-  "baseBranch": "main",
-  "changedFilePatterns": ["src/**"],
-  "changelog": ["@changesets/changelog-github", { "repo": "aragon/gov-ui-kit" }],
-  "commit": false,
-  "fixed": [],
-  "ignore": [],
-  "linked": [],
-  "updateInternalDependencies": "patch"
+    "$schema": "https://unpkg.com/@changesets/config@3.0.5/schema.json",
+    "access": "restricted",
+    "baseBranch": "main",
+    "changedFilePatterns": ["src/**"],
+    "changelog": [
+        "@changesets/changelog-github",
+        { "repo": "aragon/gov-ui-kit" }
+    ],
+    "commit": false,
+    "fixed": [],
+    "ignore": [],
+    "linked": [],
+    "updateInternalDependencies": "patch"
 }

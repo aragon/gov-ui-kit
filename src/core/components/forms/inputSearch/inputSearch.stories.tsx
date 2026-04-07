@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ChangeEvent } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { InputSearch } from './inputSearch';
 
 const meta: Meta<typeof InputSearch> = {
@@ -33,7 +33,7 @@ export const Controlled: Story = {
 
         const handleChange = (event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value);
 
-        return <InputSearch value={value} onChange={handleChange} {...props} />;
+        return <InputSearch onChange={handleChange} value={value} {...props} />;
     },
     args: {
         placeholder: 'Controlled search',

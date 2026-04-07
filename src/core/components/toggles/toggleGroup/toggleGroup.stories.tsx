@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Toggle } from '../toggle';
-import { ToggleGroup, type IToggleGroupProps } from './toggleGroup';
+import { type IToggleGroupProps, ToggleGroup } from './toggleGroup';
 
 const meta: Meta<typeof ToggleGroup> = {
     title: 'Core/Components/Toggles/ToggleGroup',
@@ -22,8 +22,8 @@ type Story = StoryObj<typeof ToggleGroup>;
 export const Default: Story = {
     render: (props) => (
         <ToggleGroup {...props}>
-            <Toggle value="multisig" label="Multisig" />
-            <Toggle value="token-based" label="Token Based" />
+            <Toggle label="Multisig" value="multisig" />
+            <Toggle label="Token Based" value="token-based" />
         </ToggleGroup>
     ),
 };
@@ -35,9 +35,9 @@ export const SpaceBetween: Story = {
     args: { variant: 'space-between' },
     render: (props) => (
         <ToggleGroup className="w-full" {...props}>
-            <Toggle value="default" label="Default" />
-            <Toggle value="optimistic" label="Optimistic" />
-            <Toggle value="timelock" label="Timelock" />
+            <Toggle label="Default" value="default" />
+            <Toggle label="Optimistic" value="optimistic" />
+            <Toggle label="Timelock" value="timelock" />
         </ToggleGroup>
     ),
 };
@@ -48,24 +48,24 @@ export const SpaceBetween: Story = {
 export const Wrapped: Story = {
     render: (props) => (
         <ToggleGroup className="w-full" {...props}>
-            <Toggle value="default" label="Default" />
-            <Toggle value="optimistic" label="Optimistic" />
-            <Toggle value="timelock" label="Timelock" />
-            <Toggle value="active" label="Active" />
-            <Toggle value="inactive" label="Inactive" />
-            <Toggle value="pending" label="Pending" />
-            <Toggle value="red" label="Red" />
-            <Toggle value="blue" label="Blue" />
-            <Toggle value="green" label="Green" />
-            <Toggle value="circle" label="Circle" />
-            <Toggle value="square" label="Square" />
-            <Toggle value="triangle" label="Triangle" />
-            <Toggle value="desktop" label="Desktop" />
-            <Toggle value="tablet" label="Tablet" />
-            <Toggle value="mobile" label="Mobile" />
-            <Toggle value="car" label="Car" />
-            <Toggle value="train" label="Train" />
-            <Toggle value="bike" label="Bike" />
+            <Toggle label="Default" value="default" />
+            <Toggle label="Optimistic" value="optimistic" />
+            <Toggle label="Timelock" value="timelock" />
+            <Toggle label="Active" value="active" />
+            <Toggle label="Inactive" value="inactive" />
+            <Toggle label="Pending" value="pending" />
+            <Toggle label="Red" value="red" />
+            <Toggle label="Blue" value="blue" />
+            <Toggle label="Green" value="green" />
+            <Toggle label="Circle" value="circle" />
+            <Toggle label="Square" value="square" />
+            <Toggle label="Triangle" value="triangle" />
+            <Toggle label="Desktop" value="desktop" />
+            <Toggle label="Tablet" value="tablet" />
+            <Toggle label="Mobile" value="mobile" />
+            <Toggle label="Car" value="car" />
+            <Toggle label="Train" value="train" />
+            <Toggle label="Bike" value="bike" />
         </ToggleGroup>
     ),
 };
@@ -78,12 +78,12 @@ export const Controlled: Story = {
         const [value, setValue] = useState<string>();
 
         return (
-            <ToggleGroup isMultiSelect={false} value={value} onChange={setValue} {...props}>
-                <Toggle value="ethereum" label="Ethereum" />
-                <Toggle value="polygon" label="Polygon" />
-                <Toggle value="base" label="Base" />
-                <Toggle value="arbitrum" label="Arbitrum" />
-                <Toggle value="bsc" label="Binance Smart Chain" />
+            <ToggleGroup isMultiSelect={false} onChange={setValue} value={value} {...props}>
+                <Toggle label="Ethereum" value="ethereum" />
+                <Toggle label="Polygon" value="polygon" />
+                <Toggle label="Base" value="base" />
+                <Toggle label="Arbitrum" value="arbitrum" />
+                <Toggle label="Binance Smart Chain" value="bsc" />
             </ToggleGroup>
         );
     },
@@ -95,10 +95,10 @@ const MultiSelectComponent = (
     const [value, setValue] = useState<string[]>();
 
     return (
-        <ToggleGroup isMultiSelect={true} value={value} onChange={setValue} {...props}>
-            <Toggle value="all" label="All DAOs" />
-            <Toggle value="member" label="Member" />
-            <Toggle value="following" label="Following" disabled={true} />
+        <ToggleGroup isMultiSelect={true} onChange={setValue} value={value} {...props}>
+            <Toggle label="All DAOs" value="all" />
+            <Toggle label="Member" value="member" />
+            <Toggle disabled={true} label="Following" value="following" />
         </ToggleGroup>
     );
 };

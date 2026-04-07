@@ -48,7 +48,7 @@ describe('<ProposalVotingBreakdownMultisig /> component', () => {
 
     it('renders the correct labels', () => {
         const approvalsAmount = 1000;
-        const membersCount = 12345;
+        const membersCount = 12_345;
         render(createTestComponent({ approvalsAmount, membersCount }));
         expect(screen.getByText('Approval')).toBeInTheDocument();
         expect(screen.getByText('1K')).toBeInTheDocument();

@@ -1,1 +1,1 @@
-export { TabsTrigger, type ITabsTriggerProps } from './tabsTrigger';
+export { type ITabsTriggerProps, TabsTrigger } from './tabsTrigger';

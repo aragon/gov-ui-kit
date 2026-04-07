@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { DataList, StateSkeletonBar, StateSkeletonCircular, type IDataListItemProps } from '../../../../../core';
+import { DataList, type IDataListItemProps, StateSkeletonBar, StateSkeletonCircular } from '../../../../../core';
 
 export type ITransactionDataListItemSkeletonProps = IDataListItemProps;
 
@@ -8,26 +8,26 @@ export const TransactionDataListItemSkeleton: React.FC<ITransactionDataListItemS
 
     return (
         <DataList.Item
-            tabIndex={0}
             aria-busy="true"
             aria-label="loading"
             className={classNames(
-                'border-neutral-0 flex min-h-[67.5px] w-full items-center justify-between gap-x-3 border py-4 md:min-h-[88.5px]',
+                'flex min-h-[67.5px] w-full items-center justify-between gap-x-3 border border-neutral-0 py-4 md:min-h-[88.5px]',
                 className,
             )}
+            tabIndex={0}
             {...otherProps}
         >
-            <StateSkeletonCircular size="sm" responsiveSize={{ md: 'md' }} />
+            <StateSkeletonCircular responsiveSize={{ md: 'md' }} size="sm" />
             <div className="flex w-full items-center gap-x-3 md:gap-x-4">
                 <div className="flex w-full flex-col items-start gap-y-1 md:w-3/4">
-                    <StateSkeletonBar width="100%" responsiveSize={{ md: 'xl' }} />
-                    <StateSkeletonBar width="50%" responsiveSize={{ md: 'lg' }} />
+                    <StateSkeletonBar responsiveSize={{ md: 'xl' }} width="100%" />
+                    <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
                 </div>
             </div>
 
             <div className="flex w-3/4 flex-col items-end gap-y-1 md:w-1/3">
-                <StateSkeletonBar width="70%" responsiveSize={{ md: 'xl' }} />
-                <StateSkeletonBar width="50%" responsiveSize={{ md: 'lg' }} />
+                <StateSkeletonBar responsiveSize={{ md: 'xl' }} width="70%" />
+                <StateSkeletonBar responsiveSize={{ md: 'lg' }} width="50%" />
             </div>
         </DataList.Item>
     );

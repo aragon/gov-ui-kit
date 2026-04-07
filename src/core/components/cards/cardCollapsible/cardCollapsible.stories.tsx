@@ -68,8 +68,10 @@ export const WithImage: Story = {
     render: (args) => (
         <CardCollapsible {...args}>
             <img
-                src="https://sample-files.com/downloads/images/jpg/color_test_800x600_118kb.jpg"
                 alt="A beautiful landscape"
+                height={600}
+                src="https://sample-files.com/downloads/images/jpg/color_test_800x600_118kb.jpg"
+                width={800}
             />
         </CardCollapsible>
     ),
@@ -118,7 +120,8 @@ export const ComplexRichText: Story = {
                 }
             `}</style>
             <CardCollapsible {...args}>
-                <div contentEditable={false} role="textbox" translate="no" className="tiptap ProseMirror">
+                {/* biome-ignore lint/a11y/useSemanticElements: mirrors Tiptap's ProseMirror output */}
+                <div className="tiptap ProseMirror" contentEditable={false} role="textbox" translate="no">
                     <h1>Plugin upgrade</h1>
                     <ul data-tight="true">
                         <li>

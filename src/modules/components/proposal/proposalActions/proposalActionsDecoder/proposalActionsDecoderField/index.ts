@@ -1,1 +1,1 @@
-export { ProposalActionsDecoderField, type IProposalActionsDecoderFieldProps } from './proposalActionsDecoderField';
+export { type IProposalActionsDecoderFieldProps, ProposalActionsDecoderField } from './proposalActionsDecoderField';

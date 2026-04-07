@@ -1,1 +1,1 @@
-export { ProposalVotingBodyContent, type IProposalVotingBodyContentProps } from './proposalVotingBodyContent';
+export { type IProposalVotingBodyContentProps, ProposalVotingBodyContent } from './proposalVotingBodyContent';

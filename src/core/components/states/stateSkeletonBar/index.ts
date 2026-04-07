@@ -1,1 +1,1 @@
-export { StateSkeletonBar, type IStateSkeletonBarProps, type StateSkeletonBarSize } from './stateSkeletonBar';
+export { type IStateSkeletonBarProps, StateSkeletonBar, type StateSkeletonBarSize } from './stateSkeletonBar';

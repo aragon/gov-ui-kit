@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Link, type ILinkProps } from '.';
 import { IconType } from '../../icon';
+import { type ILinkProps, Link } from '.';
 
 describe('<Link /> component', () => {
     const createTestComponent = (props?: Partial<ILinkProps>) => {

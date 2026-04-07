@@ -1,6 +1,6 @@
 export {
     GukModulesProvider,
-    useGukModulesContext,
     type IGukModulesContext,
     type IGukModulesProviderProps,
+    useGukModulesContext,
 } from './gukModulesProvider';

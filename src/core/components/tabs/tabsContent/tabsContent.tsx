@@ -1,5 +1,5 @@
 import { TabsContent as RadixTabsContent } from '@radix-ui/react-tabs';
-import { type ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
 
 export interface ITabsContentProps extends ComponentProps<'div'> {
     /**

@@ -3,9 +3,9 @@ import {
     AvatarIcon,
     formatterUtils,
     IconType,
+    type IProgressProps,
     NumberFormat,
     Progress,
-    type IProgressProps,
     type ProgressVariant,
 } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
@@ -84,7 +84,7 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
     return (
         <div className={classNames('flex w-full grow flex-col gap-3', className)}>
             <div className="flex flex-row items-center justify-between">
-                <div className={classNames('flex flex-row gap-1 text-base leading-tight font-normal md:text-lg')}>
+                <div className={classNames('flex flex-row gap-1 font-normal text-base leading-tight md:text-lg')}>
                     <p className={classNames(variantToNameClassNames[processedVariant])}>
                         {name}
                         {nameDescription && <span className="text-neutral-500">{nameDescription}</span>}
@@ -99,13 +99,13 @@ export const ProposalVotingProgressItem: React.FC<IProposalVotingProgressItemPro
                 {showStatus && <AvatarIcon icon={statusIcon} variant={statusVariant} />}
             </div>
             <Progress
-                value={value}
                 size="md"
                 thresholdIndicator={thresholdIndicator}
+                value={value}
                 variant={processedVariant}
                 {...otherProps}
             />
-            <div className="flex flex-row justify-between text-sm leading-tight font-normal md:text-base">
+            <div className="flex flex-row justify-between font-normal text-sm leading-tight md:text-base">
                 <div className="flex flex-row gap-0.5">
                     <p className="text-neutral-800">{description.value}</p>
                     <p className="text-neutral-500">{description.text}</p>

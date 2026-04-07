@@ -15,14 +15,14 @@ export const ProposalActionChangeSettings: React.FC<IProposalActionChangeSetting
 
     return (
         <div className="flex w-full flex-col gap-2">
-            <ToggleGroup value={toggleValue} onChange={setToggleValue} isMultiSelect={false}>
+            <ToggleGroup isMultiSelect={false} onChange={setToggleValue} value={toggleValue}>
                 <Toggle label={copy.proposalActionsChangeSettings.proposedToggle} value="proposedSettings" />
                 <Toggle label={copy.proposalActionsChangeSettings.existingToggle} value="existingSettings" />
             </ToggleGroup>
 
             <DefinitionList.Container>
-                {settingsToDisplay.map((setting, index) => (
-                    <DefinitionList.Item term={setting.term} key={index}>
+                {settingsToDisplay.map((setting) => (
+                    <DefinitionList.Item key={setting.term} term={setting.term}>
                         {setting.definition}
                     </DefinitionList.Item>
                 ))}

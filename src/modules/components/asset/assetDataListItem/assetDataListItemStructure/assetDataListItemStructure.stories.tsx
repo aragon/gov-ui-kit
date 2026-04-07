@@ -58,7 +58,7 @@ export const WithoutValue: Story = {
     args: {
         name: 'Solana',
         logoSrc: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
-        amount: 2.479283,
+        amount: 2.479_283,
         symbol: 'SOL',
         hideValue: true,
     },

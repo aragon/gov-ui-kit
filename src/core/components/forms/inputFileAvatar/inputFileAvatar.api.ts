@@ -1,5 +1,5 @@
-import { type Accept } from 'react-dropzone';
-import { type IInputContainerBaseProps } from '../inputContainer';
+import type { Accept } from 'react-dropzone';
+import type { IInputContainerBaseProps } from '../inputContainer';
 
 export enum InputFileAvatarError {
     SQUARE_ONLY = 'square-only',
@@ -25,10 +25,8 @@ export interface IInputFileAvatarValue {
     error?: InputFileAvatarError;
 }
 
-export interface IInputFileAvatarProps extends Pick<
-    IInputContainerBaseProps,
-    'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'
-> {
+export interface IInputFileAvatarProps
+    extends Pick<IInputContainerBaseProps, 'alert' | 'label' | 'helpText' | 'isOptional' | 'variant' | 'disabled'> {
     /**
      * Function that is called when a file is selected.
      * If the file is rejected, the function is not called.

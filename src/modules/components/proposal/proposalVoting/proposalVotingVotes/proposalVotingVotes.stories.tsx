@@ -21,13 +21,13 @@ type Story = StoryObj<typeof ProposalVoting.Votes>;
  */
 export const Default: Story = {
     render: (args) => (
-        <Tabs.Root defaultValue={ProposalVotingTab.VOTES} className="w-full">
+        <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.VOTES}>
             <ProposalVoting.Votes {...args}>
-                <DataList.Root itemsCount={1} entityLabel="Votes">
+                <DataList.Root entityLabel="Votes" itemsCount={1}>
                     <DataList.Container>
                         <VoteDataListItem.Structure
-                            voter={{ address: '0xF6ad40D5D477ade0C640eaD49944bdD0AA1fBF05' }}
                             voteIndicator="yes"
+                            voter={{ address: '0xF6ad40D5D477ade0C640eaD49944bdD0AA1fBF05' }}
                         />
                     </DataList.Container>
                 </DataList.Root>

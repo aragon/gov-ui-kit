@@ -1,1 +1,1 @@
-export { StyleBlock, type ICustomisationDoc } from './styleBlock';
+export { type ICustomisationDoc, StyleBlock } from './styleBlock';

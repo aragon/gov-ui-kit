@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import { InputFileAvatar } from './inputFileAvatar';
-import { InputFileAvatarError, type IInputFileAvatarProps } from './inputFileAvatar.api';
+import { type IInputFileAvatarProps, InputFileAvatarError } from './inputFileAvatar.api';
 
 Object.defineProperty(URL, 'createObjectURL', { value: jest.fn(), configurable: true });
 Object.defineProperty(URL, 'revokeObjectURL', { value: jest.fn(), configurable: true });

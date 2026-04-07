@@ -1,6 +1,6 @@
 import { Icon, IconType } from '../icon';
 import { Link } from '../link';
-import { Tag, type ITagProps } from '../tag';
+import { type ITagProps, Tag } from '../tag';
 
 export interface IBreadcrumbsLink {
     /**
@@ -37,14 +37,14 @@ export const Breadcrumbs: React.FC<IBreadcrumbsProps> = (props) => {
         <nav aria-label="breadcrumbs" className="flex min-w-0 items-center gap-x-2" {...otherProps}>
             <ol className="flex min-w-0 items-center gap-x-0.5">
                 {pathLinks.map((link) => (
-                    <li key={link.href} className="flex items-center gap-x-1 whitespace-nowrap">
+                    <li className="flex items-center gap-x-1 whitespace-nowrap" key={link.href}>
                         <Link href={link.href}>{link.label}</Link>
-                        <Icon icon={IconType.SLASH} className="text-neutral-200" responsiveSize={{ md: 'lg' }} />
+                        <Icon className="text-neutral-200" icon={IconType.SLASH} responsiveSize={{ md: 'lg' }} />
                     </li>
                 ))}
                 <li
                     aria-current="page"
-                    className="truncate text-sm leading-tight font-normal text-neutral-500 md:text-base"
+                    className="truncate font-normal text-neutral-500 text-sm leading-tight md:text-base"
                 >
                     {currentPage.label}
                 </li>

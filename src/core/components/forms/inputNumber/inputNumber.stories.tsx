@@ -31,7 +31,7 @@ export const Controlled: Story = {
     render: ({ onChange, ...props }) => {
         const [value, setValue] = useState<string>('1');
 
-        return <InputNumber value={value} onChange={setValue} {...props} />;
+        return <InputNumber onChange={setValue} value={value} {...props} />;
     },
 };
 

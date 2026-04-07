@@ -1,197 +1,186 @@
 {
-  "name": "@aragon/gov-ui-kit",
-  "version": "2.0.1",
-  "description": "Implementation of the Aragon's Governance UI Kit",
-  "main": "dist/index.es.js",
-  "types": "dist/types/src/index.d.ts",
-  "license": "GPL-3.0",
-  "files": [
-    "dist",
-    "index.css",
-    "build.css",
-    "src/**/*.css",
-    "src/theme/fonts/*"
-  ],
-  "scripts": {
-    "setup": "husky",
-    "storybook": "storybook dev -p 6006",
-    "build": "rollup -c",
-    "build:watch": "rollup -c --watch",
-    "build:analyze": "cross-env ANALYZE=true rollup -c",
-    "build:storybook": "storybook build",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --fix",
-    "prettify": "prettier . --check",
-    "prettify:fix": "prettier . --write",
-    "type-check": "tsc --noemit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aragon/gov-ui-kit.git"
-  },
-  "keywords": [
-    "aragon",
-    "design-system",
-    "governance-ui-kit",
-    "react",
-    "tailwind"
-  ],
-  "author": "Aragon Association",
-  "dependencies": {
-    "@radix-ui/react-accordion": "^1.2.12",
-    "@radix-ui/react-alert-dialog": "^1.1.15",
-    "@radix-ui/react-avatar": "^1.1.11",
-    "@radix-ui/react-checkbox": "^1.3.3",
-    "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-dropdown-menu": "^2.1.16",
-    "@radix-ui/react-focus-scope": "^1.1.8",
-    "@radix-ui/react-progress": "^1.1.8",
-    "@radix-ui/react-radio-group": "^1.3.8",
-    "@radix-ui/react-switch": "^1.2.6",
-    "@radix-ui/react-tabs": "^1.1.13",
-    "@radix-ui/react-toggle-group": "^1.1.11",
-    "@radix-ui/react-tooltip": "^1.2.8",
-    "@radix-ui/react-visually-hidden": "^1.2.4",
-    "@tiptap/core": "^3.20.0",
-    "@tiptap/extension-image": "^3.20.0",
-    "@tiptap/extensions": "^3.20.0",
-    "@tiptap/pm": "^3.20.0",
-    "@tiptap/react": "^3.20.0",
-    "@tiptap/starter-kit": "^3.20.0",
-    "blockies-ts": "^1.0.0",
-    "classnames": "^2.5.1",
-    "framer-motion": "^12.35.0",
-    "imask": "^7.6.1",
-    "luxon": "^3.7.2",
-    "react-dropzone": "^15.0.0",
-    "react-imask": "^7.6.1",
-    "sanitize-html": "^2.17.1",
-    "tiptap-markdown": "^0.9.0"
-  },
-  "peerDependencies": {
-    "@tailwindcss/typography": "^0.5.0",
-    "@tanstack/react-query": "^5.90.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-hook-form": "^7.63.0",
-    "tailwindcss": "^4.1.0",
-    "viem": "^2.37.0",
-    "wagmi": "^3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@tailwindcss/typography": {
-      "optional": true
+    "name": "@aragon/gov-ui-kit",
+    "version": "2.0.1",
+    "description": "Implementation of the Aragon's Governance UI Kit",
+    "main": "dist/index.es.js",
+    "types": "dist/types/src/index.d.ts",
+    "license": "GPL-3.0",
+    "files": [
+        "dist",
+        "index.css",
+        "build.css",
+        "src/**/*.css",
+        "src/theme/fonts/*"
+    ],
+    "scripts": {
+        "setup": "husky",
+        "storybook": "storybook dev -p 6006",
+        "build": "rollup -c",
+        "build:watch": "rollup -c --watch",
+        "build:analyze": "cross-env ANALYZE=true rollup -c",
+        "build:storybook": "storybook build",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
+        "lint:check": "biome check --no-errors-on-unmatched --files-ignore-unknown=true",
+        "type-check": "tsc --noemit"
     },
-    "tailwindcss": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
-    "@changesets/changelog-github": "^0.5.2",
-    "@changesets/cli": "^2.30.0",
-    "@hookform/devtools": "^4.4.0",
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-image": "^3.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@storybook/addon-docs": "^9.1.19",
-    "@storybook/react-vite": "^9.1.19",
-    "@svgr/rollup": "^8.1.0",
-    "@tailwindcss/postcss": "^4.2.1",
-    "@tailwindcss/typography": "^0.5.19",
-    "@tanstack/react-query": "^5.90.21",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
-    "@types/luxon": "^3.7.1",
-    "@types/node": "^22.19.13",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@types/sanitize-html": "^2.16.0",
-    "cross-env": "^10.1.0",
-    "eslint": "^9.39.3",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "^9.1.19",
-    "eslint-plugin-testing-library": "^7.16.0",
-    "husky": "^9.1.7",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
-    "lint-staged": "^16.3.2",
-    "postcss": "^8.5.8",
-    "postcss-loader": "^8.2.1",
-    "prettier": "^3.8.1",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-hook-form": "^7.71.2",
-    "rollup": "^4.59.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-visualizer": "^6.0.11",
-    "storybook": "^9.1.19",
-    "tailwindcss": "^4.2.1",
-    "ts-jest": "^29.4.6",
-    "tslib": "^2.8.1",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1",
-    "vercel": "^50.26.1",
-    "viem": "^2.46.3",
-    "vite": "^7.3.1",
-    "vite-plugin-node-polyfills": "^0.25.0",
-    "vite-plugin-static-copy": "^3.2.0",
-    "vite-plugin-svgr": "^4.5.0",
-    "wagmi": "^3.5.0",
-    "zod": "^3.25.76"
-  },
-  "bugs": {
-    "url": "https://github.com/aragon/gov-ui-kit/issues"
-  },
-  "homepage": "https://github.com/aragon/gov-ui-kit#readme",
-  "engines": {
-    "node": ">=22.0.0",
-    "pnpm": ">=10.0.0"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/types/src/index.d.ts",
-      "default": "./dist/index.es.js"
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aragon/gov-ui-kit.git"
     },
-    "./index.css": "./index.css",
-    "./build.css": "./build.css"
-  },
-  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
-  "pnpm": {
-    "overrides": {
-      "jsdom": "26.1.0",
-      "undici": "^5.29.0",
-      "@vercel/blob>undici": "^6.23.0",
-      "@vercel/node>undici": "^6.23.0",
-      "serialize-javascript": "^7.0.3",
-      "tar": "^7.5.11",
-      "minimatch@^10.0.0": "^10.2.4",
-      "ajv@^8.0.0": "^8.18.0"
+    "keywords": [
+        "aragon",
+        "design-system",
+        "governance-ui-kit",
+        "react",
+        "tailwind"
+    ],
+    "author": "Aragon Association",
+    "dependencies": {
+        "@radix-ui/react-accordion": "^1.2.12",
+        "@radix-ui/react-alert-dialog": "^1.1.15",
+        "@radix-ui/react-avatar": "^1.1.11",
+        "@radix-ui/react-checkbox": "^1.3.3",
+        "@radix-ui/react-dialog": "^1.1.15",
+        "@radix-ui/react-dropdown-menu": "^2.1.16",
+        "@radix-ui/react-focus-scope": "^1.1.8",
+        "@radix-ui/react-progress": "^1.1.8",
+        "@radix-ui/react-radio-group": "^1.3.8",
+        "@radix-ui/react-switch": "^1.2.6",
+        "@radix-ui/react-tabs": "^1.1.13",
+        "@radix-ui/react-toggle-group": "^1.1.11",
+        "@radix-ui/react-tooltip": "^1.2.8",
+        "@radix-ui/react-visually-hidden": "^1.2.4",
+        "@tiptap/core": "^3.20.0",
+        "@tiptap/extension-image": "^3.20.0",
+        "@tiptap/extensions": "^3.20.0",
+        "@tiptap/pm": "^3.20.0",
+        "@tiptap/react": "^3.20.0",
+        "@tiptap/starter-kit": "^3.20.0",
+        "blockies-ts": "^1.0.0",
+        "classnames": "^2.5.1",
+        "framer-motion": "^12.35.0",
+        "imask": "^7.6.1",
+        "luxon": "^3.7.2",
+        "react-dropzone": "^15.0.0",
+        "react-imask": "^7.6.1",
+        "sanitize-html": "^2.17.1",
+        "tiptap-markdown": "^0.9.0"
     },
-    "packageExtensions": {
-      "@solana/codecs-strings@*": {
-        "dependencies": {
-          "fastestsmallesttextencoderdecoder": "^1.0.22"
+    "peerDependencies": {
+        "@tailwindcss/typography": "^0.5.0",
+        "@tanstack/react-query": "^5.90.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-hook-form": "^7.63.0",
+        "tailwindcss": "^4.1.0",
+        "viem": "^2.37.0",
+        "wagmi": "^3.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@tailwindcss/typography": {
+            "optional": true
+        },
+        "tailwindcss": {
+            "optional": true
         }
-      }
+    },
+    "devDependencies": {
+        "@babel/core": "^7.29.0",
+        "@babel/preset-env": "^7.29.0",
+        "@babel/preset-react": "^7.28.5",
+        "@babel/preset-typescript": "^7.28.5",
+        "@biomejs/biome": "^2.4.6",
+        "@changesets/changelog-github": "^0.5.2",
+        "@changesets/cli": "^2.30.0",
+        "@hookform/devtools": "^4.4.0",
+        "@rollup/plugin-commonjs": "^29.0.0",
+        "@rollup/plugin-image": "^3.0.3",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^12.3.0",
+        "@storybook/addon-docs": "^9.1.19",
+        "@storybook/react-vite": "^9.1.19",
+        "@svgr/rollup": "^8.1.0",
+        "@tailwindcss/postcss": "^4.2.1",
+        "@tailwindcss/typography": "^0.5.19",
+        "@tanstack/react-query": "^5.90.21",
+        "@testing-library/dom": "^10.4.1",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
+        "@types/jest": "^30.0.0",
+        "@types/luxon": "^3.7.1",
+        "@types/node": "^22.19.13",
+        "@types/react": "^19.2.14",
+        "@types/react-dom": "^19.2.3",
+        "@types/sanitize-html": "^2.16.0",
+        "cross-env": "^10.1.0",
+        "husky": "^9.1.7",
+        "jest": "^30.2.0",
+        "jest-environment-jsdom": "^30.2.0",
+        "lint-staged": "^16.3.2",
+        "postcss": "^8.5.8",
+        "postcss-loader": "^8.2.1",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "react-hook-form": "^7.71.2",
+        "rollup": "^4.59.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-visualizer": "^6.0.11",
+        "storybook": "^9.1.19",
+        "tailwindcss": "^4.2.1",
+        "ts-jest": "^29.4.6",
+        "tslib": "^2.8.1",
+        "turbo": "^2.8.20",
+        "typescript": "^5.9.3",
+        "ultracite": "^7.3.2",
+        "vercel": "^50.26.1",
+        "viem": "^2.46.3",
+        "vite": "^7.3.1",
+        "vite-plugin-node-polyfills": "^0.25.0",
+        "vite-plugin-static-copy": "^3.2.0",
+        "vite-plugin-svgr": "^4.5.0",
+        "wagmi": "^3.5.0",
+        "zod": "^3.25.76"
+    },
+    "bugs": {
+        "url": "https://github.com/aragon/gov-ui-kit/issues"
+    },
+    "homepage": "https://github.com/aragon/gov-ui-kit#readme",
+    "engines": {
+        "node": ">=22.0.0",
+        "pnpm": ">=10.0.0"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/types/src/index.d.ts",
+            "default": "./dist/index.es.js"
+        },
+        "./index.css": "./index.css",
+        "./build.css": "./build.css"
+    },
+    "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
+    "pnpm": {
+        "overrides": {
+            "jsdom": "26.1.0",
+            "undici": "^5.29.0",
+            "@vercel/blob>undici": "^6.23.0",
+            "@vercel/node>undici": "^6.23.0",
+            "serialize-javascript": "^7.0.3",
+            "tar": "^7.5.11",
+            "minimatch@^10.0.0": "^10.2.4",
+            "ajv@^8.0.0": "^8.18.0"
+        },
+        "packageExtensions": {
+            "@solana/codecs-strings@*": {
+                "dependencies": {
+                    "fastestsmallesttextencoderdecoder": "^1.0.22"
+                }
+            }
+        }
     }
-  }
 }

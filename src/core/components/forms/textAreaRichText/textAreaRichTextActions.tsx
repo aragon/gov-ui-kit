@@ -73,23 +73,23 @@ export const TextAreaRichTextActions: React.FC<ITextAreaRichTextActionsProps> = 
             <div className="flex flex-row flex-wrap gap-2 md:gap-3">
                 {getRichTextActions().map(({ icon, action }) => (
                     <Button
-                        key={icon}
-                        variant="tertiary"
-                        size="sm"
-                        responsiveSize={{ md: 'md' }}
-                        iconLeft={icon}
-                        onClick={action}
                         disabled={disabled}
+                        iconLeft={icon}
+                        key={icon}
+                        onClick={action}
+                        responsiveSize={{ md: 'md' }}
+                        size="sm"
+                        variant="tertiary"
                     />
                 ))}
             </div>
             <Button
-                variant="tertiary"
-                size="sm"
-                responsiveSize={{ md: 'md' }}
+                disabled={disabled}
                 iconLeft={IconType.EXPAND}
                 onClick={onExpandClick}
-                disabled={disabled}
+                responsiveSize={{ md: 'md' }}
+                size="sm"
+                variant="tertiary"
             />
         </div>
     );

@@ -1,11 +1,11 @@
 import { DateTime, Duration, type DurationUnit } from 'luxon';
 import {
     DateFormat,
-    NumberFormat,
-    dateFormats,
-    numberFormats,
     type DynamicOption,
+    dateFormats,
     type INumberFormat,
+    NumberFormat,
+    numberFormats,
 } from './formatterUtilsDefinitions';
 
 export interface IFormatNumberOptions extends INumberFormat {
@@ -57,9 +57,9 @@ class FormatterUtils {
             displayFallback,
         } = mergedOptions;
 
-        const parsedValue = typeof value === 'number' ? value : parseFloat(value ?? '');
+        const parsedValue = typeof value === 'number' ? value : Number.parseFloat(value ?? '');
 
-        if (Boolean(displayFallback?.(parsedValue)) || isNaN(parsedValue)) {
+        if (Boolean(displayFallback?.(parsedValue)) || Number.isNaN(parsedValue)) {
             return fallback;
         }
 
@@ -89,7 +89,7 @@ class FormatterUtils {
             processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : (baseRange?.value ?? 1);
 
         if (useBaseSymbol) {
-            processedValue = processedValue / baseRangeDenominator;
+            processedValue /= baseRangeDenominator;
         }
 
         let formattedValue = cache[cacheKey].format(processedValue);

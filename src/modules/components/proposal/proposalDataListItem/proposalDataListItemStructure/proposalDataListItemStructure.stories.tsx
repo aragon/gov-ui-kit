@@ -19,7 +19,7 @@ type Story = StoryObj<typeof ProposalDataListItem.Structure>;
  */
 export const Default: Story = {
     args: {
-        date: 1728637284503,
+        date: 1_728_637_284_503,
         status: ProposalStatus.ACCEPTED,
         title: 'Funding testnet of Unichain',
         summary:
@@ -33,7 +33,7 @@ export const Default: Story = {
  */
 export const MultiBody: Story = {
     args: {
-        date: Date.now() + 1000000,
+        date: Date.now() + 1_000_000,
         status: ProposalStatus.ACTIVE,
         statusContext: 'Stage 1',
         title: 'Partnering with WalletConnect on Social Media',
@@ -54,13 +54,13 @@ export const MultiBody: Story = {
  */
 export const CustomResults: Story = {
     args: {
-        date: 1728637491379,
+        date: 1_728_637_491_379,
         status: ProposalStatus.FAILED,
         title: 'A proposal with custom results',
         summary: 'Pass the custom proposal results as children property to render a custom UI.',
         publisher: { address: '0x17C6808fA04DC9de98eaCfeb4c66B352067c1cDD' },
         children: (
-            <div className="border-info-300 bg-info-100 flex h-24 w-full items-center justify-center border border-dashed">
+            <div className="flex h-24 w-full items-center justify-center border border-info-300 border-dashed bg-info-100">
                 Custom results breakdown
             </div>
         ),

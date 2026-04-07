@@ -67,7 +67,7 @@ describe('<Dropdown.Container /> component', () => {
     it('renders the customTrigger instead of the default button when specified', async () => {
         const user = userEvent.setup();
         const onOpenChange = jest.fn();
-        const customTrigger = <button>test</button>;
+        const customTrigger = <button type="button">test</button>;
         render(createTestComponent({ onOpenChange, customTrigger }));
 
         const trigger = screen.getByRole('button', { name: 'test' });

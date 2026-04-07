@@ -17,7 +17,7 @@ describe('<DataList.Root /> component', () => {
     };
 
     it('renders the data list items', () => {
-        const children = [<DataListItem key="1" href="www.aragon.org" />];
+        const children = [<DataListItem href="www.aragon.org" key="1" />];
         render(createTestComponent({ children }));
         expect(screen.getByRole('link')).toBeInTheDocument();
     });
@@ -28,7 +28,11 @@ describe('<DataList.Root /> component', () => {
         const ChildrenComponent = () => {
             const { currentPage, handleLoadMore } = useDataListContext();
 
-            return <button onClick={() => handleLoadMore(currentPage + 1)}>{currentPage}</button>;
+            return (
+                <button onClick={() => handleLoadMore(currentPage + 1)} type="button">
+                    {currentPage}
+                </button>
+            );
         };
 
         render(

@@ -1,5 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
-import { NumberFormat, Tabs, formatterUtils } from '../../../../../core';
+import { formatterUtils, NumberFormat, Tabs } from '../../../../../core';
 import { testLogger } from '../../../../../core/test';
 import { ProposalVotingTab } from '../proposalVotingDefinitions';
 import { type IProposalVotingBreakdownTokenProps, ProposalVotingBreakdownToken } from './proposalVotingBreakdownToken';

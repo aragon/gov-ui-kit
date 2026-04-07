@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState, type ChangeEvent } from 'react';
+import { type ChangeEvent, useState } from 'react';
 import { TextArea } from './textArea';
 
 const meta: Meta<typeof TextArea> = {
@@ -33,7 +33,7 @@ export const Controlled: Story = {
 
         const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => setValue(event.target.value);
 
-        return <TextArea value={value} onChange={handleChange} {...props} />;
+        return <TextArea onChange={handleChange} value={value} {...props} />;
     },
     args: {
         placeholder: 'Controlled TextArea',

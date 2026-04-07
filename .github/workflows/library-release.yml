@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Load secrets
         id: load-secrets
-        uses: 1password/load-secrets-action@v3.2.1
+        uses: 1password/load-secrets-action@v4.0.0
         with:
           export-env: false
         env:
@@ -40,11 +40,11 @@ jobs:
           git_commit_gpgsign: true
       - name: Update version and changelog
         # Run prettier on CHANGELOG.md file (used for Github release notes) to remove automatic formatting applied by
-        # changeset as Github does not support soft line breaks.
+        # changeset as Github does not support soft line breaks. Biome does not support Markdown formatting.
         # (See https://github.com/changesets/changesets/issues/1452, https://github.com/orgs/community/discussions/10981)
         run: |
           pnpm changeset version
-          pnpm prettier --write CHANGELOG.md --print-width 9999999 --ignore-path
+          pnpx prettier --write CHANGELOG.md --print-width 9999999 --ignore-path
         env:
           GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Create tag

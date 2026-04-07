@@ -17,7 +17,7 @@ import { type NestedProposalActionFormValues, proposalActionsDecoderUtils } from
 
 jest.mock('./proposalActionsDecoderTextField', () => ({
     ProposalActionsDecoderTextField: (props: { fieldName: string; className?: string }) => (
-        <input data-testid={`${props.fieldName}-text-field-mock`} className={props.className} />
+        <input className={props.className} data-testid={`${props.fieldName}-text-field-mock`} />
     ),
 }));
 

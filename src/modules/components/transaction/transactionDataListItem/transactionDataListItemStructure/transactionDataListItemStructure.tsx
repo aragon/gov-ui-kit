@@ -1,19 +1,19 @@
 import classNames from 'classnames';
 import {
     AvatarIcon,
+    type AvatarIconVariant,
     DataList,
     DateFormat,
+    formatterUtils,
     IconType,
     NumberFormat,
     Spinner,
-    formatterUtils,
-    type AvatarIconVariant,
 } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import {
+    type ITransactionDataListItemProps,
     TransactionStatus,
     TransactionType,
-    type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
 const typeToHeading: Record<TransactionType, string> = {
@@ -72,29 +72,29 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
             {...otherProps}
         >
             {status === TransactionStatus.SUCCESS && (
-                <AvatarIcon variant={typeToIconVariant[type]} icon={typeToIcon[type]} responsiveSize={{ md: 'md' }} />
+                <AvatarIcon icon={typeToIcon[type]} responsiveSize={{ md: 'md' }} variant={typeToIconVariant[type]} />
             )}
             {status === TransactionStatus.FAILED && (
-                <AvatarIcon variant="critical" icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} />
+                <AvatarIcon icon={IconType.CLOSE} responsiveSize={{ md: 'md' }} variant="critical" />
             )}
             {status === TransactionStatus.PENDING && (
                 <div className="flex size-6 shrink-0 items-center justify-center md:size-8">
-                    <Spinner className="transition" variant="neutral" responsiveSize={{ md: 'lg' }} />
+                    <Spinner className="transition" responsiveSize={{ md: 'lg' }} variant="neutral" />
                 </div>
             )}
             <div className="flex w-full flex-col items-start gap-y-0.5 self-center md:gap-y-1">
-                <span className="leading-tight text-neutral-800 md:text-lg">{typeToHeading[type]}</span>
+                <span className="text-neutral-800 leading-tight md:text-lg">{typeToHeading[type]}</span>
                 {date && (
-                    <p className="text-sm leading-tight text-neutral-500 md:text-base">
+                    <p className="text-neutral-500 text-sm leading-tight md:text-base">
                         {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
                     </p>
                 )}
             </div>
 
             <div className="flex h-full shrink-0 flex-col items-end gap-y-0.5 truncate md:gap-y-1">
-                <span className="leading-tight text-neutral-800 md:text-lg">{processedTokenAmount}</span>
+                <span className="text-neutral-800 leading-tight md:text-lg">{processedTokenAmount}</span>
                 {!hideValue && (
-                    <span className="text-sm leading-tight text-neutral-500 md:text-base">
+                    <span className="text-neutral-500 text-sm leading-tight md:text-base">
                         {formattedTransactionValue}
                     </span>
                 )}

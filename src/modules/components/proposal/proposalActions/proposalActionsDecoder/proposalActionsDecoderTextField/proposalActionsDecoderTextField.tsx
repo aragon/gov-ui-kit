@@ -9,7 +9,7 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
     const { parameter, mode, hideLabels, component = 'input', fieldName, formPrefix, className } = props;
     const { name, notice, value, type } = parameter;
 
-    const inputLabels = !hideLabels ? { label: name, helpText: notice } : undefined;
+    const inputLabels = hideLabels ? undefined : { label: name, helpText: notice };
     const formFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
 
     const commonProps = { placeholder: type, className, ...inputLabels };
@@ -25,5 +25,5 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
 
     const Component = component === 'textarea' ? TextArea : InputText;
 
-    return <Component value={value?.toString()} disabled={true} {...commonProps} />;
+    return <Component disabled={true} value={value?.toString()} {...commonProps} />;
 };

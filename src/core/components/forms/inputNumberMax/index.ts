@@ -1,1 +1,1 @@
-export { InputNumberMax, type IInputNumberMaxProps } from './inputNumberMax';
+export { type IInputNumberMaxProps, InputNumberMax } from './inputNumberMax';

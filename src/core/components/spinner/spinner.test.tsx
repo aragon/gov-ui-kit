@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Spinner, type ISpinnerProps } from './spinner';
+import { type ISpinnerProps, Spinner } from './spinner';
 
 describe('<Spinner /> component', () => {
     const createTestComponent = (props?: Partial<ISpinnerProps>) => {

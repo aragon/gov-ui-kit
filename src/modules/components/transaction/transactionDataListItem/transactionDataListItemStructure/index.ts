@@ -1,6 +1,6 @@
 export { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 export {
+    type ITransactionDataListItemProps,
     TransactionStatus,
     TransactionType,
-    type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';

@@ -4,10 +4,10 @@ import type { PropsWithChildren } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { modulesCopy } from '../../../../assets';
 import { GukModulesProvider } from '../../../gukModulesProvider';
-import { ProposalActionsContextProvider, type IProposalActionsContext } from '../proposalActionsContext';
+import { type IProposalActionsContext, ProposalActionsContextProvider } from '../proposalActionsContext';
 import { ProposalActionsItem } from '../proposalActionsItem';
 import { generateProposalAction, generateProposalActionsContext } from '../proposalActionsTestUtils';
-import { ProposalActionsContainer, type IProposalActionsContainerProps } from './proposalActionsContainer';
+import { type IProposalActionsContainerProps, ProposalActionsContainer } from './proposalActionsContainer';
 
 describe('<ProposalActionsContainer /> component', () => {
     const FormWrapper = ({ children }: PropsWithChildren) => {
@@ -45,8 +45,8 @@ describe('<ProposalActionsContainer /> component', () => {
 
     it('correctly renders the proposal actions', () => {
         const children = [
-            <ProposalActionsItem key={1} action={generateProposalAction()} />,
-            <ProposalActionsItem key={2} action={generateProposalAction()} />,
+            <ProposalActionsItem action={generateProposalAction()} key={1} />,
+            <ProposalActionsItem action={generateProposalAction()} key={2} />,
         ];
         const context = { actionsCount: children.length };
         render(createTestComponent({ props: { children }, context }));
@@ -56,8 +56,8 @@ describe('<ProposalActionsContainer /> component', () => {
 
     it('updates the list of expanded actions on action click', async () => {
         const children = [
-            <ProposalActionsItem key={1} action={generateProposalAction()} />,
-            <ProposalActionsItem key={2} action={generateProposalAction()} />,
+            <ProposalActionsItem action={generateProposalAction()} key={1} />,
+            <ProposalActionsItem action={generateProposalAction()} key={2} />,
         ];
         const setExpandedActions = jest.fn();
         const context = { actionsCount: children.length, setExpandedActions };
@@ -67,7 +67,7 @@ describe('<ProposalActionsContainer /> component', () => {
     });
 
     it('updates the actions-count context value using the number of child components', () => {
-        const children = <ProposalActionsItem key={1} action={generateProposalAction()} />;
+        const children = <ProposalActionsItem action={generateProposalAction()} key={1} />;
         const setActionsCount = jest.fn();
         const context = { setActionsCount };
         render(createTestComponent({ props: { children }, context }));
@@ -76,8 +76,8 @@ describe('<ProposalActionsContainer /> component', () => {
 
     it('renders the correct number of skeletons when loading state is active', () => {
         const children = [
-            <ProposalActionsItem key={1} action={generateProposalAction()} />,
-            <ProposalActionsItem key={2} action={generateProposalAction()} />,
+            <ProposalActionsItem action={generateProposalAction()} key={1} />,
+            <ProposalActionsItem action={generateProposalAction()} key={2} />,
         ];
         const context = { actionsCount: children.length, isLoading: true };
         render(createTestComponent({ props: { children }, context }));

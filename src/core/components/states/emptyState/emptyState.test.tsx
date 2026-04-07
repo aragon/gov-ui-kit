@@ -10,11 +10,10 @@ describe('<EmptyState /> component', () => {
 
         if (props?.humanIllustration) {
             return <EmptyState humanIllustration={props.humanIllustration} {...commonProps} {...props} />;
-        } else {
-            const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
-
-            return <EmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
         }
+        const { humanIllustration, objectIllustration = { object: 'ACTION' }, ...otherProps } = props ?? {};
+
+        return <EmptyState objectIllustration={objectIllustration} {...commonProps} {...otherProps} />;
     };
 
     it('renders the EmptyState component stacked with full props and object illustration', () => {

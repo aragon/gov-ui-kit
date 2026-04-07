@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useEffect, useMemo, useState, type ComponentProps } from 'react';
+import { type ComponentProps, useCallback, useEffect, useMemo, useState } from 'react';
 import { ProposalActionsContextProvider } from '../proposalActionsContext';
 
 export interface IProposalActionsRootProps extends ComponentProps<'div'> {

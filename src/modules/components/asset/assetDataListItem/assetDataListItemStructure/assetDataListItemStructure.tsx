@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { Avatar, DataList, NumberFormat, formatterUtils, type IDataListItemProps } from '../../../../../core';
+import { Avatar, DataList, formatterUtils, type IDataListItemProps, NumberFormat } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export type IAssetDataListItemStructureProps = IDataListItemProps & {
@@ -50,16 +50,16 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
             {...otherProps}
         >
             <div className="flex min-w-0 items-center gap-3">
-                <Avatar src={logoSrc} responsiveSize={{ md: 'md', sm: 'sm' }} className="block shrink-0" />
-                <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">{name}</span>
+                <Avatar className="block shrink-0" responsiveSize={{ md: 'md', sm: 'sm' }} src={logoSrc} />
+                <span className="truncate text-base text-neutral-800 leading-tight md:text-lg">{name}</span>
             </div>
             <div className="flex min-w-0 gap-x-2 text-right">
                 <div className="flex min-w-0 flex-col gap-y-1">
-                    <span className="truncate text-base leading-tight text-neutral-800 md:text-lg">
+                    <span className="truncate text-base text-neutral-800 leading-tight md:text-lg">
                         {hideValue ? parsedAmount : formattedValue}
                     </span>
                     {!hideValue && (
-                        <span className="truncate text-sm leading-tight text-neutral-500 md:text-base">
+                        <span className="truncate text-neutral-500 text-sm leading-tight md:text-base">
                             {parsedAmount}
                         </span>
                     )}

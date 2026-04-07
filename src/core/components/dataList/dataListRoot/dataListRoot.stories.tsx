@@ -22,8 +22,8 @@ type Story = StoryObj<typeof DataList.Root>;
 const ListItemComponent = (props: { id: number }) => (
     <DataListItem className="flex flex-row gap-2 py-4 md:py-6" href="https://aragon.org" target="_blank">
         <Avatar />
-        <p className="grow text-base leading-normal font-normal text-neutral-800">#{props.id}</p>
-        <p className="text-sm leading-normal font-normal text-neutral-500">Some info</p>
+        <p className="grow font-normal text-base text-neutral-800 leading-normal">#{props.id}</p>
+        <p className="font-normal text-neutral-500 text-sm leading-normal">Some info</p>
     </DataListItem>
 );
 
@@ -55,7 +55,7 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
 
     const shouldFilter = searchValue != null && searchValue.trim().length > 0;
     const userIds = useMemo(
-        () => [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000)),
+        () => [...new Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000)),
         [itemsCount],
     );
 
@@ -81,18 +81,18 @@ const StaticListComponent = (props: IStaticListComponentProps) => {
     return (
         <DataList.Root itemsCount={filteredUsers.length} state={state} {...otherProps} entityLabel={entityLabel}>
             <DataList.Filter
-                onFilterClick={() => alert('filter click')}
-                searchValue={searchValue}
-                onSearchValueChange={setSearchValue}
-                placeholder="Filter by user id"
                 activeSort={activeSort}
-                onSortChange={setActiveSort}
-                sortItems={sortItems}
+                onFilterClick={() => alert('filter click')}
                 onResetFiltersClick={() => setSearchValue(undefined)}
+                onSearchValueChange={setSearchValue}
+                onSortChange={setActiveSort}
+                placeholder="Filter by user id"
+                searchValue={searchValue}
+                sortItems={sortItems}
             />
             <DataList.Container emptyFilteredState={emptyFilteredState} layoutClassName={layoutClassName}>
                 {filteredUsers.map((id) => (
-                    <ListItemComponent key={id} id={id} />
+                    <ListItemComponent id={id} key={id} />
                 ))}
             </DataList.Container>
             <DataList.Pagination />
@@ -174,10 +174,10 @@ const AsyncListComponent = (props: IDataListRootProps) => {
         setDataListState('initialLoading');
 
         setTimeout(() => {
-            dbUsers.current = [...Array<number>(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
+            dbUsers.current = [...new Array(itemsCount)].map(() => Math.floor(Math.random() * 100_000));
             setUsers(getUsers(dbUsers.current));
             setDataListState('idle');
-        }, 1_000);
+        }, 1000);
     }, [itemsCount]);
 
     // Sort and filter user list on filter change
@@ -187,14 +187,14 @@ const AsyncListComponent = (props: IDataListRootProps) => {
             return;
         }
 
-        setDataListState((state) => (state !== 'fetchingNextPage' ? 'loading' : state));
+        setDataListState((state) => (state === 'fetchingNextPage' ? state : 'loading'));
 
         requestTimeout.current = setTimeout(() => {
             setUsers(getUsers(dbUsers.current, searchValue, currentPage, activeSort, pageSize));
             const isFiltered = searchValue != null && searchValue.trim().length > 0;
             const newState = isFiltered ? 'filtered' : 'idle';
             setDataListState(newState);
-        }, 1_000);
+        }, 1000);
 
         return () => {
             clearTimeout(requestTimeout.current);
@@ -236,30 +236,30 @@ const AsyncListComponent = (props: IDataListRootProps) => {
     return (
         <DataList.Root
             itemsCount={users.total}
+            onLoadMore={handleLoadMore}
             pageSize={pageSize}
             state={dataListState}
-            onLoadMore={handleLoadMore}
             {...otherProps}
             entityLabel={entityLabel}
         >
             <DataList.Filter
-                onFilterClick={() => alert('filter click')}
-                searchValue={searchValue}
-                onSearchValueChange={handleSearchValueChange}
-                placeholder="Filter by user id"
                 activeSort={activeSort}
-                onSortChange={setActiveSort}
-                sortItems={sortItems}
+                onFilterClick={() => alert('filter click')}
                 onResetFiltersClick={() => setSearchValue(undefined)}
+                onSearchValueChange={handleSearchValueChange}
+                onSortChange={setActiveSort}
+                placeholder="Filter by user id"
+                searchValue={searchValue}
+                sortItems={sortItems}
             />
             <DataList.Container
-                SkeletonElement={ListItemComponentLoading}
-                errorState={errorState}
-                emptyState={emptyState}
                 emptyFilteredState={emptyFilteredState}
+                emptyState={emptyState}
+                errorState={errorState}
+                SkeletonElement={ListItemComponentLoading}
             >
                 {users.items.map((id) => (
-                    <ListItemComponent key={id} id={id} />
+                    <ListItemComponent id={id} key={id} />
                 ))}
             </DataList.Container>
             <DataList.Pagination />

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import ReactDOM from 'react-dom';
 import { IconType } from '../../icon';
-import { TextAreaRichText, type ITextAreaRichTextProps } from './textAreaRichText';
+import { type ITextAreaRichTextProps, TextAreaRichText } from './textAreaRichText';
 
 describe('<TextAreaRichText /> component', () => {
     const createPortalMock = jest.spyOn(ReactDOM, 'createPortal');

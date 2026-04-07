@@ -88,21 +88,21 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
 
             {showDropdown && (
                 <Dropdown.Container
-                    constrainContentWidth={false}
-                    size="md"
                     className="shrink-0 md:ml-auto"
-                    disabled={isLoading}
+                    constrainContentWidth={false}
                     customTrigger={
-                        <Button variant="tertiary" size="md" iconRight={IconType.DOTS_VERTICAL} disabled={isLoading}>
+                        <Button disabled={isLoading} iconRight={IconType.DOTS_VERTICAL} size="md" variant="tertiary">
                             {copy.proposalActionsFooter.more}
                         </Button>
                     }
+                    disabled={isLoading}
+                    size="md"
                 >
                     {allDropdownItems.map((item, index) => (
                         <Dropdown.Item
-                            key={`${item.label}-${String(index)}`}
                             icon={item.icon}
                             iconPosition={item.iconPosition ?? 'left'}
+                            key={`${item.label}-${String(index)}`}
                             onClick={() => item.onClick()}
                         >
                             {item.label}

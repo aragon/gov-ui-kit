@@ -29,7 +29,7 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = ({ onR
         <div className="flex items-center justify-between">
             <p
                 className={classNames(
-                    'px-3 py-2.5 text-sm leading-tight font-normal text-neutral-500 md:text-base',
+                    'px-3 py-2.5 font-normal text-neutral-500 text-sm leading-tight md:text-base',
                     { 'text-primary-400': isLoading || isInitialLoading },
                     { 'text-neutral-500': displayItemsCount },
                 )}
@@ -51,7 +51,7 @@ export const DataListFilterStatus: React.FC<IDataListFilterStatusProps> = ({ onR
                 )}
             </p>
             {isFiltered && onResetFiltersClick && (
-                <Button size="sm" onClick={onResetFiltersClick} variant="ghost" responsiveSize={{ md: 'md' }}>
+                <Button onClick={onResetFiltersClick} responsiveSize={{ md: 'md' }} size="sm" variant="ghost">
                     {copy.dataListFilter.reset}
                 </Button>
             )}

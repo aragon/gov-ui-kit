@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { forwardRef, type CSSProperties, type ComponentPropsWithoutRef } from 'react';
-import { type ResponsiveAttribute, type ResponsiveAttributeClassMap } from '../../../types';
+import { type ComponentPropsWithoutRef, type CSSProperties, forwardRef } from 'react';
+import type { ResponsiveAttribute, ResponsiveAttributeClassMap } from '../../../types';
 import { responsiveUtils } from '../../../utils';
 
 export type StateSkeletonBarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -48,12 +48,12 @@ export const StateSkeletonBar = forwardRef<HTMLDivElement, IStateSkeletonBarProp
 
     return (
         <span
+            aria-hidden={true}
+            className={classes}
             data-testid="stateSkeletonBar"
             ref={ref}
-            className={classes}
-            tabIndex={-1}
-            aria-hidden={true}
             style={{ width, ...style }}
+            tabIndex={-1}
             {...otherProps}
         />
     );

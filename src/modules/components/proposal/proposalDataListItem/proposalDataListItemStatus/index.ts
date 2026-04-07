@@ -1,1 +1,1 @@
-export { ProposalDataListItemStatus, type IProposalDataListItemStatusProps } from './proposalDataListItemStatus';
+export { type IProposalDataListItemStatusProps, ProposalDataListItemStatus } from './proposalDataListItemStatus';

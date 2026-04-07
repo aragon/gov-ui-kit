@@ -3,9 +3,9 @@ import { DateFormat, formatterUtils, IconType, NumberFormat } from '../../../../
 import * as useBlockExplorer from '../../../../hooks';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
+    type ITransactionDataListItemProps,
     TransactionStatus,
     TransactionType,
-    type ITransactionDataListItemProps,
 } from './transactionDataListItemStructure.api';
 
 describe('<TransactionDataListItem.Structure /> component', () => {

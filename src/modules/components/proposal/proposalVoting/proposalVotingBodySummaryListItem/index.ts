@@ -1,4 +1,4 @@
 export {
-    ProposalVotingBodySummaryListItem,
     type IProposalVotingBodySummaryListItemProps,
+    ProposalVotingBodySummaryListItem,
 } from './proposalVotingBodySummaryListItem';

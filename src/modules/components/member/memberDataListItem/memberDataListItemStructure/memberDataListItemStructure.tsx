@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, Heading, NumberFormat, Tag, formatterUtils, type IDataListItemProps } from '../../../../../core';
+import { DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
@@ -86,35 +86,35 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
         >
             <div className="flex w-full items-center justify-between">
                 <MemberAvatar
-                    ensName={ensName}
                     address={address}
                     avatarSrc={avatarSrc}
-                    size="sm"
+                    ensName={ensName}
                     responsiveSize={{ md: 'md' }}
+                    size="sm"
                 />
                 {isDelegate && !isCurrentUser && (
-                    <Tag variant="info" label={copy.memberDataListItemStructure.yourDelegate} />
+                    <Tag label={copy.memberDataListItemStructure.yourDelegate} variant="info" />
                 )}
-                {isCurrentUser && <Tag variant="neutral" label={copy.memberDataListItemStructure.you} />}
+                {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
-            <Heading className="inline-block w-full truncate" size="h3" as="h2">
+            <Heading as="h2" className="inline-block w-full truncate" size="h3">
                 {resolvedUserHandle}
             </Heading>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">
                     <Heading
-                        size="h5"
                         as="h3"
                         className={classNames('text-sm leading-tight md:text-base', {
                             invisible: delegationCount == null || delegationCount === 0,
                         })}
+                        size="h5"
                     >
                         <span className="text-neutral-800">{formattedDelegationCount}</span>{' '}
                         <span className="text-neutral-500">
                             {copy.memberDataListItemStructure[delegationCount === 1 ? 'delegation' : 'delegations']}
                         </span>
                     </Heading>
-                    <Heading size="h5" as="h3">
+                    <Heading as="h3" size="h5">
                         <span className="text-neutral-800">
                             {formattedTokenAmount ?? ''}
                             {tokenSymbol ? ` ${tokenSymbol}` : ''}

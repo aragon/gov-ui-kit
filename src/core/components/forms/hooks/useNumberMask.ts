@@ -1,7 +1,7 @@
 import type { FactoryOpts, InputMask } from 'imask';
-import { useEffect, type ComponentProps } from 'react';
+import { type ComponentProps, useEffect } from 'react';
 import { useIMask } from 'react-imask';
-import { NumberFormat, formatterUtils } from '../../../utils';
+import { formatterUtils, NumberFormat } from '../../../utils';
 
 export interface IUseNumberMaskProps extends Pick<ComponentProps<'input'>, 'min' | 'max' | 'value'> {
     /**
@@ -41,8 +41,8 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
     const { thousandsSeparator, radix } = getNumberSeparators();
 
     const numberMask = `${prefix ?? ''} num ${suffix ?? ''}`.trim();
-    const maskMax = max != null ? Number(max) : undefined;
-    const maskMin = min != null ? Number(min) : undefined;
+    const maskMax = max == null ? undefined : Number(max);
+    const maskMin = min == null ? undefined : Number(min);
 
     const handleMaskAccept = (_value: string, mask: InputMask<FactoryOpts>) => {
         onChange?.(mask.unmaskedValue);

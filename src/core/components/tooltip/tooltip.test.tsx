@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { Tooltip, type ITooltipProps } from './tooltip';
+import { type ITooltipProps, Tooltip } from './tooltip';
 
 describe('<Tooltip/> component', () => {
     const createTestComponent = (props?: Partial<ITooltipProps>) => {
@@ -9,7 +9,7 @@ describe('<Tooltip/> component', () => {
         return <Tooltip {...completeProps} />;
     };
 
-    it(`does not render the tooltip content by default`, () => {
+    it('does not render the tooltip content by default', () => {
         const content = 'test-content';
 
         render(createTestComponent({ content }));
@@ -18,7 +18,7 @@ describe('<Tooltip/> component', () => {
         expect(screen.queryByText(content)).not.toBeInTheDocument();
     });
 
-    it(`renders the tooltip content when the trigger is hovered on`, async () => {
+    it('renders the tooltip content when the trigger is hovered on', async () => {
         const user = userEvent.setup();
         const trigger = 'test-trigger';
         const content = 'test-content';

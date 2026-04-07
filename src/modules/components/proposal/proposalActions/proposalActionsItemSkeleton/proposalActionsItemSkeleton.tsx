@@ -2,7 +2,7 @@ import { Accordion } from '../../../../../core';
 import { SmartContractFunctionDataListItem } from '../../../smartContract/smartContractFunctionDataListItem';
 
 export const ProposalActionsItemSkeleton = () => (
-    <Accordion.Item value="skeleton" className="pointer-events-none" tabIndex={0} aria-busy="true" aria-label="loading">
+    <Accordion.Item aria-busy="true" aria-label="loading" className="pointer-events-none" tabIndex={0} value="skeleton">
         <Accordion.ItemHeader>
             <SmartContractFunctionDataListItem.Skeleton
                 asChild={true}

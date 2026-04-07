@@ -1,6 +1,6 @@
 import { AccordionItem as RadixAccordionItem } from '@radix-ui/react-accordion';
 import classNames from 'classnames';
-import { forwardRef, type ComponentPropsWithRef } from 'react';
+import { type ComponentPropsWithRef, forwardRef } from 'react';
 
 export interface IAccordionItemProps extends ComponentPropsWithRef<'div'> {
     /**
@@ -21,16 +21,16 @@ export const AccordionItem = forwardRef<HTMLDivElement, IAccordionItemProps>((pr
         'data-disabled:border-neutral-200', // disabled
         'data-[state=open]:border-neutral-200 data-[state=open]:shadow-neutral-sm', // open
         'hover:border-neutral-200 hover:shadow-neutral-sm', // hover
-        'active:border-neutral-400 focus-ring-primary', // active / focus
+        'focus-ring-primary active:border-neutral-400', // active / focus
         className,
     );
 
     return (
         <RadixAccordionItem
-            disabled={disabled}
-            value={value}
             className={accordionItemClasses}
+            disabled={disabled}
             ref={ref}
+            value={value}
             {...otherProps}
         >
             {children}

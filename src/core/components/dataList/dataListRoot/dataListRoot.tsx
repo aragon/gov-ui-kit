@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useCallback, useMemo, useState, type ComponentProps } from 'react';
+import { type ComponentProps, useCallback, useMemo, useState } from 'react';
 import { DataListContextProvider } from '../dataListContext';
 
 /**

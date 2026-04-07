@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { Button } from '../../button';
 import { useGukCoreContext } from '../../gukCoreProvider';
-import { useInputProps, useNumberMask, type IUseNumberMaskProps } from '../hooks';
-import { InputContainer, type IInputComponentProps } from '../inputContainer';
+import { type IUseNumberMaskProps, useInputProps, useNumberMask } from '../hooks';
+import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
 export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLength' | 'onChange'> {
     /**
@@ -32,15 +32,15 @@ export const InputNumberMax: React.FC<IInputNumberMaxProps> = (props) => {
         <InputContainer variant={variant} {...otherContainerProps}>
             <input
                 className={classNames('spin-buttons-hidden', inputClassName)}
-                ref={ref}
+                disabled={disabled}
+                inputMode="decimal"
                 max={max}
                 min={min}
-                inputMode="decimal"
-                disabled={disabled}
+                ref={ref}
                 {...otherInputProps}
             />
             {!disabled && (
-                <Button size="sm" variant="tertiary" className="mr-2" onClick={handleMaxClick}>
+                <Button className="mr-2" onClick={handleMaxClick} size="sm" variant="tertiary">
                     {copy.inputNumberMax.max}
                 </Button>
             )}

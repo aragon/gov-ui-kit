@@ -21,7 +21,7 @@ type Story = StoryObj<typeof InputNumberMax>;
 export const Default: Story = {
     args: {
         placeholder: 'Placeholder',
-        max: 54120,
+        max: 54_120,
     },
 };
 
@@ -32,11 +32,11 @@ export const Controlled: Story = {
     render: ({ onChange, ...props }) => {
         const [value, setValue] = useState<string>();
 
-        return <InputNumberMax value={value} onChange={setValue} {...props} />;
+        return <InputNumberMax onChange={setValue} value={value} {...props} />;
     },
     args: {
         placeholder: 'Controlled input',
-        max: 120500500.05,
+        max: 120_500_500.05,
     },
 };
 

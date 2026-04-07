@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import type React from 'react';
-import { type HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
 import { Icon } from '../../icon';
-import { alertVariantToIconType, type AlertVariant } from '../alertUtils';
+import { type AlertVariant, alertVariantToIconType } from '../alertUtils';
 
 export interface IAlertInlineProps extends HTMLAttributes<HTMLDivElement> {
     /**
@@ -34,16 +34,16 @@ export const AlertInline: React.FC<IAlertInlineProps> = (props) => {
     const { className, message, variant = 'info', ...rest } = props;
 
     return (
-        <div role="alert" className={classNames('inline-flex items-center gap-x-2 rounded-md', className)} {...rest}>
+        <div className={classNames('inline-flex items-center gap-x-2 rounded-md', className)} role="alert" {...rest}>
             <Icon
-                size="sm"
+                className={variantToIconClassNames[variant]}
                 icon={alertVariantToIconType[variant]}
                 responsiveSize={{ md: 'md' }}
-                className={variantToIconClassNames[variant]}
+                size="sm"
             />
             <p
                 className={classNames(
-                    'text-xs leading-tight font-normal md:text-base',
+                    'font-normal text-xs leading-tight md:text-base',
                     variantToTextClassNames[variant],
                 )}
             >

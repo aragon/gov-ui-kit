@@ -1,1 +1,1 @@
-export { TabsList, type ITabsListProps } from './tabsList';
+export { type ITabsListProps, TabsList } from './tabsList';

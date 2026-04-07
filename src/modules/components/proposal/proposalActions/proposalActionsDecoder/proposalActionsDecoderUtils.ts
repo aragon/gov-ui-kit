@@ -30,20 +30,24 @@ class ProposalActionsDecoderUtils {
     private bytesRegex = /^0x[0-9a-fA-F]*$/;
     private unsignedNumberRegex = /^[0-9]*$/;
 
-    getFieldName = (name: string, prefix?: string) => (prefix != null ? `${prefix}.${name}` : name);
+    getFieldName = (name: string, prefix?: string) => (prefix == null ? name : `${prefix}.${name}`);
 
-    validateValue = (value: ProposalActionsFieldValue = null, params: IGetValidationRulesParams) => {
+    validateValue = (value: ProposalActionsFieldValue, params: IGetValidationRulesParams) => {
         const { type, label, errorMessages, required } = params;
 
         if (required && !this.validateRequired(value)) {
             return errorMessages.required(label);
-        } else if (type === 'bool') {
+        }
+        if (type === 'bool') {
             return this.validateBoolean(value) || errorMessages.boolean(label);
-        } else if (type === 'address') {
+        }
+        if (type === 'address') {
             return addressUtils.isAddress(value?.toString()) || errorMessages.address(label);
-        } else if (type.startsWith('bytes')) {
+        }
+        if (type.startsWith('bytes')) {
             return this.validateBytes(type, value) || errorMessages.bytes(label);
-        } else if (this.isUnsignedNumberType(type)) {
+        }
+        if (this.isUnsignedNumberType(type)) {
             return this.validateUnsignedNumber(value) || errorMessages.unsignedNumber(label);
         }
 
@@ -65,7 +69,7 @@ class ProposalActionsDecoderUtils {
         const [, bytesSize] = type.split('bytes');
         const valueSize = Math.ceil((parsedValue.length - 2) / 2);
 
-        return bytesSize.length ? valueSize === Number.parseInt(bytesSize) : parsedValue.length % 2 === 0;
+        return bytesSize.length ? valueSize === Number.parseInt(bytesSize, 10) : parsedValue.length % 2 === 0;
     };
 
     validateUnsignedNumber = (value?: ProposalActionsFieldValue): boolean =>
@@ -104,7 +108,8 @@ class ProposalActionsDecoderUtils {
 
         if (this.isArrayType(type) && this.guardArrayType(value)) {
             return value.map((item) => ({ ...parameter, type: this.getArrayItemType(type), value: item }));
-        } else if (this.isTupleType(type)) {
+        }
+        if (this.isTupleType(type)) {
             return components.map((component, index) => ({
                 ...component,
                 value: this.guardArrayType(value) ? value[index] : undefined,
