@@ -34,7 +34,7 @@ export const InputText = forwardRef<HTMLInputElement, IInputTextProps>((props, r
     const variantKey = disabled ? 'disabled' : variant;
 
     const addonClasses = classNames(
-        'flex h-full shrink-0 items-center justify-center px-3 font-normal text-base leading-tight',
+        'flex h-[stretch] shrink-0 items-center justify-center px-3 font-normal text-base leading-tight',
         variantToAddonClassNames[variantKey],
         { 'border-r-[1px]': addonPosition === 'left' },
         { 'order-last border-l-[1px]': addonPosition === 'right' },

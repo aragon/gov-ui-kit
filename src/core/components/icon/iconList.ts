@@ -59,13 +59,13 @@ import Search from '../../assets/icons/search.svg';
 import Settings from '../../assets/icons/settings.svg';
 import Shrink from '../../assets/icons/shrink.svg';
 import Slash from '../../assets/icons/slash.svg';
+import SocialGithub from '../../assets/icons/social-github.svg';
+import SocialX from '../../assets/icons/social-x.svg';
 import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
 import Warning from '../../assets/icons/warning.svg';
 import Withdraw from '../../assets/icons/withdraw.svg';
-import SocialGithub from '../../assets/icons/social-github.svg';
-import SocialX from '../../assets/icons/social-x.svg';
 import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
