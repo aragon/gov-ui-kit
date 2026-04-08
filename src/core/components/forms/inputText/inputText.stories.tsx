@@ -66,7 +66,7 @@ export const MaxLength: Story = {
  */
 export const IconLeft: Story = {
     args: {
-        iconLeft: IconType.SEARCH,
+        iconLeft: IconType.SOCIAL_X,
         placeholder: 'Search...',
     },
 };
@@ -76,7 +76,7 @@ export const IconLeft: Story = {
  */
 export const IconRight: Story = {
     args: {
-        iconRight: IconType.CALENDAR,
+        iconRight: IconType.SOCIAL_EMAIL,
         placeholder: 'Pick a date',
     },
 };

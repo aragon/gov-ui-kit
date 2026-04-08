@@ -64,6 +64,8 @@ import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
 import Warning from '../../assets/icons/warning.svg';
 import Withdraw from '../../assets/icons/withdraw.svg';
+import SocialGithub from '../../assets/icons/social-github.svg';
+import SocialX from '../../assets/icons/social-x.svg';
 import { IconType } from './iconType';
 
 type IconComponent = React.FC<SVGProps<SVGSVGElement>>;
@@ -134,4 +136,10 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SUCCESS]: Success,
     [IconType.WARNING]: Warning,
     [IconType.WITHDRAW]: Withdraw,
+    [IconType.SOCIAL_GITHUB]: SocialGithub,
+    [IconType.SOCIAL_X]: SocialX,
+    [IconType.SOCIAL_DISCORD]: SocialGithub,
+    [IconType.SOCIAL_TELEGRAM]: SocialGithub,
+    [IconType.SOCIAL_WEBSITE]: SocialGithub,
+    [IconType.SOCIAL_EMAIL]: SocialGithub,
 };
