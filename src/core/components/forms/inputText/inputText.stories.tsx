@@ -66,7 +66,7 @@ export const MaxLength: Story = {
  */
 export const IconLeft: Story = {
     args: {
-        iconLeft: IconType.SOCIAL_X,
+        iconLeft: IconType.SOCIAL_GITHUB,
         placeholder: 'Search...',
     },
 };
@@ -76,7 +76,7 @@ export const IconLeft: Story = {
  */
 export const IconRight: Story = {
     args: {
-        iconRight: IconType.SOCIAL_EMAIL,
+        iconRight: IconType.SOCIAL_X,
         placeholder: 'Pick a date',
     },
 };
