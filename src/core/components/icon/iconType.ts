@@ -41,6 +41,7 @@ export enum IconType {
     LOGOUT = 'LOGOUT',
     MENU = 'MENU',
     MINUS = 'MINUS',
+    PEN = 'PEN',
     PERSON = 'PERSON',
     PLUS = 'PLUS',
     RADIO = 'RADIO',

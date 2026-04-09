@@ -41,6 +41,7 @@ import LinkExternal from '../../assets/icons/link-external.svg';
 import Logout from '../../assets/icons/logout.svg';
 import Menu from '../../assets/icons/menu.svg';
 import Minus from '../../assets/icons/minus.svg';
+import Pen from '../../assets/icons/pen.svg';
 import Person from '../../assets/icons/person.svg';
 import Plus from '../../assets/icons/plus.svg';
 import Radio from '../../assets/icons/radio.svg';
@@ -113,6 +114,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.LOGOUT]: Logout,
     [IconType.MENU]: Menu,
     [IconType.MINUS]: Minus,
+    [IconType.PEN]: Pen,
     [IconType.PERSON]: Person,
     [IconType.PLUS]: Plus,
     [IconType.RADIO]: Radio,

@@ -15,6 +15,7 @@
     "scripts": {
         "setup": "husky",
         "storybook": "storybook dev -p 6006",
+        "sb": "pnpm storybook",
         "build": "rollup -c",
         "build:watch": "rollup -c --watch",
         "build:analyze": "cross-env ANALYZE=true rollup -c",
