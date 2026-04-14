@@ -62,6 +62,10 @@ import Shrink from '../../assets/icons/shrink.svg';
 import Slash from '../../assets/icons/slash.svg';
 import SocialGithub from '../../assets/icons/social-github.svg';
 import SocialX from '../../assets/icons/social-x.svg';
+import SocialDiscord from '../../assets/icons/social-discord.svg';
+import SocialEmail from '../../assets/icons/social-email.svg';
+import SocialWebsite from '../../assets/icons/social-website.svg';
+import SocialTelegram from '../../assets/icons/social-telegram.svg';
 import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
@@ -140,8 +144,8 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.WITHDRAW]: Withdraw,
     [IconType.SOCIAL_GITHUB]: SocialGithub,
     [IconType.SOCIAL_X]: SocialX,
-    [IconType.SOCIAL_DISCORD]: SocialGithub,
-    [IconType.SOCIAL_TELEGRAM]: SocialGithub,
-    [IconType.SOCIAL_WEBSITE]: SocialGithub,
-    [IconType.SOCIAL_EMAIL]: SocialGithub,
+    [IconType.SOCIAL_DISCORD]: SocialDiscord,
+    [IconType.SOCIAL_TELEGRAM]: SocialTelegram,
+    [IconType.SOCIAL_WEBSITE]: SocialWebsite,
+    [IconType.SOCIAL_EMAIL]: SocialEmail,
 };
