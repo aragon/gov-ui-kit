@@ -59,7 +59,7 @@ jobs:
           git push --follow-tags
       - name: Read changelog updates
         id: read-changelog
-        uses: actions/github-script@v8.0.0
+        uses: actions/github-script@v9.0.0
         env:
           version: "${{ steps.package-version.outputs.current-version }}"
           path: ./CHANGELOG.md
