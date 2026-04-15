@@ -28,13 +28,12 @@ const preview: Preview = {
             },
         },
         backgrounds: {
-            default: 'neutral-50',
-            values: [
-                {
+            options: {
+                'neutral-50': {
                     name: 'neutral-50',
                     value: 'var(--color-neutral-50)',
                 },
-            ],
+            },
         },
         docs: {
             page: DocsPage,
@@ -59,6 +58,12 @@ const preview: Preview = {
         backgrounds: {},
         outline: {},
         viewport: {},
+    },
+
+    initialGlobals: {
+        backgrounds: {
+            value: 'neutral-50',
+        },
     },
 };
 

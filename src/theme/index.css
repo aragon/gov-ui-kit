@@ -1,2 +1,2 @@
-@import "./tokens";
-@import "./utils";
+@import "./tokens/index.css";
+@import "./utils/index.css";
