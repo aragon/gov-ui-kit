@@ -40,6 +40,12 @@ describe('<DocumentParser /> component', () => {
         expect(rootElement).toHaveClass('test-class');
     });
 
+    it('renders without the default prose width constraint', () => {
+        render(createTestComponent());
+        const rootElement = screen.getByTestId('doc-parser');
+        expect(rootElement).toHaveClass('max-w-none', 'w-full');
+    });
+
     it('does not fail when immediatelyRender is set to false', () => {
         expect(() => render(createTestComponent({ immediatelyRender: false }))).not.toThrow();
     });
