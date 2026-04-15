@@ -1,2 +1,2 @@
-@import "./dialog";
-@import "./dialogAlert";
+@import "./dialog/index.css";
+@import "./dialogAlert/index.css";

@@ -1,2 +1,2 @@
-@import "./core";
-@import "./theme";
+@import "./core/index.css";
+@import "./theme/index.css";
