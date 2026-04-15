@@ -7,7 +7,7 @@ import {
 describe('<ProposalVotingStatusAdvanceable /> component', () => {
     beforeEach(() => {
         jest.useFakeTimers();
-        jest.setSystemTime(new Date('2025-05-21T12:00:00Z'));
+        jest.setSystemTime(Date.parse('2025-05-21T12:00:00Z'));
     });
 
     afterEach(() => {
