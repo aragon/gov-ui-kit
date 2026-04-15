@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { IconType } from '../../icon';
 import type { IInputTextProps } from '.';
 import { InputText } from './inputText';
 
@@ -36,5 +37,25 @@ describe('<InputText /> component', () => {
         render(createTestComponent({ addon: '', addonPosition: 'left' }));
         const addonElement = screen.queryByTestId('input-addon');
         expect(addonElement).not.toBeInTheDocument();
+    });
+
+    it('renders the left icon when iconLeft is set', () => {
+        render(createTestComponent({ iconLeft: IconType.SEARCH }));
+        expect(screen.getByTestId(IconType.SEARCH)).toBeInTheDocument();
+    });
+
+    it('renders the right icon when iconRight is set', () => {
+        render(createTestComponent({ iconRight: IconType.CALENDAR }));
+        expect(screen.getByTestId(IconType.CALENDAR)).toBeInTheDocument();
+    });
+
+    it('does not render the left icon when iconLeft is not set', () => {
+        render(createTestComponent());
+        expect(screen.queryByTestId(IconType.SEARCH)).not.toBeInTheDocument();
+    });
+
+    it('does not render the right icon when iconRight is not set', () => {
+        render(createTestComponent());
+        expect(screen.queryByTestId(IconType.CALENDAR)).not.toBeInTheDocument();
     });
 });

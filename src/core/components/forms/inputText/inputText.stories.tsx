@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type ChangeEvent, useState } from 'react';
+import { IconType } from '../../icon';
 import { InputText } from './inputText';
 
 const meta: Meta<typeof InputText> = {
@@ -48,6 +49,13 @@ export const Addon: Story = {
         addon: 'Addon',
         placeholder: 'Input with addon',
     },
+    render: (props) => {
+        return (
+            <div className="absolute">
+                <InputText {...props} />
+            </div>
+        );
+    },
 };
 
 /**
@@ -57,6 +65,26 @@ export const MaxLength: Story = {
     args: {
         maxLength: 10,
         placeholder: 'Input with max length',
+    },
+};
+
+/**
+ * Usage example of an input with a left icon.
+ */
+export const IconLeft: Story = {
+    args: {
+        iconLeft: IconType.SOCIAL_GITHUB,
+        placeholder: 'Search...',
+    },
+};
+
+/**
+ * Usage example of an input with a right icon.
+ */
+export const IconRight: Story = {
+    args: {
+        iconRight: IconType.SOCIAL_X,
+        placeholder: 'Pick a date',
     },
 };
 
