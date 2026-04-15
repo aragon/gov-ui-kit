@@ -2,6 +2,7 @@ import type { SVGProps } from 'react';
 import AppAssets from '../../assets/icons/app-assets.svg';
 import AppDashboard from '../../assets/icons/app-dashboard.svg';
 import AppExplore from '../../assets/icons/app-explore.svg';
+import AppGauge from '../../assets/icons/app-gauge.svg';
 import AppMembers from '../../assets/icons/app-members.svg';
 import AppProposals from '../../assets/icons/app-proposals.svg';
 import AppTransactions from '../../assets/icons/app-transactions.svg';
@@ -72,6 +73,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.APP_ASSETS]: AppAssets,
     [IconType.APP_DASHBOARD]: AppDashboard,
     [IconType.APP_EXPLORE]: AppExplore,
+    [IconType.APP_GAUGE]: AppGauge,
     [IconType.APP_MEMBERS]: AppMembers,
     [IconType.APP_PROPOSALS]: AppProposals,
     [IconType.APP_TRANSACTIONS]: AppTransactions,
