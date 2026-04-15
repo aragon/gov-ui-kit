@@ -1,5 +1,36 @@
 # @aragon/gov-ui-kit
 
+## 2.1.0
+
+### Minor Changes
+
+- [#670](https://github.com/aragon/gov-ui-kit/pull/670) [`b2aef04`](https://github.com/aragon/gov-ui-kit/commit/b2aef044fa58ab744284f0cadb4eb61ec0741277) Thanks [@milosh86](https://github.com/milosh86)! - Add social icons and iconLeft/iconRight props to InputText
+
+- [#673](https://github.com/aragon/gov-ui-kit/pull/673) [`fa75e3c`](https://github.com/aragon/gov-ui-kit/commit/fa75e3cbebaa0dc629009fc8902f77c0eae9952d) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Add AppGauge icon
+
+- [#667](https://github.com/aragon/gov-ui-kit/pull/667) [`77e06bb`](https://github.com/aragon/gov-ui-kit/commit/77e06bbce9a2f69b7484b3330d902b2025ef113a) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Switch to Biome with commit hooks + Turbo
+
+### Patch Changes
+
+- [#675](https://github.com/aragon/gov-ui-kit/pull/675) [`0a59409`](https://github.com/aragon/gov-ui-kit/commit/0a59409c3dd5bc3a20f79f9397d2d15b3c3a5ca6) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Upgrade Storybook from v9.1.20 to v10.3.5.
+
+    Key changes:
+    - Storybook 10 is ESM-only and adds native Vite 8 / Rolldown support.
+    - Bumped Rolldown override to rc.15 (fixes infinite recursion in `generate_transitive_esm_init` that caused SIGILL crash on ARM64 with `strictExecutionOrder`).
+    - Migrated `backgrounds` global to the new `options` / `initialGlobals` API (automigration `addon-globals-api`).
+    - Removed `vite-plugin-node-polyfills` — no `path`/`url` imports exist in the source, and the plugin used a deprecated `esbuild.banner` API under Vite 8.
+
+- [#668](https://github.com/aragon/gov-ui-kit/pull/668) [`70825a9`](https://github.com/aragon/gov-ui-kit/commit/70825a9043c59bc51ef4a47c16c0bd3b59480bc2) Thanks [@milosh86](https://github.com/milosh86)! - Harden pnpm workspace with strictDepBuilds and no-downgrade trust policy
+
+- [#669](https://github.com/aragon/gov-ui-kit/pull/669) [`683ebf5`](https://github.com/aragon/gov-ui-kit/commit/683ebf5487e96c6ced63c965a61399e128c01d44) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Remove document parser prose width constraint
+
+- [#675](https://github.com/aragon/gov-ui-kit/pull/675) [`0a59409`](https://github.com/aragon/gov-ui-kit/commit/0a59409c3dd5bc3a20f79f9397d2d15b3c3a5ca6) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update devDependencies with major version bumps: vite 7→8, rollup-plugin-visualizer 6→7, vite-plugin-static-copy 3→4, vite-plugin-svgr 4→5, @rollup/plugin-terser 0.4→1.0, @changesets/changelog-github 0.5→0.6, vite-plugin-node-polyfills 0.25→0.26
+    - Migrate `rollup.config.js` to ESM (`rollup.config.mjs`) for rollup-plugin-visualizer v7 compatibility (ESM-only)
+    - Use explicit `index.css` paths in all CSS `@import` statements for Vite 8 / Rolldown compatibility
+    - Fix `jest.setSystemTime` call to pass a number instead of Date object for @sinonjs/fake-timers v15 compatibility
+
+- [#674](https://github.com/aragon/gov-ui-kit/pull/674) [`58479f0`](https://github.com/aragon/gov-ui-kit/commit/58479f026ff676a9741178f2e2e093cda8f3f753) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Adjust text sizing in prose usage for DocumentParser, TextAreaRichText
+
 ## 2.0.1
 
 ### Patch Changes
