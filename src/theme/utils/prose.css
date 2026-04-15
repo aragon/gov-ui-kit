@@ -26,7 +26,7 @@
     }
 
     p {
-        @apply mt-0 mb-0 text-base md:text-lg;
+        @apply mt-0 mb-0 text-sm md:text-base;
     }
 
     a {
@@ -34,11 +34,11 @@
     }
 
     strong {
-        @apply text-base text-neutral-500 md:text-lg;
+        @apply text-sm text-neutral-500 md:text-base;
     }
 
     em {
-        @apply text-base text-neutral-500 md:text-lg;
+        @apply text-sm text-neutral-500 md:text-base;
     }
 
     blockquote {
