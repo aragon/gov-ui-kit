@@ -42,7 +42,7 @@ jobs:
       - name: Bundle Vercel application
         run: pnpm vercel build ${{ env.VERCEL_ARGS }} --yes --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }}
       - name: Vercel deployment
-        run: pnpm vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} --skip-domain --yes --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }} > deployment-url.txt
+        run: pnpm vercel deploy --prebuilt ${{ env.VERCEL_ARGS }} ${{ inputs.domain != '' && '--skip-domain' || '' }} --yes --token=${{ env.VERCEL_TOKEN }} --scope ${{ env.VERCEL_SCOPE }} > deployment-url.txt
       - name: Set output
         id: set-deployment-url
         run: echo "deploymentUrl=$(cat deployment-url.txt)" >> $GITHUB_OUTPUT

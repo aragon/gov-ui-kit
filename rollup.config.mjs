@@ -1,19 +1,21 @@
-const commonjs = require('@rollup/plugin-commonjs');
-const images = require('@rollup/plugin-image');
-const { nodeResolve } = require('@rollup/plugin-node-resolve');
-const peerDepsExternal = require('rollup-plugin-peer-deps-external');
-const terser = require('@rollup/plugin-terser');
-const typescript = require('@rollup/plugin-typescript');
-const { visualizer } = require('rollup-plugin-visualizer');
-const svgr = require('@svgr/rollup');
-const postcss = require('rollup-plugin-postcss');
+import { createRequire } from 'node:module';
+import commonjs from '@rollup/plugin-commonjs';
+import images from '@rollup/plugin-image';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
+import svgr from '@svgr/rollup';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import postcss from 'rollup-plugin-postcss';
+import { visualizer } from 'rollup-plugin-visualizer';
 
+const require = createRequire(import.meta.url);
 const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
 const analyze = process.env.ANALYZE === 'true';
 
-module.exports = [
+export default [
     {
         input: {
             index: 'src/index.ts',
@@ -29,16 +31,9 @@ module.exports = [
             },
         ],
         plugins: [
-            // Mark all dependencies / peer-dependencies as external to not include them on the library build
             peerDepsExternal({ includeDependencies: true }),
-
-            // Locate and resolve node modules
             nodeResolve(),
-
-            // Convert CommonJs modules to ES6
             commonjs(),
-
-            // Compile ts files and generate type declarations
             typescript({
                 compilerOptions: {
                     noEmit: false,
@@ -47,22 +42,17 @@ module.exports = [
                     outDir,
                 },
                 exclude: [
+                    'node_modules/**',
                     '**/*.spec.tsx',
                     '**/*.spec.ts',
                     '**/*.test.tsx',
                     '**/*.test.ts',
                     '**/*.stories.tsx',
-                    '*.config.js',
+                    '*.config.mjs',
                 ],
             }),
-
-            // Bundle png and jpg images
             images({ include: ['**/*.png', '**/*.jpg'] }),
-
-            // Bundle svg files
             svgr(),
-
-            // Generate a minified bundle
             terser(),
         ],
     },

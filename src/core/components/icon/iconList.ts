@@ -42,6 +42,7 @@ import LinkExternal from '../../assets/icons/link-external.svg';
 import Logout from '../../assets/icons/logout.svg';
 import Menu from '../../assets/icons/menu.svg';
 import Minus from '../../assets/icons/minus.svg';
+import Pen from '../../assets/icons/pen.svg';
 import Person from '../../assets/icons/person.svg';
 import Plus from '../../assets/icons/plus.svg';
 import Radio from '../../assets/icons/radio.svg';
@@ -60,6 +61,12 @@ import Search from '../../assets/icons/search.svg';
 import Settings from '../../assets/icons/settings.svg';
 import Shrink from '../../assets/icons/shrink.svg';
 import Slash from '../../assets/icons/slash.svg';
+import SocialDiscord from '../../assets/icons/social-discord.svg';
+import SocialEmail from '../../assets/icons/social-email.svg';
+import SocialGithub from '../../assets/icons/social-github.svg';
+import SocialTelegram from '../../assets/icons/social-telegram.svg';
+import SocialWebsite from '../../assets/icons/social-website.svg';
+import SocialX from '../../assets/icons/social-x.svg';
 import SortAsc from '../../assets/icons/sort-asc.svg';
 import SortDesc from '../../assets/icons/sort-desc.svg';
 import Success from '../../assets/icons/success.svg';
@@ -113,6 +120,7 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.LOGOUT]: Logout,
     [IconType.MENU]: Menu,
     [IconType.MINUS]: Minus,
+    [IconType.PEN]: Pen,
     [IconType.PERSON]: Person,
     [IconType.PLUS]: Plus,
     [IconType.RADIO]: Radio,
@@ -136,4 +144,10 @@ export const iconList: Record<IconType, IconComponent> = {
     [IconType.SUCCESS]: Success,
     [IconType.WARNING]: Warning,
     [IconType.WITHDRAW]: Withdraw,
+    [IconType.SOCIAL_GITHUB]: SocialGithub,
+    [IconType.SOCIAL_X]: SocialX,
+    [IconType.SOCIAL_DISCORD]: SocialDiscord,
+    [IconType.SOCIAL_TELEGRAM]: SocialTelegram,
+    [IconType.SOCIAL_WEBSITE]: SocialWebsite,
+    [IconType.SOCIAL_EMAIL]: SocialEmail,
 };

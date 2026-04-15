@@ -42,6 +42,7 @@ export enum IconType {
     LOGOUT = 'LOGOUT',
     MENU = 'MENU',
     MINUS = 'MINUS',
+    PEN = 'PEN',
     PERSON = 'PERSON',
     PLUS = 'PLUS',
     RADIO = 'RADIO',
@@ -65,4 +66,10 @@ export enum IconType {
     SUCCESS = 'SUCCESS',
     WARNING = 'WARNING',
     WITHDRAW = 'WITHDRAW',
+    SOCIAL_X = 'SOCIAL_X',
+    SOCIAL_DISCORD = 'SOCIAL_DISCORD',
+    SOCIAL_GITHUB = 'SOCIAL_GITHUB',
+    SOCIAL_TELEGRAM = 'SOCIAL_TELEGRAM',
+    SOCIAL_EMAIL = 'SOCIAL_EMAIL',
+    SOCIAL_WEBSITE = 'SOCIAL_WEBSITE',
 }
