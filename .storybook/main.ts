@@ -1,7 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { RollupOptions } from 'rollup';
 import { mergeConfig } from 'vite';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import svgr from 'vite-plugin-svgr';
 
@@ -21,9 +20,8 @@ const config: StorybookConfig = {
     addons: ['@storybook/addon-docs'],
 
     viteFinal: (viteConfig) => {
-        // Add polyfills for path, url and source-map-js node modules and plugin for importing svg files
+        // Add source-map-js alias and plugins for importing svg files and copying fonts
         const plugins = [
-            nodePolyfills({ include: ['path', 'url'] }),
             svgr({ include: '**/*.svg' }),
             viteStaticCopy({ targets: [{ src: './src/theme/fonts/*.ttf', dest: './fonts' }] }),
         ];
