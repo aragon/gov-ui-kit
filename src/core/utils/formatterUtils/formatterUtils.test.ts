@@ -167,54 +167,6 @@ describe('formatter utils', () => {
 
         describe('token prices', () => {
             test.each([
-                { value: -1234.5678, result: '-1,234.5678' },
-                { value: -1234.5678, result: '-1.234,5678', locale: 'de' },
-                { value: -0.012_345_678_901_234_567_8, result: '-0.012345678901234568' },
-                { value: 0, result: '0' },
-                { value: 0.0012, result: '0.0012' },
-                { value: 0.0012, result: '+0.0012', withSign: true },
-                { value: 0.012_345_678_901_234_567_8, result: '0.012345678901234568' },
-                { value: 0.123_456_789_012_345_67, result: '0.12345678901234566' },
-                { value: 123.4567, result: '123.4567' },
-                { value: 1234, result: '1,234' },
-                { value: 1234, result: '+1,234', withSign: true },
-                { value: 1234.5678, result: '1,234.5678' },
-                { value: 1_234_567.8901, result: '1,234,567.8901' },
-                { value: 1_234_567_890.1234, result: '1,234,567,890.1234' },
-                { value: 1_234_567_890_123.4567, result: '1,234,567,890,123.4568' },
-                { value: 1_234_567_890_123_456.789, result: '1,234,567,890,123,456.8' },
-            ])('formats $value as $result using long format', ({ value, result, locale, ...options }) => {
-                setLocale({ number: locale });
-                expect(
-                    formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_AMOUNT_LONG, ...options }),
-                ).toEqual(result);
-            });
-
-            test.each([
-                { value: -1234, result: '-1.23K' },
-                { value: -1234, result: '-1,23K', locale: 'de' },
-                { value: -0.005, result: '-0.01' },
-                { value: -0.0012, result: '-0.00' },
-                { value: 0, result: '0' },
-                { value: 0.0012, result: '0.00' },
-                { value: 0.005, result: '0.01' },
-                { value: 0.012_345_678_901_234_567_8, result: '0.01' },
-                { value: 0.123_456_789_012_345_67, result: '0.12' },
-                { value: 123.4567, result: '123.46' },
-                { value: 1234, result: '1.23K' },
-                { value: 1234.5678, result: '1.23K' },
-                { value: 1_234_567.8901, result: '1.23M' },
-                { value: 1_234_567_890.1234, result: '1.23B' },
-                { value: 1_234_567_890_123.4567, result: '1.23T' },
-                { value: 1_234_567_890_123_456.789, result: '1.23P' },
-            ])('formats $value as $result using short format', ({ value, result, locale }) => {
-                setLocale({ number: locale });
-                expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_AMOUNT_SHORT })).toEqual(result);
-            });
-        });
-
-        describe('token prices', () => {
-            test.each([
                 { value: -1234.567_89, result: '-$1,234.57' },
                 { value: -1234.567_89, result: '-1.234,57 $', locale: 'de' },
                 { value: -0.001_234_567_8, result: '-$0.001235' },
