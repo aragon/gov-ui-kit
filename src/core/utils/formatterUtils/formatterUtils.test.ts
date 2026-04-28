@@ -72,7 +72,7 @@ describe('formatter utils', () => {
         describe('fiat total amounts', () => {
             test.each([
                 { value: -1234.567_89, result: '-$1,234.57' },
-                { value: -1234.567_89, result: '-1.234,57 $', locale: 'de' },
+                { value: -1234.567_89, result: '-1.234,57 $', locale: 'de' },
                 { value: -0.012_345_678, result: '-$0.01' },
                 { value: -0.001_234_567_8, result: '-$0.00' },
                 { value: 0, result: '$0.00' },
