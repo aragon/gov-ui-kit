@@ -206,7 +206,7 @@ describe('formatter utils', () => {
                 { value: 1_234_567.8901, result: '1.23M' },
                 { value: 1_234_567_890.1234, result: '1.23B' },
                 { value: 1_234_567_890_123.4567, result: '1.23T' },
-                { value: 1_234_567_890_123_456.789, result: '1.23 x 10^15' },
+                { value: 1_234_567_890_123_456.789, result: '1.23P' },
             ])('formats $value as $result using short format', ({ value, result, locale }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_AMOUNT_SHORT })).toEqual(result);
