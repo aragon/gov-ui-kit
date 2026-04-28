@@ -23,7 +23,7 @@ export interface INumberFormat {
      */
     minFractionDigits?: number;
     /**
-     * Uses the base symbol (K, M, B, T) when set to true.
+     * Uses the base symbol (K, M, B, T, P) when set to true.
      */
     useBaseSymbol?: boolean;
     /**
