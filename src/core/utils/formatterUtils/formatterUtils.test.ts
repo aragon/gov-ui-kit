@@ -60,7 +60,7 @@ describe('formatter utils', () => {
                 { value: 1_234_567, result: '1.23M' },
                 { value: 1_234_567_890, result: '1.23B' },
                 { value: 1_234_567_890_123, result: '1.23T' },
-                { value: 1_234_567_890_123_456, result: '1.23 x 10^15' },
+                { value: 1_234_567_890_123_456, result: '1.23P' },
             ])('formats $value as $result using short format', ({ value, result, locale, ...options }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.GENERIC_SHORT, ...options })).toEqual(
@@ -109,7 +109,7 @@ describe('formatter utils', () => {
                 { value: 1_234_567.890_12, result: '$1.23M' },
                 { value: 1_234_567_890.123_45, result: '$1.23B' },
                 { value: 1_234_567_890_123.456_78, result: '$1.23T' },
-                { value: 1_234_567_890_123_456.789_01, result: '$1.23 x 10^15' },
+                { value: 1_234_567_890_123_456.789_01, result: '$1.23P' },
             ])('formats $value as $result using short format', ({ value, result, ...options }) => {
                 expect(
                     formatterUtils.formatNumber(value, { format: NumberFormat.FIAT_TOTAL_SHORT, ...options }),
@@ -158,7 +158,7 @@ describe('formatter utils', () => {
                 { value: 1_234_567.8901, result: '1.23M' },
                 { value: 1_234_567_890.1234, result: '1.23B' },
                 { value: 1_234_567_890_123.4567, result: '1.23T' },
-                { value: 1_234_567_890_123_456.789, result: '1.23 x 10^15' },
+                { value: 1_234_567_890_123_456.789, result: '1.23P' },
             ])('formats $value as $result using short format', ({ value, result, locale }) => {
                 setLocale({ number: locale });
                 expect(formatterUtils.formatNumber(value, { format: NumberFormat.TOKEN_AMOUNT_SHORT })).toEqual(result);

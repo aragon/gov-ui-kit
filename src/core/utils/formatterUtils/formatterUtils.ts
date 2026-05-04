@@ -32,7 +32,8 @@ class FormatterUtils {
     currencyLocale = 'USD';
 
     private baseSymbolRanges = [
-        { value: 1e15, symbol: (value: number) => ` x 10^${(this.getDecimalPlaces(value) - 1).toString()}` },
+        { value: 1e18, symbol: (value: number) => ` x 10^${(this.getDecimalPlaces(value) - 1).toString()}` },
+        { value: 1e15, symbol: () => 'P' },
         { value: 1e12, symbol: () => 'T' },
         { value: 1e9, symbol: () => 'B' },
         { value: 1e6, symbol: () => 'M' },
@@ -86,7 +87,7 @@ class FormatterUtils {
 
         const baseRange = this.baseSymbolRanges.find((range) => Math.abs(processedValue) >= range.value);
         const baseRangeDenominator =
-            processedValue > 1e15 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : (baseRange?.value ?? 1);
+            processedValue > 1e18 ? 10 ** (this.getDecimalPlaces(processedValue) - 1) : (baseRange?.value ?? 1);
 
         if (useBaseSymbol) {
             processedValue /= baseRangeDenominator;
