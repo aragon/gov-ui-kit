@@ -7,6 +7,7 @@ export const generateFormContext = (context?: Partial<UseFormContextReturn>): Us
     setError: jest.fn(),
     clearErrors: jest.fn(),
     setValue: jest.fn(),
+    setValues: jest.fn(),
     trigger: jest.fn(),
     resetField: jest.fn(),
     reset: jest.fn(),
