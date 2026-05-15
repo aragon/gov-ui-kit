@@ -96,8 +96,8 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 )}
                 {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
-            <div className="group/member-handle flex w-full items-center gap-x-2">
-                <Heading as="h2" className="min-w-0 flex-1 truncate" size="h3">
+            <div className="group/member-handle inline-flex max-w-full items-center gap-x-2">
+                <Heading as="h2" className="min-w-0 truncate" size="h3">
                     {resolvedUserHandle}
                 </Heading>
                 <Clipboard
