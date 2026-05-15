@@ -18,13 +18,11 @@ type Story = StoryObj<typeof ProposalActions.ItemSkeleton>;
  * Default usage example of the ProposalActionsItemSkeleton module component.
  */
 export const Default: Story = {
-    render: () => {
-        return (
-            <ProposalActions.Root actionsCount={1} isLoading={true}>
-                <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
-            </ProposalActions.Root>
-        );
-    },
+    render: () => (
+        <ProposalActions.Root actionsCount={1} isLoading={true}>
+            <ProposalActions.Container emptyStateDescription="Proposal has no actions" />
+        </ProposalActions.Root>
+    ),
 };
 
 export default meta;

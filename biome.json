@@ -1,6 +1,6 @@
 {
     "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-    "extends": ["ultracite/core", "ultracite/react"],
+    "extends": ["ultracite/biome/core", "ultracite/biome/react"],
     "vcs": {
         "enabled": true,
         "clientKind": "git",
@@ -119,7 +119,8 @@
                 "noBitwiseOperators": "off",
                 "noImplicitAnyLet": "off",
                 "noEmptySource": "off",
-                "noUnusedExpressions": "off"
+                "noUnusedExpressions": "off",
+                "noReactForwardRef": "off"
             }
         }
     },

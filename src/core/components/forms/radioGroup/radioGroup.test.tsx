@@ -4,9 +4,7 @@ import { Radio } from '../radio';
 import { type IRadioGroupProps, RadioGroup } from './radioGroup';
 
 describe('<RadioGroup /> component', () => {
-    const createTestComponent = (props?: Partial<IRadioGroupProps>) => {
-        return <RadioGroup {...props} />;
-    };
+    const createTestComponent = (props?: Partial<IRadioGroupProps>) => <RadioGroup {...props} />;
 
     it('renders the radio group correctly', () => {
         const children = [<Radio key={1} label="1" value="1" />, <Radio key={2} label="2" value="2" />];

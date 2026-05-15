@@ -22,15 +22,13 @@ export const Default: Story = {
     args: {
         content: 'Message',
     },
-    render: (props) => {
-        return (
-            <div className="flex h-16 items-end">
-                <Tooltip {...props}>
-                    <p className="border p-2 text-primary-300">Hover over me!</p>
-                </Tooltip>
-            </div>
-        );
-    },
+    render: (props) => (
+        <div className="flex h-16 items-end">
+            <Tooltip {...props}>
+                <p className="border p-2 text-primary-300">Hover over me!</p>
+            </Tooltip>
+        </div>
+    ),
 };
 
 /**

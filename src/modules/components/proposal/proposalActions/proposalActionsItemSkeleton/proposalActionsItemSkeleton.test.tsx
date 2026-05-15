@@ -3,13 +3,11 @@ import { Accordion } from '../../../../../core';
 import { ProposalActionsItemSkeleton } from './proposalActionsItemSkeleton';
 
 describe('<ProposalActionsItemSkeleton /> component', () => {
-    const createTestComponent = () => {
-        return (
-            <Accordion.Container isMulti={false}>
-                <ProposalActionsItemSkeleton />
-            </Accordion.Container>
-        );
-    };
+    const createTestComponent = () => (
+        <Accordion.Container isMulti={false}>
+            <ProposalActionsItemSkeleton />
+        </Accordion.Container>
+    );
 
     it('has correct accessibility attributes', () => {
         render(createTestComponent());

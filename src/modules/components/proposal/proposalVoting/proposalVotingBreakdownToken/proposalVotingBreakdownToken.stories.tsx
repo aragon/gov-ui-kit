@@ -29,13 +29,11 @@ export const Default: Story = {
         tokenSymbol: 'ARA',
         tokenTotalSupply: '45132986',
     },
-    render: (args) => {
-        return (
-            <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.BREAKDOWN}>
-                <ProposalVoting.BreakdownToken {...args} />
-            </Tabs.Root>
-        );
-    },
+    render: (args) => (
+        <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.BREAKDOWN}>
+            <ProposalVoting.BreakdownToken {...args} />
+        </Tabs.Root>
+    ),
 };
 
 export default meta;

@@ -6,15 +6,13 @@ import { AccordionItemHeader } from './accordionItemHeader';
 import type { IAccordionItemHeaderProps } from './accordionItemHeader.api';
 
 describe('<Accordion.ItemHeader /> component', () => {
-    const createTestComponent = (props?: Partial<IAccordionItemHeaderProps>) => {
-        return (
-            <AccordionContainer isMulti={true}>
-                <AccordionItem value="value-key">
-                    <AccordionItemHeader {...props} />
-                </AccordionItem>
-            </AccordionContainer>
-        );
-    };
+    const createTestComponent = (props?: Partial<IAccordionItemHeaderProps>) => (
+        <AccordionContainer isMulti={true}>
+            <AccordionItem value="value-key">
+                <AccordionItemHeader {...props} />
+            </AccordionItem>
+        </AccordionContainer>
+    );
 
     it('renders the children property', () => {
         const children = 'Children OK';

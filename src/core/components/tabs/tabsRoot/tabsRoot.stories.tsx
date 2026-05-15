@@ -19,32 +19,30 @@ const meta: Meta<typeof Tabs.Root> = {
 
 type Story = StoryObj<typeof Tabs.Root>;
 
-const reusableStoryComponent = (props: ITabsRootProps) => {
-    return (
-        <Tabs.Root {...props}>
-            <Tabs.List>
-                <Tabs.Trigger label="Default Tab" value="1" />
-                <Tabs.Trigger disabled={true} label="Disabled Tab" value="2" />
-                <Tabs.Trigger iconRight={IconType.BLOCKCHAIN_BLOCK} label="Icon Tab" value="3" />
-            </Tabs.List>
-            <Tabs.Content value="1">
-                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
-                    Item 1 Content
-                </div>
-            </Tabs.Content>
-            <Tabs.Content value="2">
-                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
-                    Item 2 Content
-                </div>
-            </Tabs.Content>
-            <Tabs.Content value="3">
-                <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
-                    Item 3 Content
-                </div>
-            </Tabs.Content>
-        </Tabs.Root>
-    );
-};
+const reusableStoryComponent = (props: ITabsRootProps) => (
+    <Tabs.Root {...props}>
+        <Tabs.List>
+            <Tabs.Trigger label="Default Tab" value="1" />
+            <Tabs.Trigger disabled={true} label="Disabled Tab" value="2" />
+            <Tabs.Trigger iconRight={IconType.BLOCKCHAIN_BLOCK} label="Icon Tab" value="3" />
+        </Tabs.List>
+        <Tabs.Content value="1">
+            <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
+                Item 1 Content
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="2">
+            <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
+                Item 2 Content
+            </div>
+        </Tabs.Content>
+        <Tabs.Content value="3">
+            <div className="flex h-24 w-96 items-center justify-center border border-info-300 border-dashed bg-info-100">
+                Item 3 Content
+            </div>
+        </Tabs.Content>
+    </Tabs.Root>
+);
 
 /**
  * Default usage example of a full Tabs component.
