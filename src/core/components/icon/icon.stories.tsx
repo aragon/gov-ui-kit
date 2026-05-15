@@ -28,17 +28,15 @@ export const Default: Story = {
  * All available icons of the GovKit library.
  */
 export const AvailableIcons: Story = {
-    render: () => {
-        return (
-            <div className="flex flex-row flex-wrap gap-5">
-                {Object.keys(IconType).map((iconType) => (
-                    <div key={iconType} title={iconType}>
-                        <Icon icon={iconType as IconType} size="lg" />
-                    </div>
-                ))}
-            </div>
-        );
-    },
+    render: () => (
+        <div className="flex flex-row flex-wrap gap-5">
+            {Object.keys(IconType).map((iconType) => (
+                <div key={iconType} title={iconType}>
+                    <Icon icon={iconType as IconType} size="lg" />
+                </div>
+            ))}
+        </div>
+    ),
 };
 
 export default meta;

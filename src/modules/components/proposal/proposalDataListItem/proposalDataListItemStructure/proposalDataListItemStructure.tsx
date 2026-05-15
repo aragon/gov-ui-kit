@@ -49,11 +49,13 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
     const [hasMounted, setHasMounted] = useState(false);
     useEffect(() => setHasMounted(true), []);
 
-    const parsedPublisher = useMemo(() => {
-        return Array.isArray(publisher)
-            ? publisher.map((p) => parsePublisher(p, hasMounted, isConnected, connectedAddress))
-            : [parsePublisher(publisher, hasMounted, isConnected, connectedAddress)];
-    }, [publisher, hasMounted, isConnected, connectedAddress]);
+    const parsedPublisher = useMemo(
+        () =>
+            Array.isArray(publisher)
+                ? publisher.map((p) => parsePublisher(p, hasMounted, isConnected, connectedAddress))
+                : [parsePublisher(publisher, hasMounted, isConnected, connectedAddress)],
+        [publisher, hasMounted, isConnected, connectedAddress],
+    );
 
     const showParsedPublisher = parsedPublisher.length <= maxPublishersDisplayed;
 

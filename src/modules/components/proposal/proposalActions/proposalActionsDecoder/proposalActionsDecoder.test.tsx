@@ -214,9 +214,7 @@ describe('<ProposalActionsDecoder /> component', () => {
         });
         const setValueSpy = jest.fn();
         const getValuesSpy = jest.fn().mockReturnValue('0x');
-        const watch = () => {
-            return { unsubscribe: jest.fn() };
-        };
+        const watch = () => ({ unsubscribe: jest.fn() });
         // Mock encodeFunctionData to return a function selector
         encodeFunctionDataSpy.mockReturnValue('0x12345678');
         useFormContextSpy.mockReturnValue(

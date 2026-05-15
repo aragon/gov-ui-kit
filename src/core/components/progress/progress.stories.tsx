@@ -62,9 +62,7 @@ const AnimatedProgress: React.FC<IProgressProps> = ({ value, ...otherProps }) =>
  * Animation example of the Progress component.
  */
 export const Animation: Story = {
-    render: (props) => {
-        return <AnimatedProgress {...props} />;
-    },
+    render: (props) => <AnimatedProgress {...props} />,
 };
 
 export default meta;

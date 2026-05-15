@@ -60,7 +60,7 @@ class FormatterUtils {
 
         const parsedValue = typeof value === 'number' ? value : Number.parseFloat(value ?? '');
 
-        if (Boolean(displayFallback?.(parsedValue)) || Number.isNaN(parsedValue)) {
+        if (displayFallback?.(parsedValue) || Number.isNaN(parsedValue)) {
             return fallback;
         }
 

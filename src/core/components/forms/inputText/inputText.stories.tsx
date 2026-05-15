@@ -49,13 +49,11 @@ export const Addon: Story = {
         addon: 'Addon',
         placeholder: 'Input with addon',
     },
-    render: (props) => {
-        return (
-            <div className="absolute">
-                <InputText {...props} />
-            </div>
-        );
-    },
+    render: (props) => (
+        <div className="absolute">
+            <InputText {...props} />
+        </div>
+    ),
 };
 
 /**

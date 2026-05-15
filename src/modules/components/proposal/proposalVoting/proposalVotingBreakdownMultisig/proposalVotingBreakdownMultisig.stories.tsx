@@ -25,13 +25,11 @@ export const Default: Story = {
         minApprovals: 4,
         membersCount: 10,
     },
-    render: (args) => {
-        return (
-            <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.BREAKDOWN}>
-                <ProposalVoting.BreakdownMultisig {...args} />
-            </Tabs.Root>
-        );
-    },
+    render: (args) => (
+        <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.BREAKDOWN}>
+            <ProposalVoting.BreakdownMultisig {...args} />
+        </Tabs.Root>
+    ),
 };
 
 export default meta;

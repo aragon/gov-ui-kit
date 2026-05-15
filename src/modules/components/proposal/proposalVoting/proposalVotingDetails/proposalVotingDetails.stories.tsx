@@ -29,15 +29,13 @@ export const Default: Story = {
             { term: 'Minimum approval', definition: '3 of 5' },
         ],
     },
-    render: (args) => {
-        return (
-            <ProposalVotingContextProvider>
-                <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.DETAILS}>
-                    <ProposalVoting.Details {...args} />
-                </Tabs.Root>
-            </ProposalVotingContextProvider>
-        );
-    },
+    render: (args) => (
+        <ProposalVotingContextProvider>
+            <Tabs.Root className="w-full" defaultValue={ProposalVotingTab.DETAILS}>
+                <ProposalVoting.Details {...args} />
+            </Tabs.Root>
+        </ProposalVotingContextProvider>
+    ),
 };
 
 export default meta;
