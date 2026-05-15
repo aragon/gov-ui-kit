@@ -35,7 +35,7 @@ jobs:
         run: pnpm build
       - name: Publish library
         run: |
-          pnpm config set npmAuthToken ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
           pnpm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+          NPM_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
