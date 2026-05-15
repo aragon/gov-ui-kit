@@ -1,5 +1,6 @@
 minimumReleaseAge: 10080 # cooldown period for new packages in minutes (7 days)
-minimumReleaseAgeExclude: # https://pnpm.io/settings#minimumreleaseageexclude
+minimumReleaseAgeExclude:
+  # https://pnpm.io/settings#minimumreleaseageexclude
   - rolldown@1.0.0-rc.15
   - "@rolldown/pluginutils"
   - "@rolldown/binding-darwin-arm64"
@@ -21,3 +22,27 @@ strictDepBuilds: true
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 131400 # skip trust checks for packages published >3 months ago
+overrides:
+  rolldown: 1.0.0-rc.15
+  jsdom: 26.1.0
+  undici: ^5.29.0
+  '@vercel/blob>undici': ^6.23.0
+  '@vercel/node>undici': ^6.23.0
+  serialize-javascript: ^7.0.3
+  tar: ^7.5.11
+  minimatch@^10.0.0: ^10.2.4
+  ajv@^8.0.0: ^8.18.0
+packageExtensions:
+  '@solana/codecs-strings@*':
+    dependencies:
+      fastestsmallesttextencoderdecoder: ^1.0.22
+savePrefix: ^
+strictPeerDependencies: true
+autoInstallPeers: false
+sideEffectsCache: true
+preferFrozenLockfile: true
+dedupePeerDependents: true
+ignoreScripts: true
+autoInstallTypes: true
+nodeVersion: 22.20.0
+engineStrict: true
