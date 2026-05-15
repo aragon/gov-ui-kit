@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
+import { Clipboard, DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
@@ -89,7 +89,6 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                     address={address}
                     avatarSrc={avatarSrc}
                     ensName={ensName}
-                    responsiveSize={{ md: 'md' }}
                     size="sm"
                 />
                 {isDelegate && !isCurrentUser && (
@@ -97,9 +96,17 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 )}
                 {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
-            <Heading as="h2" className="inline-block w-full truncate" size="h3">
-                {resolvedUserHandle}
-            </Heading>
+            <div className="group/member-handle flex w-full items-center gap-x-2">
+                <Heading as="h2" className="min-w-0 flex-1 truncate" size="h3">
+                    {resolvedUserHandle}
+                </Heading>
+                <Clipboard
+                    className="pointer-events-none shrink-0 opacity-0 transition-opacity duration-200 group-hover/member-handle:pointer-events-auto group-hover/member-handle:opacity-100"
+                    copyValue={address}
+                    size="sm"
+                    variant="avatar"
+                />
+            </div>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">
                     <Heading
