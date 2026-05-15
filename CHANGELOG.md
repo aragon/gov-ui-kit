@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 2.2.0
+
+### Minor Changes
+
+- [#676](https://github.com/aragon/gov-ui-kit/pull/676) [`9acd37b`](https://github.com/aragon/gov-ui-kit/commit/9acd37bad72edb5cfdabc33ce4fe40b45b85a5aa) Thanks [@evanaronson](https://github.com/evanaronson)! - Add quadrillion number formatting to number formatter utility
+
+- [#682](https://github.com/aragon/gov-ui-kit/pull/682) [`64c41fd`](https://github.com/aragon/gov-ui-kit/commit/64c41fd23afe62f3e35e27fb56f1783240dbc471) Thanks [@milosh86](https://github.com/milosh86)! - Extend `PERCENTAGE_LONG` and `PERCENTAGE_SHORT` number formats to display percentages smaller than the configured fraction-digit precision using significant digits, instead of rounding them to `0.00%` / `0%`.
+
+### Patch Changes
+
+- [#686](https://github.com/aragon/gov-ui-kit/pull/686) [`bcc944b`](https://github.com/aragon/gov-ui-kit/commit/bcc944b95d30ada4742becb749433482b6277322) Thanks [@milosh86](https://github.com/milosh86)! - Update dependencies and fix breaking changes
+
 ## 2.1.0
 
 ### Minor Changes
