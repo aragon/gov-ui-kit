@@ -1,7 +1,15 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { Clipboard, DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
+import {
+    Clipboard,
+    DataList,
+    formatterUtils,
+    Heading,
+    type IDataListItemProps,
+    NumberFormat,
+    Tag,
+} from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
@@ -85,12 +93,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
             {...otherProps}
         >
             <div className="flex w-full items-center justify-between">
-                <MemberAvatar
-                    address={address}
-                    avatarSrc={avatarSrc}
-                    ensName={ensName}
-                    size="sm"
-                />
+                <MemberAvatar address={address} avatarSrc={avatarSrc} ensName={ensName} size="sm" />
                 {isDelegate && !isCurrentUser && (
                     <Tag label={copy.memberDataListItemStructure.yourDelegate} variant="info" />
                 )}
@@ -101,10 +104,10 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                     {resolvedUserHandle}
                 </Heading>
                 <Clipboard
-                    className="pointer-events-none shrink-0 opacity-0 transition-opacity duration-200 group-hover/member-handle:pointer-events-auto group-hover/member-handle:opacity-100"
+                    className="pointer-events-none shrink-0 opacity-0 transition-opacity delay-0 duration-200 group-hover/member-handle:pointer-events-auto group-hover/member-handle:opacity-100 group-hover/member-handle:delay-100"
                     copyValue={address}
                     size="sm"
-                    variant="avatar"
+                    variant="avatar-white-bg"
                 />
             </div>
             {showDelegationOrTokenInformation && (
