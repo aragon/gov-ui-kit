@@ -55,12 +55,10 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
             </div>
             <div className="flex min-w-0 gap-x-2 text-right">
                 <div className="flex min-w-0 flex-col gap-y-1">
-                    <span className="truncate text-base text-neutral-800 leading-tight md:text-lg">
-                        {hideValue ? parsedAmount : formattedValue}
-                    </span>
+                    <span className="truncate text-base text-neutral-800 leading-tight md:text-lg">{parsedAmount}</span>
                     {!hideValue && (
                         <span className="truncate text-neutral-500 text-sm leading-tight md:text-base">
-                            {parsedAmount}
+                            {formattedValue}
                         </span>
                     )}
                 </div>
