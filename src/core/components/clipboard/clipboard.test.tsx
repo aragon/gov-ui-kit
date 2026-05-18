@@ -47,6 +47,13 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
+    it('renders avatar-neutral-white-bg variant', () => {
+        const icon = IconType.COPY;
+        render(createTestComponent({ variant: 'avatar-neutral-white-bg' }));
+        expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
     it('correctly handles the copy action', async () => {
         const textToCopy = 'Text to copy';
         render(createTestComponent({ copyValue: textToCopy }));
@@ -59,7 +66,12 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
 
         for (const variant of variants) {
             handleSubmit.mockReset();
@@ -75,7 +87,12 @@ describe('<Clipboard /> component', () => {
     it('does not trigger parent click handler when clicked', async () => {
         const handleParentClick = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
 
         for (const variant of variants) {
             handleParentClick.mockReset();
