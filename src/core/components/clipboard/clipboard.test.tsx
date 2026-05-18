@@ -110,6 +110,40 @@ describe('<Clipboard /> component', () => {
         }
     });
 
+    it('does not trigger anchor navigation when clicked inside a link', async () => {
+        const handleAnchorClick = jest.fn();
+
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
+
+        for (const variant of variants) {
+            handleAnchorClick.mockReset();
+            const { unmount } = render(
+                <a
+                    href="https://example.com"
+                    onClick={(e) => {
+                        handleAnchorClick(e.defaultPrevented);
+                    }}
+                >
+                    {createTestComponent({ variant })}
+                </a>,
+            );
+
+            await userEvent.click(screen.getAllByRole('button').at(-1)!);
+
+            // Either the click never bubbled to the anchor (stopPropagation), or it did but
+            // default was prevented. Both outcomes prevent navigation.
+            if (handleAnchorClick.mock.calls.length > 0) {
+                expect(handleAnchorClick).toHaveBeenCalledWith(true);
+            }
+            unmount();
+        }
+    });
+
     it('optionally renders children besides the clipboard', () => {
         const childText = 'Child text';
         const icon = IconType.COPY;

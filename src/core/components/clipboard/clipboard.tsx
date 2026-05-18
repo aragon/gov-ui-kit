@@ -43,6 +43,8 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
     const handleCopyClick = (e: React.MouseEvent) => {
         e.stopPropagation();
+        e.preventDefault(); // when inside links!
+
         void handleCopy(copyValue);
     };
 
