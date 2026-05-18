@@ -106,7 +106,9 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
             <Heading as="h2" className="inline-block w-full truncate" size="h3">
-                <Clipboard copyValue={address}>{resolvedUserHandle}</Clipboard>
+                <Clipboard copyValue={address} variant="avatar-neutral-white-bg">
+                    {resolvedUserHandle}
+                </Clipboard>
             </Heading>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">
