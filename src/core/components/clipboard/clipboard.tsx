@@ -41,7 +41,10 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const tooltipText = copyTexts.clipboard.copy;
 
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
-    const handleCopyClick = () => handleCopy(copyValue);
+    const handleCopyClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        void handleCopy(copyValue);
+    };
 
     return (
         <div className={classNames('flex items-center gap-2', className)}>

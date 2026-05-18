@@ -72,6 +72,27 @@ describe('<Clipboard /> component', () => {
         }
     });
 
+    it('does not trigger parent click handler when clicked', async () => {
+        const handleParentClick = jest.fn();
+
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
+
+        for (const variant of variants) {
+            handleParentClick.mockReset();
+            const { unmount } = render(
+                // biome-ignore lint/a11y/useKeyWithClickEvents lint/a11y/useSemanticElements: test-only wrapper simulating a clickable parent
+                <div onClick={handleParentClick} role="button" tabIndex={0}>
+                    {createTestComponent({ variant })}
+                </div>,
+            );
+
+            await userEvent.click(screen.getAllByRole('button').at(-1)!);
+
+            expect(handleParentClick).not.toHaveBeenCalled();
+            unmount();
+        }
+    });
+
     it('optionally renders children besides the clipboard', () => {
         const childText = 'Child text';
         const icon = IconType.COPY;
