@@ -92,7 +92,7 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
         <div className={classNames('flex flex-col gap-2 md:gap-3', className)} {...otherProps}>
             <div
                 className={classNames(
-                    'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pr-3 md:pl-4',
+                    'flex flex-row items-center rounded-xl border p-3 pr-2 transition-all md:pr-3 md:pl-6',
                     'border-neutral-100 bg-neutral-0 text-neutral-500 shadow-neutral-sm',
                     'font-normal text-base leading-tight',
                     'hover:border-neutral-200 hover:shadow-neutral',
