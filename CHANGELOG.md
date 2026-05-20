@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.3.1
+
+### Patch Changes
+
+- [#691](https://github.com/aragon/gov-ui-kit/pull/691) [`c7764f7`](https://github.com/aragon/gov-ui-kit/commit/c7764f733c94a72afa24efbedf1ddeffdb9872c4) Thanks [@milosh86](https://github.com/milosh86)! - Fix publish CI
+
 ## 2.3.0
 
 ### Minor Changes
