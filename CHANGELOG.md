@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 2.3.1
+
+### Patch Changes
+
+- [#691](https://github.com/aragon/gov-ui-kit/pull/691) [`c7764f7`](https://github.com/aragon/gov-ui-kit/commit/c7764f733c94a72afa24efbedf1ddeffdb9872c4) Thanks [@milosh86](https://github.com/milosh86)! - Fix publish CI
+
+## 2.3.0
+
+### Minor Changes
+
+- [#689](https://github.com/aragon/gov-ui-kit/pull/689) [`72b1c35`](https://github.com/aragon/gov-ui-kit/commit/72b1c35a2bc04a968a1ca0ed21e3f1cd5340978d) Thanks [@milosh86](https://github.com/milosh86)! - Add Clipboard component to address in member list item
+
 ## 2.2.0
 
 ### Minor Changes

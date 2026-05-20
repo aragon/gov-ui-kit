@@ -6,7 +6,7 @@ import { useGukCoreContext } from '../gukCoreProvider';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
-export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg';
+export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg' | 'avatar-neutral-white-bg';
 
 export interface IClipboardProps {
     /**
@@ -41,19 +41,25 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     const tooltipText = copyTexts.clipboard.copy;
 
     const icon = isCopied ? IconType.CHECKMARK : IconType.COPY;
-    const handleCopyClick = () => handleCopy(copyValue);
+    const handleCopyClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation(); // to block nextjs-toploader
+        e.preventDefault(); // when inside links
+
+        void handleCopy(copyValue);
+    };
 
     return (
         <div className={classNames('flex items-center gap-2', className)}>
             {children}
-            {(variant === 'avatar' || variant === 'avatar-white-bg') && (
+            {(variant === 'avatar' || variant === 'avatar-white-bg' || variant === 'avatar-neutral-white-bg') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
                     <button className="cursor-pointer" onClick={handleCopyClick} type="button">
                         <AvatarIcon
-                            backgroundWhite={variant === 'avatar-white-bg'}
+                            backgroundWhite={variant === 'avatar-white-bg' || variant === 'avatar-neutral-white-bg'}
                             icon={icon}
                             size={size}
-                            variant="primary"
+                            variant={variant === 'avatar-neutral-white-bg' ? 'neutral' : 'primary'}
                         />
                     </button>
                 </Tooltip>

@@ -47,6 +47,13 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
+    it('renders avatar-neutral-white-bg variant', () => {
+        const icon = IconType.COPY;
+        render(createTestComponent({ variant: 'avatar-neutral-white-bg' }));
+        expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
+        expect(screen.getByTestId(icon)).toBeInTheDocument();
+    });
+
     it('correctly handles the copy action', async () => {
         const textToCopy = 'Text to copy';
         render(createTestComponent({ copyValue: textToCopy }));
@@ -59,7 +66,12 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-white-bg', 'button'];
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
 
         for (const variant of variants) {
             handleSubmit.mockReset();
@@ -68,6 +80,66 @@ describe('<Clipboard /> component', () => {
             await userEvent.click(screen.getByRole('button'));
 
             expect(handleSubmit).not.toHaveBeenCalled();
+            unmount();
+        }
+    });
+
+    it('does not trigger parent click handler when clicked', async () => {
+        const handleParentClick = jest.fn();
+
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
+
+        for (const variant of variants) {
+            handleParentClick.mockReset();
+            const { unmount } = render(
+                // biome-ignore lint/a11y/useKeyWithClickEvents lint/a11y/useSemanticElements: test-only wrapper simulating a clickable parent
+                <div onClick={handleParentClick} role="button" tabIndex={0}>
+                    {createTestComponent({ variant })}
+                </div>,
+            );
+
+            await userEvent.click(screen.getAllByRole('button').at(-1)!);
+
+            expect(handleParentClick).not.toHaveBeenCalled();
+            unmount();
+        }
+    });
+
+    it('does not trigger anchor navigation when clicked inside a link', async () => {
+        const handleAnchorClick = jest.fn();
+
+        const variants: IClipboardProps['variant'][] = [
+            'avatar',
+            'avatar-white-bg',
+            'avatar-neutral-white-bg',
+            'button',
+        ];
+
+        for (const variant of variants) {
+            handleAnchorClick.mockReset();
+            const { unmount } = render(
+                <a
+                    href="https://example.com"
+                    onClick={(e) => {
+                        handleAnchorClick(e.defaultPrevented);
+                    }}
+                >
+                    {createTestComponent({ variant })}
+                </a>,
+            );
+
+            await userEvent.click(screen.getAllByRole('button').at(-1)!);
+
+            // Either the click never bubbled to the anchor (stopPropagation), or it did but
+            // default was prevented. Both outcomes prevent navigation.
+            if (handleAnchorClick.mock.calls.length > 0) {
+                expect(handleAnchorClick).toHaveBeenCalledWith(true);
+            }
             unmount();
         }
     });
