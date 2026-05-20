@@ -44,9 +44,11 @@ jobs:
         uses: martinbeentjes/npm-get-version-action@v1.3.1
       - name: Publish snapshot
         run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
-          pnpm publish --access public --tag snapshot-${{ github.run_id }} --no-git-checks
+          mkdir -p "${{ runner.temp }}/npm"
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > "${{ runner.temp }}/npm/.npmrc"
+          pnpm publish --access public --tag snapshot-${{ github.run_id }}
         env:
           NPM_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/npm/.npmrc
       - name: Print snapshot version
         run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }} published with tag 'snapshot-${{ github.run_id }}'"
