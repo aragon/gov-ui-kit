@@ -56,3 +56,6 @@ stats.*.html
 # IDE/AI
 .claude
 .tempor/
+
+# Remove because of publish CI workflow, to avoid --no-git-chack flag
+.npmrc
