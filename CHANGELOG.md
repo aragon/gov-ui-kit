@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.4.0
+
+### Minor Changes
+
+- [#690](https://github.com/aragon/gov-ui-kit/pull/690) [`2db170c`](https://github.com/aragon/gov-ui-kit/commit/2db170c084b3c6843d6e3d8f69f855826479f366) Thanks [@milosh86](https://github.com/milosh86)! - Update DataList components to support new SelectAddress component
+
 ## 2.3.1
 
 ### Patch Changes
