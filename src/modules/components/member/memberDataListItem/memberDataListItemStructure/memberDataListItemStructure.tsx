@@ -1,7 +1,15 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
+import {
+    Clipboard,
+    DataList,
+    formatterUtils,
+    Heading,
+    type IDataListItemProps,
+    NumberFormat,
+    Tag,
+} from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
@@ -98,7 +106,9 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
             <Heading as="h2" className="inline-block w-full truncate" size="h3">
-                {resolvedUserHandle}
+                <Clipboard copyValue={address} variant="avatar-neutral-white-bg">
+                    {resolvedUserHandle}
+                </Clipboard>
             </Heading>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">

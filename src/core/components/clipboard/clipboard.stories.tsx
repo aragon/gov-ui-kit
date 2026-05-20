@@ -77,4 +77,47 @@ export const InsideForm: Story = {
     ),
 };
 
+/**
+ * Example of the Clipboard component inside a clickable parent, demonstrating that clicking the copy
+ * button does not propagate the click event to the parent element.
+ */
+export const InsideClickable: Story = {
+    args: {
+        copyValue: '0x123456789',
+        variant: 'avatar-white-bg',
+    },
+    render: (props) => (
+        <button
+            className="flex items-center gap-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 hover:bg-neutral-50"
+            onClick={() => alert('Parent clicked!')}
+            type="button"
+        >
+            <span className="text-neutral-500 text-sm">{props.copyValue}</span>
+            <Clipboard {...props} />
+        </button>
+    ),
+};
+
+/**
+ * Example of the Clipboard component inside an anchor element, demonstrating that clicking the
+ * copy button does not trigger the link's default navigation behavior.
+ */
+export const InsideLink: Story = {
+    args: {
+        copyValue: '0x123456789',
+        variant: 'avatar-white-bg',
+    },
+    render: (props) => (
+        <a
+            className="flex items-center gap-2 rounded-xl border border-neutral-100 bg-neutral-0 px-4 py-3 hover:bg-neutral-50"
+            href="https://example.com"
+            rel="noopener noreferrer"
+            target="_blank"
+        >
+            <span className="text-neutral-500 text-sm">{props.copyValue}</span>
+            <Clipboard {...props} />
+        </a>
+    ),
+};
+
 export default meta;
