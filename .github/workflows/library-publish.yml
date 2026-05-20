@@ -35,6 +35,7 @@ jobs:
         run: pnpm build
       - name: Publish library
         run: |
+          rm -f .npmrc
           echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
           pnpm publish --access public
         env:
