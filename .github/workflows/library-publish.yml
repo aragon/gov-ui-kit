@@ -35,9 +35,7 @@ jobs:
         run: pnpm build
       - name: Publish library
         run: |
-          mkdir -p "${{ runner.temp }}/npm"
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > "${{ runner.temp }}/npm/.npmrc"
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
           pnpm publish --access public
         env:
           NPM_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
-          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/npm/.npmrc
