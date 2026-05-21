@@ -1,5 +1,5 @@
-import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { RollupOptions } from 'rollup';
 import { mergeConfig } from 'vite';
@@ -10,7 +10,7 @@ const config: StorybookConfig = {
     stories: ['../docs/**/*.@(md|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.@(md|mdx)'],
 
     framework: {
-        name: getAbsolutePath("@storybook/react-vite"),
+        name: getAbsolutePath('@storybook/react-vite'),
         options: {},
     },
 
@@ -19,7 +19,7 @@ const config: StorybookConfig = {
         reactDocgen: 'react-docgen-typescript',
     },
 
-    addons: [getAbsolutePath("@storybook/addon-docs")],
+    addons: [getAbsolutePath('@storybook/addon-docs')],
 
     viteFinal: (viteConfig) => {
         // Add source-map-js alias and plugins for importing svg files and copying fonts
@@ -49,6 +49,6 @@ const config: StorybookConfig = {
 
 export default config;
 
-function getAbsolutePath(value: string): any {
+function getAbsolutePath(value: string) {
     return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }
