@@ -8,7 +8,7 @@ describe('<DataList.ActionItem /> component', () => {
         const completeProps: IDataListActionItemProps = {
             icon: IconType.PLUS,
             variant: 'primary',
-            children: 'Action label',
+            label: 'Action label',
             ...props,
         };
 
@@ -16,7 +16,7 @@ describe('<DataList.ActionItem /> component', () => {
     };
 
     it('renders a button with the given label and icon', () => {
-        render(createTestComponent({ children: 'Add custom address', icon: IconType.PLUS }));
+        render(createTestComponent({ label: 'Add custom address', icon: IconType.PLUS }));
         const button = screen.getByRole('button', { name: /add custom address/i });
         expect(button).toBeInTheDocument();
         expect(screen.getByTestId(IconType.PLUS)).toBeInTheDocument();

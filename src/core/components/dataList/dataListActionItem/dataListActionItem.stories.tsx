@@ -20,7 +20,7 @@ type Story = StoryObj<typeof DataList.ActionItem>;
  */
 export const Primary: Story = {
     args: {
-        children: 'Add custom address',
+        label: 'Add custom address',
         icon: IconType.PLUS,
         variant: 'primary',
     },
@@ -31,7 +31,7 @@ export const Primary: Story = {
  */
 export const Neutral: Story = {
     args: {
-        children: 'Back to selection',
+        label: 'Back to selection',
         icon: IconType.CHEVRON_LEFT,
         variant: 'neutral',
     },

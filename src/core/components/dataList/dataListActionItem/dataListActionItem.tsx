@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { ComponentProps, ReactNode } from 'react';
+import type { ComponentProps } from 'react';
 import { Icon, type IconType } from '../../icon';
 
 export type DataListActionItemVariant = 'primary' | 'neutral';
@@ -17,7 +17,7 @@ export interface IDataListActionItemProps extends ComponentProps<'button'> {
     /**
      * Row label rendered next to the avatar.
      */
-    children: ReactNode;
+    label: string;
 }
 
 const variantRowClasses: Record<DataListActionItemVariant, string> = {
@@ -36,7 +36,7 @@ const variantIconClasses: Record<DataListActionItemVariant, string> = {
 };
 
 export const DataListActionItem: React.FC<IDataListActionItemProps> = (props) => {
-    const { className, type = 'button', icon, variant, children, ...otherProps } = props;
+    const { className, type = 'button', icon, variant, label, ...otherProps } = props;
 
     return (
         <button
@@ -58,7 +58,7 @@ export const DataListActionItem: React.FC<IDataListActionItemProps> = (props) =>
             >
                 <Icon className={classNames('size-3 md:size-4', variantIconClasses[variant])} icon={icon} />
             </span>
-            <span className="flex-1 truncate text-left">{children}</span>
+            <span className="flex-1 truncate text-left">{label}</span>
         </button>
     );
 };
