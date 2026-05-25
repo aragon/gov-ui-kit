@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.5.0
+
+### Minor Changes
+
+- [#692](https://github.com/aragon/gov-ui-kit/pull/692) [`2757e5b`](https://github.com/aragon/gov-ui-kit/commit/2757e5b072b0f803ab5c911c6d265bb7e5aa644b) Thanks [@milosh86](https://github.com/milosh86)! - Implement DataList.ActionItem component
+
 ## 2.4.0
 
 ### Minor Changes
