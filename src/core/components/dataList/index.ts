@@ -1,3 +1,4 @@
+import { DataListActionItem } from './dataListActionItem';
 import { DataListContainer } from './dataListContainer';
 import { DataListFilter } from './dataListFilter';
 import { DataListItem } from './dataListItem';
@@ -9,9 +10,11 @@ export const DataList = {
     Filter: DataListFilter,
     Container: DataListContainer,
     Item: DataListItem,
+    ActionItem: DataListActionItem,
     Pagination: DataListPagination,
 };
 
+export * from './dataListActionItem';
 export * from './dataListContainer';
 export * from './dataListFilter';
 export * from './dataListItem';
