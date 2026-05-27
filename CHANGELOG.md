@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.5.1
+
+### Patch Changes
+
+- [#695](https://github.com/aragon/gov-ui-kit/pull/695) [`1a5ab1c`](https://github.com/aragon/gov-ui-kit/commit/1a5ab1c8a24a796f50c493ff43ad7df5cd47c8c6) Thanks [@milosh86](https://github.com/milosh86)! - Fix spacing and size issues in Asset related components
+
 ## 2.5.0
 
 ### Minor Changes
