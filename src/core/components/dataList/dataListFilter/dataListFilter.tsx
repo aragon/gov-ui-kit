@@ -101,9 +101,16 @@ export const DataListFilter: React.FC<IDataListFilterProps> = (props) => {
                 )}
             >
                 {state !== 'loading' && (
-                    <AvatarIcon icon={IconType.SEARCH} size="md" variant={isFocused ? 'primary' : 'neutral'} />
+                    <AvatarIcon
+                        icon={IconType.SEARCH}
+                        responsiveSize={{ md: 'md' }}
+                        size={'sm'}
+                        variant={isFocused ? 'primary' : 'neutral'}
+                    />
                 )}
-                {state === 'loading' && <Spinner className="m-1" size="lg" variant="primary" />}
+                {state === 'loading' && (
+                    <Spinner className="m-1" responsiveSize={{ md: 'lg' }} size="md" variant="primary" />
+                )}
                 <input
                     className={classNames(
                         'search-cancel-hidden size-full truncate bg-transparent pl-3 caret-neutral-500 outline-hidden',

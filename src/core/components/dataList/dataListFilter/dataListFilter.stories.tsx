@@ -26,4 +26,16 @@ export const Default: Story = {
     ),
 };
 
+/**
+ * Example of the DataList.Filter component with loading state.
+ */
+export const Loading: Story = {
+    args: {},
+    render: (props) => (
+        <DataList.Root entityLabel="Users" state="loading">
+            <DataList.Filter {...props} />
+        </DataList.Root>
+    ),
+};
+
 export default meta;
