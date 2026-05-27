@@ -46,10 +46,10 @@ export const AssetDataListItemStructure: React.FC<IAssetDataListItemStructurePro
 
     return (
         <DataList.Item
-            className={classNames('flex items-center justify-between gap-x-3 py-3 md:gap-x-4 md:py-5', className)}
+            className={classNames('flex items-center justify-between gap-x-3 py-3 md:py-5', className)}
             {...otherProps}
         >
-            <div className="flex min-w-0 items-center gap-3">
+            <div className="flex min-w-0 items-center gap-3 md:gap-4">
                 <Avatar className="block shrink-0" responsiveSize={{ md: 'md', sm: 'sm' }} src={logoSrc} />
                 <span className="truncate text-base text-neutral-800 leading-tight md:text-lg">{name}</span>
             </div>
