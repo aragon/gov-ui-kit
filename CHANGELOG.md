@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.5.2
+
+### Patch Changes
+
+- [#697](https://github.com/aragon/gov-ui-kit/pull/697) [`d80e516`](https://github.com/aragon/gov-ui-kit/commit/d80e5169dc5f2194c253d2904850d3ca471b1609) Thanks [@milosh86](https://github.com/milosh86)! - Keep the decoded view active when editing a proposal action parameter whose calldata is temporarily empty
+
 ## 2.5.1
 
 ### Patch Changes
