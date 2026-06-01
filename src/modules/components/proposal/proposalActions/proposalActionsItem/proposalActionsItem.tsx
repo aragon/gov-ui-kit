@@ -91,7 +91,22 @@ export const ProposalActionsItem = <TAction extends IProposalAction = IProposalA
     // - Native transfer: basic view available; decoded view disabled; raw view in watch mode
     const isAbiAvailable = action.inputData != null;
     const isRawCalldataAction = action.type === (ProposalActionTypeNoBasicView.RAW_CALLDATA as string);
-    const isNativeTransfer = action.data === '0x';
+
+    // A native transfer sends value with empty calldata ('0x') and has no parameters to decode. It must be detected
+    // from these intrinsic transaction properties, not from the encoded `data` alone: while editing a parameter in the
+    // decoded view an invalid/empty value transiently re-encodes the calldata to '0x', and keying off that would
+    // misclassify a parameterised call as a native transfer — disabling the decoded view and bouncing the user to raw.
+    // The "no parameters" term keeps the decoded view stable while editing a parameterised (incl. payable) call; the
+    // "sends value" term keeps the decoded "no params" view for parameter-less write functions, which send no value.
+    const isSendingValue = (() => {
+        try {
+            const normalizedValue = action.value.trim();
+            return normalizedValue !== '' && BigInt(normalizedValue) > BigInt(0);
+        } catch {
+            return false;
+        }
+    })();
+    const isNativeTransfer = action.data === '0x' && isSendingValue && !action.inputData?.parameters.length;
     const supportsDecodedView = isAbiAvailable && !isRawCalldataAction && !isNativeTransfer;
 
     const [activeViewMode, setActiveViewMode] = useState<ProposalActionsItemViewMode>(
