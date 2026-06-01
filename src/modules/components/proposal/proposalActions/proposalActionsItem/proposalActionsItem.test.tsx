@@ -419,4 +419,51 @@ describe('<ProposalActionsItem /> component', () => {
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(screen.getByTestId('decoder-mock').dataset.mode).toEqual(ProposalActionsDecoderMode.WATCH);
     });
+
+    it('keeps the decoded view for a parameterised payable call whose calldata is 0x while editing', () => {
+        // Editing a parameter to an invalid/empty value makes the re-encode fall back to '0x'. Even when the call is
+        // payable (value > 0), the presence of parameters must prevent it being reclassified as a native transfer and
+        // bounced to the raw view.
+        const params = [{ name: 'amount', type: 'uint', value: null }];
+        const action = generateProposalAction({
+            data: '0x',
+            value: '1000000000000000000',
+            inputData: { contract: 'Token', function: 'transfer', parameters: params },
+        });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('keeps the decoded view for a parameter-less write function with 0x calldata that sends no value', () => {
+        // A parameter-less write function (no value) must keep the decoded "no params" view so the data field can be
+        // pre-populated with the function selector. It must not be confused with a native transfer.
+        const action = generateProposalAction({
+            data: '0x',
+            value: '0',
+            inputData: { contract: 'Token', function: 'pause', parameters: [] },
+        });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
+
+    it('keeps the decoded view disabled for a native transfer carrying input-data with a function name', () => {
+        // A native transfer can carry input-data with a non-empty function name (e.g. "NativeTransfer") but no
+        // parameters and a non-zero value. It is still a native transfer, so the decoded view stays disabled.
+        const action = generateProposalAction({
+            data: '0x',
+            value: '10000000000000',
+            inputData: { contract: 'Wallet Address', function: 'NativeTransfer', parameters: [] },
+        });
+        isActionSupportedSpy.mockReturnValue(false);
+        render(createTestComponent({ action, editMode: true }));
+        const actionDecoder = screen.getByTestId('decoder-mock');
+        expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
+        expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.EDIT);
+    });
 });
