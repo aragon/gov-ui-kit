@@ -47,6 +47,23 @@ describe('address utils', () => {
         });
     });
 
+    describe('truncateHash', () => {
+        it('returns empty string when hash is not defined', () => {
+            expect(addressUtils.truncateHash()).toEqual('');
+        });
+
+        it('returns input string when input is not a valid 32-byte hash', () => {
+            const value = '0xe11bfcbdd43745d4aa6f4f18e24ad24f4623af04';
+            expect(addressUtils.truncateHash(value)).toEqual(value);
+        });
+
+        it('correctly truncates the hash', () => {
+            const value = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef';
+            const expectedValue = '0x12345678…90abcdef';
+            expect(addressUtils.truncateHash(value)).toEqual(expectedValue);
+        });
+    });
+
     describe('getChecksum', () => {
         it('returns the address on its checksum format', () => {
             const value = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';

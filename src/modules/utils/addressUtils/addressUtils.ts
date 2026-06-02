@@ -1,4 +1,4 @@
-import { type Address, getAddress, isAddress } from 'viem';
+import { type Address, getAddress, isAddress, isHash } from 'viem';
 
 export interface IIsAddressParams {
     /**
@@ -22,10 +22,17 @@ class AddressUtils {
      * @param address The address to truncate
      * @returns The truncated address when the address input is valid, the address input as is otherwise.
      */
-    truncateAddress = (address = ''): string =>
-        this.isAddress(address)
-            ? `${address.slice(0, 6)}…${address.slice(address.length - 4, address.length)}`
-            : address;
+    truncateAddress = (address = ''): string => (this.isAddress(address) ? this.truncate(address, 6, 4) : address);
+
+    /**
+     * Truncates the input hash (e.g. a merkle root, transaction or block hash) by displaying the first 10 and last 8 characters.
+     * @param hash The 32-byte hash to truncate
+     * @returns The truncated hash when the input is a valid 32-byte hash, the input as is otherwise.
+     */
+    truncateHash = (hash = ''): string => (isHash(hash) ? this.truncate(hash, 10, 8) : hash);
+
+    private truncate = (value: string, start: number, end: number): string =>
+        `${value.slice(0, start)}…${value.slice(value.length - end, value.length)}`;
 
     /**
      * Returns the address on its checksum format
