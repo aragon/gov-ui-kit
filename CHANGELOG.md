@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.6.0
+
+### Minor Changes
+
+- [#698](https://github.com/aragon/gov-ui-kit/pull/698) [`39d1eb6`](https://github.com/aragon/gov-ui-kit/commit/39d1eb60984c767233fdc486ea4d1f1af47790b2) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Add `addressUtils.truncateHash` for truncating 32-byte hashes (merkle roots, transaction/block hashes)
+
 ## 2.5.2
 
 ### Patch Changes
