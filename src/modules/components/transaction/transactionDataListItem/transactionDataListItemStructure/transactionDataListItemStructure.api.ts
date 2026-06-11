@@ -11,6 +11,7 @@ export enum TransactionType {
     DEPOSIT = 'DEPOSIT',
     WITHDRAW = 'WITHDRAW',
     ACTION = 'ACTION',
+    EXECUTION = 'EXECUTION',
 }
 
 export type ITransactionDataListItemProps = IDataListItemProps & {
@@ -26,6 +27,16 @@ export type ITransactionDataListItemProps = IDataListItemProps & {
      * The token value in the transaction.
      */
     tokenAmount?: number | string;
+    /**
+     * Label of the executor for `TransactionType.EXECUTION` transactions, rendered as `Executed {label}`. Accepts a
+     * human-readable plugin name (e.g. 'Token Voting') or an address, which gets truncated automatically.
+     */
+    label?: string;
+    /**
+     * Number of actions bundled in a `TransactionType.EXECUTION` transaction. Rendered as the right-side value
+     * (e.g. '5 actions') in place of the token amount.
+     */
+    actionCount?: number;
     /**
      * The price of the transaction in USD.
      */

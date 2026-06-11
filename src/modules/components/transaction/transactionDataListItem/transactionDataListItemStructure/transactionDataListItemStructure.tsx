@@ -10,28 +10,26 @@ import {
     Spinner,
 } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
+import { addressUtils } from '../../../../utils';
+import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
     type ITransactionDataListItemProps,
     TransactionStatus,
     TransactionType,
 } from './transactionDataListItemStructure.api';
 
-const typeToHeading: Record<TransactionType, string> = {
-    [TransactionType.DEPOSIT]: 'Deposit',
-    [TransactionType.WITHDRAW]: 'Withdraw',
-    [TransactionType.ACTION]: 'Smart contract action',
-};
-
 const typeToIcon: Record<TransactionType, IconType> = {
     [TransactionType.DEPOSIT]: IconType.DEPOSIT,
     [TransactionType.WITHDRAW]: IconType.WITHDRAW,
     [TransactionType.ACTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
+    [TransactionType.EXECUTION]: IconType.BLOCKCHAIN_SMARTCONTRACT,
 };
 
 const typeToIconVariant: Record<TransactionType, AvatarIconVariant> = {
     [TransactionType.DEPOSIT]: 'success',
     [TransactionType.WITHDRAW]: 'warning',
     [TransactionType.ACTION]: 'info',
+    [TransactionType.EXECUTION]: 'info',
 };
 
 export const TransactionDataListItemStructure: React.FC<ITransactionDataListItemProps> = (props) => {
@@ -41,6 +39,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         tokenAmount,
         amountUsd,
         hideValue,
+        label,
+        actionCount,
         type = TransactionType.ACTION,
         status = TransactionStatus.PENDING,
         date,
@@ -48,6 +48,17 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         className,
         ...otherProps
     } = props;
+
+    const isExecution = type === TransactionType.EXECUTION;
+
+    const { copy } = useGukModulesContext();
+    const componentCopy = copy.transactionDataListItemStructure;
+    const typeToHeading: Record<TransactionType, string> = {
+        [TransactionType.DEPOSIT]: componentCopy.received,
+        [TransactionType.WITHDRAW]: componentCopy.sent,
+        [TransactionType.ACTION]: componentCopy.action,
+        [TransactionType.EXECUTION]: componentCopy.executed,
+    };
 
     const { buildEntityUrl } = useBlockExplorer({ chainId });
 
@@ -64,6 +75,11 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
         type === TransactionType.ACTION || formattedTokenAmount == null
             ? '-'
             : `${formattedTokenAmount} ${tokenSymbol}`;
+
+    // Executions display the executor label (a plugin name or a truncated address) and an action count instead of a
+    // token amount; every other transaction type keeps the transfer layout untouched.
+    const processedLabel = label != null && addressUtils.isAddress(label) ? addressUtils.truncateAddress(label) : label;
+    const processedValue = isExecution ? componentCopy.actionCount(actionCount ?? 0) : processedTokenAmount;
 
     return (
         <DataList.Item
@@ -83,7 +99,12 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 </div>
             )}
             <div className="flex w-full flex-col items-start gap-y-0.5 self-center md:gap-y-1">
-                <span className="text-neutral-800 leading-tight md:text-lg">{typeToHeading[type]}</span>
+                <span className="text-neutral-800 leading-tight md:text-lg">
+                    {typeToHeading[type]}
+                    {isExecution && processedLabel != null && (
+                        <span className="text-neutral-500"> {processedLabel}</span>
+                    )}
+                </span>
                 {date && (
                     <p className="text-neutral-500 text-sm leading-tight md:text-base">
                         {formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME })}
@@ -92,8 +113,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
             </div>
 
             <div className="flex h-full shrink-0 flex-col items-end gap-y-0.5 truncate md:gap-y-1">
-                <span className="text-neutral-800 leading-tight md:text-lg">{processedTokenAmount}</span>
-                {!hideValue && (
+                <span className="text-neutral-800 leading-tight md:text-lg">{processedValue}</span>
+                {!hideValue && !isExecution && (
                     <span className="text-neutral-500 text-sm leading-tight md:text-base">
                         {formattedTransactionValue}
                     </span>
