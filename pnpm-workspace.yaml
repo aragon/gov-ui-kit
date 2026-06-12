@@ -25,13 +25,18 @@ trustPolicyIgnoreAfter: 131400 # skip trust checks for packages published >3 mon
 overrides:
   rolldown: 1.0.0-rc.15
   jsdom: 26.1.0
-  undici: ^5.29.0
-  '@vercel/blob>undici': ^6.23.0
-  '@vercel/node>undici': ^6.23.0
+  undici@<6.24.0: '>=6.24.0'
   serialize-javascript: ^7.0.3
   tar: ^7.5.11
   minimatch@^10.0.0: ^10.2.4
   ajv@^8.0.0: ^8.18.0
+  path-to-regexp@>=4.0.0 <6.3.0: '>=6.3.0'
+  path-to-regexp@>=8.0.0 <8.4.0: '>=8.4.0'
+  smol-toml@<1.6.1: '>=1.6.1'
+  srvx@<0.11.13: '>=0.11.13'
+  ws@>=8.0.0 <8.20.1: '>=8.20.1'
+  '@vercel/fun>@tootallnate/once': ^3.0.1
+  '@hookform/devtools>uuid': ^14.0.0
 packageExtensions:
   '@solana/codecs-strings@*':
     dependencies:
@@ -44,5 +49,5 @@ preferFrozenLockfile: true
 dedupePeerDependents: true
 ignoreScripts: true
 autoInstallTypes: true
-nodeVersion: 22.20.0
+nodeVersion: 24.13.0
 engineStrict: true
