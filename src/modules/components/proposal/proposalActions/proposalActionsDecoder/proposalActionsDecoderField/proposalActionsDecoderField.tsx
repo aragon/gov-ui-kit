@@ -107,7 +107,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
             useCustomWrapper={true}
         >
             <div
-                className={classNames('flex flex-col gap-3', {
+                className={classNames('flex flex-col gap-4', {
                     'rounded-xl border border-neutral-100 p-4': isNestedType,
                 })}
             >
@@ -119,7 +119,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                     parameter={parameter}
                 />
                 <div className="flex grow flex-row items-start gap-2">
-                    <div className="flex grow flex-col gap-3 md:gap-4">
+                    <div className="flex grow flex-col gap-5 md:gap-6">
                         {nestedParameters.map((parameter, index) => {
                             const nestedFieldName = index.toString();
                             const nestedFormPrefix = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);

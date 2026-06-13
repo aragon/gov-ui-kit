@@ -104,7 +104,7 @@ export const ProposalActionsDecoder: React.FC<IProposalActionsDecoderProps> = (p
     const handleCopyDataClick = () => clipboardUtils.copy(action.data);
 
     return (
-        <div className={classNames('flex w-full flex-col gap-4', className)} {...otherProps}>
+        <div className={classNames('flex w-full flex-col gap-5 md:gap-6', className)} {...otherProps}>
             {(view === ProposalActionsDecoderView.RAW || isPayableAction) && (
                 <ProposalActionsDecoderTextField
                     fieldName="value"
