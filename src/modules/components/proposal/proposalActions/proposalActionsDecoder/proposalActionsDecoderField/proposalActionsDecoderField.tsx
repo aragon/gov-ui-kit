@@ -9,7 +9,7 @@ import { ProposalActionsDecoderBooleanField } from '../proposalActionsDecoderBoo
 import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
 import { proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
 
-const nestedParameterHeaderClassName = 'font-normal text-base text-neutral-800 leading-tight md:text-lg';
+const nestedParameterHeaderClassName = 'font-normal text-base text-neutral-500 leading-tight md:text-lg';
 
 export interface IProposalActionsDecoderFieldProps extends Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
     /**
@@ -121,29 +121,40 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                 <div className="flex grow flex-row items-start gap-2">
                     <div className="flex grow flex-col gap-2">
                         {nestedParameters.map((parameter, index) => {
+                            const nestedFieldName = index.toString();
+                            const nestedFormPrefix = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
+                            const nestedFieldPath = proposalActionsDecoderUtils.getFieldName(
+                                nestedFieldName,
+                                nestedFormPrefix,
+                            );
                             const removeArrayItem = isArray ? handleRemoveArrayItem(index) : undefined;
                             const isNestedParameter =
                                 proposalActionsDecoderUtils.isTupleType(parameter.type) ||
                                 proposalActionsDecoderUtils.isArrayType(parameter.type);
 
                             return (
-                                // biome-ignore lint/suspicious/noArrayIndexKey: dynamic parameter list with no stable identity
-                                <div className="flex flex-row items-start gap-2" key={index}>
+                                <div
+                                    className={classNames('flex flex-row gap-2', {
+                                        'items-start': isNestedParameter,
+                                        'items-center': !isNestedParameter,
+                                    })}
+                                    key={nestedFieldPath}
+                                >
                                     {isArray && (
                                         <p className={classNames(nestedParameterHeaderClassName, 'shrink-0')}>
-                                            [{index.toString()}]
+                                            [{index.toString()}]:
                                         </p>
                                     )}
                                     <div className="min-w-0 grow">
                                         <ProposalActionsDecoderField
-                                            fieldName={index.toString()}
-                                            formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
+                                            fieldName={nestedFieldName}
+                                            formPrefix={nestedFormPrefix}
                                             hideLabels={isArray}
                                             mode={mode}
                                             parameter={parameter}
                                         />
                                     </div>
-                                    {renderDeleteButton(removeArrayItem, isNestedParameter ? 'sm' : 'lg')}
+                                    {renderDeleteButton(removeArrayItem, 'sm')}
                                 </div>
                             );
                         })}
@@ -152,7 +163,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                 </div>
                 {isArray && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button
-                        className="self-start"
+                        className="mt-1 self-start"
                         iconLeft={IconType.PLUS}
                         onClick={handleAddArrayItem}
                         size="md"

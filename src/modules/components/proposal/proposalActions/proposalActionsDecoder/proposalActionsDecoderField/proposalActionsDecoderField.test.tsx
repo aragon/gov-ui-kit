@@ -84,11 +84,15 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'arrayType', type: 'uint[]', value: ['12', '777', '465413', '0'] };
         render(createTestComponent({ parameter }));
         expect(screen.getAllByText(parameter.name)).toHaveLength(2); // 2 because of the hidden array input
-        parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
+        parameter.value.forEach((_, index) =>
+            expect(screen.getByText(`[${index.toString()}]:`)).toHaveClass('text-neutral-500'),
+        );
         const [, ...textInputs] = screen.getAllByRole('textbox');
         expect(textInputs).toHaveLength(parameter.value.length);
         // eslint-disable-next-line testing-library/no-node-access
-        expect(screen.getByText('[0]').parentElement).toContainElement(textInputs[0]);
+        expect(screen.getByText('[0]:').parentElement).toContainElement(textInputs[0]);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-center');
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
     });
 
@@ -121,7 +125,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .getAllByRole('button')
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
-        removeButtons.forEach((button) => expect(button).toHaveClass('h-12', 'w-12'));
+        removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
         await userEvent.click(removeButtons[0]);
 
         expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length);
@@ -158,13 +162,17 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
         removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
-        parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
+        parameter.value.forEach((_, index) =>
+            expect(screen.getByText(`[${index.toString()}]:`)).toHaveClass('text-neutral-500'),
+        );
         // eslint-disable-next-line testing-library/no-node-access
-        expect(screen.getByText('[0]').parentElement).toContainElement(
+        expect(screen.getByText('[0]:').parentElement).toContainElement(
             screen.getAllByRole('textbox', {
                 name: `${parameterComponents[0].name} (${parameterComponents[0].type})`,
             })[0],
         );
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-start');
         await userEvent.click(removeButtons[1]);
 
         expect(
