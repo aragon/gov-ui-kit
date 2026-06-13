@@ -46,7 +46,15 @@ describe('<ProposalActionsDecoderField /> component', () => {
     it('returns a simple text field when parameter type is not a nested type', () => {
         const parameter = { name: 'boolParam', type: 'bool', value: undefined };
         render(createTestComponent({ parameter }));
-        expect(screen.getByRole('textbox', { name: parameter.name })).toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: `${parameter.name} (${parameter.type})` })).toBeInTheDocument();
+    });
+
+    it('renders a radio group instead of a text field for boolean parameters when mode is edit', () => {
+        const parameter = { name: 'boolParam', type: 'bool', value: undefined };
+        const mode = ProposalActionsDecoderMode.EDIT;
+        render(createTestComponent({ parameter, mode }));
+        expect(screen.getAllByRole('radio')).toHaveLength(2);
+        expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     });
 
     it('renders a hidden text-field for nested types', () => {
@@ -66,7 +74,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'tupleType', type: 'tuple', value: ['0x00', true, '2231'], components };
         render(createTestComponent({ parameter }));
         components.forEach((component, index) => {
-            const textField = screen.getByRole('textbox', { name: component.name });
+            const textField = screen.getByRole('textbox', { name: `${component.name} (${component.type})` });
             expect(textField).toBeInTheDocument();
             expect(textField).toHaveDisplayValue(parameter.value[index].toString());
         });
@@ -147,9 +155,11 @@ describe('<ProposalActionsDecoderField /> component', () => {
         expect(removeButtons).toHaveLength(parameter.value.length);
         await userEvent.click(removeButtons[1]);
 
-        expect(screen.getAllByRole('textbox', { name: parameterComponents[0].name })).toHaveLength(
-            parameter.value.length - 1,
-        );
+        expect(
+            screen.getAllByRole('textbox', {
+                name: `${parameterComponents[0].name} (${parameterComponents[0].type})`,
+            }),
+        ).toHaveLength(parameter.value.length - 1);
         expect(unregister).toHaveBeenCalledWith(`${formPrefix}.${fieldName}.2`);
         expect(setValue).toHaveBeenCalledWith(`${formPrefix}.${fieldName}`, [
             ['1', false],

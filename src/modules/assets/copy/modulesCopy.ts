@@ -61,6 +61,8 @@ export const modulesCopy = {
         copyData: 'Copy data',
         add: 'Add',
         noParametersMessage: 'This write function has no parameters.',
+        booleanTrue: 'true',
+        booleanFalse: 'false',
         validation: {
             required: (label: string) => `${label} is required.`,
             boolean: (label: string) => `${label} must be set to "true" or "false".`,

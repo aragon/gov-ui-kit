@@ -37,7 +37,9 @@ describe('<ProposalActionsDecoderTextField /> component', () => {
     it('renders an input component with the parameter value, name and notice as disabled', () => {
         const parameter = { name: 'tryExecute', notice: 'description', type: 'bool', value: false };
         render(createTestComponent({ parameter }));
-        const textInput = screen.getByRole('textbox', { name: `${parameter.name} ${parameter.notice}` });
+        const textInput = screen.getByRole('textbox', {
+            name: `${parameter.name} (${parameter.type}) ${parameter.notice}`,
+        });
         expect(textInput).toBeInTheDocument();
         expect(textInput).toBeDisabled();
         expect(textInput.tagName).toEqual('INPUT');

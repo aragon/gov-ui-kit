@@ -5,6 +5,7 @@ import { useFormContext } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
 import { type IProposalActionsDecoderProps, ProposalActionsDecoderMode } from '../proposalActionsDecoder.api';
+import { ProposalActionsDecoderBooleanField } from '../proposalActionsDecoderBooleanField';
 import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
 import { proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
 
@@ -38,6 +39,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
     const isArray = proposalActionsDecoderUtils.isArrayType(type);
     const isTuple = proposalActionsDecoderUtils.isTupleType(type);
     const isNestedType = isTuple || isArray;
+    const isBooleanEdit = type === 'bool' && mode === ProposalActionsDecoderMode.EDIT;
 
     const initialParameters = proposalActionsDecoderUtils.getNestedParameters(parameter);
     const [nestedParameters, setNestedParameters] = useState<IProposalActionInputDataParameter[]>(initialParameters);
@@ -45,13 +47,22 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
     if (!isNestedType) {
         return (
             <div className="flex flex-row items-start gap-2">
-                <ProposalActionsDecoderTextField
-                    fieldName={fieldName}
-                    formPrefix={formPrefix}
-                    hideLabels={hideLabels}
-                    mode={mode}
-                    parameter={parameter}
-                />
+                {isBooleanEdit ? (
+                    <ProposalActionsDecoderBooleanField
+                        fieldName={fieldName}
+                        formPrefix={formPrefix}
+                        hideLabels={hideLabels}
+                        parameter={parameter}
+                    />
+                ) : (
+                    <ProposalActionsDecoderTextField
+                        fieldName={fieldName}
+                        formPrefix={formPrefix}
+                        hideLabels={hideLabels}
+                        mode={mode}
+                        parameter={parameter}
+                    />
+                )}
                 {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button iconLeft={IconType.CLOSE} onClick={onDeleteClick} size="lg" variant="tertiary" />
                 )}
@@ -80,7 +91,13 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
         <InputContainer
             helpText={hideLabels ? undefined : notice}
             id={inputId}
-            label={hideLabels ? undefined : name}
+            label={
+                hideLabels ? undefined : (
+                    <>
+                        {name} <span className="text-neutral-500">({type})</span>
+                    </>
+                )
+            }
             useCustomWrapper={true}
         >
             <div

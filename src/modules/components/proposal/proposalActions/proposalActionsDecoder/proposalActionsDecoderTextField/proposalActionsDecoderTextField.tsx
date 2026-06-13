@@ -9,10 +9,15 @@ export const ProposalActionsDecoderTextField: React.FC<IProposalActionsDecoderTe
     const { parameter, mode, hideLabels, component = 'input', fieldName, formPrefix, className } = props;
     const { name, notice, value, type } = parameter;
 
-    const inputLabels = hideLabels ? undefined : { label: name, helpText: notice };
+    const label = (
+        <>
+            {name} <span className="text-neutral-500">({type})</span>
+        </>
+    );
+    const inputLabels = hideLabels ? undefined : { label, helpText: notice };
     const formFieldName = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
 
-    const commonProps = { placeholder: type, className, ...inputLabels };
+    const commonProps = { className, ...inputLabels };
     const fieldProps = { parameter, component, fieldName: formFieldName, ...commonProps };
 
     if (mode === ProposalActionsDecoderMode.WATCH) {
