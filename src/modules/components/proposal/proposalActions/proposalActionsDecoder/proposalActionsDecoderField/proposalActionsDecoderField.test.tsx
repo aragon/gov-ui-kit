@@ -87,6 +87,8 @@ describe('<ProposalActionsDecoderField /> component', () => {
         parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
         const [, ...textInputs] = screen.getAllByRole('textbox');
         expect(textInputs).toHaveLength(parameter.value.length);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]').parentElement).toContainElement(textInputs[0]);
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
     });
 
@@ -157,6 +159,12 @@ describe('<ProposalActionsDecoderField /> component', () => {
         expect(removeButtons).toHaveLength(parameter.value.length);
         removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
         parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]').parentElement).toContainElement(
+            screen.getAllByRole('textbox', {
+                name: `${parameterComponents[0].name} (${parameterComponents[0].type})`,
+            })[0],
+        );
         await userEvent.click(removeButtons[1]);
 
         expect(

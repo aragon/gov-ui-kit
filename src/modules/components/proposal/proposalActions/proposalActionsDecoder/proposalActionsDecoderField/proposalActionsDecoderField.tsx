@@ -129,20 +129,21 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                             return (
                                 // biome-ignore lint/suspicious/noArrayIndexKey: dynamic parameter list with no stable identity
                                 <div className="flex flex-row items-start gap-2" key={index}>
-                                    <div className="flex min-w-0 grow flex-col gap-2">
-                                        {isArray && (
-                                            <p className={nestedParameterHeaderClassName}>[{index.toString()}]</p>
-                                        )}
+                                    {isArray && (
+                                        <p className={classNames(nestedParameterHeaderClassName, 'shrink-0')}>
+                                            [{index.toString()}]
+                                        </p>
+                                    )}
+                                    <div className="min-w-0 grow">
                                         <ProposalActionsDecoderField
                                             fieldName={index.toString()}
                                             formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
                                             hideLabels={isArray}
                                             mode={mode}
-                                            onDeleteClick={isNestedParameter ? undefined : removeArrayItem}
                                             parameter={parameter}
                                         />
                                     </div>
-                                    {renderDeleteButton(isNestedParameter ? removeArrayItem : undefined, 'sm')}
+                                    {renderDeleteButton(removeArrayItem, isNestedParameter ? 'sm' : 'lg')}
                                 </div>
                             );
                         })}
