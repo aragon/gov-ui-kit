@@ -84,6 +84,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'arrayType', type: 'uint[]', value: ['12', '777', '465413', '0'] };
         render(createTestComponent({ parameter }));
         expect(screen.getAllByText(parameter.name)).toHaveLength(2); // 2 because of the hidden array input
+        parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
         const [, ...textInputs] = screen.getAllByRole('textbox');
         expect(textInputs).toHaveLength(parameter.value.length);
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
@@ -118,6 +119,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .getAllByRole('button')
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
+        removeButtons.forEach((button) => expect(button).toHaveClass('h-12', 'w-12'));
         await userEvent.click(removeButtons[0]);
 
         expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length);
@@ -153,6 +155,8 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .getAllByRole('button')
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
+        removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
+        parameter.value.forEach((_, index) => expect(screen.getByText(`[${index.toString()}]`)).toBeInTheDocument());
         await userEvent.click(removeButtons[1]);
 
         expect(
