@@ -79,7 +79,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     // Executions display the executor label (a plugin name or a truncated address) and an action count instead of a
     // token amount; every other transaction type keeps the transfer layout untouched.
     const processedLabel = label != null && addressUtils.isAddress(label) ? addressUtils.truncateAddress(label) : label;
-    const processedValue = isExecution ? componentCopy.actionCount(actionCount ?? 0) : processedTokenAmount;
+    const processedValue = isExecution ? componentCopy.actionCount(actionCount as number) : processedTokenAmount;
 
     return (
         <DataList.Item

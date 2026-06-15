@@ -28,7 +28,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
             tokenSymbol: 'ETH',
             date: '2023-01-01T00:00:00Z',
             ...props,
-        };
+        } as ITransactionDataListItemProps;
 
         return <TransactionDataListItemStructure {...defaultProps} />;
     };
@@ -51,7 +51,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
     it('renders the executor label next to the execution heading', () => {
         const type = TransactionType.EXECUTION;
         const label = 'Token Voting';
-        render(createTestComponent({ type, label }));
+        render(createTestComponent({ type, label, actionCount: 5 }));
         expect(screen.getByText('Executed')).toBeInTheDocument();
         expect(screen.getByText(label)).toBeInTheDocument();
     });
@@ -59,13 +59,13 @@ describe('<TransactionDataListItem.Structure /> component', () => {
     it('truncates the executor label in the heading when it is an address', () => {
         const type = TransactionType.EXECUTION;
         const label = '0x1234567890123456789012345678901234561234';
-        render(createTestComponent({ type, label }));
+        render(createTestComponent({ type, label, actionCount: 5 }));
         expect(screen.getByText(addressUtils.truncateAddress(label))).toBeInTheDocument();
     });
 
     it('falls back to the bare execution heading when no label is provided', () => {
         const type = TransactionType.EXECUTION;
-        render(createTestComponent({ type }));
+        render(createTestComponent({ type, actionCount: 5 }));
         expect(screen.getByText('Executed')).toBeInTheDocument();
     });
 
@@ -75,7 +75,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         { actionCount: 0, expected: '0 actions' },
     ])('renders the action count "$expected" instead of a token amount for executions', ({ actionCount, expected }) => {
         const type = TransactionType.EXECUTION;
-        render(createTestComponent({ type, actionCount, tokenAmount: 10, tokenSymbol: 'ETH' }));
+        render(createTestComponent({ type, actionCount }));
         expect(screen.getByText(expected)).toBeInTheDocument();
         expect(screen.queryByText('10 ETH')).not.toBeInTheDocument();
     });

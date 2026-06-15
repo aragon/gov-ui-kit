@@ -45,7 +45,6 @@ export const ExecutionDialog: Story = {
                         setOpen(true);
                     }}
                     status={TransactionStatus.SUCCESS}
-                    tokenSymbol="ETH"
                     type={TransactionType.EXECUTION}
                 />
                 <Dialog.Root onOpenChange={setOpen} open={open}>

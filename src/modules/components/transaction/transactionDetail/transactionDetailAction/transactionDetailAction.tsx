@@ -14,8 +14,9 @@ export interface ITransactionDetailActionProps {
     index?: number;
     /**
      * Name of the action (e.g. 'Mint', 'Transfer', 'Set metadata'), displayed as the row heading.
+     * When omitted, the row falls back to the undecoded-function warning state.
      */
-    name: string;
+    name?: string;
     /**
      * Optional function selector displayed next to the action name (e.g. '0x79ba5097').
      */
@@ -55,7 +56,7 @@ export const TransactionDetailAction: React.FC<ITransactionDetailActionProps> = 
     const { value, index, name, selector, to, contractName, displayWarning = false, chainId, children } = props;
 
     return (
-        <Accordion.Item value={value ?? index?.toString() ?? name}>
+        <Accordion.Item value={value ?? index?.toString() ?? name ?? to}>
             <Accordion.ItemHeader className="min-w-0">
                 <SmartContractFunctionDataListItem.Structure
                     asChild={true}

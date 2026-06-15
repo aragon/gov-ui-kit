@@ -70,7 +70,6 @@ export const Execution: Story = {
         type: TransactionType.EXECUTION,
         label: 'Token Voting',
         actionCount: 5,
-        tokenSymbol: 'ETH',
         date: 1_613_984_914_000,
     },
 };
@@ -85,7 +84,6 @@ export const ExecutionByAddress: Story = {
         type: TransactionType.EXECUTION,
         label: '0x1234567890123456789012345678901234561234',
         actionCount: 1,
-        tokenSymbol: 'ETH',
         date: 1_613_984_914_000,
     },
 };

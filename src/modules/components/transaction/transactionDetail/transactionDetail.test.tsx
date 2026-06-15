@@ -79,6 +79,16 @@ describe('<TransactionDetail /> component', () => {
             expect(screen.getByText(addressUtils.truncateAddress(contractAddress))).toBeInTheDocument();
         });
 
+        it('renders the undecoded warning state when no action name is provided', () => {
+            renderInDialog(
+                <TransactionDetail.Container>
+                    <TransactionDetail.Action chainId={1} contractName="Token" to={contractAddress} />
+                </TransactionDetail.Container>,
+            );
+            expect(screen.getByText('Unknown')).toBeInTheDocument();
+            expect(screen.getByTestId('WARNING')).toBeInTheDocument();
+        });
+
         it('reveals the decoded children content when the row is expanded', async () => {
             const user = userEvent.setup();
             renderInDialog(
