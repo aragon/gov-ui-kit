@@ -80,6 +80,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
     // token amount; every other transaction type keeps the transfer layout untouched.
     const processedLabel = label != null && addressUtils.isAddress(label) ? addressUtils.truncateAddress(label) : label;
     const processedValue = isExecution ? componentCopy.actionCount(actionCount as number) : processedTokenAmount;
+    const showValue = !hideValue && !isExecution;
 
     return (
         <DataList.Item
@@ -114,7 +115,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
             <div className="flex h-full shrink-0 flex-col items-end gap-y-0.5 truncate md:gap-y-1">
                 <span className="text-neutral-800 leading-tight md:text-lg">{processedValue}</span>
-                {!hideValue && !isExecution && (
+                {showValue && (
                     <span className="text-neutral-500 text-sm leading-tight md:text-base">
                         {formattedTransactionValue}
                     </span>
