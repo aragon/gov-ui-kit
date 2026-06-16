@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Get package version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
       - name: Publish snapshot
         # Authenticated via OIDC trusted publishing (id-token). No auth token.
         # --provenance emits a signed build-provenance attestation.
