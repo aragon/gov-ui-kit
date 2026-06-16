@@ -34,7 +34,7 @@ overrides:
   path-to-regexp@>=8.0.0 <8.4.0: '>=8.4.0'
   smol-toml@<1.6.1: '>=1.6.1'
   srvx@<0.11.13: '>=0.11.13'
-  ws@>=8.0.0 <8.20.1: '>=8.20.1'
+  ws@>=8.0.0 <8.21.0: '>=8.21.0'
   '@vercel/fun>@tootallnate/once': ^3.0.1
   '@hookform/devtools>uuid': ^14.0.0
 packageExtensions:
@@ -49,5 +49,5 @@ preferFrozenLockfile: true
 dedupePeerDependents: true
 ignoreScripts: true
 autoInstallTypes: true
-nodeVersion: 24.13.0
+nodeVersion: 24.16.0
 engineStrict: true

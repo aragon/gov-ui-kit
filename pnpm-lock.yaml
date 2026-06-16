@@ -16,7 +16,7 @@ overrides:
   path-to-regexp@>=8.0.0 <8.4.0: '>=8.4.0'
   smol-toml@<1.6.1: '>=1.6.1'
   srvx@<0.11.13: '>=0.11.13'
-  ws@>=8.0.0 <8.20.1: '>=8.20.1'
+  ws@>=8.0.0 <8.21.0: '>=8.21.0'
   '@vercel/fun>@tootallnate/once': ^3.0.1
   '@hookform/devtools>uuid': ^14.0.0
 
@@ -5027,7 +5027,7 @@ packages:
   isows@1.0.7:
     resolution: {integrity: sha512-I1fSfDCZL5P0v33sVqeTDSpcstAg/N+wF5HS033mogOVIp4B+oHC7oOCsA3axAbBSGTJ8QubbNmnIRN/h8U7hg==}
     peerDependencies:
-      ws: '>=8.20.1'
+      ws: '>=8.21.0'
 
   istanbul-lib-coverage@3.2.2:
     resolution: {integrity: sha512-O8dpsF+r0WV/8MNRKfnmrtCWhuKjxrq2w+jpzBL5UZKTi2LeVWnWOmWRxFlesJONmc+wLAGvKQZEOanko0LFTg==}
@@ -7120,18 +7120,6 @@ packages:
   write-file-atomic@5.0.1:
     resolution: {integrity: sha512-+QU2zd6OTD8XWIJCbffaiQeH9U73qIqafo1x6V1snCWYGJf6cVE0cDR4D8xRzcEnfI21IFrUPzPGtcPf8AC+Rw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-
-  ws@8.20.1:
-    resolution: {integrity: sha512-It4dO0K5v//JtTXuPkfEOaI3uUN87iYPnqo/ZzqCoG3g8uhA66QUMs/SrM0YK7/NAu+r4LMh/9dq2A7k+rHs+w==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   ws@8.21.0:
     resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
@@ -12125,9 +12113,9 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  isows@1.0.7(ws@8.20.1):
+  isows@1.0.7(ws@8.21.0):
     dependencies:
-      ws: 8.20.1
+      ws: 8.21.0
 
   istanbul-lib-coverage@3.2.2: {}
 
@@ -14359,9 +14347,9 @@ snapshots:
       '@scure/bip32': 1.7.0
       '@scure/bip39': 1.6.0
       abitype: 1.2.3(typescript@5.9.3)(zod@4.4.3)
-      isows: 1.0.7(ws@8.20.1)
+      isows: 1.0.7(ws@8.21.0)
       ox: 0.14.29(typescript@5.9.3)(zod@4.4.3)
-      ws: 8.20.1
+      ws: 8.21.0
     optionalDependencies:
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -14491,8 +14479,6 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 4.1.0
-
-  ws@8.20.1: {}
 
   ws@8.21.0: {}
 
