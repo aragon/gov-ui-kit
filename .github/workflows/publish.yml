@@ -1,0 +1,34 @@
+name: Publish
+
+# Single entry point registered as the npm Trusted Publisher for
+# @aragon/gov-ui-kit (npm allows only one trusted-publisher workflow filename
+# per package). It dispatches to the reusable publish workflows:
+#   - release event       -> library-publish.yml (stable, `latest` tag)
+#   - manual workflow_dispatch -> library-snapshot.yml (snapshot tag)
+# Authentication is OIDC trusted publishing; `id-token: write` must live here,
+# the entry point that npm validates against.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  release:
+    if: github.event_name == 'release'
+    uses: ./.github/workflows/library-publish.yml
+    permissions:
+      id-token: write
+      contents: read
+    secrets: inherit
+
+  snapshot:
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/library-snapshot.yml
+    permissions:
+      id-token: write
+      contents: read
+    secrets: inherit

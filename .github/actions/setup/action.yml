@@ -14,9 +14,13 @@ inputs:
     description: "The branch, tag or SHA to checkout."
     required: false
   registry-url:
-    description: "URL of the registry used for Node setup"
+    description: >-
+      URL of the registry used for Node setup. Left empty by default so that
+      actions/setup-node does NOT write a user-level .npmrc with a placeholder
+      NODE_AUTH_TOKEN, which would shadow OIDC trusted publishing. Publishing
+      authenticates via OIDC (id-token), not via a registry auth token.
     required: false
-    default: "https://registry.npmjs.org"
+    default: ""
   node-version:
     description: "The version of Node.js to use for the workflow"
     required: false
