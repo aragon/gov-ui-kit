@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { Dialog } from '../../../../core';
+import { ProposalActions } from '../../proposal';
+import { generateProposalAction } from '../../proposal/proposalActions/proposalActionsTestUtils';
 import { TransactionDataListItem, TransactionStatus, TransactionType } from '../transactionDataListItem';
 import { TransactionDetailSummary } from '../transactionDetailSummary';
 import { TransactionDetail } from './index';
@@ -23,13 +25,64 @@ const transactionHash = '0x9aaa0000000000000000000000000000000000000000000000000
 
 /**
  * The TransactionDetail dialog opened from an execution row of a transaction data list: a summary card followed by a
- * list of expandable action rows (each carrying its own decoded action UI as children) and a `More` dropdown to
- * expand/collapse all actions or download them as JSON.
+ * proposal-action list for the decoded execution actions and a `More` dropdown to expand/collapse all actions or
+ * download them as JSON.
  */
 export const ExecutionDialog: Story = {
     render: () => {
         const [open, setOpen] = useState(false);
         const closeDialog = () => setOpen(false);
+        const actions = [
+            generateProposalAction({
+                to: contractAddress,
+                value: '0',
+                data: '0x79ba5097',
+                inputData: {
+                    function: 'mint',
+                    contract: 'GovernanceERC20',
+                    parameters: [
+                        { name: 'to', type: 'address', value: '0x1234567890123456789012345678901234561234' },
+                        { name: 'amount', type: 'uint256', value: '100000000000000000000' },
+                    ],
+                },
+            }),
+            generateProposalAction({
+                to: contractAddress,
+                value: '50000000000000000',
+                data: '0x',
+                inputData: null,
+            }),
+            generateProposalAction({
+                to: contractAddress,
+                value: '0',
+                data: '0x79ba5097',
+                inputData: {
+                    function: 'setMetadata',
+                    contract: 'DAO',
+                    parameters: [{ name: '_metadata', type: 'bytes', value: '0x1234' }],
+                },
+            }),
+            generateProposalAction({
+                to: contractAddress,
+                value: '0',
+                data: '0x79ba5097',
+                inputData: {
+                    function: 'registerGauge',
+                    contract: 'Gauge registrar v1.0',
+                    parameters: [{ name: 'gauge', type: 'address', value: contractAddress }],
+                },
+            }),
+            generateProposalAction({
+                to: contractAddress,
+                value: '0',
+                data: '0x79ba5097',
+                inputData: {
+                    function: 'unregisterGauge',
+                    contract: 'Gauge registrar v1.0',
+                    parameters: [{ name: 'gauge', type: 'address', value: contractAddress }],
+                },
+            }),
+        ];
 
         return (
             <>
@@ -63,66 +116,23 @@ export const ExecutionDialog: Story = {
                             totalActions={5}
                             transactionHash={transactionHash}
                         />
-                        <TransactionDetail.Container>
-                            <TransactionDetail.Action
-                                chainId={1}
-                                contractName="GovernanceERC20"
-                                name="Mint"
-                                selector="0x79ba5097"
-                                to={contractAddress}
-                                value="0"
-                            >
-                                <p className="text-neutral-500">Mint 100 TOKEN to 0x1234…1234</p>
-                            </TransactionDetail.Action>
-                            <TransactionDetail.Action
-                                chainId={1}
-                                contractName="NativeTransfer"
-                                name="Transfer"
-                                to={contractAddress}
-                                value="1"
-                            >
-                                <p className="text-neutral-500">Transfer 50 TOKEN to 0x5678…5678</p>
-                            </TransactionDetail.Action>
-                            <TransactionDetail.Action
-                                chainId={1}
-                                contractName="DAO"
-                                name="Set metadata"
-                                selector="0x79ba5097"
-                                to={contractAddress}
-                                value="2"
-                            >
-                                <p className="text-neutral-500">Update the DAO metadata URI</p>
-                            </TransactionDetail.Action>
-                            <TransactionDetail.Action
-                                chainId={1}
-                                contractName="Gauge registrar v1.0"
-                                name="Register gauge"
-                                selector="0x79ba5097"
-                                to={contractAddress}
-                                value="3"
-                            >
-                                <p className="text-neutral-500">Register a new gauge</p>
-                            </TransactionDetail.Action>
-                            <TransactionDetail.Action
-                                chainId={1}
-                                contractName="Gauge registrar v1.0"
-                                name="Unregister gauge"
-                                selector="0x79ba5097"
-                                to={contractAddress}
-                                value="4"
-                            >
-                                <p className="text-neutral-500">Unregister an existing gauge</p>
-                            </TransactionDetail.Action>
-                        </TransactionDetail.Container>
-                        <TransactionDetail.Footer
-                            dropdownItems={[
-                                {
-                                    label: 'Download actions as JSON',
-                                    // biome-ignore lint/suspicious/noConsole: storybook example handler
-                                    onClick: () => console.info('download actions as JSON'),
-                                },
-                            ]}
-                        />
+                        <ProposalActions.Root actionsCount={actions.length}>
+                            <ProposalActions.Container emptyStateDescription="">
+                                {actions.map((action, index) => (
+                                    <ProposalActions.Item action={action} chainId={1} key={index} />
+                                ))}
+                            </ProposalActions.Container>
+                            <ProposalActions.Footer
+                                dropdownAlignment="start"
+                                dropdownItems={[
+                                    {
+                                        label: 'Download actions as JSON',
+                                        // biome-ignore lint/suspicious/noConsole: storybook example handler
+                                        onClick: () => console.info('download actions as JSON'),
+                                    },
+                                ]}
+                            />
+                        </ProposalActions.Root>
                     </TransactionDetail.Root>
                 </Dialog.Root>
             </>

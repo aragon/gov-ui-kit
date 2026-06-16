@@ -14,6 +14,8 @@ export enum TransactionType {
     EXECUTION = 'EXECUTION',
 }
 
+export type TransactionTransferType = Exclude<TransactionType, TransactionType.EXECUTION>;
+
 type TransactionDataListItemBaseProps = IDataListItemProps & {
     /**
      * The chain ID of the transaction.
@@ -60,7 +62,7 @@ export type ITransactionDataListItemTransferProps = TransactionDataListItemBaseP
      * The type of transaction.
      * @default TransactionType.ACTION
      */
-    type?: Exclude<TransactionType, TransactionType.EXECUTION>;
+    type?: TransactionTransferType;
     /**
      * Executor labels are only rendered for `TransactionType.EXECUTION` transactions.
      */

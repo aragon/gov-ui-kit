@@ -2,10 +2,17 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import type { ReactNode } from 'react';
 import { Dialog } from '../../../../core';
+import { modulesCopy } from '../../../assets';
 import * as useBlockExplorer from '../../../hooks';
-import { addressUtils } from '../../../utils';
+import { ProposalActions } from '../../proposal';
+import { generateProposalAction } from '../../proposal/proposalActions/proposalActionsTestUtils';
 import { TransactionDetail } from './index';
 import type { ITransactionDetailRootProps } from './transactionDetailRoot';
+
+jest.mock('wagmi', () => ({
+    ...jest.requireActual<typeof import('wagmi')>('wagmi'),
+    useChains: jest.fn(() => [{ id: 1, nativeCurrency: { symbol: 'ETH' } }]),
+}));
 
 describe('<TransactionDetail /> component', () => {
     const useBlockExplorerSpy = jest.spyOn(useBlockExplorer, 'useBlockExplorer');
@@ -27,132 +34,73 @@ describe('<TransactionDetail /> component', () => {
             </Dialog.Root>,
         );
 
-    const contractAddress = '0x1234567890123456789012345678901234561234';
-
-    describe('Root', () => {
-        it('renders the default "Executed" header title', () => {
-            renderInDialog('content');
-            expect(screen.getByText('Executed')).toBeInTheDocument();
-        });
-
-        it('renders a custom title when provided', () => {
-            renderInDialog('content', { title: 'Execution detail' });
-            expect(screen.getByText('Execution detail')).toBeInTheDocument();
-        });
-
-        it('triggers the onClose callback on close-button click', async () => {
-            const user = userEvent.setup();
-            const onClose = jest.fn();
-            renderInDialog('content', { onClose });
-            await user.click(screen.getByRole('button'));
-            expect(onClose).toHaveBeenCalled();
-        });
-
-        it('renders its children as content', () => {
-            renderInDialog(<p>Summary and actions</p>);
-            expect(screen.getByText('Summary and actions')).toBeInTheDocument();
-        });
+    it('renders the default "Executed" header title', () => {
+        renderInDialog('content');
+        expect(screen.getByText('Executed')).toBeInTheDocument();
     });
 
-    describe('Action', () => {
-        it('renders the action name and a contract subtitle linking to the block explorer', () => {
-            renderInDialog(
-                <TransactionDetail.Container>
-                    <TransactionDetail.Action chainId={1} contractName="Token" name="Mint" to={contractAddress} />
-                </TransactionDetail.Container>,
-            );
-            expect(screen.getByText('Mint')).toBeInTheDocument();
-            expect(screen.getByText('Token')).toBeInTheDocument();
-            expect(screen.getByText(addressUtils.truncateAddress(contractAddress))).toBeInTheDocument();
-            const links = screen.getAllByRole('link');
-            expect(links.some((link) => link.getAttribute('href') === `https://etherscan.io/${contractAddress}`)).toBe(
-                true,
-            );
-        });
-
-        it('falls back to the truncated address when no contract name is provided', () => {
-            renderInDialog(
-                <TransactionDetail.Container>
-                    <TransactionDetail.Action chainId={1} name="Register gauge" to={contractAddress} />
-                </TransactionDetail.Container>,
-            );
-            expect(screen.getByText(addressUtils.truncateAddress(contractAddress))).toBeInTheDocument();
-        });
-
-        it('renders the undecoded warning state when no action name is provided', () => {
-            renderInDialog(
-                <TransactionDetail.Container>
-                    <TransactionDetail.Action chainId={1} contractName="Token" to={contractAddress} />
-                </TransactionDetail.Container>,
-            );
-            expect(screen.getByText('Unknown')).toBeInTheDocument();
-            expect(screen.getByTestId('WARNING')).toBeInTheDocument();
-        });
-
-        it('reveals the decoded children content when the row is expanded', async () => {
-            const user = userEvent.setup();
-            renderInDialog(
-                <TransactionDetail.Container>
-                    <TransactionDetail.Action chainId={1} name="Mint" to={contractAddress}>
-                        <p>Decoded action detail</p>
-                    </TransactionDetail.Action>
-                </TransactionDetail.Container>,
-            );
-            expect(screen.queryByText('Decoded action detail')).not.toBeInTheDocument();
-            await user.click(screen.getByRole('button', { name: /Mint/ }));
-            expect(screen.getByText('Decoded action detail')).toBeInTheDocument();
-        });
-
-        it('renders multiple action rows within the container', () => {
-            renderInDialog(
-                <TransactionDetail.Container>
-                    <TransactionDetail.Action name="Mint" to={contractAddress} />
-                    <TransactionDetail.Action name="Transfer" to={contractAddress} />
-                </TransactionDetail.Container>,
-            );
-            expect(screen.getByText('Mint')).toBeInTheDocument();
-            expect(screen.getByText('Transfer')).toBeInTheDocument();
-        });
+    it('renders a custom title when provided', () => {
+        renderInDialog('content', { title: 'Execution detail' });
+        expect(screen.getByText('Execution detail')).toBeInTheDocument();
     });
 
-    describe('Footer', () => {
-        const renderWithFooter = (footer: ReactNode) =>
-            renderInDialog(
-                <>
-                    <TransactionDetail.Container>
-                        <TransactionDetail.Action name="Mint" to={contractAddress} />
-                        <TransactionDetail.Action name="Transfer" to={contractAddress} />
-                    </TransactionDetail.Container>
-                    {footer}
-                </>,
-            );
+    it('triggers the onClose callback on close-button click', async () => {
+        const user = userEvent.setup();
+        const onClose = jest.fn();
+        renderInDialog('content', { onClose });
+        await user.click(screen.getByRole('button'));
+        expect(onClose).toHaveBeenCalled();
+    });
 
-        it('expands and collapses all action rows from the More dropdown', async () => {
-            const user = userEvent.setup();
-            renderWithFooter(<TransactionDetail.Footer />);
+    it('renders its children as content', () => {
+        renderInDialog(<p>Summary and decoded actions</p>);
+        expect(screen.getByText('Summary and decoded actions')).toBeInTheDocument();
+    });
 
-            await user.click(screen.getByRole('button', { name: 'More' }));
-            await user.click(screen.getByText('Expand all'));
-            expect(screen.getByRole('button', { name: /Mint/ })).toHaveAttribute('aria-expanded', 'true');
-            expect(screen.getByRole('button', { name: /Transfer/ })).toHaveAttribute('aria-expanded', 'true');
+    it('forwards content props to the dialog content element', () => {
+        renderInDialog(<p>content</p>, { id: 'transaction-detail-content' });
+        expect(document.querySelector('#transaction-detail-content')).toBeInTheDocument();
+    });
 
-            await user.click(screen.getByRole('button', { name: 'More' }));
-            await user.click(screen.getByText('Collapse all'));
-            expect(screen.getByRole('button', { name: /Mint/ })).toHaveAttribute('aria-expanded', 'false');
-        });
+    it('composes with ProposalActions for decoded execution actions', async () => {
+        const user = userEvent.setup();
+        const actions = [
+            generateProposalAction({
+                inputData: {
+                    function: 'mint',
+                    contract: 'GovernanceERC20',
+                    parameters: [{ name: 'to', type: 'address', value: '0x1234' }],
+                },
+            }),
+            generateProposalAction({
+                inputData: {
+                    function: 'setMetadata',
+                    contract: 'DAO',
+                    parameters: [{ name: '_metadata', type: 'bytes', value: '0x1234' }],
+                },
+            }),
+        ];
 
-        it('renders and triggers custom dropdown items such as download as JSON', async () => {
-            const user = userEvent.setup();
-            const onDownload = jest.fn();
-            renderWithFooter(
-                <TransactionDetail.Footer
-                    dropdownItems={[{ label: 'Download actions as JSON', onClick: onDownload }]}
-                />,
-            );
+        renderInDialog(
+            <ProposalActions.Root actionsCount={actions.length}>
+                <ProposalActions.Container emptyStateDescription="">
+                    {actions.map((action) => (
+                        <ProposalActions.Item action={action} key={action.inputData?.function} />
+                    ))}
+                </ProposalActions.Container>
+                <ProposalActions.Footer dropdownAlignment="start" />
+            </ProposalActions.Root>,
+        );
 
-            await user.click(screen.getByRole('button', { name: 'More' }));
-            await user.click(screen.getByText('Download actions as JSON'));
-            expect(onDownload).toHaveBeenCalled();
-        });
+        const mintAction = screen.getByRole('button', { name: /mint/i });
+        const metadataAction = screen.getByRole('button', { name: /setMetadata/i });
+        expect(mintAction).toHaveAttribute('aria-expanded', 'false');
+        expect(metadataAction).toHaveAttribute('aria-expanded', 'false');
+
+        await user.click(screen.getByRole('button', { name: modulesCopy.proposalActionsFooter.more }));
+        await user.click(screen.getByRole('menuitem', { name: modulesCopy.proposalActionsFooter.expand }));
+
+        expect(mintAction).toHaveAttribute('aria-expanded', 'true');
+        expect(metadataAction).toHaveAttribute('aria-expanded', 'true');
     });
 });

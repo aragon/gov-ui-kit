@@ -92,4 +92,17 @@ describe('<ProposalActionsFooter /> component', () => {
         await userEvent.click(moreButton);
         expect(setExpandedActions).not.toHaveBeenCalled();
     });
+
+    it('aligns the More dropdown to the end by default', () => {
+        const context = { actionsCount: 2 };
+        const { container } = render(createTestComponent({ context }));
+        expect(container.querySelector('.md\\:ml-auto')).toBeInTheDocument();
+    });
+
+    it('aligns the More dropdown to the start when requested', () => {
+        const context = { actionsCount: 2 };
+        const props = { dropdownAlignment: 'start' as const };
+        const { container } = render(createTestComponent({ context, props }));
+        expect(container.querySelector('.md\\:ml-auto')).not.toBeInTheDocument();
+    });
 });
