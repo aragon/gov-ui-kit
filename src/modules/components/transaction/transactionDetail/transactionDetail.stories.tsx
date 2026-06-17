@@ -123,7 +123,6 @@ export const ExecutionDialog: Story = {
                                 ))}
                             </ProposalActions.Container>
                             <ProposalActions.Footer
-                                dropdownAlignment="start"
                                 dropdownItems={[
                                     {
                                         label: 'Download actions as JSON',

@@ -34,15 +34,10 @@ export interface IProposalActionsFooterProps extends ComponentProps<'div'> {
      * the expand/collapse action and the provided items.
      */
     dropdownItems?: IProposalActionsFooterDropdownItem[];
-    /**
-     * Alignment of the More dropdown trigger inside the footer.
-     * @default end
-     */
-    dropdownAlignment?: 'start' | 'end';
 }
 
 export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (props) => {
-    const { actionIds, dropdownItems, dropdownAlignment = 'end', className, children, ...otherProps } = props;
+    const { actionIds, dropdownItems, className, children, ...otherProps } = props;
 
     const { actionsCount, setExpandedActions, expandedActions, isLoading } = useProposalActionsContext();
     const { copy } = useGukModulesContext();
@@ -92,7 +87,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             {children}
 
             {showDropdown && (
-                <div className={classNames('shrink-0', { 'md:ml-auto': dropdownAlignment === 'end' })}>
+                <div className="ml-auto shrink-0">
                     <Dropdown.Container
                         constrainContentWidth={false}
                         customTrigger={

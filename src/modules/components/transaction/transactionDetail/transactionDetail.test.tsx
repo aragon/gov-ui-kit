@@ -88,7 +88,7 @@ describe('<TransactionDetail /> component', () => {
                         <ProposalActions.Item action={action} key={action.inputData?.function} />
                     ))}
                 </ProposalActions.Container>
-                <ProposalActions.Footer dropdownAlignment="start" />
+                <ProposalActions.Footer />
             </ProposalActions.Root>,
         );
 
