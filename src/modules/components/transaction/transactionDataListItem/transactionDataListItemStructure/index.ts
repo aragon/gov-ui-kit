@@ -2,5 +2,6 @@ export { TransactionDataListItemStructure } from './transactionDataListItemStruc
 export {
     type ITransactionDataListItemProps,
     TransactionStatus,
+    type TransactionTransferType,
     TransactionType,
 } from './transactionDataListItemStructure.api';

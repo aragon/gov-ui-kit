@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { DateFormat, formatterUtils, IconType, NumberFormat } from '../../../../../core';
 import * as useBlockExplorer from '../../../../hooks';
+import { addressUtils } from '../../../../utils';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     type ITransactionDataListItemProps,
@@ -27,7 +28,7 @@ describe('<TransactionDataListItem.Structure /> component', () => {
             tokenSymbol: 'ETH',
             date: '2023-01-01T00:00:00Z',
             ...props,
-        };
+        } as ITransactionDataListItemProps;
 
         return <TransactionDataListItemStructure {...defaultProps} />;
     };
@@ -45,6 +46,46 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         render(createTestComponent({ tokenSymbol, tokenAmount, type }));
         const tokenPrintout = screen.getByText('10 ETH');
         expect(tokenPrintout).toBeInTheDocument();
+    });
+
+    it('renders the executor label next to the execution heading', () => {
+        const type = TransactionType.EXECUTION;
+        const label = 'Token Voting';
+        render(createTestComponent({ type, label, actionCount: 5 }));
+        expect(screen.getByText('Executed')).toBeInTheDocument();
+        expect(screen.getByText(label)).toBeInTheDocument();
+    });
+
+    it('truncates the executor label in the heading when it is an address', () => {
+        const type = TransactionType.EXECUTION;
+        const label = '0x1234567890123456789012345678901234561234';
+        render(createTestComponent({ type, label, actionCount: 5 }));
+        expect(screen.getByText(addressUtils.truncateAddress(label))).toBeInTheDocument();
+    });
+
+    it('falls back to the bare execution heading when no label is provided', () => {
+        const type = TransactionType.EXECUTION;
+        render(createTestComponent({ type, actionCount: 5 }));
+        expect(screen.getByText('Executed')).toBeInTheDocument();
+    });
+
+    it.each([
+        { actionCount: 5, expected: '5 actions' },
+        { actionCount: 1, expected: '1 action' },
+        { actionCount: 0, expected: '0 actions' },
+    ])('renders the action count "$expected" instead of a token amount for executions', ({ actionCount, expected }) => {
+        const type = TransactionType.EXECUTION;
+        render(createTestComponent({ type, actionCount }));
+        expect(screen.getByText(expected)).toBeInTheDocument();
+        expect(screen.queryByText('10 ETH')).not.toBeInTheDocument();
+    });
+
+    it('does not render the USD value for executions', () => {
+        const type = TransactionType.EXECUTION;
+        const amountUsd = '123.21';
+        const usdPrice = formatterUtils.formatNumber(amountUsd, { format: NumberFormat.FIAT_TOTAL_SHORT })!;
+        render(createTestComponent({ type, amountUsd, actionCount: 2 }));
+        expect(screen.queryByText(usdPrice)).not.toBeInTheDocument();
     });
 
     it('renders the formatted USD price of the transaction', () => {
