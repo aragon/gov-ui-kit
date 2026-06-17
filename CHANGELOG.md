@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.7.0
+
+### Minor Changes
+
+- [#700](https://github.com/aragon/gov-ui-kit/pull/700) [`2974f9b`](https://github.com/aragon/gov-ui-kit/commit/2974f9b92fdfe46ab1d76aa06da80e676e0231cf) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Reuse proposal actions to render transaction execution details.
+
 ## 2.6.0
 
 ### Minor Changes
@@ -69,6 +75,7 @@
 - [#675](https://github.com/aragon/gov-ui-kit/pull/675) [`0a59409`](https://github.com/aragon/gov-ui-kit/commit/0a59409c3dd5bc3a20f79f9397d2d15b3c3a5ca6) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Upgrade Storybook from v9.1.20 to v10.3.5.
 
     Key changes:
+
     - Storybook 10 is ESM-only and adds native Vite 8 / Rolldown support.
     - Bumped Rolldown override to rc.15 (fixes infinite recursion in `generate_transitive_esm_init` that caused SIGILL crash on ARM64 with `strictExecutionOrder`).
     - Migrated `backgrounds` global to the new `options` / `initialGlobals` API (automigration `addon-globals-api`).
@@ -79,6 +86,7 @@
 - [#669](https://github.com/aragon/gov-ui-kit/pull/669) [`683ebf5`](https://github.com/aragon/gov-ui-kit/commit/683ebf5487e96c6ced63c965a61399e128c01d44) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Remove document parser prose width constraint
 
 - [#675](https://github.com/aragon/gov-ui-kit/pull/675) [`0a59409`](https://github.com/aragon/gov-ui-kit/commit/0a59409c3dd5bc3a20f79f9397d2d15b3c3a5ca6) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update devDependencies with major version bumps: vite 7→8, rollup-plugin-visualizer 6→7, vite-plugin-static-copy 3→4, vite-plugin-svgr 4→5, @rollup/plugin-terser 0.4→1.0, @changesets/changelog-github 0.5→0.6, vite-plugin-node-polyfills 0.25→0.26
+
     - Migrate `rollup.config.js` to ESM (`rollup.config.mjs`) for rollup-plugin-visualizer v7 compatibility (ESM-only)
     - Use explicit `index.css` paths in all CSS `@import` statements for Vite 8 / Rolldown compatibility
     - Fix `jest.setSystemTime` call to pass a number instead of Date object for @sinonjs/fake-timers v15 compatibility
@@ -98,6 +106,7 @@
 - [#663](https://github.com/aragon/gov-ui-kit/pull/663) [`1f646f0`](https://github.com/aragon/gov-ui-kit/commit/1f646f070f8d8aca6fe0859e42038a3b321d30e6) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - BREAKING: Require React 19 and wagmi v3.
 
     This release updates the kit to React 19 and aligns the internal modules layer with wagmi v3.
+
     - Require `react` and `react-dom` `^19.0.0`
     - Keep `wagmi` as a peer dependency and require `^3.0.0`
     - Keep `tailwindcss` and `@tailwindcss/typography` as optional peers for the Tailwind CSS integration path
@@ -427,6 +436,7 @@
 - [#486](https://github.com/aragon/gov-ui-kit/pull/486) [`42db993`](https://github.com/aragon/gov-ui-kit/commit/42db99314f5a2f19a16b97a73bd4edca07226175) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bump `vercel` to v42
 
 - [#483](https://github.com/aragon/gov-ui-kit/pull/483) [`5bec051`](https://github.com/aragon/gov-ui-kit/commit/5bec051e6f4defe20570dd435e2712b4bc6043e6) Thanks [@cgero-eth](https://github.com/cgero-eth)! - **BREAKING** Refactor ProposalVoting component to improve handling of stages:
+
     - Mark `name` property of `BodyContent` and `Stage` components as required
     - Rename `Container` component to `StageContainer`, implement new `Container` component for simple governance proposals
 
@@ -451,6 +461,7 @@
 - [#446](https://github.com/aragon/gov-ui-kit/pull/446) [`788134d`](https://github.com/aragon/gov-ui-kit/commit/788134d6f19c7fe88096684c60e4b91ea00c5a4d) Thanks [@dependabot](https://github.com/apps/dependabot)! - Migrate library to Tailwind CSS v4
 
     **Breaking**:
+
     - Remove `rounded` class in favour of `rounded-md`
     - Remove `guk` prefix on primitive CSS custom properties
     - Implement `focus-ring-[variant]` utilities to be used instead of custom ring classes
