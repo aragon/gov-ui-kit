@@ -1,24 +1,22 @@
 name: Library Publish
 
+# Reusable workflow invoked by the `publish.yml` entry point (the npm Trusted
+# Publisher). Publishing authenticates via OIDC — no long-lived NPM_TOKEN.
 on:
-  release:
-    types: [published]
+  workflow_call:
 
 permissions:
   contents: read
+  id-token: write # required for OIDC trusted publishing
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # Human approval gate: the `npm-publish` environment is configured in
+    # repo Settings → Environments with @aragon/app-team as required reviewers,
+    # so every stable release publish must be approved before this job runs.
+    environment: npm-publish
     steps:
-      - name: Load secrets from OP
-        id: load-secrets
-        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
-        with:
-          export-env: false
-        env:
-          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
-          NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Checkout actions
         uses: actions/checkout@v6.0.2
         with:
@@ -34,8 +32,6 @@ jobs:
       - name: Build library
         run: pnpm build
       - name: Publish library
-        run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
-          pnpm publish --access public --no-git-checks
-        env:
-          NPM_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+        # Authenticated via OIDC trusted publishing (id-token). No auth token.
+        # --provenance emits a signed build-provenance attestation.
+        run: pnpm publish --access public --no-git-checks --provenance

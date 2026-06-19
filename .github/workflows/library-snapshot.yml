@@ -1,10 +1,13 @@
 name: Library Snapshot
 
+# Reusable workflow invoked by the `publish.yml` entry point (the npm Trusted
+# Publisher). Publishing authenticates via OIDC — no long-lived NPM_TOKEN.
 on:
-  workflow_dispatch:
+  workflow_call:
 
 permissions:
-  contents: write
+  contents: read
+  id-token: write # required for OIDC trusted publishing
 
 jobs:
   release:
@@ -18,7 +21,6 @@ jobs:
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
-          NPM_TOKEN: op://kv_gov-ui-kit_infra/NPM_TOKEN/credential
       - name: Checkout actions
         uses: actions/checkout@v6.0.2
         with:
@@ -41,12 +43,10 @@ jobs:
           GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Get package version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
       - name: Publish snapshot
-        run: |
-          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
-          pnpm publish --access public --tag snapshot-${{ github.run_id }} --no-git-checks
-        env:
-          NPM_TOKEN: ${{ steps.load-secrets.outputs.NPM_TOKEN }}
+        # Authenticated via OIDC trusted publishing (id-token). No auth token.
+        # --provenance emits a signed build-provenance attestation.
+        run: pnpm publish --access public --tag snapshot-${{ github.run_id }} --no-git-checks --provenance
       - name: Print snapshot version
         run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }} published with tag 'snapshot-${{ github.run_id }}'"

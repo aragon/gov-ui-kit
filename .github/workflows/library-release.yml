@@ -32,7 +32,7 @@ jobs:
         with:
           token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v7.0.0
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
         with:
           gpg_private_key: ${{ steps.load-secrets.outputs.GPG_PRIVATE_KEY }}
           passphrase: ${{ steps.load-secrets.outputs.GPG_PASSPHRASE }}
@@ -51,7 +51,7 @@ jobs:
         run: pnpm changeset tag
       - name: Get package version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
       - name: Commit changes
         run: |
           git add --all
@@ -68,7 +68,7 @@ jobs:
             const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
             readChangelog({ github, context, core });
       - name: Create release
-        uses: softprops/action-gh-release@v3.0.0
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3.0.0
         with:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"
