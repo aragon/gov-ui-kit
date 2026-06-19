@@ -1,34 +1,86 @@
 name: Publish
 
-# Single entry point registered as the npm Trusted Publisher for
-# @aragon/gov-ui-kit (npm allows only one trusted-publisher workflow filename
-# per package). It dispatches to the reusable publish workflows:
-#   - release event       -> library-publish.yml (stable, `latest` tag)
-#   - manual workflow_dispatch -> library-snapshot.yml (snapshot tag)
-# Authentication is OIDC trusted publishing; `id-token: write` must live here,
-# the entry point that npm validates against.
+# Registered as the npm Trusted Publisher for @aragon/gov-ui-kit. The publish
+# steps run INLINE in this file (no reusable workflow) so the workflow identity
+# in the OIDC token always matches the registered publisher — npm rejects the
+# token exchange (404) if a reusable/called workflow runs the publish instead.
+#   - release event            -> stable publish (`latest`), gated by approval
+#   - manual workflow_dispatch  -> snapshot publish (snapshot-<run-id> tag)
 on:
   release:
     types: [published]
   workflow_dispatch:
 
 permissions:
-  id-token: write
+  id-token: write # required for OIDC trusted publishing
   contents: read
 
 jobs:
   release:
     if: github.event_name == 'release'
-    uses: ./.github/workflows/library-publish.yml
-    permissions:
-      id-token: write
-      contents: read
-    secrets: inherit
+    runs-on: ubuntu-latest
+    # Human approval gate: the `npm-publish` environment is configured in
+    # repo Settings → Environments with @aragon/app-team as required reviewers,
+    # so every stable release publish must be approved before this job runs.
+    environment: npm-publish
+    steps:
+      - name: Checkout actions
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          # Make sure to checkout the main branch with the bumped version on the package.json file as Github does the
+          # checkout of the commit SHA that triggered the publish workflow by default
+          ref: main
+      - name: Build library
+        run: pnpm build
+      - name: Publish library
+        # Authenticated via OIDC trusted publishing (id-token). No auth token.
+        # --provenance emits a signed build-provenance attestation.
+        run: pnpm publish --access public --no-git-checks --provenance
 
   snapshot:
     if: github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/library-snapshot.yml
-    permissions:
-      id-token: write
-      contents: read
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Load secrets from OP
+        id: load-secrets
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
+        with:
+          export-env: false
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
+      - name: Checkout actions
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/actions/setup
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          # Checkout full history to correclty check changeset status
+          fetch-depth: 0
+          token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Check changeset
+        run: pnpm changeset status --since origin/main
+      - name: Build library
+        run: pnpm build
+      - name: Update version
+        run: pnpm changeset version --snapshot
+        env:
+          GITHUB_TOKEN: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
+      - name: Get package version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
+      - name: Publish snapshot
+        # Authenticated via OIDC trusted publishing (id-token). No auth token.
+        # --provenance emits a signed build-provenance attestation.
+        run: pnpm publish --access public --tag snapshot-${{ github.run_id }} --no-git-checks --provenance
+      - name: Print snapshot version
+        run: echo "Snapshot release - ${{ steps.package-version.outputs.current-version }} published with tag 'snapshot-${{ github.run_id }}'"
