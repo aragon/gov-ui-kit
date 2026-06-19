@@ -61,6 +61,34 @@ export const Failed: Story = {
 };
 
 /**
+ * Example of the TransactionDataList component with an execution transaction, where the executor is a named plugin
+ * and the right-side value shows the number of bundled actions.
+ */
+export const Execution: Story = {
+    args: {
+        status: TransactionStatus.SUCCESS,
+        type: TransactionType.EXECUTION,
+        label: 'Token Voting',
+        actionCount: 5,
+        date: 1_613_984_914_000,
+    },
+};
+
+/**
+ * Example of an execution transaction where the executor is a raw address, which is truncated automatically, and a
+ * single bundled action.
+ */
+export const ExecutionByAddress: Story = {
+    args: {
+        status: TransactionStatus.SUCCESS,
+        type: TransactionType.EXECUTION,
+        label: '0x1234567890123456789012345678901234561234',
+        actionCount: 1,
+        date: 1_613_984_914_000,
+    },
+};
+
+/**
  * Example of the TransactionDataList component without fiat price.
  */
 export const HideValue: Story = {
