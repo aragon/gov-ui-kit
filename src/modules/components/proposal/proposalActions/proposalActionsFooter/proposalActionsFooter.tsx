@@ -79,7 +79,7 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
     return (
         <div
             className={classNames(
-                'flex w-full flex-col-reverse justify-between gap-3 pt-3 md:flex-row md:items-center md:pt-4',
+                'flex w-full flex-col-reverse justify-between gap-3 md:flex-row md:items-center',
                 className,
             )}
             {...otherProps}
@@ -87,28 +87,34 @@ export const ProposalActionsFooter: React.FC<IProposalActionsFooterProps> = (pro
             {children}
 
             {showDropdown && (
-                <Dropdown.Container
-                    className="shrink-0 md:ml-auto"
-                    constrainContentWidth={false}
-                    customTrigger={
-                        <Button disabled={isLoading} iconRight={IconType.DOTS_VERTICAL} size="md" variant="tertiary">
-                            {copy.proposalActionsFooter.more}
-                        </Button>
-                    }
-                    disabled={isLoading}
-                    size="md"
-                >
-                    {allDropdownItems.map((item, index) => (
-                        <Dropdown.Item
-                            icon={item.icon}
-                            iconPosition={item.iconPosition ?? 'left'}
-                            key={`${item.label}-${String(index)}`}
-                            onClick={() => item.onClick()}
-                        >
-                            {item.label}
-                        </Dropdown.Item>
-                    ))}
-                </Dropdown.Container>
+                <div className="ml-auto shrink-0">
+                    <Dropdown.Container
+                        constrainContentWidth={false}
+                        customTrigger={
+                            <Button
+                                disabled={isLoading}
+                                iconRight={IconType.DOTS_VERTICAL}
+                                size="md"
+                                variant="tertiary"
+                            >
+                                {copy.proposalActionsFooter.more}
+                            </Button>
+                        }
+                        disabled={isLoading}
+                        size="md"
+                    >
+                        {allDropdownItems.map((item, index) => (
+                            <Dropdown.Item
+                                icon={item.icon}
+                                iconPosition={item.iconPosition ?? 'left'}
+                                key={`${item.label}-${String(index)}`}
+                                onClick={() => item.onClick()}
+                            >
+                                {item.label}
+                            </Dropdown.Item>
+                        ))}
+                    </Dropdown.Container>
+                </div>
             )}
         </div>
     );

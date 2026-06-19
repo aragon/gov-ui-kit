@@ -207,6 +207,26 @@ export const modulesCopy = {
             contract: 'Unverified contract',
         },
     },
+    transactionDataListItemStructure: {
+        received: 'Received',
+        sent: 'Sent',
+        action: 'Smart contract action',
+        executed: 'Executed',
+        actionCount: (count: number) => `${count} ${count === 1 ? 'action' : 'actions'}`,
+    },
+    transactionDetailSummary: {
+        executedBy: 'Executed by',
+        proposal: 'Proposal',
+        totalActions: 'Total actions',
+        transaction: 'Transaction',
+        executedOn: 'Executed on',
+    },
+    transactionDetail: {
+        title: 'Executed',
+        more: 'More',
+        expand: 'Expand all',
+        collapse: 'Collapse all',
+    },
 };
 
 export type ModulesCopy = typeof modulesCopy;
