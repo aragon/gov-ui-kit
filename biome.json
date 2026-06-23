@@ -6,6 +6,10 @@
         "clientKind": "git",
         "useIgnoreFile": true
     },
+    "files": {
+        "ignoreUnknown": false,
+        "includes": ["!**/*.svg"]
+    },
     "formatter": {
         "enabled": true,
         "lineWidth": 120,
@@ -38,11 +42,8 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": false,
+            "preset": "none",
             "nursery": {
-                "noShadow": "off",
-                "noEqualsToNull": "off",
-                "noLeakedRender": "off",
                 "useSortedClasses": {
                     "fix": "safe",
                     "level": "error",
@@ -120,7 +121,10 @@
                 "noImplicitAnyLet": "off",
                 "noEmptySource": "off",
                 "noUnusedExpressions": "off",
-                "noReactForwardRef": "off"
+                "noReactForwardRef": "off",
+                "noShadow": "off",
+                "noEqualsToNull": "off",
+                "noLeakedRender": "off"
             }
         }
     },
