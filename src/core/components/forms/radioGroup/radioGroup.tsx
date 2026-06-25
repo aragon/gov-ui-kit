@@ -1,6 +1,6 @@
 import { RadioGroup as PrimitiveRadioGroup } from '@radix-ui/react-radio-group';
 import classNames from 'classnames';
-import { forwardRef, type ReactNode } from 'react';
+import { type FocusEventHandler, forwardRef, type ReactNode } from 'react';
 import { useRandomId } from '../../../hooks';
 import { type IInputContainerBaseProps, InputContainer } from '../inputContainer';
 
@@ -23,6 +23,10 @@ export interface IRadioGroupProps
      */
     name?: string;
     /**
+     * Callback when the radio group loses focus.
+     */
+    onBlur?: FocusEventHandler<HTMLDivElement>;
+    /**
      * Whether the radio group is disabled.
      */
     disabled?: boolean;
@@ -37,7 +41,7 @@ export interface IRadioGroupProps
 }
 
 export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, ref) => {
-    const { className, value, defaultValue, onValueChange, name, disabled, children, ...otherProps } = props;
+    const { className, value, defaultValue, onValueChange, name, onBlur, disabled, children, ...otherProps } = props;
 
     const randomId = useRandomId();
 
@@ -49,6 +53,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, IRadioGroupProps>((props, r
                 disabled={disabled}
                 id={randomId}
                 name={name}
+                onBlur={onBlur}
                 onValueChange={onValueChange}
                 ref={ref}
                 value={value}

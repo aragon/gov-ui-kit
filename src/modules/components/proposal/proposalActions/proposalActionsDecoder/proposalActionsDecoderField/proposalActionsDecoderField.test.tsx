@@ -46,7 +46,15 @@ describe('<ProposalActionsDecoderField /> component', () => {
     it('returns a simple text field when parameter type is not a nested type', () => {
         const parameter = { name: 'boolParam', type: 'bool', value: undefined };
         render(createTestComponent({ parameter }));
-        expect(screen.getByRole('textbox', { name: parameter.name })).toBeInTheDocument();
+        expect(screen.getByRole('textbox', { name: `${parameter.name} (${parameter.type})` })).toBeInTheDocument();
+    });
+
+    it('renders a radio group instead of a text field for boolean parameters when mode is edit', () => {
+        const parameter = { name: 'boolParam', type: 'bool', value: undefined };
+        const mode = ProposalActionsDecoderMode.EDIT;
+        render(createTestComponent({ parameter, mode }));
+        expect(screen.getAllByRole('radio')).toHaveLength(2);
+        expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     });
 
     it('renders a hidden text-field for nested types', () => {
@@ -66,7 +74,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'tupleType', type: 'tuple', value: ['0x00', true, '2231'], components };
         render(createTestComponent({ parameter }));
         components.forEach((component, index) => {
-            const textField = screen.getByRole('textbox', { name: component.name });
+            const textField = screen.getByRole('textbox', { name: `${component.name} (${component.type})` });
             expect(textField).toBeInTheDocument();
             expect(textField).toHaveDisplayValue(parameter.value[index].toString());
         });
@@ -76,8 +84,15 @@ describe('<ProposalActionsDecoderField /> component', () => {
         const parameter = { name: 'arrayType', type: 'uint[]', value: ['12', '777', '465413', '0'] };
         render(createTestComponent({ parameter }));
         expect(screen.getAllByText(parameter.name)).toHaveLength(2); // 2 because of the hidden array input
+        parameter.value.forEach((_, index) =>
+            expect(screen.getByText(`[${index.toString()}]:`)).toHaveClass('text-neutral-500'),
+        );
         const [, ...textInputs] = screen.getAllByRole('textbox');
         expect(textInputs).toHaveLength(parameter.value.length);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toContainElement(textInputs[0]);
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-center');
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
     });
 
@@ -110,6 +125,7 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .getAllByRole('button')
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
+        removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
         await userEvent.click(removeButtons[0]);
 
         expect(screen.getAllByRole('textbox')).toHaveLength(parameter.value.length);
@@ -145,11 +161,25 @@ describe('<ProposalActionsDecoderField /> component', () => {
             .getAllByRole('button')
             .filter((button) => within(button).queryByTestId(IconType.CLOSE) != null);
         expect(removeButtons).toHaveLength(parameter.value.length);
+        removeButtons.forEach((button) => expect(button).toHaveClass('h-8', 'w-8'));
+        parameter.value.forEach((_, index) =>
+            expect(screen.getByText(`[${index.toString()}]:`)).toHaveClass('text-neutral-500'),
+        );
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toContainElement(
+            screen.getAllByRole('textbox', {
+                name: `${parameterComponents[0].name} (${parameterComponents[0].type})`,
+            })[0],
+        );
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-start');
         await userEvent.click(removeButtons[1]);
 
-        expect(screen.getAllByRole('textbox', { name: parameterComponents[0].name })).toHaveLength(
-            parameter.value.length - 1,
-        );
+        expect(
+            screen.getAllByRole('textbox', {
+                name: `${parameterComponents[0].name} (${parameterComponents[0].type})`,
+            }),
+        ).toHaveLength(parameter.value.length - 1);
         expect(unregister).toHaveBeenCalledWith(`${formPrefix}.${fieldName}.2`);
         expect(setValue).toHaveBeenCalledWith(`${formPrefix}.${fieldName}`, [
             ['1', false],

@@ -18,7 +18,7 @@ export interface IInputContainerBaseProps {
     /**
      * Label of the input.
      */
-    label?: string;
+    label?: ReactNode;
     /**
      * Variant of the input.
      * @default default
