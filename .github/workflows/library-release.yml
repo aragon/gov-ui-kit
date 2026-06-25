@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Load secrets
         id: load-secrets
-        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
+        uses: 1password/load-secrets-action@3a12b0ab99d9cd590a3e9b5a90ea017210ed9556 #v4.0.1
         with:
           export-env: false
         env:
@@ -22,7 +22,7 @@ jobs:
           GPG_PRIVATE_KEY: op://kv_gov-ui-kit_infra/arabot-1_SIGN_CERTS/private_key
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Checkout actions
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 1
           sparse-checkout: |
@@ -32,7 +32,7 @@ jobs:
         with:
           token: ${{ steps.load-secrets.outputs.ARABOT_PAT_TRIGGER_WORKFLOW }}
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v7.0.0
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
         with:
           gpg_private_key: ${{ steps.load-secrets.outputs.GPG_PRIVATE_KEY }}
           passphrase: ${{ steps.load-secrets.outputs.GPG_PASSPHRASE }}
@@ -51,7 +51,7 @@ jobs:
         run: pnpm changeset tag
       - name: Get package version
         id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+        uses: martinbeentjes/npm-get-version-action@3cf273023a0dda27efcd3164bdfb51908dd46a5b # v1.3.1
       - name: Commit changes
         run: |
           git add --all
@@ -68,7 +68,7 @@ jobs:
             const readChangelog = require('./.github/workflows/scripts/readChangelog.js');
             readChangelog({ github, context, core });
       - name: Create release
-        uses: softprops/action-gh-release@v3.0.0
+        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
         with:
           prerelease: false
           tag_name: "v${{ steps.package-version.outputs.current-version}}"

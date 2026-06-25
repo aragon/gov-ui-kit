@@ -27,7 +27,7 @@ jobs:
       deploymentUrl: ${{ steps.set-deployment-url.outputs.deploymentUrl }}
     steps:
       - name: Checkout actions
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.0
         with:
           fetch-depth: 1
           sparse-checkout: |
@@ -35,7 +35,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
       - name: Download credentials
-        uses: aragon/github-templates/steps/credential-retrieval@v0.4
+        uses: aragon/github-templates/steps/credential-retrieval@ed00481c78d797f591f19a417bb75c129af1ce1a # v0.4
         with:
           op-token: "${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}"
           op-vault: "kv_gov-ui-kit_infra"

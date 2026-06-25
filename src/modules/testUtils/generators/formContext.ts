@@ -15,6 +15,7 @@ export const generateFormContext = (context?: Partial<UseFormContextReturn>): Us
     unregister: jest.fn(),
     register: jest.fn(),
     setFocus: jest.fn(),
+    resetDefaultValues: jest.fn(),
     control: {} as UseFormContextReturn['control'],
     subscribe: jest.fn(),
     formState: {

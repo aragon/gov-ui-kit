@@ -26,14 +26,14 @@ jobs:
     steps:
       - name: Load secrets from OP
         id: load-secrets
-        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 #v4.0.0
+        uses: 1password/load-secrets-action@3a12b0ab99d9cd590a3e9b5a90ea017210ed9556 #v4.0.1
         with:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Comment preview PR
-        uses: thollander/actions-comment-pull-request@v3.0.1
+        uses: thollander/actions-comment-pull-request@24bffb9b452ba05a4f3f77933840a6a841d1b32b # v3.0.1
         with:
           message: "🚀 **Preview Deployment:** [View Here](${{ needs.deploy.outputs.deploymentUrl }})"
           comment-tag: preview-url

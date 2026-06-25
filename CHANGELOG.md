@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.7.1
+
+### Patch Changes
+
+- [#702](https://github.com/aragon/gov-ui-kit/pull/702) [`e9a235f`](https://github.com/aragon/gov-ui-kit/commit/e9a235f4c9fa3e155eb44350ad33cb4a731fa5ac) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update dependencies and refresh security overrides to resolve all known audit vulnerabilities
+
 ## 2.7.0
 
 ### Minor Changes

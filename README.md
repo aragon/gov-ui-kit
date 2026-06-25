@@ -25,27 +25,32 @@ Storybook reflects the latest design tokens, styles, and components, so should b
 
 To start developing with the UI Kit:
 
-1. Enable Corepack (one-time setup):
+1. Use the Node.js version pinned in [`.nvmrc`](./.nvmrc) (Node >= 24.13). With [nvm](https://github.com/nvm-sh/nvm):
+
+```bash
+nvm install   # installs the version from .nvmrc
+nvm use
+```
+
+2. Enable Corepack so the pinned pnpm version (>= 11, see `packageManager` in `package.json`) is used automatically:
 
 ```bash
 corepack enable
 ```
 
-2. Install dependencies and setup husky:
+3. Install dependencies and setup husky:
 
 ```bash
 pnpm install && pnpm run setup
 ```
 
-**Note**: pnpm will automatically use the correct Node.js version as configured in the project.
-
-3. Start Storybook for component development:
+4. Start Storybook for component development:
 
 ```bash
 pnpm storybook
 ```
 
-4. Build the library:
+5. Build the library:
 
 ```bash
 pnpm build
