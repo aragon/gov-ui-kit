@@ -25,7 +25,7 @@ Storybook reflects the latest design tokens, styles, and components, so should b
 
 To start developing with the UI Kit:
 
-1. Use the Node.js version pinned in [`.nvmrc`](./.nvmrc) (Node >= 24.13). With [nvm](https://github.com/nvm-sh/nvm):
+1. Use the Node.js version pinned in [`.nvmrc`](./.nvmrc) (Node >= 24.16). With [nvm](https://github.com/nvm-sh/nvm):
 
 ```bash
 nvm install   # installs the version from .nvmrc

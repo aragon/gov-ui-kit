@@ -1,35 +1,20 @@
 minimumReleaseAge: 10080 # cooldown period for new packages in minutes (7 days)
 minimumReleaseAgeExclude:
   # https://pnpm.io/settings#minimumreleaseageexclude
-  - rolldown@1.0.0-rc.15
-  - "@rolldown/pluginutils"
-  - "@rolldown/binding-darwin-arm64"
-  - "@rolldown/binding-darwin-x64"
-  - "@rolldown/binding-win32-x64-msvc"
-  - "@rolldown/binding-linux-x64-gnu"
-  - "@rolldown/binding-linux-x64-musl"
-  - "@rolldown/binding-freebsd-x64"
-  - "@rolldown/binding-linux-arm-gnueabihf"
-  - "@rolldown/binding-linux-arm64-gnu"
-  - "@rolldown/binding-linux-arm64-musl"
-  - "@rolldown/binding-openharmony-arm64"
-  - "@rolldown/binding-win32-arm64-msvc"
-  - "@rolldown/binding-android-arm64"
-  - "@rolldown/binding-wasm32-wasi"
-  - "@rolldown/binding-linux-s390x-gnu"
-  - "@rolldown/binding-linux-ppc64-gnu"
 strictDepBuilds: true
 blockExoticSubdeps: true
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 131400 # skip trust checks for packages published >3 months ago
 overrides:
-  rolldown: 1.0.0-rc.15
   jsdom: 26.1.0
+  esbuild@<0.28.1: '>=0.28.1'
+  js-yaml@>=4.0.0 <4.1.2: '>=4.2.0'
   undici@<6.24.0: '>=6.24.0'
-  serialize-javascript: ^7.0.3
-  tar: ^7.5.11
-  minimatch@^10.0.0: ^10.2.4
-  ajv@^8.0.0: ^8.18.0
+  serialize-javascript@<7.0.3: ^7.0.3
+  tar@<7.5.11: ^7.5.11
+  ajv@<8.18.0: ^8.18.0
+  minimatch@>=10.0.0 <10.2.4: ^10.2.4
+  glob@>=10.2.0 <10.5.0: '>=10.5.0'
   path-to-regexp@>=4.0.0 <6.3.0: '>=6.3.0'
   path-to-regexp@>=8.0.0 <8.4.0: '>=8.4.0'
   smol-toml@<1.6.1: '>=1.6.1'

@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
+import { RadixImageMock } from '../../../test';
 import { IconType } from '../../icon';
 import { InputFileAvatar } from './inputFileAvatar';
 import { type IInputFileAvatarProps, InputFileAvatarError } from './inputFileAvatar.api';
@@ -14,24 +15,7 @@ describe('<InputFileAvatar /> component', () => {
     const originalGlobalImage = window.Image;
 
     beforeEach(() => {
-        (window.Image as unknown) = class MockImage {
-            onload: () => void = jest.fn();
-            onerror: () => void = jest.fn();
-            src = 'test';
-
-            removeEventListener = jest.fn();
-            addEventListener = (event: string, callback: () => void) => {
-                if (event === 'load') {
-                    this.onload = callback;
-                } else if (event === 'error') {
-                    this.onerror = callback;
-                }
-            };
-
-            constructor() {
-                setTimeout(() => this.onload(), 100);
-            }
-        };
+        (window.Image as unknown) = RadixImageMock;
     });
 
     afterEach(() => {
