@@ -5,8 +5,11 @@ import { useFormContext } from '../../../../../hooks';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
 import type { IProposalActionInputDataParameter } from '../../proposalActionsDefinitions';
 import { type IProposalActionsDecoderProps, ProposalActionsDecoderMode } from '../proposalActionsDecoder.api';
+import { ProposalActionsDecoderBooleanField } from '../proposalActionsDecoderBooleanField';
 import { ProposalActionsDecoderTextField } from '../proposalActionsDecoderTextField';
 import { proposalActionsDecoderUtils } from '../proposalActionsDecoderUtils';
+
+const nestedParameterHeaderClassName = 'font-normal text-base text-neutral-500 leading-tight md:text-lg';
 
 export interface IProposalActionsDecoderFieldProps extends Pick<IProposalActionsDecoderProps, 'mode' | 'formPrefix'> {
     /**
@@ -38,23 +41,37 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
     const isArray = proposalActionsDecoderUtils.isArrayType(type);
     const isTuple = proposalActionsDecoderUtils.isTupleType(type);
     const isNestedType = isTuple || isArray;
+    const isBooleanEdit = type === 'bool' && mode === ProposalActionsDecoderMode.EDIT;
 
     const initialParameters = proposalActionsDecoderUtils.getNestedParameters(parameter);
     const [nestedParameters, setNestedParameters] = useState<IProposalActionInputDataParameter[]>(initialParameters);
 
+    const renderDeleteButton = (onClick?: () => void, size: 'lg' | 'sm' = 'lg', className?: string) =>
+        onClick != null &&
+        mode === ProposalActionsDecoderMode.EDIT && (
+            <Button className={className} iconLeft={IconType.CLOSE} onClick={onClick} size={size} variant="tertiary" />
+        );
+
     if (!isNestedType) {
         return (
             <div className="flex flex-row items-start gap-2">
-                <ProposalActionsDecoderTextField
-                    fieldName={fieldName}
-                    formPrefix={formPrefix}
-                    hideLabels={hideLabels}
-                    mode={mode}
-                    parameter={parameter}
-                />
-                {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
-                    <Button iconLeft={IconType.CLOSE} onClick={onDeleteClick} size="lg" variant="tertiary" />
+                {isBooleanEdit ? (
+                    <ProposalActionsDecoderBooleanField
+                        fieldName={fieldName}
+                        formPrefix={formPrefix}
+                        hideLabels={hideLabels}
+                        parameter={parameter}
+                    />
+                ) : (
+                    <ProposalActionsDecoderTextField
+                        fieldName={fieldName}
+                        formPrefix={formPrefix}
+                        hideLabels={hideLabels}
+                        mode={mode}
+                        parameter={parameter}
+                    />
                 )}
+                {renderDeleteButton(onDeleteClick)}
             </div>
         );
     }
@@ -80,11 +97,17 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
         <InputContainer
             helpText={hideLabels ? undefined : notice}
             id={inputId}
-            label={hideLabels ? undefined : name}
+            label={
+                hideLabels ? undefined : (
+                    <>
+                        {name} <span className="text-neutral-500">({type})</span>
+                    </>
+                )
+            }
             useCustomWrapper={true}
         >
             <div
-                className={classNames('flex flex-col gap-2', {
+                className={classNames('flex flex-col gap-4', {
                     'rounded-xl border border-neutral-100 p-4': isNestedType,
                 })}
             >
@@ -95,34 +118,52 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                     mode={mode}
                     parameter={parameter}
                 />
-                <div className="flex grow flex-row gap-2">
-                    <div className="flex grow flex-col gap-2">
-                        {nestedParameters.map((parameter, index) => (
-                            <ProposalActionsDecoderField
-                                fieldName={index.toString()}
-                                formPrefix={proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix)}
-                                hideLabels={isArray}
-                                // biome-ignore lint/suspicious/noArrayIndexKey: dynamic parameter list with no stable identity
-                                key={index}
-                                mode={mode}
-                                onDeleteClick={isArray ? handleRemoveArrayItem(index) : undefined}
-                                parameter={parameter}
-                            />
-                        ))}
+                <div className="flex grow flex-row items-start gap-2">
+                    <div className="flex grow flex-col gap-5 md:gap-6">
+                        {nestedParameters.map((parameter, index) => {
+                            const nestedFieldName = index.toString();
+                            const nestedFormPrefix = proposalActionsDecoderUtils.getFieldName(fieldName, formPrefix);
+                            const nestedFieldPath = proposalActionsDecoderUtils.getFieldName(
+                                nestedFieldName,
+                                nestedFormPrefix,
+                            );
+                            const removeArrayItem = isArray ? handleRemoveArrayItem(index) : undefined;
+                            const isNestedParameter =
+                                proposalActionsDecoderUtils.isTupleType(parameter.type) ||
+                                proposalActionsDecoderUtils.isArrayType(parameter.type);
+
+                            return (
+                                <div
+                                    className={classNames('flex flex-row gap-2', {
+                                        'items-start': isNestedParameter,
+                                        'items-center': !isNestedParameter,
+                                    })}
+                                    key={nestedFieldPath}
+                                >
+                                    {isArray && (
+                                        <p className={classNames(nestedParameterHeaderClassName, 'shrink-0')}>
+                                            [{index.toString()}]:
+                                        </p>
+                                    )}
+                                    <div className="min-w-0 grow">
+                                        <ProposalActionsDecoderField
+                                            fieldName={nestedFieldName}
+                                            formPrefix={nestedFormPrefix}
+                                            hideLabels={isArray}
+                                            mode={mode}
+                                            parameter={parameter}
+                                        />
+                                    </div>
+                                    {renderDeleteButton(removeArrayItem, 'sm')}
+                                </div>
+                            );
+                        })}
                     </div>
-                    {onDeleteClick != null && mode === ProposalActionsDecoderMode.EDIT && (
-                        <Button
-                            className="self-start"
-                            iconLeft={IconType.CLOSE}
-                            onClick={onDeleteClick}
-                            size="lg"
-                            variant="tertiary"
-                        />
-                    )}
+                    {renderDeleteButton(onDeleteClick, 'sm', 'self-start')}
                 </div>
                 {isArray && mode === ProposalActionsDecoderMode.EDIT && (
                     <Button
-                        className="self-start"
+                        className="mt-1 self-start"
                         iconLeft={IconType.PLUS}
                         onClick={handleAddArrayItem}
                         size="md"
