@@ -1,5 +1,15 @@
 # @aragon/gov-ui-kit
 
+## 2.8.0
+
+### Minor Changes
+
+- [#701](https://github.com/aragon/gov-ui-kit/pull/701) [`1d7076f`](https://github.com/aragon/gov-ui-kit/commit/1d7076f17914dcd7c249587caa0dad9d452bc790) Thanks [@evanaronson](https://github.com/evanaronson)! - Display the parameter type next to the parameter name instead of as placeholder on `ProposalActionsDecoder` fields, render boolean parameters as radio group with no default selection on edit mode
+
+### Patch Changes
+
+- [#712](https://github.com/aragon/gov-ui-kit/pull/712) [`0b47b47`](https://github.com/aragon/gov-ui-kit/commit/0b47b4701d9a300f50e44d3fb144672fdd7546e0) Thanks [@dependabot](https://github.com/apps/dependabot)! - Dependency update and security overrides
+
 ## 2.7.1
 
 ### Patch Changes
