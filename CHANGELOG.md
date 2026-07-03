@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.8.1
+
+### Patch Changes
+
+- [#715](https://github.com/aragon/gov-ui-kit/pull/715) [`071f0e0`](https://github.com/aragon/gov-ui-kit/commit/071f0e0e2216f722be9311815a9383269f16fdaa) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Keep the `viewBox` on bundled SVG icons so they scale correctly when rendered below their intrinsic 16px size (e.g. `size-3` in small buttons) instead of being clipped.
+
 ## 2.8.0
 
 ### Minor Changes
