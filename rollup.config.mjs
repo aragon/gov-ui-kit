@@ -52,7 +52,19 @@ export default [
                 ],
             }),
             images({ include: ['**/*.png', '**/*.jpg'] }),
-            svgr(),
+            svgr({
+                // Keep the viewBox so icons scale instead of getting clipped when
+                // rendered at a size other than their intrinsic 16px (e.g. size-3 in
+                // small buttons). SVGO's preset-default removes it by default.
+                svgoConfig: {
+                    plugins: [
+                        {
+                            name: 'preset-default',
+                            params: { overrides: { removeViewBox: false } },
+                        },
+                    ],
+                },
+            }),
             terser(),
         ],
     },
