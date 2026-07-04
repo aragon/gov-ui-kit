@@ -44,7 +44,7 @@ export const ProposalDataListItemStatus: React.FC<IProposalDataListItemStatusPro
                     variant={proposalStatusToTagVariant[status]}
                 />
                 {showStatusContext && (
-                    <div className="truncate text-sm leading-tight md:text-base">
+                    <div className="truncate text-neutral-800 text-sm leading-tight md:text-base">
                         <span className="text-neutral-500">{copy.proposalDataListItemStatus.in} </span>
                         {statusContext}
                     </div>
