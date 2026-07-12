@@ -131,17 +131,18 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                             const isNestedParameter =
                                 proposalActionsDecoderUtils.isTupleType(parameter.type) ||
                                 proposalActionsDecoderUtils.isArrayType(parameter.type);
+                            const isBooleanEditParameter =
+                                parameter.type === 'bool' && mode === ProposalActionsDecoderMode.EDIT;
+                            const alignToInput = !isNestedParameter && !isBooleanEditParameter;
 
                             return (
-                                <div
-                                    className={classNames('flex flex-row gap-2', {
-                                        'items-start': isNestedParameter,
-                                        'items-center': !isNestedParameter,
-                                    })}
-                                    key={nestedFieldPath}
-                                >
+                                <div className="flex flex-row items-start gap-2" key={nestedFieldPath}>
                                     {isArray && (
-                                        <p className={classNames(nestedParameterHeaderClassName, 'shrink-0')}>
+                                        <p
+                                            className={classNames(nestedParameterHeaderClassName, 'shrink-0', {
+                                                'flex h-12 items-center': alignToInput,
+                                            })}
+                                        >
                                             [{index.toString()}]:
                                         </p>
                                     )}
@@ -154,7 +155,7 @@ export const ProposalActionsDecoderField: React.FC<IProposalActionsDecoderFieldP
                                             parameter={parameter}
                                         />
                                     </div>
-                                    {renderDeleteButton(removeArrayItem, 'sm')}
+                                    {renderDeleteButton(removeArrayItem, 'sm', alignToInput ? 'mt-2' : undefined)}
                                 </div>
                             );
                         })}

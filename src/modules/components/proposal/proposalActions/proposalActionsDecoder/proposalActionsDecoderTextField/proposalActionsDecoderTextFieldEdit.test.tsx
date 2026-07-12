@@ -90,8 +90,8 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         });
     });
 
-    it('does not set validation rules for array types', () => {
-        const parameter = { name: 'tupleArray', type: 'tuple[]', value: undefined };
+    it.each(['tuple[]', 'tuple', 'string'])('does not set validation rules for %s types', (type) => {
+        const parameter = { name: 'testParam', type, value: undefined };
         const fieldName = 'test';
         render(createTestComponent({ fieldName, parameter }));
         expect(useControllerSpy).toHaveBeenCalledWith({ name: fieldName, rules: { validate: undefined } });
@@ -161,6 +161,43 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         expect(onChange).toHaveBeenCalledWith(
             expect.objectContaining({ target: expect.objectContaining({ value: '0x00' }) as unknown }),
         );
+    });
+
+    it('rejects empty values for uint types', () => {
+        const parameter = { name: 'uintParam', type: 'uint256', value: undefined };
+        render(createTestComponent({ parameter }));
+        const { validate } = useControllerSpy.mock.calls[0][0]!.rules!;
+        expect((validate as (value: unknown) => unknown)('')).toEqual(expect.any(String));
+    });
+
+    it('initialises string types to empty strings when value is null', () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'stringParam', type: 'string', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: parameter.value, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
+        render(createTestComponent({ parameter }));
+        expect(onChange).toHaveBeenCalledWith('');
+    });
+
+    it('does not change string values when parameter value is defined', () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'stringParam', type: 'string', value: 'test-value' };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: parameter.value, onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
+        render(createTestComponent({ parameter }));
+        expect(onChange).not.toHaveBeenCalled();
     });
 
     it('initialises arrays to empty-arrays when value is null', () => {

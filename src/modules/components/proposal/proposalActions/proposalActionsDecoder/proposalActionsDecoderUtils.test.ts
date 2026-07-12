@@ -65,6 +65,11 @@ describe('ProposalActionsDecoder utils', () => {
             expect(proposalActionsDecoderUtils.validateValue('value', params)).toBeUndefined();
         });
 
+        it('returns undefined when value is an empty string and not required', () => {
+            const params = buildValidateValueParams({ type: 'string', required: false });
+            expect(proposalActionsDecoderUtils.validateValue('', params)).toBeUndefined();
+        });
+
         it('returns bool error message when value has bool type and is not valid', () => {
             validateBooleanSpy.mockReturnValue(false);
             const params = buildValidateValueParams({ type: 'bool' });
