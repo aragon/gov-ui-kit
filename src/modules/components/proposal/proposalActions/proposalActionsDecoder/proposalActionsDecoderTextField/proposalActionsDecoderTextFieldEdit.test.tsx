@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as ReactHookForm from 'react-hook-form';
+import { modulesCopy } from '../../../../../assets';
 import * as useFormContext from '../../../../../hooks';
 import {
     type IProposalActionsDecoderTextFieldEditProps,
@@ -167,7 +168,9 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         const parameter = { name: 'uintParam', type: 'uint256', value: undefined };
         render(createTestComponent({ parameter }));
         const { validate } = useControllerSpy.mock.calls[0][0]!.rules!;
-        expect((validate as (value: unknown) => unknown)('')).toEqual(expect.any(String));
+        expect((validate as (value: unknown) => unknown)('')).toEqual(
+            modulesCopy.proposalActionsDecoder.validation.required(parameter.name),
+        );
     });
 
     it('initialises string types to empty strings when value is null', () => {
