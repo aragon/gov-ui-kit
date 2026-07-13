@@ -215,6 +215,31 @@ export const ArrayType: Story = {
 };
 
 /**
+ * Usage example of the Decoded view with a string array type, empty strings are valid values for string parameters.
+ */
+export const StringArrayType: Story = {
+    render: defaultRender,
+    args: {
+        view: ProposalActionsDecoderView.DECODED,
+        mode: ProposalActionsDecoderMode.EDIT,
+        action: generateProposalAction({
+            inputData: {
+                function: 'schedule',
+                contract: 'Timelock',
+                parameters: [
+                    {
+                        name: 'functionSignatures',
+                        type: 'string[]',
+                        value: ['transfer(address,uint256)', ''],
+                        notice: 'Function signatures - optional: if empty string, datas[i] is already starting with the function selector.',
+                    },
+                ],
+            },
+        }),
+    },
+};
+
+/**
  * Usage example of the Decoded view from the ProposalActionsItem component with an array type inside a tuple.
  */
 export const ArrayInsideTuple: Story = {

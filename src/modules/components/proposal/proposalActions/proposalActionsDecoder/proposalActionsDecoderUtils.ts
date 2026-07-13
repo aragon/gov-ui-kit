@@ -79,6 +79,8 @@ class ProposalActionsDecoderUtils {
 
     isTupleType = (type: string) => type === 'tuple';
 
+    isStringType = (type: string) => type === 'string';
+
     isNumberType = (type: string) => this.isUnsignedNumberType(type) || this.isSignedNumberType(type);
 
     isUnsignedNumberType = (type: string) => type.startsWith('uint');
