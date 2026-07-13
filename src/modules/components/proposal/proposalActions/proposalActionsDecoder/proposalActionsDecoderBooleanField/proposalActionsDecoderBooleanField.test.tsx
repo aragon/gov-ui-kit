@@ -61,6 +61,26 @@ describe('<ProposalActionsDecoderBooleanField /> component', () => {
         expect(useControllerSpy).toHaveBeenCalledWith(expect.objectContaining({ name: `${formPrefix}.${fieldName}` }));
     });
 
+    it('normalises string field values to booleans to support transaction data encoding', () => {
+        const onChange = jest.fn();
+        useControllerSpy.mockReturnValue({
+            fieldState: { error: undefined },
+            field: { value: 'true', onBlur: jest.fn(), onChange, ref: jest.fn() },
+        } as unknown as ReactHookForm.UseControllerReturn);
+        render(createTestComponent());
+        expect(onChange).toHaveBeenCalledWith(true);
+    });
+
+    it('does not update the field value when it is already a boolean', () => {
+        const onChange = jest.fn();
+        useControllerSpy.mockReturnValue({
+            fieldState: { error: undefined },
+            field: { value: false, onBlur: jest.fn(), onChange, ref: jest.fn() },
+        } as unknown as ReactHookForm.UseControllerReturn);
+        render(createTestComponent());
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('renders the parameter name, type and notice as field labels', () => {
         const parameter = { name: 'tryExecute', notice: 'description', type: 'bool', value: undefined };
         render(createTestComponent({ parameter }));

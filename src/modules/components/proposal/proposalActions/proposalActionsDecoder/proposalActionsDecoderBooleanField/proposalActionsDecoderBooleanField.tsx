@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useController } from 'react-hook-form';
 import { Radio, RadioGroup } from '../../../../../../core';
 import { useGukModulesContext } from '../../../../gukModulesProvider';
@@ -39,13 +40,23 @@ export const ProposalActionsDecoderBooleanField: React.FC<IProposalActionsDecode
     const { error } = fieldState;
     const alert = error?.message == null ? undefined : { message: error.message, variant: 'critical' as const };
 
+    const { value, onChange } = field;
+
+    useEffect(() => {
+        // Normalise string values ("true" / "false") seeded by the application to booleans as the transaction data
+        // encoding only accepts boolean values for bool types.
+        if (typeof value === 'string' && proposalActionsDecoderUtils.validateBoolean(value)) {
+            onChange(value === 'true');
+        }
+    }, [value, onChange]);
+
     const label = hideLabels ? undefined : (
         <>
             {name} <span className="text-neutral-500">({type})</span>
         </>
     );
 
-    const handleValueChange = (value: string) => field.onChange(value === 'true');
+    const handleValueChange = (newValue: string) => onChange(newValue === 'true');
 
     return (
         <RadioGroup
@@ -56,7 +67,7 @@ export const ProposalActionsDecoderBooleanField: React.FC<IProposalActionsDecode
             onBlur={field.onBlur}
             onValueChange={handleValueChange}
             ref={field.ref}
-            value={field.value?.toString() ?? ''}
+            value={value?.toString() ?? ''}
         >
             <Radio label={copy.proposalActionsDecoder.booleanTrue} value="true" />
             <Radio label={copy.proposalActionsDecoder.booleanFalse} value="false" />
