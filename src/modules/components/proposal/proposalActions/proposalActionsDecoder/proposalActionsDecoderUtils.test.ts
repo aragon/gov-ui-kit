@@ -219,6 +219,7 @@ describe('ProposalActionsDecoder utils', () => {
     describe('validateUnsignedNumber', () => {
         it('returns false when value is not a valid uint value', () => {
             expect(proposalActionsDecoderUtils.validateUnsignedNumber(undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateUnsignedNumber('')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('-1')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('79.11')).toBeFalsy();
         });
@@ -232,6 +233,7 @@ describe('ProposalActionsDecoder utils', () => {
     describe('validateSignedNumber', () => {
         it('returns false when value is not a valid int value', () => {
             expect(proposalActionsDecoderUtils.validateSignedNumber(undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateSignedNumber('-')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateSignedNumber('79.11')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateSignedNumber('1-2')).toBeFalsy();
@@ -264,6 +266,13 @@ describe('ProposalActionsDecoder utils', () => {
 
         it('returns false when value cannot be parsed as an integer', () => {
             expect(proposalActionsDecoderUtils.validateNumberRange('uint8', 'abc')).toBeFalsy();
+        });
+
+        it('returns false when the type has an invalid bit-width', () => {
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint0', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint12', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint264', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int9999', '0')).toBeFalsy();
         });
     });
 

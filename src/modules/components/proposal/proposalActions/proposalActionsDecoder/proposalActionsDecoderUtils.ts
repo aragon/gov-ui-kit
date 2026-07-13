@@ -28,8 +28,8 @@ export type NestedProposalActionFormValues = DeepPartial<IProposalAction> | Reco
 
 class ProposalActionsDecoderUtils {
     private bytesRegex = /^0x[0-9a-fA-F]*$/;
-    private unsignedNumberRegex = /^[0-9]*$/;
-    private signedNumberRegex = /^(-?[0-9]+)?$/;
+    private unsignedNumberRegex = /^[0-9]+$/;
+    private signedNumberRegex = /^-?[0-9]+$/;
 
     getFieldName = (name: string, prefix?: string) => (prefix == null ? name : `${prefix}.${name}`);
 
@@ -92,7 +92,13 @@ class ProposalActionsDecoderUtils {
     // Only call after the value passed the unsigned / signed number format validation.
     validateNumberRange = (type: string, value?: ProposalActionsFieldValue): boolean => {
         const isSigned = this.isSignedNumberType(type);
-        const bits = BigInt(Number.parseInt(type.slice(isSigned ? 3 : 4), 10) || 256);
+        const sizeString = type.slice(isSigned ? 3 : 4);
+        const size = sizeString.length === 0 ? 256 : Number.parseInt(sizeString, 10);
+
+        // ABI integer sizes are limited to 8..256 bits in steps of 8 (bare uint / int alias to 256 bits).
+        if (Number.isNaN(size) || size < 8 || size > 256 || size % 8 !== 0) {
+            return false;
+        }
 
         let parsedValue: bigint;
         try {
@@ -101,6 +107,7 @@ class ProposalActionsDecoderUtils {
             return false;
         }
 
+        const bits = BigInt(size);
         const minValue = isSigned ? -(2n ** (bits - 1n)) : 0n;
         const maxValue = isSigned ? 2n ** (bits - 1n) - 1n : 2n ** bits - 1n;
 
