@@ -8,6 +8,7 @@ import svgr from '@svgr/rollup';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
+import svgoConfig from './svgo.config.js';
 
 const require = createRequire(import.meta.url);
 const tsConfig = require('./tsconfig.json');
@@ -52,19 +53,7 @@ export default [
                 ],
             }),
             images({ include: ['**/*.png', '**/*.jpg'] }),
-            svgr({
-                // Keep the viewBox so icons scale instead of getting clipped when
-                // rendered at a size other than their intrinsic 16px (e.g. size-3 in
-                // small buttons). SVGO's preset-default removes it by default.
-                svgoConfig: {
-                    plugins: [
-                        {
-                            name: 'preset-default',
-                            params: { overrides: { removeViewBox: false } },
-                        },
-                    ],
-                },
-            }),
+            svgr({ svgoConfig }),
             terser(),
         ],
     },
