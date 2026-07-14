@@ -5,6 +5,7 @@ import type { RollupOptions } from 'rollup';
 import { mergeConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 import svgr from 'vite-plugin-svgr';
+import svgoConfig from '../svgo.config.js';
 
 const config: StorybookConfig = {
     stories: ['../docs/**/*.@(md|mdx)', '../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.@(md|mdx)'],
@@ -24,7 +25,12 @@ const config: StorybookConfig = {
     viteFinal: (viteConfig) => {
         // Add source-map-js alias and plugins for importing svg files and copying fonts
         const plugins = [
-            svgr({ include: '**/*.svg' }),
+            // Run the same SVGO pass (including id namespacing, see svgo.config.js) as the
+            // published library build, so Storybook previews match production markup.
+            svgr({
+                include: '**/*.svg',
+                svgrOptions: { plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'], svgoConfig },
+            }),
             viteStaticCopy({ targets: [{ src: './src/theme/fonts/*.ttf', dest: './fonts' }] }),
         ];
         const resolve = { alias: { 'source-map-js': 'source-map' } };
