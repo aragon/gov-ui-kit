@@ -23,6 +23,8 @@ describe('ProposalActionsDecoder utils', () => {
         const validateAddressSpy = jest.spyOn(addressUtils, 'isAddress');
         const validateBytesSpy = jest.spyOn(proposalActionsDecoderUtils, 'validateBytes');
         const validateUnsignedNumberSpy = jest.spyOn(proposalActionsDecoderUtils, 'validateUnsignedNumber');
+        const validateSignedNumberSpy = jest.spyOn(proposalActionsDecoderUtils, 'validateSignedNumber');
+        const validateNumberRangeSpy = jest.spyOn(proposalActionsDecoderUtils, 'validateNumberRange');
 
         afterEach(() => {
             validateRequiredSpy.mockReset();
@@ -30,6 +32,8 @@ describe('ProposalActionsDecoder utils', () => {
             validateAddressSpy.mockReset();
             validateBytesSpy.mockReset();
             validateUnsignedNumberSpy.mockReset();
+            validateSignedNumberSpy.mockReset();
+            validateNumberRangeSpy.mockReset();
         });
 
         afterAll(() => {
@@ -38,6 +42,8 @@ describe('ProposalActionsDecoder utils', () => {
             validateAddressSpy.mockRestore();
             validateBytesSpy.mockRestore();
             validateUnsignedNumberSpy.mockRestore();
+            validateSignedNumberSpy.mockRestore();
+            validateNumberRangeSpy.mockRestore();
         });
 
         const buildValidateValueParams = (params?: Partial<IGetValidationRulesParams>): IGetValidationRulesParams => ({
@@ -49,6 +55,8 @@ describe('ProposalActionsDecoder utils', () => {
                 address: () => 'address-error',
                 bytes: () => 'bytes-error',
                 unsignedNumber: () => 'uint-error',
+                signedNumber: () => 'int-error',
+                numberRange: () => 'range-error',
             },
             ...params,
         });
@@ -119,6 +127,38 @@ describe('ProposalActionsDecoder utils', () => {
             const params = buildValidateValueParams({ type: 'uint16' });
             expect(proposalActionsDecoderUtils.validateValue('10', params)).toBeTruthy();
         });
+
+        it('returns range error message when value has uint type and does not fit its bit-width', () => {
+            validateUnsignedNumberSpy.mockReturnValue(true);
+            validateNumberRangeSpy.mockReturnValue(false);
+            const params = buildValidateValueParams({ type: 'uint8' });
+            expect(proposalActionsDecoderUtils.validateValue('300', params)).toEqual('range-error');
+        });
+
+        it('returns int error message when value has int type and is not valid', () => {
+            validateSignedNumberSpy.mockReturnValue(false);
+            const params = buildValidateValueParams({ type: 'int256' });
+            expect(proposalActionsDecoderUtils.validateValue('-', params)).toEqual('int-error');
+        });
+
+        it('returns range error message when value has int type and does not fit its bit-width', () => {
+            validateSignedNumberSpy.mockReturnValue(true);
+            validateNumberRangeSpy.mockReturnValue(false);
+            const params = buildValidateValueParams({ type: 'int8' });
+            expect(proposalActionsDecoderUtils.validateValue('-129', params)).toEqual('range-error');
+        });
+
+        it('returns true when value has int type and is valid', () => {
+            const params = buildValidateValueParams({ type: 'int32' });
+            expect(proposalActionsDecoderUtils.validateValue('-5', params)).toBeTruthy();
+        });
+
+        it('validates addresses with strict checksum validation', () => {
+            const value = '0x0B2a45c2bCb56dA84920585f985087973c715364';
+            const params = buildValidateValueParams({ type: 'address' });
+            proposalActionsDecoderUtils.validateValue(value, params);
+            expect(validateAddressSpy).toHaveBeenCalledWith(value, { strict: true });
+        });
     });
 
     describe('validateRequired', () => {
@@ -179,6 +219,7 @@ describe('ProposalActionsDecoder utils', () => {
     describe('validateUnsignedNumber', () => {
         it('returns false when value is not a valid uint value', () => {
             expect(proposalActionsDecoderUtils.validateUnsignedNumber(undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateUnsignedNumber('')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('-1')).toBeFalsy();
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('79.11')).toBeFalsy();
         });
@@ -186,6 +227,52 @@ describe('ProposalActionsDecoder utils', () => {
         it('returns true when value is a valid uint value', () => {
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('0')).toBeTruthy();
             expect(proposalActionsDecoderUtils.validateUnsignedNumber('8645312')).toBeTruthy();
+        });
+    });
+
+    describe('validateSignedNumber', () => {
+        it('returns false when value is not a valid int value', () => {
+            expect(proposalActionsDecoderUtils.validateSignedNumber(undefined)).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('-')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('79.11')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('1-2')).toBeFalsy();
+        });
+
+        it('returns true when value is a valid int value', () => {
+            expect(proposalActionsDecoderUtils.validateSignedNumber('-1')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('0')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateSignedNumber('8645312')).toBeTruthy();
+        });
+    });
+
+    describe('validateNumberRange', () => {
+        it('returns false when value does not fit the bit-width of the type', () => {
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint8', '256')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint16', '65536')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int8', '128')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int8', '-129')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint', '-1')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint256', (2n ** 256n).toString())).toBeFalsy();
+        });
+
+        it('returns true when value fits the bit-width of the type', () => {
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint8', '255')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int8', '-128')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int8', '127')).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint', (2n ** 256n - 1n).toString())).toBeTruthy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int', (-(2n ** 255n)).toString())).toBeTruthy();
+        });
+
+        it('returns false when value cannot be parsed as an integer', () => {
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint8', 'abc')).toBeFalsy();
+        });
+
+        it('returns false when the type has an invalid bit-width', () => {
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint0', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint12', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('uint264', '0')).toBeFalsy();
+            expect(proposalActionsDecoderUtils.validateNumberRange('int9999', '0')).toBeFalsy();
         });
     });
 
