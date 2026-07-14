@@ -92,7 +92,8 @@ describe('<ProposalActionsDecoderField /> component', () => {
         // eslint-disable-next-line testing-library/no-node-access
         expect(screen.getByText('[0]:').parentElement).toContainElement(textInputs[0]);
         // eslint-disable-next-line testing-library/no-node-access
-        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-center');
+        expect(screen.getByText('[0]:').parentElement).toHaveClass('items-start');
+        expect(screen.getByText('[0]:')).toHaveClass('items-center');
         textInputs.forEach((input, index) => expect(input).toHaveDisplayValue(parameter.value[index]));
     });
 
