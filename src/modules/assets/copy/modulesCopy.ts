@@ -69,6 +69,8 @@ export const modulesCopy = {
             address: (label: string) => `${label} is not a valid address.`,
             bytes: (label: string) => `${label} is not a valid bytes value.`,
             unsignedNumber: (label: string) => `${label} is not a valid uint value.`,
+            signedNumber: (label: string) => `${label} is not a valid int value.`,
+            numberRange: (label: string, type: string) => `${label} is out of range for ${type}.`,
         },
     },
     proposalActionChangeMembers: {

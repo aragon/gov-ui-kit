@@ -130,9 +130,25 @@ describe('<ProposalActionsDecoderTextFieldEdit /> component', () => {
         expect(onChange).toHaveBeenCalledWith('tru');
     });
 
-    it('triggers the onChange callback removing the non-numberic values when type is a number', async () => {
+    it('triggers the onChange callback removing the non-numeric values and negative signs when type is an unsigned number', async () => {
         const onChange = jest.fn();
         const parameter = { name: 'uintParam', type: 'uint32', value: undefined };
+        const controllerReturn = {
+            fieldState: { error: undefined },
+            field: { value: 'ab--32.', onChange },
+        } as unknown as ReactHookForm.UseControllerReturn;
+        useControllerSpy.mockReturnValue(controllerReturn);
+        useFormContextSpy.mockReturnValue({
+            watch: () => controllerReturn.field.value as unknown,
+        } as useFormContext.UseFormContextReturn);
+        render(createTestComponent({ parameter }));
+        await userEvent.type(screen.getByRole('textbox'), '1');
+        expect(onChange).toHaveBeenCalledWith('321');
+    });
+
+    it('triggers the onChange callback keeping one leading negative sign when type is a signed number', async () => {
+        const onChange = jest.fn();
+        const parameter = { name: 'intParam', type: 'int32', value: undefined };
         const controllerReturn = {
             fieldState: { error: undefined },
             field: { value: 'ab--32.', onChange },

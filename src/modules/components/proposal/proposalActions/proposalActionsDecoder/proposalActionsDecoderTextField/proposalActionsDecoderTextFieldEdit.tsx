@@ -55,8 +55,9 @@ export const ProposalActionsDecoderTextFieldEdit: React.FC<IProposalActionsDecod
                 : newValue.toLocaleLowerCase();
             onChange(parsedValue);
         } else if (proposalActionsDecoderUtils.isNumberType(type)) {
-            // Allow only numbers and one "-" negative sign
-            const newValue = event.target.value.replace(/[^0-9-]/g, '').replace(/(?!^-)-/g, '');
+            // Allow only numbers and, for signed types only, one leading "-" negative sign
+            const negativeSignRegex = proposalActionsDecoderUtils.isSignedNumberType(type) ? /(?!^-)-/g : /-/g;
+            const newValue = event.target.value.replace(/[^0-9-]/g, '').replace(negativeSignRegex, '');
             onChange(newValue);
         } else {
             onChange(event);
