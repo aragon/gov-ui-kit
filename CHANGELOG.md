@@ -1,5 +1,19 @@
 # @aragon/gov-ui-kit
 
+## 2.9.0
+
+### Minor Changes
+
+- [#720](https://github.com/aragon/gov-ui-kit/pull/720) [`576b552`](https://github.com/aragon/gov-ui-kit/commit/576b552563715008480a117c4cb3d2fb43b183b3) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Enforce EVM-stringent validation on `ProposalActionsDecoder` inputs: validate signed `int*` values (previously unvalidated), check that numeric values fit the bit-width of their type (e.g. `uint8` must be 0-255), verify EIP-55 address checksums (all-lowercase addresses are still accepted), and strip negative signs from unsigned number inputs. Adds `signedNumber` and `numberRange` messages to the `proposalActionsDecoder.validation` copy.
+
+### Patch Changes
+
+- [#719](https://github.com/aragon/gov-ui-kit/pull/719) [`942d83f`](https://github.com/aragon/gov-ui-kit/commit/942d83f3cb8d27c5d0f674b42d07380011fa5632) Thanks [@harryburger](https://github.com/harryburger)! - Allow empty strings on `ProposalActionsDecoder` string parameters (empty strings are valid Solidity values, including elements inside `string[]` inputs), skip validation on hidden tuple registration fields to avoid invisible submit-blocking errors, and keep the array index label and remove button aligned to the input when a validation alert is displayed.
+
+- [#723](https://github.com/aragon/gov-ui-kit/pull/723) [`c097ac7`](https://github.com/aragon/gov-ui-kit/commit/c097ac73f313450d10dff404297b223d24409cc8) Thanks [@milosh86](https://github.com/milosh86)! - Fix SVG build config with missing `prefixIds` plugin
+
+- [#717](https://github.com/aragon/gov-ui-kit/pull/717) [`688fe16`](https://github.com/aragon/gov-ui-kit/commit/688fe162ad0112202a84265811a93cf191f20bde) Thanks [@evanaronson](https://github.com/evanaronson)! - Set `text-neutral-800` on the status context label of `ProposalDataListItem.Structure` so it no longer inherits the default (black) text color.
+
 ## 2.8.1
 
 ### Patch Changes
