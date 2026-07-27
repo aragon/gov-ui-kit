@@ -25,7 +25,7 @@ jobs:
     environment: npm-publish
     steps:
       - name: Checkout actions
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 1
           sparse-checkout: |
@@ -49,14 +49,14 @@ jobs:
     steps:
       - name: Load secrets from OP
         id: load-secrets
-        uses: 1password/load-secrets-action@3a12b0ab99d9cd590a3e9b5a90ea017210ed9556 #v4.0.1
+        uses: 1password/load-secrets-action@eb2efd0703da22a93c467f2d1ffbb6826c11e19c #v4.1.1
         with:
           export-env: false
         env:
           OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
           ARABOT_PAT_TRIGGER_WORKFLOW: op://kv_gov-ui-kit_infra/GITHUB_PAT/credential
       - name: Checkout actions
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 1
           sparse-checkout: |
