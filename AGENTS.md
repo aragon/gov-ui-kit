@@ -43,8 +43,9 @@ Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
   Tailwind utilities from the `--color-*` scale (`bg-primary-500`, `text-neutral-800`, …).
   Root `index.css` → `src/core/index.css` + `src/theme/index.css`.
 - **Icons:** SVGs → React components by SVGR at build time (`@svgr/rollup` + `svgo.config.js`
-  in Rollup; `vite-plugin-svgr` in Storybook). `src/core/components/icon/iconType.ts` and
-  `iconList.ts` are **generated — do not hand-edit**.
+  in Rollup; `vite-plugin-svgr` in Storybook). Adding an icon means dropping an SVG in
+  `src/core/assets/icons/` and registering it in `src/core/components/icon/iconType.ts`
+  (the `IconType` union) and `iconList.ts` (the type→component registry).
 - **Docs & tests are co-located:** `*.stories.tsx` (the documentation source of truth) and
   `*.test.tsx`/`*.spec.ts(x)` live next to the component. Storybook globs `docs/**` and
   `src/**/*.stories.*` and `src/**/*.mdx`.
@@ -63,7 +64,7 @@ Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
 - **Don't edit design-token sources** (`src/theme/tokens/**`) without an ADR.
 - **Don't skip VR (visual regression) review on UI-touching PRs** once VR is installed (M5).
 - **Unit tests: no rendering/DOM assertions beyond smoke** — assert behavior/logic, not markup.
-- **Don't edit generated artifacts** — `dist/`, `build.css`, `iconType.ts`, `iconList.ts`.
+- **Don't edit generated build artifacts** — `dist/`, `build.css`, `storybook-static`.
 
 ## Architectural principles
 
