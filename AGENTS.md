@@ -9,8 +9,7 @@ Top-down: **Commands → Architecture → Hard Rules → Architectural principle
 
 ## Commands
 
-Use pnpm only. `engineStrict` is on; Node and pnpm are pinned (`.nvmrc`, `.npmrc`).
-npm/yarn installs fail.
+Use pnpm only — `engineStrict` is on and Node is pinned in `.nvmrc`; npm/yarn installs fail.
 
 - Setup: `corepack enable` → `pnpm install` → `pnpm run setup` (installs husky hooks).
 - `pnpm storybook` — run Storybook on :6006 (primary dev surface).
@@ -20,17 +19,16 @@ npm/yarn installs fail.
 - `pnpm type-check` — `tsc --noemit`.
 - `pnpm lint` — Biome check + autofix (writes). `pnpm lint:check` — no writes (CI).
 
-Before opening a PR, run locally:
-`pnpm lint:check && pnpm type-check && pnpm test`
-CI runs the same plus `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and
-`pnpm changeset status --since origin/main` (any user-facing change needs a changeset).
+Before opening a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
+CI runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, `pnpm type-check`,
+`pnpm lint:check`, and (on PRs) `pnpm changeset status --since origin/main`.
 
 Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
 
 ## Architecture
 
 - **Single package, not a workspace.** `pnpm-workspace.yaml` holds pnpm settings/overrides
-  only (no `packages:` globs); `turbo.json` only caches `lint`/`type-check`/`test`.
+  only (no `packages:` globs); `turbo.json` only caches `lint:check`/`type-check`/`test`.
 - **One public entry:** `src/index.ts` re-exports `./core` and `./modules`, both of which
   re-export `assets`, `components`, `hooks`, `types`, `utils` barrel chains →
   `dist/index.es.js`. Every public symbol must ride this chain.
@@ -41,14 +39,15 @@ Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
 - **Styling:** Tailwind v4, CSS-first (no `tailwind.config.js`). Design tokens are defined
   under `src/theme/tokens/` (e.g. `primitives/*.css` via `@theme`) and consumed as
   Tailwind utilities from the `--color-*` scale (`bg-primary-500`, `text-neutral-800`, …).
-  Root `index.css` → `src/core/index.css` + `src/theme/index.css`.
+  Root `index.css` imports `./src/index.css` (which pulls in `core/` + `theme/`) plus
+  `tailwindcss`.
 - **Icons:** SVGs → React components by SVGR at build time (`@svgr/rollup` + `svgo.config.js`
   in Rollup; `vite-plugin-svgr` in Storybook). Adding an icon means dropping an SVG in
   `src/core/assets/icons/` and registering it in `src/core/components/icon/iconType.ts`
   (the `IconType` union) and `iconList.ts` (the type→component registry).
 - **Docs & tests are co-located:** `*.stories.tsx` (the documentation source of truth) and
-  `*.test.tsx`/`*.spec.ts(x)` live next to the component. Storybook globs `docs/**` and
-  `src/**/*.stories.*` and `src/**/*.mdx`.
+  `*.test.tsx`/`*.spec.ts(x)` live next to the component. Storybook globs
+  `docs/**/*.@(md|mdx)`, `src/**/*.stories.@(ts|tsx)`, and `src/**/*.@(md|mdx)`.
 - **Public entry points only:** `.`, `./index.css`, `./build.css`. Package ships `dist/`,
   `index.css`, `build.css`, `src/**/*.css`, `src/theme/fonts/*`.
 
@@ -71,8 +70,8 @@ Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
 - **Kit/app boundary litmus test.** Ask: *is this generic, reusable, and free of a specific
   app/domain flow?* → `src/core`. *Is it governance-domain composition?* → `src/modules`.
   If it orchestrates app-specific side effects, fetches/backend, or aragon/app flows, it
-  belongs in **aragon/app, not here**. The kit stays dependency-light (React + Radix +
-  peer deps only); app-specific coupling breaks that contract.
+  belongs in **aragon/app, not here**. The kit keeps a small, vetted runtime-dep set
+  (Radix primitives, TipTap, framer-motion, …); app-specific coupling breaks that contract.
 - **MCP discipline.** Use tooling/resources deliberately and only when they add ground truth
   (current docs, primary sources, existing repo patterns). Prefer reading the repo and
   reusing its conventions over inventing new ones. Keep architectural decisions in code and
