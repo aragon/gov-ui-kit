@@ -1,108 +1,97 @@
 # AGENTS.md — @aragon/gov-ui-kit
 
-Published React 19 + TypeScript component library ("the kit") implementing Aragon's
-governance UI. Single package, shipped to npm, consumed downstream (incl. aragon/app),
-so the **public API surface and semver matter**. Pre-alpha; breaking changes are allowed
-but must be intentional.
-
-Top-down: **Commands → Architecture → Hard Rules → Architectural principles → Skills available → Where to look.**
+Published React 19 + TypeScript component library for Aragon governance UIs. This is a
+single package shipped to npm and consumed downstream (including aragon/app), so public
+exports, peer dependencies, and semver are part of the product contract.
 
 ## Commands
 
-Use pnpm only — `engineStrict` is on and Node is pinned in `.nvmrc`; npm/yarn installs fail.
+Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
+`package.json` and `pnpm-workspace.yaml` (`engineStrict: true`). npm/yarn installs fail.
 
-- Setup: `corepack enable` → `pnpm install` → `pnpm run setup` (installs husky hooks).
-- `pnpm storybook` — run Storybook on :6006 (primary dev surface).
-- `pnpm build` — Rollup build → `dist/` + `build.css` (ESM + types + SVGR icons).
-- `pnpm build:storybook` — static Storybook build (used in CI).
-- `pnpm test` — Jest. `pnpm test:watch`, `pnpm test:coverage`.
+- Setup: `corepack enable` → `pnpm install` → `pnpm run setup` (husky hooks).
+- `pnpm storybook` — Storybook dev server on :6006; primary component dev surface.
+- `pnpm build` — Rollup build to `dist/` plus compiled `build.css`.
+- `pnpm build:storybook` — static Storybook build used in CI.
+- `pnpm test` — Jest. Variants: `pnpm test:watch`, `pnpm test:coverage`.
 - `pnpm type-check` — `tsc --noemit`.
-- `pnpm lint` — Biome check + autofix (writes). `pnpm lint:check` — no writes (CI).
+- `pnpm lint` — Biome check with writes. `pnpm lint:check` — no writes.
 
-Before opening a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
-CI runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, `pnpm type-check`,
-`pnpm lint:check`, and (on PRs) `pnpm changeset status --since origin/main`.
-
-Changesets: `pnpm changeset`. No changeset = no version bump / changelog entry.
+Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
+CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on PRs
+`pnpm changeset status --since origin/main`. User-facing changes need `pnpm changeset`.
 
 ## Architecture
 
-- **Single package, not a workspace.** `pnpm-workspace.yaml` holds pnpm settings/overrides
-  only (no `packages:` globs); `turbo.json` only caches `lint:check`/`type-check`/`test`.
-- **One public entry:** `src/index.ts` re-exports `./core` and `./modules`, both of which
-  re-export `assets`, `components`, `hooks`, `types`, `utils` barrel chains →
-  `dist/index.es.js`. Every public symbol must ride this chain.
-- **`src/core/` = generic, reusable UI primitives** (button, dialog, dropdown, form
-  controls, tooltip, tag, dataList, accordion, …). No domain logic.
-- **`src/modules/` = governance-domain composition** (wallet, vote, proposal, dao, member,
-  asset, transaction, smartContract, …), built on core + peer deps.
-- **Styling:** Tailwind v4, CSS-first (no `tailwind.config.js`). Design tokens are defined
-  under `src/theme/tokens/` (e.g. `primitives/*.css` via `@theme`) and consumed as
-  Tailwind utilities from the `--color-*` scale (`bg-primary-500`, `text-neutral-800`, …).
-  Root `index.css` imports `./src/index.css` (which pulls in `core/` + `theme/`) plus
-  `tailwindcss`.
-- **Icons:** SVGs → React components by SVGR at build time (`@svgr/rollup` + `svgo.config.js`
-  in Rollup; `vite-plugin-svgr` in Storybook). Adding an icon means dropping an SVG in
-  `src/core/assets/icons/` and registering it in `src/core/components/icon/iconType.ts`
-  (the `IconType` union) and `iconList.ts` (the type→component registry).
-- **Docs & tests are co-located:** `*.stories.tsx` (the documentation source of truth) and
-  `*.test.tsx`/`*.spec.ts(x)` live next to the component. Storybook globs
-  `docs/**/*.@(md|mdx)`, `src/**/*.stories.@(ts|tsx)`, and `src/**/*.@(md|mdx)`.
-- **Public entry points only:** `.`, `./index.css`, `./build.css`. Package ships `dist/`,
-  `index.css`, `build.css`, `src/**/*.css`, `src/theme/fonts/*`.
+- **Single package, not a workspace.** `pnpm-workspace.yaml` has pnpm settings/overrides
+  only; no `packages:` globs. `turbo.json` caches `lint:check`, `type-check`, and `test`.
+- **One public JS entry.** `src/index.ts` re-exports `./core` and `./modules`, which re-export
+  their `assets`, `components`, `hooks`, `types`, and `utils` barrels. Every public symbol
+  must ride this chain into `dist/index.es.js`.
+- **Public package entries:** `.`, `./index.css`, `./build.css`. Do not add subpath exports or
+  tell consumers to import from `dist/…`.
+- **`src/core/` = reusable UI primitives**: button, dialog, dropdown, forms, tooltip, tag,
+  dataList, accordion, and similar generic building blocks. No governance flow logic here.
+- **`src/modules/` = governance-domain composition**: wallet, vote, proposal, dao, member,
+  asset, transaction, smartContract, action, and address components built from core + peers.
+- **Styling:** Tailwind CSS v4, CSS-first. There is no `tailwind.config.js`. Root `index.css`
+  imports `./src/index.css` and `tailwindcss`; `src/index.css` pulls in core + theme CSS.
+  Tokens live under `src/theme/tokens/` via `@theme` and expose the `--color-*` scale used
+  as utilities such as `bg-primary-500` and `text-neutral-800`.
+- **Icons:** SVG imports are transformed by SVGR in Rollup/Storybook. Adding an icon means
+  adding the SVG under `src/core/assets/icons/` and registering it in
+  `src/core/components/icon/iconType.ts` and `iconList.ts` (checked-in registries).
+- **Docs/tests:** component docs are co-located `*.stories.tsx`; tests are co-located
+  `*.test.tsx` / `*.spec.ts(x)`. Storybook reads `docs/**/*.@(md|mdx)`,
+  `src/**/*.stories.@(js|jsx|ts|tsx)`, and `src/**/*.@(md|mdx)`.
+- **Agent entry points:** root `AGENTS.md` is canonical. `CLAUDE.md` imports `@AGENTS.md`;
+  `.cursor/rules/main.mdc` and `.github/copilot-instructions.md` are symlinks to it. Do not
+  duplicate instruction prose in tool-specific files.
 
 ## Hard Rules
 
-- **No raw hex/rgb** in components or CSS — use the design tokens (`bg-primary-*`,
-  `text-neutral-*`). Colors must resolve in both light and dark theme.
-- **No Tailwind arbitrary spacing/values** (`p-[17px]`, `w-[42%]`) — use the token/scale.
-- **No component without a co-located `*.stories.tsx`** — Storybook is the docs source of
-  truth and a missing story is a silent docs regression, not a build error.
-- **Don't build a custom dropdown/dialog/tooltip (or other covered primitive) outside the
-  kit** — reuse the kit's Radix-based primitives in `src/core/components`.
-- **Don't edit design-token sources** (`src/theme/tokens/**`) without an ADR.
-- **Don't skip VR (visual regression) review on UI-touching PRs** once VR is installed (M5).
-- **Unit tests: no rendering/DOM assertions beyond smoke** — assert behavior/logic, not markup.
-- **Don't edit generated build artifacts** — `dist/`, `build.css`, `storybook-static`.
+- **No raw hex/rgb** in components or CSS. Use token-backed utilities; colors must work in
+  light and dark themes.
+- **No Tailwind arbitrary spacing/values** (`p-[17px]`, `w-[42%]`). Use the token/scale.
+- **No component without a co-located `*.stories.tsx`.** Storybook is the docs source of truth.
+- **Do not build custom dropdown/dialog/tooltip primitives outside the kit.** Reuse the
+  Radix-based primitives in `src/core/components`.
+- **Do not edit design-token sources** (`src/theme/tokens/**`) without an ADR.
+- **Do not skip VR review on UI-touching PRs** once visual regression review exists (M5).
+- **Unit tests should assert behavior/logic, not markup.** Rendering/DOM assertions beyond
+  smoke coverage belong in higher-level verification, not unit tests.
+- **Do not edit generated build artifacts:** `dist/`, `build.css`, `storybook-static`.
+- **Do not add ESLint or Prettier.** Lint/format is Biome via Ultracite.
+- **Do not move peer deps into `dependencies`:** react, react-dom, react-hook-form,
+  @tanstack/react-query, viem, wagmi, tailwindcss, @tailwindcss/typography.
+- **Do not break public API casually.** Removing/renaming an exported symbol or prop is a
+  breaking change and needs a deliberate Changeset.
 
 ## Architectural principles
 
-- **Kit/app boundary litmus test.** Ask: *is this generic, reusable, and free of a specific
-  app/domain flow?* → `src/core`. *Is it governance-domain composition?* → `src/modules`.
-  If it orchestrates app-specific side effects, fetches/backend, or aragon/app flows, it
-  belongs in **aragon/app, not here**. The kit keeps a small, vetted runtime-dep set
-  (Radix primitives, TipTap, framer-motion, …); app-specific coupling breaks that contract.
-- **MCP discipline.** Use tooling/resources deliberately and only when they add ground truth
-  (current docs, primary sources, existing repo patterns). Prefer reading the repo and
-  reusing its conventions over inventing new ones. Keep architectural decisions in code and
-  this file, not scattered across tool state.
-- **Rules-vs-skills decision rule.** Keep **always-on, high-signal** rules here (short,
-  command-first, only non-obvious facts). Put **explicit, opt-in, procedural** workflows
-  (multi-step tooling, release/VR pipelines, heavy operations) in skills/scripts — not as
-  always-on rules. If it only matters sometimes, it isn't a hard rule. Rules must stay well
-  under the ~32 KiB agent-context budget.
+- **Kit/app boundary litmus test.** Generic, reusable, non-domain UI belongs in `src/core`.
+  Governance-domain composition belongs in `src/modules`. App-specific side effects, backend
+  orchestration, or aragon/app flows belong in aragon/app, not this package.
+- **MCP discipline.** Use tools for ground truth: current docs, primary sources, repo patterns.
+  Prefer existing conventions over new ones; keep architectural decisions in code and this file.
+- **Rules-vs-skills decision rule.** Keep always-on rules short, high-signal, and repo-wide.
+  Put explicit procedural workflows (release steps, VR ceremony, heavy checks) in scripts or
+  external skills instead of expanding this file.
 
 ## Skills available
 
-Agent skills relevant to this repo (loaded on demand; the always-on rules above are not
-duplicated): react-best-practices, frontend-design, shadcn (Radix/Tailwind components),
-verification, requesting/receiving-code-review, test-driven-development,
-systematic-debugging, and context7 (library/API docs). Invoke a skill by name from the
-skill registry when a task matches.
+No repo-local skill system is committed here (`skills/`, `.agents/`, and `.claude/` are absent).
+If your agent runtime provides external skills, use them on demand for React, Storybook,
+Tailwind/Radix, verification, and code review. Do not duplicate those workflows in this
+always-on file.
 
 ## Where to look
 
 - `src/core/components/` — reusable primitives and their stories/tests.
-- `src/modules/` — governance feature components.
-- `src/theme/tokens/` + `docs/codingGuidelines/` — design tokens and dependency policies.
-- `docs/` and `.storybook/` — product & component documentation, Storybook config.
-- `package.json`, `rollup.config.mjs`, `turbo.json`, `.github/workflows/` — build/CI ground truth.
-- README.md — install/usage; Storybook for component docs.
-
-## Don't
-
-- Don't add ESLint/Prettier — lint/format is Biome via Ultracite only.
-- Don't add subpath exports or tell consumers to import from `dist/…`.
-- Don't move peer deps (react, react-dom, react-hook-form, @tanstack/react-query, viem,
-  wagmi, tailwindcss) from `peerDependencies` into `dependencies` — duplicate-instance bugs.
-- Don't restate what Biome/tsc already enforce.
+- `src/modules/` — governance feature components and composition.
+- `src/theme/tokens/` — design-token source; do not edit without an ADR.
+- `docs/codingGuidelines/` — dependency and coding guidance.
+- `docs/`, `.storybook/main.ts`, `.storybook/preview.tsx` — Storybook docs/config.
+- `package.json`, `pnpm-workspace.yaml`, `turbo.json` — scripts, deps, pnpm/Turbo rules.
+- `rollup.config.mjs`, `svgo.config.js`, `postcss.config.js` — build and asset pipeline.
+- `.github/workflows/library-test.yml` — CI truth for build/test/type/lint/changeset gates.
