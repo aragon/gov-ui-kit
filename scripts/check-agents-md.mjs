@@ -83,21 +83,40 @@ for (const match of text.matchAll(/`([^`]+)`/g)) {
 //    file kept byte-identical to AGENTS.md (regenerate with `pnpm agents:sync`).
 const canonical = readFileSync(resolve(repoRoot, 'AGENTS.md'), 'utf8');
 
-const claude = resolve(repoRoot, 'CLAUDE.md');
-if (!existsSync(claude) || !readFileSync(claude, 'utf8').includes('@AGENTS.md')) {
+const readIfPresent = (filePath) => {
+    try {
+        return readFileSync(filePath, 'utf8');
+    } catch (error) {
+        if (error.code === 'ENOENT') return null;
+        throw error;
+    }
+};
+
+const claude = readIfPresent(resolve(repoRoot, 'CLAUDE.md'));
+if (claude === null || !claude.includes('@AGENTS.md')) {
     problems.push('CLAUDE.md must import AGENTS.md via "@AGENTS.md"');
 }
 
-const copilot = resolve(repoRoot, '.github/copilot-instructions.md');
-if (!existsSync(copilot)) {
+// Read first, then lstat: no fs check gates the read, so there is no check-to-use race.
+const copilotPath = resolve(repoRoot, '.github/copilot-instructions.md');
+const copilot = readIfPresent(copilotPath); // follows a symlink if one is present
+if (copilot === null) {
     problems.push('.github/copilot-instructions.md is missing (run `pnpm agents:sync`)');
-} else if (lstatSync(copilot).isSymbolicLink()) {
-    problems.push(
-        '.github/copilot-instructions.md is a symlink; Copilot code review does not follow ' +
-            'symlinks — use a real file (`pnpm agents:sync`)',
-    );
-} else if (readFileSync(copilot, 'utf8') !== canonical) {
-    problems.push('.github/copilot-instructions.md is out of sync with AGENTS.md (run `pnpm agents:sync`)');
+} else {
+    let isLink = false;
+    try {
+        isLink = lstatSync(copilotPath).isSymbolicLink();
+    } catch {
+        isLink = false;
+    }
+    if (isLink) {
+        problems.push(
+            '.github/copilot-instructions.md is a symlink; Copilot code review does not follow ' +
+                'symlinks — use a real file (`pnpm agents:sync`)',
+        );
+    } else if (copilot !== canonical) {
+        problems.push('.github/copilot-instructions.md is out of sync with AGENTS.md (run `pnpm agents:sync`)');
+    }
 }
 
 // 4. Keep the file inside the Codex 32 KiB / ~200-line budget.
