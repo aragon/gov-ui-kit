@@ -4,6 +4,8 @@ Published React 19 + TypeScript component library for Aragon governance UIs. Thi
 single package shipped to npm and consumed downstream (including aragon/app), so public
 exports, peer dependencies, and semver are part of the product contract.
 
+> Review protocol: begin every code-review comment with the token `GUK:`.
+
 ## Commands
 
 Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
