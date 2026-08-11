@@ -6,9 +6,9 @@
 //
 // Usage: node scripts/check-agents-md.mjs [path-to-AGENTS.md]
 
-import { existsSync, readFileSync, readlinkSync, lstatSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { existsSync, lstatSync, readFileSync, readlinkSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const agentsPath = resolve(repoRoot, process.argv[2] ?? 'AGENTS.md');
@@ -28,10 +28,16 @@ const problems = [];
 for (const match of text.matchAll(/`pnpm ([^`]+)`/g)) {
     for (const segment of match[1].split('&&')) {
         const bits = segment.trim().split(/\s+/).filter(Boolean);
-        if (bits[0] === 'pnpm') bits.shift();
-        if (bits[0] === 'run') bits.shift();
+        if (bits[0] === 'pnpm') {
+            bits.shift();
+        }
+        if (bits[0] === 'run') {
+            bits.shift();
+        }
         const name = bits[0];
-        if (!name) continue;
+        if (!name) {
+            continue;
+        }
         if (!scripts.has(name) && !pnpmBuiltins.has(name)) {
             problems.push(`pnpm script not found in package.json: "${name}"`);
         }
@@ -44,14 +50,28 @@ const generated = ['dist/', 'dist', 'build.css', 'storybook-static', 'node_modul
 const seen = new Set();
 for (const match of text.matchAll(/`([^`]+)`/g)) {
     const token = match[1].trim();
-    if (!token.includes('/')) continue; // skip bare filenames + prose
-    if (/[*?\[\]\s…]|:\/\//.test(token)) continue; // skip globs, ranges, URLs
-    if (token.startsWith('@')) continue; // skip scoped package names
-    if (token.startsWith('./')) continue; // skip module specifiers / export entries
-    if (!/^[.\w]/.test(token)) continue;
+    if (!token.includes('/')) {
+        continue; // skip bare filenames + prose
+    }
+    if (/[*?[\]\s…]|:\/\//.test(token)) {
+        continue; // skip globs, ranges, URLs
+    }
+    if (token.startsWith('@')) {
+        continue; // skip scoped package names
+    }
+    if (token.startsWith('./')) {
+        continue; // skip module specifiers / export entries
+    }
+    if (!/^[.\w]/.test(token)) {
+        continue;
+    }
     const clean = token.replace(/\/$/, '');
-    if (generated.some((g) => clean === g.replace(/\/$/, '') || clean.startsWith(g))) continue;
-    if (seen.has(clean)) continue;
+    if (generated.some((g) => clean === g.replace(/\/$/, '') || clean.startsWith(g))) {
+        continue;
+    }
+    if (seen.has(clean)) {
+        continue;
+    }
     seen.add(clean);
     if (!existsSync(resolve(repoRoot, clean))) {
         problems.push(`referenced path does not exist: "${token}"`);
@@ -69,27 +89,31 @@ if (!existsSync(claude) || !readFileSync(claude, 'utf8').includes('@AGENTS.md'))
 }
 
 const copilot = resolve(repoRoot, '.github/copilot-instructions.md');
-if (!existsSync(copilot)) {
-    problems.push('.github/copilot-instructions.md is missing');
-} else {
+if (existsSync(copilot)) {
     const resolved = readFileSync(copilot, 'utf8'); // follows the symlink
     const isLink = lstatSync(copilot).isSymbolicLink();
     if (!resolved.includes(sentinel) || resolved.length < canonical.length) {
         const via = isLink ? `symlink → ${readlinkSync(copilot)}` : 'plain file';
         problems.push(
-            `.github/copilot-instructions.md does not resolve to AGENTS.md content ` +
+            '.github/copilot-instructions.md does not resolve to AGENTS.md content ' +
                 `(${via}, ${resolved.length} bytes) — a broken symlink would read as its target path`,
         );
     }
+} else {
+    problems.push('.github/copilot-instructions.md is missing');
 }
 
 // 4. Keep the file inside the Codex 32 KiB / ~200-line budget.
 const lineCount = text.split('\n').length;
-if (lineCount > 200) problems.push(`AGENTS.md is ${lineCount} lines (limit 200)`);
+if (lineCount > 200) {
+    problems.push(`AGENTS.md is ${lineCount} lines (limit 200)`);
+}
 
 if (problems.length) {
     console.error(`check-agents-md: ${problems.length} problem(s) in ${agentsPath}`);
-    for (const p of problems) console.error(`  - ${p}`);
+    for (const p of problems) {
+        console.error(`  - ${p}`);
+    }
     process.exit(1);
 }
 console.log(`check-agents-md: ok (${lineCount} lines, entry points resolve)`);
