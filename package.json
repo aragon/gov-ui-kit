@@ -25,7 +25,8 @@
         "test:coverage": "jest --coverage",
         "lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
         "lint:check": "biome check --no-errors-on-unmatched --files-ignore-unknown=true",
-        "type-check": "tsc --noemit"
+        "type-check": "tsc --noemit",
+        "check:agents": "node scripts/check-agents-md.mjs"
     },
     "repository": {
         "type": "git",

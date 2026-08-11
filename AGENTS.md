@@ -16,6 +16,7 @@ Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 - `pnpm test` — Jest. Variants: `pnpm test:watch`, `pnpm test:coverage`.
 - `pnpm type-check` — `tsc --noemit`.
 - `pnpm lint` — Biome check with writes. `pnpm lint:check` — no writes.
+- `pnpm check:agents` — verify this file's scripts, paths, and agent entry points (runs in CI).
 
 Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
 CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on PRs
