@@ -19,7 +19,8 @@ Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 
 Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
 CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on PRs
-`pnpm changeset status --since origin/main`. User-facing changes need `pnpm changeset`.
+`pnpm changeset status --since origin/main`. A changeset is required only when `src/**`
+changes (`.changeset/config.json`).
 
 ## Architecture
 
@@ -44,9 +45,9 @@ CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on 
 - **Docs/tests:** component docs are co-located `*.stories.tsx`; tests are co-located
   `*.test.tsx` / `*.spec.ts(x)`. Storybook reads `docs/**/*.@(md|mdx)`,
   `src/**/*.stories.@(js|jsx|ts|tsx)`, and `src/**/*.@(md|mdx)`.
-- **Agent entry points:** `AGENTS.md` is canonical. `CLAUDE.md` imports `@AGENTS.md`;
-  `.cursor/rules/main.mdc` and `.github/copilot-instructions.md` are symlinks to it. Do not
-  duplicate instruction prose in tool-specific files.
+- **Agent entry points:** `AGENTS.md` is canonical. `CLAUDE.md` imports it via `@AGENTS.md`,
+  and `.github/copilot-instructions.md` is a symlink to it. Cursor reads `AGENTS.md`
+  natively. Don't duplicate instruction prose in tool-specific files.
 
 ## Hard Rules
 
@@ -56,10 +57,13 @@ CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on 
 - **No component without a co-located `*.stories.tsx`.** Storybook is the docs source of truth.
 - **Do not build custom dropdown/dialog/tooltip primitives outside the kit.** Reuse the
   Radix-based primitives in `src/core/components`.
-- **Do not edit design-token sources** (`src/theme/tokens/**`) without an ADR.
-- **Do not skip VR review on UI-touching PRs** once visual regression review exists (M5).
-- **Unit tests should assert behavior/logic, not markup.** Rendering/DOM assertions beyond
-  smoke coverage belong in higher-level verification, not unit tests.
+- **Do not edit design-token sources** (`src/theme/tokens/**`) without CODEOWNERS review
+  (`@aragon/app-team`). Tokens are the theming contract.
+- **Preserve accessibility when composing.** Radix gives primitives their a11y; components in
+  `src/modules` must keep labeling, focus order, and keyboard interaction intact, and rely on
+  design tokens for contrast.
+- **Test through the accessible surface.** Prefer `getByRole` / `getByText` /
+  `getByLabelText`; do not assert on class names, snapshots, or internal DOM structure.
 - **Do not edit generated build artifacts:** `dist/`, `build.css`, `storybook-static`.
 - **Do not add ESLint or Prettier.** Lint/format is Biome via Ultracite.
 - **Do not move peer deps into `dependencies`:** react, react-dom, react-hook-form,
@@ -72,24 +76,12 @@ CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on 
 - **Kit/app boundary litmus test.** Generic, reusable, non-domain UI belongs in `src/core`.
   Governance-domain composition belongs in `src/modules`. App-specific side effects, backend
   orchestration, or aragon/app flows belong in aragon/app, not this package.
-- **MCP discipline.** Use tools for ground truth: current docs, primary sources, repo patterns.
-  Prefer existing conventions over new ones; keep architectural decisions in code and this file.
-- **Rules-vs-skills decision rule.** Keep always-on rules short, high-signal, and repo-wide.
-  Put explicit procedural workflows (release steps, VR ceremony, heavy checks) in scripts or
-  external skills instead of expanding this file.
-
-## Skills available
-
-No repo-local skill system is committed here (`skills/`, `.agents/`, and `.claude/` are absent).
-If your agent runtime provides external skills, use them on demand for React, Storybook,
-Tailwind/Radix, verification, and code review. Do not duplicate those workflows in this
-always-on file.
 
 ## Where to look
 
 - `src/core/components/` — reusable primitives and their stories/tests.
 - `src/modules/` — governance feature components and composition.
-- `src/theme/tokens/` — design-token source; do not edit without an ADR.
+- `src/theme/tokens/` — design-token source; CODEOWNERS-gated (`@aragon/app-team`).
 - `docs/codingGuidelines/` — dependency and coding guidance.
 - `docs/`, `.storybook/main.ts`, `.storybook/preview.tsx` — Storybook docs/config.
 - `package.json`, `pnpm-workspace.yaml`, `turbo.json` — scripts, deps, pnpm/Turbo rules.
