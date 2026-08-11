@@ -17,6 +17,7 @@ Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 - `pnpm type-check` — `tsc --noemit`.
 - `pnpm lint` — Biome check with writes. `pnpm lint:check` — no writes.
 - `pnpm check:agents` — verify this file's scripts, paths, and agent entry points (runs in CI).
+- `pnpm agents:sync` — regenerate `.github/copilot-instructions.md` from AGENTS.md.
 
 Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
 CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on PRs
@@ -47,8 +48,9 @@ changes (`.changeset/config.json`).
   `*.test.tsx` / `*.spec.ts(x)`. Storybook reads `docs/**/*.@(md|mdx)`,
   `src/**/*.stories.@(js|jsx|ts|tsx)`, and `src/**/*.@(md|mdx)`.
 - **Agent entry points:** `AGENTS.md` is canonical. `CLAUDE.md` imports it via `@AGENTS.md`,
-  and `.github/copilot-instructions.md` is a symlink to it. Cursor reads `AGENTS.md`
-  natively. Don't duplicate instruction prose in tool-specific files.
+  and Cursor reads `AGENTS.md` natively. `.github/copilot-instructions.md` is a generated
+  byte-copy of `AGENTS.md` (Copilot code review does not follow symlinks); regenerate it with
+  `pnpm agents:sync` after editing this file — `pnpm check:agents` fails if it drifts.
 
 ## Hard Rules
 

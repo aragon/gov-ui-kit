@@ -6,7 +6,7 @@
 //
 // Usage: node scripts/check-agents-md.mjs [path-to-AGENTS.md]
 
-import { existsSync, lstatSync, readFileSync, readlinkSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -78,9 +78,9 @@ for (const match of text.matchAll(/`([^`]+)`/g)) {
     }
 }
 
-// 3. Agent entry points must resolve to real AGENTS.md content, not a symlink
-//    target string (mode-120000 blob materialized as text on a symlink-less checkout).
-const sentinel = '# AGENTS.md — @aragon/gov-ui-kit';
+// 3. Agent entry points must carry the canonical AGENTS.md content. Copilot code
+//    review does not follow symlinks, so .github/copilot-instructions.md is a real
+//    file kept byte-identical to AGENTS.md (regenerate with `pnpm agents:sync`).
 const canonical = readFileSync(resolve(repoRoot, 'AGENTS.md'), 'utf8');
 
 const claude = resolve(repoRoot, 'CLAUDE.md');
@@ -89,18 +89,15 @@ if (!existsSync(claude) || !readFileSync(claude, 'utf8').includes('@AGENTS.md'))
 }
 
 const copilot = resolve(repoRoot, '.github/copilot-instructions.md');
-if (existsSync(copilot)) {
-    const resolved = readFileSync(copilot, 'utf8'); // follows the symlink
-    const isLink = lstatSync(copilot).isSymbolicLink();
-    if (!resolved.includes(sentinel) || resolved.length < canonical.length) {
-        const via = isLink ? `symlink → ${readlinkSync(copilot)}` : 'plain file';
-        problems.push(
-            '.github/copilot-instructions.md does not resolve to AGENTS.md content ' +
-                `(${via}, ${resolved.length} bytes) — a broken symlink would read as its target path`,
-        );
-    }
-} else {
-    problems.push('.github/copilot-instructions.md is missing');
+if (!existsSync(copilot)) {
+    problems.push('.github/copilot-instructions.md is missing (run `pnpm agents:sync`)');
+} else if (lstatSync(copilot).isSymbolicLink()) {
+    problems.push(
+        '.github/copilot-instructions.md is a symlink; Copilot code review does not follow ' +
+            'symlinks — use a real file (`pnpm agents:sync`)',
+    );
+} else if (readFileSync(copilot, 'utf8') !== canonical) {
+    problems.push('.github/copilot-instructions.md is out of sync with AGENTS.md (run `pnpm agents:sync`)');
 }
 
 // 4. Keep the file inside the Codex 32 KiB / ~200-line budget.
