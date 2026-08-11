@@ -120,7 +120,7 @@ if (copilot === null) {
 }
 
 // 4. Keep the file inside the Codex 32 KiB / ~200-line budget.
-const lineCount = text.split('\n').length;
+const lineCount = text.split('\n').length - (text.endsWith('\n') ? 1 : 0);
 if (lineCount > 200) {
     problems.push(`AGENTS.md is ${lineCount} lines (limit 200)`);
 }
