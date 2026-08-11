@@ -44,7 +44,7 @@ CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on 
 - **Docs/tests:** component docs are co-located `*.stories.tsx`; tests are co-located
   `*.test.tsx` / `*.spec.ts(x)`. Storybook reads `docs/**/*.@(md|mdx)`,
   `src/**/*.stories.@(js|jsx|ts|tsx)`, and `src/**/*.@(md|mdx)`.
-- **Agent entry points:** root `AGENTS.md` is canonical. `CLAUDE.md` imports `@AGENTS.md`;
+- **Agent entry points:** `AGENTS.md` is canonical. `CLAUDE.md` imports `@AGENTS.md`;
   `.cursor/rules/main.mdc` and `.github/copilot-instructions.md` are symlinks to it. Do not
   duplicate instruction prose in tool-specific files.
 
