@@ -7,7 +7,7 @@ interfaces, prioritizing user experience throughout the Aragon ecosystem.
 **NOTE**: The Governance UI Kit library is currently in pre-alpha stage; breaking changes may occur.
 
 **Key Features:**
-
+remove
 - **OSx-compatible**: Pre-built components and patterns tailored for Aragon OSx governance workflows.
 - **Unified design language**: Streamlined visuals and interactions for cohesive user experiences.
 - **Accessible & responsive**: Adheres to accessibility best practices and scales well across different devices.
