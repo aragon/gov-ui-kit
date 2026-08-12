@@ -16,7 +16,7 @@ Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 - `pnpm test` — Jest. Variants: `pnpm test:watch`, `pnpm test:coverage`.
 - `pnpm type-check` — `tsc --noemit`.
 - `pnpm lint` — Biome check with writes. `pnpm lint:check` — no writes.
-- `pnpm check:agents` — verify this file's scripts, paths, and agent entry points (runs in CI).
+- `pnpm agents:check` — verify this file's scripts, paths, and agent entry points (runs in CI).
 - `pnpm agents:sync` — regenerate `.github/copilot-instructions.md` from AGENTS.md.
 
 Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
@@ -50,7 +50,7 @@ changes (`.changeset/config.json`).
 - **Agent entry points:** `AGENTS.md` is canonical. `CLAUDE.md` imports it via `@AGENTS.md`,
   and Cursor reads `AGENTS.md` natively. `.github/copilot-instructions.md` is a generated
   byte-copy of `AGENTS.md` (Copilot code review does not follow symlinks); regenerate it with
-  `pnpm agents:sync` after editing this file — `pnpm check:agents` fails if it drifts.
+  `pnpm agents:sync` after editing this file — `pnpm agents:check` fails if it drifts.
 
 ## Hard Rules
 

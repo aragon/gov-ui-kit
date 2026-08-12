@@ -40,7 +40,7 @@ jobs:
       - name: Check linter and formatting
         run: pnpm lint:check
       - name: Check AGENTS.md
-        run: pnpm check:agents
+        run: pnpm agents:check
       - name: Check changeset
         if: github.event_name == 'pull_request'
         run: pnpm changeset status --since origin/main
