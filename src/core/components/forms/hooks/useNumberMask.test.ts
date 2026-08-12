@@ -31,9 +31,19 @@ describe('useNumberMask hook', () => {
     it('sets the mask to be a number mask with decimals', () => {
         renderHook(() => useNumberMask({}));
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const expectedNumberBlock = { num: { mask: Number, scale: expect.any(Number) } };
+        const expectedNumberBlock = { num: expect.objectContaining({ mask: Number, scale: expect.any(Number) }) };
         expect(maskMock).toHaveBeenCalledWith(
             expect.objectContaining({ mask: 'num', blocks: expectedNumberBlock }),
+            expect.anything(),
+        );
+    });
+
+    it('clamps out-of-range values instead of rejecting the out-of-range character', () => {
+        renderHook(() => useNumberMask({ max: 100 }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const expectedNumberBlock = { num: expect.objectContaining({ autofix: true }) };
+        expect(maskMock).toHaveBeenCalledWith(
+            expect.objectContaining({ blocks: expectedNumberBlock }),
             expect.anything(),
         );
     });
