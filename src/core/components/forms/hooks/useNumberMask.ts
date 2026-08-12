@@ -40,7 +40,12 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
 
     const { thousandsSeparator, radix } = getNumberSeparators();
 
-    const numberMask = `${prefix ?? ''} num ${suffix ?? ''}`.trim();
+    // imask parses the mask as a pattern: an unescaped character is matched against a mask definition (`0`, `a`, `*`)
+    // or a block name (`num`), so an unescaped suffix such as "aUSDC" renders as "_USDC". Escape every character to
+    // keep the prefix and suffix literal.
+    const maskPrefix = prefix?.replace(/./gsu, '\\$&') ?? '';
+    const maskSuffix = suffix?.replace(/./gsu, '\\$&') ?? '';
+    const numberMask = `${maskPrefix} num ${maskSuffix}`.trim();
     const maskMax = max == null ? undefined : Number(max);
     const maskMin = min == null ? undefined : Number(min);
 

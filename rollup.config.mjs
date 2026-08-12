@@ -5,6 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import svgr from '@svgr/rollup';
+import tailwindcss from '@tailwindcss/postcss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -60,6 +61,8 @@ export default [
     {
         input: 'index.css',
         output: { file: 'build.css' },
-        plugins: [postcss({ plugins: [], extract: true, minimize: true })],
+        // Minify through Tailwind's own optimizer (Lightning CSS): the postcss plugin's cssnano pass predates CSS
+        // nesting and merges the selector lists of nested rules, which leaks child styles across unrelated utilities.
+        plugins: [postcss({ config: false, plugins: [tailwindcss({ optimize: { minify: true } })], extract: true })],
     },
 ];
