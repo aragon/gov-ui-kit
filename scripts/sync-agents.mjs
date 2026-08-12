@@ -10,6 +10,6 @@ import { fileURLToPath } from 'node:url';
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dest = resolve(repoRoot, '.github/copilot-instructions.md');
 
-rmSync(dest, { force: true }); // drop any prior symlink before writing a real file
+rmSync(dest, { force: true, recursive: true }); // drop any prior symlink/dir before writing a real file
 copyFileSync(resolve(repoRoot, 'AGENTS.md'), dest);
 console.log('synced .github/copilot-instructions.md from AGENTS.md');

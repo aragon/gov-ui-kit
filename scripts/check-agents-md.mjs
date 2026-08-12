@@ -62,6 +62,10 @@ for (const match of text.matchAll(/`([^`]+)`/g)) {
     if (token.startsWith('./')) {
         continue; // skip module specifiers / export entries
     }
+    if (token.split('/').includes('..')) {
+        problems.push(`referenced path escapes the repo (parent segment): "${token}"`);
+        continue;
+    }
     if (!/^[.\w]/.test(token)) {
         continue;
     }
