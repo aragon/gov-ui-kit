@@ -24,8 +24,8 @@ describe('useFormContext hook', () => {
     });
 
     it('correctly returns the form context values', () => {
-        // FormProvider does not forward the resetDefaultValues method to the context yet (react-hook-form v7.77)
-        const { resetDefaultValues, ...formContext } = generateFormContext();
+        // FormProvider forwards the resetDefaultValues method to the context (react-hook-form >= 7.84)
+        const formContext = generateFormContext();
         const { result } = renderHook(() => useFormContext(true), { wrapper: createHookWrapper(formContext) });
         expect(result.current).toEqual(formContext);
     });
