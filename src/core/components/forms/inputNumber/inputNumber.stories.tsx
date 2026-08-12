@@ -36,7 +36,8 @@ export const Controlled: Story = {
 };
 
 /**
- * Usage example with min and max values.
+ * Usage example with min and max values. Both are hard boundaries of the input: out-of-range values are clamped to
+ * them, so an out-of-range error state must be rendered through the `alert` property instead.
  */
 export const MinMax: Story = {
     args: {

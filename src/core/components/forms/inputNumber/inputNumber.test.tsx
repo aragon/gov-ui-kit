@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import * as InputHooks from '../hooks';
 import { type IInputNumberProps, InputNumber } from './inputNumber';
+
+const { useNumberMask: actualUseNumberMask } = jest.requireActual<typeof InputHooks>('../hooks');
 
 describe('<InputNumber /> component', () => {
     const useNumberMaskMock = jest.spyOn(InputHooks, 'useNumberMask');
@@ -22,6 +24,29 @@ describe('<InputNumber /> component', () => {
 
         return <InputNumber {...completeProps} />;
     };
+
+    // These cases run the real imask instance because a mocked mask cannot show what the pattern renders.
+    describe('number mask', () => {
+        beforeEach(() => {
+            useNumberMaskMock.mockImplementation(actualUseNumberMask);
+        });
+
+        it.each([
+            { props: { suffix: 'days' }, expected: '5 days' },
+            { props: { prefix: '~' }, expected: '~ 5' },
+            { props: { prefix: '>', suffix: 'ETH' }, expected: '> 5 ETH' },
+        ])('renders $props as literal text instead of a mask pattern', async ({ props, expected }) => {
+            render(createTestComponent({ ...props, value: '5' }));
+            await waitFor(() => expect(screen.getByRole('textbox')).toHaveValue(expected));
+        });
+
+        it('clamps a value above max to max instead of truncating it', async () => {
+            const onChange = jest.fn();
+            render(createTestComponent({ max: 20, value: '50', onChange }));
+            await waitFor(() => expect(screen.getByRole('textbox')).toHaveValue('20'));
+            expect(onChange).toHaveBeenCalledWith('20');
+        });
+    });
 
     const testChangeValueLogic = async (values?: {
         props?: Partial<IInputNumberProps>;

@@ -31,7 +31,7 @@ describe('useNumberMask hook', () => {
     it('sets the mask to be a number mask with decimals', () => {
         renderHook(() => useNumberMask({}));
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const expectedNumberBlock = { num: { mask: Number, scale: expect.any(Number) } };
+        const expectedNumberBlock = { num: expect.objectContaining({ mask: Number, scale: expect.any(Number) }) };
         expect(maskMock).toHaveBeenCalledWith(
             expect.objectContaining({ mask: 'num', blocks: expectedNumberBlock }),
             expect.anything(),
@@ -64,20 +64,27 @@ describe('useNumberMask hook', () => {
         );
     });
 
-    it('sets the defined prefix and suffix on the mask', () => {
-        const prefix = '>';
-        const suffix = 'ETH';
-        renderHook(() => useNumberMask({ prefix, suffix }));
+    it('escapes the defined prefix and suffix on the mask so that they render literally', () => {
+        renderHook(() => useNumberMask({ prefix: '>', suffix: 'ETH' }));
         expect(maskMock).toHaveBeenCalledWith(
-            expect.objectContaining({ mask: `${prefix} num ${suffix}` }),
+            expect.objectContaining({ mask: '\\> num \\E\\T\\H' }),
             expect.anything(),
         );
     });
 
     it('correctly set the mask when only suffix is set', () => {
-        const suffix = '%';
-        renderHook(() => useNumberMask({ suffix }));
-        expect(maskMock).toHaveBeenCalledWith(expect.objectContaining({ mask: `num ${suffix}` }), expect.anything());
+        renderHook(() => useNumberMask({ suffix: '%' }));
+        expect(maskMock).toHaveBeenCalledWith(expect.objectContaining({ mask: 'num \\%' }), expect.anything());
+    });
+
+    it('clamps out-of-range values instead of rejecting the out-of-range character', () => {
+        renderHook(() => useNumberMask({ max: 100 }));
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const expectedNumberBlock = { num: expect.objectContaining({ autofix: true }) };
+        expect(maskMock).toHaveBeenCalledWith(
+            expect.objectContaining({ blocks: expectedNumberBlock }),
+            expect.anything(),
+        );
     });
 
     it('updates the unmasked value on value property change for controlled inputs', () => {

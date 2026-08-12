@@ -40,7 +40,12 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
 
     const { thousandsSeparator, radix } = getNumberSeparators();
 
-    const numberMask = `${prefix ?? ''} num ${suffix ?? ''}`.trim();
+    // imask parses the mask as a pattern: an unescaped character is matched against a mask definition (`0`, `a`, `*`)
+    // or a block name (`num`), so an unescaped suffix such as "days" renders as "d_ys". Escape every character to
+    // keep the prefix and suffix literal.
+    const maskPrefix = prefix?.replace(/./gsu, '\\$&') ?? '';
+    const maskSuffix = suffix?.replace(/./gsu, '\\$&') ?? '';
+    const numberMask = `${maskPrefix} num ${maskSuffix}`.trim();
     const maskMax = max == null ? undefined : Number(max);
     const maskMin = min == null ? undefined : Number(min);
 
@@ -54,7 +59,17 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
             mask: numberMask,
             eager: true, // Displays eventual suffix on user input
             blocks: {
-                num: { mask: Number, radix, thousandsSeparator, scale: defaultScale, max: maskMax, min: maskMin },
+                num: {
+                    mask: Number,
+                    radix,
+                    thousandsSeparator,
+                    scale: defaultScale,
+                    max: maskMax,
+                    min: maskMin,
+                    // Clamp out-of-range values to the boundary. Without it imask rejects the offending character
+                    // instead, which truncates the value (e.g. 50 renders as 5 when max is 20).
+                    autofix: true,
+                },
             },
         },
         { onAccept: handleMaskAccept },

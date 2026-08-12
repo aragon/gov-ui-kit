@@ -10,12 +10,14 @@ import { type IInputComponentProps, InputContainer } from '../inputContainer';
 export interface IInputNumberProps
     extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max' | 'maxLength'> {
     /**
-     * The minimum value that the number input accepts.
+     * The minimum value that the number input accepts. Values below it are clamped to it, so use the `alert` property
+     * instead of `min` to display an out-of-range value in an error state.
      * @default Number.MIN_SAFE_INTEGER
      */
     min?: number;
     /**
-     * The maximum value that the number input accepts.
+     * The maximum value that the number input accepts. Values above it are clamped to it, so use the `alert` property
+     * instead of `max` to display an out-of-range value in an error state.
      * @default Number.MAX_SAFE_INTEGER
      */
     max?: number;

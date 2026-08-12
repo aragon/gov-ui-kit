@@ -29,6 +29,8 @@ jobs:
           fetch-depth: 0
       - name: Build library
         run: pnpm build
+      - name: Check published CSS bundle
+        run: pnpm check:css
       - name: Build storybook
         run: pnpm build:storybook
       - name: Run tests with coverage
