@@ -18,6 +18,7 @@ Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 - `pnpm lint` — Biome check with writes. `pnpm lint:check` — no writes.
 - `pnpm agents:check` — verify this file's scripts, paths, and agent entry points (runs in CI).
 - `pnpm agents:sync` — regenerate `.github/copilot-instructions.md` from AGENTS.md.
+- `pnpm css:check` — verify `build.css` still matches a source compile (runs in CI after `pnpm build`).
 
 Before a PR: `pnpm lint:check && pnpm type-check && pnpm test`.
 CI also runs `pnpm build`, `pnpm build:storybook`, `pnpm test:coverage`, and on PRs
@@ -68,6 +69,9 @@ changes (`.changeset/config.json`).
 - **Test through the accessible surface.** Prefer `getByRole` / `getByText` /
   `getByLabelText`; do not assert on class names, snapshots, or internal DOM structure.
 - **Do not edit generated build artifacts:** `dist/`, `build.css`, `storybook-static`.
+- **Do not add a CSS minifier to the `build.css` pipeline.** It is minified by Tailwind's own
+  optimizer in `rollup.config.mjs`; a nesting-unaware pass merges the selector lists of nested
+  variant rules and silently corrupts the published bundle. `pnpm css:check` enforces this.
 - **Do not add ESLint or Prettier.** Lint/format is Biome via Ultracite.
 - **Do not move peer deps into `dependencies`:** react, react-dom, react-hook-form,
   @tanstack/react-query, viem, wagmi, tailwindcss, @tailwindcss/typography.
