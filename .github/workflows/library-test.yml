@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout actions
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 1
           sparse-checkout: |
@@ -30,7 +30,7 @@ jobs:
       - name: Build library
         run: pnpm build
       - name: Check published CSS bundle
-        run: pnpm check:css
+        run: pnpm css:check
       - name: Build storybook
         run: pnpm build:storybook
       - name: Run tests with coverage
@@ -41,6 +41,8 @@ jobs:
         run: pnpm type-check
       - name: Check linter and formatting
         run: pnpm lint:check
+      - name: Check AGENTS.md
+        run: pnpm agents:check
       - name: Check changeset
         if: github.event_name == 'pull_request'
         run: pnpm changeset status --since origin/main
