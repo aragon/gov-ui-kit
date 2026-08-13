@@ -93,4 +93,6 @@ changes (`.changeset/config.json`).
 - `docs/`, `.storybook/main.ts`, `.storybook/preview.tsx` — Storybook docs/config.
 - `package.json`, `pnpm-workspace.yaml`, `turbo.json` — scripts, deps, pnpm/Turbo rules.
 - `rollup.config.mjs`, `svgo.config.js`, `postcss.config.js` — build and asset pipeline.
+- `scripts/` — the checks CI runs outside Biome/tsc/Jest: `check-agents-md.mjs`, `sync-agents.mjs`,
+  `check-build-css.mjs`. Plain Node, no framework; keep new checks in that shape.
 - `.github/workflows/library-test.yml` — CI truth for build/test/type/lint/changeset gates.
