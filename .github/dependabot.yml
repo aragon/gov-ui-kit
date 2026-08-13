@@ -9,6 +9,16 @@ updates:
         update-types:
           - "patch"
           - "minor"
+        # Version-locked / high-blast-radius families: exclude from the auto-bundle
+        # so they update via dedicated PRs. @tiptap/* must move as one family
+        # (a split dedupes to two @tiptap/core copies and fails type-check);
+        # sanitize-html 2.17.6 is an ESM-only htmlparser2 rewrite that breaks jest;
+        # react-hook-form 7.84 changed runtime behavior and broke a test.
+        exclude-patterns:
+          - "@tiptap/*"
+          - "tiptap-markdown"
+          - "sanitize-html"
+          - "react-hook-form"
       storybook:
         patterns:
           - "@storybook*"

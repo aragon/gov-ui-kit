@@ -26,7 +26,9 @@
         "lint": "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true",
         "lint:check": "biome check --no-errors-on-unmatched --files-ignore-unknown=true",
         "type-check": "tsc --noemit",
-        "check:css": "node scripts/check-build-css.mjs"
+        "agents:check": "node scripts/check-agents-md.mjs",
+        "agents:sync": "node scripts/sync-agents.mjs",
+        "css:check": "node scripts/check-build-css.mjs"
     },
     "repository": {
         "type": "git",
@@ -136,7 +138,7 @@
         "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-visualizer": "^7.0.1",
         "storybook": "^10.4.6",
-        "svgo": "^3.3.3",
+        "svgo": "^4.0.2",
         "tailwindcss": "^4.3.1",
         "ts-jest": "^29.4.11",
         "tslib": "^2.8.1",
