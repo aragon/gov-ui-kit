@@ -1,4 +1,6 @@
 import { createRequire } from 'node:module';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import commonjs from '@rollup/plugin-commonjs';
 import images from '@rollup/plugin-image';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
@@ -16,6 +18,10 @@ const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
 const analyze = process.env.ANALYZE === 'true';
+
+// Tailwind v4 scans for class candidates from the working directory, so `base` is pinned to keep the compiled CSS
+// identical no matter where the build runs from. `pnpm css:check` pins it the same way and compares the two.
+const repoRoot = dirname(fileURLToPath(import.meta.url));
 
 export default [
     {
@@ -63,6 +69,12 @@ export default [
         output: { file: 'build.css' },
         // Minify through Tailwind's own optimizer (Lightning CSS): the postcss plugin's cssnano pass predates CSS
         // nesting and merges the selector lists of nested rules, which leaks child styles across unrelated utilities.
-        plugins: [postcss({ config: false, plugins: [tailwindcss({ optimize: { minify: true } })], extract: true })],
+        plugins: [
+            postcss({
+                config: false,
+                plugins: [tailwindcss({ base: repoRoot, optimize: { minify: true } })],
+                extract: true,
+            }),
+        ],
     },
 ];
