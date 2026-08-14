@@ -32,10 +32,11 @@ nvm install   # installs the version from .nvmrc
 nvm use
 ```
 
-2. Enable Corepack so the pinned pnpm version (>= 11, see `packageManager` in `package.json`) is used automatically:
+2. Install [pnpm](https://pnpm.io/installation) (>= 10). pnpm self-manages the version pinned in `packageManager` in
+   `package.json`, so no Corepack is needed:
 
 ```bash
-corepack enable
+npm install -g pnpm
 ```
 
 3. Install dependencies and setup husky:

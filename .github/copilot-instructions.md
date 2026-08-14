@@ -9,7 +9,8 @@ exports, peer dependencies, and semver are part of the product contract.
 Use pnpm only. Node is pinned in `.nvmrc`; pnpm and engine requirements live in
 `package.json` and `pnpm-workspace.yaml` (`engineStrict: true`). npm/yarn installs fail.
 
-- Setup: `corepack enable` → `pnpm install` → `pnpm run setup` (husky hooks).
+- Setup: install pnpm (https://pnpm.io/installation; pnpm ≥10 self-manages the version pinned
+  in `packageManager`, no corepack needed) → `pnpm install` → `pnpm run setup` (husky hooks).
 - `pnpm storybook` — Storybook dev server on :6006; primary component dev surface.
 - `pnpm build` — Rollup build to `dist/` plus compiled `build.css`.
 - `pnpm build:storybook` — static Storybook build used in CI.

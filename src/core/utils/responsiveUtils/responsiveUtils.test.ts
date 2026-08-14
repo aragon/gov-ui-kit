@@ -49,13 +49,12 @@ describe('responsive utils', () => {
             { size: 'lg', responsiveSize: { sm: 'sm' }, expected: 'w-5 h-5 sm:w-3 sm:h-3' },
             { size: 'lg', responsiveSize: { md: 'md' }, expected: 'w-5 h-5 md:w-4 md:h-4' },
             { size: 'lg', responsiveSize: { sm: 'sm', md: 'md' }, expected: 'w-5 h-5 sm:w-3 sm:h-3 md:w-4 md:h-4' },
-        ] as const)('correctly builds the reponsive classnames for $size and $responsiveSize', ({
-            size,
-            responsiveSize,
-            expected,
-        }) => {
-            const result = responsiveUtils.generateClassNames(size, responsiveSize, classes);
-            expect(result).toBe(expected);
-        });
+        ] as const)(
+            'correctly builds the reponsive classnames for $size and $responsiveSize',
+            ({ size, responsiveSize, expected }) => {
+                const result = responsiveUtils.generateClassNames(size, responsiveSize, classes);
+                expect(result).toBe(expected);
+            },
+        );
     });
 });
