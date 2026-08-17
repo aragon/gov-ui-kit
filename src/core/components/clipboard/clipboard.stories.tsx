@@ -26,12 +26,23 @@ export const Default: Story = {
 };
 
 /**
+ * The `avatar-neutral` variant renders the copy control as a neutral circle, used next to plain-text labels.
+ */
+export const NeutralAvatar: Story = {
+    args: {
+        copyValue: 'Sample text to copy...',
+        variant: 'avatar-neutral',
+        children: '0xd8dA…6045',
+    },
+};
+
+/**
  * Example of the Clipboard component with a Link as a child.
  */
 export const WithLink: Story = {
     args: {
         copyValue: 'http://example.com',
-        variant: 'avatar-white-bg',
+        variant: 'avatar',
     },
     render: (props) => (
         <Clipboard {...props}>
@@ -46,7 +57,7 @@ export const WithLink: Story = {
 export const WithText: Story = {
     args: {
         copyValue: '0x123456789',
-        variant: 'avatar-white-bg',
+        variant: 'avatar',
     },
     render: (props) => (
         <Clipboard {...props}>
@@ -84,7 +95,7 @@ export const InsideForm: Story = {
 export const InsideClickable: Story = {
     args: {
         copyValue: '0x123456789',
-        variant: 'avatar-white-bg',
+        variant: 'avatar',
     },
     render: (props) => (
         <button
@@ -105,7 +116,7 @@ export const InsideClickable: Story = {
 export const InsideLink: Story = {
     args: {
         copyValue: '0x123456789',
-        variant: 'avatar-white-bg',
+        variant: 'avatar',
     },
     render: (props) => (
         <a

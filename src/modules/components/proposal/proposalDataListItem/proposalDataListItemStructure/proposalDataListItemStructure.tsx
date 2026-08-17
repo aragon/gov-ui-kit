@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, Heading, Link, Tag } from '../../../../../core';
+import { DataList, Heading, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils/addressUtils';
+import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
 import type { IProposalDataListItemStructureProps, IPublisher } from './proposalDataListItemStructure.api';
@@ -90,11 +91,15 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         parsedPublisher.map(({ address, label, link }, index) => (
                             <span className="truncate" key={`${address}-${index.toString()}`}>
                                 <object className="flex shrink" type="unknown">
-                                    {link != null && (
-                                        // Using solution from https://kizu.dev/nested-links/ to nest anchor tags
-                                        <Link href={link}>{label}</Link>
-                                    )}
-                                    {link == null && <span className="truncate">{label}</span>}
+                                    {/* The object element already isolates the item link, so the reveal trigger can stay interactive. */}
+                                    <AddressOutput
+                                        address={address}
+                                        className="truncate"
+                                        href={link}
+                                        isExternal={false}
+                                        label={label}
+                                        reveal={true}
+                                    />
                                     {index < parsedPublisher.length - 1 && ','}
                                 </object>
                             </span>

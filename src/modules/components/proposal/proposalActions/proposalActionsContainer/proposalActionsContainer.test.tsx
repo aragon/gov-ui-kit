@@ -51,7 +51,8 @@ describe('<ProposalActionsContainer /> component', () => {
         const context = { actionsCount: children.length };
         render(createTestComponent({ props: { children }, context }));
         expect(screen.queryByText(modulesCopy.proposalActionsContainer.emptyHeader)).not.toBeInTheDocument();
-        expect(screen.getAllByRole('button')).toHaveLength(children.length);
+        // One accordion trigger per item (the copy controls carry the "Copy" label).
+        expect(screen.getAllByRole('button', { name: /0x/i })).toHaveLength(children.length);
     });
 
     it('updates the list of expanded actions on action click', async () => {
@@ -62,7 +63,7 @@ describe('<ProposalActionsContainer /> component', () => {
         const setExpandedActions = jest.fn();
         const context = { actionsCount: children.length, setExpandedActions };
         render(createTestComponent({ props: { children }, context }));
-        await userEvent.click(screen.getAllByRole('button')[1]);
+        await userEvent.click(screen.getAllByRole('button', { name: /0x/i })[1]);
         expect(setExpandedActions).toHaveBeenCalledWith(['1']);
     });
 

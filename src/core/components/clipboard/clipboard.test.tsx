@@ -40,16 +40,9 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('renders avatar-white-bg variant', () => {
+    it('renders avatar-neutral variant', () => {
         const icon = IconType.COPY;
-        render(createTestComponent({ variant: 'avatar-white-bg' }));
-        expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
-        expect(screen.getByTestId(icon)).toBeInTheDocument();
-    });
-
-    it('renders avatar-neutral-white-bg variant', () => {
-        const icon = IconType.COPY;
-        render(createTestComponent({ variant: 'avatar-neutral-white-bg' }));
+        render(createTestComponent({ variant: 'avatar-neutral' }));
         expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
@@ -68,8 +61,7 @@ describe('<Clipboard /> component', () => {
 
         const variants: IClipboardProps['variant'][] = [
             'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
+            'avatar-neutral',
             'button',
         ];
 
@@ -89,8 +81,7 @@ describe('<Clipboard /> component', () => {
 
         const variants: IClipboardProps['variant'][] = [
             'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
+            'avatar-neutral',
             'button',
         ];
 
@@ -115,8 +106,7 @@ describe('<Clipboard /> component', () => {
 
         const variants: IClipboardProps['variant'][] = [
             'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
+            'avatar-neutral',
             'button',
         ];
 
