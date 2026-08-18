@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../icon';
 import * as InputHooks from '../hooks';
 import { type IInputNumberProps, InputNumber } from './inputNumber';
+
+const { useNumberMask: actualUseNumberMask } = jest.requireActual<typeof InputHooks>('../hooks');
 
 describe('<InputNumber /> component', () => {
     const useNumberMaskMock = jest.spyOn(InputHooks, 'useNumberMask');
@@ -22,6 +24,24 @@ describe('<InputNumber /> component', () => {
 
         return <InputNumber {...completeProps} />;
     };
+
+    // These cases run the real imask instance because a mocked mask cannot show what the pattern renders. Affixes are
+    // from the app's callsites: `suffix={tokenSymbol}` on token amounts, `prefix="≥" suffix={symbol}` on the proposal
+    // creation threshold. A symbol carrying a mask definition character is the case that breaks: `aUSDC` used to
+    // render as `_USDC`.
+    describe('prefix and suffix', () => {
+        beforeEach(() => {
+            useNumberMaskMock.mockImplementation(actualUseNumberMask);
+        });
+
+        it.each([
+            { props: { suffix: 'aUSDC' }, expected: '5 aUSDC' },
+            { props: { prefix: '≥', suffix: 'ETH' }, expected: '≥ 5 ETH' },
+        ])('renders $props as literal text instead of a mask pattern', async ({ props, expected }) => {
+            render(createTestComponent({ ...props, value: '5' }));
+            await waitFor(() => expect(screen.getByRole('textbox')).toHaveValue(expected));
+        });
+    });
 
     const testChangeValueLogic = async (values?: {
         props?: Partial<IInputNumberProps>;
