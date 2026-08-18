@@ -57,7 +57,6 @@ describe('<InputNumber /> component', () => {
             expect(onChange).toHaveBeenCalledWith('59');
         });
     });
-
     const testChangeValueLogic = async (values?: {
         props?: Partial<IInputNumberProps>;
         expectedValue?: string;

@@ -41,7 +41,7 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
     const { thousandsSeparator, radix } = getNumberSeparators();
 
     // imask parses the mask as a pattern: an unescaped character is matched against a mask definition (`0`, `a`, `*`)
-    // or a block name (`num`), so an unescaped suffix such as "days" renders as "d_ys". Escape every character to
+    // or a block name (`num`), so an unescaped suffix such as "aUSDC" renders as "_USDC". Escape every character to
     // keep the prefix and suffix literal.
     const maskPrefix = prefix?.replace(/./gsu, '\\$&') ?? '';
     const maskSuffix = suffix?.replace(/./gsu, '\\$&') ?? '';
