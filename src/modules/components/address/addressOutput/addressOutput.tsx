@@ -46,7 +46,16 @@ export interface IAddressOutputProps {
 }
 
 export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
-    const { address, label, showCompleteAddress = false, href, isExternal = true, copy = true, reveal = true, className } = props;
+    const {
+        address,
+        label,
+        showCompleteAddress = false,
+        href,
+        isExternal = true,
+        copy = true,
+        reveal = true,
+        className,
+    } = props;
 
     const isLink = href != null && href.length > 0;
 
@@ -131,7 +140,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
 
     const text = <span className={classNames('min-w-0', className)}>{displayLabel}</span>;
 
-    const display =
+    const labelElement =
         href == null ? (
             text
         ) : (
@@ -140,14 +149,14 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
             </Link>
         );
 
-    let output = display;
+    let output = labelElement;
 
     if (reveal) {
         output = (
             <Tooltip content={checksumAddress} onOpenChange={handleOpenChange} open={isOpen} triggerAsChild={true}>
                 {isLink ? (
                     <span className="min-w-0 cursor-pointer" onPointerDown={handlePointerDown} ref={setTriggerRef}>
-                        {display}
+                        {labelElement}
                     </span>
                 ) : (
                     <button
@@ -156,7 +165,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
                         ref={setTriggerRef}
                         type="button"
                     >
-                        {display}
+                        {labelElement}
                     </button>
                 )}
             </Tooltip>

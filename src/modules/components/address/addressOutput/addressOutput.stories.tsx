@@ -15,7 +15,8 @@ const meta: Meta<typeof AddressOutput> = {
         },
         showCompleteAddress: {
             control: 'boolean',
-            description: 'Renders the full checksummed address instead of the truncated one. Ignored when label is set.',
+            description:
+                'Renders the full checksummed address instead of the truncated one. Ignored when label is set.',
         },
         href: {
             control: 'text',

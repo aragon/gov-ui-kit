@@ -59,11 +59,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-neutral',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleSubmit.mockReset();
@@ -79,11 +75,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger parent click handler when clicked', async () => {
         const handleParentClick = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-neutral',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleParentClick.mockReset();
@@ -104,11 +96,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger anchor navigation when clicked inside a link', async () => {
         const handleAnchorClick = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-neutral',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleAnchorClick.mockReset();

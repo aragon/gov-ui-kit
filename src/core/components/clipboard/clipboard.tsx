@@ -55,11 +55,7 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
             {(variant === 'avatar' || variant === 'avatar-neutral') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
                     <button aria-label={tooltipText} className="cursor-pointer" onClick={handleCopyClick} type="button">
-                        <AvatarIcon
-                            icon={icon}
-                            size={size}
-                            variant={variant === 'avatar' ? 'primary' : 'neutral'}
-                        />
+                        <AvatarIcon icon={icon} size={size} variant={variant === 'avatar' ? 'primary' : 'neutral'} />
                     </button>
                 </Tooltip>
             )}

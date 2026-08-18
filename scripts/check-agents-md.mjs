@@ -91,7 +91,9 @@ const readIfPresent = (filePath) => {
     try {
         return readFileSync(filePath, 'utf8');
     } catch (error) {
-        if (error.code === 'ENOENT') return null;
+        if (error.code === 'ENOENT') {
+            return null;
+        }
         throw error;
     }
 };
