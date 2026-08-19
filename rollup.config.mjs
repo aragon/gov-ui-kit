@@ -1,10 +1,13 @@
 import { createRequire } from 'node:module';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import commonjs from '@rollup/plugin-commonjs';
 import images from '@rollup/plugin-image';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import svgr from '@svgr/rollup';
+import tailwindcss from '@tailwindcss/postcss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -15,6 +18,10 @@ const tsConfig = require('./tsconfig.json');
 const { outDir } = tsConfig.compilerOptions;
 
 const analyze = process.env.ANALYZE === 'true';
+
+// Tailwind v4 scans for class candidates from the working directory, so `base` is pinned to keep the compiled CSS
+// identical no matter where the build runs from. `pnpm css:check` pins it the same way and compares the two.
+const repoRoot = dirname(fileURLToPath(import.meta.url));
 
 export default [
     {
@@ -60,6 +67,14 @@ export default [
     {
         input: 'index.css',
         output: { file: 'build.css' },
-        plugins: [postcss({ plugins: [], extract: true, minimize: true })],
+        // Minify through Tailwind's own optimizer (Lightning CSS): the postcss plugin's cssnano pass predates CSS
+        // nesting and merges the selector lists of nested rules, which leaks child styles across unrelated utilities.
+        plugins: [
+            postcss({
+                config: false,
+                plugins: [tailwindcss({ base: repoRoot, optimize: { minify: true } })],
+                extract: true,
+            }),
+        ],
     },
 ];
