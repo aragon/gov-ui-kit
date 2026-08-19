@@ -27,7 +27,8 @@
         "lint:check": "biome check --no-errors-on-unmatched --files-ignore-unknown=true",
         "type-check": "tsc --noemit",
         "agents:check": "node scripts/check-agents-md.mjs",
-        "agents:sync": "node scripts/sync-agents.mjs"
+        "agents:sync": "node scripts/sync-agents.mjs",
+        "css:check": "node scripts/check-build-css.mjs"
     },
     "repository": {
         "type": "git",

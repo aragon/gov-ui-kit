@@ -64,20 +64,17 @@ describe('useNumberMask hook', () => {
         );
     });
 
-    it('sets the defined prefix and suffix on the mask', () => {
-        const prefix = '>';
-        const suffix = 'ETH';
-        renderHook(() => useNumberMask({ prefix, suffix }));
+    it('escapes the defined prefix and suffix on the mask so that they render literally', () => {
+        renderHook(() => useNumberMask({ prefix: '≥', suffix: 'aUSDC' }));
         expect(maskMock).toHaveBeenCalledWith(
-            expect.objectContaining({ mask: `${prefix} num ${suffix}` }),
+            expect.objectContaining({ mask: '\\≥ num \\a\\U\\S\\D\\C' }),
             expect.anything(),
         );
     });
 
     it('correctly set the mask when only suffix is set', () => {
-        const suffix = '%';
-        renderHook(() => useNumberMask({ suffix }));
-        expect(maskMock).toHaveBeenCalledWith(expect.objectContaining({ mask: `num ${suffix}` }), expect.anything());
+        renderHook(() => useNumberMask({ suffix: '%' }));
+        expect(maskMock).toHaveBeenCalledWith(expect.objectContaining({ mask: 'num \\%' }), expect.anything());
     });
 
     it('updates the unmasked value on value property change for controlled inputs', () => {
