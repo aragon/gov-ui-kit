@@ -6,7 +6,7 @@ import { useGukCoreContext } from '../gukCoreProvider';
 import { IconType } from '../icon';
 import { Tooltip } from '../tooltip';
 
-export type ClipboardVariant = 'button' | 'avatar' | 'avatar-white-bg' | 'avatar-neutral-white-bg';
+export type ClipboardVariant = 'button' | 'avatar' | 'avatar-neutral';
 
 export interface IClipboardProps {
     /**
@@ -52,21 +52,22 @@ export const Clipboard: React.FC<IClipboardProps> = (props) => {
     return (
         <div className={classNames('flex items-center gap-2', className)}>
             {children}
-            {(variant === 'avatar' || variant === 'avatar-white-bg' || variant === 'avatar-neutral-white-bg') && (
+            {(variant === 'avatar' || variant === 'avatar-neutral') && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <button className="cursor-pointer" onClick={handleCopyClick} type="button">
-                        <AvatarIcon
-                            backgroundWhite={variant === 'avatar-white-bg' || variant === 'avatar-neutral-white-bg'}
-                            icon={icon}
-                            size={size}
-                            variant={variant === 'avatar-neutral-white-bg' ? 'neutral' : 'primary'}
-                        />
+                    <button aria-label={tooltipText} className="cursor-pointer" onClick={handleCopyClick} type="button">
+                        <AvatarIcon icon={icon} size={size} variant={variant === 'avatar' ? 'primary' : 'neutral'} />
                     </button>
                 </Tooltip>
             )}
             {variant === 'button' && (
                 <Tooltip content={tooltipText} triggerAsChild={true}>
-                    <Button iconLeft={icon} onClick={handleCopyClick} size={size} variant="tertiary" />
+                    <Button
+                        aria-label={tooltipText}
+                        iconLeft={icon}
+                        onClick={handleCopyClick}
+                        size={size}
+                        variant="tertiary"
+                    />
                 </Tooltip>
             )}
         </div>

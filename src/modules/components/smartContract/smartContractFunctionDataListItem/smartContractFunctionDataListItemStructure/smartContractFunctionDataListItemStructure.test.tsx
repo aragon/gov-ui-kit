@@ -68,7 +68,8 @@ describe('<SmartContractFunctionDataListItem.Structure /> component', () => {
 
     it('renders a dropdown to remove the function when onRemove is provided', async () => {
         render(createTestComponent({ onRemove: () => null }));
-        await userEvent.click(screen.getByRole('button'));
+        // The remove trigger is the DOTS_VERTICAL button; the copy control carries the "Copy" label.
+        await userEvent.click(screen.getByRole('button', { name: '' }));
         expect(
             screen.getByRole('menuitem', { name: modulesCopy.smartContractFunctionDataListItemStructure.remove }),
         ).toBeInTheDocument();

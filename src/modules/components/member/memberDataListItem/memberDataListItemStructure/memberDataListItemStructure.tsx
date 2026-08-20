@@ -1,16 +1,9 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import {
-    Clipboard,
-    DataList,
-    formatterUtils,
-    Heading,
-    type IDataListItemProps,
-    NumberFormat,
-    Tag,
-} from '../../../../../core';
+import { DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
+import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
 
@@ -77,6 +70,9 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
 
     const resolvedUserHandle = ensName != null && ensName.length > 0 ? ensName : addressUtils.truncateAddress(address);
 
+    // The item renders as a link or a button when interactive, so the reveal must not add a nested interactive trigger.
+    const isInteractiveItem = ('href' in otherProps && otherProps.href != null) || otherProps.onClick != null;
+
     const showDelegationOrTokenInformation = delegationCount != null || tokenAmount != null;
 
     const formattedDelegationCount = formatterUtils.formatNumber(delegationCount, {
@@ -106,9 +102,13 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 {isCurrentUser && <Tag label={copy.memberDataListItemStructure.you} variant="neutral" />}
             </div>
             <Heading as="h2" className="inline-block w-full truncate" size="h3">
-                <Clipboard copyValue={address} variant="avatar-neutral-white-bg">
-                    {resolvedUserHandle}
-                </Clipboard>
+                <AddressOutput
+                    address={address}
+                    className="truncate"
+                    copy={!isInteractiveItem}
+                    label={resolvedUserHandle}
+                    reveal={true}
+                />
             </Heading>
             {showDelegationOrTokenInformation && (
                 <div className="flex flex-col gap-y-2">

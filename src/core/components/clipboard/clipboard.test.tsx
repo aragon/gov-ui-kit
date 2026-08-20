@@ -40,16 +40,9 @@ describe('<Clipboard /> component', () => {
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
 
-    it('renders avatar-white-bg variant', () => {
+    it('renders avatar-neutral variant', () => {
         const icon = IconType.COPY;
-        render(createTestComponent({ variant: 'avatar-white-bg' }));
-        expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
-        expect(screen.getByTestId(icon)).toBeInTheDocument();
-    });
-
-    it('renders avatar-neutral-white-bg variant', () => {
-        const icon = IconType.COPY;
-        render(createTestComponent({ variant: 'avatar-neutral-white-bg' }));
+        render(createTestComponent({ variant: 'avatar-neutral' }));
         expect(screen.getByRole('button')).toBeInTheDocument(); // Tooltip wrapper button
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
@@ -66,12 +59,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger form submission when clicked', async () => {
         const handleSubmit = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleSubmit.mockReset();
@@ -87,12 +75,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger parent click handler when clicked', async () => {
         const handleParentClick = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleParentClick.mockReset();
@@ -113,12 +96,7 @@ describe('<Clipboard /> component', () => {
     it('does not trigger anchor navigation when clicked inside a link', async () => {
         const handleAnchorClick = jest.fn();
 
-        const variants: IClipboardProps['variant'][] = [
-            'avatar',
-            'avatar-white-bg',
-            'avatar-neutral-white-bg',
-            'button',
-        ];
+        const variants: IClipboardProps['variant'][] = ['avatar', 'avatar-neutral', 'button'];
 
         for (const variant of variants) {
             handleAnchorClick.mockReset();

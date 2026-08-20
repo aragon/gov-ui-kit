@@ -4,6 +4,7 @@ import { useEnsName } from 'wagmi';
 import { StateSkeletonBar } from '../../../core';
 import type { ICompositeAddress, IWeb3ComponentProps } from '../../types';
 import { addressUtils } from '../../utils';
+import { AddressOutput } from '../address/addressOutput';
 import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
 
@@ -27,7 +28,6 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     });
 
     const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
-    const resolvedUserTitle = user?.name ?? ensName ?? user?.address;
 
     const buttonClassName = classNames(
         'flex max-w-48 cursor-pointer items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
@@ -41,10 +41,14 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         <button className={buttonClassName} {...otherProps}>
             {!user && copy.wallet.connect}
             {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
+            {/* The handle sits inside the connect button, so a tap must keep triggering that button. */}
             {user && !isEnsLoading && (
-                <span className="hidden truncate xl:block" title={resolvedUserTitle}>
-                    {resolvedUserHandle}
-                </span>
+                <AddressOutput
+                    address={user.address}
+                    className="hidden truncate xl:block"
+                    label={resolvedUserHandle}
+                    reveal={true}
+                />
             )}
             {user && (
                 <MemberAvatar
