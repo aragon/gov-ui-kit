@@ -43,6 +43,20 @@ describe('<InputNumber /> component', () => {
         });
     });
 
+    describe('min and max bounds', () => {
+        beforeEach(() => {
+            useNumberMaskMock.mockImplementation(actualUseNumberMask);
+        });
+
+        // 59 is the app's duration-minutes bound. Without clamping the mask keeps the longest in-range prefix of the
+        // value instead, so 60 minutes rendered as 6.
+        it('clamps a value above max to max', async () => {
+            const onChange = jest.fn();
+            render(createTestComponent({ max: 59, value: '60', onChange }));
+            await waitFor(() => expect(screen.getByRole('textbox')).toHaveValue('59'));
+            expect(onChange).toHaveBeenCalledWith('59');
+        });
+    });
     const testChangeValueLogic = async (values?: {
         props?: Partial<IInputNumberProps>;
         expectedValue?: string;
