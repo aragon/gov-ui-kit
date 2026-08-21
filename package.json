@@ -145,7 +145,7 @@
         "turbo": "^2.10.9",
         "typescript": "^5.9.3",
         "ultracite": "7.8.3",
-        "vercel": "58.4.4",
+        "vercel": "59.1.4",
         "viem": "^2.55.13",
         "vite": "^8.2.1",
         "vite-plugin-static-copy": "^4.1.1",
