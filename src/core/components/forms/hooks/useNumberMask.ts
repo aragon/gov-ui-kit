@@ -59,7 +59,19 @@ export const useNumberMask = (props: IUseNumberMaskProps): IUseNumberMaskResult 
             mask: numberMask,
             eager: true, // Displays eventual suffix on user input
             blocks: {
-                num: { mask: Number, radix, thousandsSeparator, scale: defaultScale, max: maskMax, min: maskMin },
+                num: {
+                    mask: Number,
+                    radix,
+                    thousandsSeparator,
+                    scale: defaultScale,
+                    max: maskMax,
+                    min: maskMin,
+                    // Clamp out-of-range values to the boundary. Without it imask rejects the offending character
+                    // instead, keeping the longest in-range prefix, so 60 renders as 6 when max is 59. Bounds are
+                    // enforced here, which is why a value can never be displayed out of range — a caller that needs
+                    // an out-of-range error state has to validate outside the mask.
+                    autofix: true,
+                },
             },
         },
         { onAccept: handleMaskAccept },
