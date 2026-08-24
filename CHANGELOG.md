@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 2.10.0
+
+### Minor Changes
+
+- [#754](https://github.com/aragon/gov-ui-kit/pull/754) [`82c2425`](https://github.com/aragon/gov-ui-kit/commit/82c2425a968006aee32996a96e68c12ff5deda86) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Implement AddressOutput component with reveal, copy and external link functionality
+
+### Patch Changes
+
+- [#751](https://github.com/aragon/gov-ui-kit/pull/751) [`9ac04d4`](https://github.com/aragon/gov-ui-kit/commit/9ac04d469a1f5b380df8384a908e9db707fb2c98) Thanks [@tyhonchik](https://github.com/tyhonchik)! - Update dependencies, resolve all `pnpm audit` findings (40 → 0, incl. 1 critical in `tar`), bump pinned pnpm to 11.21.0 and drop corepack from the setup flow
+
+- [#746](https://github.com/aragon/gov-ui-kit/pull/746) [`57a1c3e`](https://github.com/aragon/gov-ui-kit/commit/57a1c3ed7f2f5dc8f950ad23b58f0b1aabdfcb74) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Clamp out-of-range `InputNumber` and `InputNumberMax` values to `min`/`max` instead of dropping the character that breaches the bound, which kept the longest in-range prefix and so replaced the value with a different number: `60` rendered as `6` in a field with `max={59}`, and `101` as `10` with `max={100}`, for typed, pasted and controlled values alike. `max` is a hard ceiling, so an out-of-range error state must be rendered through the `alert` property rather than by setting `max`. `min` is raised on a committed value but cannot block partial input, so a minimum a user must not breach needs form validation.
+
+- [#745](https://github.com/aragon/gov-ui-kit/pull/745) [`2f28567`](https://github.com/aragon/gov-ui-kit/commit/2f28567667992ca659ebd0eb49013d8b6cffb6c5) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Fix the precompiled `build.css` bundle, which was minified by a nesting-unaware pass that merged the selector lists of Tailwind's nested variant rules: ~140 `2xl:*` utilities removed the border of their last child and ~54 `md:*` utilities gave every child a right border, so consumers of the published CSS saw stray vertical bars on components such as `AlertCard` and `Accordion`. The bundle is now minified by Tailwind's own optimizer, and `pnpm css:check` fails in CI whenever it stops matching a source compile.
+
+    Also render `InputNumber` and `InputNumberMax` `prefix`/`suffix` values literally instead of parsing them as imask pattern definitions — a token symbol carrying a definition character was corrupted, so `suffix="aUSDC"` rendered as `_USDC`.
+
 ## 2.9.0
 
 ### Minor Changes
