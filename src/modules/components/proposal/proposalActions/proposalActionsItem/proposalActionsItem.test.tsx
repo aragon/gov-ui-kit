@@ -67,7 +67,7 @@ describe('<ProposalActionsItem /> component', () => {
 
     it('renders the action on an accordion and expands it on click', async () => {
         render(createTestComponent());
-        const actionButton = screen.getByRole('button');
+        const actionButton = screen.getByRole('button', { name: /0x|to|from|transfer/i });
         expect(actionButton).toBeInTheDocument();
         expect(actionButton.dataset.state).toEqual('closed');
         await userEvent.click(actionButton);
@@ -78,7 +78,7 @@ describe('<ProposalActionsItem /> component', () => {
         const params = [{ name: 'amount', type: 'uint', value: null }];
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x/i }));
         expect(
             screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }),
         ).toBeInTheDocument();
@@ -87,7 +87,7 @@ describe('<ProposalActionsItem /> component', () => {
     it('does not render a dropdown when only one view mode is available', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x/i }));
         expect(
             screen.queryByRole('button', {
                 name: modulesCopy.proposalActionsItem.menu.dropdownLabel,
@@ -98,7 +98,7 @@ describe('<ProposalActionsItem /> component', () => {
     it('defaults the view-mode to raw and read mode when action has no custom component and is not verified', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         const actionDecoder = screen.getByTestId('decoder-mock');
         expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.RAW);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
@@ -107,7 +107,7 @@ describe('<ProposalActionsItem /> component', () => {
     it('defaults the view-mode to decoded and read mode when action has no custom component, is verified but has no parameters', async () => {
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: [] } });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         const actionDecoder = screen.getByTestId('decoder-mock');
         expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
@@ -117,7 +117,7 @@ describe('<ProposalActionsItem /> component', () => {
         const params = [{ name: 'test', type: 'uint', value: '' }];
         const action = generateProposalAction({ inputData: { function: '', contract: '', parameters: params } });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         const actionDecoder = screen.getByTestId('decoder-mock');
         expect(actionDecoder.dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
         expect(actionDecoder.dataset.mode).toEqual(ProposalActionsDecoderMode.READ);
@@ -127,7 +127,7 @@ describe('<ProposalActionsItem /> component', () => {
         isActionSupportedSpy.mockReturnValue(true);
         const action = generateProposalAction();
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.getByTestId('basic-view-mock')).toBeInTheDocument();
     });
 
@@ -135,7 +135,7 @@ describe('<ProposalActionsItem /> component', () => {
         const CustomComponent = () => 'custom';
         const action = generateProposalAction();
         render(createTestComponent({ action, CustomComponent }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.getByTestId('basic-view-mock')).toBeInTheDocument();
     });
 
@@ -149,7 +149,7 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction({ value: '1000000000000000000', data: '0xabc' });
         render(createTestComponent({ action, chainId: 137 }));
         expect(screen.getByTestId(IconType.WARNING)).toBeInTheDocument();
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendAlert)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsItem.nativeSendDescription('1', 'POL')));
     });
@@ -157,7 +157,7 @@ describe('<ProposalActionsItem /> component', () => {
     it('renders decode warning when action is raw calldata and raw view is active', async () => {
         const action = generateProposalAction({ type: 'RAW_CALLDATA', inputData: null });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.getByText(modulesCopy.proposalActionsItem.decodeWarningAlert)).toBeInTheDocument();
         expect(screen.getByText(modulesCopy.proposalActionsItem.decodeWarningDescription)).toBeInTheDocument();
     });
@@ -174,7 +174,7 @@ describe('<ProposalActionsItem /> component', () => {
     it('does not render decode warning for regular unverified actions', async () => {
         const action = generateProposalAction({ inputData: null });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.queryByText(modulesCopy.proposalActionsItem.decodeWarningAlert)).not.toBeInTheDocument();
     });
 
@@ -182,7 +182,7 @@ describe('<ProposalActionsItem /> component', () => {
         const params = [{ name: 'amount', type: 'uint', value: null }];
         const action = generateProposalAction({ inputData: { contract: '', function: '', parameters: params } });
         render(createTestComponent({ action }));
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
         expect(screen.getByTestId('decoder-mock').dataset.view).toEqual(ProposalActionsDecoderView.DECODED);
 
         await userEvent.click(screen.getByRole('button', { name: modulesCopy.proposalActionsItem.menu.dropdownLabel }));
@@ -298,7 +298,7 @@ describe('<ProposalActionsItem /> component', () => {
         const action = generateProposalAction();
         render(createTestComponent({ arrayControls, action, editMode: false, actionCount: 3, index: 1 }));
 
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: /0x|to|from|transfer/i }));
 
         expect(screen.queryByText('2 of 3')).not.toBeInTheDocument();
         expect(screen.queryByRole('button', { name: /move up/i })).not.toBeInTheDocument();

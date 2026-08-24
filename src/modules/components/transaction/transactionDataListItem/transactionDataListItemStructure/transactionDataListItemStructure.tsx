@@ -11,6 +11,7 @@ import {
 } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
 import { addressUtils } from '../../../../utils';
+import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
     type ITransactionDataListItemProps,
@@ -78,7 +79,8 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
 
     // Executions display the executor label (a plugin name or a truncated address) and an action count instead of a
     // token amount; every other transaction type keeps the transfer layout untouched.
-    const processedLabel = label != null && addressUtils.isAddress(label) ? addressUtils.truncateAddress(label) : label;
+    const addressLabel = label != null && addressUtils.isAddress(label) ? label : undefined;
+    const processedLabel = addressLabel == null ? label : addressUtils.truncateAddress(addressLabel);
     const processedValue = isExecution ? componentCopy.actionCount(actionCount as number) : processedTokenAmount;
     const showValue = !hideValue && !isExecution;
 
@@ -103,7 +105,15 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                 <span className="text-neutral-800 leading-tight md:text-lg">
                     {typeToHeading[type]}
                     {isExecution && processedLabel != null && (
-                        <span className="text-neutral-500"> {processedLabel}</span>
+                        <span className="text-neutral-500">
+                            {' '}
+                            {addressLabel == null ? (
+                                processedLabel
+                            ) : (
+                                // The item always renders as a link, so a tap must keep opening the block explorer.
+                                <AddressOutput address={addressLabel} reveal={true} />
+                            )}
+                        </span>
                     )}
                 </span>
                 {date && (

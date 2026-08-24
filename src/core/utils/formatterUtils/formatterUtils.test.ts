@@ -289,16 +289,16 @@ describe('formatter utils', () => {
                 { value: '2024-10-22T00:10:12', result: 'yesterday at 00:10', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-24T23:59:59', result: 'tomorrow at 23:59', now: '2024-10-23T15:33:12' },
                 { value: '2024-10-25T00:00:00', result: 'October 25, 2024 at 00:00', now: '2024-10-23T15:33:12' },
-            ])('formats $value as $result using YEAR_MONTH_DAY_TIME format (now: $now)', ({
-                now,
-                value,
-                result,
-                locale,
-            }) => {
-                setLocale({ date: locale });
-                setTime(now);
-                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(result);
-            });
+            ])(
+                'formats $value as $result using YEAR_MONTH_DAY_TIME format (now: $now)',
+                ({ now, value, result, locale }) => {
+                    setLocale({ date: locale });
+                    setTime(now);
+                    expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY_TIME })).toEqual(
+                        result,
+                    );
+                },
+            );
         });
 
         describe('YEAR_MONTH_DAY format', () => {
@@ -312,16 +312,14 @@ describe('formatter utils', () => {
                 { value: '2001-05-19T22:05:01', result: 'yesterday', now: '2001-05-20T05:05:00' },
                 { value: '2001-05-18T23:05:01', result: 'May 18, 2001', now: '2001-05-20T05:05:00' },
                 { value: '2001-05-22T00:00:01', result: 'May 22, 2001', now: '2001-05-20T05:05:00' },
-            ])('formats $value as $result using YEAR_MONTH_DAY format (now: $now)', ({
-                now,
-                value,
-                result,
-                locale,
-            }) => {
-                setLocale({ date: locale });
-                setTime(now);
-                expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
-            });
+            ])(
+                'formats $value as $result using YEAR_MONTH_DAY format (now: $now)',
+                ({ now, value, result, locale }) => {
+                    setLocale({ date: locale });
+                    setTime(now);
+                    expect(formatterUtils.formatDate(value, { format: DateFormat.YEAR_MONTH_DAY })).toEqual(result);
+                },
+            );
         });
 
         describe('YEAR_MONTH format', () => {

@@ -179,6 +179,16 @@
             }
         },
         {
+            "includes": ["scripts/**"],
+            "linter": {
+                "rules": {
+                    "suspicious": {
+                        "noConsole": "off"
+                    }
+                }
+            }
+        },
+        {
             "includes": ["**/*.test.ts", "**/*.test.tsx"],
             "linter": {
                 "rules": {

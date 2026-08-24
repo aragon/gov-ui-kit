@@ -1,17 +1,8 @@
 import classNames from 'classnames';
 import { mainnet } from 'viem/chains';
-import {
-    Button,
-    DataList,
-    Dropdown,
-    Icon,
-    IconType,
-    type IDataListItemProps,
-    Link,
-    LinkBase,
-} from '../../../../../core';
+import { Button, DataList, Dropdown, Icon, IconType, type IDataListItemProps, LinkBase } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
-import { addressUtils } from '../../../../utils';
+import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {
@@ -96,9 +87,7 @@ export const SmartContractFunctionDataListItemStructure: React.FC<ISmartContract
                     <p className="text-neutral-500">{contractLabel}</p>
                     {/* Using solution from https://kizu.dev/nested-links/ to nest anchor tags */}
                     <object type="unknown">
-                        <Link className="shrink-0" href={blockExplorerHref} isExternal={true}>
-                            {addressUtils.truncateAddress(contractAddress)}
-                        </Link>
+                        <AddressOutput address={contractAddress} href={blockExplorerHref} reveal={true} />
                     </object>
                 </LinkBase>
             </div>

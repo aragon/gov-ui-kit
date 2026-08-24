@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { DateFormat, DefinitionList, formatterUtils } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import { addressUtils } from '../../../utils';
+import { AddressOutput } from '../../address/addressOutput';
 import { useGukModulesContext } from '../../gukModulesProvider';
 import type { ITransactionDetailSummaryProps } from './transactionDetailSummary.api';
 
@@ -53,7 +54,11 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     link={executedByLink}
                     term={componentCopy.executedBy}
                 >
-                    {executedByLabel}
+                    {executorAddress == null ? (
+                        executedByLabel
+                    ) : (
+                        <AddressOutput address={executorAddress} copy={false} label={executedByLabel} reveal={true} />
+                    )}
                 </DefinitionList.Item>
                 {proposalId != null && (
                     <DefinitionList.Item
@@ -70,7 +75,12 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     link={{ href: transactionHref }}
                     term={componentCopy.transaction}
                 >
-                    {addressUtils.truncateHash(transactionHash)}
+                    <AddressOutput
+                        address={transactionHash}
+                        copy={false}
+                        label={addressUtils.truncateHash(transactionHash)}
+                        reveal={true}
+                    />
                 </DefinitionList.Item>
                 <DefinitionList.Item term={componentCopy.executedOn}>{formattedDate}</DefinitionList.Item>
             </DefinitionList.Container>

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Icon, IconType, LinkBase } from '../../../../../core';
 import type { ICompositeAddress } from '../../../../types';
 import { addressUtils } from '../../../../utils';
+import { AddressOutput } from '../../../address/addressOutput';
 import { MemberAvatar } from '../../../member';
 
 export type TxRole = 'sender' | 'recipient';
@@ -67,9 +68,12 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
                 <div className="flex items-center space-x-1">
-                    <span className="truncate font-normal text-neutral-800 text-sm leading-tight md:text-base">
-                        {resolvedUserHandle}
-                    </span>
+                    <AddressOutput
+                        address={participant.address}
+                        className="truncate font-normal text-neutral-800 text-sm leading-tight md:text-base"
+                        label={resolvedUserHandle}
+                        reveal={true}
+                    />
                     <Icon
                         className="float-right text-neutral-300 group-hover:text-primary-300 group-active:text-primary-400"
                         icon={IconType.LINK_EXTERNAL}
