@@ -57,7 +57,7 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
 
     const blockiesSrc =
         resolvedAddress && !ssrUtils.isServer()
-            ? blockies.create({ seed: addressUtils.getChecksum(resolvedAddress), scale: 8, size: 8 }).toDataURL()
+            ? blockies.create({ seed: resolvedAddress.toLowerCase(), scale: 4, size: 8 }).toDataURL()
             : undefined;
 
     const isLoading = avatarLoading || nameLoading || addressLoading;
