@@ -54,7 +54,7 @@ export const MemberAvatar: React.FC<IMemberAvatarProps> = (props) => {
     const ensMetadataAvatarSrc =
         resolvedName == null ? undefined : `https://metadata.ens.domains/mainnet/avatar/${normalize(resolvedName)}`;
     const resolvedAvatarSrc = avatarSrc ?? ensAvatarData ?? ensMetadataAvatarSrc;
-
+    // Match Ethereum Blockies' lowercase seed convention so security icons stay comparable across apps.
     const blockiesSrc =
         resolvedAddress && !ssrUtils.isServer()
             ? blockies.create({ seed: resolvedAddress.toLowerCase(), scale: 4, size: 8 }).toDataURL()
