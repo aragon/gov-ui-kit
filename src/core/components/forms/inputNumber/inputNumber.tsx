@@ -10,12 +10,14 @@ import { type IInputComponentProps, InputContainer } from '../inputContainer';
 export interface IInputNumberProps
     extends Omit<IInputComponentProps, 'onChange' | 'step' | 'min' | 'max' | 'maxLength'> {
     /**
-     * The minimum value that the number input accepts.
+     * Lower bound of the input. A committed value below it is raised to it, but partial input is not blocked (typing
+     * `5` on the way to `50` must work), so a minimum the user must not breach needs form validation, not this prop.
      * @default Number.MIN_SAFE_INTEGER
      */
     min?: number;
     /**
-     * The maximum value that the number input accepts.
+     * Upper bound of the input. Values above it are clamped to it, so render an out-of-range error state through the
+     * `alert` property rather than by setting `max`.
      * @default Number.MAX_SAFE_INTEGER
      */
     max?: number;

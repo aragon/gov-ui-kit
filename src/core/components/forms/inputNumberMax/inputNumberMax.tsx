@@ -6,7 +6,8 @@ import { type IInputComponentProps, InputContainer } from '../inputContainer';
 
 export interface IInputNumberMaxProps extends Omit<IInputComponentProps, 'maxLength' | 'onChange'> {
     /**
-     * Maximum number set on max button click.
+     * Maximum number set on max button click. It is also the ceiling the input accepts: values above it are clamped to
+     * it, so use the `alert` property to display an out-of-range value in an error state.
      */
     max: number;
     /**

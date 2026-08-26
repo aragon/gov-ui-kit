@@ -86,7 +86,7 @@ describe('<MemberAvatar /> component', () => {
         const address = '0x028F5Ca0b3A3A14e44AB8af660B53D1e428457e7';
         render(createTestComponent({ address }));
 
-        expect(blockiesCreateMock).toHaveBeenCalledWith(expect.objectContaining({ seed: address }));
+        expect(blockiesCreateMock).toHaveBeenCalledWith(expect.objectContaining({ seed: address.toLowerCase() }));
         expect(screen.getByRole('img')).toHaveAttribute('src', blockiesUrl);
     });
 
