@@ -110,8 +110,9 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                             {addressLabel == null ? (
                                 processedLabel
                             ) : (
-                                // The item always renders as a link, so a tap must keep opening the block explorer.
-                                <AddressOutput address={addressLabel} reveal={true} />
+                                // The item always renders as a link, so the address stays plain text: a nested copy or
+                                // reveal control would compete with the block explorer navigation.
+                                <AddressOutput address={addressLabel} copy={false} reveal={false} />
                             )}
                         </span>
                     )}

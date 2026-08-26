@@ -46,8 +46,9 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                 <AddressOutput
                     address={user.address}
                     className="hidden truncate xl:block"
+                    copy={false}
                     label={resolvedUserHandle}
-                    reveal={true}
+                    reveal={false}
                 />
             )}
             {user && (
