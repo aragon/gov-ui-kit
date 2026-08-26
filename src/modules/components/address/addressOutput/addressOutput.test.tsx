@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { clipboardUtils } from '../../../../core';
+import { clipboardUtils, DataList } from '../../../../core';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
 
 describe('<AddressOutput /> component', () => {
@@ -113,6 +113,28 @@ describe('<AddressOutput /> component', () => {
         render(createTestComponent({ copy: false, reveal: false }));
         expect(screen.queryByRole('button')).not.toBeInTheDocument();
         expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    });
+
+    it('renders no controls inside a link container', () => {
+        render(<DataList.Item href="https://etherscan.io">{createTestComponent()}</DataList.Item>);
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByRole('link')).toHaveTextContent('0xd8da…6045');
+    });
+
+    it('renders no controls inside a clickable container', () => {
+        render(<DataList.Item onClick={jest.fn()}>{createTestComponent()}</DataList.Item>);
+        expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument();
+        expect(screen.getAllByRole('button')).toHaveLength(1);
+    });
+
+    it('keeps the controls inside a container when the flags are set explicitly', () => {
+        render(
+            <DataList.Item href="https://etherscan.io">
+                {createTestComponent({ copy: true, reveal: true })}
+            </DataList.Item>,
+        );
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: '0xd8da…6045' })).toBeInTheDocument();
     });
 
     it('displays the value as is when it is not a valid address', async () => {

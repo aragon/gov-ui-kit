@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
-import { StateSkeletonBar } from '../../../core';
+import { InteractiveAncestorProvider, StateSkeletonBar } from '../../../core';
 import type { ICompositeAddress, IWeb3ComponentProps } from '../../types';
 import { addressUtils } from '../../utils';
 import { AddressOutput } from '../address/addressOutput';
@@ -38,28 +38,28 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     );
 
     return (
-        <button className={buttonClassName} {...otherProps}>
-            {!user && copy.wallet.connect}
-            {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
-            {/* The handle sits inside the connect button, so a tap must keep triggering that button. */}
-            {user && !isEnsLoading && (
-                <AddressOutput
-                    address={user.address}
-                    className="hidden truncate xl:block"
-                    label={resolvedUserHandle}
-                    reveal={true}
-                />
-            )}
-            {user && (
-                <MemberAvatar
-                    address={user.address}
-                    avatarSrc={user.avatarSrc}
-                    chainId={chainId}
-                    ensName={user.name}
-                    size="lg"
-                    wagmiConfig={wagmiConfig}
-                />
-            )}
-        </button>
+        <InteractiveAncestorProvider value={true}>
+            <button className={buttonClassName} {...otherProps}>
+                {!user && copy.wallet.connect}
+                {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
+                {user && !isEnsLoading && (
+                    <AddressOutput
+                        address={user.address}
+                        className="hidden truncate xl:block"
+                        label={resolvedUserHandle}
+                    />
+                )}
+                {user && (
+                    <MemberAvatar
+                        address={user.address}
+                        avatarSrc={user.avatarSrc}
+                        chainId={chainId}
+                        ensName={user.name}
+                        size="lg"
+                        wagmiConfig={wagmiConfig}
+                    />
+                )}
+            </button>
+        </InteractiveAncestorProvider>
     );
 };

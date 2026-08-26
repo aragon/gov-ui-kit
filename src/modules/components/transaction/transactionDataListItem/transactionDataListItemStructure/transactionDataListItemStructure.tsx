@@ -107,12 +107,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     {isExecution && processedLabel != null && (
                         <span className="text-neutral-500">
                             {' '}
-                            {addressLabel == null ? (
-                                processedLabel
-                            ) : (
-                                // The item always renders as a link, so a tap must keep opening the block explorer.
-                                <AddressOutput address={addressLabel} reveal={true} />
-                            )}
+                            {addressLabel == null ? processedLabel : <AddressOutput address={addressLabel} />}
                         </span>
                     )}
                 </span>

@@ -91,10 +91,12 @@ export const ProposalDataListItemStructure: React.FC<IProposalDataListItemStruct
                         parsedPublisher.map(({ address, label, link }, index) => (
                             <span className="truncate" key={`${address}-${index.toString()}`}>
                                 <object className="flex shrink" type="unknown">
-                                    {/* The object element already isolates the item link, so the reveal trigger can stay interactive. */}
+                                    {/* The object element isolates the item link, so the controls stay interactive
+                                        here and opt out of the container's suppression explicitly. */}
                                     <AddressOutput
                                         address={address}
                                         className="truncate"
+                                        copy={true}
                                         href={link}
                                         isExternal={false}
                                         label={label}

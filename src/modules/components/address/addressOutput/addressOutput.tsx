@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { type PointerEvent as ReactPointerEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { Clipboard, Link, Tooltip } from '../../../../core';
+import { Clipboard, Link, Tooltip, useInteractiveAncestor } from '../../../../core';
 import { addressUtils } from '../../../utils';
 
 export interface IAddressOutputProps {
@@ -30,13 +30,14 @@ export interface IAddressOutputProps {
      */
     isExternal?: boolean;
     /**
-     * Renders an inline copy control that copies the full checksummed address.
-     * @default true
+     * Renders an inline copy control that copies the full checksummed address. Defaults to `true`, or to `false`
+     * inside an interactive container such as a link or a data list row, where a nested control would be invalid
+     * markup and compete for the click. Set explicitly to override.
      */
     copy?: boolean;
     /**
-     * Reveals the full checksummed address on hover, keyboard focus and tap.
-     * @default true
+     * Reveals the full checksummed address on hover, keyboard focus and tap. Defaults to `true`, or to `false` inside
+     * an interactive container, for the same reason as `copy`. Set explicitly to override.
      */
     reveal?: boolean;
     /**
@@ -46,16 +47,13 @@ export interface IAddressOutputProps {
 }
 
 export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
-    const {
-        address,
-        label,
-        showCompleteAddress = false,
-        href,
-        isExternal = true,
-        copy = true,
-        reveal = true,
-        className,
-    } = props;
+    const { address, label, showCompleteAddress = false, href, isExternal = true, copy, reveal, className } = props;
+
+    const hasInteractiveAncestor = useInteractiveAncestor();
+
+    // The container knows whether a nested control is legal here; the props stay as an explicit override.
+    const showCopy = copy ?? !hasInteractiveAncestor;
+    const showReveal = reveal ?? !hasInteractiveAncestor;
 
     const isLink = href != null && href.length > 0;
 
@@ -151,7 +149,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
 
     let output = labelElement;
 
-    if (reveal) {
+    if (showReveal) {
         output = (
             <Tooltip content={checksumAddress} onOpenChange={handleOpenChange} open={isOpen} triggerAsChild={true}>
                 {isLink ? (
@@ -173,7 +171,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     }
 
     // The copy control matches the label: primary circle on a link, neutral circle on plain text.
-    if (copy) {
+    if (showCopy) {
         return (
             <Clipboard copyValue={checksumAddress} size="sm" variant={isLink ? 'avatar' : 'avatar-neutral'}>
                 {output}

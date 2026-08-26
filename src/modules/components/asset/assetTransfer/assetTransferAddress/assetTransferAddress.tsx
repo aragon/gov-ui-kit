@@ -72,7 +72,6 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                         address={participant.address}
                         className="truncate font-normal text-neutral-800 text-sm leading-tight md:text-base"
                         label={resolvedUserHandle}
-                        reveal={true}
                     />
                     <Icon
                         className="float-right text-neutral-300 group-hover:text-primary-300 group-active:text-primary-400"

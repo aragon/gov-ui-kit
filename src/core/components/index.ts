@@ -16,6 +16,7 @@ export * from './gukCoreProvider';
 export * from './heading';
 export * from './icon';
 export * from './illustrations';
+export * from './interactiveAncestor';
 export * from './link';
 export * from './progress';
 export * from './rerender';

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { AnchorHTMLAttributes, HTMLAttributes } from 'react';
+import { InteractiveAncestorProvider } from '../../interactiveAncestor';
 import { LinkBase } from '../../link';
 
 export type DataListItemVariant = 'primary' | 'select';
@@ -64,15 +65,17 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         };
 
         return (
-            // biome-ignore lint/a11y/useSemanticElements: interactive div with keyboard support matching existing API
-            <div
-                className={actionItemClasses}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                role="button"
-                tabIndex={0}
-                {...divProps}
-            />
+            <InteractiveAncestorProvider value={true}>
+                {/* biome-ignore lint/a11y/useSemanticElements: interactive div with keyboard support matching existing API */}
+                <div
+                    className={actionItemClasses}
+                    onClick={handleClick}
+                    onKeyDown={handleKeyDown}
+                    role="button"
+                    tabIndex={0}
+                    {...divProps}
+                />
+            </InteractiveAncestorProvider>
         );
     }
 
