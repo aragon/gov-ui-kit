@@ -30,15 +30,24 @@ export interface IAddressOutputProps {
      */
     isExternal?: boolean;
     /**
-     * Renders an inline copy control that copies the full checksummed address.
+     * Renders an inline copy control that copies the full checksummed address. Defaults to `false` when
+     * `hasInteractiveAncestor` is set, since a copy button cannot nest inside another interactive element.
      * @default true
      */
     copy?: boolean;
     /**
-     * Reveals the full checksummed address on hover, keyboard focus and tap.
+     * Reveals the full checksummed address on hover, keyboard focus and tap. Keyboard focus and tap fall away when
+     * `hasInteractiveAncestor` is set, leaving the hover reveal.
      * @default true
      */
     reveal?: boolean;
+    /**
+     * Set by containers that are themselves interactive, such as a link, a button or a clickable row. The reveal then
+     * hangs off a non-focusable trigger and the copy control defaults away, so the component never nests an
+     * interactive control inside another one, adds a tab stop, or competes for the container's click.
+     * @default false
+     */
+    hasInteractiveAncestor?: boolean;
     /**
      * Additional class names for the label.
      */
@@ -52,12 +61,16 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
         showCompleteAddress = false,
         href,
         isExternal = true,
-        copy = true,
+        hasInteractiveAncestor = false,
+        copy = !hasInteractiveAncestor,
         reveal = true,
         className,
     } = props;
 
     const isLink = href != null && href.length > 0;
+
+    // A link label and an interactive container both rule out a focusable trigger of our own.
+    const usePassiveTrigger = isLink || hasInteractiveAncestor;
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -94,8 +107,8 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
             return;
         }
 
-        // A tap on a link label must navigate instead of toggling the reveal.
-        if (isLink) {
+        // A tap belongs to the link label or to the surrounding container, never to the reveal.
+        if (usePassiveTrigger) {
             suppressOpenRef.current = true;
             return;
         }
@@ -154,8 +167,12 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     if (reveal) {
         output = (
             <Tooltip content={checksumAddress} onOpenChange={handleOpenChange} open={isOpen} triggerAsChild={true}>
-                {isLink ? (
-                    <span className="min-w-0 cursor-pointer" onPointerDown={handlePointerDown} ref={setTriggerRef}>
+                {usePassiveTrigger ? (
+                    <span
+                        className={classNames('min-w-0', { 'cursor-pointer': isLink, 'cursor-help': !isLink })}
+                        onPointerDown={handlePointerDown}
+                        ref={setTriggerRef}
+                    >
                         {labelElement}
                     </span>
                 ) : (

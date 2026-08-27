@@ -43,7 +43,7 @@ describe('<Wallet /> component', () => {
     it('renders connect button when disconnected', () => {
         render(createTestComponent());
         const button = screen.getByRole('button');
-        expect(button).toHaveTextContent('Connect');
+        expect(button).toHaveAccessibleName('Connect');
     });
 
     it('renders a loading indicator when loading the user ENS name', () => {
@@ -101,5 +101,13 @@ describe('<Wallet /> component', () => {
         expect(useEnsNameMock).toHaveBeenCalledWith(expect.objectContaining({ chainId, config: wagmiConfig }));
         const avatar = screen.getByTestId('member-avatar-mock');
         expect(avatar.dataset.chainid).toEqual(chainId.toString());
+    });
+
+    it('keeps full address controls available when connected', () => {
+        const user = { address: '0x0987654321098765432109876543210987654321' };
+        render(createTestComponent({ user }));
+
+        expect(screen.getAllByRole('button')).toHaveLength(3);
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
     });
 });

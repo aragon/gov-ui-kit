@@ -67,9 +67,6 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
     const resolvedUserHandle =
         voter.name != null && voter.name.length > 0 ? voter.name : addressUtils.truncateAddress(voter.address);
 
-    // The item renders as a link or a button when interactive, so the reveal must not add a nested interactive trigger.
-    const isInteractiveItem = ('href' in otherProps && otherProps.href != null) || otherProps.onClick != null;
-
     const formattedTokenNumber = formatterUtils.formatNumber(votingPower, { format: NumberFormat.TOKEN_AMOUNT_SHORT });
     const formattedTokenVote =
         formattedTokenNumber != null && tokenSymbol != null ? `${formattedTokenNumber} ${tokenSymbol}` : undefined;
@@ -93,13 +90,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
             />
             <div className={centerInfoClassNames}>
                 <span className="flex items-center gap-x-1 text-base text-neutral-800 md:gap-x-1.5 md:text-lg">
-                    <AddressOutput
-                        address={voter.address}
-                        className="truncate"
-                        copy={!isInteractiveItem}
-                        label={resolvedUserHandle}
-                        reveal={!isInteractiveItem}
-                    />
+                    <AddressOutput address={voter.address} className="truncate" label={resolvedUserHandle} />
                     {isDelegate && !isCurrentUser && (
                         <Tag label={copy.voteDataListItemStructure.yourDelegate} variant="primary" />
                     )}

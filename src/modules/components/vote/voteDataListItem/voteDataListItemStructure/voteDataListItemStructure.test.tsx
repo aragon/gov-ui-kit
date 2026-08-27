@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import * as viem from 'viem';
 import * as wagmi from 'wagmi';
 import { formatterUtils, NumberFormat } from '../../../../../core';
@@ -40,6 +41,27 @@ describe('<VoteDataListItemStructure /> component', () => {
         isAddressSpy.mockReset();
         getAddressSpy.mockReset();
         useConnectionSpy.mockReset();
+    });
+
+    it('keeps full address controls outside the row link', async () => {
+        const user = userEvent.setup();
+        const address = '0x1D03D98c0aac1f83860cec5156116FE68725642E';
+        render(
+            createTestComponent({
+                voter: { address, name: 'vitalik.eth' },
+                href: '/members/vitalik.eth',
+            }),
+        );
+
+        const row = screen.getByRole('link');
+        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(row).not.toContainElement(revealButton);
+        expect(row).not.toContainElement(copyButton);
+
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });
 
     it('renders the vote and the voter information', () => {

@@ -58,4 +58,16 @@ export const Complete: Story = {
     },
 };
 
+/**
+ * The item stays a whole-row link while AddressOutput keeps its reveal and copy controls outside the link.
+ */
+export const InteractiveItem: Story = {
+    args: {
+        ensName: 'vitalik.eth',
+        address: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045',
+        href: '/members/vitalik.eth',
+        onClick: () => undefined,
+    },
+};
+
 export default meta;

@@ -107,13 +107,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     {isExecution && processedLabel != null && (
                         <span className="text-neutral-500">
                             {' '}
-                            {addressLabel == null ? (
-                                processedLabel
-                            ) : (
-                                // The item always renders as a link, so the address stays plain text: a nested copy or
-                                // reveal control would compete with the block explorer navigation.
-                                <AddressOutput address={addressLabel} copy={false} reveal={false} />
-                            )}
+                            {addressLabel == null ? processedLabel : <AddressOutput address={addressLabel} />}
                         </span>
                     )}
                 </span>

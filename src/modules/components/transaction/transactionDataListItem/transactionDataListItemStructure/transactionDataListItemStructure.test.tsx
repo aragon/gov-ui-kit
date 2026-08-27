@@ -142,4 +142,17 @@ describe('<TransactionDataListItem.Structure /> component', () => {
         render(createTestComponent({ amountUsd, tokenAmount, type, hideValue: true }));
         expect(screen.queryByText(usdPrice)).not.toBeInTheDocument();
     });
+
+    it('keeps full executor controls outside the row link', () => {
+        const type = TransactionType.EXECUTION;
+        const label = '0x1234567890123456789012345678901234561234';
+        render(createTestComponent({ type, label, actionCount: 5, href: '/transactions/1' }));
+
+        const row = screen.getByRole('link');
+        const buttons = screen.getAllByRole('button');
+        expect(buttons).toHaveLength(2);
+        for (const button of buttons) {
+            expect(row).not.toContainElement(button);
+        }
+    });
 });

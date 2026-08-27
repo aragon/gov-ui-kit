@@ -67,4 +67,15 @@ export const TokenVotingLongNames: Story = {
     },
 };
 
+/**
+ * The item stays a whole-row link while AddressOutput keeps its reveal and copy controls outside the link.
+ */
+export const InteractiveItem: Story = {
+    args: {
+        voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
+        voteIndicator: 'yes',
+        href: '/members/vitalik.eth',
+    },
+};
+
 export default meta;

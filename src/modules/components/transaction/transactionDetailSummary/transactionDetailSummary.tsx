@@ -37,11 +37,13 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
     const executedByLabel =
         executorLabel ?? (executorAddress == null ? undefined : addressUtils.truncateAddress(executorAddress));
     const executedByLink =
-        executorHref == null
-            ? executorAddress == null
+        executorAddress == null
+            ? executorHref == null
                 ? undefined
-                : { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }) }
-            : { href: executorHref, isExternal: false };
+                : { href: executorHref, isExternal: false }
+            : executorHref == null
+              ? { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }), isOnchainEntity: true }
+              : { href: executorHref, isExternal: false, isOnchainEntity: true };
 
     const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME });
 
@@ -49,7 +51,6 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
         <div className={classNames('rounded-xl border border-neutral-100 bg-neutral-0 px-4 md:px-6', className)}>
             <DefinitionList.Container {...otherProps}>
                 <DefinitionList.Item
-                    copyValue={executorAddress}
                     description={executorHelptext}
                     link={executedByLink}
                     term={componentCopy.executedBy}
@@ -57,7 +58,14 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     {executorAddress == null ? (
                         executedByLabel
                     ) : (
-                        <AddressOutput address={executorAddress} copy={false} label={executedByLabel} reveal={true} />
+                        <AddressOutput
+                            address={executorAddress}
+                            copy={true}
+                            href={executedByLink?.href}
+                            isExternal={executorHref == null}
+                            label={executedByLabel}
+                            reveal={true}
+                        />
                     )}
                 </DefinitionList.Item>
                 {proposalId != null && (
@@ -71,13 +79,13 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                 )}
                 <DefinitionList.Item term={componentCopy.totalActions}>{totalActions}</DefinitionList.Item>
                 <DefinitionList.Item
-                    copyValue={transactionHash}
-                    link={{ href: transactionHref }}
+                    link={{ href: transactionHref, isOnchainEntity: true }}
                     term={componentCopy.transaction}
                 >
                     <AddressOutput
                         address={transactionHash}
-                        copy={false}
+                        copy={true}
+                        href={transactionHref}
                         label={addressUtils.truncateHash(transactionHash)}
                         reveal={true}
                     />
