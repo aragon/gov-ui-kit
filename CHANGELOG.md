@@ -1,5 +1,17 @@
 # @aragon/gov-ui-kit
 
+## 2.11.0
+
+### Minor Changes
+
+- [#764](https://github.com/aragon/gov-ui-kit/pull/764) [`41e6a46`](https://github.com/aragon/gov-ui-kit/commit/41e6a46dddf3fe5a6e4df144b849ba9f2c9b6960) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Added the app permissions icon to the public icon registry.
+
+### Patch Changes
+
+- [#761](https://github.com/aragon/gov-ui-kit/pull/761) [`cd9d103`](https://github.com/aragon/gov-ui-kit/commit/cd9d10350c6282a3915405753f625371703aa04f) Thanks [@evanaronson](https://github.com/evanaronson)! - Fixed the calculation logic for blockies images so that they serve their function as a security feature.
+
+- [#762](https://github.com/aragon/gov-ui-kit/pull/762) [`1f2226c`](https://github.com/aragon/gov-ui-kit/commit/1f2226c3cab9e7673caa5160ab9c3062ce04bd00) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Removed the nested copy and reveal controls that `AddressOutput` rendered inside interactive containers. The address now stays plain text in the `Wallet` button, in `AssetTransfer`, in the transaction data list item, and in the member, DAO and vote data list items whenever the item itself is a link or a button.
+
 ## 2.10.0
 
 ### Minor Changes
