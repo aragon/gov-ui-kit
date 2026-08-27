@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import * as wagmi from 'wagmi';
 import { type IMemberDataListItemProps, MemberDataListItemStructure } from './memberDataListItemStructure';
 
@@ -43,6 +44,26 @@ describe('<MemberDataListItem /> component', () => {
         render(createTestComponent({ ensName }));
         expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
         expect(screen.queryByRole('heading', { name: address })).not.toBeInTheDocument();
+    });
+
+    it('reveals the address on hover with no control nested in the row link', async () => {
+        const user = userEvent.setup();
+        const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        render(
+            createTestComponent({
+                address,
+                ensName: 'vitalik.eth',
+                href: '/members/vitalik.eth',
+                onClick: jest.fn(),
+            }),
+        );
+
+        const row = screen.getByRole('link');
+        expect(row.querySelectorAll('a, button')).toHaveLength(0);
+
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });
 
     it('renders and formats the delegation count of the member when defined', () => {

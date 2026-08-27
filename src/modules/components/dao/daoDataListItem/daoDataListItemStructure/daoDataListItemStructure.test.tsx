@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { IconType } from '../../../../../core';
 import { addressUtils } from '../../../../utils';
 import { DaoDataListItemStructure, type IDaoDataListItemStructureProps } from './daoDataListItemStructure';
@@ -26,6 +27,19 @@ describe('<DaoDataListItemStructure /> component', () => {
         render(createTestComponent({ name, address }));
         expect(screen.getByText(name.toUpperCase())).toBeInTheDocument();
         expect(screen.getByText(addressUtils.truncateAddress(address))).toBeInTheDocument();
+    });
+
+    it('reveals the dao address on hover with no control nested in the row link', async () => {
+        const user = userEvent.setup();
+        const address = '0xc6B61B776367b236648399ACF4A0bc5aDe70708F';
+        render(createTestComponent({ name: 'Patito DAO', address, ens: 'patito.eth', href: '/dao/patito' }));
+
+        const row = screen.getByRole('link');
+        expect(row.querySelectorAll('a, button')).toHaveLength(0);
+
+        await user.hover(screen.getByText('patito.eth'));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });
 
     it('does not render the dao ENS name if it is not provided', () => {
