@@ -1,5 +1,11 @@
 # @aragon/gov-ui-kit
 
+## 2.11.2
+
+### Patch Changes
+
+- [#767](https://github.com/aragon/gov-ui-kit/pull/767) [`9f9d818`](https://github.com/aragon/gov-ui-kit/commit/9f9d8186e9315b3e36353f1dae4a496b7f1b972e) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Keep address copy controls inside narrow cards.
+
 ## 2.11.1
 
 ### Patch Changes
