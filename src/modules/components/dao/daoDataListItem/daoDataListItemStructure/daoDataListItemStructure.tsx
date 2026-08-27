@@ -41,9 +41,6 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
     const truncatedAddress = addressUtils.truncateAddress(address);
     const addressLine = ens ?? truncatedAddress;
 
-    // The item renders as a link or a button when interactive, so the reveal must not add a nested interactive trigger.
-    const isInteractiveItem = ('href' in otherProps && otherProps.href != null) || otherProps.onClick != null;
-
     return (
         <DataList.Item className="grid gap-y-3 py-4 md:gap-y-4 md:py-6" {...otherProps}>
             <div className="flex w-full justify-between gap-2">
@@ -56,12 +53,7 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                             {address == null ? (
                                 addressLine
                             ) : (
-                                <AddressOutput
-                                    address={address}
-                                    className="truncate"
-                                    hasInteractiveAncestor={isInteractiveItem}
-                                    label={addressLine}
-                                />
+                                <AddressOutput address={address} className="truncate" label={addressLine} />
                             )}
                         </Heading>
                     )}

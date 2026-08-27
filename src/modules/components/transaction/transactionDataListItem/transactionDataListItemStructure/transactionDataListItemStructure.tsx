@@ -107,13 +107,7 @@ export const TransactionDataListItemStructure: React.FC<ITransactionDataListItem
                     {isExecution && processedLabel != null && (
                         <span className="text-neutral-500">
                             {' '}
-                            {addressLabel == null ? (
-                                processedLabel
-                            ) : (
-                                // The item always renders as a link, so the reveal hangs off a passive trigger and
-                                // the copy control drops away.
-                                <AddressOutput address={addressLabel} hasInteractiveAncestor={true} />
-                            )}
+                            {addressLabel == null ? processedLabel : <AddressOutput address={addressLabel} />}
                         </span>
                     )}
                 </span>

@@ -43,7 +43,7 @@ describe('<VoteDataListItemStructure /> component', () => {
         useConnectionSpy.mockReset();
     });
 
-    it('reveals the voter address on hover with no control nested in the row link', async () => {
+    it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0x1D03D98c0aac1f83860cec5156116FE68725642E';
         render(
@@ -54,7 +54,10 @@ describe('<VoteDataListItemStructure /> component', () => {
         );
 
         const row = screen.getByRole('link');
-        expect(row.querySelectorAll('a, button')).toHaveLength(0);
+        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(row).not.toContainElement(revealButton);
+        expect(row).not.toContainElement(copyButton);
 
         await user.hover(screen.getByText('vitalik.eth'));
 

@@ -29,13 +29,16 @@ describe('<DaoDataListItemStructure /> component', () => {
         expect(screen.getByText(addressUtils.truncateAddress(address))).toBeInTheDocument();
     });
 
-    it('reveals the dao address on hover with no control nested in the row link', async () => {
+    it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0xc6B61B776367b236648399ACF4A0bc5aDe70708F';
         render(createTestComponent({ name: 'Patito DAO', address, ens: 'patito.eth', href: '/dao/patito' }));
 
         const row = screen.getByRole('link');
-        expect(row.querySelectorAll('a, button')).toHaveLength(0);
+        const revealButton = screen.getByRole('button', { name: 'patito.eth' });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(row).not.toContainElement(revealButton);
+        expect(row).not.toContainElement(copyButton);
 
         await user.hover(screen.getByText('patito.eth'));
 

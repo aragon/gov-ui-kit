@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { AnchorHTMLAttributes, HTMLAttributes } from 'react';
+import { type AnchorHTMLAttributes, type HTMLAttributes, useId } from 'react';
 import { LinkBase } from '../../link';
 
 export type DataListItemVariant = 'primary' | 'select';
@@ -20,7 +20,8 @@ export type IDataListItemProps = (AnchorHTMLAttributes<HTMLAnchorElement> | DivP
     IDataListItemVariantProp;
 
 export const DataListItem: React.FC<IDataListItemProps> = (props) => {
-    const { className, variant = 'primary', ...otherProps } = props;
+    const { className, variant = 'primary', children, ...otherProps } = props;
+    const contentId = useId();
 
     const isLinkElement = 'href' in otherProps && otherProps.href != null && otherProps.href !== '';
     const isInteractiveElement = isLinkElement || props.onClick != null;
@@ -43,8 +44,26 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         className,
     );
 
+    const interactiveContent = (
+        <div
+            className="pointer-events-none relative z-10 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+            id={contentId}
+        >
+            {children}
+        </div>
+    );
+
     if (isLinkElement) {
-        return <LinkBase className={actionItemClasses} {...otherProps} />;
+        return (
+            <div className={classNames(actionItemClasses, 'relative')}>
+                <LinkBase
+                    {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}
+                    aria-labelledby={contentId}
+                    className="absolute inset-0 z-0 cursor-pointer"
+                />
+                {interactiveContent}
+            </div>
+        );
     }
 
     if (isInteractiveElement) {
@@ -54,27 +73,23 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
             onClick?.();
         };
 
-        const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-            if (onClick && (event.key === 'Enter' || event.key === ' ')) {
-                event.preventDefault();
-                onClick();
-            }
-
-            onKeyDown?.(event);
-        };
-
         return (
-            // biome-ignore lint/a11y/useSemanticElements: interactive div with keyboard support matching existing API
-            <div
-                className={actionItemClasses}
-                onClick={handleClick}
-                onKeyDown={handleKeyDown}
-                role="button"
-                tabIndex={0}
-                {...divProps}
-            />
+            <div className={classNames(actionItemClasses, 'relative')} {...divProps}>
+                <button
+                    aria-labelledby={contentId}
+                    className="focus-ring-primary absolute inset-0 z-0 cursor-pointer border-0 bg-transparent p-0"
+                    onClick={handleClick}
+                    onKeyDown={onKeyDown as unknown as React.KeyboardEventHandler<HTMLButtonElement>}
+                    type="button"
+                />
+                {interactiveContent}
+            </div>
         );
     }
 
-    return <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)} />;
+    return (
+        <div className={actionItemClasses} {...(otherProps as HTMLAttributes<HTMLDivElement>)}>
+            {children}
+        </div>
+    );
 };

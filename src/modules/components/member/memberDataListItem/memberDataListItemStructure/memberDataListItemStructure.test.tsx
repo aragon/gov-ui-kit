@@ -46,7 +46,7 @@ describe('<MemberDataListItem /> component', () => {
         expect(screen.queryByRole('heading', { name: address })).not.toBeInTheDocument();
     });
 
-    it('reveals the address on hover with no control nested in the row link', async () => {
+    it('keeps full address controls outside the row link', async () => {
         const user = userEvent.setup();
         const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
         render(
@@ -59,7 +59,10 @@ describe('<MemberDataListItem /> component', () => {
         );
 
         const row = screen.getByRole('link');
-        expect(row.querySelectorAll('a, button')).toHaveLength(0);
+        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(row).not.toContainElement(revealButton);
+        expect(row).not.toContainElement(copyButton);
 
         await user.hover(screen.getByText('vitalik.eth'));
 

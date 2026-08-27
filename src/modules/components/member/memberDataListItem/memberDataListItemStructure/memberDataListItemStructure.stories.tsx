@@ -59,8 +59,7 @@ export const Complete: Story = {
 };
 
 /**
- * The item is a link when `href` is set, so the address reveals on hover through a passive trigger and drops its copy
- * control: an interactive control cannot nest inside the row link. This is how consumers render the item.
+ * The item stays a whole-row link while AddressOutput keeps its reveal and copy controls outside the link.
  */
 export const InteractiveItem: Story = {
     args: {

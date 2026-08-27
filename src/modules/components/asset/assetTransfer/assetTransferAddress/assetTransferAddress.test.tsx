@@ -25,8 +25,7 @@ describe('<AssetTransferAddress /> component', () => {
         const txRole = 'sender';
         render(createTestComponent({ txRole }));
 
-        const parentElement = screen.getByRole('link');
-        expect(parentElement).toHaveClass('rounded-t-xl md:rounded-l-xl md:rounded-r-none');
+        expect(screen.getByRole('link')).toHaveAttribute('href', 'https://etherscan.io/address/0xsomeaddress');
         expect(screen.getByText('From')).toBeInTheDocument();
     });
 
@@ -34,8 +33,7 @@ describe('<AssetTransferAddress /> component', () => {
         const txRole = 'recipient';
         render(createTestComponent({ txRole }));
 
-        const parentElement = screen.getByRole('link');
-        expect(parentElement).toHaveClass('rounded-b-xl md:rounded-r-xl md:rounded-l-none');
+        expect(screen.getByRole('link')).toHaveAttribute('href', 'https://etherscan.io/address/0xsomeaddress');
         expect(screen.getByText('To')).toBeInTheDocument();
     });
 
@@ -70,5 +68,16 @@ describe('<AssetTransferAddress /> component', () => {
 
         const possibleLinkElement = screen.getByRole('link');
         expect(possibleLinkElement).toHaveAttribute('href', addressUrl);
+    });
+
+    it('keeps address controls outside the card link', () => {
+        render(createTestComponent());
+
+        const link = screen.getByRole('link');
+        const buttons = screen.getAllByRole('button');
+        expect(buttons).toHaveLength(2);
+        for (const button of buttons) {
+            expect(link).not.toContainElement(button);
+        }
     });
 });
