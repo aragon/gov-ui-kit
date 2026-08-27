@@ -3,8 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import * as viem from 'viem';
 import * as wagmi from 'wagmi';
-import { formatterUtils, NumberFormat } from '../../../../../core';
-import { addressUtils } from '../../../../utils';
+import { addressUtils, formatterUtils, NumberFormat } from '../../../../../core';
 import { type IVoteDataListItemStructureProps, VoteDataListItemStructure } from '../../voteDataListItem';
 
 jest.mock('../../../../../core/components/tag', () => ({

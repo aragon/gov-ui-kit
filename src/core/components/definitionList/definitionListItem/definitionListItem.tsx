@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import type { ComponentPropsWithRef } from 'react';
+import { AddressOutput } from '../../addressOutput';
 import { Clipboard } from '../../clipboard';
 import { DefinitionListItemContent, type IDefinitionListItemContentProps } from './definitionListItemContent';
 
@@ -11,7 +12,8 @@ export interface IDefinitionListItemProps
      */
     term: string;
     /**
-     * Renders an icon to copy the defined value on the clipboard when set.
+     * Renders an icon to copy the defined value on the clipboard when set. For on-chain entity items, it overrides
+     * the children as the copied and revealed value.
      */
     copyValue?: string;
     /**
@@ -23,11 +25,21 @@ export interface IDefinitionListItemProps
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
     const { term, link, copyValue, description, className, children, ...otherProps } = props;
 
-    const definitionContent = link?.isOnchainEntity ? (
-        children
-    ) : (
-        <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
-    );
+    const onchainValue = link?.isOnchainEntity
+        ? (copyValue ?? (typeof children === 'string' ? children : undefined))
+        : undefined;
+
+    const definitionContent =
+        onchainValue == null ? (
+            <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
+        ) : (
+            <AddressOutput
+                address={onchainValue}
+                href={link?.href}
+                isExternal={link?.isExternal}
+                label={typeof children === 'string' && children !== onchainValue ? children : undefined}
+            />
+        );
 
     return (
         <div
@@ -43,7 +55,7 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
                     'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
                 })}
             >
-                {copyValue == null || link?.isOnchainEntity ? (
+                {copyValue == null || onchainValue != null ? (
                     definitionContent
                 ) : (
                     <Clipboard copyValue={copyValue}>{definitionContent}</Clipboard>

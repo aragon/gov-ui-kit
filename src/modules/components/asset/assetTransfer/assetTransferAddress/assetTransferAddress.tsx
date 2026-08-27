@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import { useId } from 'react';
-import { Icon, IconType, LinkBase } from '../../../../../core';
+import { AddressOutput, addressUtils, Icon, IconType, LinkBase } from '../../../../../core';
 import type { ICompositeAddress } from '../../../../types';
-import { addressUtils } from '../../../../utils';
-import { AddressOutput } from '../../../address/addressOutput';
 import { MemberAvatar } from '../../../member';
 
 export type TxRole = 'sender' | 'recipient';

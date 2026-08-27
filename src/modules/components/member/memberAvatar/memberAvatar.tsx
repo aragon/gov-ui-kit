@@ -4,9 +4,9 @@ import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi';
-import { Avatar, type IAvatarProps, ssrUtils } from '../../../../core';
+import { Avatar, addressUtils, type IAvatarProps, ssrUtils } from '../../../../core';
 import type { IWeb3ComponentProps } from '../../../types';
-import { addressUtils, ensUtils } from '../../../utils';
+import { ensUtils } from '../../../utils';
 
 export interface IMemberAvatarProps extends Omit<IAvatarProps, 'fallback'>, IWeb3ComponentProps {
     /**

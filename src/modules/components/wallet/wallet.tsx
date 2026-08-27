@@ -2,10 +2,8 @@ import classNames from 'classnames';
 import { useId } from 'react';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
-import { StateSkeletonBar } from '../../../core';
+import { AddressOutput, addressUtils, StateSkeletonBar } from '../../../core';
 import type { ICompositeAddress, IWeb3ComponentProps } from '../../types';
-import { addressUtils } from '../../utils';
-import { AddressOutput } from '../address/addressOutput';
 import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
 

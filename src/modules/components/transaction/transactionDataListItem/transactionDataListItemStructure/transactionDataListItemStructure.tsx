@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import {
+    AddressOutput,
     AvatarIcon,
     type AvatarIconVariant,
+    addressUtils,
     DataList,
     DateFormat,
     formatterUtils,
@@ -10,8 +12,6 @@ import {
     Spinner,
 } from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
-import { addressUtils } from '../../../../utils';
-import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import {
     type ITransactionDataListItemProps,

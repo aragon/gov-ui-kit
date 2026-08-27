@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { addressUtils } from '../../../../core';
 import * as useBlockExplorer from '../../../hooks';
-import { addressUtils } from '../../../utils';
 import { TransactionDetailSummary } from './transactionDetailSummary';
 import type { ITransactionDetailSummaryProps } from './transactionDetailSummary.api';
 

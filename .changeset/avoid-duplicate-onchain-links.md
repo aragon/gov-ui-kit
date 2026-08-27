@@ -2,4 +2,5 @@
 "@aragon/gov-ui-kit": patch
 ---
 
-Avoid duplicating on-chain links in definition-list rows.
+Move `AddressOutput` and `addressUtils` to the core package layer and let `DefinitionList.Item` render on-chain
+entity values as address outputs directly, without duplicating link props on children.

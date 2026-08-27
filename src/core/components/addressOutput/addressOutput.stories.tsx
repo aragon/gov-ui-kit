@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { AddressOutput } from './addressOutput';
 
 const meta: Meta<typeof AddressOutput> = {
-    title: 'Modules/Components/Address/AddressOutput',
+    title: 'Core/Components/AddressOutput',
     component: AddressOutput,
     argTypes: {
         address: {

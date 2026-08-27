@@ -1,7 +1,14 @@
 import type React from 'react';
-import { AvatarIcon, DataList, Heading, Icon, IconType, type IDataListItemProps } from '../../../../../core';
-import { addressUtils } from '../../../../utils';
-import { AddressOutput } from '../../../address/addressOutput';
+import {
+    AddressOutput,
+    AvatarIcon,
+    addressUtils,
+    DataList,
+    Heading,
+    Icon,
+    IconType,
+    type IDataListItemProps,
+} from '../../../../../core';
 import { DaoAvatar } from '../../daoAvatar';
 
 export type IDaoDataListItemStructureProps = IDataListItemProps & {

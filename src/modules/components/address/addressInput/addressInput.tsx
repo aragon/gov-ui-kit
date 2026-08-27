@@ -6,6 +6,7 @@ import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { type UseEnsAddressParameters, type UseEnsNameParameters, useConfig, useEnsAddress, useEnsName } from 'wagmi';
 import {
+    addressUtils,
     Button,
     Clipboard,
     clipboardUtils,
@@ -19,7 +20,7 @@ import {
 } from '../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../hooks';
 import type { IWeb3ComponentProps } from '../../../types';
-import { addressUtils, ensUtils } from '../../../utils';
+import { ensUtils } from '../../../utils';
 import { useGukModulesContext } from '../../gukModulesProvider';
 import { MemberAvatar } from '../../member';
 

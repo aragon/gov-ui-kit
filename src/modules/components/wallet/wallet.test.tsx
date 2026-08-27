@@ -9,11 +9,12 @@ jest.mock('../member', () => ({
     MemberAvatar: (props: { chainId: number }) => <div data-chainid={props.chainId} data-testid="member-avatar-mock" />,
 }));
 
-jest.mock('../../utils/addressUtils', () => ({
+jest.mock('../../../core/utils/addressUtils', () => ({
     addressUtils: {
         getChecksum: (address: string) => address,
         isAddress: (address = '') => /^0x[0-9a-fA-F]{40}$/.test(address),
         truncateAddress: (address = '') => `${address.slice(0, 6)}…${address.slice(-4)}`,
+        truncateHash: (hash = '') => hash,
     },
 }));
 

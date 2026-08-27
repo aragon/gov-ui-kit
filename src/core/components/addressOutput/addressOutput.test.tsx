@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { clipboardUtils } from '../../../../core';
+import { clipboardUtils } from '../../utils';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
 
 describe('<AddressOutput /> component', () => {
@@ -16,6 +16,12 @@ describe('<AddressOutput /> component', () => {
     it('renders the truncated address when no label is provided', () => {
         render(createTestComponent());
         expect(screen.getByText('0xd8da…6045')).toBeInTheDocument();
+    });
+
+    it('renders the truncated hash when the value is a 32-byte hash and no label is provided', () => {
+        const hash = '0x1c72fdb5dc2f8b1c1f01e7429b8848e0d761b31f675994f7d1340e8a13e781d9';
+        render(createTestComponent({ address: hash }));
+        expect(screen.getByText('0x1c72fdb5…13e781d9')).toBeInTheDocument();
     });
 
     it('renders the given label', () => {

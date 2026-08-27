@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { type PointerEvent as ReactPointerEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { Clipboard, Link, Tooltip } from '../../../../core';
-import { addressUtils } from '../../../utils';
+import { addressUtils } from '../../utils';
+import { Clipboard } from '../clipboard';
+import { Link } from '../link';
+import { Tooltip } from '../tooltip';
 
 export interface IAddressOutputProps {
     /**
@@ -149,7 +151,8 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     }, [isOpen, close]);
 
     const checksumAddress = addressUtils.isAddress(address) ? addressUtils.getChecksum(address) : address;
-    const displayLabel = label ?? (showCompleteAddress ? checksumAddress : addressUtils.truncateAddress(address));
+    const truncatedValue = addressUtils.truncateHash(addressUtils.truncateAddress(address));
+    const displayLabel = label ?? (showCompleteAddress ? checksumAddress : truncatedValue);
 
     const text = <span className={classNames('inline-block min-w-0 max-w-full', className)}>{displayLabel}</span>;
 

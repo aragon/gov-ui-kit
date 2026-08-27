@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { DateFormat, formatterUtils, IconType, NumberFormat } from '../../../../../core';
+import { addressUtils, DateFormat, formatterUtils, IconType, NumberFormat } from '../../../../../core';
 import * as useBlockExplorer from '../../../../hooks';
-import { addressUtils } from '../../../../utils';
 import { TransactionDataListItemStructure } from './transactionDataListItemStructure';
 import {
     type ITransactionDataListItemProps,

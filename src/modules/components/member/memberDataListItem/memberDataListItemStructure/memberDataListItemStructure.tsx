@@ -1,9 +1,16 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, formatterUtils, Heading, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
-import { addressUtils } from '../../../../utils';
-import { AddressOutput } from '../../../address/addressOutput';
+import {
+    AddressOutput,
+    addressUtils,
+    DataList,
+    formatterUtils,
+    Heading,
+    type IDataListItemProps,
+    NumberFormat,
+    Tag,
+} from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../memberAvatar';
 
