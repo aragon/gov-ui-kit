@@ -42,8 +42,8 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                 ? undefined
                 : { href: executorHref, isExternal: false }
             : executorHref == null
-              ? { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }), isOnchainEntity: true }
-              : { href: executorHref, isExternal: false, isOnchainEntity: true };
+              ? { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }) }
+              : { href: executorHref, isExternal: false };
 
     const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME });
 
@@ -52,7 +52,7 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
             <DefinitionList.Container {...otherProps}>
                 <DefinitionList.Item
                     description={executorHelptext}
-                    link={executedByLink}
+                    link={executorAddress == null ? executedByLink : { isOnchainEntity: true }}
                     term={componentCopy.executedBy}
                 >
                     {executorAddress == null ? (
@@ -78,10 +78,7 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     </DefinitionList.Item>
                 )}
                 <DefinitionList.Item term={componentCopy.totalActions}>{totalActions}</DefinitionList.Item>
-                <DefinitionList.Item
-                    link={{ href: transactionHref, isOnchainEntity: true }}
-                    term={componentCopy.transaction}
-                >
+                <DefinitionList.Item link={{ isOnchainEntity: true }} term={componentCopy.transaction}>
                     <AddressOutput
                         address={transactionHash}
                         copy={true}
