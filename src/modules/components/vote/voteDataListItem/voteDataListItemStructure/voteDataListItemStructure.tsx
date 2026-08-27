@@ -98,7 +98,7 @@ export const VoteDataListItemStructure: React.FC<IVoteDataListItemStructureProps
                         className="truncate"
                         copy={!isInteractiveItem}
                         label={resolvedUserHandle}
-                        reveal={true}
+                        reveal={!isInteractiveItem}
                     />
                     {isDelegate && !isCurrentUser && (
                         <Tag label={copy.voteDataListItemStructure.yourDelegate} variant="primary" />

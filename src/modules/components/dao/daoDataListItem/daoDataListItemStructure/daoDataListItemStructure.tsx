@@ -61,7 +61,7 @@ export const DaoDataListItemStructure: React.FC<IDaoDataListItemStructureProps> 
                                     className="truncate"
                                     copy={!isInteractiveItem}
                                     label={addressLine}
-                                    reveal={true}
+                                    reveal={!isInteractiveItem}
                                 />
                             )}
                         </Heading>
