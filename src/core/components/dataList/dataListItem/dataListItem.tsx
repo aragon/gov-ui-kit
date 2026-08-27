@@ -46,7 +46,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
 
     const interactiveContent = (
         <div
-            className="pointer-events-none relative z-10 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+            className="pointer-events-none relative z-10 w-full min-w-0 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
             id={contentId}
         >
             {children}

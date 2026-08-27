@@ -151,7 +151,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     const checksumAddress = addressUtils.isAddress(address) ? addressUtils.getChecksum(address) : address;
     const displayLabel = label ?? (showCompleteAddress ? checksumAddress : addressUtils.truncateAddress(address));
 
-    const text = <span className={classNames('min-w-0', className)}>{displayLabel}</span>;
+    const text = <span className={classNames('inline-block min-w-0 max-w-full', className)}>{displayLabel}</span>;
 
     const labelElement =
         href == null ? (
