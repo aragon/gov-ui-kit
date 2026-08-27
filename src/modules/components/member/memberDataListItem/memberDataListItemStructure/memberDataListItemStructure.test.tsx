@@ -69,6 +69,18 @@ describe('<MemberDataListItem /> component', () => {
         expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
     });
 
+    it('keeps the copy control available for a long ENS name', () => {
+        render(
+            createTestComponent({
+                ensName: 'michiganblockchain.eth',
+                href: '/members/michiganblockchain.eth',
+            }),
+        );
+
+        expect(screen.getByText('michiganblockchain.eth')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
     it('renders and formats the delegation count of the member when defined', () => {
         const { rerender } = render(createTestComponent({ delegationCount: 340 }));
         expect(screen.getByRole('heading', { level: 3, name: '340 Delegations' })).toBeInTheDocument();
