@@ -68,13 +68,12 @@ export const AssetTransferAddress: React.FC<IAssetTransferAddressProps> = (props
                     {txRole === 'sender' ? 'From' : 'To'}
                 </span>
                 <div className="flex items-center space-x-1">
-                    {/* The whole card is a block explorer link, so the address stays plain text. */}
+                    {/* The whole card is a block explorer link, so the reveal hangs off a passive trigger. */}
                     <AddressOutput
                         address={participant.address}
                         className="truncate font-normal text-neutral-800 text-sm leading-tight md:text-base"
-                        copy={false}
+                        hasInteractiveAncestor={true}
                         label={resolvedUserHandle}
-                        reveal={false}
                     />
                     <Icon
                         className="float-right text-neutral-300 group-hover:text-primary-300 group-active:text-primary-400"

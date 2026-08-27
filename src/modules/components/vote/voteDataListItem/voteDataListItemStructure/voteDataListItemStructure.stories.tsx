@@ -67,4 +67,16 @@ export const TokenVotingLongNames: Story = {
     },
 };
 
+/**
+ * The item is a link when `href` is set, so the voter address reveals on hover through a passive trigger and drops its
+ * copy control. This is how consumers render the item.
+ */
+export const InteractiveItem: Story = {
+    args: {
+        voter: { address: '0x1234567890123456789012345678901234567890', name: 'vitalik.eth' },
+        voteIndicator: 'yes',
+        href: '/members/vitalik.eth',
+    },
+};
+
 export default meta;

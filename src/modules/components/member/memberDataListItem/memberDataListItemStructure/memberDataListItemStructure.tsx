@@ -105,9 +105,8 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                 <AddressOutput
                     address={address}
                     className="truncate"
-                    copy={!isInteractiveItem}
+                    hasInteractiveAncestor={isInteractiveItem}
                     label={resolvedUserHandle}
-                    reveal={!isInteractiveItem}
                 />
             </Heading>
             {showDelegationOrTokenInformation && (
