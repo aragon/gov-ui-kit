@@ -49,15 +49,22 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
         <div className={classNames('rounded-xl border border-neutral-100 bg-neutral-0 px-4 md:px-6', className)}>
             <DefinitionList.Container {...otherProps}>
                 <DefinitionList.Item
-                    copyValue={executorAddress}
                     description={executorHelptext}
-                    link={executedByLink}
+                    isOnchainAddress={executorAddress != null}
+                    link={executorAddress == null ? executedByLink : undefined}
                     term={componentCopy.executedBy}
                 >
                     {executorAddress == null ? (
                         executedByLabel
                     ) : (
-                        <AddressOutput address={executorAddress} copy={false} label={executedByLabel} reveal={true} />
+                        <AddressOutput
+                            address={executorAddress}
+                            copy={true}
+                            href={executedByLink?.href}
+                            isExternal={executorHref == null}
+                            label={executedByLabel}
+                            reveal={true}
+                        />
                     )}
                 </DefinitionList.Item>
                 {proposalId != null && (
@@ -70,14 +77,11 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     </DefinitionList.Item>
                 )}
                 <DefinitionList.Item term={componentCopy.totalActions}>{totalActions}</DefinitionList.Item>
-                <DefinitionList.Item
-                    copyValue={transactionHash}
-                    link={{ href: transactionHref }}
-                    term={componentCopy.transaction}
-                >
+                <DefinitionList.Item isOnchainAddress={true} term={componentCopy.transaction}>
                     <AddressOutput
                         address={transactionHash}
-                        copy={false}
+                        copy={true}
+                        href={transactionHref}
                         label={addressUtils.truncateHash(transactionHash)}
                         reveal={true}
                     />

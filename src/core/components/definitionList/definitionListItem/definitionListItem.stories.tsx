@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentType } from 'react';
+import { Clipboard } from '../../clipboard';
 import { DefinitionList, type IDefinitionListItemProps } from '../index';
 
 const ComponentWrapper = (Story: ComponentType) => (
@@ -96,6 +97,23 @@ export const WithCopyValue: Story = {
         copyValue: '0xba9E9Be7859560EF2805476f7997cD4ebE7BaF27',
         children: '0xba9E...27',
     },
+};
+
+/**
+ * Use isOnchainAddress when child content owns its link and copy interactions.
+ */
+export const WithOnchainAddress: Story = {
+    args: {
+        isOnchainAddress: true,
+        term: 'On-chain address',
+    },
+    render: (props: IDefinitionListItemProps) => (
+        <DefinitionList.Item {...props}>
+            <Clipboard copyValue="0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045">
+                <a href="https://app.aragon.org">0xd8da…6045</a>
+            </Clipboard>
+        </DefinitionList.Item>
+    ),
 };
 
 export default meta;
