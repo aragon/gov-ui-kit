@@ -13,8 +13,7 @@ describe('<Icon /> component', () => {
         return <Icon {...completeProps} />;
     };
 
-    it('renders an icon', () => {
-        const icon = IconType.BLOCKCHAIN_BLOCKCHAIN;
+    it.each(Object.values(IconType))('renders %s icon', (icon) => {
         render(createTestComponent({ icon }));
         expect(screen.getByTestId(icon)).toBeInTheDocument();
     });
