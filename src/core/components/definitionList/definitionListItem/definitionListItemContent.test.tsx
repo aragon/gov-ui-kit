@@ -26,4 +26,9 @@ describe('<DefinitionListItemContent /> component', () => {
         render(createTestComponent({ link }));
         expect(screen.getByRole('link').getAttribute('target')).toEqual('_blank');
     });
+
+    it('does not expose on-chain metadata on the rendered link', () => {
+        render(createTestComponent({ link: { href: 'https://example.com', isOnchainEntity: true } }));
+        expect(screen.getByRole('link')).not.toHaveAttribute('isOnchainEntity');
+    });
 });

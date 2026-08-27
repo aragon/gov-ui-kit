@@ -40,8 +40,7 @@ describe('<DefinitionList.Item /> component', () => {
             createTestComponent({
                 children: <a href="/address">0x1234</a>,
                 copyValue: 'copy-test',
-                isOnchainAddress: true,
-                link: { href: '/other' },
+                link: { href: '/other', isOnchainEntity: true },
             }),
         );
 

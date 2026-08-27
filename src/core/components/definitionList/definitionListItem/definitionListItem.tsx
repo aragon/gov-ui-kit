@@ -15,19 +15,15 @@ export interface IDefinitionListItemProps
      */
     copyValue?: string;
     /**
-     * Whether children render an on-chain address and own their link and copy interactions.
-     */
-    isOnchainAddress?: boolean;
-    /**
      * Optional description text for the definition list item.
      */
     description?: string;
 }
 
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
-    const { term, link, copyValue, isOnchainAddress, description, className, children, ...otherProps } = props;
+    const { term, link, copyValue, description, className, children, ...otherProps } = props;
 
-    const definitionContent = isOnchainAddress ? (
+    const definitionContent = link?.isOnchainEntity ? (
         children
     ) : (
         <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
@@ -47,7 +43,7 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
                     'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
                 })}
             >
-                {copyValue == null || isOnchainAddress ? (
+                {copyValue == null || link?.isOnchainEntity ? (
                     definitionContent
                 ) : (
                     <Clipboard copyValue={copyValue}>{definitionContent}</Clipboard>

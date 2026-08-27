@@ -37,11 +37,13 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
     const executedByLabel =
         executorLabel ?? (executorAddress == null ? undefined : addressUtils.truncateAddress(executorAddress));
     const executedByLink =
-        executorHref == null
-            ? executorAddress == null
+        executorAddress == null
+            ? executorHref == null
                 ? undefined
-                : { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }) }
-            : { href: executorHref, isExternal: false };
+                : { href: executorHref, isExternal: false }
+            : executorHref == null
+              ? { href: buildEntityUrl({ type: ChainEntityType.ADDRESS, id: executorAddress }), isOnchainEntity: true }
+              : { href: executorHref, isExternal: false, isOnchainEntity: true };
 
     const formattedDate = formatterUtils.formatDate(date, { format: DateFormat.YEAR_MONTH_DAY_TIME });
 
@@ -50,8 +52,7 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
             <DefinitionList.Container {...otherProps}>
                 <DefinitionList.Item
                     description={executorHelptext}
-                    isOnchainAddress={executorAddress != null}
-                    link={executorAddress == null ? executedByLink : undefined}
+                    link={executedByLink}
                     term={componentCopy.executedBy}
                 >
                     {executorAddress == null ? (
@@ -77,7 +78,10 @@ export const TransactionDetailSummary: React.FC<ITransactionDetailSummaryProps> 
                     </DefinitionList.Item>
                 )}
                 <DefinitionList.Item term={componentCopy.totalActions}>{totalActions}</DefinitionList.Item>
-                <DefinitionList.Item isOnchainAddress={true} term={componentCopy.transaction}>
+                <DefinitionList.Item
+                    link={{ href: transactionHref, isOnchainEntity: true }}
+                    term={componentCopy.transaction}
+                >
                     <AddressOutput
                         address={transactionHash}
                         copy={true}

@@ -100,11 +100,11 @@ export const WithCopyValue: Story = {
 };
 
 /**
- * Use isOnchainAddress when child content owns its link and copy interactions.
+ * Use isOnchainEntity when child content owns its link and copy interactions.
  */
-export const WithOnchainAddress: Story = {
+export const WithOnchainEntity: Story = {
     args: {
-        isOnchainAddress: true,
+        link: { isOnchainEntity: true },
         term: 'On-chain address',
     },
     render: (props: IDefinitionListItemProps) => (
