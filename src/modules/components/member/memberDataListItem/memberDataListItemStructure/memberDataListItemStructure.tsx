@@ -107,7 +107,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
                     className="truncate"
                     copy={!isInteractiveItem}
                     label={resolvedUserHandle}
-                    reveal={true}
+                    reveal={!isInteractiveItem}
                 />
             </Heading>
             {showDelegationOrTokenInformation && (
