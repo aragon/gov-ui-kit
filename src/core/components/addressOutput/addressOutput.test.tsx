@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { clipboardUtils } from '../../utils';
 import { AddressOutput, type IAddressOutputProps } from './addressOutput';
+import { InteractiveAncestorContext } from './interactiveAncestorContext';
 
 describe('<AddressOutput /> component', () => {
     const address = '0xd8da6bf26964af9d7eed9e03e53415d37aa96045';
@@ -22,6 +23,22 @@ describe('<AddressOutput /> component', () => {
         const hash = '0x1c72fdb5dc2f8b1c1f01e7429b8848e0d761b31f675994f7d1340e8a13e781d9';
         render(createTestComponent({ address: hash }));
         expect(screen.getByText('0x1c72fdb5…13e781d9')).toBeInTheDocument();
+    });
+
+    it('renders as valid phrasing content inside a paragraph', () => {
+        const { container } = render(<p>{createTestComponent()}</p>);
+        expect(container.querySelector('p div')).toBeNull();
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
+    it('defaults to passive mode without copy control inside an interactive ancestor context', () => {
+        render(
+            <InteractiveAncestorContext.Provider value={true}>
+                {createTestComponent()}
+            </InteractiveAncestorContext.Provider>,
+        );
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByText('0xd8da…6045')).toBeInTheDocument();
     });
 
     it('renders the given label', () => {

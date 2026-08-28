@@ -17,12 +17,12 @@ import {
     Spinner,
     useDebouncedValue,
     useInputProps,
-} from '../../../../core';
-import { ChainEntityType, useBlockExplorer } from '../../../hooks';
-import type { IWeb3ComponentProps } from '../../../types';
-import { ensUtils } from '../../../utils';
-import { useGukModulesContext } from '../../gukModulesProvider';
-import { MemberAvatar } from '../../member';
+} from '../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../hooks';
+import type { IWeb3ComponentProps } from '../../types';
+import { ensUtils } from '../../utils';
+import { useGukModulesContext } from '../gukModulesProvider';
+import { MemberAvatar } from '../member';
 
 export interface IAddressInputResolvedValue {
     /**
