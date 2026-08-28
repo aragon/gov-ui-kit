@@ -92,7 +92,7 @@ export const MemberDataListItemStructure: React.FC<IMemberDataListItemProps> = (
             )}
             {...otherProps}
         >
-            <div className="flex w-full items-center justify-between">
+            <div className="mb-1 flex w-full items-center justify-between">
                 <MemberAvatar
                     address={address}
                     avatarSrc={avatarSrc}
