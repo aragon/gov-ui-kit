@@ -176,7 +176,10 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
             <Tooltip content={checksumAddress} onOpenChange={handleOpenChange} open={isOpen} triggerAsChild={true}>
                 {usePassiveTrigger ? (
                     <span
-                        className={classNames('min-w-0', { 'cursor-pointer': isLink, 'cursor-help': !isLink })}
+                        className={classNames('inline-flex min-w-0 items-center', {
+                            'cursor-pointer': isLink,
+                            'cursor-help': !isLink,
+                        })}
                         onPointerDown={handlePointerDown}
                         ref={setTriggerRef}
                     >
