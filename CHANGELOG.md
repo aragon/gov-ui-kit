@@ -1,5 +1,16 @@
 # @aragon/gov-ui-kit
 
+## 2.11.3
+
+### Patch Changes
+
+- [#768](https://github.com/aragon/gov-ui-kit/pull/768) [`652c9a1`](https://github.com/aragon/gov-ui-kit/commit/652c9a108f1fa4b3cc10032549b6a6dfa413b131) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Move `AddressOutput` and `addressUtils` to the core package layer and let `DefinitionList.Item` render on-chain
+  entity values as address outputs directly, without duplicating link props on children.
+
+- [#768](https://github.com/aragon/gov-ui-kit/pull/768) [`652c9a1`](https://github.com/aragon/gov-ui-kit/commit/652c9a108f1fa4b3cc10032549b6a6dfa413b131) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Render `AddressOutput` and `Clipboard` as inline-safe spans, vertically center address labels and controls, apply `AddressOutput` `className` to the component root, and add `InteractiveAncestorContext` so wrapper components—including `Wallet`—avoid nested address controls.
+
+- [#768](https://github.com/aragon/gov-ui-kit/pull/768) [`652c9a1`](https://github.com/aragon/gov-ui-kit/commit/652c9a108f1fa4b3cc10032549b6a6dfa413b131) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Keep DataList.Item layout classes working on interactive rows.
+
 ## 2.11.2
 
 ### Patch Changes
