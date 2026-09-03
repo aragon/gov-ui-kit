@@ -158,7 +158,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     const truncatedValue = addressUtils.truncateHash(addressUtils.truncateAddress(address));
     const displayLabel = label ?? (showCompleteAddress ? checksumAddress : truncatedValue);
 
-    const text = <span className="inline-block min-w-0 max-w-full truncate">{displayLabel}</span>;
+    const text = <span className="block min-w-0 max-w-full truncate">{displayLabel}</span>;
 
     const labelElement =
         href == null ? (
@@ -187,7 +187,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
                     </span>
                 ) : (
                     <button
-                        className="min-w-0 cursor-help text-left"
+                        className="inline-flex min-w-0 cursor-help items-center text-left"
                         onPointerDown={handlePointerDown}
                         ref={setTriggerRef}
                         type="button"
