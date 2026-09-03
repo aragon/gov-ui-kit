@@ -1,3 +1,4 @@
+export * from './addressUtils';
 export * from './clipboardUtils';
 export * from './formatterUtils';
 export * from './invariant';

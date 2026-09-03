@@ -6,6 +6,7 @@ import { mainnet } from 'viem/chains';
 import { normalize } from 'viem/ens';
 import { type UseEnsAddressParameters, type UseEnsNameParameters, useConfig, useEnsAddress, useEnsName } from 'wagmi';
 import {
+    addressUtils,
     Button,
     Clipboard,
     clipboardUtils,
@@ -16,12 +17,12 @@ import {
     Spinner,
     useDebouncedValue,
     useInputProps,
-} from '../../../../core';
-import { ChainEntityType, useBlockExplorer } from '../../../hooks';
-import type { IWeb3ComponentProps } from '../../../types';
-import { addressUtils, ensUtils } from '../../../utils';
-import { useGukModulesContext } from '../../gukModulesProvider';
-import { MemberAvatar } from '../../member';
+} from '../../../core';
+import { ChainEntityType, useBlockExplorer } from '../../hooks';
+import type { IWeb3ComponentProps } from '../../types';
+import { ensUtils } from '../../utils';
+import { useGukModulesContext } from '../gukModulesProvider';
+import { MemberAvatar } from '../member';
 
 export interface IAddressInputResolvedValue {
     /**

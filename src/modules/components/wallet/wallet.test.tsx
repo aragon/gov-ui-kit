@@ -9,11 +9,12 @@ jest.mock('../member', () => ({
     MemberAvatar: (props: { chainId: number }) => <div data-chainid={props.chainId} data-testid="member-avatar-mock" />,
 }));
 
-jest.mock('../../utils/addressUtils', () => ({
+jest.mock('../../../core/utils/addressUtils', () => ({
     addressUtils: {
         getChecksum: (address: string) => address,
         isAddress: (address = '') => /^0x[0-9a-fA-F]{40}$/.test(address),
         truncateAddress: (address = '') => `${address.slice(0, 6)}…${address.slice(-4)}`,
+        truncateHash: (hash = '') => hash,
     },
 }));
 
@@ -103,11 +104,11 @@ describe('<Wallet /> component', () => {
         expect(avatar.dataset.chainid).toEqual(chainId.toString());
     });
 
-    it('keeps full address controls available when connected', () => {
+    it('keeps the connected wallet as a single interactive control', () => {
         const user = { address: '0x0987654321098765432109876543210987654321' };
         render(createTestComponent({ user }));
 
-        expect(screen.getAllByRole('button')).toHaveLength(3);
-        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+        expect(screen.getAllByRole('button')).toHaveLength(1);
+        expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument();
     });
 });

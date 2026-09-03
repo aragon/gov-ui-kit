@@ -1,4 +1,4 @@
-import { addressUtils } from '../../../../utils';
+import { addressUtils } from '../../../../../core';
 import { type IGetValidationRulesParams, proposalActionsDecoderUtils } from './proposalActionsDecoderUtils';
 
 describe('ProposalActionsDecoder utils', () => {

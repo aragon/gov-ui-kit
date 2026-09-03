@@ -1,10 +1,16 @@
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, formatterUtils, type IDataListItemProps, NumberFormat, Tag } from '../../../../../core';
+import {
+    AddressOutput,
+    addressUtils,
+    DataList,
+    formatterUtils,
+    type IDataListItemProps,
+    NumberFormat,
+    Tag,
+} from '../../../../../core';
 import type { ICompositeAddress } from '../../../../types';
-import { addressUtils } from '../../../../utils';
-import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { MemberAvatar } from '../../../member';
 import { getTagVariant, type VoteIndicator } from '../../voteUtils';

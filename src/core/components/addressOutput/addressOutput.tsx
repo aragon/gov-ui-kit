@@ -1,7 +1,10 @@
 import classNames from 'classnames';
-import { type PointerEvent as ReactPointerEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { Clipboard, Link, Tooltip } from '../../../../core';
-import { addressUtils } from '../../../utils';
+import { type PointerEvent as ReactPointerEvent, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { addressUtils } from '../../utils';
+import { Clipboard } from '../clipboard';
+import { Link } from '../link';
+import { Tooltip } from '../tooltip';
+import { InteractiveAncestorContext } from './interactiveAncestorContext';
 
 export interface IAddressOutputProps {
     /**
@@ -44,24 +47,27 @@ export interface IAddressOutputProps {
     /**
      * Set by containers that are themselves interactive, such as a link, a button or a clickable row. The reveal then
      * hangs off a non-focusable trigger and the copy control defaults away, so the component never nests an
-     * interactive control inside another one, adds a tab stop, or competes for the container's click.
+     * interactive control inside another one, adds a tab stop, or competes for the container's click. Defaults to the
+     * nearest `InteractiveAncestorContext` value, so wrapper components can set it once for a whole subtree.
      * @default false
      */
     hasInteractiveAncestor?: boolean;
     /**
-     * Additional class names for the label.
+     * Additional class names for the component root.
      */
     className?: string;
 }
 
 export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
+    const inheritedInteractiveAncestor = useContext(InteractiveAncestorContext);
+
     const {
         address,
         label,
         showCompleteAddress = false,
         href,
         isExternal = true,
-        hasInteractiveAncestor = false,
+        hasInteractiveAncestor = inheritedInteractiveAncestor,
         copy = !hasInteractiveAncestor,
         reveal = true,
         className,
@@ -149,9 +155,10 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
     }, [isOpen, close]);
 
     const checksumAddress = addressUtils.isAddress(address) ? addressUtils.getChecksum(address) : address;
-    const displayLabel = label ?? (showCompleteAddress ? checksumAddress : addressUtils.truncateAddress(address));
+    const truncatedValue = addressUtils.truncateHash(addressUtils.truncateAddress(address));
+    const displayLabel = label ?? (showCompleteAddress ? checksumAddress : truncatedValue);
 
-    const text = <span className={classNames('inline-block min-w-0 max-w-full', className)}>{displayLabel}</span>;
+    const text = <span className="block min-w-0 max-w-full truncate">{displayLabel}</span>;
 
     const labelElement =
         href == null ? (
@@ -169,7 +176,10 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
             <Tooltip content={checksumAddress} onOpenChange={handleOpenChange} open={isOpen} triggerAsChild={true}>
                 {usePassiveTrigger ? (
                     <span
-                        className={classNames('min-w-0', { 'cursor-pointer': isLink, 'cursor-help': !isLink })}
+                        className={classNames('inline-flex min-w-0 items-center', {
+                            'cursor-pointer': isLink,
+                            'cursor-help': !isLink,
+                        })}
                         onPointerDown={handlePointerDown}
                         ref={setTriggerRef}
                     >
@@ -177,7 +187,7 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
                     </span>
                 ) : (
                     <button
-                        className="min-w-0 cursor-help text-left"
+                        className="inline-flex min-w-0 cursor-help items-center text-left"
                         onPointerDown={handlePointerDown}
                         ref={setTriggerRef}
                         type="button"
@@ -189,14 +199,17 @@ export const AddressOutput: React.FC<IAddressOutputProps> = (props) => {
         );
     }
 
-    // The copy control matches the label: primary circle on a link, neutral circle on plain text.
-    if (copy) {
-        return (
-            <Clipboard copyValue={checksumAddress} size="sm" variant={isLink ? 'avatar' : 'avatar-neutral'}>
-                {output}
-            </Clipboard>
-        );
-    }
-
-    return output;
+    // The copy control matches the label: primary circle on a link, neutral circle on plain text. The root is a span
+    // so the component stays valid phrasing content inside paragraphs and headings.
+    return (
+        <span className={classNames('inline-flex min-w-0 max-w-full items-center', className)}>
+            {copy ? (
+                <Clipboard copyValue={checksumAddress} size="sm" variant={isLink ? 'avatar' : 'avatar-neutral'}>
+                    {output}
+                </Clipboard>
+            ) : (
+                output
+            )}
+        </span>
+    );
 };

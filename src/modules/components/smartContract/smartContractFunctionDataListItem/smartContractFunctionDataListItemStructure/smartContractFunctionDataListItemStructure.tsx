@@ -1,8 +1,16 @@
 import classNames from 'classnames';
 import { mainnet } from 'viem/chains';
-import { Button, DataList, Dropdown, Icon, IconType, type IDataListItemProps, LinkBase } from '../../../../../core';
+import {
+    AddressOutput,
+    Button,
+    DataList,
+    Dropdown,
+    Icon,
+    IconType,
+    type IDataListItemProps,
+    LinkBase,
+} from '../../../../../core';
 import { ChainEntityType, useBlockExplorer } from '../../../../hooks';
-import { AddressOutput } from '../../../address/addressOutput';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 
 export type ISmartContractFunctionDataListItemProps = IDataListItemProps & {

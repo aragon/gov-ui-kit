@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AddressInput, type IAddressInputResolvedValue } from './addressInput';
 
 const meta: Meta<typeof AddressInput> = {
-    title: 'Modules/Components/Address/AddressInput',
+    title: 'Modules/Components/AddressInput',
     component: AddressInput,
     parameters: {
         design: {

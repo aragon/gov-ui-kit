@@ -44,9 +44,13 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         className,
     );
 
+    // The wrapper is display-contents so children lay out as direct children of the item, keeping consumer
+    // flex/grid classes working. Nested interactive elements are raised above the overlay link/button, and the
+    // item root isolates them so their stacking stays contained within the row instead of escaping over page chrome
+    // (e.g. a sticky navigation).
     const interactiveContent = (
         <div
-            className="pointer-events-none relative z-10 w-full min-w-0 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+            className="pointer-events-none contents [&_[role=button]]:pointer-events-auto [&_[role=button]]:relative [&_[role=button]]:z-10 [&_a]:pointer-events-auto [&_a]:relative [&_a]:z-10 [&_button]:pointer-events-auto [&_button]:relative [&_button]:z-10"
             id={contentId}
         >
             {children}
@@ -55,7 +59,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
 
     if (isLinkElement) {
         return (
-            <div className={classNames(actionItemClasses, 'relative')}>
+            <div className={classNames(actionItemClasses, 'relative isolate')}>
                 <LinkBase
                     {...(otherProps as AnchorHTMLAttributes<HTMLAnchorElement>)}
                     aria-labelledby={contentId}
@@ -74,7 +78,7 @@ export const DataListItem: React.FC<IDataListItemProps> = (props) => {
         };
 
         return (
-            <div className={classNames(actionItemClasses, 'relative')} {...divProps}>
+            <div className={classNames(actionItemClasses, 'relative isolate')} {...divProps}>
                 <button
                     aria-labelledby={contentId}
                     className="focus-ring-primary absolute inset-0 z-0 cursor-pointer border-0 bg-transparent p-0"

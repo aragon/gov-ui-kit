@@ -9,7 +9,7 @@ import { Icon, type IconType } from '../../icon';
 export type AvatarIconSize = 'sm' | 'md' | 'lg';
 export type AvatarIconVariant = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'critical';
 
-export interface IAvatarIconProps extends HTMLAttributes<HTMLDivElement> {
+export interface IAvatarIconProps extends HTMLAttributes<HTMLSpanElement> {
     /**
      * The icon type.
      */
@@ -84,7 +84,7 @@ export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
     const { className, icon, variant = 'neutral', size = 'sm', responsiveSize, backgroundWhite, ...rest } = props;
 
     const containerClasses = classNames(
-        'flex shrink-0 items-center justify-center rounded-full',
+        'inline-flex shrink-0 items-center justify-center rounded-full',
         avatarVariantToContainerClassNames[backgroundWhite ? 'white' : variant],
         responsiveUtils.generateClassNames(size, responsiveSize, responsiveSizeClasses),
         className,
@@ -93,8 +93,8 @@ export const AvatarIcon: React.FC<IAvatarIconProps> = (props) => {
     const iconClasses = classNames(avatarVariantToIconClassNames[variant]);
 
     return (
-        <div className={containerClasses} {...rest}>
+        <span className={containerClasses} {...rest}>
             <Icon className={iconClasses} icon={icon} responsiveSize={responsiveSize} size={size} />
-        </div>
+        </span>
     );
 };

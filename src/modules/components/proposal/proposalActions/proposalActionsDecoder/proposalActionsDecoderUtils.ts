@@ -1,6 +1,6 @@
 import type { DeepPartial } from 'react-hook-form';
+import { addressUtils } from '../../../../../core';
 import type { ModulesCopy } from '../../../../assets';
-import { addressUtils } from '../../../../utils';
 import type { IProposalAction, IProposalActionInputDataParameter } from '../proposalActionsDefinitions';
 
 export interface IGetValidationRulesParams {

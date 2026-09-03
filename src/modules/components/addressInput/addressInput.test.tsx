@@ -5,12 +5,11 @@ import type { Address } from 'viem';
 import { mainnet } from 'viem/chains';
 import type { UseEnsAddressReturnType, UseEnsNameReturnType } from 'wagmi';
 import * as wagmi from 'wagmi';
-import { clipboardUtils, IconType } from '../../../../core';
-import { addressUtils } from '../../../utils';
-import { GukModulesProvider } from '../../gukModulesProvider';
+import { addressUtils, clipboardUtils, IconType } from '../../../core';
+import { GukModulesProvider } from '../gukModulesProvider';
 import { AddressInput, type IAddressInputProps } from './addressInput';
 
-jest.mock('../../member', () => ({
+jest.mock('../member', () => ({
     MemberAvatar: () => <div data-testid="member-avatar-mock" />,
 }));
 

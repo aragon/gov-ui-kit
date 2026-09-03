@@ -3,7 +3,8 @@ import { type ILinkProps, Link } from '../../link';
 
 export interface IDefinitionListItemLinkProps extends ILinkProps {
     /**
-     * Whether children own their on-chain entity link and copy interactions.
+     * Renders the item value as an address output owning the link, reveal and copy interactions. The item children
+     * must be a string and are used as display label, while the value defaults to the children when copyValue is unset.
      */
     isOnchainEntity?: boolean;
 }

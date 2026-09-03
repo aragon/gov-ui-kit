@@ -2,10 +2,8 @@ import classNames from 'classnames';
 import { useId } from 'react';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
-import { StateSkeletonBar } from '../../../core';
+import { AddressOutput, addressUtils, InteractiveAncestorContext, StateSkeletonBar } from '../../../core';
 import type { ICompositeAddress, IWeb3ComponentProps } from '../../types';
-import { addressUtils } from '../../utils';
-import { AddressOutput } from '../address/addressOutput';
 import { useGukModulesContext } from '../gukModulesProvider';
 import { MemberAvatar } from '../member';
 
@@ -46,30 +44,32 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                 aria-labelledby={contentId}
                 className="focus-ring-primary absolute inset-0 z-0 cursor-pointer rounded-full border-0 bg-transparent p-0 disabled:cursor-default"
             />
-            <div
-                className="pointer-events-none relative z-10 flex w-full items-center gap-3 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
-                id={contentId}
-            >
-                {!user && copy.wallet.connect}
-                {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
-                {user && !isEnsLoading && (
-                    <AddressOutput
-                        address={user.address}
-                        className="hidden truncate xl:block"
-                        label={resolvedUserHandle}
-                    />
-                )}
-                {user && (
-                    <MemberAvatar
-                        address={user.address}
-                        avatarSrc={user.avatarSrc}
-                        chainId={chainId}
-                        ensName={user.name}
-                        size="lg"
-                        wagmiConfig={wagmiConfig}
-                    />
-                )}
-            </div>
+            <InteractiveAncestorContext.Provider value={true}>
+                <div
+                    className="pointer-events-none relative z-10 flex w-full items-center gap-3 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+                    id={contentId}
+                >
+                    {!user && copy.wallet.connect}
+                    {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
+                    {user && !isEnsLoading && (
+                        <AddressOutput
+                            address={user.address}
+                            className="hidden truncate xl:inline-flex"
+                            label={resolvedUserHandle}
+                        />
+                    )}
+                    {user && (
+                        <MemberAvatar
+                            address={user.address}
+                            avatarSrc={user.avatarSrc}
+                            chainId={chainId}
+                            ensName={user.name}
+                            size="lg"
+                            wagmiConfig={wagmiConfig}
+                        />
+                    )}
+                </div>
+            </InteractiveAncestorContext.Provider>
         </div>
     );
 };

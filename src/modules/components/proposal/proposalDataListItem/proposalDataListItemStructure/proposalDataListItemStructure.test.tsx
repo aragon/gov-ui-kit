@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import * as wagmi from 'wagmi';
+import { addressUtils } from '../../../../../core';
 import { modulesCopy } from '../../../../assets';
-import { addressUtils } from '../../../../utils/addressUtils';
 import { ProposalStatus } from '../../proposalUtils';
 import { ProposalDataListItemStructure } from './proposalDataListItemStructure';
 import type { IProposalDataListItemStructureProps } from './proposalDataListItemStructure.api';

@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
 import { useConnection } from 'wagmi';
-import { DataList, Heading, Tag } from '../../../../../core';
-import { addressUtils } from '../../../../utils/addressUtils';
-import { AddressOutput } from '../../../address/addressOutput';
+import { AddressOutput, addressUtils, DataList, Heading, Tag } from '../../../../../core';
 import { useGukModulesContext } from '../../../gukModulesProvider';
 import { ProposalDataListItemStatus } from '../proposalDataListItemStatus';
 import type { IProposalDataListItemStructureProps, IPublisher } from './proposalDataListItemStructure.api';
