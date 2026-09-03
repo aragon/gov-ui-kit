@@ -65,7 +65,7 @@
         "@tiptap/starter-kit": "^3.30.0",
         "blockies-ts": "^1.0.0",
         "classnames": "^2.5.1",
-        "framer-motion": "^12.43.0",
+        "framer-motion": "^13.1.1",
         "imask": "^7.6.1",
         "luxon": "^3.7.2",
         "react-dropzone": "^15.0.0",
