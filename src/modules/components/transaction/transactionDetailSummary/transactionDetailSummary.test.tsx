@@ -87,4 +87,9 @@ describe('<TransactionDetailSummary /> component', () => {
         const link = screen.getByRole('link', { name: new RegExp(addressUtils.truncateHash(transactionHash)) });
         expect(link).toHaveAttribute('href', `https://etherscan.io/${transactionHash}`);
     });
+
+    it('does not nest interactive controls in on-chain rows', () => {
+        render(createTestComponent());
+        expect(screen.getAllByRole('button')).toHaveLength(2);
+    });
 });

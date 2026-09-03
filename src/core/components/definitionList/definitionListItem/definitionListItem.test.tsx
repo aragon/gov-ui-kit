@@ -34,4 +34,17 @@ describe('<DefinitionList.Item /> component', () => {
         render(createTestComponent({ copyValue: 'copy-test' }));
         expect(screen.getByTestId(IconType.COPY)).toBeInTheDocument();
     });
+
+    it('leaves link and copy behavior to on-chain address children', () => {
+        render(
+            createTestComponent({
+                children: <a href="/address">0x1234</a>,
+                copyValue: 'copy-test',
+                link: { href: '/other', isOnchainEntity: true },
+            }),
+        );
+
+        expect(screen.getByRole('link', { name: '0x1234' })).toHaveAttribute('href', '/address');
+        expect(screen.queryByRole('button', { name: 'Copy' })).not.toBeInTheDocument();
+    });
 });

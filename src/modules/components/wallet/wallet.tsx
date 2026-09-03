@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useId } from 'react';
 import { mainnet } from 'viem/chains';
 import { useEnsName } from 'wagmi';
 import { StateSkeletonBar } from '../../../core';
@@ -28,6 +29,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     });
 
     const resolvedUserHandle = user?.name ?? ensName ?? addressUtils.truncateAddress(user?.address);
+    const contentId = useId();
 
     const buttonClassName = classNames(
         'flex max-w-48 cursor-pointer items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
@@ -38,29 +40,36 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
     );
 
     return (
-        <button className={buttonClassName} {...otherProps}>
-            {!user && copy.wallet.connect}
-            {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
-            {/* The handle sits inside the connect button, so a tap must keep triggering that button. */}
-            {user && !isEnsLoading && (
-                <AddressOutput
-                    address={user.address}
-                    className="hidden truncate xl:block"
-                    copy={false}
-                    label={resolvedUserHandle}
-                    reveal={false}
-                />
-            )}
-            {user && (
-                <MemberAvatar
-                    address={user.address}
-                    avatarSrc={user.avatarSrc}
-                    chainId={chainId}
-                    ensName={user.name}
-                    size="lg"
-                    wagmiConfig={wagmiConfig}
-                />
-            )}
-        </button>
+        <div className={classNames(buttonClassName, 'relative')}>
+            <button
+                {...otherProps}
+                aria-labelledby={contentId}
+                className="focus-ring-primary absolute inset-0 z-0 cursor-pointer rounded-full border-0 bg-transparent p-0 disabled:cursor-default"
+            />
+            <div
+                className="pointer-events-none relative z-10 flex w-full items-center gap-3 [&_[role=button]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+                id={contentId}
+            >
+                {!user && copy.wallet.connect}
+                {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
+                {user && !isEnsLoading && (
+                    <AddressOutput
+                        address={user.address}
+                        className="hidden truncate xl:block"
+                        label={resolvedUserHandle}
+                    />
+                )}
+                {user && (
+                    <MemberAvatar
+                        address={user.address}
+                        avatarSrc={user.avatarSrc}
+                        chainId={chainId}
+                        ensName={user.name}
+                        size="lg"
+                        wagmiConfig={wagmiConfig}
+                    />
+                )}
+            </div>
+        </div>
     );
 };

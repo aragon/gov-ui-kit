@@ -23,6 +23,12 @@ export interface IDefinitionListItemProps
 export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) => {
     const { term, link, copyValue, description, className, children, ...otherProps } = props;
 
+    const definitionContent = link?.isOnchainEntity ? (
+        children
+    ) : (
+        <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
+    );
+
     return (
         <div
             className={classNames(
@@ -37,11 +43,10 @@ export const DefinitionListItem: React.FC<IDefinitionListItemProps> = (props) =>
                     'flex flex-col gap-y-0.5 md:gap-y-1': description != null,
                 })}
             >
-                {copyValue == null && <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>}
-                {copyValue != null && (
-                    <Clipboard copyValue={copyValue}>
-                        <DefinitionListItemContent link={link}>{children}</DefinitionListItemContent>
-                    </Clipboard>
+                {copyValue == null || link?.isOnchainEntity ? (
+                    definitionContent
+                ) : (
+                    <Clipboard copyValue={copyValue}>{definitionContent}</Clipboard>
                 )}
                 {description != null && (
                     <p className={classNames('truncate text-neutral-400 text-xs leading-normal', 'md:text-sm')}>

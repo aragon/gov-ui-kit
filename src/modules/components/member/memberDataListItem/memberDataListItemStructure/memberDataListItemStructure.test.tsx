@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import * as wagmi from 'wagmi';
 import { type IMemberDataListItemProps, MemberDataListItemStructure } from './memberDataListItemStructure';
 
@@ -43,6 +44,41 @@ describe('<MemberDataListItem /> component', () => {
         render(createTestComponent({ ensName }));
         expect(screen.getByRole('heading', { name: ensName })).toBeInTheDocument();
         expect(screen.queryByRole('heading', { name: address })).not.toBeInTheDocument();
+    });
+
+    it('keeps full address controls outside the row link', async () => {
+        const user = userEvent.setup();
+        const address = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045';
+        render(
+            createTestComponent({
+                address,
+                ensName: 'vitalik.eth',
+                href: '/members/vitalik.eth',
+                onClick: jest.fn(),
+            }),
+        );
+
+        const row = screen.getByRole('link');
+        const revealButton = screen.getByRole('button', { name: 'vitalik.eth' });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(row).not.toContainElement(revealButton);
+        expect(row).not.toContainElement(copyButton);
+
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(address);
+    });
+
+    it('keeps the copy control available for a long ENS name', () => {
+        render(
+            createTestComponent({
+                ensName: 'michiganblockchain.eth',
+                href: '/members/michiganblockchain.eth',
+            }),
+        );
+
+        expect(screen.getByText('michiganblockchain.eth')).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
     });
 
     it('renders and formats the delegation count of the member when defined', () => {

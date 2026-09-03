@@ -115,6 +115,21 @@ describe('<AddressOutput /> component', () => {
         expect(screen.queryByRole('link')).not.toBeInTheDocument();
     });
 
+    it('reveals on hover with no interactive control when hasInteractiveAncestor is set', async () => {
+        const user = userEvent.setup();
+        render(createTestComponent({ hasInteractiveAncestor: true, label: 'vitalik.eth' }));
+
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        await user.hover(screen.getByText('vitalik.eth'));
+
+        expect(await screen.findByRole('tooltip')).toHaveTextContent(checksumAddress);
+    });
+
+    it('keeps the copy control inside an interactive ancestor when the flag is set explicitly', () => {
+        render(createTestComponent({ hasInteractiveAncestor: true, copy: true }));
+        expect(screen.getByRole('button', { name: 'Copy' })).toBeInTheDocument();
+    });
+
     it('displays the value as is when it is not a valid address', async () => {
         const user = userEvent.setup();
         const hash = '0x9a8f4e2c1d7b6a5039e8c2b4f16d70a3c85be1924d6f30ab7c5e918d24f6b07a';

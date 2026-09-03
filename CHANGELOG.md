@@ -1,5 +1,21 @@
 # @aragon/gov-ui-kit
 
+## 2.11.2
+
+### Patch Changes
+
+- [#767](https://github.com/aragon/gov-ui-kit/pull/767) [`9f9d818`](https://github.com/aragon/gov-ui-kit/commit/9f9d8186e9315b3e36353f1dae4a496b7f1b972e) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Keep address copy controls inside narrow cards.
+
+## 2.11.1
+
+### Patch Changes
+
+- [#765](https://github.com/aragon/gov-ui-kit/pull/765) [`9dcbc0a`](https://github.com/aragon/gov-ui-kit/commit/9dcbc0ab3dee0338300964364370721bee847de6) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Let DefinitionList.Item delegate on-chain entity interactions to its child.
+
+- [#765](https://github.com/aragon/gov-ui-kit/pull/765) [`9dcbc0a`](https://github.com/aragon/gov-ui-kit/commit/9dcbc0ab3dee0338300964364370721bee847de6) Thanks [@thekidnamedkd](https://github.com/thekidnamedkd)! - Restore address reveal and copy controls in interactive rows.
+
+- [#766](https://github.com/aragon/gov-ui-kit/pull/766) [`50f8428`](https://github.com/aragon/gov-ui-kit/commit/50f84281dd7fa5f596e802ccc0d50f3c440fc763) Thanks [@evanaronson](https://github.com/evanaronson)! - Widen `APP_PERMISSIONS` icon shield to match icon-set proportions, keeping stroke weight and style unchanged
+
 ## 2.11.0
 
 ### Minor Changes

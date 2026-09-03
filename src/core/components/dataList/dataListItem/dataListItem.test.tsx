@@ -62,4 +62,48 @@ describe('<DataList.Item /> component', () => {
         expect(button).toBeInTheDocument();
         expect(button.classList).toContain('cursor-pointer');
     });
+
+    it('keeps interactive children outside a link row', () => {
+        render(
+            createTestComponent({
+                props: {
+                    children: (
+                        <>
+                            <span>Row content</span>
+                            <button aria-label="Copy" type="button">
+                                Copy
+                            </button>
+                        </>
+                    ),
+                    href: '/test',
+                },
+            }),
+        );
+
+        const link = screen.getByRole('link', { name: /Row content/ });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(link).not.toContainElement(copyButton);
+    });
+
+    it('keeps interactive children outside a button row', () => {
+        render(
+            createTestComponent({
+                props: {
+                    children: (
+                        <>
+                            <span>Row content</span>
+                            <button aria-label="Copy" type="button">
+                                Copy
+                            </button>
+                        </>
+                    ),
+                    onClick: jest.fn(),
+                },
+            }),
+        );
+
+        const rowButton = screen.getByRole('button', { name: /Row content/ });
+        const copyButton = screen.getByRole('button', { name: 'Copy' });
+        expect(rowButton).not.toContainElement(copyButton);
+    });
 });
