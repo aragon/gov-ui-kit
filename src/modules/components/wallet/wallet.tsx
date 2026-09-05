@@ -33,7 +33,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
         'flex max-w-48 cursor-pointer items-center gap-3 rounded-full border border-neutral-100 bg-neutral-0 text-neutral-500 transition-all',
         'focus-ring-primary hover:border-neutral-200 active:bg-neutral-50 active:text-neutral-800 disabled:cursor-default',
         { 'px-4 py-2.5': user == null },
-        { 'p-1 xl:pl-4': user != null },
+        { 'p-1 md:pl-4': user != null },
         className,
     );
 
@@ -50,11 +50,11 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                     id={contentId}
                 >
                     {!user && copy.wallet.connect}
-                    {user && isEnsLoading && <StateSkeletonBar className="hidden xl:block" size="lg" width={56} />}
+                    {user && isEnsLoading && <StateSkeletonBar className="block max-md:hidden" size="lg" width={56} />}
                     {user && !isEnsLoading && (
                         <AddressOutput
                             address={user.address}
-                            className="hidden truncate xl:inline-flex"
+                            className="truncate max-md:hidden"
                             label={resolvedUserHandle}
                         />
                     )}
