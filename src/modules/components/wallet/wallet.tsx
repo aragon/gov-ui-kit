@@ -50,7 +50,7 @@ export const Wallet: React.FC<IWalletProps> = (props) => {
                     id={contentId}
                 >
                     {!user && copy.wallet.connect}
-                    {user && isEnsLoading && <StateSkeletonBar className="hidden md:block" size="lg" width={56} />}
+                    {user && isEnsLoading && <StateSkeletonBar className="block max-md:hidden" size="lg" width={56} />}
                     {user && !isEnsLoading && (
                         <AddressOutput
                             address={user.address}
