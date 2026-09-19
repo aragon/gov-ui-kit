@@ -85,6 +85,46 @@ changes (`.changeset/config.json`).
   Governance-domain composition belongs in `src/modules`. App-specific side effects, backend
   orchestration, or aragon/app flows belong in aragon/app, not this package.
 
+## Maintained design and interaction guidance
+
+This package is the source of truth for reusable component behavior. Start with
+the component's API/JSDoc, co-located Storybook story and tests:
+
+- `src/core/components/` owns generic primitives and their interaction
+  contracts; `src/modules/` owns governance-domain composition.
+- Storybook documents supported visual states and token usage. Tests document
+  observable behavior: roles, labels, keyboard/focus behavior,
+  loading/disabled transitions and callback results.
+- `src/theme/tokens/` owns token values and requires `@aragon/app-team` review.
+  Components must use token-backed utilities; never add raw hex/rgb or
+  component-local visual taxonomies.
+- Reuse `src/core/assets/copy/coreCopy.ts` and
+  `src/modules/assets/copy/modulesCopy.ts` for shared copy. Keep labels,
+  loading/error states and action consequences explicit; application-specific
+  translations and domain policy belong in aragon/app.
+
+Composition rules that are easy to miss:
+
+- Compound components require their namespace/context (`Dialog.Root`,
+  `DataList.Root`, `Accordion.Container`, `Tabs.Root`); do not flatten them
+  into unrelated standalone controls.
+- `Button` is a native button unless `href` is provided. `isLoading` disables
+  interaction; link variants expose `aria-disabled` and prevent navigation.
+- Address controls have separate raw-input, accepted-value and display/link
+  semantics. Preserve their API contract instead of adding validation or
+  navigation policy in the kit.
+- Preserve accessible names, focus order, keyboard behavior and visible focus
+  styles. Do not nest interactive controls; use the component's passive/ancestor
+  option when a row already owns interaction.
+
+The Aragon App consumer guide, linked from the
+[Aragon App repository](https://github.com/aragon/app), records provider wiring,
+form policy, domain behavior and bundle-sensitive styling. It must link back to
+these source contracts rather than copy them. The
+baseline for that handoff is GovKit revision
+`64b517f5b90052797ecaced5f15ab616b5733f30`, package `2.11.4`; refresh the
+recorded revision when the source or consumed package changes.
+
 ## Where to look
 
 - `src/core/components/` — reusable primitives and their stories/tests.

@@ -19,6 +19,12 @@ interfaces, prioritizing user experience throughout the Aragon ecosystem.
 Designers can access the UI Kit in Figma to explore and adapt components for their own components and use cases. This
 Storybook reflects the latest design tokens, styles, and components, so should be considered the "source of truth".
 
+For maintained interaction and contribution guidance, start with
+[`AGENTS.md`](./AGENTS.md). It points to the component API, Storybook story and
+tests that define supported behavior, plus the token and copy sources. The
+Aragon App consumer guide records application composition and domain policy; it
+does not replace these kit contracts.
+
 [Open in Figma](https://www.figma.com/community/file/1228026689149097807)
 
 ## Development Setup
