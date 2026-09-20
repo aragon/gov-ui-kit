@@ -90,14 +90,9 @@ changes (`.changeset/config.json`).
 This package is the source of truth for reusable component behavior. Start with
 the component's API/JSDoc, co-located Storybook story and tests:
 
-- `src/core/components/` owns generic primitives and their interaction
-  contracts; `src/modules/` owns governance-domain composition.
-- Storybook documents supported visual states and token usage. Tests document
-  observable behavior: roles, labels, keyboard/focus behavior,
-  loading/disabled transitions and callback results.
-- `src/theme/tokens/` owns token values and requires `@aragon/app-team` review.
-  Components must use token-backed utilities; never add raw hex/rgb or
-  component-local visual taxonomies.
+- Storybook shows supported visual states; API/JSDoc and tests specify behavior.
+  Use all three at the package revision being consumed. Follow [Hard Rules](#hard-rules)
+  for token ownership, accessible composition and behavior testing.
 - Reuse `src/core/assets/copy/coreCopy.ts` and
   `src/modules/assets/copy/modulesCopy.ts` for shared copy. Keep labels,
   loading/error states and action consequences explicit; application-specific
@@ -105,25 +100,22 @@ the component's API/JSDoc, co-located Storybook story and tests:
 
 Composition rules that are easy to miss:
 
-- Compound components require their namespace/context (`Dialog.Root`,
-  `DataList.Root`, `Accordion.Container`, `Tabs.Root`); do not flatten them
-  into unrelated standalone controls.
+- Follow each compound component's story and context requirements; namespace
+  membership alone does not mean every exported member requires a root.
 - `Button` is a native button unless `href` is provided. `isLoading` disables
   interaction; link variants expose `aria-disabled` and prevent navigation.
-- Address controls have separate raw-input, accepted-value and display/link
-  semantics. Preserve their API contract instead of adding validation or
-  navigation policy in the kit.
+- `AddressInput.onChange` carries an editable string, which controls can
+  normalize or replace; `onAccept` carries a resolved address or `undefined`
+  after validation and does not emit during ENS loading. App-specific required,
+  duplicate and eligibility checks belong in the consuming form.
 - Preserve accessible names, focus order, keyboard behavior and visible focus
   styles. Do not nest interactive controls; use the component's passive/ancestor
   option when a row already owns interaction.
 
-The Aragon App consumer guide, linked from the
-[Aragon App repository](https://github.com/aragon/app), records provider wiring,
-form policy, domain behavior and bundle-sensitive styling. It must link back to
-these source contracts rather than copy them. The
-baseline for that handoff is GovKit revision
-`64b517f5b90052797ecaced5f15ab616b5733f30`, package `2.11.4`; refresh the
-recorded revision when the source or consumed package changes.
+For App-specific guidance, open apps/app/docs/index.md in the Aragon App
+checkout being consumed and follow “Design-sync usage conventions”. That guide
+owns provider wiring, form policy and bundle-sensitive styling. Keep the
+source/consumed package baseline there rather than duplicating it here.
 
 ## Where to look
 
