@@ -86,4 +86,29 @@ export const IconRight: Story = {
     },
 };
 
+/**
+ * A disabled input still shows its value and label but takes no focus or input.
+ */
+export const Disabled: Story = {
+    args: {
+        label: 'Wallet label',
+        value: 'Treasury multisig',
+        disabled: true,
+    },
+};
+
+/**
+ * Failed validation: the `critical` variant colours the field and `alert` carries
+ * the reason. Set both — the variant alone leaves the user without a message.
+ */
+export const Critical: Story = {
+    args: {
+        label: 'DAO name',
+        value: '',
+        placeholder: 'Enter a name',
+        variant: 'critical',
+        alert: { message: 'Name is required', variant: 'critical' },
+    },
+};
+
 export default meta;

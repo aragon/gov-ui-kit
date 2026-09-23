@@ -31,4 +31,23 @@ export const Default: Story = {
     },
 };
 
+/**
+ * A disabled radio stays visible as an option but cannot be selected. Disable the
+ * individual `Radio`, not the `RadioGroup`, to rule out one choice while the rest
+ * stay selectable.
+ */
+export const Disabled: Story = {
+    render: (props) => (
+        <RadioGroup name="disabled-example">
+            <Radio label="Token voting" value="token" />
+            <Radio {...props} />
+        </RadioGroup>
+    ),
+    args: {
+        value: 'multisig',
+        label: 'Multisig (needs at least one member)',
+        disabled: true,
+    },
+};
+
 export default meta;

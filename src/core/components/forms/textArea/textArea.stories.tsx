@@ -40,4 +40,29 @@ export const Controlled: Story = {
     },
 };
 
+/**
+ * A disabled textarea keeps its content readable but takes no focus or input.
+ */
+export const Disabled: Story = {
+    args: {
+        label: 'Proposal summary',
+        value: 'Fund the Q3 grants program.',
+        disabled: true,
+    },
+};
+
+/**
+ * Failed validation: the `critical` variant colours the field and `alert` carries
+ * the reason. Set both — the variant alone leaves the user without a message.
+ */
+export const Critical: Story = {
+    args: {
+        label: 'Proposal summary',
+        value: '',
+        placeholder: 'What should the DAO decide on?',
+        variant: 'critical',
+        alert: { message: 'Summary is required', variant: 'critical' },
+    },
+};
+
 export default meta;

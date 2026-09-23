@@ -42,4 +42,17 @@ export const Controlled: Story = {
     },
 };
 
+/**
+ * A disabled switch keeps its state visible but cannot be toggled.
+ */
+export const Disabled: Story = {
+    args: {
+        inlineLabel: 'Show testnets',
+        name: 'testnet',
+        defaultChecked: true,
+        disabled: true,
+        onCheckedChanged: undefined,
+    },
+};
+
 export default meta;

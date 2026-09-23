@@ -82,4 +82,15 @@ export const IndeterminateState: Story = {
     render: () => <IndeterminateComponent />,
 };
 
+/**
+ * A disabled checkbox keeps its checked state visible but cannot be toggled.
+ */
+export const Disabled: Story = {
+    args: {
+        label: 'Allow early execution',
+        checked: true,
+        disabled: true,
+    },
+};
+
 export default meta;

@@ -47,4 +47,30 @@ export const MinMax: Story = {
     },
 };
 
+/**
+ * A disabled input keeps its value readable but takes no focus or input.
+ */
+export const Disabled: Story = {
+    args: {
+        label: 'Voting duration',
+        value: '7',
+        suffix: 'days',
+        disabled: true,
+    },
+};
+
+/**
+ * Out-of-range values cannot be shown through `min`/`max`, which clamp. Render the
+ * error through `alert` and the `critical` variant instead, as `MinMax` explains.
+ */
+export const Critical: Story = {
+    args: {
+        label: 'Voting duration',
+        value: '0',
+        suffix: 'days',
+        variant: 'critical',
+        alert: { message: 'Duration must be at least 1 day', variant: 'critical' },
+    },
+};
+
 export default meta;
