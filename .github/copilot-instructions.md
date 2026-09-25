@@ -1,5 +1,8 @@
 # AGENTS.md — @aragon/gov-ui-kit
 
+> **Deprecated repository.** Development moved to the aragon/app monorepo:
+> https://github.com/aragon/app/tree/main/packages/gov-ui-kit. Do not make changes here.
+
 Published React 19 + TypeScript component library for Aragon governance UIs. This is a
 single package shipped to npm and consumed downstream (including aragon/app), so public
 exports, peer dependencies, and semver are part of the product contract.

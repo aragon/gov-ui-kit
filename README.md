@@ -1,5 +1,12 @@
 # Governance UI Kit
 
+> [!WARNING]
+> **This repository is deprecated and will be archived.** The Governance UI Kit now lives in the
+> [aragon/app](https://github.com/aragon/app) monorepo under
+> [`packages/gov-ui-kit`](https://github.com/aragon/app/tree/main/packages/gov-ui-kit). Open issues and pull requests
+> there. The npm package `@aragon/gov-ui-kit` and the [Storybook](https://uikit.aragon.org) are published from the
+> monorepo, and existing installs keep working with no changes.
+
 The Aragon Governance UI Kit is an open source and human-centric design system specifically designed for OSx-based
 onchain organizations. It provides a unified and easy-to-use framework for creating visually consistent and engaging
 interfaces, prioritizing user experience throughout the Aragon ecosystem.
